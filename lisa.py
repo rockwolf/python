@@ -42,6 +42,7 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         """ Connect methods to the signals the gui emits """
         self.ui.btnExit.connect(self.ui.btnExit, QtCore.SIGNAL("clicked()"), self.BtnExit_Clicked)
         self.ui.cmbProduct.connect(self.ui.cmbProduct, QtCore.SIGNAL("currentIndexChanged(QString)"), self.CmbProduct_Changed)
+        self.ui.cmbProduct.connect(self.ui.tabDetails, QtCore.SIGNAL("currentChanged(int)"), self.TabDetails_Changed)
 
     def BtnExit_Clicked(self):
         """ Exit """
@@ -50,7 +51,17 @@ class lisa(QtGui.QDialog, Ui_frmMain):
     def CmbProduct_Changed(self, selstr):
         """ When the account combo selection changes. """
         if selstr == 'bet.place':
-            print 'test'
+            self.ui.tabDetails.currentTabName = self.ui.tabDetails.setCurrentIndex(2)
+        elif selstr == 'bet.cashin':
+            self.ui.tabDetails.currentTabName = self.ui.tabDetails.setCurrentIndex(3)
+        elif selstr == 'invest.buystocks' or selstr == 'invest.sellstocks' or selstr == 'invest.changestocks':
+            self.ui.tabDetails.currentTabName = self.ui.tabDetails.setCurrentIndex(1)
+        else:
+            self.ui.tabDetails.currentTabName = self.ui.tabDetails.setCurrentIndex(0)
+
+    def TabDetails_Changed(self, index):
+        """ What to do if you change a tab. """
+        self.CmbProduct_Changed(self.ui.cmbProduct.currentText())
 
     def FillCombos(self):
         """ Fill in the combo boxes with values. """
