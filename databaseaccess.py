@@ -151,6 +151,16 @@ class DatabaseAccess():
 
     tblmcodes = property(get_tblmcodes, set_tblmcodes)
 
+    def get_tblstocknames(self):
+        """ tblstocknames """
+        return self._tblstocknames
+
+    def set_tblstocknames(self, version):
+        """ set tblstocknames """
+        self._tblstocknames = version
+
+    tblstocknames = property(get_tblstocknames, set_tblstocknames)
+
     def __init__(self):
        """ Initialise the database class. """ 
        self.set_myconf(self.ConfFile())
@@ -180,6 +190,7 @@ class DatabaseAccess():
         tblcurbets = config.get('data', 'tablecurbets')[1:-1]
         tblteams = config.get('data', 'tableteams')[1:-1]
         tblmcodes = config.get('data', 'tablemcodes')[1:-1]
+        tblstocknames = config.get('data', 'tablestocknames')[1:-1]
         self.set_dbhost(dbhost)        
         self.set_dbname(dbname)        
         self.set_dbuser(dbuser)        
@@ -192,13 +203,14 @@ class DatabaseAccess():
         self.set_tblcurbets(tblcurbets)        
         self.set_tblteams(tblteams)        
         self.set_tblmcodes(tblmcodes)        
+        self.set_tblstocknames(tblstocknames)        
 
     def Setup(self):
         """ Setup the db. """
         msgObj = self.msgHandler.MessageHandler()
         print "Setting up the database..."  
         self.SetupTables(); 
-        tables = [self.get_tblteams(), self.get_tblmcodes()]
+        tables = [self.get_tblteams(), self.get_tblmcodes(), self.get_tblstocknames()]
         msgObj.PrintAction('Created table', tables)
         print "Fill in known values..."
         self.FillTables()
@@ -213,6 +225,8 @@ class DatabaseAccess():
         cur.execute ("""CREATE TABLE """ + self.get_tblteams() + """(tid serial not null, name varchar(30) not null, division varchar(30), active int not null default 1, date_created timestamp, date_modified timestamp, constraint pk_tid primary key(tid));""")
         db.commit()
         cur.execute ("""CREATE TABLE """ + self.get_tblmcodes() + """(mid serial not null, mcode varchar(3) not null, description varchar(30), date_created timestamp, date_modified timestamp, constraint pk_mid primary key(mid));""")
+        db.commit()
+        cur.execute ("""CREATE TABLE """ + self.get_tblstocknames() + """(snid serial not null, name varchar(5) not null, mid int not null, description varchar(30), date_created timestamp, date_modified timestamp, constraint pk_snid primary key(snid), constraint fk_mid foreign key(mid) references """ + self.get_tblmcodes() + """(mid));""")
         db.commit()
         cur.close()
         db.close()
@@ -254,12 +268,27 @@ class DatabaseAccess():
                 'Phoenix Coyotes':'Pacific',
                 'San Jose Sharks':'Pacific'}
         for team in teams:
-            cur.execute("""insert into teams(name, division, date_created, date_modified) values('""" + team + """','""" + teams[team] + """','""" +  str(now) + """','""" + str(now) + """');""")
+            cur.execute("""insert into """ + self.get_tblteams() + """(name, division, date_created, date_modified) values('""" + team + """','""" + teams[team] + """','""" +  str(now) + """','""" + str(now) + """');""")
         db.commit()
         mcds = {'ebr':'Brussels',
-            'aex':'Amsterdam'}
+            'ams':'Amsterdam'}
         for mcd in mcds:
-            cur.execute("""insert into mcodes(mcode, description, date_created, date_modified) values('""" + mcd + """','""" + mcds[mcd] + """','""" +  str(now) + """','""" + str(now) + """');""")
+            cur.execute("""insert into """ + self.get_tblmcodes() + """(mcode, description, date_created, date_modified) values('""" + mcd + """','""" + mcds[mcd] + """','""" +  str(now) + """','""" + str(now) + """');""")
+        db.commit()
+        stocks = {'rhji' : ['RHJI International S.A.','1'],
+            'nests' : ['Nestle','1'],
+            'devg' : ['Devgen','1'],
+            'enin' : ['4 Energy Invest','1'],
+            'adhof' : ['Koninklijke AHOLD N.V.','2'],
+            'dexb' : ['Dexia','1'],
+            'crxl' : ['Crucell N.V.','2'],
+            'drak' : ['Draka Holding N.V.','2'],
+            'theb' : ['Thenergo N.V.','1'],
+            'eurn' : ['Euronav','1'],
+            'tnet' : ['Telenet','1'],
+            'exm': ['Exmar','1']}
+        for stock in stocks:
+            cur.execute("""insert into """ + self.get_tblstocknames() + """(name, mid, description, date_created, date_modified) values('""" + stock + """','""" + stocks[stock][1] + """','""" + stocks[stock][1] + """','""" +  str(now) + """','""" + str(now) + """');""")
         db.commit()
         cur.close()
         db.close()
@@ -271,7 +300,7 @@ class DatabaseAccess():
         if answer == 0:
             self.RemoveTables()
             msgObj = self.msgHandler.MessageHandler()
-            tables = [self.get_tblteams(), self.get_tblmcodes()]
+            tables = [self.get_tblteams(), self.get_tblmcodes(), self.get_tblstocknames()]
             msgObj.PrintAction('Removed table', tables)
         msgObj = None
        
@@ -304,12 +333,16 @@ class DatabaseAccess():
     def GetMcodes(self):
         """ Get the market codes. """
         return self.GetValues("""select distinct mcode from """ + self.get_tblmcodes() + """ order by mcode;""")
+ 
+    def GetStockNames(self):
+        """ Get the stock names. """
+        return self.GetValues("""select distinct name from """ + self.get_tblstocknames() + """ order by name;""")
         
     def RemoveTables(self):
         """ The actual removal of the tables. """
         db = dbapi2.connect(host=self.get_dbhost(),database=self.get_dbname(), user=self.get_dbuser(), password=self.get_dbpass())
         cur = db.cursor()
-        cur.execute ("""drop table """ + self.get_tblteams() + """;drop table """ + self.get_tblmcodes() + """;""")
+        cur.execute ("""drop table """ + self.get_tblteams() + """;drop table """ + self.get_tblstocknames() + """;drop table """ + self.get_tblmcodes() + """;""")
         db.commit()
         cur.close()
         db.close()

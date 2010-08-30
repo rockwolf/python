@@ -37,12 +37,16 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         self.ui.setupUi(self) 
         self.ConnectSlots(self.ui)
         self.FillCombos()
+        self.Layout()
+        # initialise the command buffer
+        self.cmdbuffer = []
 
     def ConnectSlots(self, parent):
         """ Connect methods to the signals the gui emits """
         self.ui.btnExit.connect(self.ui.btnExit, QtCore.SIGNAL("clicked()"), self.BtnExit_Clicked)
         self.ui.cmbProduct.connect(self.ui.cmbProduct, QtCore.SIGNAL("currentIndexChanged(QString)"), self.CmbProduct_Changed)
         self.ui.cmbProduct.connect(self.ui.tabDetails, QtCore.SIGNAL("currentChanged(int)"), self.TabDetails_Changed)
+        self.ui.cmbProduct.connect(self.ui.btnAdd, QtCore.SIGNAL("clicked()"), self.BtnAdd_Clicked)
 
     def BtnExit_Clicked(self):
         """ Exit """
@@ -50,12 +54,15 @@ class lisa(QtGui.QDialog, Ui_frmMain):
 
     def CmbProduct_Changed(self, selstr):
         """ When the account combo selection changes. """
+        self.ui.txtComment.setEnabled(True)
         if selstr == 'bet.place':
             self.ui.tabDetails.currentTabName = self.ui.tabDetails.setCurrentIndex(2)
         elif selstr == 'bet.cashin':
             self.ui.tabDetails.currentTabName = self.ui.tabDetails.setCurrentIndex(3)
         elif selstr == 'invest.buystocks' or selstr == 'invest.sellstocks' or selstr == 'invest.changestocks':
             self.ui.tabDetails.currentTabName = self.ui.tabDetails.setCurrentIndex(1)
+            if selstr != 'invest.changestocks':
+                self.ui.txtComment.setEnabled(False)
         else:
             self.ui.tabDetails.currentTabName = self.ui.tabDetails.setCurrentIndex(0)
 
@@ -84,7 +91,34 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         # Market codes
         for mcd in dba.GetMcodes():
             self.ui.cmbMarketCode.addItem(mcd)
+        # Stock names
+        for name in dba.GetStockNames():
+            self.ui.cmbStockName.addItem(name)
         dba = None
+
+    def BtnAdd_Clicked(self):
+        """ Create the command to send to clipf and add it to the buffer. """
+        # parse comment?
+        prod = self.ui.cmbProduct.currentText() 
+        if prod == 'bet.place':
+            comment = self.ui.cmbTeamA.currenText() + ',' + self.ui.cmbTeamB.currentText() + ',' + self.ui.cmbChoice.currentText() + ',' + self.ui.dtDateMatch.date().toString(QtCore.Qt.ISODate)
+        elif prod == 'bet.cashin':
+            comment = ''
+        elif prod == 'invest.buystocks' or prod == 'invest.sellstocks' or prod == 'invest.changestocks':
+            comment = self.ui.cmbMarketCode.currentText() + '.' + self.ui.cmbStockName.currentText() + ',' + self.ui.spnQuantity.textFromValue(self.ui.spnQuantity.value()) + ',' + self.ui.spnPrice.textFromValue(self.ui.spnPrice.value())
+            if prod == 'invest.changestocks':
+                comment = comment + ',' + self.ui.txtComment.text()
+        else:
+            comment = self.ui.txtComment.text() 
+        cmd = 'op add -d ' + self.ui.dtDate.date().toString(QtCore.Qt.ISODate) + ' ' +  self.ui.cmbProduct.currentText() + ' ' + self.ui.spnAmount.textFromValue(self.ui.spnAmount.value()) + ' "' + comment + '"'
+        self.cmdbuffer.append(cmd)
+        print self.cmdbuffer
+        self.ui.txtSummary.append(cmd)
+    
+    def Layout(self):
+        """ Everything about the layout off the application. """
+        print 'Layout not implemented yet...'
+        # Theming?
 
 class MainWrapper():
     """ Parsed options get there functionality here, it's seperate from the gui part of the app. """ 

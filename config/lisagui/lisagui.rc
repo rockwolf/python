@@ -17,6 +17,7 @@ tablebetresults = 'betresults'
 tablecurbets = 'curbets'
 tableteams = 'teams'
 tablemcodes = 'mcodes'
+tablestocknames = 'stocknames'
 
 [logging]
 # Set this to 1 if you want to use logging 
