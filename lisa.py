@@ -47,6 +47,7 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         self.ui.cmbProduct.connect(self.ui.cmbProduct, QtCore.SIGNAL("currentIndexChanged(QString)"), self.CmbProduct_Changed)
         self.ui.cmbProduct.connect(self.ui.tabDetails, QtCore.SIGNAL("currentChanged(int)"), self.TabDetails_Changed)
         self.ui.cmbProduct.connect(self.ui.btnAdd, QtCore.SIGNAL("clicked()"), self.BtnAdd_Clicked)
+        self.ui.cmbProduct.connect(self.ui.cmbMarketCode, QtCore.SIGNAL("currentIndexChanged(QString)"), self.CmbMarketCode_Changed)
 
     def BtnExit_Clicked(self):
         """ Exit """
@@ -73,6 +74,7 @@ class lisa(QtGui.QDialog, Ui_frmMain):
     def FillCombos(self):
         """ Fill in the combo boxes with values. """
         dba = DatabaseAccess()
+        # Date
         self.ui.dtDate.setDate(QtCore.QDate.currentDate())
         # Teams
         for team in dba.GetTeams():
@@ -93,8 +95,19 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         for mcd in dba.GetMcodes():
             self.ui.cmbMarketCode.addItem(mcd)
         # Stock names
-        for name in dba.GetStockNames():
+        self.FillCmbStockName(dba)
+        dba = None
+
+    def FillCmbStockName(self, dba):
+        """ Fill cmb function """
+        self.ui.cmbStockName.clear()
+        for name in dba.GetStockNames(self.ui.cmbMarketCode.currentText()):
             self.ui.cmbStockName.addItem(name)
+        
+    def CmbMarketCode_Changed(self, selstr):
+        """ When the marketcode combo selection changes. """
+        dba = DatabaseAccess()
+        self.FillCmbStockName(dba)
         dba = None
 
     def BtnAdd_Clicked(self):

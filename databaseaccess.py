@@ -270,25 +270,25 @@ class DatabaseAccess():
         for team in teams:
             cur.execute("""insert into """ + self.get_tblteams() + """(name, division, date_created, date_modified) values('""" + team + """','""" + teams[team] + """','""" +  str(now) + """','""" + str(now) + """');""")
         db.commit()
-        mcds = {'ebr':'Brussels',
-            'ams':'Amsterdam'}
+        mcds = {'ams':'Amsterdam',
+            'ebr':'Brussels'}
         for mcd in mcds:
             cur.execute("""insert into """ + self.get_tblmcodes() + """(mcode, description, date_created, date_modified) values('""" + mcd + """','""" + mcds[mcd] + """','""" +  str(now) + """','""" + str(now) + """');""")
         db.commit()
-        stocks = {'rhji' : ['RHJI International S.A.','1'],
-            'nests' : ['Nestle','1'],
-            'devg' : ['Devgen','1'],
-            'enin' : ['4 Energy Invest','1'],
-            'adhof' : ['Koninklijke AHOLD N.V.','2'],
-            'dexb' : ['Dexia','1'],
-            'crxl' : ['Crucell N.V.','2'],
-            'drak' : ['Draka Holding N.V.','2'],
-            'theb' : ['Thenergo N.V.','1'],
-            'eurn' : ['Euronav','1'],
-            'tnet' : ['Telenet','1'],
-            'exm': ['Exmar','1']}
+        stocks = {'rhji' : ['RHJI International S.A.','2'],
+            'nests' : ['Nestle','2'],
+            'devg' : ['Devgen','2'],
+            'enin' : ['4 Energy Invest','2'],
+            'adhof' : ['Koninklijke AHOLD N.V.','1'],
+            'dexb' : ['Dexia','2'],
+            'crxl' : ['Crucell N.V.','1'],
+            'drak' : ['Draka Holding N.V.','1'],
+            'theb' : ['Thenergo N.V.','2'],
+            'eurn' : ['Euronav','2'],
+            'tnet' : ['Telenet','2'],
+            'exm': ['Exmar','2']}
         for stock in stocks:
-            cur.execute("""insert into """ + self.get_tblstocknames() + """(name, mid, description, date_created, date_modified) values('""" + stock + """','""" + stocks[stock][1] + """','""" + stocks[stock][1] + """','""" +  str(now) + """','""" + str(now) + """');""")
+            cur.execute("""insert into """ + self.get_tblstocknames() + """(name, mid, description, date_created, date_modified) values('""" + stock + """','""" + stocks[stock][1] + """','""" + stocks[stock][0] + """','""" +  str(now) + """','""" + str(now) + """');""")
         db.commit()
         cur.close()
         db.close()
@@ -334,9 +334,9 @@ class DatabaseAccess():
         """ Get the market codes. """
         return self.GetValues("""select distinct mcode from """ + self.get_tblmcodes() + """ order by mcode;""")
  
-    def GetStockNames(self):
+    def GetStockNames(self, mcode):
         """ Get the stock names. """
-        return self.GetValues("""select distinct name from """ + self.get_tblstocknames() + """ order by name;""")
+        return self.GetValues("""select t1.name from """ + self.get_tblstocknames() + """ t1 join """ + self.get_tblmcodes() + """ t2 on t1.mid = t2.mid where t2.mcode = '""" + str(mcode) + """' order by t1.name;""")
         
     def RemoveTables(self):
         """ The actual removal of the tables. """
