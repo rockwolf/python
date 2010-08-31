@@ -73,6 +73,7 @@ class lisa(QtGui.QDialog, Ui_frmMain):
     def FillCombos(self):
         """ Fill in the combo boxes with values. """
         dba = DatabaseAccess()
+        self.ui.dtDate.setDate(QtCore.QDate.currentDate())
         # Teams
         for team in dba.GetTeams():
             self.ui.cmbTeamA.addItem(team)
