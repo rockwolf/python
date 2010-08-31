@@ -115,7 +115,7 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         # parse comment?
         prod = self.ui.cmbProduct.currentText() 
         if prod == 'bet.place':
-            comment = self.ui.cmbTeamA.currenText() + ',' + self.ui.cmbTeamB.currentText() + ',' + self.ui.cmbChoice.currentText() + ',' + self.ui.dtDateMatch.date().toString(QtCore.Qt.ISODate)
+            comment = self.ui.cmbTeamA.currentText() + ',' + self.ui.cmbTeamB.currentText() + ',' + self.ui.cmbChoice.currentText() + ',' + self.ui.dtDateMatch.date().toString(QtCore.Qt.ISODate)
         elif prod == 'bet.cashin':
             comment = ''
         elif prod == 'invest.buystocks' or prod == 'invest.sellstocks' or prod == 'invest.changestocks':
