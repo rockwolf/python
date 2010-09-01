@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'lisagui.ui'
 #
-# Created: Mon Aug 30 21:59:57 2010
+# Created: Wed Sep  1 20:15:42 2010
 #      by: PyQt4 UI code generator 4.7.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,6 +26,7 @@ class Ui_frmMain(object):
         self.gridLayout_4 = QtGui.QGridLayout(self.gridLayoutWidget_4)
         self.gridLayout_4.setObjectName("gridLayout_4")
         self.txtComment = QtGui.QLineEdit(self.gridLayoutWidget_4)
+        self.txtComment.setEnabled(True)
         self.txtComment.setObjectName("txtComment")
         self.gridLayout_4.addWidget(self.txtComment, 4, 1, 1, 1)
         self.cmbProduct = QtGui.QComboBox(self.gridLayoutWidget_4)
@@ -193,7 +194,7 @@ class Ui_frmMain(object):
         self.tabDetails.addTab(self.tabPageCashin, "")
         self.gridLayout.addWidget(self.grpDetails, 0, 1, 1, 1)
         self.gridLayoutWidget_2 = QtGui.QWidget(frmMain)
-        self.gridLayoutWidget_2.setGeometry(QtCore.QRect(30, 230, 751, 80))
+        self.gridLayoutWidget_2.setGeometry(QtCore.QRect(30, 269, 751, 41))
         self.gridLayoutWidget_2.setObjectName("gridLayoutWidget_2")
         self.gridLayout_2 = QtGui.QGridLayout(self.gridLayoutWidget_2)
         self.gridLayout_2.setObjectName("gridLayout_2")
@@ -226,6 +227,17 @@ class Ui_frmMain(object):
         self.txtSummary.setFrameShadow(QtGui.QFrame.Sunken)
         self.txtSummary.setObjectName("txtSummary")
         self.gridLayout_3.addWidget(self.grpSummary, 0, 0, 1, 1)
+        self.horizontalLayoutWidget = QtGui.QWidget(frmMain)
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(9, 229, 791, 31))
+        self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
+        self.horizontalLayout = QtGui.QHBoxLayout(self.horizontalLayoutWidget)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.lblInfoFinance = QtGui.QLabel(self.horizontalLayoutWidget)
+        self.lblInfoFinance.setObjectName("lblInfoFinance")
+        self.horizontalLayout.addWidget(self.lblInfoFinance)
+        self.lblInfoDetails = QtGui.QLabel(self.horizontalLayoutWidget)
+        self.lblInfoDetails.setObjectName("lblInfoDetails")
+        self.horizontalLayout.addWidget(self.lblInfoDetails)
 
         self.retranslateUi(frmMain)
         self.tabDetails.setCurrentIndex(2)
@@ -269,4 +281,6 @@ class Ui_frmMain(object):
         self.btnAdd.setText(QtGui.QApplication.translate("frmMain", "Add", None, QtGui.QApplication.UnicodeUTF8))
         self.btnExecute.setText(QtGui.QApplication.translate("frmMain", "Execute", None, QtGui.QApplication.UnicodeUTF8))
         self.grpSummary.setTitle(QtGui.QApplication.translate("frmMain", "Summary", None, QtGui.QApplication.UnicodeUTF8))
+        self.lblInfoFinance.setText(QtGui.QApplication.translate("frmMain", "TextLabel", None, QtGui.QApplication.UnicodeUTF8))
+        self.lblInfoDetails.setText(QtGui.QApplication.translate("frmMain", "TextLabel", None, QtGui.QApplication.UnicodeUTF8))
 

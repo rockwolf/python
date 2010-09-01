@@ -312,7 +312,10 @@ class DatabaseAccess():
         rows = cur.fetchall()
         values = []
         for row in rows:
-            values.append(row[0])
+            i = 0
+            for col in row:
+                values.append(row[i])
+                i = i+1
         db.commit()
         cur.close()
         db.close()
@@ -337,6 +340,10 @@ class DatabaseAccess():
     def GetStockNames(self, mcode):
         """ Get the stock names. """
         return self.GetValues("""select t1.name from """ + self.get_tblstocknames() + """ t1 join """ + self.get_tblmcodes() + """ t2 on t1.mid = t2.mid where t2.mcode = '""" + str(mcode) + """' order by t1.name;""")
+
+    def GetStockInfo(self, sname):
+        """ Get extra stock info. """
+        return self.GetValues("""select t1.description, t2.description from """ + self.get_tblstocknames() + """ t1 join """ + self.get_tblmcodes() + """ t2 on t1.mid = t2.mid where t1.name = '""" + str(sname) + """';""")
         
     def RemoveTables(self):
         """ The actual removal of the tables. """

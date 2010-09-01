@@ -36,7 +36,7 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         self.ui = Ui_frmMain()
         self.ui.setupUi(self) 
         self.ConnectSlots(self.ui)
-        self.FillCombos()
+        self.InitGui()
         self.Layout()
         # initialise the command buffer
         self.cmdbuffer = []
@@ -48,6 +48,7 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         self.ui.cmbProduct.connect(self.ui.tabDetails, QtCore.SIGNAL("currentChanged(int)"), self.TabDetails_Changed)
         self.ui.cmbProduct.connect(self.ui.btnAdd, QtCore.SIGNAL("clicked()"), self.BtnAdd_Clicked)
         self.ui.cmbProduct.connect(self.ui.cmbMarketCode, QtCore.SIGNAL("currentIndexChanged(QString)"), self.CmbMarketCode_Changed)
+        self.ui.cmbProduct.connect(self.ui.cmbStockName, QtCore.SIGNAL("currentIndexChanged(QString)"), self.CmbStockName_Changed)
 
     def BtnExit_Clicked(self):
         """ Exit """
@@ -62,6 +63,7 @@ class lisa(QtGui.QDialog, Ui_frmMain):
             self.ui.tabDetails.currentTabName = self.ui.tabDetails.setCurrentIndex(3)
         elif selstr == 'invest.buystocks' or selstr == 'invest.sellstocks' or selstr == 'invest.changestocks':
             self.ui.tabDetails.currentTabName = self.ui.tabDetails.setCurrentIndex(1)
+            self.UpdateInfoDetails()
             if selstr != 'invest.changestocks':
                 self.ui.txtComment.setEnabled(False)
         else:
@@ -71,11 +73,20 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         """ What to do if you change a tab. """
         self.CmbProduct_Changed(self.ui.cmbProduct.currentText())
 
+    def InitGui(self):
+        """ Initialise fields """
+        # Dates
+        self.ui.dtDate.setDate(QtCore.QDate.currentDate())
+        self.ui.dtDateMatch.setDate(QtCore.QDate.currentDate())
+        # Info labels
+        self.ui.lblInfoFinance.clear()
+        self.ui.lblInfoDetails.clear()
+        # Fill all combo boxes
+        self.FillCombos()
+
     def FillCombos(self):
         """ Fill in the combo boxes with values. """
         dba = DatabaseAccess()
-        # Date
-        self.ui.dtDate.setDate(QtCore.QDate.currentDate())
         # Teams
         for team in dba.GetTeams():
             self.ui.cmbTeamA.addItem(team)
@@ -95,19 +106,33 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         for mcd in dba.GetMcodes():
             self.ui.cmbMarketCode.addItem(mcd)
         # Stock names
-        self.FillCmbStockName(dba)
+        self.FillCmbStockName()
         dba = None
 
-    def FillCmbStockName(self, dba):
+    def FillCmbStockName(self):
         """ Fill cmb function """
+        dba = DatabaseAccess()
         self.ui.cmbStockName.clear()
         for name in dba.GetStockNames(self.ui.cmbMarketCode.currentText()):
             self.ui.cmbStockName.addItem(name)
+        dba = None
         
     def CmbMarketCode_Changed(self, selstr):
         """ When the marketcode combo selection changes. """
+        self.FillCmbStockName()
+    
+    def CmbStockName_Changed(self, selstr):
+        """ When the stock name selection changes. """    
+        self.UpdateInfoDetails()        
+        
+    def UpdateInfoDetails(self):
+        """ Update infolabel details. """
+        #TODO: find out why changing the market selection gives list index out of bounds
         dba = DatabaseAccess()
-        self.FillCmbStockName(dba)
+        prod = self.ui.cmbProduct.currentText()
+        if prod == 'invest.buystocks' or prod == 'invest.sellstocks' or prod == 'invest.changestocks':
+            info = dba.GetStockInfo(self.ui.cmbStockName.currentText())
+            self.ui.lblInfoDetails.setText('[' + info[1] + '] : ' + info[0])
         dba = None
 
     def BtnAdd_Clicked(self):
