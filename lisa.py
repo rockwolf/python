@@ -130,8 +130,9 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         #TODO: find out why changing the market selection gives list index out of bounds
         dba = DatabaseAccess()
         prod = self.ui.cmbProduct.currentText()
-        if prod == 'invest.buystocks' or prod == 'invest.sellstocks' or prod == 'invest.changestocks':
-            info = dba.GetStockInfo(self.ui.cmbStockName.currentText())
+        stock = self.ui.cmbStockName.currentText()
+        if (prod == 'invest.buystocks' or prod == 'invest.sellstocks' or prod == 'invest.changestocks') and stock != '':
+            info = dba.GetStockInfo(stock)
             self.ui.lblInfoDetails.setText('[' + info[1] + '] : ' + info[0])
         dba = None
 
