@@ -49,6 +49,10 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         self.ui.cmbProduct.connect(self.ui.btnAdd, QtCore.SIGNAL("clicked()"), self.BtnAdd_Clicked)
         self.ui.cmbProduct.connect(self.ui.cmbMarketCode, QtCore.SIGNAL("currentIndexChanged(QString)"), self.CmbMarketCode_Changed)
         self.ui.cmbProduct.connect(self.ui.cmbStockName, QtCore.SIGNAL("currentIndexChanged(QString)"), self.CmbStockName_Changed)
+        self.ui.cmbTeamA.connect(self.ui.cmbTeamA, QtCore.SIGNAL("currentIndexChanged(QString)"), self.CmbTeamA_Changed)
+        self.ui.cmbTeamA2.connect(self.ui.cmbTeamA2, QtCore.SIGNAL("currentIndexChanged(QString)"), self.CmbTeamA2_Changed)
+        self.ui.cmbTeamB.connect(self.ui.cmbTeamB, QtCore.SIGNAL("currentIndexChanged(QString)"), self.CmbTeamB_Changed)
+        self.ui.cmbTeamB2.connect(self.ui.cmbTeamB2, QtCore.SIGNAL("currentIndexChanged(QString)"), self.CmbTeamB2_Changed)
 
     def BtnExit_Clicked(self):
         """ Exit """
@@ -86,13 +90,12 @@ class lisa(QtGui.QDialog, Ui_frmMain):
 
     def FillCombos(self):
         """ Fill in the combo boxes with values. """
-        dba = DatabaseAccess()
         # Teams
-        for team in dba.GetTeams():
-            self.ui.cmbTeamA.addItem(team)
-            self.ui.cmbTeamB.addItem(team)
-            self.ui.cmbTeamA2.addItem(team)
-            self.ui.cmbTeamB2.addItem(team)
+        self.FillCmbTeamA()
+        self.FillCmbTeamB()
+        self.FillCmbTeamA2()
+        self.FillCmbTeamB2()
+        dba = DatabaseAccess()
         # Products
         for prod in dba.GetProducts():
             self.ui.cmbProduct.addItem(prod)
@@ -116,7 +119,7 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         for name in dba.GetStockNames(self.ui.cmbMarketCode.currentText()):
             self.ui.cmbStockName.addItem(name)
         dba = None
-        
+       
     def CmbMarketCode_Changed(self, selstr):
         """ When the marketcode combo selection changes. """
         self.FillCmbStockName()
@@ -125,9 +128,64 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         """ When the stock name selection changes. """    
         self.UpdateInfoDetails()        
         
+    def CmbTeamA_Changed(self, selstr):
+        """ When the team name selection changes for bet.place. """    
+
+    def FillCmbTeamA(self):
+        """ Put values in the cmb. """ 
+        dba = DatabaseAccess()
+        selstr = ''
+        teams = dba.GetTeams(selstr)
+        if teams != None:
+            self.ui.cmbTeamA.clear()
+            for team in teams:
+                self.ui.cmbTeamA.addItem(team)
+        dba = None
+        
+    def CmbTeamB_Changed(self, selstr):
+        """ When the team name selection changes for bet.cashin. """    
+    
+    def FillCmbTeamB(self):
+        """ Put values in the cmb. """ 
+        dba = DatabaseAccess()
+        selstr = ''
+        teams = dba.GetTeams(selstr)
+        if teams != None:
+            self.ui.cmbTeamB.clear()
+            for team in teams:
+                self.ui.cmbTeamB.addItem(team) 
+        dba = None 
+
+    def CmbTeamA2_Changed(self, selstr):
+        """ When the team name selection changes for bet.place. """    
+   
+    def FillCmbTeamA2(self):     
+        """ Put values in the cmb. """ 
+        dba = DatabaseAccess()
+        selstr = ''
+        teams = dba.GetTeams(selstr)
+        if teams != None:
+            self.ui.cmbTeamA2.clear()
+            for team in teams:
+                self.ui.cmbTeamA2.addItem(team)
+        dba = None
+        
+    def CmbTeamB2_Changed(self, selstr):
+        """ When the team name selection changes for bet.cashin. """    
+
+    def FillCmbTeamB2(self):
+        """ Put values in the cmb. """ 
+        dba = DatabaseAccess()
+        selstr = ''
+        teams = dba.GetTeams(selstr)
+        if teams != None:
+            self.ui.cmbTeamB2.clear()
+            for team in teams:
+                self.ui.cmbTeamB2.addItem(team)
+        dba = None
+        
     def UpdateInfoDetails(self):
         """ Update infolabel details. """
-        #TODO: find out why changing the market selection gives list index out of bounds
         dba = DatabaseAccess()
         prod = self.ui.cmbProduct.currentText()
         stock = self.ui.cmbStockName.currentText()

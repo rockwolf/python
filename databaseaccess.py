@@ -321,9 +321,17 @@ class DatabaseAccess():
         db.close()
         return values
  
-    def GetTeams(self):
-        """ Get the teams. """
-        return self.GetValues("""select name from """ + self.get_tblteams() + """ where active = 1 order by name;""")
+    def GetTeams(self, otn):
+        """ Get the teams, but leave out the other team name. This way, teams are always different. """
+        #if otn != '' and otn != None:
+        #    # Is it necessary to get new values? (Is A in B? and vice versa)
+        #    if self.GetValues("""select name from """ + self.get_tblteams() + """ where active = 1 and name ='""" + str(otn) + """' order by name;""") == []:
+        #        return None
+        #    else:
+        #        return self.GetValues("""select name from """ + self.get_tblteams() + """ where active = 1 and name <>'""" + str(otn) + """' order by name;""")
+        #else:
+            # It's a fill action at startup, just get everything
+        return self.GetValues("""select name from """ + self.get_tblteams() + """ where active = 1 order by name;""");
 
     def GetProducts(self):
         """ Get the products. """
