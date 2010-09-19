@@ -33,6 +33,10 @@ class lisa(QtGui.QDialog, Ui_frmMain):
 
     def __init__(self, parent=None):
         """ Construct basic QApplication, add widgets and start exec_loop """
+        # initialise special vars
+        #TODO: Write this better and put fbackup and fcurrent in the config file
+        self.fbackup = "/home/rockwolf/.config/clipf/db/op.bak"
+        self.fcurrent = "/home/rockwolf/.config/clipf/db/op"
         # initialize gui
         QtGui.QDialog.__init__(self, parent)
         self.ui = Ui_frmMain()
@@ -56,6 +60,7 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         self.ui.cmbTeamB.connect(self.ui.cmbTeamB, QtCore.SIGNAL("currentIndexChanged(QString)"), self.CmbTeamB_Changed)
         self.ui.cmbTeamB2.connect(self.ui.cmbTeamB2, QtCore.SIGNAL("currentIndexChanged(QString)"), self.CmbTeamB2_Changed)
         self.ui.btnExit.connect(self.ui.btnExecute, QtCore.SIGNAL("clicked()"), self.BtnExecute_Clicked)
+        self.ui.btnClear.connect(self.ui.btnClear, QtCore.SIGNAL("clicked()"), self.BtnClear_Clicked)
 
     def BtnExecute_Clicked(self):
         """ Pipe commands to clipf. """
@@ -69,21 +74,18 @@ class lisa(QtGui.QDialog, Ui_frmMain):
 
     def Backup(self):
         """ Make a backup of the output file for clipf. """
-        #TODO: Write this better and put fbackup and fcurrent in the config file
-        fbackup = "/home/rockwolf/.config/clipf/db/op.bak"
-        fcurrent = "/home/rockwolf/.config/clipf/db/op"
         # remove old backup
-        if isfile(fbackup):
+        if isfile(self.fbackup):
             try:
-                os.remove(fbackup)
-                print fbackup + ' removed.'
+                os.remove(self.fbackup)
+                print self.fbackup + ' removed.'
             except IOError as (errno, strerror):
                 print "Error {0}: {1}".format(errno,strerror)
         # copy current to .bak
-        if isfile(fcurrent) and not isfile(fbackup):
+        if isfile(self.fcurrent) and not isfile(self.fbackup):
             try:
-                shutil.copy(fcurrent, fbackup)
-                print fbackup + ' created.'
+                shutil.copy(self.fcurrent, self.fbackup)
+                print self.fbackup + ' created.'
             except:
                 print 'Error: application fucked up while creating backup.'
         else:
@@ -91,11 +93,8 @@ class lisa(QtGui.QDialog, Ui_frmMain):
 
     def WriteCmds(self):
         """ Pipe the commands in the buffer to clipf. """
-        #TODO: Write this better and put fbackup and fcurrent in the config file
-        fbackup = "/home/rockwolf/.config/clipf/db/op.bak"
-        fcurrent = "/home/rockwolf/.config/clipf/db/op"
         # write to current
-        if isfile(fcurrent):
+        if isfile(self.fcurrent):
             try:
                 for cmd in self.cmdbuffer:                
                     p1 = Popen(['echo', str(cmd)], stdout=PIPE)
@@ -130,6 +129,7 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         self.ui.dtDateMatch.setDate(QtCore.QDate.currentDate())
         # Info labels
         self.ui.lblInfoFinance.clear()
+        self.ui.lblInfoFinance.setText('>> ' + self.fcurrent)
         self.ui.lblInfoDetails.clear()
         # Fill all combo boxes
         self.FillCombos()
@@ -256,9 +256,13 @@ class lisa(QtGui.QDialog, Ui_frmMain):
             comment = self.ui.txtComment.text() 
         cmd = 'op add -d ' + self.ui.dtDate.date().toString(QtCore.Qt.ISODate) + ' ' +  self.ui.cmbProduct.currentText() + ' ' + self.ui.spnAmount.textFromValue(self.ui.spnAmount.value()) + ' "' + comment + '"'
         self.cmdbuffer.append(cmd)
-        print self.cmdbuffer
         self.ui.txtSummary.append(cmd)
-    
+   
+    def BtnClear_Clicked(self):
+        """ Clear the command buffer. """
+        self.cmdbuffer = [] 
+        self.ui.txtSummary.clear()
+
     def Layout(self):
         """ Everything about the layout off the application. """
         print 'Layout not implemented yet...'
