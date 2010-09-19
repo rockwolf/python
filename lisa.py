@@ -21,11 +21,13 @@ You should have received a copy of the GNU General Public License
 along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
-import sys, getopt, time
+import sys, getopt, time, shutil, os
 from PyQt4 import QtCore, QtGui
 from lisagui import Ui_frmMain
 from datetime import datetime
 from databaseaccess import DatabaseAccess
+from os.path import *
+from subprocess import *
 
 class lisa(QtGui.QDialog, Ui_frmMain):
 
@@ -53,10 +55,54 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         self.ui.cmbTeamA2.connect(self.ui.cmbTeamA2, QtCore.SIGNAL("currentIndexChanged(QString)"), self.CmbTeamA2_Changed)
         self.ui.cmbTeamB.connect(self.ui.cmbTeamB, QtCore.SIGNAL("currentIndexChanged(QString)"), self.CmbTeamB_Changed)
         self.ui.cmbTeamB2.connect(self.ui.cmbTeamB2, QtCore.SIGNAL("currentIndexChanged(QString)"), self.CmbTeamB2_Changed)
+        self.ui.btnExit.connect(self.ui.btnExecute, QtCore.SIGNAL("clicked()"), self.BtnExecute_Clicked)
 
+    def BtnExecute_Clicked(self):
+        """ Pipe commands to clipf. """
+        # Safety first: take backup
+        self.Backup()
+        self.WriteCmds()
+        
     def BtnExit_Clicked(self):
         """ Exit """
         sys.exit(0)
+
+    def Backup(self):
+        """ Make a backup of the output file for clipf. """
+        #TODO: Write this better and put fbackup and fcurrent in the config file
+        fbackup = "/home/rockwolf/.config/clipf/db/op.bak"
+        fcurrent = "/home/rockwolf/.config/clipf/db/op"
+        # remove old backup
+        if isfile(fbackup):
+            try:
+                os.remove(fbackup)
+                print fbackup + ' removed.'
+            except IOError as (errno, strerror):
+                print "Error {0}: {1}".format(errno,strerror)
+        # copy current to .bak
+        if isfile(fcurrent) and not isfile(fbackup):
+            try:
+                shutil.copy(fcurrent, fbackup)
+                print fbackup + ' created.'
+            except:
+                print 'Error: application fucked up while creating backup.'
+        else:
+            print 'Error: backup file already exists.'
+
+    def WriteCmds(self):
+        """ Pipe the commands in the buffer to clipf. """
+        #TODO: Write this better and put fbackup and fcurrent in the config file
+        fbackup = "/home/rockwolf/.config/clipf/db/op.bak"
+        fcurrent = "/home/rockwolf/.config/clipf/db/op"
+        # write to current
+        if isfile(fcurrent):
+            try:
+                for cmd in self.cmdbuffer:                
+                    p1 = Popen(['echo', str(cmd)], stdout=PIPE)
+                    p2 = Popen(['clipf'], stdin=p1.stdout)
+                    #Popen(['/bin/echo','test'])
+            except Exception as strerror:
+                print "Error: {0}.".format(strerror)
 
     def CmbProduct_Changed(self, selstr):
         """ When the account combo selection changes. """
@@ -199,9 +245,9 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         # parse comment?
         prod = self.ui.cmbProduct.currentText() 
         if prod == 'bet.place':
-            comment = self.ui.cmbTeamA.currentText() + ',' + self.ui.cmbTeamB.currentText() + ',' + self.ui.cmbChoice.currentText() + ',' + self.ui.dtDateMatch.date().toString(QtCore.Qt.ISODate)
+            comment = self.ui.cmbTeamA.currentText() + ',' + self.ui.cmbTeamB.currentText() + ',' + self.ui.cmbChoice.currentText() + ',' + self.ui.dtDateMatch.dateTime().toString("yyyy-MM-dd HH:mm")
         elif prod == 'bet.cashin':
-            comment = ''
+            comment = self.ui.cmbTeamA2.currentText() + ',' + self.ui.cmbTeamB2.currentText() + ',' + self.ui.spnScoreA.textFromValue(self.ui.spnScoreA.value()) + '-' + self.ui.spnScoreB.textFromValue(self.ui.spnScoreB.value())
         elif prod == 'invest.buystocks' or prod == 'invest.sellstocks' or prod == 'invest.changestocks':
             comment = self.ui.cmbMarketCode.currentText() + '.' + self.ui.cmbStockName.currentText() + ',' + self.ui.spnQuantity.textFromValue(self.ui.spnQuantity.value()) + ',' + self.ui.spnPrice.textFromValue(self.ui.spnPrice.value())
             if prod == 'invest.changestocks':
