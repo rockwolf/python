@@ -3,7 +3,7 @@
 ### that need to be changed.
 
 [database]
-host = 'evy'
+host = 'dbmonster'
 name = 'finance'
 user = 'rockwolf'
 password = ''

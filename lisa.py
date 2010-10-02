@@ -67,6 +67,7 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         # Safety first: take backup
         self.Backup()
         self.WriteCmds()
+        self.ClearCommands()
         
     def BtnExit_Clicked(self):
         """ Exit """
@@ -96,10 +97,11 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         # write to current
         if isfile(self.fcurrent):
             try:
+                p1 = Popen(['echo', 'set acc ' + self.ui.cmbAccount.currentText()], stdout=PIPE)
+                p2 = Popen(['clipf'], stdin=p1.stdout)
                 for cmd in self.cmdbuffer:                
                     p1 = Popen(['echo', str(cmd)], stdout=PIPE)
                     p2 = Popen(['clipf'], stdin=p1.stdout)
-                    #Popen(['/bin/echo','test'])
             except Exception as strerror:
                 print "Error: {0}.".format(strerror)
 
@@ -133,6 +135,7 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         self.ui.lblInfoDetails.clear()
         # Fill all combo boxes
         self.FillCombos()
+        self.ui.cmbAccount.setCurrentIndex(1)
 
     def FillCombos(self):
         """ Fill in the combo boxes with values. """
@@ -245,9 +248,9 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         # parse comment?
         prod = self.ui.cmbProduct.currentText() 
         if prod == 'bet.place':
-            comment = self.ui.cmbTeamA.currentText() + ',' + self.ui.cmbTeamB.currentText() + ',' + self.ui.cmbChoice.currentText() + ',' + self.ui.dtDateMatch.dateTime().toString("yyyy-MM-dd HH:mm")
+            comment = self.ui.cmbTeamA.currentText() + ' vs. ' + self.ui.cmbTeamB.currentText() + ',' + self.ui.cmbChoice.currentText() + ',' + self.ui.dtDateMatch.dateTime().toString("yyyy-MM-dd HHmm")
         elif prod == 'bet.cashin':
-            comment = self.ui.cmbTeamA2.currentText() + ',' + self.ui.cmbTeamB2.currentText() + ',' + self.ui.spnScoreA.textFromValue(self.ui.spnScoreA.value()) + '-' + self.ui.spnScoreB.textFromValue(self.ui.spnScoreB.value())
+            comment = self.ui.cmbTeamA2.currentText() + ' vs. ' + self.ui.cmbTeamB2.currentText() + ',' + self.ui.spnScoreA.textFromValue(self.ui.spnScoreA.value()) + '-' + self.ui.spnScoreB.textFromValue(self.ui.spnScoreB.value())
         elif prod == 'invest.buystocks' or prod == 'invest.sellstocks' or prod == 'invest.changestocks':
             comment = self.ui.cmbMarketCode.currentText() + '.' + self.ui.cmbStockName.currentText() + ',' + self.ui.spnQuantity.textFromValue(self.ui.spnQuantity.value()) + ',' + self.ui.spnPrice.textFromValue(self.ui.spnPrice.value())
             if prod == 'invest.changestocks':
@@ -260,6 +263,10 @@ class lisa(QtGui.QDialog, Ui_frmMain):
    
     def BtnClear_Clicked(self):
         """ Clear the command buffer. """
+        self.ClearCommands()
+
+    def ClearCommands(self):
+        """ Clear the command buffer and the summary panel. """
         self.cmdbuffer = [] 
         self.ui.txtSummary.clear()
 
