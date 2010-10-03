@@ -97,10 +97,8 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         # write to current
         if isfile(self.fcurrent):
             try:
-                p1 = Popen(['echo', 'set acc ' + self.ui.cmbAccount.currentText()], stdout=PIPE)
-                p2 = Popen(['clipf'], stdin=p1.stdout)
                 for cmd in self.cmdbuffer:                
-                    p1 = Popen(['echo', str(cmd)], stdout=PIPE)
+                    p1 = Popen(['echo', 'set acc ' + self.ui.cmbAccount.currentText(), '\n' + str(cmd)], stdout=PIPE)
                     p2 = Popen(['clipf'], stdin=p1.stdout)
             except Exception as strerror:
                 print "Error: {0}.".format(strerror)
@@ -260,6 +258,7 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         cmd = 'op add -d ' + self.ui.dtDate.date().toString(QtCore.Qt.ISODate) + ' ' +  self.ui.cmbProduct.currentText() + ' ' + self.ui.spnAmount.textFromValue(self.ui.spnAmount.value()) + ' "' + comment + '"'
         self.cmdbuffer.append(cmd)
         self.ui.txtSummary.append(cmd)
+        self.ClearFields()
    
     def BtnClear_Clicked(self):
         """ Clear the command buffer. """
@@ -269,6 +268,11 @@ class lisa(QtGui.QDialog, Ui_frmMain):
         """ Clear the command buffer and the summary panel. """
         self.cmdbuffer = [] 
         self.ui.txtSummary.clear()
+
+    def ClearFields(self):
+        """ Clear the main input fields. """
+        self.ui.txtComment.clear()
+        self.ui.spnAmount.setValue(0)
 
     def Layout(self):
         """ Everything about the layout off the application. """

@@ -3,7 +3,7 @@
 ### that need to be changed.
 
 [database]
-host = 'dbmonster'
+host = 'evy'
 name = 'finance'
 user = 'rockwolf'
 password = ''
@@ -18,6 +18,9 @@ tablecurbets = 'curbets'
 tableteams = 'teams'
 tablemcodes = 'mcodes'
 tablestocknames = 'stocknames'
+tableproducts = 'products'
+tablecrossover = 'crossover'
+tablesafetymargins = 'safetymargins'
 
 [logging]
 # Set this to 1 if you want to use logging 

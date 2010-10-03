@@ -161,6 +161,36 @@ class DatabaseAccess():
 
     tblstocknames = property(get_tblstocknames, set_tblstocknames)
 
+    def get_tblproducts(self):
+        """ tblproducts """
+        return self._tblproducts
+
+    def set_tblproducts(self, version):
+        """ set tblproducts """
+        self._tblproducts = version
+
+    tblproducts = property(get_tblproducts, set_tblproducts)
+
+    def get_tblcrossover(self):
+        """ tblcrossover """
+        return self._tblcrossover
+
+    def set_tblcrossover(self, version):
+        """ set tblcrossover """
+        self._tblcrossover = version
+
+    tblcrossover = property(get_tblcrossover, set_tblcrossover)
+ 
+    def get_tblsafetymargins(self):
+        """ tblsafetymargins """
+        return self._tblsafetymargins
+
+    def set_tblsafetymargins(self, version):
+        """ set tblsafetymargins """
+        self._tblsafetymargins = version
+
+    tblsafetymargins = property(get_tblsafetymargins, set_tblsafetymargins)
+ 
     def __init__(self):
        """ Initialise the database class. """ 
        self.set_myconf(self.ConfFile())
@@ -191,6 +221,9 @@ class DatabaseAccess():
         tblteams = config.get('data', 'tableteams')[1:-1]
         tblmcodes = config.get('data', 'tablemcodes')[1:-1]
         tblstocknames = config.get('data', 'tablestocknames')[1:-1]
+        tblproducts = config.get('data', 'tableproducts')[1:-1]
+        tblcrossover = config.get('data', 'tablecrossover')[1:-1]
+        tblsafetymargins = config.get('data', 'tablesafetymargins')[1:-1]
         self.set_dbhost(dbhost)        
         self.set_dbname(dbname)        
         self.set_dbuser(dbuser)        
@@ -204,13 +237,16 @@ class DatabaseAccess():
         self.set_tblteams(tblteams)        
         self.set_tblmcodes(tblmcodes)        
         self.set_tblstocknames(tblstocknames)        
+        self.set_tblproducts(tblproducts)        
+        self.set_tblcrossover(tblcrossover)        
+        self.set_tblsafetymargins(tblsafetymargins)        
 
     def Setup(self):
         """ Setup the db. """
         msgObj = self.msgHandler.MessageHandler()
         print "Setting up the database..."  
         self.SetupTables(); 
-        tables = [self.get_tblteams(), self.get_tblmcodes(), self.get_tblstocknames()]
+        tables = [self.get_tblteams(), self.get_tblmcodes(), self.get_tblstocknames(), self.get_tblproducts(), self.get_tblcrossover(), self.get_tblsafetymargins()]
         msgObj.PrintAction('Created table', tables)
         print "Fill in known values..."
         self.FillTables()
@@ -227,6 +263,12 @@ class DatabaseAccess():
         cur.execute ("""CREATE TABLE """ + self.get_tblmcodes() + """(mid serial not null, mcode varchar(3) not null, description varchar(30), date_created timestamp, date_modified timestamp, constraint pk_mid primary key(mid));""")
         db.commit()
         cur.execute ("""CREATE TABLE """ + self.get_tblstocknames() + """(snid serial not null, name varchar(5) not null, mid int not null, description varchar(30), date_created timestamp, date_modified timestamp, constraint pk_snid primary key(snid), constraint fk_mid foreign key(mid) references """ + self.get_tblmcodes() + """(mid));""")
+        db.commit()
+        cur.execute ("""CREATE TABLE """ + self.get_tblproducts() + """(pid serial not null, prod varchar(30) not null, date_created timestamp, date_modified timestamp, constraint pk_pid primary key(pid));""")
+        db.commit()
+        cur.execute ("""CREATE TABLE """ + self.get_tblcrossover() + """(year varchar(4) not null, passive decimal(18,4) not null default 0.0, sw decimal(18,4) not null default 0.0, expenses decimal(18,4) not null default 0.0, comment varchar(256), date_created timestamp, date_modified timestamp, constraint pk_yid primary key(year));""")
+        db.commit()
+        cur.execute ("""CREATE TABLE """ + self.get_tblsafetymargins() + """(smid serial not null, description varchar(100) not null, value decimal(18,4) not null default 0.0, date_created timestamp, date_modified timestamp, constraint pk_smid primary key(smid));""")
         db.commit()
         cur.close()
         db.close()
@@ -290,6 +332,27 @@ class DatabaseAccess():
         for stock in stocks:
             cur.execute("""insert into """ + self.get_tblstocknames() + """(name, mid, description, date_created, date_modified) values('""" + stock + """','""" + stocks[stock][1] + """','""" + stocks[stock][0] + """','""" +  str(now) + """','""" + str(now) + """');""")
         db.commit()
+        # Products
+        for prod in self.GetProductsFromFinance():
+            cur.execute("""insert into """ + self.get_tblproducts() + """(prod, date_created, date_modified) values('""" + prod + """','""" +  str(now) + """','""" + str(now) + """');""")
+        db.commit()
+        # Margins
+        margins = {
+            'Financial reserve' : 5000,
+            'Financial reserve after crossover' : 160000,
+            'Safety margin passive income' : 5000,
+            'Safe withdrawal rate' : 0.03,
+            'Bargain reserve' : 100000
+        }
+        for margin in margins:
+            cur.execute("""insert into """ + self.get_tblsafetymargins() + """(description, value, date_created, date_modified) values('""" + margin + """','""" + str(margins[margin]) + """','""" +  str(now) + """','""" + str(now) + """');""")
+        db.commit()
+        # Crossover
+        #TODO: get years and corresponding values and return them, add them here.
+        # Make dba.GetExpenses and GetPassive and CalculateSW
+        #for year in yearpassiveswexpenses:
+        #    cur.execute("""insert into """ + self.get_tblsafetymargins() + """(description, value, date_created, date_modified) values('""" + margin + """','""" + str(margins[margin]) + """','""" +  str(now) + """','""" + str(now) + """');""")
+        #db.commit()
         cur.close()
         db.close()
         
@@ -300,7 +363,7 @@ class DatabaseAccess():
         if answer == 0:
             self.RemoveTables()
             msgObj = self.msgHandler.MessageHandler()
-            tables = [self.get_tblteams(), self.get_tblmcodes(), self.get_tblstocknames()]
+            tables = [self.get_tblteams(), self.get_tblmcodes(), self.get_tblstocknames(), self.get_tblproducts(), self.get_tblcrossover(), self.get_tblsafetymargins()]
             msgObj.PrintAction('Removed table', tables)
         msgObj = None
        
@@ -333,9 +396,13 @@ class DatabaseAccess():
             # It's a fill action at startup, just get everything
         return self.GetValues("""select name from """ + self.get_tblteams() + """ where active = 1 order by name;""");
 
+    def GetProductsFromFinance(self):
+        """ Get the products from the finance table. """
+        return self.GetValues("""select distinct prod from """ + self.get_tblfinance() + """ order by prod;""")
+
     def GetProducts(self):
         """ Get the products. """
-        return self.GetValues("""select distinct prod from """ + self.get_tblfinance() + """ order by prod;""")
+        return self.GetValues("""select prod from """ + self.get_tblproducts() + """ order by prod;""")
 
     def GetAccounts(self):
         """ Get the accounts. """
@@ -357,7 +424,7 @@ class DatabaseAccess():
         """ The actual removal of the tables. """
         db = dbapi2.connect(host=self.get_dbhost(),database=self.get_dbname(), user=self.get_dbuser(), password=self.get_dbpass())
         cur = db.cursor()
-        cur.execute ("""drop table """ + self.get_tblteams() + """;drop table """ + self.get_tblstocknames() + """;drop table """ + self.get_tblmcodes() + """;""")
+        cur.execute ("""drop table """ + self.get_tblteams() + """;drop table """ + self.get_tblstocknames() + """;drop table """ + self.get_tblmcodes() + """;drop table """ + self.get_tblproducts() + """;drop table """ + self.get_tblcrossover() + """;drop table """ + self.get_tblsafetymargins() + """;""")
         db.commit()
         cur.close()
         db.close()
