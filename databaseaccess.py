@@ -355,7 +355,7 @@ class DatabaseAccess():
         #db.commit()
         cur.close()
         db.close()
-        
+ 
     def Remove(self):
         """ Remove the tables + data from the db. """
         msgObj = self.msgHandler.MessageHandler()
@@ -420,6 +420,23 @@ class DatabaseAccess():
         """ Get extra stock info. """
         return self.GetValues("""select t1.description, t2.description from """ + self.get_tblstocknames() + """ t1 join """ + self.get_tblmcodes() + """ t2 on t1.mid = t2.mid where t1.name = '""" + str(sname) + """';""")
         
+    def GetExpenses():
+        """ Get the total expenses, ordered by year. """
+        #TODO: extra flag in database, in seperate table?
+        exprds = ['account.start', 'account.tx', 'invest.invest', 'invest.changestocks', 'invest.buystocks', 'bet.place']
+        strexprd = ""
+        for prd in exprds:
+            exprdstr = strexprd + " and t1.prod <> '" + prd + "'"
+        return self.GetValues("""select extract(year from t1.date), sum(t1.amount) from """ + self.get_tblfinance() + """ t1 where t1.flag = 0 and """ + strexprds + """ group by extract(year from t1.date);""")
+
+    def GetPassive():
+        """ Get the total passive income, ordered by year. """
+        return self.GetValues("""select sum(t1.amount) from """ + self.get_finance() + """ t1 where t1.prod = 'invest.dividend' or t1.prod = 'invest.refund';""")
+
+    def CalculateSW():
+        """ Calculate the safe withdrawal value. """
+        return self.GetValues("""select t1.description, t2.description from """ + self.get_tblstocknames() + """ t1 join """ + self.get_tblmcodes() + """ t2 on t1.mid = t2.mid where t1.name = '""" + str(sname) + """';""")
+       
     def RemoveTables(self):
         """ The actual removal of the tables. """
         db = dbapi2.connect(host=self.get_dbhost(),database=self.get_dbname(), user=self.get_dbuser(), password=self.get_dbpass())
