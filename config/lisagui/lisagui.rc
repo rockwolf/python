@@ -8,20 +8,6 @@ name = 'finance'
 user = 'rockwolf'
 password = ''
 
-[data]
-tablefinance = 'finance'
-tablestocks = 'stocks'
-tablecurstocks = 'curstocks'
-tablebets = 'bets'
-tablebetresults = 'betresults'
-tablecurbets = 'curbets'
-tableteams = 'teams'
-tablemcodes = 'mcodes'
-tablestocknames = 'stocknames'
-tableproducts = 'products'
-tablecrossover = 'crossover'
-tablesafetymargins = 'safetymargins'
-
 [logging]
 # Set this to 1 if you want to use logging 
 log = 0
