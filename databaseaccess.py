@@ -71,131 +71,22 @@ class DatabaseAccess():
 
     dbpass = property(get_dbpass, set_dbpass)
 
-    def get_tblfinance(self):
-        """ tblfinance """
-        return self._tblfinance
-
-    def set_tblfinance(self, version):
-        """ set tblfinance """
-        self._tblfinance = version
-
-    tblfinance = property(get_tblfinance, set_tblfinance)
-
-    def get_tblstocks(self):
-        """ tblstocks """
-        return self._tblstocks
-
-    def set_tblstocks(self, version):
-        """ set tblstocks """
-        self._tblstocks = version
-
-    tblstocks = property(get_tblstocks, set_tblstocks)
-
-    def get_tblcurstocks(self):
-        """ tblcurstocks """
-        return self._tblcurstocks
-
-    def set_tblcurstocks(self, version):
-        """ set tblcurstocks """
-        self._tblcurstocks = version
-
-    tblcurstocks = property(get_tblcurstocks, set_tblcurstocks)
-
-    def get_tblbets(self):
-        """ tblbets """
-        return self._tblbets
-
-    def set_tblbets(self, version):
-        """ set tblbets """
-        self._tblbets = version
-
-    tblbets = property(get_tblbets, set_tblbets)
-
-    def get_tblbetresults(self):
-        """ tblbetresults """
-        return self._tblbetresults
-
-    def set_tblbetresults(self, version):
-        """ set tblbetresults """
-        self._tblbetresults = version
-
-    tblbetresults = property(get_tblbetresults, set_tblbetresults)
-
-    def get_tblcurbets(self):
-        """ tblcurbets """
-        return self._tblcurbets
-
-    def set_tblcurbets(self, version):
-        """ set tblcurbets """
-        self._tblcurbets = version
-
-    tblcurbets = property(get_tblcurbets, set_tblcurbets)
-
-    def get_tblteams(self):
-        """ tblteams """
-        return self._tblteams
-
-    def set_tblteams(self, version):
-        """ set tblteams """
-        self._tblteams = version
-
-    tblteams = property(get_tblteams, set_tblteams)
-
-    def get_tblmcodes(self):
-        """ tblmcodes """
-        return self._tblmcodes
-
-    def set_tblmcodes(self, version):
-        """ set tblmcodes """
-        self._tblmcodes = version
-
-    tblmcodes = property(get_tblmcodes, set_tblmcodes)
-
-    def get_tblstocknames(self):
-        """ tblstocknames """
-        return self._tblstocknames
-
-    def set_tblstocknames(self, version):
-        """ set tblstocknames """
-        self._tblstocknames = version
-
-    tblstocknames = property(get_tblstocknames, set_tblstocknames)
-
-    def get_tblproducts(self):
-        """ tblproducts """
-        return self._tblproducts
-
-    def set_tblproducts(self, version):
-        """ set tblproducts """
-        self._tblproducts = version
-
-    tblproducts = property(get_tblproducts, set_tblproducts)
-
-    def get_tblcrossover(self):
-        """ tblcrossover """
-        return self._tblcrossover
-
-    def set_tblcrossover(self, version):
-        """ set tblcrossover """
-        self._tblcrossover = version
-
-    tblcrossover = property(get_tblcrossover, set_tblcrossover)
- 
-    def get_tblsafetymargins(self):
-        """ tblsafetymargins """
-        return self._tblsafetymargins
-
-    def set_tblsafetymargins(self, version):
-        """ set tblsafetymargins """
-        self._tblsafetymargins = version
-
-    tblsafetymargins = property(get_tblsafetymargins, set_tblsafetymargins)
- 
     def __init__(self):
-       """ Initialise the database class. """ 
-       self.set_myconf(self.ConfFile())
-       self.Config()
-       self.msgHandler = __import__('messagehandler')
+        """ Initialise the database class. """ 
+        self.set_myconf(self.ConfFile())
+        self.Config()
+        self.tblfinance = 'finance'
+        self.tblstocks = 'stocks'
+        self.tblcurstocks = 'curstocks'
+        self.tblbets = 'bets'
+        self.tblbetresults = 'betresults'
+        self.tblcurbets = 'curbets'
+        self.tblteams = 'teams'
+        self.tblmcodes = 'mcodes'
+        self.tblstocknames = 'stocknames'
+        self.tblproducts = 'products'
+        self.tblsafetymargins = 'safetymargins'
+        self.msgHandler = __import__('messagehandler')
 
     def ConfFile(self):
         """ Get config file path from XDG_CONFIG_DIR. """
@@ -212,41 +103,17 @@ class DatabaseAccess():
         dbname = config.get('database', 'name')[1:-1]
         dbuser = config.get('database', 'user')[1:-1]
         dbpass = config.get('database', 'password')[1:-1]
-        tblfinance = config.get('data', 'tablefinance')[1:-1]
-        tblstocks = config.get('data', 'tablestocks')[1:-1]
-        tblcurstocks = config.get('data', 'tablecurstocks')[1:-1]
-        tblbets = config.get('data', 'tablebets')[1:-1]
-        tblbetresults = config.get('data', 'tablebetresults')[1:-1]
-        tblcurbets = config.get('data', 'tablecurbets')[1:-1]
-        tblteams = config.get('data', 'tableteams')[1:-1]
-        tblmcodes = config.get('data', 'tablemcodes')[1:-1]
-        tblstocknames = config.get('data', 'tablestocknames')[1:-1]
-        tblproducts = config.get('data', 'tableproducts')[1:-1]
-        tblcrossover = config.get('data', 'tablecrossover')[1:-1]
-        tblsafetymargins = config.get('data', 'tablesafetymargins')[1:-1]
         self.set_dbhost(dbhost)        
         self.set_dbname(dbname)        
         self.set_dbuser(dbuser)        
         self.set_dbpass(dbpass)        
-        self.set_tblfinance(tblfinance)        
-        self.set_tblstocks(tblstocks)        
-        self.set_tblcurstocks(tblcurstocks)        
-        self.set_tblbets(tblbets)        
-        self.set_tblbetresults(tblbetresults)        
-        self.set_tblcurbets(tblcurbets)        
-        self.set_tblteams(tblteams)        
-        self.set_tblmcodes(tblmcodes)        
-        self.set_tblstocknames(tblstocknames)        
-        self.set_tblproducts(tblproducts)        
-        self.set_tblcrossover(tblcrossover)        
-        self.set_tblsafetymargins(tblsafetymargins)        
 
     def Setup(self):
         """ Setup the db. """
         msgObj = self.msgHandler.MessageHandler()
         print "Setting up the database..."  
         self.SetupTables(); 
-        tables = [self.get_tblteams(), self.get_tblmcodes(), self.get_tblstocknames(), self.get_tblproducts(), self.get_tblcrossover(), self.get_tblsafetymargins()]
+        tables = [self.tblteams, self.tblmcodes, self.tblstocknames, self.tblproducts, self.tblsafetymargins]
         msgObj.PrintAction('Created table', tables)
         print "Fill in known values..."
         self.FillTables()
@@ -258,17 +125,17 @@ class DatabaseAccess():
         db = dbapi2.connect(host=self.get_dbhost(),database=self.get_dbname(), user=self.get_dbuser(), password=self.get_dbpass())
         cur = db.cursor()
         #TODO: add if(exists) stuff
-        cur.execute ("""CREATE TABLE """ + self.get_tblteams() + """(tid serial not null, name varchar(30) not null, division varchar(30), active int not null default 1, date_created timestamp, date_modified timestamp, constraint pk_tid primary key(tid));""")
+        cur.execute ("""CREATE TABLE """ + self.tblteams + """(tid serial not null, name varchar(30) not null, division varchar(30), active int not null default 1, date_created timestamp, date_modified timestamp, constraint pk_tid primary key(tid));""")
         db.commit()
-        cur.execute ("""CREATE TABLE """ + self.get_tblmcodes() + """(mid serial not null, mcode varchar(3) not null, description varchar(30), date_created timestamp, date_modified timestamp, constraint pk_mid primary key(mid));""")
+        cur.execute ("""CREATE TABLE """ + self.tblmcodes + """(mid serial not null, mcode varchar(3) not null, description varchar(30), date_created timestamp, date_modified timestamp, constraint pk_mid primary key(mid));""")
         db.commit()
-        cur.execute ("""CREATE TABLE """ + self.get_tblstocknames() + """(snid serial not null, name varchar(5) not null, mid int not null, description varchar(30), date_created timestamp, date_modified timestamp, constraint pk_snid primary key(snid), constraint fk_mid foreign key(mid) references """ + self.get_tblmcodes() + """(mid));""")
+        cur.execute ("""CREATE TABLE """ + self.tblstocknames + """(snid serial not null, name varchar(5) not null, mid int not null, description varchar(30), date_created timestamp, date_modified timestamp, constraint pk_snid primary key(snid), constraint fk_mid foreign key(mid) references """ + self.tblmcodes + """(mid));""")
         db.commit()
-        cur.execute ("""CREATE TABLE """ + self.get_tblproducts() + """(pid serial not null, prod varchar(30) not null, date_created timestamp, date_modified timestamp, constraint pk_pid primary key(pid));""")
+        cur.execute ("""CREATE TABLE """ + self.tblproducts + """(pid serial not null, prod varchar(30) not null, date_created timestamp, date_modified timestamp, constraint pk_pid primary key(pid));""")
         db.commit()
-        cur.execute ("""CREATE TABLE """ + self.get_tblcrossover() + """(year varchar(4) not null, passive decimal(18,4) not null default 0.0, sw decimal(18,4) not null default 0.0, expenses decimal(18,4) not null default 0.0, comment varchar(256), date_created timestamp, date_modified timestamp, constraint pk_yid primary key(year));""")
+        #cur.execute ("""CREATE TABLE """ + self.tblcrossover + """(year varchar(4) not null, passive decimal(18,4) not null default 0.0, sw decimal(18,4) not null default 0.0, expenses decimal(18,4) not null default 0.0, comment varchar(256), date_created timestamp, date_modified timestamp, constraint pk_yid primary key(year));""")
         db.commit()
-        cur.execute ("""CREATE TABLE """ + self.get_tblsafetymargins() + """(smid serial not null, description varchar(100) not null, value decimal(18,4) not null default 0.0, date_created timestamp, date_modified timestamp, constraint pk_smid primary key(smid));""")
+        cur.execute ("""CREATE TABLE """ + self.tblsafetymargins + """(smid serial not null, description varchar(100) not null, value decimal(18,4) not null default 0.0, date_created timestamp, date_modified timestamp, constraint pk_smid primary key(smid));""")
         db.commit()
         cur.close()
         db.close()
@@ -310,12 +177,12 @@ class DatabaseAccess():
                 'Phoenix Coyotes':'Pacific',
                 'San Jose Sharks':'Pacific'}
         for team in teams:
-            cur.execute("""insert into """ + self.get_tblteams() + """(name, division, date_created, date_modified) values('""" + team + """','""" + teams[team] + """','""" +  str(now) + """','""" + str(now) + """');""")
+            cur.execute("""insert into """ + self.tblteams + """(name, division, date_created, date_modified) values('""" + team + """','""" + teams[team] + """','""" +  str(now) + """','""" + str(now) + """');""")
         db.commit()
         mcds = {'ams':'Amsterdam',
             'ebr':'Brussels'}
         for mcd in mcds:
-            cur.execute("""insert into """ + self.get_tblmcodes() + """(mcode, description, date_created, date_modified) values('""" + mcd + """','""" + mcds[mcd] + """','""" +  str(now) + """','""" + str(now) + """');""")
+            cur.execute("""insert into """ + self.tblmcodes + """(mcode, description, date_created, date_modified) values('""" + mcd + """','""" + mcds[mcd] + """','""" +  str(now) + """','""" + str(now) + """');""")
         db.commit()
         stocks = {'rhji' : ['RHJI International S.A.','2'],
             'nests' : ['Nestle','2'],
@@ -330,11 +197,11 @@ class DatabaseAccess():
             'tnet' : ['Telenet','2'],
             'exm': ['Exmar','2']}
         for stock in stocks:
-            cur.execute("""insert into """ + self.get_tblstocknames() + """(name, mid, description, date_created, date_modified) values('""" + stock + """','""" + stocks[stock][1] + """','""" + stocks[stock][0] + """','""" +  str(now) + """','""" + str(now) + """');""")
+            cur.execute("""insert into """ + self.tblstocknames + """(name, mid, description, date_created, date_modified) values('""" + stock + """','""" + stocks[stock][1] + """','""" + stocks[stock][0] + """','""" +  str(now) + """','""" + str(now) + """');""")
         db.commit()
         # Products
         for prod in self.GetProductsFromFinance():
-            cur.execute("""insert into """ + self.get_tblproducts() + """(prod, date_created, date_modified) values('""" + prod + """','""" +  str(now) + """','""" + str(now) + """');""")
+            cur.execute("""insert into """ + self.tblproducts + """(prod, date_created, date_modified) values('""" + prod + """','""" +  str(now) + """','""" + str(now) + """');""")
         db.commit()
         # Margins
         margins = {
@@ -345,13 +212,13 @@ class DatabaseAccess():
             'Bargain reserve' : 100000
         }
         for margin in margins:
-            cur.execute("""insert into """ + self.get_tblsafetymargins() + """(description, value, date_created, date_modified) values('""" + margin + """','""" + str(margins[margin]) + """','""" +  str(now) + """','""" + str(now) + """');""")
+            cur.execute("""insert into """ + self.tblsafetymargins + """(description, value, date_created, date_modified) values('""" + margin + """','""" + str(margins[margin]) + """','""" +  str(now) + """','""" + str(now) + """');""")
         db.commit()
         # Crossover
         #TODO: get years and corresponding values and return them, add them here.
         # Make dba.GetExpenses and GetPassive and CalculateSW
         #for year in yearpassiveswexpenses:
-        #    cur.execute("""insert into """ + self.get_tblsafetymargins() + """(description, value, date_created, date_modified) values('""" + margin + """','""" + str(margins[margin]) + """','""" +  str(now) + """','""" + str(now) + """');""")
+        #    cur.execute("""insert into """ + self.tblsafetymargins + """(description, value, date_created, date_modified) values('""" + margin + """','""" + str(margins[margin]) + """','""" +  str(now) + """','""" + str(now) + """');""")
         #db.commit()
         cur.close()
         db.close()
@@ -363,7 +230,7 @@ class DatabaseAccess():
         if answer == 0:
             self.RemoveTables()
             msgObj = self.msgHandler.MessageHandler()
-            tables = [self.get_tblteams(), self.get_tblmcodes(), self.get_tblstocknames(), self.get_tblproducts(), self.get_tblcrossover(), self.get_tblsafetymargins()]
+            tables = [self.tblteams, self.tblmcodes, self.tblstocknames, self.tblproducts, self.tblsafetymargins]
             msgObj.PrintAction('Removed table', tables)
         msgObj = None
        
@@ -388,37 +255,37 @@ class DatabaseAccess():
         """ Get the teams, but leave out the other team name. This way, teams are always different. """
         #if otn != '' and otn != None:
         #    # Is it necessary to get new values? (Is A in B? and vice versa)
-        #    if self.GetValues("""select name from """ + self.get_tblteams() + """ where active = 1 and name ='""" + str(otn) + """' order by name;""") == []:
+        #    if self.GetValues("""select name from """ + self.tblteams + """ where active = 1 and name ='""" + str(otn) + """' order by name;""") == []:
         #        return None
         #    else:
-        #        return self.GetValues("""select name from """ + self.get_tblteams() + """ where active = 1 and name <>'""" + str(otn) + """' order by name;""")
+        #        return self.GetValues("""select name from """ + self.tblteams + """ where active = 1 and name <>'""" + str(otn) + """' order by name;""")
         #else:
             # It's a fill action at startup, just get everything
-        return self.GetValues("""select name from """ + self.get_tblteams() + """ where active = 1 order by name;""");
+        return self.GetValues("""select name from """ + self.tblteams + """ where active = 1 order by name;""");
 
     def GetProductsFromFinance(self):
         """ Get the products from the finance table. """
-        return self.GetValues("""select distinct prod from """ + self.get_tblfinance() + """ order by prod;""")
+        return self.GetValues("""select distinct prod from """ + self.tblfinance + """ order by prod;""")
 
     def GetProducts(self):
         """ Get the products. """
-        return self.GetValues("""select prod from """ + self.get_tblproducts() + """ order by prod;""")
+        return self.GetValues("""select prod from """ + self.tblproducts + """ order by prod;""")
 
     def GetAccounts(self):
         """ Get the accounts. """
-        return self.GetValues("""select distinct acc from """ + self.get_tblfinance() + """ order by acc;""")
+        return self.GetValues("""select distinct acc from """ + self.tblfinance + """ order by acc;""")
  
     def GetMcodes(self):
         """ Get the market codes. """
-        return self.GetValues("""select distinct mcode from """ + self.get_tblmcodes() + """ order by mcode;""")
+        return self.GetValues("""select distinct mcode from """ + self.tblmcodes + """ order by mcode;""")
  
     def GetStockNames(self, mcode):
         """ Get the stock names. """
-        return self.GetValues("""select t1.name from """ + self.get_tblstocknames() + """ t1 join """ + self.get_tblmcodes() + """ t2 on t1.mid = t2.mid where t2.mcode = '""" + str(mcode) + """' order by t1.name;""")
+        return self.GetValues("""select t1.name from """ + self.tblstocknames + """ t1 join """ + self.tblmcodes + """ t2 on t1.mid = t2.mid where t2.mcode = '""" + str(mcode) + """' order by t1.name;""")
 
     def GetStockInfo(self, sname):
         """ Get extra stock info. """
-        return self.GetValues("""select t1.description, t2.description from """ + self.get_tblstocknames() + """ t1 join """ + self.get_tblmcodes() + """ t2 on t1.mid = t2.mid where t1.name = '""" + str(sname) + """';""")
+        return self.GetValues("""select t1.description, t2.description from """ + self.tblstocknames + """ t1 join """ + self.tblmcodes + """ t2 on t1.mid = t2.mid where t1.name = '""" + str(sname) + """';""")
         
     def GetExpenses():
         """ Get the total expenses, ordered by year. """
@@ -427,21 +294,21 @@ class DatabaseAccess():
         strexprd = ""
         for prd in exprds:
             exprdstr = strexprd + " and t1.prod <> '" + prd + "'"
-        return self.GetValues("""select extract(year from t1.date), sum(t1.amount) from """ + self.get_tblfinance() + """ t1 where t1.flag = 0 and """ + strexprds + """ group by extract(year from t1.date);""")
+        return self.GetValues("""select extract(year from t1.date), sum(t1.amount) from """ + self.tblfinance + """ t1 where t1.flag = 0 and """ + strexprds + """ group by extract(year from t1.date);""")
 
     def GetPassive():
         """ Get the total passive income, ordered by year. """
-        return self.GetValues("""select sum(t1.amount) from """ + self.get_finance() + """ t1 where t1.prod = 'invest.dividend' or t1.prod = 'invest.refund';""")
+        return self.GetValues("""select sum(t1.amount) from """ + self.finance + """ t1 where t1.prod = 'invest.dividend' or t1.prod = 'invest.refund';""")
 
     def CalculateSW():
         """ Calculate the safe withdrawal value. """
-        return self.GetValues("""select t1.description, t2.description from """ + self.get_tblstocknames() + """ t1 join """ + self.get_tblmcodes() + """ t2 on t1.mid = t2.mid where t1.name = '""" + str(sname) + """';""")
+        return self.GetValues("""select t1.description, t2.description from """ + self.tblstocknames + """ t1 join """ + self.tblmcodes + """ t2 on t1.mid = t2.mid where t1.name = '""" + str(sname) + """';""")
        
     def RemoveTables(self):
         """ The actual removal of the tables. """
         db = dbapi2.connect(host=self.get_dbhost(),database=self.get_dbname(), user=self.get_dbuser(), password=self.get_dbpass())
         cur = db.cursor()
-        cur.execute ("""drop table """ + self.get_tblteams() + """;drop table """ + self.get_tblstocknames() + """;drop table """ + self.get_tblmcodes() + """;drop table """ + self.get_tblproducts() + """;drop table """ + self.get_tblcrossover() + """;drop table """ + self.get_tblsafetymargins() + """;""")
+        cur.execute ("""drop table """ + self.tblteams + """;drop table """ + self.tblstocknames + """;drop table """ + self.tblmcodes + """;drop table """ + self.tblproducts + """;drop table """ + self.tblsafetymargins + """;""")
         db.commit()
         cur.close()
         db.close()
