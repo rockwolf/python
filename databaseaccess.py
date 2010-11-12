@@ -92,7 +92,7 @@ class DatabaseAccess():
         """ Get config file path from XDG_CONFIG_DIR. """
         # TODO: get from env var
         #return '~/.config/clipf2db/clipf2db.rc'
-        return 'config/lisagui/lisagui.rc'
+        return 'config/lisa.rc'
 
     def Config(self):
         """ Retrieve config file values """
