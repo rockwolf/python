@@ -1,4 +1,4 @@
-CREATE TABLE teams
+CREATE TABLE T_TEAMS
 (
     tid serial not null,
     name varchar(30) not null,

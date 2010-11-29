@@ -1,4 +1,4 @@
-CREATE TABLE products
+CREATE TABLE T_PRODUCTS
 (
     pid serial not null,
     prod varchar(30) not null,

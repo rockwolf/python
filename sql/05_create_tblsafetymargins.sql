@@ -1,4 +1,4 @@
-CREATE TABLE safetymargins
+CREATE TABLE T_SAFETYMARGINS
 (
     smid serial not null,
     description varchar(100) not null,

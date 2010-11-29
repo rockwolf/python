@@ -75,17 +75,17 @@ class DatabaseAccess():
         """ Initialise the database class. """ 
         self.set_myconf(self.ConfFile())
         self.Config()
-        self.tblfinance = 'finance'
-        self.tblstocks = 'stocks'
-        self.tblcurstocks = 'curstocks'
-        self.tblbets = 'bets'
-        self.tblbetresults = 'betresults'
-        self.tblcurbets = 'curbets'
-        self.tblteams = 'teams'
-        self.tblmcodes = 'mcodes'
-        self.tblstocknames = 'stocknames'
-        self.tblproducts = 'products'
-        self.tblsafetymargins = 'safetymargins'
+        self.tblfinance = 'T_FINANCE'
+        self.tblstocks = 'T_STOCKS'
+        self.tblcurstocks = 'T_CURSTOCKS'
+        self.tblbets = 'T_BETS'
+        self.tblbetresults = 'T_BETRESULTS'
+        self.tblcurbets = 'T_CURBETS'
+        self.tblteams = 'T_TEAMS'
+        self.tblmcodes = 'T_MCODES'
+        self.tblstocknames = 'T_STOCKNAMES'
+        self.tblproducts = 'T_PRODUCTS'
+        self.tblsafetymargins = 'T_SAFETYMARGINS'
         self.msgHandler = __import__('messagehandler')
 
     def ConfFile(self):

@@ -1,4 +1,4 @@
-CREATE TABLE stocknames
+CREATE TABLE T_STOCKNAMES
 (
     snid serial not null,
     name varchar(5) not null,
@@ -7,5 +7,5 @@ CREATE TABLE stocknames
     date_created timestamp,
     date_modified timestamp,
     constraint pk_snid primary key(snid),
-    constraint fk_mid foreign key(mid) references mcodes(mid)
+    constraint fk_mid foreign key(mid) references T_MCODES(mid)
 );

@@ -1,4 +1,4 @@
-CREATE TABLE mcodes
+CREATE TABLE T_MCODES
 (
     mid serial not null,
     mcode varchar(3) not null,
