@@ -86,6 +86,12 @@ class DatabaseAccess():
         self.tblstocknames = 'T_STOCKNAMES'
         self.tblproducts = 'T_PRODUCTS'
         self.tblsafetymargins = 'T_SAFETYMARGINS'
+        self.tables = [self.tblteams, self.tblmcodes, self.tblstocknames, self.tblproducts, self.tblsafetymargins]
+
+        self.sqlpath = 'sql/'
+        self.sqldrop = '01_drop_tables.sql'
+        self.sqlcreate = ['01_create_T_TEAMS.sql', '02_create_T_MCODES.sql', '03_create_T_STOCKNAMES.sql', '04_create_T_PRODUCTS.sql', '05_create_T_SAFETYMARGINS.sql']
+        self.sqlinit = ['01_init_T_TEAMS.sql', '02_init_T_MCODES.sql', '03_init_T_STOCKNAMES.sql', '04_init_T_PRODUCTS.sql', '05_init_T_SAFETYMARGINS.sql']
         self.msgHandler = __import__('messagehandler')
 
     def ConfFile(self):
@@ -113,115 +119,55 @@ class DatabaseAccess():
         msgObj = self.msgHandler.MessageHandler()
         print "Setting up the database..."  
         self.SetupTables(); 
-        tables = [self.tblteams, self.tblmcodes, self.tblstocknames, self.tblproducts, self.tblsafetymargins]
-        msgObj.PrintAction('Created table', tables)
+        msgObj.PrintAction('Created table', self.tables)
         print "Fill in known values..."
         self.FillTables()
-        msgObj.PrintAction('Added known values to table', tables)
+        msgObj.PrintAction('Added known values to table', self.tables)
         msgObj = None
     
     def SetupTables(self):
         """ The actual creation of the tables. """
         db = dbapi2.connect(host=self.get_dbhost(),database=self.get_dbname(), user=self.get_dbuser(), password=self.get_dbpass())
         cur = db.cursor()
-        #TODO: add if(exists) stuff
-        cur.execute ("""CREATE TABLE """ + self.tblteams + """(tid serial not null, name varchar(30) not null, division varchar(30), active int not null default 1, date_created timestamp, date_modified timestamp, constraint pk_tid primary key(tid));""")
-        db.commit()
-        cur.execute ("""CREATE TABLE """ + self.tblmcodes + """(mid serial not null, mcode varchar(3) not null, description varchar(30), date_created timestamp, date_modified timestamp, constraint pk_mid primary key(mid));""")
-        db.commit()
-        cur.execute ("""CREATE TABLE """ + self.tblstocknames + """(snid serial not null, name varchar(5) not null, mid int not null, description varchar(30), date_created timestamp, date_modified timestamp, constraint pk_snid primary key(snid), constraint fk_mid foreign key(mid) references """ + self.tblmcodes + """(mid));""")
-        db.commit()
-        cur.execute ("""CREATE TABLE """ + self.tblproducts + """(pid serial not null, prod varchar(30) not null, date_created timestamp, date_modified timestamp, constraint pk_pid primary key(pid));""")
-        db.commit()
-        #cur.execute ("""CREATE TABLE """ + self.tblcrossover + """(year varchar(4) not null, passive decimal(18,4) not null default 0.0, sw decimal(18,4) not null default 0.0, expenses decimal(18,4) not null default 0.0, comment varchar(256), date_created timestamp, date_modified timestamp, constraint pk_yid primary key(year));""")
-        db.commit()
-        cur.execute ("""CREATE TABLE """ + self.tblsafetymargins + """(smid serial not null, description varchar(100) not null, value decimal(18,4) not null default 0.0, date_created timestamp, date_modified timestamp, constraint pk_smid primary key(smid));""")
-        db.commit()
-        cur.close()
-        db.close()
+        try:
+            try:
+                for script in self.sqlcreate:
+                    sqlfile = "%s/%s" % (str(self.sqlpath),str(script))
+                    procedures = open(sqlfile,'r').read()
+                    cur.execute(procedures)
+                    db.commit()
+            finally:
+                cur.close()
+                db.close()
+        except dbapi2.DatabaseError, e:
+            print "Error: procedures: %s" % str(e)
+            exit(1)
 
     def FillTables(self): 
         """ Fill in values we already know. """
+        #TODO: refactor so it becomes a script to exec a list of sql files. Can be used by setupTables too.
         now = datetime.now()
         db = dbapi2.connect(host=self.get_dbhost(),database=self.get_dbname(), user=self.get_dbuser(), password=self.get_dbpass())
         cur = db.cursor()
-        #TODO: add if exists check
-        # NHL only
-        teams = {'New Jersey Devils':'Atlantic',
-                'New York Islanders':'Atlantic',
-                'Philadelphia Flyers':'Atlantic',
-                'Pittsburgh Penguins':'Atlantic',
-                'Boston Bruins':'Northeast', 
-                'Buffalo Sabres':'Northeast',
-                'Montreal Canadiens':'Northeast',
-                'Ottawa Senators':'Northeast',
-                'Toronto Maple Leafs':'Northeast',
-                'Atlanta Thrashers':'Southeast',
-                'Carolina Hurricanes':'Southeast',
-                'Florida Panthers':'Southeast',
-                'Tampa Bay Lightning':'Southeast',
-                'Washington Capitals':'Southeast',
-                'Chicago Blackhawks':'Central',
-                'Columbus Blue Jackets':'Central',
-                'Detroit Red Wings':'Central',
-                'Nashville Predators':'Central',
-                'St. Louis Blues':'Central',
-                'Calgary Flames':'Northwest',
-                'Colorado Avalanche':'Northwest',
-                'Edmonton Oilers':'Northwest',
-                'Minnesota Wild':'Northwest',
-                'Vancouver Canucks':'Northwest',
-                'Anaheim Ducks':'Pacific',
-                'Dallas Stars':'Pacific',
-                'Los Angeles Kings':'Pacific',
-                'Phoenix Coyotes':'Pacific',
-                'San Jose Sharks':'Pacific'}
-        for team in teams:
-            cur.execute("""insert into """ + self.tblteams + """(name, division, date_created, date_modified) values('""" + team + """','""" + teams[team] + """','""" +  str(now) + """','""" + str(now) + """');""")
-        db.commit()
-        mcds = {'ams':'Amsterdam',
-            'ebr':'Brussels'}
-        for mcd in mcds:
-            cur.execute("""insert into """ + self.tblmcodes + """(mcode, description, date_created, date_modified) values('""" + mcd + """','""" + mcds[mcd] + """','""" +  str(now) + """','""" + str(now) + """');""")
-        db.commit()
-        stocks = {'rhji' : ['RHJI International S.A.','2'],
-            'nests' : ['Nestle','2'],
-            'devg' : ['Devgen','2'],
-            'enin' : ['4 Energy Invest','2'],
-            'adhof' : ['Koninklijke AHOLD N.V.','1'],
-            'dexb' : ['Dexia','2'],
-            'crxl' : ['Crucell N.V.','1'],
-            'drak' : ['Draka Holding N.V.','1'],
-            'theb' : ['Thenergo N.V.','2'],
-            'eurn' : ['Euronav','2'],
-            'tnet' : ['Telenet','2'],
-            'exm': ['Exmar','2']}
-        for stock in stocks:
-            cur.execute("""insert into """ + self.tblstocknames + """(name, mid, description, date_created, date_modified) values('""" + stock + """','""" + stocks[stock][1] + """','""" + stocks[stock][0] + """','""" +  str(now) + """','""" + str(now) + """');""")
-        db.commit()
-        # Products
-        for prod in self.GetProductsFromFinance():
-            cur.execute("""insert into """ + self.tblproducts + """(prod, date_created, date_modified) values('""" + prod + """','""" +  str(now) + """','""" + str(now) + """');""")
-        db.commit()
-        # Margins
-        margins = {
-            'Financial reserve' : 5000,
-            'Financial reserve after crossover' : 160000,
-            'Safety margin passive income' : 5000,
-            'Safe withdrawal rate' : 0.03,
-            'Bargain reserve' : 100000
-        }
-        for margin in margins:
-            cur.execute("""insert into """ + self.tblsafetymargins + """(description, value, date_created, date_modified) values('""" + margin + """','""" + str(margins[margin]) + """','""" +  str(now) + """','""" + str(now) + """');""")
-        db.commit()
+        try:
+            try:
+                for script in self.sqlinit:
+                    sqlfile = "%s/%s" % (str(self.sqlpath),str(script))
+                    procedures = open(sqlfile,'r').read()
+                    cur.execute(procedures)
+                    db.commit()
+            finally:
+                cur.close()
+                db.close()
+        except dbapi2.DatabaseError, e:
+            print "Error: procedures: %s" % str(e)
+            exit(1)
         # Crossover
         #TODO: get years and corresponding values and return them, add them here.
         # Make dba.GetExpenses and GetPassive and CalculateSW
         #for year in yearpassiveswexpenses:
         #    cur.execute("""insert into """ + self.tblsafetymargins + """(description, value, date_created, date_modified) values('""" + margin + """','""" + str(margins[margin]) + """','""" +  str(now) + """','""" + str(now) + """');""")
         #db.commit()
-        cur.close()
-        db.close()
  
     def Remove(self):
         """ Remove the tables + data from the db. """
@@ -230,8 +176,7 @@ class DatabaseAccess():
         if answer == 0:
             self.RemoveTables()
             msgObj = self.msgHandler.MessageHandler()
-            tables = [self.tblteams, self.tblmcodes, self.tblstocknames, self.tblproducts, self.tblsafetymargins]
-            msgObj.PrintAction('Removed table', tables)
+            msgObj.PrintAction('Removed table', self.tables)
         msgObj = None
        
     def GetValues(self, qry):
@@ -308,7 +253,15 @@ class DatabaseAccess():
         """ The actual removal of the tables. """
         db = dbapi2.connect(host=self.get_dbhost(),database=self.get_dbname(), user=self.get_dbuser(), password=self.get_dbpass())
         cur = db.cursor()
-        cur.execute ("""drop table """ + self.tblteams + """;drop table """ + self.tblstocknames + """;drop table """ + self.tblmcodes + """;drop table """ + self.tblproducts + """;drop table """ + self.tblsafetymargins + """;""")
-        db.commit()
-        cur.close()
-        db.close()
+        try:
+            try:
+                sqlfile = "%s/%s" % (str(self.sqlpath),str(self.sqldrop))
+                procedures = open(sqlfile,'r').read()
+                cur.execute(procedures)
+            finally:
+                db.commit()
+                cur.close()
+                db.close()
+        except dbapi2.DatabaseError, e:
+            print "Error: procedures: %s" % str(e)
+            exit(1)
