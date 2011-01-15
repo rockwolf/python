@@ -44,7 +44,7 @@
     <enum>QLayout::SetDefaultConstraint</enum>
    </property>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,2,0,1,1,0">
+    <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,2,0,0,1,1,0">
      <item>
       <layout class="QGridLayout" name="gridLayout_8">
        <property name="sizeConstraint">
@@ -57,13 +57,6 @@
         <widget class="QLabel" name="lblAccount">
          <property name="text">
           <string>Account</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QPushButton" name="btnNewAccount">
-         <property name="text">
-          <string>New</string>
          </property>
         </widget>
        </item>
@@ -137,13 +130,6 @@
              </property>
              <property name="text">
               <string>Comment</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QPushButton" name="btnNew">
-             <property name="text">
-              <string>New</string>
              </property>
             </widget>
            </item>
@@ -290,13 +276,6 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="5">
-              <widget class="QPushButton" name="btnNewMarketCode">
-               <property name="text">
-                <string>New</string>
-               </property>
-              </widget>
-             </item>
              <item row="0" column="0">
               <widget class="QLabel" name="lblMarketCode">
                <property name="text">
@@ -327,13 +306,6 @@
              </item>
              <item row="1" column="4">
               <widget class="QComboBox" name="cmbStockName"/>
-             </item>
-             <item row="1" column="5">
-              <widget class="QPushButton" name="btnNewStock">
-               <property name="text">
-                <string>New</string>
-               </property>
-              </widget>
              </item>
             </layout>
            </widget>
@@ -403,13 +375,6 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="2">
-              <widget class="QPushButton" name="btnNewTeam">
-               <property name="text">
-                <string>New</string>
-               </property>
-              </widget>
-             </item>
             </layout>
            </widget>
           </widget>
@@ -467,17 +432,86 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="2">
-              <widget class="QPushButton" name="btnNewTeam2">
-               <property name="text">
-                <string>New</string>
-               </property>
-              </widget>
-             </item>
             </layout>
            </widget>
           </widget>
          </widget>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QGridLayout" name="gridLayout_11">
+       <item row="0" column="2">
+        <widget class="QPushButton" name="btnClear">
+         <property name="font">
+          <font>
+           <family>Envy Code R</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>Clear</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="btnAdd">
+         <property name="font">
+          <font>
+           <family>Envy Code R</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>Add</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="8">
+        <widget class="QPushButton" name="btnNewAccount">
+         <property name="text">
+          <string>New Account</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <spacer name="horizontalSpacer_8">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="7">
+        <widget class="QPushButton" name="btnNewMarketCode">
+         <property name="text">
+          <string>New Market Code</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="6">
+        <widget class="QPushButton" name="btnNewStock">
+         <property name="text">
+          <string>New Stock</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="5">
+        <widget class="QPushButton" name="btnNew">
+         <property name="text">
+          <string>New Product</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="4">
+        <widget class="QPushButton" name="btnNewTeam">
+         <property name="text">
+          <string>New Team</string>
+         </property>
         </widget>
        </item>
       </layout>
@@ -528,12 +562,12 @@
          <property name="title">
           <string>Summary</string>
          </property>
-         <widget class="QTextEdit" name="txtSummary_2">
+         <widget class="QTextEdit" name="txtSummary">
           <property name="geometry">
            <rect>
             <x>10</x>
             <y>20</y>
-            <width>781</width>
+            <width>961</width>
             <height>81</height>
            </rect>
           </property>
@@ -554,6 +588,9 @@
           <property name="frameShadow">
            <enum>QFrame::Sunken</enum>
           </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
          </widget>
         </widget>
        </item>
@@ -566,12 +603,12 @@
          <property name="title">
           <string>Last Added</string>
          </property>
-         <widget class="QTextEdit" name="txtLastAdded_2">
+         <widget class="QTextEdit" name="txtLastAdded">
           <property name="geometry">
            <rect>
-            <x>20</x>
+            <x>10</x>
             <y>20</y>
-            <width>781</width>
+            <width>951</width>
             <height>71</height>
            </rect>
           </property>
@@ -592,6 +629,9 @@
           <property name="frameShadow">
            <enum>QFrame::Sunken</enum>
           </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
          </widget>
         </widget>
        </item>
@@ -599,20 +639,7 @@
      </item>
      <item>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="3">
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="8">
+       <item row="0" column="4">
         <widget class="QPushButton" name="btnExit">
          <property name="font">
           <font>
@@ -624,31 +651,7 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="0">
-        <widget class="QPushButton" name="btnAdd">
-         <property name="font">
-          <font>
-           <family>Envy Code R</family>
-          </font>
-         </property>
-         <property name="text">
-          <string>Add</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QPushButton" name="btnClear">
-         <property name="font">
-          <font>
-           <family>Envy Code R</family>
-          </font>
-         </property>
-         <property name="text">
-          <string>Clear</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="4">
+       <item row="0" column="1">
         <widget class="QPushButton" name="btnExecute">
          <property name="font">
           <font>
@@ -660,27 +663,14 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="5">
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="6">
+       <item row="0" column="2">
         <widget class="QPushButton" name="btnAchievements">
          <property name="text">
           <string>Achievements</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="7">
+       <item row="0" column="3">
         <spacer name="horizontalSpacer_4">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
