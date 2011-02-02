@@ -19,19 +19,22 @@ class MessageHandler:
     def __init__(self):
         """ Init of MessageHandler class """
     
-    def Confirmation(self, strAct):
+    def confirmation(self, stract):
         """ Show confirmation dialog """
-        answer = raw_input('Are you sure you want to %s? [y|n] ' % strAct).strip().lower()
+        answer = \
+            raw_input(
+                'Are you sure you want to %s? [y|n] ' % stract \
+            ).strip().lower()
         if answer != 'y':
             print 'Aborted.'
             return -1
         elif answer == 'y':
             return 0
 
-    def PrintAction(self, strAct, lstStr):
-        """ Print message about strAction for each item in the lstObj list """
-        for s in lstStr:
-            print '{0} {1}.'.format(strAct, s)
+    def printaction(self, stract, lststr):
+        """ Print message about straction for each item in the lstObj list """
+        for s in lststr:
+            print '{0} {1}.'.format(stract, s)
 
 class ErrorHandler(MessageHandler):
     """ A class to handle error messages, it inherits from MessageHandler """

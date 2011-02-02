@@ -114,18 +114,18 @@ class DatabaseAccess():
         self.set_dbuser(dbuser)        
         self.set_dbpass(dbpass)        
 
-    def Setup(self):
-        """ Setup the db. """
+    def setup(self):
+        """ setup the db. """
         msgObj = self.msgHandler.MessageHandler()
         print "Setting up the database..."  
-        self.SetupTables(); 
+        self.setupTables(); 
         msgObj.PrintAction('Created table', self.tables)
         print "Fill in known values..."
         self.FillTables()
         msgObj.PrintAction('Added known values to table', self.tables)
         msgObj = None
     
-    def SetupTables(self):
+    def setupTables(self):
         """ The actual creation of the tables. """
         db = dbapi2.connect(host=self.get_dbhost(),database=self.get_dbname(), user=self.get_dbuser(), password=self.get_dbpass())
         cur = db.cursor()
@@ -169,14 +169,14 @@ class DatabaseAccess():
         #    cur.execute("""insert into """ + self.tblsafetymargins + """(description, value, date_created, date_modified) values('""" + margin + """','""" + str(margins[margin]) + """','""" +  str(now) + """','""" + str(now) + """');""")
         #db.commit()
  
-    def Remove(self):
-        """ Remove the tables + data from the db. """
+    def remove(self):
+        """ remove the tables + data from the db. """
         msgObj = self.msgHandler.MessageHandler()
         answer = msgObj.Confirmation('remove all tables from the database')
         if answer == 0:
-            self.RemoveTables()
+            self.removeTables()
             msgObj = self.msgHandler.MessageHandler()
-            msgObj.PrintAction('Removed table', self.tables)
+            msgObj.PrintAction('removed table', self.tables)
         msgObj = None
        
     def GetValues(self, qry):
@@ -249,7 +249,7 @@ class DatabaseAccess():
         """ Calculate the safe withdrawal value. """
         return self.GetValues("""select t1.description, t2.description from """ + self.tblstocknames + """ t1 join """ + self.tblmcodes + """ t2 on t1.mid = t2.mid where t1.name = '""" + str(sname) + """';""")
        
-    def RemoveTables(self):
+    def removeTables(self):
         """ The actual removal of the tables. """
         db = dbapi2.connect(host=self.get_dbhost(),database=self.get_dbname(), user=self.get_dbuser(), password=self.get_dbpass())
         cur = db.cursor()

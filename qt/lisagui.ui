@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>frmMain</class>
- <widget class="QDialog" name="frmMain">
+ <class>frm_main</class>
+ <widget class="QDialog" name="frm_main">
   <property name="enabled">
    <bool>true</bool>
   </property>
@@ -51,10 +51,10 @@
         <enum>QLayout::SetFixedSize</enum>
        </property>
        <item row="0" column="2">
-        <widget class="QComboBox" name="cmbAccount"/>
+        <widget class="QComboBox" name="cmb_account"/>
        </item>
        <item row="0" column="1">
-        <widget class="QLabel" name="lblAccount">
+        <widget class="QLabel" name="lbl_account">
          <property name="text">
           <string>Account</string>
          </property>
@@ -81,7 +81,7 @@
         <enum>QLayout::SetDefaultConstraint</enum>
        </property>
        <item row="0" column="0">
-        <widget class="QGroupBox" name="grpFinance">
+        <widget class="QGroupBox" name="grp_finance">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -112,17 +112,17 @@
           </property>
           <layout class="QGridLayout" name="gridLayout_4">
            <item row="4" column="1">
-            <widget class="QLineEdit" name="txtComment">
+            <widget class="QLineEdit" name="txt_comment">
              <property name="enabled">
               <bool>true</bool>
              </property>
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QComboBox" name="cmbProduct"/>
+            <widget class="QComboBox" name="cmb_product"/>
            </item>
            <item row="4" column="0">
-            <widget class="QLabel" name="lblComment">
+            <widget class="QLabel" name="lbl_comment">
              <property name="font">
               <font>
                <family>Envy Code R</family>
@@ -134,28 +134,28 @@
             </widget>
            </item>
            <item row="3" column="0">
-            <widget class="QLabel" name="lblAmount">
+            <widget class="QLabel" name="lbl_amount">
              <property name="text">
               <string>Amount</string>
              </property>
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="lblProduct">
+            <widget class="QLabel" name="lbl_product">
              <property name="text">
               <string>Product</string>
              </property>
             </widget>
            </item>
            <item row="0" column="0">
-            <widget class="QLabel" name="lblDate">
+            <widget class="QLabel" name="lbl_date">
              <property name="text">
               <string>Date</string>
              </property>
             </widget>
            </item>
            <item row="3" column="1">
-            <widget class="QDoubleSpinBox" name="spnAmount">
+            <widget class="QDoubleSpinBox" name="spn_amount">
              <property name="maximum">
               <double>999999.989999999990687</double>
              </property>
@@ -165,7 +165,7 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QDateEdit" name="dtDate">
+            <widget class="QDateEdit" name="dt_date">
              <property name="displayFormat">
               <string>yyyy-MM-dd</string>
              </property>
@@ -179,7 +179,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QGroupBox" name="grpDetails">
+        <widget class="QGroupBox" name="grp_details">
          <property name="font">
           <font>
            <family>Envy Code R</family>
@@ -188,7 +188,7 @@
          <property name="title">
           <string>Details</string>
          </property>
-         <widget class="QTabWidget" name="tabDetails">
+         <widget class="QTabWidget" name="tab_details">
           <property name="geometry">
            <rect>
             <x>10</x>
@@ -203,7 +203,7 @@
            </font>
           </property>
           <property name="currentIndex">
-           <number>1</number>
+           <number>3</number>
           </property>
           <property name="elideMode">
            <enum>Qt::ElideNone</enum>
@@ -218,32 +218,6 @@
            <attribute name="title">
             <string>~/</string>
            </attribute>
-           <widget class="QScrollArea" name="scrollArea_2">
-            <property name="geometry">
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>371</width>
-              <height>161</height>
-             </rect>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::NoFrame</enum>
-            </property>
-            <property name="widgetResizable">
-             <bool>true</bool>
-            </property>
-            <widget class="QWidget" name="scrollAreaWidgetContents_2">
-             <property name="geometry">
-              <rect>
-               <x>0</x>
-               <y>0</y>
-               <width>371</width>
-               <height>161</height>
-              </rect>
-             </property>
-            </widget>
-           </widget>
           </widget>
           <widget class="QWidget" name="tabPageStocks">
            <attribute name="title">
@@ -260,52 +234,52 @@
             </property>
             <layout class="QGridLayout" name="gridLayout_5">
              <item row="0" column="4">
-              <widget class="QComboBox" name="cmbMarketCode"/>
+              <widget class="QComboBox" name="cmb_marketcode"/>
              </item>
              <item row="3" column="4">
-              <widget class="QDoubleSpinBox" name="spnPrice">
+              <widget class="QDoubleSpinBox" name="spn_price">
                <property name="maximum">
                 <double>999999.989999999990687</double>
                </property>
               </widget>
              </item>
              <item row="2" column="4">
-              <widget class="QSpinBox" name="spnQuantity">
+              <widget class="QSpinBox" name="spn_quantity">
                <property name="maximum">
                 <number>999999</number>
                </property>
               </widget>
              </item>
              <item row="0" column="0">
-              <widget class="QLabel" name="lblMarketCode">
+              <widget class="QLabel" name="lbl_marketcode">
                <property name="text">
                 <string>Market code</string>
                </property>
               </widget>
              </item>
              <item row="1" column="0">
-              <widget class="QLabel" name="lblStockName">
+              <widget class="QLabel" name="lbl_stockname">
                <property name="text">
                 <string>Stock name</string>
                </property>
               </widget>
              </item>
              <item row="2" column="0">
-              <widget class="QLabel" name="lblQuantity">
+              <widget class="QLabel" name="lbl_quantity">
                <property name="text">
                 <string>Quantity</string>
                </property>
               </widget>
              </item>
              <item row="3" column="0">
-              <widget class="QLabel" name="lblPrice">
+              <widget class="QLabel" name="lbl_price">
                <property name="text">
                 <string>Price</string>
                </property>
               </widget>
              </item>
              <item row="1" column="4">
-              <widget class="QComboBox" name="cmbStockName"/>
+              <widget class="QComboBox" name="cmb_stockname"/>
              </item>
             </layout>
            </widget>
@@ -325,20 +299,20 @@
             </property>
             <layout class="QGridLayout" name="gridLayout_6">
              <item row="1" column="1">
-              <widget class="QComboBox" name="cmbTeamB">
+              <widget class="QComboBox" name="cmb_teamb">
                <property name="currentIndex">
                 <number>-1</number>
                </property>
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="QComboBox" name="cmbTeamA"/>
+              <widget class="QComboBox" name="cmb_teama"/>
              </item>
              <item row="2" column="1">
-              <widget class="QComboBox" name="cmbChoice"/>
+              <widget class="QComboBox" name="cmb_choice"/>
              </item>
              <item row="3" column="1">
-              <widget class="QDateTimeEdit" name="dtDateMatch">
+              <widget class="QDateTimeEdit" name="dt_datematch">
                <property name="displayFormat">
                 <string>yyyy-MM-dd HH:mm</string>
                </property>
@@ -348,28 +322,28 @@
               </widget>
              </item>
              <item row="0" column="0">
-              <widget class="QLabel" name="lblTeamA">
+              <widget class="QLabel" name="lbl_teama">
                <property name="text">
                 <string>Team A</string>
                </property>
               </widget>
              </item>
              <item row="1" column="0">
-              <widget class="QLabel" name="lblTeamB">
+              <widget class="QLabel" name="lbl_teamb">
                <property name="text">
                 <string>Team B</string>
                </property>
               </widget>
              </item>
              <item row="2" column="0">
-              <widget class="QLabel" name="lblChoice">
+              <widget class="QLabel" name="lbl_choice">
                <property name="text">
                 <string>Choice</string>
                </property>
               </widget>
              </item>
              <item row="3" column="0">
-              <widget class="QLabel" name="lblDateMatch">
+              <widget class="QLabel" name="lbl_datematch">
                <property name="text">
                 <string>Date match</string>
                </property>
@@ -393,40 +367,40 @@
             </property>
             <layout class="QGridLayout" name="gridLayout_7">
              <item row="0" column="1">
-              <widget class="QComboBox" name="cmbTeamA2"/>
+              <widget class="QComboBox" name="cmb_teama2"/>
              </item>
              <item row="1" column="1">
-              <widget class="QComboBox" name="cmbTeamB2"/>
+              <widget class="QComboBox" name="cmb_teamb2"/>
              </item>
              <item row="2" column="1">
-              <widget class="QSpinBox" name="spnScoreA"/>
+              <widget class="QSpinBox" name="spn_scorea"/>
              </item>
              <item row="3" column="1">
-              <widget class="QSpinBox" name="spnScoreB"/>
+              <widget class="QSpinBox" name="spn_scoreb"/>
              </item>
              <item row="0" column="0">
-              <widget class="QLabel" name="lblTeamA2">
+              <widget class="QLabel" name="lbl_teama2">
                <property name="text">
                 <string>Team A</string>
                </property>
               </widget>
              </item>
              <item row="1" column="0">
-              <widget class="QLabel" name="lblTeamB2">
+              <widget class="QLabel" name="lbl_teamb2">
                <property name="text">
                 <string>Team B</string>
                </property>
               </widget>
              </item>
              <item row="2" column="0">
-              <widget class="QLabel" name="lblScoreA">
+              <widget class="QLabel" name="lbl_scorea">
                <property name="text">
                 <string>Score A</string>
                </property>
               </widget>
              </item>
              <item row="3" column="0">
-              <widget class="QLabel" name="lblScoreB">
+              <widget class="QLabel" name="lbl_scoreb">
                <property name="text">
                 <string>Score B</string>
                </property>
@@ -443,7 +417,7 @@
      <item>
       <layout class="QGridLayout" name="gridLayout_11">
        <item row="0" column="2">
-        <widget class="QPushButton" name="btnClear">
+        <widget class="QPushButton" name="btn_clear">
          <property name="font">
           <font>
            <family>Envy Code R</family>
@@ -455,7 +429,7 @@
         </widget>
        </item>
        <item row="0" column="0">
-        <widget class="QPushButton" name="btnAdd">
+        <widget class="QPushButton" name="btn_add">
          <property name="font">
           <font>
            <family>Envy Code R</family>
@@ -467,7 +441,7 @@
         </widget>
        </item>
        <item row="0" column="8">
-        <widget class="QPushButton" name="btnNewAccount">
+        <widget class="QPushButton" name="btn_new_account">
          <property name="text">
           <string>New Account</string>
          </property>
@@ -487,28 +461,28 @@
         </spacer>
        </item>
        <item row="0" column="7">
-        <widget class="QPushButton" name="btnNewMarketCode">
+        <widget class="QPushButton" name="btn_new_marketcode">
          <property name="text">
           <string>New Market Code</string>
          </property>
         </widget>
        </item>
        <item row="0" column="6">
-        <widget class="QPushButton" name="btnNewStock">
+        <widget class="QPushButton" name="btn_new_stock">
          <property name="text">
           <string>New Stock</string>
          </property>
         </widget>
        </item>
        <item row="0" column="5">
-        <widget class="QPushButton" name="btnNew">
+        <widget class="QPushButton" name="btn_new_product">
          <property name="text">
           <string>New Product</string>
          </property>
         </widget>
        </item>
        <item row="0" column="4">
-        <widget class="QPushButton" name="btnNewTeam">
+        <widget class="QPushButton" name="btn_new_team">
          <property name="text">
           <string>New Team</string>
          </property>
@@ -522,7 +496,7 @@
         <enum>QLayout::SetFixedSize</enum>
        </property>
        <item>
-        <widget class="QLabel" name="lblInfoFinance">
+        <widget class="QLabel" name="lbl_infofinance">
          <property name="font">
           <font>
            <family>Envy Code R</family>
@@ -534,7 +508,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="lblInfoDetails">
+        <widget class="QLabel" name="lbl_infodetails">
          <property name="font">
           <font>
            <family>Envy Code R</family>
@@ -553,7 +527,7 @@
         <enum>QLayout::SetDefaultConstraint</enum>
        </property>
        <item row="0" column="0">
-        <widget class="QGroupBox" name="grpSummary">
+        <widget class="QGroupBox" name="grp_summary">
          <property name="font">
           <font>
            <family>Envy Code R</family>
@@ -562,7 +536,7 @@
          <property name="title">
           <string>Summary</string>
          </property>
-         <widget class="QTextEdit" name="txtSummary">
+         <widget class="QTextEdit" name="txt_summary">
           <property name="geometry">
            <rect>
             <x>10</x>
@@ -599,11 +573,11 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
-        <widget class="QGroupBox" name="grpLastAdded_2">
+        <widget class="QGroupBox" name="grp_lastadded">
          <property name="title">
           <string>Last Added</string>
          </property>
-         <widget class="QTextEdit" name="txtLastAdded">
+         <widget class="QTextEdit" name="txt_lastadded">
           <property name="geometry">
            <rect>
             <x>10</x>
@@ -640,7 +614,7 @@
      <item>
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="0" column="4">
-        <widget class="QPushButton" name="btnExit">
+        <widget class="QPushButton" name="btn_exit">
          <property name="font">
           <font>
            <family>Envy Code R</family>
@@ -652,7 +626,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QPushButton" name="btnExecute">
+        <widget class="QPushButton" name="btn_execute">
          <property name="font">
           <font>
            <family>Envy Code R</family>
@@ -664,7 +638,7 @@
         </widget>
        </item>
        <item row="0" column="2">
-        <widget class="QPushButton" name="btnAchievements">
+        <widget class="QPushButton" name="btn_achievements">
          <property name="text">
           <string>Achievements</string>
          </property>
