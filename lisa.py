@@ -46,7 +46,7 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
         # initialize gui
         QtGui.QDialog.__init__(self, parent)
         self.gui = Ui_frm_main()
-        self.gui.setupUi(self) 
+        self.gui.installUi(self) 
         self.connectslots()
         self.initgui()
         self.layout()
@@ -449,7 +449,7 @@ class MainWrapper():
         print('''{0} : Less Interaction Saves Arbeit
 Options: 
  -h : displays this help message
- --setup : creates tables that help make the app more userfriendly
+ --install : creates tables that help make the app more userfriendly
  --remove : deletes all relevant tables in the database, 
             all data will be destroyed...
  --version : displays version
@@ -466,10 +466,10 @@ All arguments are optional.'''.format(self.get_pprog()))
         myapp.show()
         sys.exit(app.exec_())
 
-    def setup(self):
+    def install(self):
         """ Set up the database. """
         dba = DatabaseAccess()
-        dba.setup()
+        dba.install()
         dba = None
 
     def remove(self):
@@ -483,7 +483,7 @@ def main():
     # Gonna switch this to optparse later
     try:
         options, xarguments = getopt.getopt(
-            sys.argv[1:], 'h', ['setup', 'remove', 'version', 'python'])
+            sys.argv[1:], 'h', ['install', 'remove', 'version', 'python'])
     except getopt.error as err:
         print('Error: ' + str(err))
         sys.exit(1)
@@ -495,8 +495,8 @@ def main():
             # don't run the program after the optionparsing
             wrapper.set_exitstate(1)
     for opt in options[:]:
-        if opt[0] == '--setup':
-            wrapper.setup()
+        if opt[0] == '--install':
+            wrapper.install()
             wrapper.set_exitstate(1)
             break
     for opt in options[:]:
