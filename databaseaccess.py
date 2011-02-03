@@ -21,60 +21,14 @@ from datetime import datetime
 class DatabaseAccess():
     """ Connecting to the database. """ 
 
-    def get_myconf(self):
-        """ myconf """
-        return self._myconf
-
-    def set_myconf(self, release):
-        """ set myconf """
-        self._myconf = release
-
-    myconf = property(get_myconf, set_myconf)
- 
-    def get_dbhost(self):
-        """ dbhost """
-        return self._dbhost
-
-    def set_dbhost(self, version):
-        """ set dbhost """
-        self._dbhost = version
-
-    dbhost = property(get_dbhost, set_dbhost)
-
-    def get_dbname(self):
-        """ dbname """
-        return self._dbname
-
-    def set_dbname(self, version):
-        """ set dbname """
-        self._dbname = version
-
-    dbname = property(get_dbname, set_dbname)
-
-    def get_dbuser(self):
-        """ dbuser """
-        return self._dbuser
-
-    def set_dbuser(self, version):
-        """ set dbuser """
-        self._dbuser = version
-
-    dbuser = property(get_dbuser, set_dbuser)
-
-    def get_dbpass(self):
-        """ dbpass """
-        return self._dbpass
-    
-    def set_dbpass(self, version):
-        """ set dbpass """
-        self._dbpass = version
-
-    dbpass = property(get_dbpass, set_dbpass)
-
     def __init__(self):
         """ Initialise the database class. """ 
-        self.set_myconf(self.ConfFile())
-        self.Config()
+        self.myconf = 'config/lisa.rc'
+        self.dbhost = ''
+        self.dbname = ''
+        self.dbuser = ''
+        self.dbpass = ''
+        self.config()
         self.tblfinance = 'T_FINANCE'
         self.tblstocks = 'T_STOCKS'
         self.tblcurstocks = 'T_CURSTOCKS'
@@ -86,48 +40,57 @@ class DatabaseAccess():
         self.tblstocknames = 'T_STOCKNAMES'
         self.tblproducts = 'T_PRODUCTS'
         self.tblsafetymargins = 'T_SAFETYMARGINS'
-        self.tables = [self.tblteams, self.tblmcodes, self.tblstocknames, self.tblproducts, self.tblsafetymargins]
+        self.tables = [
+                self.tblteams,
+                self.tblmcodes,
+                self.tblstocknames,
+                self.tblproducts,
+                self.tblsafetymargins]
 
         self.sqlpath = 'sql/'
         self.sqldrop = '01_drop_tables.sql'
-        self.sqlcreate = ['01_create_T_TEAMS.sql', '02_create_T_MCODES.sql', '03_create_T_STOCKNAMES.sql', '04_create_T_PRODUCTS.sql', '05_create_T_SAFETYMARGINS.sql']
-        self.sqlinit = ['01_init_T_TEAMS.sql', '02_init_T_MCODES.sql', '03_init_T_STOCKNAMES.sql', '04_init_T_PRODUCTS.sql', '05_init_T_SAFETYMARGINS.sql']
+        self.sqlcreate = [
+                '01_create_T_TEAMS.sql',
+                '02_create_T_MCODES.sql',
+                '03_create_T_STOCKNAMES.sql',
+                '04_create_T_PRODUCTS.sql',
+                '05_create_T_SAFETYMARGINS.sql']
+        self.sqlinit = [
+                '01_init_T_TEAMS.sql',
+                '02_init_T_MCODES.sql',
+                '03_init_T_STOCKNAMES.sql',
+                '04_init_T_PRODUCTS.sql',
+                '05_init_T_SAFETYMARGINS.sql']
         self.msgHandler = __import__('messagehandler')
 
-    def ConfFile(self):
-        """ Get config file path from XDG_CONFIG_DIR. """
-        # TODO: get from env var
-        #return '~/.config/clipf2db/clipf2db.rc'
-        return 'config/lisa.rc'
-
-    def Config(self):
+    def config(self):
         """ Retrieve config file values """
-        config = ConfigParser.RawConfigParser()
-        config.read(self.get_myconf())
+        config = configParser.RawconfigParser()
+        config.read(self.myconf)
         
-        dbhost = config.get('database', 'host')[1:-1]
-        dbname = config.get('database', 'name')[1:-1]
-        dbuser = config.get('database', 'user')[1:-1]
-        dbpass = config.get('database', 'password')[1:-1]
-        self.set_dbhost(dbhost)        
-        self.set_dbname(dbname)        
-        self.set_dbuser(dbuser)        
-        self.set_dbpass(dbpass)        
+        self.dbhost = config.get('database', 'host')[1:-1]
+        self.dbname = config.get('database', 'name')[1:-1]
+        self.dbuser = config.get('database', 'user')[1:-1]
+        self.dbpass = config.get('database', 'password')[1:-1]
 
     def setup(self):
         """ setup the db. """
         msgObj = self.msgHandler.MessageHandler()
-        print "Setting up the database..."  
-        self.setupTables(); 
-        msgObj.PrintAction('Created table', self.tables)
-        print "Fill in known values..."
-        self.FillTables()
-        msgObj.PrintAction('Added known values to table', self.tables)
+        print('Setting up the database...')  
+        self.setup_tables(); 
+        msgObj.print_action('Created table', self.tables)
+        print('Fill in known values...')
+        self.init_tables()
+        msgObj.print_action('Added known values to table', self.tables)
         msgObj = None
     
-    def setupTables(self):
+    def setup_tables(self):
         """ The actual creation of the tables. """
-        db = dbapi2.connect(host=self.get_dbhost(),database=self.get_dbname(), user=self.get_dbuser(), password=self.get_dbpass())
+        db = dbapi2.connect(
+                host=self.get_dbhost(),
+                database=self.get_dbname(),
+                user=self.get_dbuser(),
+                password=self.get_dbpass())
         cur = db.cursor()
         try:
             try:
@@ -143,11 +106,15 @@ class DatabaseAccess():
             print "Error: procedures: %s" % str(e)
             exit(1)
 
-    def FillTables(self): 
-        """ Fill in values we already know. """
-        #TODO: refactor so it becomes a script to exec a list of sql files. Can be used by setupTables too.
+    def init_tables(self): 
+        """ Fill tables with initial values. """
+        #TODO: refactor so it becomes a script to exec a list of sql files. Can be used by setup_tables too.
         now = datetime.now()
-        db = dbapi2.connect(host=self.get_dbhost(),database=self.get_dbname(), user=self.get_dbuser(), password=self.get_dbpass())
+        db = dbapi2.connect(
+                host=self.get_dbhost(),
+                database=self.get_dbname(),
+                user=self.get_dbuser(),
+                password=self.get_dbpass())
         cur = db.cursor()
         try:
             try:
@@ -164,24 +131,28 @@ class DatabaseAccess():
             exit(1)
         # Crossover
         #TODO: get years and corresponding values and return them, add them here.
-        # Make dba.GetExpenses and GetPassive and CalculateSW
+        # Make dba.get_expenses and get_passive and calculate_sw
         #for year in yearpassiveswexpenses:
         #    cur.execute("""insert into """ + self.tblsafetymargins + """(description, value, date_created, date_modified) values('""" + margin + """','""" + str(margins[margin]) + """','""" +  str(now) + """','""" + str(now) + """');""")
         #db.commit()
  
-    def remove(self):
-        """ remove the tables + data from the db. """
+    def uninstall(self):
+        """ uninstall the tables + data from the db. """
         msgObj = self.msgHandler.MessageHandler()
-        answer = msgObj.Confirmation('remove all tables from the database')
+        answer = msgObj.Confirmation('uninstall all tables from the database')
         if answer == 0:
-            self.removeTables()
+            self.drop_tables()
             msgObj = self.msgHandler.MessageHandler()
-            msgObj.PrintAction('removed table', self.tables)
+            msgObj.print_action('uninstalld table', self.tables)
         msgObj = None
        
-    def GetValues(self, qry):
+    def getvalues(self, qry):
         """ Global wrapper for retrieving values. """
-        db = dbapi2.connect(host=self.get_dbhost(),database=self.get_dbname(), user=self.get_dbuser(), password=self.get_dbpass())
+        db = dbapi2.connect(
+                host=self.get_dbhost(),
+                database=self.get_dbname(),
+                user=self.get_dbuser(),
+                password=self.get_dbpass())
         cur = db.cursor()
         cur.execute (qry)
         rows = cur.fetchall()
@@ -196,62 +167,134 @@ class DatabaseAccess():
         db.close()
         return values
  
-    def GetTeams(self, otn):
-        """ Get the teams, but leave out the other team name. This way, teams are always different. """
+    def get_teams(self, otn):
+        """ Get a list of all teams
+
+            The given team name is left out, so it can be used to fill
+            combos without being able to select 2 identical teams.
+
+        """
         #if otn != '' and otn != None:
         #    # Is it necessary to get new values? (Is A in B? and vice versa)
-        #    if self.GetValues("""select name from """ + self.tblteams + """ where active = 1 and name ='""" + str(otn) + """' order by name;""") == []:
+        #    if self.getvalues("""select name from """ + self.tblteams + """ where active = 1 and name ='""" + str(otn) + """' order by name;""") == []:
         #        return None
         #    else:
-        #        return self.GetValues("""select name from """ + self.tblteams + """ where active = 1 and name <>'""" + str(otn) + """' order by name;""")
+        #        return self.getvalues("""select name from """ + self.tblteams + """ where active = 1 and name <>'""" + str(otn) + """' order by name;""")
         #else:
             # It's a fill action at startup, just get everything
-        return self.GetValues("""select name from """ + self.tblteams + """ where active = 1 order by name;""");
+        str_list = [
+                'select name from',
+                self.tblteams,
+                'where active = 1 order by name;']
+        return self.getvalues(' '.join(str_list))
 
-    def GetProductsFromFinance(self):
+    def get_products_from_finance(self):
         """ Get the products from the finance table. """
-        return self.GetValues("""select distinct prod from """ + self.tblfinance + """ order by prod;""")
+        str_list = [
+                'select distinct prod from',
+                self.tblfinance,
+                order by prod;]
+        return self.getvalues(' '.join(str_list))
 
-    def GetProducts(self):
+    def get_products(self):
         """ Get the products. """
-        return self.GetValues("""select prod from """ + self.tblproducts + """ order by prod;""")
+        str_list = [
+                'select prod from',
+                self.tblproducts,
+                'order by prod;']
+        return self.getvalues(' '.join(str_list))
 
-    def GetAccounts(self):
+    def get_accounts(self):
         """ Get the accounts. """
-        return self.GetValues("""select distinct acc from """ + self.tblfinance + """ order by acc;""")
+        str_list = [
+                'select distinct acc from',
+                self.tblfinance,
+                'order by acc;']
+        return self.getvalues(' '.join(str_list))
  
-    def GetMcodes(self):
+    def get_mcodes(self):
         """ Get the market codes. """
-        return self.GetValues("""select distinct mcode from """ + self.tblmcodes + """ order by mcode;""")
+        str_list = [
+                'select distinct mcode from',
+                self.tblmcodes,
+                'order by mcode;']
+        return self.getvalues(' '.join(str_list))
  
-    def GetStockNames(self, mcode):
+    def get_stocknames(self, mcode):
         """ Get the stock names. """
-        return self.GetValues("""select t1.name from """ + self.tblstocknames + """ t1 join """ + self.tblmcodes + """ t2 on t1.mid = t2.mid where t2.mcode = '""" + str(mcode) + """' order by t1.name;""")
+        str_list = [
+                'select t1.name from',
+                self.tblstocknames,
+                't1 join',
+                self.tblmcodes,
+                't2 on t1.mid = t2.mid where t2.mcode =',
+                "'" + str(mcode) + "'",
+                'order by t1.name;']
+        return self.getvalues(' '.join(str_list))
 
-    def GetStockInfo(self, sname):
+    def get_stockinfo(self, sname):
         """ Get extra stock info. """
-        return self.GetValues("""select t1.description, t2.description from """ + self.tblstocknames + """ t1 join """ + self.tblmcodes + """ t2 on t1.mid = t2.mid where t1.name = '""" + str(sname) + """';""")
+        str_list = [
+                'select t1.description, t2.description from',
+                self.tblstocknames,
+                't1 join',
+                self.tblmcodes,
+                't2 on t1.mid = t2.mid where t1.name =',
+                "'" + str(sname) + "';"]
+        return self.getvalues(' '.join(str_list))
         
-    def GetExpenses():
+    def get_expenses():
         """ Get the total expenses, ordered by year. """
         #TODO: extra flag in database, in seperate table?
-        exprds = ['account.start', 'account.tx', 'invest.invest', 'invest.changestocks', 'invest.buystocks', 'bet.place']
-        strexprd = ""
-        for prd in exprds:
-            exprdstr = strexprd + " and t1.prod <> '" + prd + "'"
-        return self.GetValues("""select extract(year from t1.date), sum(t1.amount) from """ + self.tblfinance + """ t1 where t1.flag = 0 and """ + strexprds + """ group by extract(year from t1.date);""")
+        prd_expenses = [
+                'account.start',
+                'account.tx',
+                'invest.invest',
+                'invest.changestocks',
+                'invest.buystocks',
+                'bet.place']
+        strprd_expenses = ''
+        for prd in prd_expenses:
+            str_list = [
+                    strprd_expenses,
+                    'and t1.prod <>',
+                    "'" + prd + "'"]
+            prd_expensestr = ' '.join(str_list)
+        str_list = [
+                'select extract(year from t1.date), sum(t1.amount) from',
+                self.tblfinance,
+                't1 where t1.flag = 0 and',
+                strprd_expensess,
+                'group by extract(year from t1.date);']
+        return self.getvalues()
 
-    def GetPassive():
+    def get_passive():
         """ Get the total passive income, ordered by year. """
-        return self.GetValues("""select sum(t1.amount) from """ + self.finance + """ t1 where t1.prod = 'invest.dividend' or t1.prod = 'invest.refund';""")
+        str_list = [
+                'select sum(t1.amount) from',
+                self.finance,
+                "t1 where t1.prod = 'invest.dividend'",
+                "or t1.prod = 'invest.refund';"]
+        return self.getvalues(' '.join(str_list))
 
-    def CalculateSW():
+    def calculate_sw():
         """ Calculate the safe withdrawal value. """
-        return self.GetValues("""select t1.description, t2.description from """ + self.tblstocknames + """ t1 join """ + self.tblmcodes + """ t2 on t1.mid = t2.mid where t1.name = '""" + str(sname) + """';""")
+        str_list = [
+                'select t1.description, t2.description from',
+                self.tblstocknames,
+                't1 join',
+                self.tblmcodes,
+                't2 on t1.mid = t2.mid where t1.name =',
+                "'" + str(sname) + "';"]
+        return self.getvalues(' '.join(str_list))
        
-    def removeTables(self):
+    def drop_tables(self):
         """ The actual removal of the tables. """
-        db = dbapi2.connect(host=self.get_dbhost(),database=self.get_dbname(), user=self.get_dbuser(), password=self.get_dbpass())
+        db = dbapi2.connect(
+                host=self.get_dbhost(),
+                database=self.get_dbname(),
+                user=self.get_dbuser(),
+                password=self.get_dbpass())
         cur = db.cursor()
         try:
             try:
@@ -263,5 +306,5 @@ class DatabaseAccess():
                 cur.close()
                 db.close()
         except dbapi2.DatabaseError, e:
-            print "Error: procedures: %s" % str(e)
+            print('Error: procedures: %s'.format(str(e)))
             exit(1)
