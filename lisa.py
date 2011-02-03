@@ -142,13 +142,13 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
             try:
                 for cmd in self.cmdbuffer:                
                     pipe1 = Popen(
-                    ['echo', 'set acc ' + self.gui.cmb_account.currentText(),
-                    '\n' + str(cmd)], stdout=PIPE
-                    )
+                        ['echo',
+                        'set acc ' + self.gui.cmb_account.currentText(),
+                        '\n' + str(cmd)],
+                        stdout=PIPE)
                     pipe2 = Popen(
-                    ['clipf'],
-                    stdin=pipe1.stdout
-                    )
+                        ['clipf'],
+                        stdin=pipe1.stdout)
             except Exception as strerror:
                 print("Error: {0}.".format(strerror))
 
