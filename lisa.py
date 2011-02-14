@@ -46,7 +46,7 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
         # initialize gui
         QtGui.QDialog.__init__(self, parent)
         self.gui = Ui_frm_main()
-        self.gui.installUi(self) 
+        self.gui.setupUi(self) 
         self.connectslots()
         self.initgui()
         self.layout()
@@ -146,7 +146,7 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
                         'set acc ' + self.gui.cmb_account.currentText(),
                         '\n' + str(cmd)],
                         stdout=PIPE)
-                    pipe2 = Popen(
+                    Popen(
                         ['clipf'],
                         stdin=pipe1.stdout)
             except Exception as strerror:
@@ -168,7 +168,7 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
         ):
             self.gui.tab_details.currentTabName = \
             self.gui.tab_details.setCurrentIndex(1)
-            self.UpdateInfoDetails()
+            self.update_info_details()
             if selstr != 'invest.changestocks':
                 self.gui.txt_comment.setEnabled(False)
         else:
@@ -201,16 +201,16 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
         self.fillcmb_teamb2()
         dba = DatabaseAccess()
         # Products
-        for prod in dba.GetProducts():
+        for prod in dba.get_products():
             self.gui.cmb_product.addItem(prod)
         # Accounts
-        for acc in dba.GetAccounts():
+        for acc in dba.get_accounts():
             self.gui.cmb_account.addItem(acc)
         # Choice
         self.gui.cmb_choice.addItem('A')
         self.gui.cmb_choice.addItem('B')
         # Market codes
-        for mcd in dba.GetMcodes():
+        for mcd in dba.get_mcodes():
             self.gui.cmb_marketcode.addItem(mcd)
         # Stock names
         self.fillcmb_stockname()
@@ -220,7 +220,7 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
         """ fill cmb function """
         dba = DatabaseAccess()
         self.gui.cmb_stockname.clear()
-        for name in dba.GetStockNames(self.gui.cmb_marketcode.currentText()):
+        for name in dba.get_stocknames(self.gui.cmb_marketcode.currentText()):
             self.gui.cmb_stockname.addItem(name)
         dba = None
        
@@ -230,7 +230,7 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
     
     def cmb_stockname_changed(self, selstr):
         """ When the stock name selection changes. """    
-        self.UpdateInfoDetails()        
+        self.update_info_details()        
         
     def cmb_teama_changed(self, selstr):
         """ When the team name selection changes for bet.place. """    
@@ -239,7 +239,7 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
         """ Put values in the cmb. """ 
         dba = DatabaseAccess()
         selstr = ''
-        teams = dba.GetTeams(selstr)
+        teams = dba.get_teams(selstr)
         if teams != None:
             self.gui.cmb_teama.clear()
             for team in teams:
@@ -253,7 +253,7 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
         """ Put values in the cmb. """ 
         dba = DatabaseAccess()
         selstr = ''
-        teams = dba.GetTeams(selstr)
+        teams = dba.get_teams(selstr)
         if teams != None:
             self.gui.cmb_teamb.clear()
             for team in teams:
@@ -267,7 +267,7 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
         """ Put values in the cmb. """ 
         dba = DatabaseAccess()
         selstr = ''
-        teams = dba.GetTeams(selstr)
+        teams = dba.get_teams(selstr)
         if teams != None:
             self.gui.cmb_teama2.clear()
             for team in teams:
@@ -281,14 +281,14 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
         """ Put values in the cmb. """ 
         dba = DatabaseAccess()
         selstr = ''
-        teams = dba.GetTeams(selstr)
+        teams = dba.get_teams(selstr)
         if teams != None:
             self.gui.cmb_teamb2.clear()
             for team in teams:
                 self.gui.cmb_teamb2.addItem(team)
         dba = None
         
-    def UpdateInfoDetails(self):
+    def update_info_details(self):
         """ Update infolabel details. """
         dba = DatabaseAccess()
         prod = self.gui.cmb_product.currentText()
@@ -298,7 +298,7 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
             prod == 'invest.sellstocks' or
             prod == 'invest.changestocks'
         ) and stock != '':
-            info = dba.GetStockInfo(stock)
+            info = dba.get_stockinfo(stock)
             self.gui.lbl_infodetails.setText('[' + info[1] + '] : ' + info[0])
         dba = None
 
@@ -384,64 +384,14 @@ class MainWrapper():
     
     """ 
 
-    def get_pprog(self):
-        """ pprog """
-        return self._pprog
-
-    def set_pprog(self, name):
-        """ set pprog """
-        self._pprog = name
-
-    pprog = property(get_pprog, set_pprog)
-
-    def get_pversion(self):
-        """ pversion """
-        return self._pversion
-
-    def set_pversion(self, version):
-        """ set pversion """
-        self._pversion = version
-
-    pversion = property(get_pversion, set_pversion)
-     
-    def get_prelease(self):
-        """ prelease """
-        return self._prelease
-
-    def set_prelease(self, release):
-        """ set prelease """
-        self._prelease = release
-
-    prelease = property(get_prelease, set_prelease)
-     
-    def get_pdate(self):
-        """ pdate """
-        return self._pdate
-
-    def set_pdate(self, date):
-        """ set pdate """
-        self._pdate = date
-
-    pdate = property(get_pdate, set_pdate)
-    
-    def get_exitstate(self):
-        """ Run or exit program? """
-        return self._exitstate
-
-    def set_exitstate(self, state):
-        """ Set run-/exitstate """
-        self._exitstate = state
-
-    exitstate = property(get_exitstate, set_exitstate)
-
     def __init__(self, parent=None):
         """ Construct basic QApplication, add widgets and start exec_loop. """
         # general properties of the app
-        self.set_pprog('lisa.py')
-        self.set_pversion('0.01a')
-        self.set_prelease('Wow, the exit button works!')
-        self.set_pdate('2010-08-28')     
-        self.set_exitstate(0)   
+        self.pprog = 'lisa.py'
+        self.pversion = '0.01a'
+        self.prelease = 'Wow, the exit button works!'
+        self.pdate = '2010-08-28'
+        self.exitstate = 0   
         self.msghandler = __import__('messagehandler')
     
     def usage(self):
@@ -450,15 +400,15 @@ class MainWrapper():
 Options: 
  -h : displays this help message
  --install : creates tables that help make the app more userfriendly
- --remove : deletes all relevant tables in the database, 
+ --uninstall : deletes all relevant tables in the database, 
             all data will be destroyed...
  --version : displays version
  --python : displays Python version
-All arguments are optional.'''.format(self.get_pprog()))
+All arguments are optional.'''.format(self.pprog))
 
     def run(self):
         """ This is the main driver for the program. """
-        if self.get_exitstate() == 1:
+        if self.exitstate == 1:
             sys.exit(0)
         # run the gui app
         app = QtGui.QApplication(sys.argv)
@@ -472,10 +422,10 @@ All arguments are optional.'''.format(self.get_pprog()))
         dba.install()
         dba = None
 
-    def remove(self):
+    def uninstall(self):
         """ Set up the database. """
         dba = DatabaseAccess()
-        dba.remove()
+        dba.uninstall()
         dba = None
 
 def main():
@@ -483,7 +433,7 @@ def main():
     # Gonna switch this to optparse later
     try:
         options, xarguments = getopt.getopt(
-            sys.argv[1:], 'h', ['install', 'remove', 'version', 'python'])
+            sys.argv[1:], 'h', ['install', 'uninstall', 'version', 'python'])
     except getopt.error as err:
         print('Error: ' + str(err))
         sys.exit(1)
@@ -493,35 +443,35 @@ def main():
         if opt[0] == '-h':
             wrapper.usage()
             # don't run the program after the optionparsing
-            wrapper.set_exitstate(1)
+            wrapper.exitstate = 1
     for opt in options[:]:
         if opt[0] == '--install':
             wrapper.install()
-            wrapper.set_exitstate(1)
+            wrapper.exitstate = 1
             break
     for opt in options[:]:
-        if opt[0] == '--remove':
-            wrapper.remove()
-            wrapper.set_exitstate(1)
+        if opt[0] == '--uninstall':
+            wrapper.uninstall()
+            wrapper.exitstate = 1
             break
     for opt in options[:]:
         if opt[0] == '--version':
             str_list = [
-                wrapper.get_pprog(),
+                wrapper.pprog,
                 ' version ',
-                wrapper.get_pversion(),
+                wrapper.pversion,
                 ' (',
-                wrapper.get_pdate(),
+                wrapper.pdate,
                 '), \'',
-                wrapper.get_prelease(),
+                wrapper.prelease,
                 '\' release.']
             print(''.join(str_list))
-            wrapper.set_exitstate(1)
+            wrapper.exitstate = 1
             break
     for opt in options[:]:
         if opt[0] == '--python':
-            print('Python '+sys.version)
-            wrapper.set_exitstate(1)
+            print('Python ' + sys.version)
+            wrapper.exitstate = 1
             break
 
     wrapper.run() #run the main method for the program

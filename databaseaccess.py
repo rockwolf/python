@@ -65,7 +65,7 @@ class DatabaseAccess():
 
     def config(self):
         """ Retrieve config file values """
-        config = configParser.RawconfigParser()
+        config = ConfigParser.RawConfigParser()
         config.read(self.myconf)
         
         self.dbhost = config.get('database', 'host')[1:-1]
@@ -73,24 +73,24 @@ class DatabaseAccess():
         self.dbuser = config.get('database', 'user')[1:-1]
         self.dbpass = config.get('database', 'password')[1:-1]
 
-    def setup(self):
-        """ setup the db. """
+    def install(self):
+        """ install the db. """
         msgObj = self.msgHandler.MessageHandler()
         print('Setting up the database...')  
-        self.setup_tables(); 
+        self.create_tables(); 
         msgObj.print_action('Created table', self.tables)
         print('Fill in known values...')
         self.init_tables()
         msgObj.print_action('Added known values to table', self.tables)
         msgObj = None
     
-    def setup_tables(self):
+    def create_tables(self):
         """ The actual creation of the tables. """
         db = dbapi2.connect(
-                host=self.get_dbhost(),
-                database=self.get_dbname(),
-                user=self.get_dbuser(),
-                password=self.get_dbpass())
+                host=self.dbhost,
+                database=self.dbname,
+                user=self.dbuser,
+                password=self.dbpass)
         cur = db.cursor()
         try:
             try:
@@ -108,13 +108,13 @@ class DatabaseAccess():
 
     def init_tables(self): 
         """ Fill tables with initial values. """
-        #TODO: refactor so it becomes a script to exec a list of sql files. Can be used by setup_tables too.
+        #TODO: refactor so it becomes a script to exec a list of sql files. Can be used by create_tables too.
         now = datetime.now()
         db = dbapi2.connect(
-                host=self.get_dbhost(),
-                database=self.get_dbname(),
-                user=self.get_dbuser(),
-                password=self.get_dbpass())
+                host=self.dbhost,
+                database=self.dbname,
+                user=self.dbuser,
+                password=self.dbpass)
         cur = db.cursor()
         try:
             try:
@@ -149,10 +149,10 @@ class DatabaseAccess():
     def getvalues(self, qry):
         """ Global wrapper for retrieving values. """
         db = dbapi2.connect(
-                host=self.get_dbhost(),
-                database=self.get_dbname(),
-                user=self.get_dbuser(),
-                password=self.get_dbpass())
+                host=self.dbhost,
+                database=self.dbname,
+                user=self.dbuser,
+                password=self.dbpass)
         cur = db.cursor()
         cur.execute (qry)
         rows = cur.fetchall()
@@ -193,7 +193,7 @@ class DatabaseAccess():
         str_list = [
                 'select distinct prod from',
                 self.tblfinance,
-                order by prod;]
+                'order by prod;']
         return self.getvalues(' '.join(str_list))
 
     def get_products(self):
@@ -243,7 +243,7 @@ class DatabaseAccess():
                 "'" + str(sname) + "';"]
         return self.getvalues(' '.join(str_list))
         
-    def get_expenses():
+    def get_expenses(self):
         """ Get the total expenses, ordered by year. """
         #TODO: extra flag in database, in seperate table?
         prd_expenses = [
@@ -268,7 +268,7 @@ class DatabaseAccess():
                 'group by extract(year from t1.date);']
         return self.getvalues()
 
-    def get_passive():
+    def get_passive(self):
         """ Get the total passive income, ordered by year. """
         str_list = [
                 'select sum(t1.amount) from',
@@ -277,7 +277,7 @@ class DatabaseAccess():
                 "or t1.prod = 'invest.refund';"]
         return self.getvalues(' '.join(str_list))
 
-    def calculate_sw():
+    def calculate_sw(self, sname):
         """ Calculate the safe withdrawal value. """
         str_list = [
                 'select t1.description, t2.description from',
@@ -291,10 +291,10 @@ class DatabaseAccess():
     def drop_tables(self):
         """ The actual removal of the tables. """
         db = dbapi2.connect(
-                host=self.get_dbhost(),
-                database=self.get_dbname(),
-                user=self.get_dbuser(),
-                password=self.get_dbpass())
+                host=self.dbhost,
+                database=self.dbname,
+                user=self.dbuser,
+                password=self.dbpass)
         cur = db.cursor()
         try:
             try:

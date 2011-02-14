@@ -44,7 +44,7 @@
     <enum>QLayout::SetDefaultConstraint</enum>
    </property>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,2,0,0,1,1,0">
+    <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,2,0,0,1,0">
      <item>
       <layout class="QGridLayout" name="gridLayout_8">
        <property name="sizeConstraint">
@@ -111,6 +111,9 @@
            </font>
           </property>
           <layout class="QGridLayout" name="gridLayout_4">
+           <property name="sizeConstraint">
+            <enum>QLayout::SetDefaultConstraint</enum>
+           </property>
            <item row="4" column="1">
             <widget class="QLineEdit" name="txt_comment">
              <property name="enabled">
@@ -193,8 +196,8 @@
            <rect>
             <x>10</x>
             <y>20</y>
-            <width>371</width>
-            <height>181</height>
+            <width>381</width>
+            <height>191</height>
            </rect>
           </property>
           <property name="font">
@@ -202,8 +205,14 @@
             <family>Envy Code R</family>
            </font>
           </property>
+          <property name="tabPosition">
+           <enum>QTabWidget::North</enum>
+          </property>
+          <property name="tabShape">
+           <enum>QTabWidget::Rounded</enum>
+          </property>
           <property name="currentIndex">
-           <number>3</number>
+           <number>0</number>
           </property>
           <property name="elideMode">
            <enum>Qt::ElideNone</enum>
@@ -214,12 +223,12 @@
           <property name="documentMode">
            <bool>true</bool>
           </property>
-          <widget class="QWidget" name="tabPageEmpty">
+          <widget class="QWidget" name="tab_page_empty">
            <attribute name="title">
             <string>~/</string>
            </attribute>
           </widget>
-          <widget class="QWidget" name="tabPageStocks">
+          <widget class="QWidget" name="tab_page_stocks">
            <attribute name="title">
             <string>Stocks</string>
            </attribute>
@@ -284,7 +293,7 @@
             </layout>
            </widget>
           </widget>
-          <widget class="QWidget" name="tabPagePlace">
+          <widget class="QWidget" name="tab_page_place">
            <attribute name="title">
             <string>Bets/Place</string>
            </attribute>
@@ -352,7 +361,7 @@
             </layout>
            </widget>
           </widget>
-          <widget class="QWidget" name="tabPageCashin">
+          <widget class="QWidget" name="tab_page_cashin">
            <attribute name="title">
             <string>Bets/Cashin</string>
            </attribute>
@@ -542,48 +551,7 @@
             <x>10</x>
             <y>20</y>
             <width>961</width>
-            <height>81</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <family>Envy Code R</family>
-           </font>
-          </property>
-          <property name="autoFillBackground">
-           <bool>false</bool>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;</string>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Sunken</enum>
-          </property>
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_4">
-       <item>
-        <widget class="QGroupBox" name="grp_lastadded">
-         <property name="title">
-          <string>Last Added</string>
-         </property>
-         <widget class="QTextEdit" name="txt_lastadded">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>20</y>
-            <width>951</width>
-            <height>71</height>
+            <height>131</height>
            </rect>
           </property>
           <property name="font">
@@ -613,7 +581,7 @@
      </item>
      <item>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="4">
+       <item row="0" column="3">
         <widget class="QPushButton" name="btn_exit">
          <property name="font">
           <font>
@@ -638,13 +606,6 @@
         </widget>
        </item>
        <item row="0" column="2">
-        <widget class="QPushButton" name="btn_achievements">
-         <property name="text">
-          <string>Achievements</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
         <spacer name="horizontalSpacer_4">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
