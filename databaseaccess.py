@@ -103,7 +103,7 @@ class DatabaseAccess():
                 cur.close()
                 db.close()
         except dbapi2.DatabaseError, e:
-            print "Error: procedures: %s" % str(e)
+            print("Error in create_tables: procedures: ",str(e))
             exit(1)
 
     def init_tables(self): 
@@ -127,7 +127,7 @@ class DatabaseAccess():
                 cur.close()
                 db.close()
         except dbapi2.DatabaseError, e:
-            print "Error: procedures: %s" % str(e)
+            print("Error in init_tables: procedures: ",str(e))
             exit(1)
         # Crossover
         #TODO: get years and corresponding values and return them, add them here.
@@ -139,14 +139,14 @@ class DatabaseAccess():
     def uninstall(self):
         """ uninstall the tables + data from the db. """
         msgObj = self.msgHandler.MessageHandler()
-        answer = msgObj.Confirmation('uninstall all tables from the database')
+        answer = msgObj.confirmation('uninstall all tables from the database')
         if answer == 0:
             self.drop_tables()
             msgObj = self.msgHandler.MessageHandler()
             msgObj.print_action('uninstalld table', self.tables)
         msgObj = None
        
-    def getvalues(self, qry):
+    def get_values(self, qry):
         """ Global wrapper for retrieving values. """
         db = dbapi2.connect(
                 host=self.dbhost,
@@ -176,17 +176,17 @@ class DatabaseAccess():
         """
         #if otn != '' and otn != None:
         #    # Is it necessary to get new values? (Is A in B? and vice versa)
-        #    if self.getvalues("""select name from """ + self.tblteams + """ where active = 1 and name ='""" + str(otn) + """' order by name;""") == []:
+        #    if self.get_values("""select name from """ + self.tblteams + """ where active = 1 and name ='""" + str(otn) + """' order by name;""") == []:
         #        return None
         #    else:
-        #        return self.getvalues("""select name from """ + self.tblteams + """ where active = 1 and name <>'""" + str(otn) + """' order by name;""")
+        #        return self.get_values("""select name from """ + self.tblteams + """ where active = 1 and name <>'""" + str(otn) + """' order by name;""")
         #else:
             # It's a fill action at startup, just get everything
         str_list = [
                 'select name from',
                 self.tblteams,
                 'where active = 1 order by name;']
-        return self.getvalues(' '.join(str_list))
+        return self.get_values(' '.join(str_list))
 
     def get_products_from_finance(self):
         """ Get the products from the finance table. """
@@ -194,7 +194,7 @@ class DatabaseAccess():
                 'select distinct prod from',
                 self.tblfinance,
                 'order by prod;']
-        return self.getvalues(' '.join(str_list))
+        return self.get_values(' '.join(str_list))
 
     def get_products(self):
         """ Get the products. """
@@ -202,7 +202,7 @@ class DatabaseAccess():
                 'select prod from',
                 self.tblproducts,
                 'order by prod;']
-        return self.getvalues(' '.join(str_list))
+        return self.get_values(' '.join(str_list))
 
     def get_accounts(self):
         """ Get the accounts. """
@@ -210,7 +210,7 @@ class DatabaseAccess():
                 'select distinct acc from',
                 self.tblfinance,
                 'order by acc;']
-        return self.getvalues(' '.join(str_list))
+        return self.get_values(' '.join(str_list))
  
     def get_mcodes(self):
         """ Get the market codes. """
@@ -218,7 +218,7 @@ class DatabaseAccess():
                 'select distinct mcode from',
                 self.tblmcodes,
                 'order by mcode;']
-        return self.getvalues(' '.join(str_list))
+        return self.get_values(' '.join(str_list))
  
     def get_stocknames(self, mcode):
         """ Get the stock names. """
@@ -230,7 +230,7 @@ class DatabaseAccess():
                 't2 on t1.mid = t2.mid where t2.mcode =',
                 "'" + str(mcode) + "'",
                 'order by t1.name;']
-        return self.getvalues(' '.join(str_list))
+        return self.get_values(' '.join(str_list))
 
     def get_stockinfo(self, sname):
         """ Get extra stock info. """
@@ -241,7 +241,7 @@ class DatabaseAccess():
                 self.tblmcodes,
                 't2 on t1.mid = t2.mid where t1.name =',
                 "'" + str(sname) + "';"]
-        return self.getvalues(' '.join(str_list))
+        return self.get_values(' '.join(str_list))
         
     def get_expenses(self):
         """ Get the total expenses, ordered by year. """
@@ -266,7 +266,7 @@ class DatabaseAccess():
                 't1 where t1.flag = 0 and',
                 strprd_expensess,
                 'group by extract(year from t1.date);']
-        return self.getvalues()
+        return self.get_values()
 
     def get_passive(self):
         """ Get the total passive income, ordered by year. """
@@ -275,7 +275,7 @@ class DatabaseAccess():
                 self.finance,
                 "t1 where t1.prod = 'invest.dividend'",
                 "or t1.prod = 'invest.refund';"]
-        return self.getvalues(' '.join(str_list))
+        return self.get_values(' '.join(str_list))
 
     def calculate_sw(self, sname):
         """ Calculate the safe withdrawal value. """
@@ -286,7 +286,7 @@ class DatabaseAccess():
                 self.tblmcodes,
                 't2 on t1.mid = t2.mid where t1.name =',
                 "'" + str(sname) + "';"]
-        return self.getvalues(' '.join(str_list))
+        return self.get_values(' '.join(str_list))
        
     def drop_tables(self):
         """ The actual removal of the tables. """
@@ -306,5 +306,5 @@ class DatabaseAccess():
                 cur.close()
                 db.close()
         except dbapi2.DatabaseError, e:
-            print('Error: procedures: %s'.format(str(e)))
+            print('Error in drop tables: procedures: {0}',str(e))
             exit(1)

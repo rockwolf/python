@@ -104,17 +104,35 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
             QtCore.SIGNAL("clicked()"), 
             self.btn_clear_clicked)
 
+    # Button Events
     def btn_execute_clicked(self):
         """ Pipe commands to clipf. """
-        # Safety first: take backup
-        self.Backup()
-        self.WriteCmds()
-        self.clearcommands()
+        write_commands()
         
     def btn_exit_clicked(self):
         """ Exit """
-        self.clearcommands() # dummy pylint test
+        self.clear_commands() # dummy pylint test
         sys.exit(0)
+
+    def btn_clear_clicked(self):
+        """ Clear the command buffer. """
+        self.clear_commands()
+    
+    def btn_add_clicked(self):
+        """ Create the command to send to clipf and add it to the buffer. """
+        self.add_command()
+
+    # Events
+    def cmb_product_changed(self, selstr):
+        """ When the account combo selection changes. """
+        self.process_product_changed()
+
+    def write_commands(self):
+        """ """
+        # Safety first: take backup
+        self.backup()
+        self.pipe_commands()
+        self.clear_commands()
 
     def backup(self):
         """ Make a backup of the output file for clipf. """
@@ -135,7 +153,7 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
         else:
             print('Error: backup file already exists.')
 
-    def writecmds(self):
+    def pipe_commands(self):
         """ Pipe the commands in the buffer to clipf. """
         # write to current
         if isfile(self.fcurrent):
@@ -152,7 +170,7 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
             except Exception as strerror:
                 print("Error: {0}.".format(strerror))
 
-    def cmb_product_changed(self, selstr):
+    def process_product_changed(self):
         """ When the account combo selection changes. """
         self.gui.txt_comment.setEnabled(True)
         if selstr == 'bet.place':
@@ -302,7 +320,7 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
             self.gui.lbl_infodetails.setText('[' + info[1] + '] : ' + info[0])
         dba = None
 
-    def btn_add_clicked(self):
+    def add_command(self):
         """ Create the command to send to clipf and add it to the buffer. """
         # parse comment?
         prod = self.gui.cmb_product.currentText() 
@@ -355,18 +373,14 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
         cmd = ''.join(str_list)
         self.cmdbuffer.append(cmd)
         self.gui.txt_summary.append(cmd)
-        self.clearfields()
+        self.clear_fields()
    
-    def btn_clear_clicked(self):
-        """ Clear the command buffer. """
-        self.clearcommands()
-
-    def clearcommands(self):
+    def clear_commands(self):
         """ Clear the command buffer and the summary panel. """
         self.cmdbuffer = [] 
         self.gui.txt_summary.clear()
 
-    def clearfields(self):
+    def clear_fields(self):
         """ Clear the main input fields. """
         self.gui.txt_comment.clear()
         self.gui.spn_amount.setValue(0)
