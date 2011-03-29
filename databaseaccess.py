@@ -30,37 +30,36 @@ class DatabaseAccess():
         self.dbpass = ''
         self.config()
         self.tblfinance = 'T_FINANCE'
-        self.tblstocks = 'T_STOCKS'
-        self.tblcurstocks = 'T_CURSTOCKS'
-        self.tblbets = 'T_BETS'
-        self.tblbetresults = 'T_BETRESULTS'
-        self.tblcurbets = 'T_CURBETS'
-        self.tblteams = 'T_TEAMS'
-        self.tblmcodes = 'T_MCODES'
-        self.tblstocknames = 'T_STOCKNAMES'
-        self.tblproducts = 'T_PRODUCTS'
-        self.tblsafetymargins = 'T_SAFETYMARGINS'
-        self.tables = [
-                self.tblteams,
-                self.tblmcodes,
-                self.tblstocknames,
-                self.tblproducts,
-                self.tblsafetymargins]
+        self.tblstock = 'T_STOCK'
+        self.tblstockcurrent = 'T_STOCK_CURRENT'
+        self.tblbet = 'T_BET'
+        self.tblbetresult = 'T_BET_RESULT'
+        self.tblbetcurrent = 'T_BET_CURRENT'
+        self.tblteam = 'T_TEAM'
+        self.tblmarket = 'T_MARKET'
+        self.tblstockname = 'T_STOCK_NAME'
+        self.tblproduct = 'T_PRODUCT'
+        self.tblmargin= 'T_MARGIN'
+        self.tblmargintype= 'T_MARGIN_TYPE'
+        self.tables = { 
+                'finance': 'T_FINANCE',
+                'stock': 'T_STOCK',
+                'stockcurrent': 'T_STOCK_CURRENT',
+                'bet': 'T_BET',
+                'betresult': 'T_BET_RESULT',
+                'betcurrent': 'T_BET_CURRENT',
+                'team': 'T_TEAM',
+                'market': 'T_MARKET',
+                'stockname': 'T_STOCK_NAME',
+                'product': 'T_PRODUCT',
+                'margin': 'T_MARGIN',
+                'margintype': 'T_MARGIN_TYPE'
+                }
 
-        self.sqlpath = 'sql/'
-        self.sqldrop = '01_drop_tables.sql'
-        self.sqlcreate = [
-                '01_create_T_TEAMS.sql',
-                '02_create_T_MCODES.sql',
-                '03_create_T_STOCKNAMES.sql',
-                '04_create_T_PRODUCTS.sql',
-                '05_create_T_SAFETYMARGINS.sql']
-        self.sqlinit = [
-                '01_init_T_TEAMS.sql',
-                '02_init_T_MCODES.sql',
-                '03_init_T_STOCKNAMES.sql',
-                '04_init_T_PRODUCTS.sql',
-                '05_init_T_SAFETYMARGINS.sql']
+        self.sqlpath = 'sql'
+        self.sqldrop = [ 'drop_tables.sql' ]
+        self.sqlcreate = [ 'create_tables.sql' ]
+        self.sqlinit = [ 'init_tables.sql' ]
         self.msgHandler = __import__('messagehandler')
 
     def config(self):
@@ -176,22 +175,22 @@ class DatabaseAccess():
         """
         #if otn != '' and otn != None:
         #    # Is it necessary to get new values? (Is A in B? and vice versa)
-        #    if self.get_values("""select name from """ + self.tblteams + """ where active = 1 and name ='""" + str(otn) + """' order by name;""") == []:
+        #    if self.get_values("""select name from """ + self.tblteam + """ where active = 1 and name ='""" + str(otn) + """' order by name;""") == []:
         #        return None
         #    else:
-        #        return self.get_values("""select name from """ + self.tblteams + """ where active = 1 and name <>'""" + str(otn) + """' order by name;""")
+        #        return self.get_values("""select name from """ + self.tblteam + """ where active = 1 and name <>'""" + str(otn) + """' order by name;""")
         #else:
             # It's a fill action at startup, just get everything
         str_list = [
                 'select name from',
-                self.tblteams,
+                self.tblteam,
                 'where active = 1 order by name;']
         return self.get_values(' '.join(str_list))
 
     def get_products_from_finance(self):
         """ Get the products from the finance table. """
         str_list = [
-                'select distinct prod from',
+                'select distinct product from',
                 self.tblfinance,
                 'order by prod;']
         return self.get_values(' '.join(str_list))
@@ -199,9 +198,9 @@ class DatabaseAccess():
     def get_products(self):
         """ Get the products. """
         str_list = [
-                'select prod from',
-                self.tblproducts,
-                'order by prod;']
+                'select product from',
+                self.tblproduct,
+                'order by product;']
         return self.get_values(' '.join(str_list))
 
     def get_accounts(self):
@@ -212,23 +211,23 @@ class DatabaseAccess():
                 'order by acc;']
         return self.get_values(' '.join(str_list))
  
-    def get_mcodes(self):
+    def get_markets(self):
         """ Get the market codes. """
         str_list = [
-                'select distinct mcode from',
-                self.tblmcodes,
-                'order by mcode;']
+                'select distinct code from',
+                self.tblmarket,
+                'order by code;']
         return self.get_values(' '.join(str_list))
  
-    def get_stocknames(self, mcode):
+    def get_stocknames(self, code):
         """ Get the stock names. """
         str_list = [
                 'select t1.name from',
-                self.tblstocknames,
+                self.tblstockname,
                 't1 join',
-                self.tblmcodes,
-                't2 on t1.mid = t2.mid where t2.mcode =',
-                "'" + str(mcode) + "'",
+                self.tblmarket,
+                't2 on t1.mid = t2.mid where t2.code =',
+                "'" + str(code) + "'",
                 'order by t1.name;']
         return self.get_values(' '.join(str_list))
 
@@ -236,9 +235,9 @@ class DatabaseAccess():
         """ Get extra stock info. """
         str_list = [
                 'select t1.description, t2.description from',
-                self.tblstocknames,
+                self.tblstockname,
                 't1 join',
-                self.tblmcodes,
+                self.tblmarket,
                 't2 on t1.mid = t2.mid where t1.name =',
                 "'" + str(sname) + "';"]
         return self.get_values(' '.join(str_list))
@@ -257,7 +256,7 @@ class DatabaseAccess():
         for prd in prd_expenses:
             str_list = [
                     strprd_expenses,
-                    'and t1.prod <>',
+                    'and t1.product <>',
                     "'" + prd + "'"]
             prd_expensestr = ' '.join(str_list)
         str_list = [
@@ -273,17 +272,17 @@ class DatabaseAccess():
         str_list = [
                 'select sum(t1.amount) from',
                 self.finance,
-                "t1 where t1.prod = 'invest.dividend'",
-                "or t1.prod = 'invest.refund';"]
+                "t1 where t1.product = 'invest.dividend'",
+                "or t1.product = 'invest.refund';"]
         return self.get_values(' '.join(str_list))
 
     def calculate_sw(self, sname):
         """ Calculate the safe withdrawal value. """
         str_list = [
                 'select t1.description, t2.description from',
-                self.tblstocknames,
+                self.tblstockname,
                 't1 join',
-                self.tblmcodes,
+                self.tblmarket,
                 't2 on t1.mid = t2.mid where t1.name =',
                 "'" + str(sname) + "';"]
         return self.get_values(' '.join(str_list))
@@ -298,9 +297,10 @@ class DatabaseAccess():
         cur = db.cursor()
         try:
             try:
-                sqlfile = "%s/%s" % (str(self.sqlpath),str(self.sqldrop))
-                procedures = open(sqlfile,'r').read()
-                cur.execute(procedures)
+                for script in self.sqldrop:
+                    sqlfile = "%s/%s" % (str(self.sqlpath),str(script))
+                    procedures = open(sqlfile,'r').read()
+                    cur.execute(procedures)
             finally:
                 db.commit()
                 cur.close()

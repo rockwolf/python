@@ -31,9 +31,9 @@ class MessageHandler:
         elif answer == 'y':
             return 0
 
-    def print_action(self, stract, lststr):
+    def print_action(self, stract, dictstr):
         """ Print message about straction for each item in the lstObj list """
-        for s in lststr:
+        for s in dictstr.keys():
             print '{0} {1}.'.format(stract, s)
 
 class ErrorHandler(MessageHandler):

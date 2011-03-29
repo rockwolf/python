@@ -127,6 +127,55 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
         """ When the account combo selection changes. """
         self.process_product_changed()
 
+    def process_product_changed(self):
+        """ When the account combo selection changes. """
+        self.gui.txt_comment.setEnabled(True)
+        if selstr == 'bet.place':
+            self.gui.tab_details.currentTabName = \
+            self.gui.tab_details.setCurrentIndex(2)
+        elif selstr == 'bet.cashin':
+            self.gui.tab_details.currentTabName = \
+            self.gui.tab_details.setCurrentIndex(3)
+        elif(
+            selstr == 'invest.buystocks' or
+            selstr == 'invest.sellstocks' or
+            selstr == 'invest.changestocks'
+        ):
+            self.gui.tab_details.currentTabName = \
+            self.gui.tab_details.setCurrentIndex(1)
+            self.update_info_details()
+            if selstr != 'invest.changestocks':
+                self.gui.txt_comment.setEnabled(False)
+        else:
+            self.gui.tab_details.currentTabName = \
+            self.gui.tab_details.setCurrentIndex(0)
+
+    def tab_details_changed(self, index):
+        """ What to do if you change a tab. """
+        self.cmb_product_changed(self.gui.cmb_product.currentText())
+
+    def cmb_marketcode_changed(self, selstr):
+        """ When the marketcode combo selection changes. """
+        self.fillcmb_stockname()
+    
+    def cmb_stockname_changed(self, selstr):
+        """ When the stock name selection changes. """    
+        self.update_info_details()        
+        
+    def cmb_teama_changed(self, selstr):
+        """ When the team name selection changes for bet.place. """    
+
+    def cmb_teamb_changed(self, selstr):
+        """ When the team name selection changes for bet.cashin. """    
+ 
+    def cmb_teama2_changed(self, selstr):
+        """ When the team name selection changes for bet.place. """    
+       
+    def cmb_teamb2_changed(self, selstr):
+        """ When the team name selection changes for bet.cashin. """    
+   
+    # Methods
+    ## General
     def write_commands(self):
         """ """
         # Safety first: take backup
@@ -170,33 +219,6 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
             except Exception as strerror:
                 print("Error: {0}.".format(strerror))
 
-    def process_product_changed(self):
-        """ When the account combo selection changes. """
-        self.gui.txt_comment.setEnabled(True)
-        if selstr == 'bet.place':
-            self.gui.tab_details.currentTabName = \
-            self.gui.tab_details.setCurrentIndex(2)
-        elif selstr == 'bet.cashin':
-            self.gui.tab_details.currentTabName = \
-            self.gui.tab_details.setCurrentIndex(3)
-        elif(
-            selstr == 'invest.buystocks' or
-            selstr == 'invest.sellstocks' or
-            selstr == 'invest.changestocks'
-        ):
-            self.gui.tab_details.currentTabName = \
-            self.gui.tab_details.setCurrentIndex(1)
-            self.update_info_details()
-            if selstr != 'invest.changestocks':
-                self.gui.txt_comment.setEnabled(False)
-        else:
-            self.gui.tab_details.currentTabName = \
-            self.gui.tab_details.setCurrentIndex(0)
-
-    def tab_details_changed(self, index):
-        """ What to do if you change a tab. """
-        self.cmb_product_changed(self.gui.cmb_product.currentText())
-
     def initgui(self):
         """ Initialise fields """
         # Dates
@@ -228,12 +250,13 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
         self.gui.cmb_choice.addItem('A')
         self.gui.cmb_choice.addItem('B')
         # Market codes
-        for mcd in dba.get_mcodes():
+        for mcd in dba.get_markets():
             self.gui.cmb_marketcode.addItem(mcd)
         # Stock names
         self.fillcmb_stockname()
         dba = None
 
+    ## Stocks
     def fillcmb_stockname(self):
         """ fill cmb function """
         dba = DatabaseAccess()
@@ -242,17 +265,6 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
             self.gui.cmb_stockname.addItem(name)
         dba = None
        
-    def cmb_marketcode_changed(self, selstr):
-        """ When the marketcode combo selection changes. """
-        self.fillcmb_stockname()
-    
-    def cmb_stockname_changed(self, selstr):
-        """ When the stock name selection changes. """    
-        self.update_info_details()        
-        
-    def cmb_teama_changed(self, selstr):
-        """ When the team name selection changes for bet.place. """    
-
     def fillcmb_teama(self):
         """ Put values in the cmb. """ 
         dba = DatabaseAccess()
@@ -264,9 +276,6 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
                 self.gui.cmb_teama.addItem(team)
         dba = None
         
-    def cmb_teamb_changed(self, selstr):
-        """ When the team name selection changes for bet.cashin. """    
-    
     def fillcmb_teamb(self):
         """ Put values in the cmb. """ 
         dba = DatabaseAccess()
@@ -278,9 +287,6 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
                 self.gui.cmb_teamb.addItem(team) 
         dba = None 
 
-    def cmb_teama2_changed(self, selstr):
-        """ When the team name selection changes for bet.place. """    
-   
     def fillcmb_teama2(self):     
         """ Put values in the cmb. """ 
         dba = DatabaseAccess()
@@ -291,10 +297,7 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
             for team in teams:
                 self.gui.cmb_teama2.addItem(team)
         dba = None
-        
-    def cmb_teamb2_changed(self, selstr):
-        """ When the team name selection changes for bet.cashin. """    
-
+    
     def fillcmb_teamb2(self):
         """ Put values in the cmb. """ 
         dba = DatabaseAccess()
