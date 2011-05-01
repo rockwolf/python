@@ -15,7 +15,9 @@ You should have received a copy of the GNU General Public License
 along with Clipf2db. If not, see <http://www.gnu.org/licenses/>.
 					
 """
-import ConfigParser, psycopg2 as dbapi2
+import ConfigParser
+import psycopg2 as dbapi2
+from sqlalchemy import create_engine
 from datetime import datetime
 
 class DatabaseAccess():
@@ -29,26 +31,28 @@ class DatabaseAccess():
         self.dbuser = ''
         self.dbpass = ''
         self.config()
-        self.tblfinance = 'T_FINANCE'
-        self.tblstock = 'T_STOCK'
-        self.tblstockcurrent = 'T_STOCK_CURRENT'
-        self.tblbet = 'T_BET'
-        self.tblbetresult = 'T_BET_RESULT'
-        self.tblbetcurrent = 'T_BET_CURRENT'
-        self.tblteam = 'T_TEAM'
-        self.tblmarket = 'T_MARKET'
-        self.tblstockname = 'T_STOCK_NAME'
-        self.tblproduct = 'T_PRODUCT'
-        self.tblmargin= 'T_MARGIN'
-        self.tblmargintype= 'T_MARGIN_TYPE'
+        #self.tblfinance = 'T_FINANCE'
+        #self.tblstock = 'T_STOCK'
+        #self.tblstockcurrent = 'T_STOCK_CURRENT'
+        #self.tblmarket = 'T_MARKET'
+        #self.tblstockname = 'T_STOCK_NAME'
+        #self.tblproduct = 'T_PRODUCT'
+        #self.tblmargin= 'T_MARGIN'
+        #self.tblmargintype= 'T_MARGIN_TYPE'
+        
+        self.tblfinance = Table('T_FINANCE', metadata, autoload=True)
+        self.tblstock = Table('T_STOCK', metadata, autoload=True)
+        self.tblstockcurrent = Table('T_STOCK_CURRENT', metadata, autoload=True)
+        self.tblmarket = Table('T_MARKET', metadata, autoload=True)
+        self.tblstockname = Table('T_STOCK_NAME', metadata, autoload=True)
+        self.tblproduct = Table('T_PRODUCT', metadata, autoload=True)
+        self.tblmargin = Table('T_MARGIN', metadata, autoload=True)
+        self.tblmargintype = Table('T_MARGIN_TYPE', metadata, autoload=True)
+
         self.tables = { 
                 'finance': 'T_FINANCE',
                 'stock': 'T_STOCK',
                 'stockcurrent': 'T_STOCK_CURRENT',
-                'bet': 'T_BET',
-                'betresult': 'T_BET_RESULT',
-                'betcurrent': 'T_BET_CURRENT',
-                'team': 'T_TEAM',
                 'market': 'T_MARKET',
                 'stockname': 'T_STOCK_NAME',
                 'product': 'T_PRODUCT',
@@ -61,6 +65,8 @@ class DatabaseAccess():
         self.sqlcreate = [ 'create_tables.sql' ]
         self.sqlinit = [ 'init_tables.sql' ]
         self.msgHandler = __import__('messagehandler')
+        db = create_engine('postgresql://' + self.dbuser + ':' + self.dbpass + '@' + self.dbhost + '/' + self.dbname)
+        metadata = BoundMetaData(db)
 
     def config(self):
         """ Retrieve config file values """
@@ -166,27 +172,6 @@ class DatabaseAccess():
         db.close()
         return values
  
-    def get_teams(self, otn):
-        """ Get a list of all teams
-
-            The given team name is left out, so it can be used to fill
-            combos without being able to select 2 identical teams.
-
-        """
-        #if otn != '' and otn != None:
-        #    # Is it necessary to get new values? (Is A in B? and vice versa)
-        #    if self.get_values("""select name from """ + self.tblteam + """ where active = 1 and name ='""" + str(otn) + """' order by name;""") == []:
-        #        return None
-        #    else:
-        #        return self.get_values("""select name from """ + self.tblteam + """ where active = 1 and name <>'""" + str(otn) + """' order by name;""")
-        #else:
-            # It's a fill action at startup, just get everything
-        str_list = [
-                'select name from',
-                self.tblteam,
-                'where active = 1 order by name;']
-        return self.get_values(' '.join(str_list))
-
     def get_products_from_finance(self):
         """ Get the products from the finance table. """
         str_list = [
@@ -250,8 +235,7 @@ class DatabaseAccess():
                 'account.tx',
                 'invest.invest',
                 'invest.changestocks',
-                'invest.buystocks',
-                'bet.place']
+                'invest.buystocks']
         strprd_expenses = ''
         for prd in prd_expenses:
             str_list = [

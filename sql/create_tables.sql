@@ -29,7 +29,7 @@ CREATE TABLE T_FINANCE
 (
     id serial not null,
     date timestamp,
-    acc varchar(6) not null,
+    account varchar(6) not null,
     product varchar(50) not null,
     amount decimal(18,4) default 0,
     flag int not null default 0,
@@ -39,56 +39,6 @@ CREATE TABLE T_FINANCE
     date_modify timestamp,
     constraint pk_id primary key(id)
 );
-/* bet */
-CREATE TABLE T_TEAM
-(
-    tid serial not null,
-    name varchar(30) not null,
-    division varchar(30),
-    active int not null default 1,
-    date_created timestamp,
-    date_modified timestamp,
-    constraint pk_tid primary key(tid)
-);
-CREATE TABLE T_BET
-(
-    bid serial not null,
-    id int not null,
-    team_a varchar(50) not null,
-    team_b varchar(50) not null,
-    choice varchar(1) not null,
-    pool decimal(18,4) default 0,
-    date_create timestamp,
-    date_modify timestamp,
-    constraint pk_bid primary key(bid),
-    constraint fk_id foreign key(id) references T_FINANCE(id)
-);
-CREATE TABLE T_BET_RESULT
-(
-    brid serial not null,
-    id int not null,
-    team_a varchar(50) not null,
-    team_b varchar(50) not null,
-    choice varchar(1) not null,
-    gain decimal(18,4) default 0,
-    score_a int default -1,
-    score_b int default -1,
-    date_create timestamp,
-    date_modify timestamp,
-    constraint pk_brid primary key(brid),
-    constraint fk_id foreign key(id) references T_FINANCE(id)
-);
-CREATE TABLE T_BET_CURRENT
-(
-    teamA varchar(50) not null,
-    teamB varchar(50) not null,
-    date_bet timestamp,
-    date_match timestamp,
-    pool_total decimal(18,4) default 0,
-    date_create timestamp,
-    date_modify timestamp,
-    primary key(teamA, teamB)
-);
 /* stock */
 CREATE TABLE T_MARKET
 (
@@ -97,8 +47,10 @@ CREATE TABLE T_MARKET
     name varchar(30) not null,
     date_created timestamp,
     date_modified timestamp,
-    constraint pk_mid primary key(mid)
+    constraint pk_mid primary key(mid),
+    unique (code)
 );
+
 CREATE TABLE T_STOCK_NAME
 (
     snid serial not null,
@@ -108,8 +60,10 @@ CREATE TABLE T_STOCK_NAME
     date_created timestamp,
     date_modified timestamp,
     constraint pk_snid primary key(snid),
-    constraint fk_mid foreign key(mid) references T_MARKET(mid)
+    constraint fk_mid foreign key(mid) references T_MARKET(mid),
+    unique (name, mid)
 );
+
 CREATE TABLE T_STOCK
 (
     sid serial not null,
@@ -125,6 +79,7 @@ CREATE TABLE T_STOCK
     constraint fk_id foreign key(id) references T_FINANCE(id),
     constraint fk_snid foreign key(snid) references T_STOCK_NAME(snid)
 );
+
 CREATE TABLE T_STOCK_CURRENT
 (
     code varchar(5) not null,

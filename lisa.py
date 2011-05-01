@@ -79,22 +79,6 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
             self.gui.cmb_stockname, 
             QtCore.SIGNAL("currentIndexchanged(QString)"), 
             self.cmb_stockname_changed)
-        self.gui.cmb_teama.connect(
-            self.gui.cmb_teama, 
-            QtCore.SIGNAL("currentIndexchanged(QString)"), 
-            self.cmb_teama_changed)
-        self.gui.cmb_teama2.connect(
-            self.gui.cmb_teama2, 
-            QtCore.SIGNAL("currentIndexchanged(QString)"), 
-            self.cmb_teama2_changed)
-        self.gui.cmb_teamb.connect(
-            self.gui.cmb_teamb, 
-            QtCore.SIGNAL("currentIndexchanged(QString)"), 
-            self.cmb_teamb_changed)
-        self.gui.cmb_teamb2.connect(
-            self.gui.cmb_teamb2, 
-            QtCore.SIGNAL("currentIndexchanged(QString)"), 
-            self.cmb_teamb2_changed)
         self.gui.btn_exit.connect(
             self.gui.btn_execute, 
             QtCore.SIGNAL("clicked()"), 
@@ -130,13 +114,7 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
     def process_product_changed(self):
         """ When the account combo selection changes. """
         self.gui.txt_comment.setEnabled(True)
-        if selstr == 'bet.place':
-            self.gui.tab_details.currentTabName = \
-            self.gui.tab_details.setCurrentIndex(2)
-        elif selstr == 'bet.cashin':
-            self.gui.tab_details.currentTabName = \
-            self.gui.tab_details.setCurrentIndex(3)
-        elif(
+        if(
             selstr == 'invest.buystocks' or
             selstr == 'invest.sellstocks' or
             selstr == 'invest.changestocks'
@@ -162,18 +140,6 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
         """ When the stock name selection changes. """    
         self.update_info_details()        
         
-    def cmb_teama_changed(self, selstr):
-        """ When the team name selection changes for bet.place. """    
-
-    def cmb_teamb_changed(self, selstr):
-        """ When the team name selection changes for bet.cashin. """    
- 
-    def cmb_teama2_changed(self, selstr):
-        """ When the team name selection changes for bet.place. """    
-       
-    def cmb_teamb2_changed(self, selstr):
-        """ When the team name selection changes for bet.cashin. """    
-   
     # Methods
     ## General
     def write_commands(self):
@@ -327,27 +293,7 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
         """ Create the command to send to clipf and add it to the buffer. """
         # parse comment?
         prod = self.gui.cmb_product.currentText() 
-        if prod == 'bet.place':
-            str_list = [
-                self.gui.cmb_teama.currentText(), 
-                ' vs. ', 
-                self.gui.cmb_teamb.currentText(),
-                ',',
-                self.gui.cmb_choice.currentText(),
-                ',',
-                self.gui.dt_datematch.dateTime().toString("yyyy-MM-dd HHmm")]
-            comment = ' '.join(str_list)
-        elif prod == 'bet.cashin':
-            str_list = [
-                self.gui.cmb_teama2.currentText(),
-                ' vs. ',
-                self.gui.cmb_teamb2.currentText(),
-                ',',
-                self.gui.spnScoreA.textFromValue(self.gui.spnScoreA.value()),
-                '-', 
-                self.gui.spnScoreB.textFromValue(self.gui.spnScoreB.value())]
-            comment = ''.join(str_list)
-        elif(
+        if(
             prod == 'invest.buystocks' or
             prod == 'invest.sellstocks' or
             prod == 'invest.changestocks'):
