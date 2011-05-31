@@ -22,12 +22,11 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
 import sys
-import getopt
 import shutil
 import os
 from PyQt4 import QtCore, QtGui
 from guicode import Ui_frm_main
-from databaseaccess import DatabaseAccess
+#from databaseaccess import DatabaseAccess
 from subprocess import Popen, PIPE
 from os.path import isfile
 

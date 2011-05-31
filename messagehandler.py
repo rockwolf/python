@@ -26,7 +26,7 @@ class MessageHandler:
                 'Are you sure you want to %s? [y|n] ' % stract \
             ).strip().lower()
         if answer != 'y':
-            print 'Aborted.'
+            print('Aborted.')
             return -1
         elif answer == 'y':
             return 0
@@ -34,11 +34,11 @@ class MessageHandler:
     def print_action(self, stract, dictstr):
         """ Print message about straction for each item in the lstObj list """
         for s in dictstr.keys():
-            print '{0} {1}.'.format(stract, s)
+            print('{0} {1}.'.format(stract, s))
 
 class ErrorHandler(MessageHandler):
     """ A class to handle error messages, it inherits from MessageHandler """
 
     def __init__(self):
         """ Init of ErrorHandler class """
-        print 'ErrorHandling loaded...'
+        print('ErrorHandling loaded...')

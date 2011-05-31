@@ -3,21 +3,20 @@ BEGIN;
 CREATE TABLE T_OBJECT
 (
     oid int not null,
-    object varchar(10) not null,
+    object varchar(20) not null,
     date_created timestamp default current_date,
     date_modified timestamp default current_date,
     constraint pk_oid primary key(oid)
-)
+);
 
 CREATE TABLE T_PRODUCT
 (
     pid serial not null,
     product varchar(30) not null,
-    oid int not null,
+    flg_income int not null,
     date_created timestamp default current_date,
     date_modified timestamp default current_date,
-    constraint pk_pid primary key(pid),
-    constraint fk_oid foreign key(oid) references T_OBJECT
+    constraint pk_pid primary key(pid)
 );
 
 create table T_MARGIN_TYPE
@@ -43,6 +42,7 @@ CREATE TABLE T_FINANCE
 (
     id serial not null,
     date timestamp default current_date,
+    oid int not null,
     account varchar(6) not null,
     product varchar(50) not null,
     amount decimal(18,4) default 0,
@@ -51,7 +51,8 @@ CREATE TABLE T_FINANCE
     tags varchar(50),
     date_create timestamp default current_date,
     date_modify timestamp default current_date,
-    constraint pk_id primary key(id)
+    constraint pk_id primary key(id),
+    constraint fk_oid foreign key(oid) references T_OBJECT
 );
 
 /* stock */

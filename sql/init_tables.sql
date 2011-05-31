@@ -1,3 +1,4 @@
+BEGIN;
 /* markets */
 INSERT INTO T_MARKET(code, name, date_created, date_modified)
 values('ams', 'Amsterdam', current_date, current_date);
@@ -156,16 +157,19 @@ INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
 values(5, 'refund', current_date, current_date);
 
 INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
-values(6, 'close', current_date, current_date);
+values(6, 'dividend', current_date, current_date);
 
 INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
-values(7, 'electricity', current_date, current_date);
+values(7, 'close', current_date, current_date);
 
 INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
-values(8, 'gas', current_date, current_date);
+values(8, 'electricity', current_date, current_date);
 
 INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
-values(9, 'water', current_date, current_date);
+values(9, 'gas', current_date, current_date);
+
+INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
+values(10, 'water', current_date, current_date);
 
 /* margin types */
 INSERT INTO T_MARGIN_TYPE(margin_type)

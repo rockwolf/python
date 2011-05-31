@@ -21,7 +21,10 @@ You should have received a copy of the GNU General Public License
 along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
+import getopt
+import sys
 from guihandler import Lisa
+from subprocess import call
 
 class MainWrapper():
     """ Main logic 
@@ -46,8 +49,8 @@ class MainWrapper():
         print('''{0} : Less Interaction Saves Arbeit
 Options: 
  -h : displays this help message
- --install : creates tables that help make the app more userfriendly
- --uninstall : deletes all relevant tables in the database, 
+ --install : creates tables and views needed
+ --uninstall : deletes all relevant tables and views in the database, 
             all data will be destroyed...
  --version : displays version
  --python : displays Python version
@@ -64,16 +67,18 @@ All arguments are optional.'''.format(self.pprog))
         sys.exit(app.exec_())
 
     def install(self):
-        """ Set up the database. """
-        dba = DatabaseAccess()
-        dba.install()
-        dba = None
+        """ install """
+        try:
+            call(["sh", "install.sh"])
+        except:
+            print('Error: could not load install.sh script.')
 
     def uninstall(self):
-        """ Set up the database. """
-        dba = DatabaseAccess()
-        dba.uninstall()
-        dba = None
+        """ uninstall """
+        try:
+            call(["sh", "uninstall.sh"])
+        except:
+            print('Error: could not load uninstall.sh script.')
 
 def main():
     """ Main driver, startup and cli options parsing. """
