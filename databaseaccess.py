@@ -1,24 +1,28 @@
 #! /usr/local/bin/python
 """
-This file is part of Clipf2db.
+This file is part of Lisa.
 
-Clipf2db is free software: you can redistribute it and/or modify
+Lisa is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-Clipf2db is distributed in the hope that it will be useful,
+Lisa is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
-along with Clipf2db. If not, see <http://www.gnu.org/licenses/>.
+along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
 import ConfigParser
-import psycopg2 as dbapi2
-from sqlalchemy import create_engine
 from datetime import datetime
+#import psycopg2 as dbapi2
+from sqlalchemy import create_engine
+from sqlalchemy import mapper
+from mdlstock import T_STOCK
+from mdlstock import T_STOCK_NAME
+from mdlstock import T_MARKET
 
 class DatabaseAccess():
     """ Connecting to the database. """ 
@@ -67,7 +71,13 @@ class DatabaseAccess():
         self.msgHandler = __import__('messagehandler')
         db = create_engine('postgresql://' + self.dbuser + ':' + self.dbpass + '@' + self.dbhost + '/' + self.dbname)
         metadata = BoundMetaData(db)
-
+    
+    def map_tables(self):
+        """ Create mappers for the tables on the db and the table classes. """
+        mapper(T_STOCK, self.tblstock)
+        mapper(T_STOCK_NAME, self.tblstockname)
+        mapper(T_MARKET, self.tblmarket)
+        
     def config(self):
         """ Retrieve config file values """
         config = ConfigParser.RawConfigParser()

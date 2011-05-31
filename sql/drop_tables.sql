@@ -1,6 +1,7 @@
 BEGIN;
 truncate table T_TEAM;
 truncate table T_MARKET cascade;
+truncate table T_OBJECT cascade;
 truncate table T_PRODUCT;
 truncate table T_MARGIN_TYPE cascade;
 truncate table T_MARGIN;
@@ -13,6 +14,7 @@ truncate table T_STOCK;
 truncate table T_FINANCE cascade;
 drop table T_TEAM;
 drop table T_PRODUCT;
+drop table T_OBJECT;
 drop table T_MARGIN;
 drop table T_MARGIN_TYPE;
 drop table T_BET_CURRENT;

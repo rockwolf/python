@@ -49,104 +49,123 @@ INSERT INTO T_STOCK_NAME(name, mid, description, date_created, date_modified)
 values('cofb', '2', 'Cofinimmo N.V.', current_date, current_date);
 
 /* products */
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('account.rx', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('account.rx', 1, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('account.start', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('account.tx', 0, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('account.tx', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('bill.rx', 1, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('bills.dexia', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('bill.tx', 0, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('bills.internet', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('car.rx', 1, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('bills.mutuality', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('car.tx', 0, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('bills.police', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('clothes.rx', 1, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('bills.vik', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('clothes.tx', 0, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('car.buy', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('extra.rx', 1, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('car.gas', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('extra.tx', 0, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('car.insurance', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('food.rx', 1, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('car.maintenance', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('food.tx', 0, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('car.tax', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('gift.rx', 1, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('extra.magazine', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('gift.tx', 0, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('extra.other', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('hobby.rx', 1, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('extra.travel', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('hobby.tx', 0, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('extra.wallet', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('house.rx', 1, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('hobby.computer', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('house.tx', 0, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('hobby.martialarts', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('invest.rx', 1, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('hobby.other', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('invest.tx', 0, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('house.rent', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('refund.rx', 1, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('house.maintenance', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('refund.tx', 0, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('house.other', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('salary.rx', 1, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('invest.buystocks', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('salary.tx', 0, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('invest.changestocks', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('tax.rx', 1, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('invest.dividend', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('tax.tx', 0, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('invest.invest', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('travel.rx', 1, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('invest.refund', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('travel.tx', 0, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('invest.sellstocks', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('utilities.rx', 1, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('refunds.mutuality', current_date, current_date);
+INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
+values('utilities.tx', 0, current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('salary', current_date, current_date);
+/* t_object */
+INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
+values(1, 'none', current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('tax.refund', current_date, current_date);
+INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
+values(2, 'buystocks', current_date, current_date);
 
-INSERT INTO T_PRODUCT(product, date_created, date_modified)
-values('tax.tax', current_date, current_date);
+INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
+values(3, 'sellstocks', current_date, current_date);
+
+INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
+values(4, 'invest', current_date, current_date);
+
+INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
+values(5, 'refund', current_date, current_date);
+
+INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
+values(6, 'close', current_date, current_date);
+
+INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
+values(7, 'electricity', current_date, current_date);
+
+INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
+values(8, 'gas', current_date, current_date);
+
+INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
+values(9, 'water', current_date, current_date);
 
 /* margin types */
 INSERT INTO T_MARGIN_TYPE(margin_type)

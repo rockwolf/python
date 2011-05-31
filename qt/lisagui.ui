@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1000</width>
-    <height>614</height>
+    <height>615</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -39,590 +39,457 @@
   <property name="windowTitle">
    <string>LISA</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_5">
-   <property name="sizeConstraint">
-    <enum>QLayout::SetDefaultConstraint</enum>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>2</y>
+     <width>981</width>
+     <height>611</height>
+    </rect>
    </property>
-   <item>
-    <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,2,0,0,1,0">
-     <item>
-      <layout class="QGridLayout" name="gridLayout_8">
-       <property name="sizeConstraint">
-        <enum>QLayout::SetFixedSize</enum>
-       </property>
-       <item row="0" column="2">
-        <widget class="QComboBox" name="cmb_account"/>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="lbl_account">
-         <property name="text">
-          <string>Account</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <spacer name="horizontalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QGridLayout" name="gridLayout" rowstretch="0" rowminimumheight="0" columnminimumwidth="0,0">
-       <property name="sizeConstraint">
-        <enum>QLayout::SetDefaultConstraint</enum>
-       </property>
-       <item row="0" column="0">
-        <widget class="QGroupBox" name="grp_finance">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <family>Envy Code R</family>
-          </font>
-         </property>
-         <property name="title">
-          <string>Finance</string>
-         </property>
-         <widget class="QWidget" name="gridLayoutWidget_4">
+   <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0,0,0,0">
+    <property name="sizeConstraint">
+     <enum>QLayout::SetDefaultConstraint</enum>
+    </property>
+    <property name="verticalSpacing">
+     <number>6</number>
+    </property>
+    <item row="0" column="0">
+     <layout class="QGridLayout" name="gridLayout_8">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetFixedSize</enum>
+      </property>
+      <item row="0" column="2">
+       <widget class="QComboBox" name="cmb_account"/>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="lbl_account">
+        <property name="text">
+         <string>Account</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item row="3" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QPushButton" name="btn_add">
+        <property name="font">
+         <font>
+          <family>Envy Code R</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>Add</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_clear">
+        <property name="font">
+         <font>
+          <family>Envy Code R</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>Clear</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_8">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_new_product">
+        <property name="text">
+         <string>New Product</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_new_stock">
+        <property name="text">
+         <string>New Stock</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_new_marketcode">
+        <property name="text">
+         <string>New Market Code</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_new_account">
+        <property name="text">
+         <string>New Account</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_execute">
+        <property name="font">
+         <font>
+          <family>Envy Code R</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>Execute</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_exit">
+        <property name="font">
+         <font>
+          <family>Envy Code R</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>Exit</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="0">
+     <layout class="QGridLayout" name="gridLayout_4" columnstretch="0,1,0,1,0,0,0,2">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetDefaultConstraint</enum>
+      </property>
+      <property name="verticalSpacing">
+       <number>2</number>
+      </property>
+      <item row="0" column="0">
+       <widget class="QLabel" name="lbl_date">
+        <property name="text">
+         <string>Date</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QDateEdit" name="dt_date">
+        <property name="displayFormat">
+         <string>yyyy-MM-dd</string>
+        </property>
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="lbl_product">
+        <property name="text">
+         <string>Product</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QComboBox" name="cmb_product"/>
+      </item>
+      <item row="0" column="4">
+       <widget class="QLabel" name="lbl_amount">
+        <property name="text">
+         <string>Amount</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="QDoubleSpinBox" name="spn_amount">
+        <property name="maximum">
+         <double>999999.989999999990687</double>
+        </property>
+        <property name="value">
+         <double>0.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="6">
+       <widget class="QLabel" name="lbl_comment">
+        <property name="font">
+         <font>
+          <family>Envy Code R</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>Comment</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="7">
+       <widget class="QLineEdit" name="txt_comment">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="5" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QTabWidget" name="tab_details">
+        <property name="font">
+         <font>
+          <family>Envy Code R</family>
+         </font>
+        </property>
+        <property name="tabPosition">
+         <enum>QTabWidget::North</enum>
+        </property>
+        <property name="tabShape">
+         <enum>QTabWidget::Rounded</enum>
+        </property>
+        <property name="currentIndex">
+         <number>2</number>
+        </property>
+        <property name="elideMode">
+         <enum>Qt::ElideNone</enum>
+        </property>
+        <property name="usesScrollButtons">
+         <bool>true</bool>
+        </property>
+        <property name="documentMode">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="tab_page_stocks">
+         <attribute name="title">
+          <string>Stocks</string>
+         </attribute>
+         <widget class="QWidget" name="gridLayoutWidget_5">
           <property name="geometry">
            <rect>
-            <x>10</x>
+            <x>20</x>
             <y>20</y>
-            <width>381</width>
-            <height>181</height>
+            <width>251</width>
+            <height>151</height>
            </rect>
           </property>
-          <property name="font">
-           <font>
-            <family>Envy Code R</family>
-           </font>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_4">
-           <property name="sizeConstraint">
-            <enum>QLayout::SetDefaultConstraint</enum>
-           </property>
-           <item row="4" column="1">
-            <widget class="QLineEdit" name="txt_comment">
-             <property name="enabled">
-              <bool>true</bool>
+          <layout class="QGridLayout" name="gridLayout_5">
+           <item row="0" column="4">
+            <widget class="QComboBox" name="cmb_marketcode"/>
+           </item>
+           <item row="3" column="4">
+            <widget class="QDoubleSpinBox" name="spn_price">
+             <property name="maximum">
+              <double>999999.989999999990687</double>
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
-            <widget class="QComboBox" name="cmb_product"/>
+           <item row="2" column="4">
+            <widget class="QSpinBox" name="spn_quantity">
+             <property name="maximum">
+              <number>999999</number>
+             </property>
+            </widget>
            </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="lbl_comment">
+           <item row="0" column="0">
+            <widget class="QLabel" name="lbl_marketcode">
+             <property name="text">
+              <string>Market code</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="lbl_stockname">
+             <property name="text">
+              <string>Stock name</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="lbl_quantity">
+             <property name="text">
+              <string>Quantity</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="lbl_price">
+             <property name="text">
+              <string>Price</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="4">
+            <widget class="QComboBox" name="cmb_stockname"/>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="tab_page_summary">
+         <attribute name="title">
+          <string>Summary</string>
+         </attribute>
+         <widget class="QWidget" name="">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>971</width>
+            <height>381</height>
+           </rect>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <property name="sizeConstraint">
+            <enum>QLayout::SetDefaultConstraint</enum>
+           </property>
+           <item row="0" column="0">
+            <widget class="QGroupBox" name="grp_summary">
+             <property name="maximumSize">
+              <size>
+               <width>1677721</width>
+               <height>1677721</height>
+              </size>
+             </property>
              <property name="font">
               <font>
                <family>Envy Code R</family>
               </font>
              </property>
-             <property name="text">
-              <string>Comment</string>
+             <property name="title">
+              <string>Summary</string>
              </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="lbl_amount">
-             <property name="text">
-              <string>Amount</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="lbl_product">
-             <property name="text">
-              <string>Product</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="lbl_date">
-             <property name="text">
-              <string>Date</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QDoubleSpinBox" name="spn_amount">
-             <property name="maximum">
-              <double>999999.989999999990687</double>
-             </property>
-             <property name="value">
-              <double>0.000000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QDateEdit" name="dt_date">
-             <property name="displayFormat">
-              <string>yyyy-MM-dd</string>
-             </property>
-             <property name="calendarPopup">
-              <bool>true</bool>
-             </property>
+             <widget class="QWidget" name="verticalLayoutWidget">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>19</y>
+                <width>961</width>
+                <height>351</height>
+               </rect>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout">
+               <item>
+                <widget class="QTextEdit" name="txt_summary">
+                 <property name="font">
+                  <font>
+                   <family>Envy Code R</family>
+                  </font>
+                 </property>
+                 <property name="autoFillBackground">
+                  <bool>false</bool>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: transparent;</string>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::NoFrame</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Sunken</enum>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
             </widget>
            </item>
           </layout>
          </widget>
+         <zorder></zorder>
+         <zorder>grp_summary</zorder>
+         <zorder>grp_summary</zorder>
+         <zorder></zorder>
+         <zorder></zorder>
         </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QGroupBox" name="grp_details">
-         <property name="font">
-          <font>
-           <family>Envy Code R</family>
-          </font>
-         </property>
-         <property name="title">
-          <string>Details</string>
-         </property>
-         <widget class="QTabWidget" name="tab_details">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>20</y>
-            <width>381</width>
-            <height>191</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <family>Envy Code R</family>
-           </font>
-          </property>
-          <property name="tabPosition">
-           <enum>QTabWidget::North</enum>
-          </property>
-          <property name="tabShape">
-           <enum>QTabWidget::Rounded</enum>
-          </property>
-          <property name="currentIndex">
-           <number>0</number>
-          </property>
-          <property name="elideMode">
-           <enum>Qt::ElideNone</enum>
-          </property>
-          <property name="usesScrollButtons">
-           <bool>true</bool>
-          </property>
-          <property name="documentMode">
-           <bool>true</bool>
-          </property>
-          <widget class="QWidget" name="tab_page_empty">
-           <attribute name="title">
-            <string>~/</string>
-           </attribute>
-          </widget>
-          <widget class="QWidget" name="tab_page_stocks">
-           <attribute name="title">
-            <string>Stocks</string>
-           </attribute>
-           <widget class="QWidget" name="gridLayoutWidget_5">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>10</y>
-              <width>351</width>
-              <height>151</height>
-             </rect>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_5">
-             <item row="0" column="4">
-              <widget class="QComboBox" name="cmb_marketcode"/>
-             </item>
-             <item row="3" column="4">
-              <widget class="QDoubleSpinBox" name="spn_price">
-               <property name="maximum">
-                <double>999999.989999999990687</double>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="4">
-              <widget class="QSpinBox" name="spn_quantity">
-               <property name="maximum">
-                <number>999999</number>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="lbl_marketcode">
-               <property name="text">
-                <string>Market code</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="lbl_stockname">
-               <property name="text">
-                <string>Stock name</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="lbl_quantity">
-               <property name="text">
-                <string>Quantity</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="lbl_price">
-               <property name="text">
-                <string>Price</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="4">
-              <widget class="QComboBox" name="cmb_stockname"/>
-             </item>
-            </layout>
-           </widget>
-          </widget>
-          <widget class="QWidget" name="tab_page_place">
-           <attribute name="title">
-            <string>Bets/Place</string>
-           </attribute>
-           <widget class="QWidget" name="gridLayoutWidget_6">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>10</y>
-              <width>361</width>
-              <height>151</height>
-             </rect>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_6">
-             <item row="1" column="1">
-              <widget class="QComboBox" name="cmb_teamb">
-               <property name="currentIndex">
-                <number>-1</number>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QComboBox" name="cmb_teama"/>
-             </item>
-             <item row="2" column="1">
-              <widget class="QComboBox" name="cmb_choice"/>
-             </item>
-             <item row="3" column="1">
-              <widget class="QDateTimeEdit" name="dt_datematch">
-               <property name="displayFormat">
-                <string>yyyy-MM-dd HH:mm</string>
-               </property>
-               <property name="calendarPopup">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="lbl_teama">
-               <property name="text">
-                <string>Team A</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="lbl_teamb">
-               <property name="text">
-                <string>Team B</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="lbl_choice">
-               <property name="text">
-                <string>Choice</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="lbl_datematch">
-               <property name="text">
-                <string>Date match</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </widget>
-          <widget class="QWidget" name="tab_page_cashin">
-           <attribute name="title">
-            <string>Bets/Cashin</string>
-           </attribute>
-           <widget class="QWidget" name="gridLayoutWidget_7">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>10</y>
-              <width>361</width>
-              <height>151</height>
-             </rect>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_7">
-             <item row="0" column="1">
-              <widget class="QComboBox" name="cmb_teama2"/>
-             </item>
-             <item row="1" column="1">
-              <widget class="QComboBox" name="cmb_teamb2"/>
-             </item>
-             <item row="2" column="1">
-              <widget class="QSpinBox" name="spn_scorea"/>
-             </item>
-             <item row="3" column="1">
-              <widget class="QSpinBox" name="spn_scoreb"/>
-             </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="lbl_teama2">
-               <property name="text">
-                <string>Team A</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="lbl_teamb2">
-               <property name="text">
-                <string>Team B</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="lbl_scorea">
-               <property name="text">
-                <string>Score A</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="lbl_scoreb">
-               <property name="text">
-                <string>Score B</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </widget>
-         </widget>
+        <widget class="QWidget" name="tab_page_empty">
+         <attribute name="title">
+          <string>~/</string>
+         </attribute>
         </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QGridLayout" name="gridLayout_11">
-       <item row="0" column="2">
-        <widget class="QPushButton" name="btn_clear">
-         <property name="font">
-          <font>
-           <family>Envy Code R</family>
-          </font>
-         </property>
-         <property name="text">
-          <string>Clear</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QPushButton" name="btn_add">
-         <property name="font">
-          <font>
-           <family>Envy Code R</family>
-          </font>
-         </property>
-         <property name="text">
-          <string>Add</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="8">
-        <widget class="QPushButton" name="btn_new_account">
-         <property name="text">
-          <string>New Account</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <spacer name="horizontalSpacer_8">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="7">
-        <widget class="QPushButton" name="btn_new_marketcode">
-         <property name="text">
-          <string>New Market Code</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="6">
-        <widget class="QPushButton" name="btn_new_stock">
-         <property name="text">
-          <string>New Stock</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="5">
-        <widget class="QPushButton" name="btn_new_product">
-         <property name="text">
-          <string>New Product</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="4">
-        <widget class="QPushButton" name="btn_new_team">
-         <property name="text">
-          <string>New Team</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
-       <property name="sizeConstraint">
-        <enum>QLayout::SetFixedSize</enum>
-       </property>
-       <item>
-        <widget class="QLabel" name="lbl_infofinance">
-         <property name="font">
-          <font>
-           <family>Envy Code R</family>
-          </font>
-         </property>
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="lbl_infodetails">
-         <property name="font">
-          <font>
-           <family>Envy Code R</family>
-          </font>
-         </property>
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QGridLayout" name="gridLayout_3">
-       <property name="sizeConstraint">
-        <enum>QLayout::SetDefaultConstraint</enum>
-       </property>
-       <item row="0" column="0">
-        <widget class="QGroupBox" name="grp_summary">
-         <property name="font">
-          <font>
-           <family>Envy Code R</family>
-          </font>
-         </property>
-         <property name="title">
-          <string>Summary</string>
-         </property>
-         <widget class="QTextEdit" name="txt_summary">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>20</y>
-            <width>961</width>
-            <height>131</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <family>Envy Code R</family>
-           </font>
-          </property>
-          <property name="autoFillBackground">
-           <bool>false</bool>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;</string>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Sunken</enum>
-          </property>
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="3">
-        <widget class="QPushButton" name="btn_exit">
-         <property name="font">
-          <font>
-           <family>Envy Code R</family>
-          </font>
-         </property>
-         <property name="text">
-          <string>Exit</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="btn_execute">
-         <property name="font">
-          <font>
-           <family>Envy Code R</family>
-          </font>
-         </property>
-         <property name="text">
-          <string>Execute</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <spacer name="horizontalSpacer_4">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </item>
-  </layout>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="4" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetFixedSize</enum>
+      </property>
+      <item>
+       <widget class="QLabel" name="lbl_infofinance">
+        <property name="font">
+         <font>
+          <family>Envy Code R</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lbl_infodetails">
+        <property name="font">
+         <font>
+          <family>Envy Code R</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
  </widget>
  <resources/>
  <connections/>
