@@ -8,6 +8,10 @@ name = 'finance'
 user = 'rockwolf'
 password = ''
 
+[data]
+in='import/op'
+out='export/finance.txt'
+
 [logging]
 # Set this to 1 if you want to use logging 
 log = 0

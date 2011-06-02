@@ -42,9 +42,9 @@ CREATE TABLE T_FINANCE
 (
     id serial not null,
     date timestamp default current_date,
-    oid int not null,
     account varchar(6) not null,
     product varchar(50) not null,
+    oid int not null,
     amount decimal(18,4) default 0,
     flag int not null default 0,
     comment varchar(100),
@@ -61,6 +61,7 @@ CREATE TABLE T_MARKET
     mid serial not null,
     code varchar(3) not null,
     name varchar(30) not null,
+    country char(2) not null,
     date_created timestamp default current_date,
     date_modified timestamp default current_date,
     constraint pk_mid primary key(mid),

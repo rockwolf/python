@@ -1,13 +1,16 @@
 BEGIN;
 /* markets */
-INSERT INTO T_MARKET(code, name, date_created, date_modified)
-values('ams', 'Amsterdam', current_date, current_date);
+INSERT INTO T_MARKET(code, name, country, date_created, date_modified)
+values('ams', 'Amsterdam', 'NL', current_date, current_date);
 
-INSERT INTO T_MARKET(code, name, date_created, date_modified)
-values('ebr', 'Brussels', current_date, current_date);
+INSERT INTO T_MARKET(code, name, country, date_created, date_modified)
+values('ebr', 'Brussels', 'BE', current_date, current_date);
 
-INSERT INTO T_MARKET(code, name, date_created, date_modified)
-values('dax', 'Germany', current_date, current_date);
+INSERT INTO T_MARKET(code, name, country, date_created, date_modified)
+values('etr', 'Xetra', 'DE', current_date, current_date);
+
+INSERT INTO T_MARKET(code, name, country, date_created, date_modified)
+values('epa', 'Paris', 'FR', current_date, current_date);
 
 /* stock names */
 INSERT INTO T_STOCK_NAME(name, mid, description, date_created, date_modified)
@@ -48,6 +51,12 @@ values('exm', '2', 'Exmar', current_date, current_date);
 
 INSERT INTO T_STOCK_NAME(name, mid, description, date_created, date_modified)
 values('cofb', '2', 'Cofinimmo N.V.', current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, mid, description, date_created, date_modified)
+values('fme', '3', 'Fresenius Medical Care', current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, mid, description, date_created, date_modified)
+values('gsz', '4', 'GDF Suez SA', current_date, current_date);
 
 /* products */
 INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)

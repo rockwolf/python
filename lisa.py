@@ -24,7 +24,7 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 import getopt
 import sys
 from guihandler import Lisa
-from subprocess import call
+from mainhandler import Controller
 
 class MainWrapper():
     """ Main logic 
@@ -66,26 +66,36 @@ All arguments are optional.'''.format(self.pprog))
         myapp.show()
         sys.exit(app.exec_())
 
+    def file_import(self):
+        """ import """
+        ctl = Controller()
+        ctl.file_import()
+        ctl = None
+
+    def file_export(self):
+        """ export """
+        ctl = Controller()
+        ctl.file_export()
+        ctl = None
+
     def install(self):
         """ install """
-        try:
-            call(["sh", "install.sh"])
-        except:
-            print('Error: could not load install.sh script.')
+        ctl = Controller()
+        ctl.install()
+        ctl = None
 
     def uninstall(self):
         """ uninstall """
-        try:
-            call(["sh", "uninstall.sh"])
-        except:
-            print('Error: could not load uninstall.sh script.')
+        ctl = Controller()
+        ctl.uninstall()
+        ctl = None
 
 def main():
     """ Main driver, startup and cli options parsing. """
     # Gonna switch this to optparse later
     try:
         options, xarguments = getopt.getopt(
-            sys.argv[1:], 'h', ['install', 'uninstall', 'version', 'python'])
+            sys.argv[1:], 'h', ['import', 'export', 'install', 'uninstall', 'version', 'python'])
     except getopt.error as err:
         print('Error: ' + str(err))
         sys.exit(1)
@@ -96,6 +106,16 @@ def main():
             wrapper.usage()
             # don't run the program after the optionparsing
             wrapper.exitstate = 1
+    for opt in options[:]:
+        if opt[0] == '--import':
+            wrapper.file_import()
+            wrapper.exitstate = 1
+            break
+    for opt in options[:]:
+        if opt[0] == '--export':
+            wrapper.file_export()
+            wrapper.exitstate = 1
+            break
     for opt in options[:]:
         if opt[0] == '--install':
             wrapper.install()
