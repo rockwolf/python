@@ -23,6 +23,8 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 """
 from os.path import isfile
 from subprocess import call
+from mdlimport import FileImport
+from mdlexport import FileExport
 
 class Controller():
     """ Contains the bussiness logic of the application. """
@@ -54,7 +56,8 @@ class Controller():
             try:
                 os.remove(self.fbackup)
                 print(self.fbackup + ' removed.')
-            except IOError as strerror:
+            #except IOError as strerror:
+            except:
                 print("Error: {0}".format(strerror))
         # copy current to .bak
         if isfile(self.fcurrent) and not isfile(self.fbackup):
@@ -80,7 +83,8 @@ class Controller():
                     Popen(
                         ['clipf'],
                         stdin=pipe1.stdout)
-            except Exception as strerror:
+            #except Exception as strerror:
+            except:
                 print("Error: {0}.".format(strerror))
 
     def initgui(self):
@@ -188,11 +192,15 @@ class Controller():
 
     def file_import(self):
         """ Import data from text file. """
-        print('import... dummy')
+        fi = FileImport()
+        fi.file_import()
+        fi = None
 
     def file_export(self):
         """ Export data to text file. """
-        print('export... dummy')
+        fe = FileExport()
+        fe.file_export()
+        fe = None
 
     def install(self):
         """ Setup the database through an external script. """
