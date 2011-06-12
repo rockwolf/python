@@ -20,9 +20,7 @@ from datetime import datetime
 #import psycopg2 as dbapi2
 from sqlalchemy import create_engine
 from sqlalchemy import mapper
-from mdlstock import T_STOCK
-from mdlstock import T_STOCK_NAME
-from mdlstock import T_MARKET
+from mappings import *
 
 class DatabaseAccess():
     """ Connecting to the database. """ 

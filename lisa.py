@@ -23,8 +23,9 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 """
 import getopt
 import sys
-from guihandler import Lisa
+from guihandler import GuiHandler
 from mainhandler import Controller
+from PyQt4 import QtCore, QtGui
 
 class MainWrapper():
     """ Main logic 
@@ -38,9 +39,9 @@ class MainWrapper():
         """ Construct basic QApplication, add widgets and start exec_loop. """
         # general properties of the app
         self.pprog = 'lisa.py'
-        self.pversion = '0.01a'
-        self.prelease = 'Wow, the exit button works!'
-        self.pdate = '2010-08-28'
+        self.pversion = '0.90a'
+        self.prelease = 'The Big Refactor Theory'
+        self.pdate = '2011-06-12'
         self.exitstate = 0   
         self.msghandler = __import__('messagehandler')
     
@@ -62,7 +63,7 @@ All arguments are optional.'''.format(self.pprog))
             sys.exit(0)
         # run the gui app
         app = QtGui.QApplication(sys.argv)
-        myapp = Lisa()
+        myapp = GuiHandler()
         myapp.show()
         sys.exit(app.exec_())
 

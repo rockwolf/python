@@ -29,13 +29,15 @@ from guicode import Ui_frm_main
 #from databaseaccess import DatabaseAccess
 from subprocess import Popen, PIPE
 from mainhandler import Controller
+from mdlconfig import ConfigParser
 
-class Lisa(QtGui.QDialog, Ui_frm_main):
+class GuiHandler(QtGui.QDialog, Ui_frm_main):
     """ Less Interaction Saves Arbeit Main Class """
     
     def __init__(self, parent=None):
         """ Construct basic QApplication, add widgets and start exec_loop """
         # initialise special vars
+        self.config = ConfigParser()
         # initialize gui
         QtGui.QDialog.__init__(self, parent)
         self.gui = Ui_frm_main()
@@ -43,7 +45,7 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
         self.connectslots()
         self.initgui()
         self.layout()
-        self.ctl = Controller()
+        self.ctl = Controller(self.gui, self.config)
 
     def connectslots(self):
         """ Connect methods to the signals the gui emits """
@@ -130,12 +132,9 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
         
     def initgui(self):
         """ Initialise fields """
-        # Dates
-        self.gui.dt_date.setDate(QtCore.QDate.currentDate())
-        self.gui.dt_datematch.setDate(QtCore.QDate.currentDate())
         # Info labels
         self.gui.lbl_infofinance.clear()
-        self.gui.lbl_infofinance.setText('>> ' + self.fcurrent)
+        self.gui.lbl_infofinance.setText('>> ' + self.config.exportfile)
         self.gui.lbl_infodetails.clear()
         # fill all combo boxes
         self.fillcombos()
@@ -143,44 +142,44 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
 
     def fillcombos(self):
         """ fill in the combo boxes with values. """
-        dba = DatabaseAccess()
-        # Products
-        for prod in dba.get_products():
-            self.gui.cmb_product.addItem(prod)
-        # Accounts
-        for acc in dba.get_accounts():
-            self.gui.cmb_account.addItem(acc)
-        # Choice
-        self.gui.cmb_choice.addItem('A')
-        self.gui.cmb_choice.addItem('B')
-        # Market codes
-        for mcd in dba.get_markets():
-            self.gui.cmb_marketcode.addItem(mcd)
-        # Stock names
-        self.fillcmb_stockname()
-        dba = None
+        #TODO: fix databaseaccess first
+        #dba = DatabaseAccess()
+        ## Products
+        #for prod in dba.get_products():
+        #    self.gui.cmb_product.addItem(prod)
+        ## Accounts
+        #for acc in dba.get_accounts():
+        #    self.gui.cmb_account.addItem(acc)
+        ## Market codes
+        #for mcd in dba.get_markets():
+        #    self.gui.cmb_marketcode.addItem(mcd)
+        ## Stock names
+        #self.fillcmb_stockname()
+        #dba = None
 
     ## Stocks
     def fillcmb_stockname(self):
         """ fill cmb function """
-        dba = DatabaseAccess()
-        self.gui.cmb_stockname.clear()
-        for name in dba.get_stocknames(self.gui.cmb_marketcode.currentText()):
-            self.gui.cmb_stockname.addItem(name)
-        dba = None
+        #TODO: fix databaseaccess first
+        #dba = DatabaseAccess()
+        #self.gui.cmb_stockname.clear()
+        #for name in dba.get_stocknames(self.gui.cmb_marketcode.currentText()):
+        #    self.gui.cmb_stockname.addItem(name)
+        #dba = None
        
     def update_info_details(self):
         """ Update infolabel details. """
-        dba = DatabaseAccess()
-        prod = self.gui.cmb_product.currentText()
-        stock = self.gui.cmb_stockname.currentText()
-        if(
-            prod == 'invest.buystocks' or
-            prod == 'invest.sellstocks'
-        ) and stock != '':
-            info = dba.get_stockinfo(stock)
-            self.gui.lbl_infodetails.setText('[' + info[1] + '] : ' + info[0])
-        dba = None
+        #TODO: fix databaseaccess first
+        #dba = DatabaseAccess()
+        #prod = self.gui.cmb_product.currentText()
+        #stock = self.gui.cmb_stockname.currentText()
+        #if(
+        #    prod == 'invest.buystocks' or
+        #    prod == 'invest.sellstocks'
+        #) and stock != '':
+        #    info = dba.get_stockinfo(stock)
+        #    self.gui.lbl_infodetails.setText('[' + info[1] + '] : ' + info[0])
+        #dba = None
 
     def add_command(self):
         """ Create the command to send to clipf and add it to the buffer. """
@@ -199,8 +198,6 @@ class Lisa(QtGui.QDialog, Ui_frm_main):
                 ',',
                 self.gui.spnPrice.textFromValue(self.gui.spnPrice.value())]
             comment = ''.join(str_list) 
-            if prod == 'invest.changestocks':
-                comment = comment + ',' + self.gui.txt_comment.text()
         else:
             comment = self.gui.txt_comment.text() 
         

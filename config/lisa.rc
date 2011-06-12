@@ -9,11 +9,12 @@ user = 'rockwolf'
 password = ''
 
 [data]
-in='import/op'
-out='export/finance.txt'
+importfile = 'import/op'
+exportfile = 'export/finance.txt'
+backupfile = 'export/finance.bak'
 
 [logging]
 # Set this to 1 if you want to use logging 
 log = 0
 # logfile
-logfile = "log/lisa.log
+logfile = 'log/lisa.log'
