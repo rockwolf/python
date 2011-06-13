@@ -17,6 +17,8 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 """
 from time import sleep
 import sys
+from databaseaccess import DatabaseAccess
+
 class FileImport():
     """ Class with methods to import files. """
 
@@ -46,7 +48,7 @@ class FileImport():
                     'flag':fields[5],
                     'comment':fields[6].replace('\'','\\\'')
                 }
-                #self.process_line(fields_db)
+                self.process_line(fields_db)
                 i = i + 1
                 percent = int(i/len(lines)*100)
                 percentlen = len(str(percent))-1
@@ -62,6 +64,7 @@ class FileImport():
 
             print('')
         except Exception as ex:
+            print('')
             print("Error while processing {0}:".format(self.config.importfile), ex)
         finally:
             source.close()
@@ -69,17 +72,17 @@ class FileImport():
     def process_line(self, fields_db):
         """ Processing lines of the input file. """
         self.process_line_db(fields_db)
-        self.parse_comment(fields_db)
-        cmnt = self.commentfields
-        if cmnt != {}:
-            # we have comment fields
-            if 'market' in cmnt:
-                # They are stocks
-                self.process_line_db_stock(self.commentfields) #stocks_current will also be in this function
+        #self.parse_comment(fields_db)
+        #cmnt = self.commentfields
+        #if cmnt != {}:
+        #    # we have comment fields
+        #    if 'market' in cmnt:
+        #        # They are stocks
+        #        self.process_line_db_stock(self.commentfields) #stocks_current will also be in this function
 
     def process_line_db(self, fields_db):
         """ Convert general financial information. """
-        dba = DatabaseAccess()
+        dba = DatabaseAccess(self.config)
         dba.file_import_line(fields_db)
         dba = None
         
@@ -111,56 +114,31 @@ class FileImport():
             }
         self.commentfields = fields_comment_db
         
-    def file_import_line(self, fields_db):
-            """ Convert general financial information. """
-            #TODO: put this in the inherited class
-            try:
-                #TODO: Create session in sqlalchemy and do the update that way.
-                #db = dbapi2.connect(host=self.get_dbhost(),database=self.get_dbname(), user=self.get_dbuser(), password=self.get_dbpass())
-                #cur = db.cursor()
-                try:
-                        now = datetime.now()
-                        date_create = now.strftime("%Y-%m-%d %H:%M:%S")
-                        date_modify = now.strftime("%Y-%m-%d %H:%M:%S")
-
-                        #cur = db.cursor()
-                        #cur.execute("insert into " + self.tblfinance + "(date, account, product, amount, flag, comment, date_create, date_modify) values('" + fields_db['date'] + "','" + fields_db['acc'] + "','" + fields_db['prod'] + "','" + fields_db['amount'] + "','" + fields_db['flag'] + "','" + fields_db['comment'] + "','" + date_create + "','" + date_modify + "');")
-                finally:
-                    #db.commit()
-                    session.save()
-                    session.flush()
-                    #cur.close()
-                    #db.close()
-                    session = None
-                #self.Progress() #Progress report should not be here, but at the highest level
-            #except dbapi2.DatabaseError, e:
-            except:
-                print("Error: procedures: %s" % str(e))
-                exit(1)
-
     def file_import_line_stock(self, fields_comment_db):
         """" Convert general stock information. """
         #TODO: put this in the inherited dbaccess
         try:
-            db = dbapi2.connect(host=self.get_dbhost(),database=self.get_dbname(), user=self.get_dbuser(), password=self.get_dbpass())
-            cur = db.cursor()
+            #db = dbapi2.connect(host=self.get_dbhost(),database=self.get_dbname(), user=self.get_dbuser(), password=self.get_dbpass())
+            #cur = db.cursor()
             try:
-                    now = datetime.now()
-                    date_create = now.strftime("%Y-%m-%d %H:%M:%S")
-                    date_modify = now.strftime("%Y-%m-%d %H:%M:%S")
-                    
-                    cur = db.cursor()
-                    cur.execute("select  max(id) from " + self.tblfinance + ";")
-                    id = cur.fetchone()[0]
-                    #TODO: insert in T_STOCK_NAME too
-                    #TODO: check if already exists in T_STOCK_NAME (if not exists?)
-                    #insert into t_stock_name(name, mid) select 'test2',2 where not exists(select name from t_stock_name where name = 'test2' and mid= 2);
+                print("Test: file_import_line_stock")
+                exit(1)
+                now = datetime.now()
+                date_create = now.strftime("%Y-%m-%d %H:%M:%S")
+                date_modify = now.strftime("%Y-%m-%d %H:%M:%S")
+                
+                cur = db.cursor()
+                cur.execute("select  max(id) from " + self.tblfinance + ";")
+                id = cur.fetchone()[0]
+                #TODO: insert in T_STOCK_NAME too
+                #TODO: check if already exists in T_STOCK_NAME (if not exists?)
+                #insert into t_stock_name(name, mid) select 'test2',2 where not exists(select name from t_stock_name where name = 'test2' and mid= 2);
 
-                    cur.execute("insert into " + self.tblstocks + \
-                            "(id, snid, mcode, action, price, qty, date_create, date_modify) values(" + \
-                            str(id) + ", select snid from " + self.tblstockname + " where name ='" + fields_comment_db['name'] + \
-                            "', '" + fields_comment_db['mcode'] + "', '" + fields_comment_db['action'] + "', " + \
-                            fields_comment_db['price'] + ", " + fields_comment_db['qty'] + ", '" + date_create + "', '" + date_modify + "');")
+                cur.execute("insert into " + self.tblstocks + \
+                        "(id, snid, mcode, action, price, qty, date_create, date_modify) values(" + \
+                        str(id) + ", select snid from " + self.tblstockname + " where name ='" + fields_comment_db['name'] + \
+                        "', '" + fields_comment_db['mcode'] + "', '" + fields_comment_db['action'] + "', " + \
+                        fields_comment_db['price'] + ", " + fields_comment_db['qty'] + ", '" + date_create + "', '" + date_modify + "');")
             finally:
                     db.commit()
                     cur.close()

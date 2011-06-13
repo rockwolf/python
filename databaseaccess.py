@@ -15,11 +15,10 @@ You should have received a copy of the GNU General Public License
 along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
-import ConfigParser
 from datetime import datetime
 #import psycopg2 as dbapi2
-from sqlalchemy import create_engine
-from sqlalchemy import mapper
+from sqlalchemy import create_engine, Table
+from sqlalchemy.orm import mapper
 from mappings import *
 
 class DatabaseAccess():
@@ -28,6 +27,11 @@ class DatabaseAccess():
     def __init__(self, config):
         """ Initialize object. """
         self.config = config
+
+        print("Test1")
+        db = create_engine('postgresql://' + self.config.dbuser + ':' + self.config.dbpass + '@' + self.config.dbhost + '/' + self.config.dbname)
+        print("Test2")
+        metadata = BoundMetaData(db)
 
         self.tblfinance = Table('T_FINANCE', metadata, autoload=True)
         self.tblstock = Table('T_STOCK', metadata, autoload=True)
@@ -54,14 +58,17 @@ class DatabaseAccess():
         self.sqlcreate = [ 'create_tables.sql' ]
         self.sqlinit = [ 'init_tables.sql' ]
         self.msgHandler = __import__('messagehandler')
-        db = create_engine('postgresql://' + self.dbuser + ':' + self.dbpass + '@' + self.dbhost + '/' + self.dbname)
-        metadata = BoundMetaData(db)
     
     def map_tables(self):
         """ Create mappers for the tables on the db and the table classes. """
+        mapper(T_FINANCE, self.tblfinance)
         mapper(T_STOCK, self.tblstock)
-        mapper(T_STOCK_NAME, self.tblstockname)
+        mapper(T_STOCK_CURRENT, self.tblstockcurrent)
         mapper(T_MARKET, self.tblmarket)
+        mapper(T_STOCK_NAME, self.tblstockname)
+        mapper(T_PRODUCT, self.tblproduct)
+        mapper(T_MARGIN, self.tblmargin)
+        mapper(T_MARGIN_TYPE, self.tblmargintype)
         
     def config(self):
         """ Retrieve config file values """
@@ -73,98 +80,25 @@ class DatabaseAccess():
         self.dbuser = config.get('database', 'user')[1:-1]
         self.dbpass = config.get('database', 'password')[1:-1]
 
-    def install(self):
-        """ install the db. """
-        msgObj = self.msgHandler.MessageHandler()
-        print('Setting up the database...')  
-        self.create_tables(); 
-        msgObj.print_action('Created table', self.tables)
-        print('Fill in known values...')
-        self.init_tables()
-        msgObj.print_action('Added known values to table', self.tables)
-        msgObj = None
-    
-    def create_tables(self):
-        """ The actual creation of the tables. """
-        db = dbapi2.connect(
-                host=self.dbhost,
-                database=self.dbname,
-                user=self.dbuser,
-                password=self.dbpass)
-        cur = db.cursor()
-        try:
-            try:
-                for script in self.sqlcreate:
-                    sqlfile = "%s/%s" % (str(self.sqlpath),str(script))
-                    procedures = open(sqlfile,'r').read()
-                    cur.execute(procedures)
-                    db.commit()
-            finally:
-                cur.close()
-                db.close()
-        except dbapi2.DatabaseError, e:
-            print("Error in create_tables: procedures: ",str(e))
-            exit(1)
-
-    def init_tables(self): 
-        """ Fill tables with initial values. """
-        #TODO: refactor so it becomes a script to exec a list of sql files. Can be used by create_tables too.
-        now = datetime.now()
-        db = dbapi2.connect(
-                host=self.dbhost,
-                database=self.dbname,
-                user=self.dbuser,
-                password=self.dbpass)
-        cur = db.cursor()
-        try:
-            try:
-                for script in self.sqlinit:
-                    sqlfile = "%s/%s" % (str(self.sqlpath),str(script))
-                    procedures = open(sqlfile,'r').read()
-                    cur.execute(procedures)
-                    db.commit()
-            finally:
-                cur.close()
-                db.close()
-        except dbapi2.DatabaseError, e:
-            print("Error in init_tables: procedures: ",str(e))
-            exit(1)
-        # Crossover
-        #TODO: get years and corresponding values and return them, add them here.
-        # Make dba.get_expenses and get_passive and calculate_sw
-        #for year in yearpassiveswexpenses:
-        #    cur.execute("""insert into """ + self.tblsafetymargins + """(description, value, date_created, date_modified) values('""" + margin + """','""" + str(margins[margin]) + """','""" +  str(now) + """','""" + str(now) + """');""")
-        #db.commit()
- 
-    def uninstall(self):
-        """ uninstall the tables + data from the db. """
-        msgObj = self.msgHandler.MessageHandler()
-        answer = msgObj.confirmation('uninstall all tables from the database')
-        if answer == 0:
-            self.drop_tables()
-            msgObj = self.msgHandler.MessageHandler()
-            msgObj.print_action('uninstalld table', self.tables)
-        msgObj = None
-       
     def get_values(self, qry):
         """ Global wrapper for retrieving values. """
-        db = dbapi2.connect(
-                host=self.dbhost,
-                database=self.dbname,
-                user=self.dbuser,
-                password=self.dbpass)
-        cur = db.cursor()
-        cur.execute (qry)
-        rows = cur.fetchall()
-        values = []
-        for row in rows:
-            i = 0
-            for col in row:
-                values.append(row[i])
-                i = i+1
-        db.commit()
-        cur.close()
-        db.close()
+        #db = dbapi2.connect(
+        #        host=self.dbhost,
+        #        database=self.dbname,
+        #        user=self.dbuser,
+        #        password=self.dbpass)
+        #cur = db.cursor()
+        #cur.execute (qry)
+        #rows = cur.fetchall()
+        #values = []
+        #for row in rows:
+        #    i = 0
+        #    for col in row:
+        #        values.append(row[i])
+        #        i = i+1
+        #db.commit()
+        #cur.close()
+        #db.close()
         return values
  
     def get_products_from_finance(self):
@@ -265,25 +199,32 @@ class DatabaseAccess():
                 't2 on t1.mid = t2.mid where t1.name =',
                 "'" + str(sname) + "';"]
         return self.get_values(' '.join(str_list))
-       
-    def drop_tables(self):
-        """ The actual removal of the tables. """
-        db = dbapi2.connect(
-                host=self.dbhost,
-                database=self.dbname,
-                user=self.dbuser,
-                password=self.dbpass)
-        cur = db.cursor()
-        try:
+
+    def file_import_line(self, fields_db):
+            """ Convert general financial information. """
+            #TODO: put this in the inherited class
             try:
-                for script in self.sqldrop:
-                    sqlfile = "%s/%s" % (str(self.sqlpath),str(script))
-                    procedures = open(sqlfile,'r').read()
-                    cur.execute(procedures)
-            finally:
-                db.commit()
-                cur.close()
-                db.close()
-        except dbapi2.DatabaseError, e:
-            print('Error in drop tables: procedures: {0}',str(e))
-            exit(1)
+                print("Test: file_import_line")
+                #TODO: Create session in sqlalchemy and do the update that way.
+                #db = dbapi2.connect(host=self.get_dbhost(),database=self.get_dbname(), user=self.get_dbuser(), password=self.get_dbpass())
+                #cur = db.cursor()
+                try:
+                    exit(1)
+                    now = datetime.now()
+                    date_create = now.strftime("%Y-%m-%d %H:%M:%S")
+                    date_modify = now.strftime("%Y-%m-%d %H:%M:%S")
+
+                    #cur = db.cursor()
+                    #cur.execute("insert into " + self.tblfinance + "(date, account, product, amount, flag, comment, date_create, date_modify) values('" + fields_db['date'] + "','" + fields_db['acc'] + "','" + fields_db['prod'] + "','" + fields_db['amount'] + "','" + fields_db['flag'] + "','" + fields_db['comment'] + "','" + date_create + "','" + date_modify + "');")
+                finally:
+                    #db.commit()
+                    session.save()
+                    session.flush()
+                    #cur.close()
+                    #db.close()
+                    session = None
+                #self.Progress() #Progress report should not be here, but at the highest level
+            #except dbapi2.DatabaseError, e:
+            except:
+                print("Error: procedures: %s" % str(e))
+                exit(1)
