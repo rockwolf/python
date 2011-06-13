@@ -26,7 +26,8 @@ import sys
 from guihandler import GuiHandler
 from mainhandler import Controller
 from PyQt4 import QtCore, QtGui
-
+from mdlconfig import ConfigParser
+        
 class MainWrapper():
     """ Main logic 
     
@@ -44,6 +45,8 @@ class MainWrapper():
         self.pdate = '2011-06-12'
         self.exitstate = 0   
         self.msghandler = __import__('messagehandler')
+        # config
+        self.config = ConfigParser()
     
     def usage(self):
         """ Print usage info and exit """
@@ -63,31 +66,31 @@ All arguments are optional.'''.format(self.pprog))
             sys.exit(0)
         # run the gui app
         app = QtGui.QApplication(sys.argv)
-        myapp = GuiHandler()
+        myapp = GuiHandler(self.config)
         myapp.show()
         sys.exit(app.exec_())
 
     def file_import(self):
         """ import """
-        ctl = Controller()
+        ctl = Controller(None, self.config)
         ctl.file_import()
         ctl = None
 
     def file_export(self):
         """ export """
-        ctl = Controller()
+        ctl = Controller(None, self.config)
         ctl.file_export()
         ctl = None
 
     def install(self):
         """ install """
-        ctl = Controller()
+        ctl = Controller(None, self.config)
         ctl.install()
         ctl = None
 
     def uninstall(self):
         """ uninstall """
-        ctl = Controller()
+        ctl = Controller(None, self.config)
         ctl.uninstall()
         ctl = None
 

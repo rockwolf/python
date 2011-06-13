@@ -15,22 +15,26 @@ You should have received a copy of the GNU General Public License
 along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
+from time import sleep
+import sys
 class FileImport():
     """ Class with methods to import files. """
+
+    def __init__(self, config):
+        """ Initializes """
+        self.config = config
 
     def file_import(self):
         """ Parse textfile and insert data in db. """
         try:
-            source = open(self.get_mydata())
+            source = open(self.config.importfile)
             lines = source.readlines()
             fields = {}
             
-            dba = DatabaseAccess()
-            print(self.get_mydata() + ' -> ' + dba.get_dbname() + ': ')
-            dba = None
-           
+            print(self.config.importfile + ' -> ' + self.config.dbhost + '/' + self.config.dbname + ': ')
+            
             i = 0
-            print('[  %d%%]' % i), 
+            print('[{0}{1}]'.format('  0','%') , end = "")
             for line in lines:
                 fields = line.split(':')
                 fields_db = {
@@ -42,12 +46,23 @@ class FileImport():
                     'flag':fields[5],
                     'comment':fields[6].replace('\'','\\\'')
                 }
-                self.process_line(fields_db)
+                #self.process_line(fields_db)
                 i = i + 1
-                print('\b\b\b\b\b\b[%d%%]' % i/len(lines)*100),
-        #except IOError as (errno, strerror):
-        except:
-            print("Error {0}: {1} at {2}.".format(errno, strerror, self.get_mydata()))
+                percent = int(i/len(lines)*100)
+                percentlen = len(str(percent))-1
+
+                #[  1%]
+                #[123%]
+                #123456
+                print(6*'\b', end = "")
+
+                print('[{0}{1}]'.format((3-percentlen-1)*' ' + str(percent),'%') , end = "")
+                sleep(0.001)
+                sys.stdout.flush()
+
+            print('')
+        except Exception as ex:
+            print("Error while processing {0}:".format(self.config.importfile), ex)
         finally:
             source.close()
                 

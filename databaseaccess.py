@@ -25,23 +25,10 @@ from mappings import *
 class DatabaseAccess():
     """ Connecting to the database. """ 
 
-    def __init__(self):
-        """ Initialise the database class. """ 
-        self.myconf = 'config/lisa.rc'
-        self.dbhost = ''
-        self.dbname = ''
-        self.dbuser = ''
-        self.dbpass = ''
-        self.config()
-        #self.tblfinance = 'T_FINANCE'
-        #self.tblstock = 'T_STOCK'
-        #self.tblstockcurrent = 'T_STOCK_CURRENT'
-        #self.tblmarket = 'T_MARKET'
-        #self.tblstockname = 'T_STOCK_NAME'
-        #self.tblproduct = 'T_PRODUCT'
-        #self.tblmargin= 'T_MARGIN'
-        #self.tblmargintype= 'T_MARGIN_TYPE'
-        
+    def __init__(self, config):
+        """ Initialize object. """
+        self.config = config
+
         self.tblfinance = Table('T_FINANCE', metadata, autoload=True)
         self.tblstock = Table('T_STOCK', metadata, autoload=True)
         self.tblstockcurrent = Table('T_STOCK_CURRENT', metadata, autoload=True)

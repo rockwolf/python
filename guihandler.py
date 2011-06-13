@@ -29,15 +29,14 @@ from guicode import Ui_frm_main
 #from databaseaccess import DatabaseAccess
 from subprocess import Popen, PIPE
 from mainhandler import Controller
-from mdlconfig import ConfigParser
 
 class GuiHandler(QtGui.QDialog, Ui_frm_main):
     """ Less Interaction Saves Arbeit Main Class """
     
-    def __init__(self, parent=None):
+    def __init__(self, config, parent=None):
         """ Construct basic QApplication, add widgets and start exec_loop """
         # initialise special vars
-        self.config = ConfigParser()
+        self.config = config
         # initialize gui
         QtGui.QDialog.__init__(self, parent)
         self.gui = Ui_frm_main()

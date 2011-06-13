@@ -17,6 +17,10 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 """
 class FileExport():
     """ Class with methods to export to a textfile. """
+    
+    def __init__(self, config):
+        """ Initialize """
+        self.config = config
 
     def file_export(self):
         """ Export financial data to text-file. """

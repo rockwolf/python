@@ -104,13 +104,13 @@ class Controller():
 
     def file_import(self):
         """ Import data from text file. """
-        fi = FileImport()
+        fi = FileImport(self.config)
         fi.file_import()
         fi = None
 
     def file_export(self):
         """ Export data to text file. """
-        fe = FileExport()
+        fe = FileExport(self.config)
         fe.file_export()
         fe = None
 

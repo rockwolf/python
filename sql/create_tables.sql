@@ -48,7 +48,6 @@ CREATE TABLE T_FINANCE
     amount decimal(18,4) default 0,
     flag int not null default 0,
     comment varchar(100),
-    tags varchar(50),
     date_create timestamp default current_date,
     date_modify timestamp default current_date,
     constraint pk_id primary key(id),
