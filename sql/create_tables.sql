@@ -3,7 +3,7 @@ BEGIN;
 CREATE TABLE T_OBJECT
 (
     oid int not null,
-    object varchar(20) not null,
+    name varchar(20) not null,
     date_created timestamp default current_date,
     date_modified timestamp default current_date,
     constraint pk_oid primary key(oid)
@@ -44,7 +44,6 @@ CREATE TABLE T_FINANCE
     date timestamp default current_date,
     account varchar(6) not null,
     product varchar(50) not null,
-    action varchar(50) null,
     oid int not null,
     amount decimal(18,4) default 0,
     flag int not null default 0,

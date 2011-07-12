@@ -150,35 +150,56 @@ INSERT INTO T_PRODUCT(product, flg_income, date_created, date_modified)
 values('utilities.tx', 0, current_date, current_date);
 
 /* t_object */
-INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
+INSERT INTO T_OBJECT(oid, name, date_created, date_modified)
 values(1, 'none', current_date, current_date);
 
-INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
+INSERT INTO T_OBJECT(oid, name, date_created, date_modified)
 values(2, 'buystocks', current_date, current_date);
 
-INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
+INSERT INTO T_OBJECT(oid, name, date_created, date_modified)
 values(3, 'sellstocks', current_date, current_date);
 
-INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
+INSERT INTO T_OBJECT(oid, name, date_created, date_modified)
 values(4, 'invest', current_date, current_date);
 
-INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
+INSERT INTO T_OBJECT(oid, name, date_created, date_modified)
 values(5, 'refund', current_date, current_date);
 
-INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
+INSERT INTO T_OBJECT(oid, name, date_created, date_modified)
 values(6, 'dividend', current_date, current_date);
 
-INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
+INSERT INTO T_OBJECT(oid, name, date_created, date_modified)
 values(7, 'close', current_date, current_date);
 
-INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
+INSERT INTO T_OBJECT(oid, name, date_created, date_modified)
 values(8, 'electricity', current_date, current_date);
 
-INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
+INSERT INTO T_OBJECT(oid, name, date_created, date_modified)
 values(9, 'gas', current_date, current_date);
 
-INSERT INTO T_OBJECT(oid, object, date_created, date_modified)
+INSERT INTO T_OBJECT(oid, name, date_created, date_modified)
 values(10, 'water', current_date, current_date);
+
+INSERT INTO T_OBJECT(oid, name, date_created, date_modified)
+values(11, 'mutuality', current_date, current_date);
+
+INSERT INTO T_OBJECT(oid, name, date_created, date_modified)
+values(12, 'internet', current_date, current_date);
+
+INSERT INTO T_OBJECT(oid, name, date_created, date_modified)
+values(13, 'dexia', current_date, current_date);
+
+INSERT INTO T_OBJECT(oid, name, date_created, date_modified)
+values(14, 'other', current_date, current_date);
+
+INSERT INTO T_OBJECT(oid, name, date_created, date_modified)
+values(15, 'insurance', current_date, current_date);
+
+INSERT INTO T_OBJECT(oid, name, date_created, date_modified)
+values(16, 'police', current_date, current_date);
+
+INSERT INTO T_OBJECT(oid, name, date_created, date_modified)
+values(17, 'vik', current_date, current_date);
 
 /* margin types */
 INSERT INTO T_MARGIN_TYPE(margin_type)

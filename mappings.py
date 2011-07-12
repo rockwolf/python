@@ -130,3 +130,14 @@ class T_MARGIN_TYPE(object):
 
     def __repr__(self):
         return "<T_MARGIN_TYPE('%s', '%s')>" % (self.mtid, self.margin_type)
+
+class T_OBJECT(object):
+    """ T_OBJECT """
+
+    def __init__(self, name, date_created, date_modified):
+        self.name = name
+        self.date_created = date_created 
+        self.date_modified = date_modified
+
+    def __repr__(self):
+        return "<T_MARGIN_TYPE('%s', '%s', '%s', '%s')>" % (self.name, self.date_created, self.date_modified)

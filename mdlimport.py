@@ -65,8 +65,8 @@ class FileImport():
                 except Exception as ex:
                     print("Error in for loop: ", ex)
                     break
-            self.process_lines(fields_db)
             print('')
+            self.process_lines(fields_db)
         except Exception as ex:
             print('')
             print("Error while processing {0}:".format(self.config.importfile), ex)

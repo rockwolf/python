@@ -31,7 +31,7 @@ class DatabaseAccess():
         try:
             self.config = config
 
-            print('postgresql://' + self.config.dbuser + ':' + self.config.dbpass + '@' + self.config.dbhost + '/' + self.config.dbname)
+            #print('postgresql://' + self.config.dbuser + ':' + self.config.dbpass + '@' + self.config.dbhost + '/' + self.config.dbname)
             self.db = create_engine('postgresql://' + self.config.dbuser + ':' + self.config.dbpass + '@' + self.config.dbhost + '/' + self.config.dbname, echo=False)
             self.Session = sessionmaker(bind=self.db) 
             self.metadata = MetaData(self.db)
@@ -44,6 +44,7 @@ class DatabaseAccess():
             self.tblproduct = Table('t_product', self.metadata, autoload=True)
             self.tblmargin = Table('t_margin', self.metadata, autoload=True)
             self.tblmargintype = Table('t_margin_type', self.metadata, autoload=True)
+            self.tblobject = Table('t_object', self.metadata, autoload=True)
 
             self.map_tables()
             
@@ -55,7 +56,8 @@ class DatabaseAccess():
                     'stockname': 't_stock_name',
                     'product': 't_product',
                     'margin': 't_margin',
-                    'margintype': 't_margin_type'
+                    'margintype': 't_margin_type',
+                    'object': 't_object'
                     }
 
             self.sqlpath = 'sql'
@@ -76,6 +78,7 @@ class DatabaseAccess():
         mapper(T_PRODUCT, self.tblproduct)
         mapper(T_MARGIN, self.tblmargin)
         mapper(T_MARGIN_TYPE, self.tblmargintype)
+        mapper(T_OBJECT, self.tblobject)
         
     def config(self):
         """ Retrieve config file values """
@@ -213,7 +216,6 @@ class DatabaseAccess():
             try:
                 session = self.Session()
                 try:
-
                     now = datetime.now()
                     date_create = now.strftime("%Y-%m-%d %H:%M:%S")
                     date_modify = now.strftime("%Y-%m-%d %H:%M:%S")
@@ -221,7 +223,12 @@ class DatabaseAccess():
                     print("Preparing statements...")
                     statements = []
                     for fields in fields_db:
-                        statements.append(T_FINANCE(fields['date'], fields['account'], fields['product'], 1, Decimal(fields['amount']), int(fields['flag']), fields['comment'], date_create, date_modify))
+                        # Get object id, based on object name
+                        oid = -1
+                        # TODO: check if objectname exists, if not, add a new one first!
+                        for instance in session.query(T_OBJECT).filter_by(name=fields['object']): 
+                            oid=instance.oid
+                        statements.append(T_FINANCE(fields['date'], fields['account'], fields['product'], oid, Decimal(fields['amount']), int(fields['flag']), fields['comment'], date_create, date_modify))
                     #for s in statements:
                     #    print('test: ', s)
 
@@ -231,4 +238,4 @@ class DatabaseAccess():
                     session.commit()
                     session = None
             except Exception as ex:
-                print("Error in file_import_line: ", ex)
+                print("Error in file_import_lines: ", ex)
