@@ -32,58 +32,63 @@ class FileImport():
             source = open(self.config.importfile)
             lines = source.readlines()
             fields = {}
+            fields_db = []
             
             print(self.config.importfile + ' -> ' + self.config.dbhost + '/' + self.config.dbname + ': ')
             
             i = 0
             print('[{0}{1}]'.format('  0','%') , end = "")
             for line in lines:
-                fields = line.split(':')
-                fields_db = {
-                    'date':fields[0],
-                    'account':fields[1],
-                    'product':fields[2],
-                    'object':fields[3], #Note: Get OID from T_OBJECT for final insert
-                    'amount':fields[4],
-                    'flag':fields[5],
-                    'comment':fields[6].replace('\'','\\\'')
-                }
-                self.process_line(fields_db)
-                i = i + 1
-                percent = int(i/len(lines)*100)
-                percentlen = len(str(percent))-1
+                try:
+                    fields = line.strip().split(':')
+                    fields_db.append({
+                        'date':fields[0],
+                        'account':fields[1],
+                        'product':fields[2],
+                        'object':fields[3], #Note: Get OID from T_OBJECT for final insert
+                        'amount':fields[4],
+                        'flag':fields[5],
+                        'comment':fields[6].replace('\'','\\\'')
+                    })
+                    i = i + 1
+                    percent = int(i/len(lines)*100)
+                    percentlen = len(str(percent))-1
 
-                #[  1%]
-                #[123%]
-                #123456
-                print(6*'\b', end = "")
+                    #[  1%]
+                    #[123%]
+                    #123456
+                    print(6*'\b', end = "")
 
-                print('[{0}{1}]'.format((3-percentlen-1)*' ' + str(percent),'%') , end = "")
-                sleep(0.001)
-                sys.stdout.flush()
-
+                    print('[{0}{1}]'.format((3-percentlen-1)*' ' + str(percent),'%') , end = "")
+                    sleep(0.001)
+                    sys.stdout.flush()
+                except Exception as ex:
+                    print("Error in for loop: ", ex)
+                    break
+            self.process_lines(fields_db)
             print('')
         except Exception as ex:
             print('')
             print("Error while processing {0}:".format(self.config.importfile), ex)
         finally:
             source.close()
+            exit(1)
                 
-    def process_line(self, fields_db):
-        """ Processing lines of the input file. """
-        self.process_line_db(fields_db)
-        #self.parse_comment(fields_db)
-        #cmnt = self.commentfields
-        #if cmnt != {}:
-        #    # we have comment fields
-        #    if 'market' in cmnt:
-        #        # They are stocks
-        #        self.process_line_db_stock(self.commentfields) #stocks_current will also be in this function
+    #def process_line(self, fields_db):
+    #    """ Processing lines of the input file. """
+    #    self.process_line_db(fields_db)
+    #    #self.parse_comment(fields_db)
+    #    #cmnt = self.commentfields
+    #    #if cmnt != {}:
+    #    #    # we have comment fields
+    #    #    if 'market' in cmnt:
+    #    #        # They are stocks
+    #    #        self.process_line_db_stock(self.commentfields) #stocks_current will also be in this function
 
-    def process_line_db(self, fields_db):
+    def process_lines(self, fields_db):
         """ Convert general financial information. """
         dba = DatabaseAccess(self.config)
-        dba.file_import_line(fields_db)
+        dba.file_import_lines(fields_db)
         dba = None
         
     def parse_comment(self, fields_db):
@@ -143,7 +148,6 @@ class FileImport():
                     db.commit()
                     cur.close()
                     db.close()
-            self.Progress()
         #except dbapi2.DatabaseError, e:
         except:
             print("Error: procedures: %s" % str(e))

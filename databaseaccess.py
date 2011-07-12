@@ -16,48 +16,55 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
 from datetime import datetime
-#import psycopg2 as dbapi2
-from sqlalchemy import create_engine, Table
+import psycopg2 as dbapi2
+from sqlalchemy import create_engine, Table, MetaData
 from sqlalchemy.orm import mapper
 from mappings import *
+from sqlalchemy.orm import sessionmaker
+from decimal import Decimal
 
 class DatabaseAccess():
     """ Connecting to the database. """ 
 
     def __init__(self, config):
         """ Initialize object. """
-        self.config = config
+        try:
+            self.config = config
 
-        print("Test1")
-        db = create_engine('postgresql://' + self.config.dbuser + ':' + self.config.dbpass + '@' + self.config.dbhost + '/' + self.config.dbname)
-        print("Test2")
-        metadata = BoundMetaData(db)
+            print('postgresql://' + self.config.dbuser + ':' + self.config.dbpass + '@' + self.config.dbhost + '/' + self.config.dbname)
+            self.db = create_engine('postgresql://' + self.config.dbuser + ':' + self.config.dbpass + '@' + self.config.dbhost + '/' + self.config.dbname, echo=False)
+            self.Session = sessionmaker(bind=self.db) 
+            self.metadata = MetaData(self.db)
+            
+            self.tblfinance = Table('t_finance', self.metadata, autoload=True)
+            self.tblstock = Table('t_stock', self.metadata, autoload=True)
+            self.tblstockcurrent = Table('t_stock_current', self.metadata, autoload=True)
+            self.tblmarket = Table('t_market', self.metadata, autoload=True)
+            self.tblstockname = Table('t_stock_name', self.metadata, autoload=True)
+            self.tblproduct = Table('t_product', self.metadata, autoload=True)
+            self.tblmargin = Table('t_margin', self.metadata, autoload=True)
+            self.tblmargintype = Table('t_margin_type', self.metadata, autoload=True)
 
-        self.tblfinance = Table('T_FINANCE', metadata, autoload=True)
-        self.tblstock = Table('T_STOCK', metadata, autoload=True)
-        self.tblstockcurrent = Table('T_STOCK_CURRENT', metadata, autoload=True)
-        self.tblmarket = Table('T_MARKET', metadata, autoload=True)
-        self.tblstockname = Table('T_STOCK_NAME', metadata, autoload=True)
-        self.tblproduct = Table('T_PRODUCT', metadata, autoload=True)
-        self.tblmargin = Table('T_MARGIN', metadata, autoload=True)
-        self.tblmargintype = Table('T_MARGIN_TYPE', metadata, autoload=True)
+            self.map_tables()
+            
+            self.tables = { 
+                    'finance': 't_finance',
+                    'stock': 't_stock',
+                    'stockcurrent': 't_stock_current',
+                    'market': 't_market',
+                    'stockname': 't_stock_name',
+                    'product': 't_product',
+                    'margin': 't_margin',
+                    'margintype': 't_margin_type'
+                    }
 
-        self.tables = { 
-                'finance': 'T_FINANCE',
-                'stock': 'T_STOCK',
-                'stockcurrent': 'T_STOCK_CURRENT',
-                'market': 'T_MARKET',
-                'stockname': 'T_STOCK_NAME',
-                'product': 'T_PRODUCT',
-                'margin': 'T_MARGIN',
-                'margintype': 'T_MARGIN_TYPE'
-                }
-
-        self.sqlpath = 'sql'
-        self.sqldrop = [ 'drop_tables.sql' ]
-        self.sqlcreate = [ 'create_tables.sql' ]
-        self.sqlinit = [ 'init_tables.sql' ]
-        self.msgHandler = __import__('messagehandler')
+            self.sqlpath = 'sql'
+            self.sqldrop = [ 'drop_tables.sql' ]
+            self.sqlcreate = [ 'create_tables.sql' ]
+            self.sqlinit = [ 'init_tables.sql' ]
+            self.msgHandler = __import__('messagehandler')
+        except Exception as ex:
+            print("Error in initialisation of DatabaseAccess: ", ex)
     
     def map_tables(self):
         """ Create mappers for the tables on the db and the table classes. """
@@ -200,31 +207,28 @@ class DatabaseAccess():
                 "'" + str(sname) + "';"]
         return self.get_values(' '.join(str_list))
 
-    def file_import_line(self, fields_db):
+    def file_import_lines(self, fields_db):
             """ Convert general financial information. """
             #TODO: put this in the inherited class
             try:
-                print("Test: file_import_line")
-                #TODO: Create session in sqlalchemy and do the update that way.
-                #db = dbapi2.connect(host=self.get_dbhost(),database=self.get_dbname(), user=self.get_dbuser(), password=self.get_dbpass())
-                #cur = db.cursor()
+                session = self.Session()
                 try:
-                    exit(1)
+
                     now = datetime.now()
                     date_create = now.strftime("%Y-%m-%d %H:%M:%S")
                     date_modify = now.strftime("%Y-%m-%d %H:%M:%S")
+                    
+                    print("Preparing statements...")
+                    statements = []
+                    for fields in fields_db:
+                        statements.append(T_FINANCE(fields['date'], fields['account'], fields['product'], 1, Decimal(fields['amount']), int(fields['flag']), fields['comment'], date_create, date_modify))
+                    #for s in statements:
+                    #    print('test: ', s)
 
-                    #cur = db.cursor()
-                    #cur.execute("insert into " + self.tblfinance + "(date, account, product, amount, flag, comment, date_create, date_modify) values('" + fields_db['date'] + "','" + fields_db['acc'] + "','" + fields_db['prod'] + "','" + fields_db['amount'] + "','" + fields_db['flag'] + "','" + fields_db['comment'] + "','" + date_create + "','" + date_modify + "');")
+                    #TODO: get OID from T_OBJECT and use that for the insert, in stead of fields_db['object']
+                    session.add_all(statements)
                 finally:
-                    #db.commit()
-                    session.save()
-                    session.flush()
-                    #cur.close()
-                    #db.close()
+                    session.commit()
                     session = None
-                #self.Progress() #Progress report should not be here, but at the highest level
-            #except dbapi2.DatabaseError, e:
-            except:
-                print("Error: procedures: %s" % str(e))
-                exit(1)
+            except Exception as ex:
+                print("Error in file_import_line: ", ex)
