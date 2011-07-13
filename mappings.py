@@ -140,4 +140,4 @@ class T_OBJECT(object):
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_MARGIN_TYPE('%s', '%s', '%s', '%s')>" % (self.name, self.date_created, self.date_modified)
+        return "<T_OBJECT('%s', '%s', '%s')>" % (self.name, self.date_created, self.date_modified)

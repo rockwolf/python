@@ -2,7 +2,7 @@ BEGIN;
 /* finance */
 CREATE TABLE T_OBJECT
 (
-    oid int not null,
+    oid serial not null,
     name varchar(20) not null,
     date_created timestamp default current_date,
     date_modified timestamp default current_date,

@@ -19,8 +19,10 @@ from datetime import datetime
 import psycopg2 as dbapi2
 from sqlalchemy import create_engine, Table, MetaData
 from sqlalchemy.orm import mapper
-from mappings import *
+from sqlalchemy.sql import exists
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import func
+from mappings import *
 from decimal import Decimal
 
 class DatabaseAccess():
@@ -224,18 +226,27 @@ class DatabaseAccess():
                     statements = []
                     for fields in fields_db:
                         # Get object id, based on object name
-                        oid = -1
-                        # TODO: check if objectname exists, if not, add a new one first!
-                        for instance in session.query(T_OBJECT).filter_by(name=fields['object']): 
-                            oid=instance.oid
+                        # but first check if the object already exists
+                        # in T_OBJECT. If not, add it to the t_object table.
+                        obj = session.query(T_OBJECT).filter_by(name=fields['object']).first() is not None
+                        if not obj: 
+                            session.add(T_OBJECT(fields['object'], date_create, date_modify))
+                            session.commit()
+                            for instance in session.query(func.max(T_OBJECT.oid).label('oid')):
+                                oid = instance.oid
+                        else:
+                            for instance in session.query(T_OBJECT).filter_by(name=fields['object']):
+                                oid = str(instance.oid)
                         statements.append(T_FINANCE(fields['date'], fields['account'], fields['product'], oid, Decimal(fields['amount']), int(fields['flag']), fields['comment'], date_create, date_modify))
                     #for s in statements:
                     #    print('test: ', s)
 
                     #TODO: get OID from T_OBJECT and use that for the insert, in stead of fields_db['object']
+                    print("Executing statements all at once...")
                     session.add_all(statements)
                 finally:
                     session.commit()
                     session = None
+                    print("Done.")
             except Exception as ex:
                 print("Error in file_import_lines: ", ex)
