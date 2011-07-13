@@ -224,6 +224,7 @@ class DatabaseAccess():
                     
                     print("Preparing statements...")
                     statements = []
+                    records = 0
                     for fields in fields_db:
                         # Get object id, based on object name
                         # but first check if the object already exists
@@ -237,7 +238,11 @@ class DatabaseAccess():
                         else:
                             for instance in session.query(T_OBJECT).filter_by(name=fields['object']):
                                 oid = str(instance.oid)
-                        statements.append(T_FINANCE(fields['date'], fields['account'], fields['product'], oid, Decimal(fields['amount']), int(fields['flag']), fields['comment'], date_create, date_modify))
+                        
+                        obj = session.query(T_FINANCE).filter_by(date=fields['date'], account=fields['account'], oid=oid, amount=Decimal(fields['amount']), flag=int(fields['flag']), comment=fields['comment']).first() is not None
+                        if not obj: 
+                            records = records + 1
+                            statements.append(T_FINANCE(fields['date'], fields['account'], fields['product'], oid, Decimal(fields['amount']), int(fields['flag']), fields['comment'], date_create, date_modify))
                     #for s in statements:
                     #    print('test: ', s)
 
@@ -247,6 +252,7 @@ class DatabaseAccess():
                 finally:
                     session.commit()
                     session = None
+                    print("{0} records added.".format(str(records)))
                     print("Done.")
             except Exception as ex:
                 print("Error in file_import_lines: ", ex)
