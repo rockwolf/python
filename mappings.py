@@ -18,7 +18,7 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 class T_FINANCE(object):
     """ T_FINANCE """
 
-    def __init__(self, date, account, product, oid, amount, flag, comment, date_create, date_modify):
+    def __init__(self, date, account, product, oid, amount, flag, comment, active, date_create, date_modify):
         self.date = date
         self.account = account
         self.product = product
@@ -26,11 +26,12 @@ class T_FINANCE(object):
         self.amount = amount
         self.flag = flag
         self.comment = comment
+        self.active = active
         self.date_create = date_create
         self.date_modify = date_modify
 
     def __repr__(self):
-        return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.date, self.account, self.product, self.oid, self.amount, self.flag, self.comment, self.date_create, self.date_modify)
+        return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.date, self.account, self.product, self.oid, self.amount, self.flag, self.comment, self.active, self.date_create, self.date_modify)
 
 class T_STOCK(object):
     """ T_STOCK """

@@ -15,6 +15,8 @@ You should have received a copy of the GNU General Public License
 along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
+from databaseaccess import DatabaseAccess
+
 class FileExport():
     """ Class with methods to export to a textfile. """
     
@@ -24,4 +26,18 @@ class FileExport():
 
     def file_export(self):
         """ Export financial data to text-file. """
-        print("Export dummy...")
+        try:
+            dba = DatabaseAccess(self.config)
+            try:
+                print("Retrieving lines from database...")
+                lines = dba.export_lines()
+                print("Writing data to file...")
+                file = open(self.config.exportfile, 'w')
+                for line in lines:
+                    file.write(line + '\n')
+            finally:
+                print("Done.")
+                file.close()
+                dba = None
+        except Exception as ex:
+            print("Error in file_export: ", ex)

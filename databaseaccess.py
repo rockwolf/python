@@ -24,6 +24,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import func
 from mappings import *
 from decimal import Decimal
+from datetime import datetime
 
 class DatabaseAccess():
     """ Connecting to the database. """ 
@@ -242,11 +243,10 @@ class DatabaseAccess():
                         obj = session.query(T_FINANCE).filter_by(date=fields['date'], account=fields['account'], oid=oid, amount=Decimal(fields['amount']), flag=int(fields['flag']), comment=fields['comment']).first() is not None
                         if not obj: 
                             records = records + 1
-                            statements.append(T_FINANCE(fields['date'], fields['account'], fields['product'], oid, Decimal(fields['amount']), int(fields['flag']), fields['comment'], date_create, date_modify))
+                            statements.append(T_FINANCE(fields['date'], fields['account'], fields['product'], oid, Decimal(fields['amount']), int(fields['flag']), fields['comment'], 1, date_create, date_modify))
                     #for s in statements:
                     #    print('test: ', s)
 
-                    #TODO: get OID from T_OBJECT and use that for the insert, in stead of fields_db['object']
                     print("Executing statements all at once...")
                     session.add_all(statements)
                 finally:
@@ -256,3 +256,58 @@ class DatabaseAccess():
                     print("Done.")
             except Exception as ex:
                 print("Error in file_import_lines: ", ex)
+    
+    def export_lines(self, all=False):
+            """ Returns the t_finance lines from the database. """
+            #TODO: Retrieve the object name 
+            results = []
+            try:
+                session = self.Session()
+                try:
+                    records = 0
+                    if all:
+                        for instance in session.query(T_FINANCE):
+                            records = records + 1
+                            outline = self.export_line(instance)
+                            results.append(':'.join(outline))
+                    else:
+                        for instance in session.query(T_FINANCE).filter_by(active=1):
+                            records = records + 1
+                            outline = self.export_line(instance)
+                            results.append(':'.join(outline))
+                finally:
+                    session.rollback()
+                    session = None
+                    print("{0} records retrieved.".format(str(records)))
+
+            except Exception as ex:
+                print("Error in export_lines: ", ex)
+            finally:
+                return results
+
+    def export_line(self, line):
+        """ Assemble an export line. """
+        exportline = []
+        date = datetime.strftime(line.date, '%Y-%m-%d')
+        exportline.append(str(date))
+        exportline.append(line.account)
+        exportline.append(line.product)
+        exportline.append(self.objectname_from_oid(line.oid))
+        exportline.append(str(line.amount))
+        exportline.append(str(line.flag))
+        exportline.append(line.comment)
+        return exportline
+
+    def objectname_from_oid(self, oid):
+        """ Get the objectname for a given oid from the T_OBJECT table. """
+        result = ''
+        try:
+            session = self.Session()
+            for instance in session.query(T_OBJECT).filter_by(oid=oid):
+                result = instance.name
+        except Exception as ex:
+            print("Error retrieving objectname from oid: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result

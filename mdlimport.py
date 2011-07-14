@@ -48,7 +48,8 @@ class FileImport():
                         'object':fields[3], #Note: Get OID from T_OBJECT for final insert
                         'amount':fields[4],
                         'flag':fields[5],
-                        'comment':fields[6].replace('\'','\\\'')
+                        'comment':fields[6]
+                        #.replace('\'','\\\'')
                     })
                     i = i + 1
                     percent = int(i/len(lines)*100)
