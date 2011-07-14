@@ -26,7 +26,7 @@ import shutil
 import os
 from PyQt4 import QtCore, QtGui
 from guicode import Ui_frm_main
-#from databaseaccess import DatabaseAccess
+from databaseaccess import DatabaseAccess
 from subprocess import Popen, PIPE
 from mainhandler import Controller
 
@@ -142,19 +142,19 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
     def fillcombos(self):
         """ fill in the combo boxes with values. """
         #TODO: fix databaseaccess first
-        #dba = DatabaseAccess()
-        ## Products
-        #for prod in dba.get_products():
-        #    self.gui.cmb_product.addItem(prod)
-        ## Accounts
-        #for acc in dba.get_accounts():
-        #    self.gui.cmb_account.addItem(acc)
-        ## Market codes
-        #for mcd in dba.get_markets():
-        #    self.gui.cmb_marketcode.addItem(mcd)
-        ## Stock names
-        #self.fillcmb_stockname()
-        #dba = None
+        dba = DatabaseAccess(self.config)
+        # Products
+        for prod in dba.get_products():
+            self.gui.cmb_product.addItem(prod)
+        # Accounts
+        for acc in dba.get_accounts():
+            self.gui.cmb_account.addItem(acc)
+        # Market codes
+        for mcd in dba.get_markets():
+            self.gui.cmb_marketcode.addItem(mcd)
+        # Stock names
+        self.fillcmb_stockname()
+        dba = None
 
     ## Stocks
     def fillcmb_stockname(self):

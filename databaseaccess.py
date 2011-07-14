@@ -93,7 +93,7 @@ class DatabaseAccess():
         self.dbuser = config.get('database', 'user')[1:-1]
         self.dbpass = config.get('database', 'password')[1:-1]
 
-    def get_values(self, qry):
+    def get_values(self, query):
         """ Global wrapper for retrieving values. """
         #db = dbapi2.connect(
         #        host=self.dbhost,
@@ -112,106 +112,124 @@ class DatabaseAccess():
         #db.commit()
         #cur.close()
         #db.close()
+        values = []
         return values
  
-    def get_products_from_finance(self):
-        """ Get the products from the finance table. """
-        str_list = [
-                'select distinct product from',
-                self.tblfinance,
-                'order by prod;']
-        return self.get_values(' '.join(str_list))
-
     def get_products(self):
         """ Get the products. """
-        str_list = [
-                'select product from',
-                self.tblproduct,
-                'order by product;']
-        return self.get_values(' '.join(str_list))
+        values = []
+        try:
+            session = self.Session()
+            query = session.query(T_PRODUCT)
+            for instance in query: 
+                values.append(instance.product)
+        except Exception as ex:
+            print("Error in get_products: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return values
+    
+    def get_products_from_finance(self):
+        """ Get the distinct products from the finance table. """
+        values = []
+        try:
+            session = self.Session()
+            query = session.query(T_FINANCE).distinct(T_FINANCE.product)
+            for instance in query: 
+                values.append(instance.product)
+        except Exception as ex:
+            print("Error in get_products_from_finance: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return values
+
 
     def get_accounts(self):
         """ Get the accounts. """
-        str_list = [
-                'select distinct acc from',
-                self.tblfinance,
-                'order by acc;']
-        return self.get_values(' '.join(str_list))
+        values = []
+        return values
  
     def get_markets(self):
         """ Get the market codes. """
-        str_list = [
-                'select distinct code from',
-                self.tblmarket,
-                'order by code;']
-        return self.get_values(' '.join(str_list))
+        # 'select distinct code from',
+        # self.tblmarket,
+        # 'order by code;']
+        values = []
+        return values
  
     def get_stocknames(self, code):
         """ Get the stock names. """
-        str_list = [
-                'select t1.name from',
-                self.tblstockname,
-                't1 join',
-                self.tblmarket,
-                't2 on t1.mid = t2.mid where t2.code =',
-                "'" + str(code) + "'",
-                'order by t1.name;']
-        return self.get_values(' '.join(str_list))
+        #str_list = [
+        #        'select t1.name from',
+        #        self.tblstockname,
+        #        't1 join',
+        #        self.tblmarket,
+        #        't2 on t1.mid = t2.mid where t2.code =',
+        #        "'" + str(code) + "'",
+        #        'order by t1.name;']
+        values = []
+        return values
 
     def get_stockinfo(self, sname):
         """ Get extra stock info. """
-        str_list = [
-                'select t1.description, t2.description from',
-                self.tblstockname,
-                't1 join',
-                self.tblmarket,
-                't2 on t1.mid = t2.mid where t1.name =',
-                "'" + str(sname) + "';"]
-        return self.get_values(' '.join(str_list))
+        #str_list = [
+        #        'select t1.description, t2.description from',
+        #        self.tblstockname,
+        #        't1 join',
+        #        self.tblmarket,
+        #        't2 on t1.mid = t2.mid where t1.name =',
+        #        "'" + str(sname) + "';"]
+        values = []
+        return values
         
     def get_expenses(self):
         """ Get the total expenses, ordered by year. """
         #TODO: extra flag in database, in seperate table?
-        prd_expenses = [
-                'account.start',
-                'account.tx',
-                'invest.invest',
-                'invest.changestocks',
-                'invest.buystocks']
-        strprd_expenses = ''
-        for prd in prd_expenses:
-            str_list = [
-                    strprd_expenses,
-                    'and t1.product <>',
-                    "'" + prd + "'"]
-            prd_expensestr = ' '.join(str_list)
-        str_list = [
-                'select extract(year from t1.date), sum(t1.amount) from',
-                self.tblfinance,
-                't1 where t1.flag = 0 and',
-                strprd_expensess,
-                'group by extract(year from t1.date);']
-        return self.get_values()
+        #prd_expenses = [
+        #        'account.start',
+        #        'account.tx',
+        #        'invest.invest',
+        #        'invest.changestocks',
+        #        'invest.buystocks']
+        #strprd_expenses = ''
+        #for prd in prd_expenses:
+        #    str_list = [
+        #            strprd_expenses,
+        #            'and t1.product <>',
+        #            "'" + prd + "'"]
+        #    prd_expensestr = ' '.join(str_list)
+        #str_list = [
+        #        'select extract(year from t1.date), sum(t1.amount) from',
+        #        self.tblfinance,
+        #        't1 where t1.flag = 0 and',
+        #        strprd_expensess,
+        #        'group by extract(year from t1.date);']
+        values = []
+        return values
 
     def get_passive(self):
         """ Get the total passive income, ordered by year. """
-        str_list = [
-                'select sum(t1.amount) from',
-                self.finance,
-                "t1 where t1.product = 'invest.dividend'",
-                "or t1.product = 'invest.refund';"]
-        return self.get_values(' '.join(str_list))
+        #str_list = [
+        #        'select sum(t1.amount) from',
+        #        self.finance,
+        #        "t1 where t1.product = 'invest.dividend'",
+        #        "or t1.product = 'invest.refund';"]
+        values = []
+        return values
 
     def calculate_sw(self, sname):
         """ Calculate the safe withdrawal value. """
-        str_list = [
-                'select t1.description, t2.description from',
-                self.tblstockname,
-                't1 join',
-                self.tblmarket,
-                't2 on t1.mid = t2.mid where t1.name =',
-                "'" + str(sname) + "';"]
-        return self.get_values(' '.join(str_list))
+        #str_list = [
+        #        'select t1.description, t2.description from',
+        #        self.tblstockname,
+        #        't1 join',
+        #        self.tblmarket,
+        #        't2 on t1.mid = t2.mid where t1.name =',
+        #        "'" + str(sname) + "';"]
+        values = []
+        return values
 
     def file_import_lines(self, fields_db):
             """ Convert general financial information. """

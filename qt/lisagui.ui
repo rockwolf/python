@@ -39,7 +39,7 @@
   <property name="windowTitle">
    <string>LISA</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -48,7 +48,7 @@
      <height>611</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0,0,0,0">
+   <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0,0,0">
     <property name="sizeConstraint">
      <enum>QLayout::SetDefaultConstraint</enum>
     </property>
@@ -205,7 +205,7 @@
      </layout>
     </item>
     <item row="1" column="0">
-     <layout class="QGridLayout" name="gridLayout_4" columnstretch="0,1,0,1,0,0,0,2">
+     <layout class="QGridLayout" name="gridLayout_4" columnstretch="0,0,0,2,0,0,0,1,0,2">
       <property name="sizeConstraint">
        <enum>QLayout::SetDefaultConstraint</enum>
       </property>
@@ -239,14 +239,14 @@
       <item row="0" column="3">
        <widget class="QComboBox" name="cmb_product"/>
       </item>
-      <item row="0" column="4">
+      <item row="0" column="6">
        <widget class="QLabel" name="lbl_amount">
         <property name="text">
          <string>Amount</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="5">
+      <item row="0" column="7">
        <widget class="QDoubleSpinBox" name="spn_amount">
         <property name="maximum">
          <double>999999.989999999990687</double>
@@ -256,7 +256,7 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="6">
+      <item row="0" column="8">
        <widget class="QLabel" name="lbl_comment">
         <property name="font">
          <font>
@@ -268,10 +268,20 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="7">
+      <item row="0" column="9">
        <widget class="QLineEdit" name="txt_comment">
         <property name="enabled">
          <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="QComboBox" name="cmb_object"/>
+      </item>
+      <item row="0" column="4">
+       <widget class="QLabel" name="lbl_object">
+        <property name="text">
+         <string>Object</string>
         </property>
        </widget>
       </item>
@@ -293,7 +303,7 @@
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>1</number>
         </property>
         <property name="elideMode">
          <enum>Qt::ElideNone</enum>
@@ -373,7 +383,7 @@
          <attribute name="title">
           <string>Summary</string>
          </attribute>
-         <widget class="QWidget" name="">
+         <widget class="QWidget" name="layoutWidget">
           <property name="geometry">
            <rect>
             <x>0</x>
@@ -442,11 +452,6 @@
            </item>
           </layout>
          </widget>
-         <zorder></zorder>
-         <zorder>grp_summary</zorder>
-         <zorder>grp_summary</zorder>
-         <zorder></zorder>
-         <zorder></zorder>
         </widget>
         <widget class="QWidget" name="tab_page_empty">
          <attribute name="title">
