@@ -48,6 +48,7 @@ class DatabaseAccess():
             self.tblmargin = Table('t_margin', self.metadata, autoload=True)
             self.tblmargintype = Table('t_margin_type', self.metadata, autoload=True)
             self.tblobject = Table('t_object', self.metadata, autoload=True)
+            self.tblaccount = Table('t_account', self.metadata, autoload=True)
 
             self.map_tables()
             
@@ -60,7 +61,8 @@ class DatabaseAccess():
                     'product': 't_product',
                     'margin': 't_margin',
                     'margintype': 't_margin_type',
-                    'object': 't_object'
+                    'object': 't_object',
+                    'account': 't_account'
                     }
 
             self.sqlpath = 'sql'
@@ -82,6 +84,7 @@ class DatabaseAccess():
         mapper(T_MARGIN, self.tblmargin)
         mapper(T_MARGIN_TYPE, self.tblmargintype)
         mapper(T_OBJECT, self.tblobject)
+        mapper(T_ACCOUNT, self.tblaccount)
         
     def config(self):
         """ Retrieve config file values """
@@ -245,23 +248,14 @@ class DatabaseAccess():
                     statements = []
                     records = 0
                     for fields in fields_db:
-                        # Get object id, based on object name
-                        # but first check if the object already exists
-                        # in T_OBJECT. If not, add it to the t_object table.
-                        obj = session.query(T_OBJECT).filter_by(name=fields['object']).first() is not None
-                        if not obj: 
-                            session.add(T_OBJECT(fields['object'], date_create, date_modify))
-                            session.commit()
-                            for instance in session.query(func.max(T_OBJECT.oid).label('oid')):
-                                oid = instance.oid
-                        else:
-                            for instance in session.query(T_OBJECT).filter_by(name=fields['object']):
-                                oid = str(instance.oid)
-                        
-                        obj = session.query(T_FINANCE).filter_by(date=fields['date'], account=fields['account'], oid=oid, amount=Decimal(fields['amount']), flag=int(fields['flag']), comment=fields['comment']).first() is not None
+                        oid = self.oid_from_object(fields['object'], date_create, date_modify)
+                        aid = self.aid_from_account(fields['account'], date_create, date_modify)
+                        pid = self.pid_from_product(fields['product'], date_create, date_modify)
+                                                
+                        obj = session.query(T_FINANCE).filter_by(date=fields['date'], aid=aid, pid=pid, oid=oid, amount=Decimal(fields['amount']), flag=int(fields['flag']), comment=fields['comment']).first() is not None
                         if not obj: 
                             records = records + 1
-                            statements.append(T_FINANCE(fields['date'], fields['account'], fields['product'], oid, Decimal(fields['amount']), int(fields['flag']), fields['comment'], 1, date_create, date_modify))
+                            statements.append(T_FINANCE(fields['date'], aid, pid, oid, Decimal(fields['amount']), int(fields['flag']), fields['comment'], 1, date_create, date_modify))
                     #for s in statements:
                     #    print('test: ', s)
 
@@ -308,13 +302,92 @@ class DatabaseAccess():
         exportline = []
         date = datetime.strftime(line.date, '%Y-%m-%d')
         exportline.append(str(date))
-        exportline.append(line.account)
-        exportline.append(line.product)
+        exportline.append(self.accountname_from_aid(line.account))
+        exportline.append(self.productname_from_pid(line.product))
         exportline.append(self.objectname_from_oid(line.oid))
         exportline.append(str(line.amount))
         exportline.append(str(line.flag))
         exportline.append(line.comment)
         return exportline
+
+    def oid_from_object(self, object_, date_create, date_modify):
+        """ Get the oid from an object. """
+        result = -1
+        session = self.Session()
+        try:
+            # Get object id, based on object name
+            # but first check if the object already exists
+            # in T_OBJECT. If not, add it to the t_object table.
+            obj = session.query(T_OBJECT).filter_by(name=object_).first() is not None
+            if not obj: 
+                session.add(T_OBJECT(object_, date_create, date_modify))
+                session.commit()
+                for instance in session.query(func.max(T_OBJECT.oid).label('oid')):
+                    result = instance.oid
+            else:
+                for instance in session.query(T_OBJECT).filter_by(name=object_):
+                    result = str(instance.oid)
+        except Exception as ex:
+            print("Error retrieving oid: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
+
+    def aid_from_account(self, account, date_create, date_modify):
+        """ Get the aid from an account. """
+        result = -1
+        session = self.Session()
+        try:
+            # Get account id, based on account name
+            # but first check if the account already exists
+            # in T_ACCOUNT. If not, add it to the t_account table.
+            obj = session.query(T_ACCOUNT).filter_by(name=account).first() is not None
+            if not obj: 
+                session.add(T_ACCOUNT(account, date_create, date_modify))
+                session.commit()
+                for instance in session.query(func.max(T_ACCOUNT.aid).label('aid')):
+                    result = instance.aid
+            else:
+                for instance in session.query(T_ACCOUNT).filter_by(name=account):
+                    result = str(instance.aid)
+        except Exception as ex:
+            print("Error retrieving aid: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
+
+    def pid_from_product(self, product, date_create, date_modify):
+        """ Get the pid from a product. """
+        result = -1
+        session = self.Session()
+        try:
+            # Get pid, based on product name
+            # but first check if the product already exists
+            # in T_PRODUCT. If not, add it to the t_product table.
+            # if product ends with .rx: flg_income = 1, else 0
+            if(product[-3:] == '.rx'):
+                flg_income = 1
+            elif(product[-3:] == '.tx'):
+                flg_income = 0
+            else:
+                raise Exception("Wrong product in input-file: {0}".format(product))
+            obj = session.query(T_PRODUCT).filter_by(name=product).first() is not None
+            if not obj: 
+                session.add(T_PRODUCT(product, flg_income, date_create, date_modify))
+                session.commit()
+                for instance in session.query(func.max(T_PRODUCT.pid).label('pid')):
+                    result = instance.pid
+            else:
+                for instance in session.query(T_PRODUCT).filter_by(name=product):
+                    result = str(instance.pid)
+        except Exception as ex:
+            print("Error retrieving pid: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
 
     def objectname_from_oid(self, oid):
         """ Get the objectname for a given oid from the T_OBJECT table. """
@@ -325,6 +398,34 @@ class DatabaseAccess():
                 result = instance.name
         except Exception as ex:
             print("Error retrieving objectname from oid: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
+
+    def accountname_from_aid(self, aid):
+        """ Get the accountname for a given aid from the T_ACCOUNT table. """
+        result = ''
+        try:
+            session = self.Session()
+            for instance in session.query(T_ACCOUNT).filter_by(aid=aid):
+                result = instance.name
+        except Exception as ex:
+            print("Error retrieving accountname from aid: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
+
+    def productname_from_pid(self, pid):
+        """ Get the productname for a given pid from the T_PRODUCT table. """
+        result = ''
+        try:
+            session = self.Session()
+            for instance in session.query(T_PRODUCT).filter_by(pid=pid):
+                result = instance.name
+        except Exception as ex:
+            print("Error retrieving productname from pid: ", ex)
         finally:
             session.rollback()
             session = None

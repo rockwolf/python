@@ -18,10 +18,10 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 class T_FINANCE(object):
     """ T_FINANCE """
 
-    def __init__(self, date, account, product, oid, amount, flag, comment, active, date_create, date_modify):
+    def __init__(self, date, aid, pid, oid, amount, flag, comment, active, date_create, date_modify):
         self.date = date
-        self.account = account
-        self.product = product
+        self.aid = aid
+        self.pid = pid 
         self.oid = oid
         self.amount = amount
         self.flag = flag
@@ -31,7 +31,7 @@ class T_FINANCE(object):
         self.date_modify = date_modify
 
     def __repr__(self):
-        return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.date, self.account, self.product, self.oid, self.amount, self.flag, self.comment, self.active, self.date_create, self.date_modify)
+        return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.date, self.aid, self.pid, self.oid, self.amount, self.flag, self.comment, self.active, self.date_create, self.date_modify)
 
 class T_STOCK(object):
     """ T_STOCK """
@@ -98,15 +98,14 @@ class T_MARKET(object):
 class T_PRODUCT(object):
     """ T_PRODUCT"""
 
-    def __init__(self, pid, product, flg_income, date_create, date_modify):
-        self.pid = pid
-        self.product = product
+    def __init__(self, name, flg_income, date_create, date_modify):
+        self.name = name
         self.flg_income = flg_income 
         self.date_create = date_create
         self.date_modify = date_modify
 
     def __repr__(self):
-        return "<T_PRODUCT('%s', '%s', '%s', '%s', '%s')>" % (self.pid, self.product, self.flg_income, self.date_create, self.date_modify)
+        return "<T_PRODUCT('%s', '%s', '%s', '%s')>" % (self.name, self.flg_income, self.date_create, self.date_modify)
 
 class T_MARGIN(object):
     """ T_MARGIN """
@@ -134,6 +133,17 @@ class T_MARGIN_TYPE(object):
 
 class T_OBJECT(object):
     """ T_OBJECT """
+
+    def __init__(self, name, date_created, date_modified):
+        self.name = name
+        self.date_created = date_created 
+        self.date_modified = date_modified
+
+    def __repr__(self):
+        return "<T_OBJECT('%s', '%s', '%s')>" % (self.name, self.date_created, self.date_modified)
+
+class T_ACCOUNT(object):
+    """ T_ACCOUNT """
 
     def __init__(self, name, date_created, date_modified):
         self.name = name

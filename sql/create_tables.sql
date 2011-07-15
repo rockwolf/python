@@ -12,11 +12,20 @@ CREATE TABLE T_OBJECT
 CREATE TABLE T_PRODUCT
 (
     pid serial not null,
-    product varchar(30) not null,
+    name varchar(30) not null,
     flg_income int not null,
     date_created timestamp default current_date,
     date_modified timestamp default current_date,
     constraint pk_pid primary key(pid)
+);
+
+CREATE TABLE T_ACCOUNT
+(
+    aid serial not null,
+    name varchar(6) not null,
+    date_created timestamp default current_date,
+    date_modified timestamp default current_date,
+    constraint pk_aid primary key(aid)
 );
 
 create table T_MARGIN_TYPE
@@ -42,8 +51,8 @@ CREATE TABLE T_FINANCE
 (
     id serial not null,
     date timestamp default current_date,
-    account varchar(6) not null,
-    product varchar(50) not null,
+    aid int not null,
+    pid int not null,
     oid int not null,
     amount decimal(18,4) default 0,
     flag int not null default 0,
@@ -52,6 +61,8 @@ CREATE TABLE T_FINANCE
     date_create timestamp default current_date,
     date_modify timestamp default current_date,
     constraint pk_id primary key(id),
+    constraint fk_aid foreign key(aid) references T_ACCOUNT,
+    constraint fk_pid foreign key(pid) references T_PRODUCT,
     constraint fk_oid foreign key(oid) references T_OBJECT
 );
 
