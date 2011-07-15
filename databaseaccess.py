@@ -18,7 +18,7 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 from datetime import datetime
 import psycopg2 as dbapi2
 from sqlalchemy import create_engine, Table, MetaData
-from sqlalchemy.orm import mapper
+from sqlalchemy.orm import mapper, clear_mappers
 from sqlalchemy.sql import exists
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import func
@@ -33,10 +33,14 @@ class DatabaseAccess():
         """ Initialize object. """
         try:
             self.config = config
-
+            
             #print('postgresql://' + self.config.dbuser + ':' + self.config.dbpass + '@' + self.config.dbhost + '/' + self.config.dbname)
             self.db = create_engine('postgresql://' + self.config.dbuser + ':' + self.config.dbpass + '@' + self.config.dbhost + '/' + self.config.dbname, echo=False)
             self.Session = sessionmaker(bind=self.db) 
+            
+            # When recreating this object, the previous mappers where remembered by sqlalchemy. We need to clear them first.
+            clear_mappers()
+
             self.metadata = MetaData(self.db)
             
             self.tblfinance = Table('t_finance', self.metadata, autoload=True)
@@ -49,7 +53,7 @@ class DatabaseAccess():
             self.tblmargintype = Table('t_margin_type', self.metadata, autoload=True)
             self.tblobject = Table('t_object', self.metadata, autoload=True)
             self.tblaccount = Table('t_account', self.metadata, autoload=True)
-
+            
             self.map_tables()
             
             self.tables = { 
@@ -125,7 +129,7 @@ class DatabaseAccess():
             session = self.Session()
             query = session.query(T_PRODUCT)
             for instance in query: 
-                values.append(instance.product)
+                values.append(instance.name)
         except Exception as ex:
             print("Error in get_products: ", ex)
         finally:
@@ -136,43 +140,78 @@ class DatabaseAccess():
     def get_products_from_finance(self):
         """ Get the distinct products from the finance table. """
         values = []
-        try:
-            session = self.Session()
-            query = session.query(T_FINANCE).distinct(T_FINANCE.product)
-            for instance in query: 
-                values.append(instance.product)
-        except Exception as ex:
-            print("Error in get_products_from_finance: ", ex)
-        finally:
-            session.rollback()
-            session = None
+        #TODO: fix when function is needed. Was broken when switching to T_FINANCE.pid
+        #try:
+        #    session = self.Session()
+        #    query = session.query(T_FINANCE).distinct(T_FINANCE.product)
+        #    for instance in query: 
+        #        values.append(instance.product)
+        #except Exception as ex:
+        #    print("Error in get_products_from_finance: ", ex)
+        #finally:
+        #    session.rollback()
+        #    session = None
         return values
 
 
     def get_accounts(self):
         """ Get the accounts. """
         values = []
+        try:
+            session = self.Session()
+            query = session.query(T_ACCOUNT)
+            for instance in query: 
+                values.append(instance.name)
+        except Exception as ex:
+            print("Error in get_accounts: ", ex)
+        finally:
+            session.rollback()
+            session = None
         return values
- 
+
+    def get_objects(self):
+        """ Get the objects. """
+        values = []
+        try:
+            session = self.Session()
+            query = session.query(T_OBJECT)
+            for instance in query: 
+                values.append(instance.name)
+        except Exception as ex:
+            print("Error in get_objects: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return values
+
     def get_markets(self):
         """ Get the market codes. """
-        # 'select distinct code from',
-        # self.tblmarket,
-        # 'order by code;']
         values = []
+        try:
+            session = self.Session()
+            query = session.query(T_MARKET)
+            for instance in query: 
+                values.append(instance.code)
+        except Exception as ex:
+            print("Error in get_markets: ", ex)
+        finally:
+            session.rollback()
+            session = None
         return values
  
     def get_stocknames(self, code):
         """ Get the stock names. """
-        #str_list = [
-        #        'select t1.name from',
-        #        self.tblstockname,
-        #        't1 join',
-        #        self.tblmarket,
-        #        't2 on t1.mid = t2.mid where t2.code =',
-        #        "'" + str(code) + "'",
-        #        'order by t1.name;']
         values = []
+        try:
+            session = self.Session()
+            query = session.query(T_STOCK_NAME).join(T_MARKET, T_STOCK_NAME.mid == T_MARKET.mid).filter(T_MARKET.code == code)
+            for instance in query: 
+                values.append(instance.name)
+        except Exception as ex:
+            print("Error in get_stocknames: ", ex)
+        finally:
+            session.rollback()
+            session = None
         return values
 
     def get_stockinfo(self, sname):

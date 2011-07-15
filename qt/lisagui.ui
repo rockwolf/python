@@ -314,70 +314,10 @@
         <property name="documentMode">
          <bool>true</bool>
         </property>
-        <widget class="QWidget" name="tab_page_stocks">
+        <widget class="QWidget" name="tab_page_empty">
          <attribute name="title">
-          <string>Stocks</string>
+          <string>~/</string>
          </attribute>
-         <widget class="QWidget" name="gridLayoutWidget_5">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>20</y>
-            <width>251</width>
-            <height>151</height>
-           </rect>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_5">
-           <item row="0" column="4">
-            <widget class="QComboBox" name="cmb_marketcode"/>
-           </item>
-           <item row="3" column="4">
-            <widget class="QDoubleSpinBox" name="spn_price">
-             <property name="maximum">
-              <double>999999.989999999990687</double>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="4">
-            <widget class="QSpinBox" name="spn_quantity">
-             <property name="maximum">
-              <number>999999</number>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="lbl_marketcode">
-             <property name="text">
-              <string>Market code</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="lbl_stockname">
-             <property name="text">
-              <string>Stock name</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="lbl_quantity">
-             <property name="text">
-              <string>Quantity</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="lbl_price">
-             <property name="text">
-              <string>Price</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="4">
-            <widget class="QComboBox" name="cmb_stockname"/>
-           </item>
-          </layout>
-         </widget>
         </widget>
         <widget class="QWidget" name="tab_page_summary">
          <attribute name="title">
@@ -453,10 +393,70 @@
           </layout>
          </widget>
         </widget>
-        <widget class="QWidget" name="tab_page_empty">
+        <widget class="QWidget" name="tab_page_stocks">
          <attribute name="title">
-          <string>~/</string>
+          <string>Stocks</string>
          </attribute>
+         <widget class="QWidget" name="gridLayoutWidget_5">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>20</y>
+            <width>251</width>
+            <height>151</height>
+           </rect>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_5">
+           <item row="0" column="4">
+            <widget class="QComboBox" name="cmb_marketcode"/>
+           </item>
+           <item row="3" column="4">
+            <widget class="QDoubleSpinBox" name="spn_price">
+             <property name="maximum">
+              <double>999999.989999999990687</double>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="4">
+            <widget class="QSpinBox" name="spn_quantity">
+             <property name="maximum">
+              <number>999999</number>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="lbl_marketcode">
+             <property name="text">
+              <string>Market code</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="lbl_stockname">
+             <property name="text">
+              <string>Stock name</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="lbl_quantity">
+             <property name="text">
+              <string>Quantity</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="lbl_price">
+             <property name="text">
+              <string>Price</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="4">
+            <widget class="QComboBox" name="cmb_stockname"/>
+           </item>
+          </layout>
+         </widget>
         </widget>
        </widget>
       </item>

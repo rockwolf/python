@@ -151,4 +151,4 @@ class T_ACCOUNT(object):
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_OBJECT('%s', '%s', '%s')>" % (self.name, self.date_created, self.date_modified)
+        return "<T_ACCOUNT('%s', '%s', '%s')>" % (self.name, self.date_created, self.date_modified)

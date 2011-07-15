@@ -50,28 +50,28 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
         """ Connect methods to the signals the gui emits """
         self.gui.btn_exit.connect(
             self.gui.btn_exit, 
-            QtCore.SIGNAL("clicked()"), 
+            QtCore.SIGNAL('clicked()'), 
             self.btn_exit_clicked)
         self.gui.cmb_product.connect(
             self.gui.cmb_product, 
-            QtCore.SIGNAL("currentIndexchanged(QString)"), 
+            QtCore.SIGNAL('currentIndexChanged(const QString&)'), 
             self.cmb_product_changed)
-        self.gui.cmb_product.connect(
+        self.gui.tab_details.connect(
             self.gui.tab_details, 
-            QtCore.SIGNAL("currentchanged(int)"), 
+            QtCore.SIGNAL('currentChanged(int)'), 
             self.tab_details_changed)
-        self.gui.cmb_product.connect(
+        self.gui.btn_add.connect(
             self.gui.btn_add, 
             QtCore.SIGNAL("clicked()"), 
             self.btn_add_clicked)
-        self.gui.cmb_product.connect(
+        self.gui.cmb_marketcode.connect(
             self.gui.cmb_marketcode, 
-            QtCore.SIGNAL("currentIndexchanged(QString)"), 
+            QtCore.SIGNAL('currentIndexChanged(const QString&)'), 
             self.cmb_marketcode_changed)
-        self.gui.cmb_product.connect(
-            self.gui.cmb_stockname, 
-            QtCore.SIGNAL("currentIndexchanged(QString)"), 
-            self.cmb_stockname_changed)
+        #self.gui.cmb_stockname.connect(
+        #    self.gui.cmb_stockname, 
+        #    QtCore.SIGNAL("currentIndexchanged(const QString&)"), 
+        #    self.cmb_stockname_changed)
         self.gui.btn_exit.connect(
             self.gui.btn_execute, 
             QtCore.SIGNAL("clicked()"), 
@@ -101,17 +101,16 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
 
     # Events
     def cmb_product_changed(self, selstr):
-        """ When the account combo selection changes. """
-        self.process_product_changed()
+        """ When the product combo selection changes. """
+        self.process_product_changed(selstr)
 
-    def process_product_changed(self):
+    def process_product_changed(self, selstr):
         """ When the account combo selection changes. """
         self.gui.txt_comment.setEnabled(True)
-        if(
-            selstr == 'invest.buystocks' or
-            selstr == 'invest.sellstocks'):
+        #TODO: invest.txt AND object = buystock or sellstocks in first if
+        if(selstr == 'invest.tx'):
             self.gui.tab_details.currentTabName = \
-            self.gui.tab_details.setCurrentIndex(1)
+            self.gui.tab_details.setCurrentIndex(2)
             self.update_info_details()
         else:
             self.gui.tab_details.currentTabName = \
@@ -137,7 +136,7 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
         self.gui.lbl_infodetails.clear()
         # fill all combo boxes
         self.fillcombos()
-        self.gui.cmb_account.setCurrentIndex(1)
+        self.gui.cmb_account.setCurrentIndex(0)
 
     def fillcombos(self):
         """ fill in the combo boxes with values. """
@@ -149,6 +148,9 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
         # Accounts
         for acc in dba.get_accounts():
             self.gui.cmb_account.addItem(acc)
+        # Object
+        for obj in dba.get_objects():
+            self.gui.cmb_object.addItem(obj)
         # Market codes
         for mcd in dba.get_markets():
             self.gui.cmb_marketcode.addItem(mcd)
@@ -159,12 +161,11 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
     ## Stocks
     def fillcmb_stockname(self):
         """ fill cmb function """
-        #TODO: fix databaseaccess first
-        #dba = DatabaseAccess()
-        #self.gui.cmb_stockname.clear()
-        #for name in dba.get_stocknames(self.gui.cmb_marketcode.currentText()):
-        #    self.gui.cmb_stockname.addItem(name)
-        #dba = None
+        dba = DatabaseAccess(self.config)
+        self.gui.cmb_stockname.clear()
+        for name in dba.get_stocknames(self.gui.cmb_marketcode.currentText()):
+            self.gui.cmb_stockname.addItem(name)
+        dba = None
        
     def update_info_details(self):
         """ Update infolabel details. """
