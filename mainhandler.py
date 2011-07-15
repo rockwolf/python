@@ -26,6 +26,7 @@ from subprocess import call
 from mdlimport import FileImport
 from mdlexport import FileExport
 from PyQt4 import QtCore, QtGui
+from databaseaccess import DatabaseAccess
 
 class Controller():
     """ Contains the bussiness logic of the application. """
@@ -86,7 +87,33 @@ class Controller():
             #except Exception as strerror:
             except:
                 print("Error: {0}.".format(strerror))
+    ## Init of gui
+    def fillcombos(self):
+        """ fill in the combo boxes with values. """
+        #TODO: fix databaseaccess first
+        dba = DatabaseAccess(self.config)
+        # Products
+        for prod in dba.get_products():
+            self.gui.cmb_product.addItem(prod)
+        # Accounts
+        for acc in dba.get_accounts():
+            self.gui.cmb_account.addItem(acc)
+        # Object
+        for obj in dba.get_objects():
+            self.gui.cmb_object.addItem(obj)
+        # Market codes
+        for mcd in dba.get_markets():
+            self.gui.cmb_marketcode.addItem(mcd)
+        # Stock names
+        self.fillcmb_stockname()
+        dba = None
 
+    def layout(self):
+        """ Everything about the layout off the application. """
+        #print('layout not implemented yet...')
+        # Theming?
+
+    ## Clear
     def clear_commands(self):
         """ Clear the command buffer and the summary panel. """
         self.cmdbuffer = [] 
@@ -97,10 +124,56 @@ class Controller():
         self.gui.txt_comment.clear()
         self.gui.spn_amount.setValue(0)
 
-    def layout(self):
-        """ Everything about the layout off the application. """
-        print('layout not implemented yet...')
-        # Theming?
+    def add_command(self):
+        """ Create the command to send to clipf and add it to the buffer. """
+        # parse comment?
+        prod = self.gui.cmb_product.currentText() 
+        if(
+            prod == 'invest.buystocks' or
+            prod == 'invest.sellstocks'):
+            str_list = [
+                self.gui.cmb_marketcode.currentText(),
+                '.',
+                self.gui.cmb_stockname.currentText(),
+                ',', 
+                self.gui.spnQuantity.textFromValue(
+                    self.gui.spnQuantity.value()),
+                ',',
+                self.gui.spnPrice.textFromValue(self.gui.spnPrice.value())]
+            comment = ''.join(str_list) 
+        else:
+            comment = self.gui.txt_comment.text() 
+        str_list = [
+            'op add -d ',
+            str(self.gui.dt_date.date().toString(QtCore.Qt.ISODate)),
+            str(self.gui.cmb_product.currentText()),
+            ' ',
+            str(self.gui.spn_amount.textFromValue(self.gui.spn_amount.value())),
+            ' "' + str(comment) + '"']
+        cmd = ''.join(str_list)
+        self.cmdbuffer.append(cmd)
+        self.gui.txt_summary.append(cmd)
+        self.clear_fields()
+
+    def update_info_details(self):
+        """ Update infolabel details. """
+        dba = DatabaseAccess(self.config)
+        prod = self.gui.cmb_product.currentText()
+        stock = self.gui.cmb_stockname.currentText()
+        if(
+            prod == 'invest.tx'
+        ) and stock != '':
+            info = dba.get_stockinfo(stock)
+            self.gui.lbl_infodetails.setText('[' + info[1] + '] : ' + info[0])
+        dba = None
+
+    def fillcmb_stockname(self):
+        """ fill cmb function """
+        dba = DatabaseAccess(self.config)
+        self.gui.cmb_stockname.clear()
+        for name in dba.get_stocknames(self.gui.cmb_marketcode.currentText()):
+            self.gui.cmb_stockname.addItem(name)
+        dba = None
 
     def file_import(self):
         """ Import data from text file. """

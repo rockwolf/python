@@ -42,9 +42,8 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
         self.gui = Ui_frm_main()
         self.gui.setupUi(self) 
         self.connectslots()
-        self.initgui()
-        self.layout()
         self.ctl = Controller(self.gui, self.config)
+        self.initgui()
 
     def connectslots(self):
         """ Connect methods to the signals the gui emits """
@@ -135,95 +134,5 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
         self.gui.lbl_infofinance.setText('>> ' + self.config.exportfile)
         self.gui.lbl_infodetails.clear()
         # fill all combo boxes
-        self.fillcombos()
+        self.ctl.fillcombos()
         self.gui.cmb_account.setCurrentIndex(0)
-
-    def fillcombos(self):
-        """ fill in the combo boxes with values. """
-        #TODO: fix databaseaccess first
-        dba = DatabaseAccess(self.config)
-        # Products
-        for prod in dba.get_products():
-            self.gui.cmb_product.addItem(prod)
-        # Accounts
-        for acc in dba.get_accounts():
-            self.gui.cmb_account.addItem(acc)
-        # Object
-        for obj in dba.get_objects():
-            self.gui.cmb_object.addItem(obj)
-        # Market codes
-        for mcd in dba.get_markets():
-            self.gui.cmb_marketcode.addItem(mcd)
-        # Stock names
-        self.fillcmb_stockname()
-        dba = None
-
-    ## Stocks
-    def fillcmb_stockname(self):
-        """ fill cmb function """
-        dba = DatabaseAccess(self.config)
-        self.gui.cmb_stockname.clear()
-        for name in dba.get_stocknames(self.gui.cmb_marketcode.currentText()):
-            self.gui.cmb_stockname.addItem(name)
-        dba = None
-       
-    def update_info_details(self):
-        """ Update infolabel details. """
-        #TODO: fix databaseaccess first
-        #dba = DatabaseAccess()
-        #prod = self.gui.cmb_product.currentText()
-        #stock = self.gui.cmb_stockname.currentText()
-        #if(
-        #    prod == 'invest.buystocks' or
-        #    prod == 'invest.sellstocks'
-        #) and stock != '':
-        #    info = dba.get_stockinfo(stock)
-        #    self.gui.lbl_infodetails.setText('[' + info[1] + '] : ' + info[0])
-        #dba = None
-
-    def add_command(self):
-        """ Create the command to send to clipf and add it to the buffer. """
-        # parse comment?
-        prod = self.gui.cmb_product.currentText() 
-        if(
-            prod == 'invest.buystocks' or
-            prod == 'invest.sellstocks'):
-            str_list = [
-                self.gui.cmb_marketcode.currentText(),
-                '.',
-                self.gui.cmb_stockname.currentText(),
-                ',', 
-                self.gui.spnQuantity.textFromValue(
-                    self.gui.spnQuantity.value()),
-                ',',
-                self.gui.spnPrice.textFromValue(self.gui.spnPrice.value())]
-            comment = ''.join(str_list) 
-        else:
-            comment = self.gui.txt_comment.text() 
-        
-        str_list = [
-            'op add -d ',
-            str(self.gui.dt_date.date().toString(QtCore.Qt.ISODate)),
-            str(self.gui.cmb_product.currentText()),
-            ' ',
-            str(self.gui.spn_amount.textFromValue(self.gui.spn_amount.value())),
-            ' "' + str(comment) + '"']
-        cmd = ''.join(str_list)
-        self.cmdbuffer.append(cmd)
-        self.gui.txt_summary.append(cmd)
-        self.clear_fields()
-   
-    def clear_commands(self):
-        """ Clear the command buffer and the summary panel. """
-        self.cmdbuffer = [] 
-        self.gui.txt_summary.clear()
-
-    def clear_fields(self):
-        """ Clear the main input fields. """
-        self.gui.txt_comment.clear()
-        self.gui.spn_amount.setValue(0)
-
-    def layout(self):
-        """ Everything about the layout off the application. """
-        print('layout not implemented yet...')
-        # Theming?
