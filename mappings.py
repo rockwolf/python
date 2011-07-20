@@ -39,7 +39,7 @@ class T_STOCK(object):
     def __init__(self, id, snid, action, price, quantity, historical, date_create, date_modify):
         self.id = id
         self.snid = snid
-        sef.action = action
+        self.action = action
         self.price = price
         self.quantity = quantity
         self.historical = historical
@@ -71,8 +71,7 @@ class T_STOCK_CURRENT(object):
 class T_STOCK_NAME(object):
     """ T_STOCK_NAME """
 
-    def __init__(self, snid, name, mid, description, date_create, date_modify):
-        self.snid = snid
+    def __init__(self, name, mid, description, date_create, date_modify):
         self.name = name
         self.mid = mid
         self.description = description
@@ -80,20 +79,20 @@ class T_STOCK_NAME(object):
         self.date_modify = date_modify
 
     def __repr__(self):
-        return "<T_STOCK_NAME('%s', '%s', '%s', '%s', '%s', '%s')>" % (self.snid, self.name, self.mid, self.description, self.date_create, self.date_modify)
+        return "<T_STOCK_NAME('%s', '%s', '%s', '%s', '%s')>" % (self.name, self.mid, self.description, self.date_create, self.date_modify)
 
 class T_MARKET(object):
     """ T_MARKET """
 
-    def __init__(self, mid, code, name, date_create, date_modify):
-        self.mid = mid
+    def __init__(self, code, name, country, date_create, date_modify):
         self.code = code
         self.name = name
+        self.country = country
         self.date_create = date_create
         self.date_modify = date_modify
 
     def __repr__(self):
-        return "<T_MARKET('%s', '%s', '%s', '%s', '%s')>" % (self.mid, self.code, self.name, self.date_create, self.date_modify)
+        return "<T_MARKET('%s', '%s', '%s', '%s', '%s')>" % (self.code, self.name, self.country, self.date_create, self.date_modify)
 
 class T_PRODUCT(object):
     """ T_PRODUCT"""

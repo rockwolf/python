@@ -283,6 +283,8 @@ class DatabaseAccess():
                     date_create = now.strftime("%Y-%m-%d %H:%M:%S")
                     date_modify = now.strftime("%Y-%m-%d %H:%M:%S")
                     
+                    print("GENERAL")
+                    print("_______")
                     print("Preparing statements...")
                     statements = []
                     records = 0
@@ -307,7 +309,57 @@ class DatabaseAccess():
                     print("Done.")
             except Exception as ex:
                 print("Error in file_import_lines: ", ex)
-    
+   
+    def file_import_stocks(self, fields_db, fields_comment):
+            """ Import stocks from comment information. """
+            #TODO: put this in the inherited class
+            try:
+                session = self.Session()
+                try:
+                    now = datetime.now()
+                    date_create = now.strftime("%Y-%m-%d %H:%M:%S")
+                    date_modify = now.strftime("%Y-%m-%d %H:%M:%S")
+                    
+                    print("STOCKS")
+                    print("______")
+                    print("Preparing statements...")
+                    statements = []
+                    records = 0
+                    i = 0
+                    for fields in fields_db:
+                        oid = self.oid_from_object(fields['object'], date_create, date_modify)
+                        aid = self.aid_from_account(fields['account'], date_create, date_modify)
+                        pid = self.pid_from_product(fields['product'], date_create, date_modify)
+                        # Get id from T_FINANCE (to import in T_STOCK)
+                        for instance in session.query(T_FINANCE).filter_by(date=fields['date'], aid=aid, pid=pid, oid=oid, amount=Decimal(fields['amount']), flag=int(fields['flag']), comment=fields['comment']):
+                            id = instance.id
+
+                        # Get snid from T_STOCK_NAME if it exists (a new entry will be made in T_STOCK_NAME if it doesn't)
+                        if fields_comment[i] != {}:
+                            mid = self.mid_from_market(fields_comment[i]['market'], date_create, date_modify)
+                            snid = self.snid_from_stockname(fields_comment[i]['name'], mid, date_create, date_modify)
+
+                            # Add new entry if it doesn't already exist
+                            obj = session.query(T_STOCK).filter_by(id=id, snid=snid, action=fields_comment[i]['action'], price=Decimal(fields_comment[i]['price']), quantity=int(fields_comment[i]['quantity'])).first() is not None
+                            if not obj: 
+                                records = records + 1
+                                statements.append(T_STOCK(id, snid, fields_comment[i]['action'], Decimal(fields_comment[i]['price']), int(fields_comment[i]['quantity']), 0, date_create, date_modify))
+                        #fields_db and fields_comment are the same size, so we use an integer in the fields_db loop as an index
+                        #to get the corresponding fields_comment value
+                        i = i + 1
+                    #for s in statements:
+                    #    print('test: ', s)
+
+                    print("Executing statements all at once...")
+                    session.add_all(statements)
+                finally:
+                    session.commit()
+                    session = None
+                    print("{0} records added.".format(str(records)))
+                    print("Done.")
+            except Exception as ex:
+                print("Error in file_import_stocks: ", ex)
+
     def export_lines(self, all=False):
             """ Returns the t_finance lines from the database. """
             #TODO: Retrieve the object name 
@@ -427,6 +479,57 @@ class DatabaseAccess():
             session.rollback()
             session = None
         return result
+
+    def snid_from_stockname(self, stockname, mid, date_create, date_modify):
+        """ Get the snid from T_STOCK_NAME. """
+        result = -1
+        session = self.Session()
+        try:
+            # Get snid, based on stockname
+            # but first check if the account already exists
+            # in T_ACCOUNT. If not, add it to the t_account table.
+            obj = session.query(T_STOCK_NAME).filter_by(name=stockname, mid=mid).first() is not None
+            if not obj: 
+                session.add(T_STOCK_NAME(stockname, mid, '', date_create, date_modify))
+                session.commit()
+                for instance in session.query(func.max(T_STOCK_NAME.snid).label('snid')):
+                    result = instance.snid
+            else:
+                for instance in session.query(T_STOCK_NAME).filter_by(name=stockname, mid=mid):
+                    result = str(instance.snid)
+        except Exception as ex:
+            print("Error retrieving snid: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
+
+    def mid_from_market(self, code, date_create, date_modify):
+        """ Get the mid from T_MARKET. """
+        result = -1
+        session = self.Session()
+        try:
+            obj = session.query(T_MARKET).filter_by(code=code).first() is not None
+            if not obj: 
+                # NOTE: this code means that when new market records have been added
+                # during normal usage, a new uninstall/install/import will not be able
+                # to fill in the name and country of the market.
+                # For now, assume no new ones are added. If there are, add them to the
+                # init_tables script!
+                session.add(T_MARKET(code, 'TBD', '??', date_create, date_modify))
+                session.commit()
+                for instance in session.query(func.max(T_MARKET.mid).label('mid')):
+                    result = instance.mid
+            else:
+                for instance in session.query(T_MARKET).filter_by(code=code):
+                    result = str(instance.mid)
+        except Exception as ex:
+            print("Error retrieving mid: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
+
 
     def objectname_from_oid(self, oid):
         """ Get the objectname for a given oid from the T_OBJECT table. """

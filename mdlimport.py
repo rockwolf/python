@@ -43,8 +43,8 @@ class FileImport():
                     fields = line.strip().split(':')
                     fields_db.append({
                         'date':fields[0],
-                        'account':fields[1],
-                        'product':fields[2],
+                        'account':fields[1], #Note: Get AID from T_ACCOUNT for final insert
+                        'product':fields[2], #Note: Get PID from T_PRODUCT for final insert
                         'object':fields[3], #Note: Get OID from T_OBJECT for final insert
                         'amount':fields[4],
                         'flag':fields[5],
@@ -68,6 +68,7 @@ class FileImport():
                     break
             print('')
             self.process_lines(fields_db)
+            self.process_comments(fields_db)
         except Exception as ex:
             print('')
             print("Error while processing {0}:".format(self.config.importfile), ex)
@@ -75,50 +76,65 @@ class FileImport():
             source.close()
             exit(1)
                 
-    #def process_line(self, fields_db):
-    #    """ Processing lines of the input file. """
-    #    self.process_line_db(fields_db)
-    #    #self.parse_comment(fields_db)
-    #    #cmnt = self.commentfields
-    #    #if cmnt != {}:
-    #    #    # we have comment fields
-    #    #    if 'market' in cmnt:
-    #    #        # They are stocks
-    #    #        self.process_line_db_stock(self.commentfields) #stocks_current will also be in this function
+    def process_comments(self, fields_db):
+        """ Processing lines of the input file. """
+        # stocks
+        fields_comment_stocks = []
+        for field in fields_db:
+            fields_comment_stocks.append(self.parse_comment_stocks(field))
+        try:
+            cmnt = fields_comment_stocks
+            if cmnt != {}:
+                self.process_stocks(fields_db, fields_comment_stocks)
+        except Exception as ex:
+            print("Error in process_comments: ", ex)
 
     def process_lines(self, fields_db):
         """ Convert general financial information. """
         dba = DatabaseAccess(self.config)
         dba.file_import_lines(fields_db)
         dba = None
+ 
+    def process_stocks(self, fields_db, commentfields):
+        """ Import stock information. """
+        dba = DatabaseAccess(self.config)
+        dba.file_import_stocks(fields_db, commentfields)
+        dba = None
         
-    def parse_comment(self, fields_db):
-        """ Convert financial entries that abuse the comment field for more functionality. """
+        
+    def parse_comment_stocks(self, fields):
+        """ Convert financial entries that abuse the comment field for stock functionality. """
         fields_comment = []
         fields_comment_db = {}
         
-        if fields_db['object'] == 'buystocks' or fields_db['object'] == 'sellstocks':
-            # stocks
-            name = ''
-            market = ''
-            action = ''
-            price = '0'
-            quantity = '0'
-            fields_comment = fields_db['comment'].split(',')
-            name = str(fields_comment[0]).split('.')[1]
-            market = fields_comment[0].split('.')[0]
-            quantity = fields_comment[1]
-            price = fields_comment[2]
-            action = fields_db['object'][:-6] #buy/sell/change
-            #print 'test: action =' + action
-            fields_comment_db = {
-                'name': name,
-                'market': mcode,
-                'action': action,
-                'price': price,
-                'quantity': quantity,
-            }
-        self.commentfields = fields_comment_db
+        try:
+            if fields['object'] == 'buystocks' or fields['object'] == 'sellstocks':
+                # stocks
+                name = ''
+                market = ''
+                action = ''
+                price = '0'
+                quantity = '0'
+                fields_comment = fields['comment'].split(',')
+                name = str(fields_comment[0]).split('.')[1]
+                market = fields_comment[0].split('.')[0]
+                quantity = fields_comment[1]
+                price = fields_comment[2]
+                action = fields['object'] #buystocks/sellstocks
+                #print 'test: action =' + action
+                fields_comment_db = {
+                    'name': name,
+                    'market': market,
+                    'action': action,
+                    'price': price,
+                    'quantity': quantity,
+                }
+            else:
+                fields_comment_db = {}
+        except Exception as ex:
+            print("Error in parse_comment: ", ex)
+        finally:
+            return fields_comment_db
         
     def file_import_line_stock(self, fields_comment_db):
         """" Convert general stock information. """
@@ -127,8 +143,6 @@ class FileImport():
             #db = dbapi2.connect(host=self.get_dbhost(),database=self.get_dbname(), user=self.get_dbuser(), password=self.get_dbpass())
             #cur = db.cursor()
             try:
-                print("Test: file_import_line_stock")
-                exit(1)
                 now = datetime.now()
                 date_create = now.strftime("%Y-%m-%d %H:%M:%S")
                 date_modify = now.strftime("%Y-%m-%d %H:%M:%S")

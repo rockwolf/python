@@ -70,9 +70,9 @@ CREATE TABLE T_FINANCE
 CREATE TABLE T_MARKET
 (
     mid serial not null,
-    code varchar(3) not null,
+    code varchar(5) not null,
     name varchar(30) not null,
-    country char(2) not null,
+    country char(3) not null,
     date_created timestamp default current_date,
     date_modified timestamp default current_date,
     constraint pk_mid primary key(mid),
@@ -97,7 +97,7 @@ CREATE TABLE T_STOCK
     sid serial not null,
     id int not null,
     snid int not null,
-    action varchar(6) not null,
+    action varchar(50) not null,
     price decimal(18,4) default 0,
     quantity int default 0,
     historical decimal(18,4) default 0,

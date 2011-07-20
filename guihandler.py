@@ -110,7 +110,7 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
         if(selstr == 'invest.tx'):
             self.gui.tab_details.currentTabName = \
             self.gui.tab_details.setCurrentIndex(2)
-            self.update_info_details()
+            self.ctl.update_info_details()
         else:
             self.gui.tab_details.currentTabName = \
             self.gui.tab_details.setCurrentIndex(0)
@@ -121,11 +121,11 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
 
     def cmb_marketcode_changed(self, selstr):
         """ When the marketcode combo selection changes. """
-        self.fillcmb_stockname()
+        self.ctl.fillcmb_stockname()
     
     def cmb_stockname_changed(self, selstr):
         """ When the stock name selection changes. """    
-        self.update_info_details()        
+        self.ctl.update_info_details()        
         
     def initgui(self):
         """ Initialise fields """
