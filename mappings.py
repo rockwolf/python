@@ -18,7 +18,7 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 class T_FINANCE(object):
     """ T_FINANCE """
 
-    def __init__(self, date, aid, pid, oid, amount, flag, comment, active, date_create, date_modify):
+    def __init__(self, date, aid, pid, oid, amount, flag, comment, active, date_created, date_modified):
         self.date = date
         self.aid = aid
         self.pid = pid 
@@ -27,32 +27,32 @@ class T_FINANCE(object):
         self.flag = flag
         self.comment = comment
         self.active = active
-        self.date_create = date_create
-        self.date_modify = date_modify
+        self.date_created= date_create
+        self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.date, self.aid, self.pid, self.oid, self.amount, self.flag, self.comment, self.active, self.date_create, self.date_modify)
+        return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.date, self.aid, self.pid, self.oid, self.amount, self.flag, self.comment, self.active, self.date_created, self.date_modified)
 
 class T_STOCK(object):
     """ T_STOCK """
 
-    def __init__(self, id, snid, action, price, quantity, historical, date_create, date_modify):
+    def __init__(self, id, snid, action, price, quantity, historical, date_created, date_modified):
         self.id = id
         self.snid = snid
         self.action = action
         self.price = price
         self.quantity = quantity
         self.historical = historical
-        self.date_create = date_create
-        self.date_modify = date_modify
+        self.date_created= date_create
+        self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_STOCK('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.id, self.snid, self.action, self.price, self.quantity, self.historical, self.date_create, self.date_modify)
+        return "<T_STOCK('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.id, self.snid, self.action, self.price, self.quantity, self.historical, self.date_created, self.date_modified)
 
 class T_STOCK_CURRENT(object):
     """ T_STOCK_CURRENT"""
 
-    def __init__(self, code, name, quantity, current_value, buy_value, amount, historical, yield_, yield_percent, date_create, date_modify):
+    def __init__(self, code, name, quantity, current_value, buy_value, amount, historical, yield_, yield_percent, date_created, date_modified):
         self.code = code
         self.name = name
         self.quantity = quantity
@@ -61,64 +61,64 @@ class T_STOCK_CURRENT(object):
         self.amount = amount
         self.historical = historical
         self.yield_ = yield_percent
-        self.date_create = date_create
-        self.date_modify = date_modify
+        self.date_created= date_create
+        self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_STOCK_CURRENT('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.code, self.name, self.quantity, self.current_value, self.buy_value, self. amount, self.historical, self.yield_, self.yield_percent, self.date_create, self.date_modify)
+        return "<T_STOCK_CURRENT('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.code, self.name, self.quantity, self.current_value, self.buy_value, self. amount, self.historical, self.yield_, self.yield_percent, self.date_created, self.date_modified)
 
 
 class T_STOCK_NAME(object):
     """ T_STOCK_NAME """
 
-    def __init__(self, name, mid, description, date_create, date_modify):
+    def __init__(self, name, mid, description, date_created, date_modified):
         self.name = name
         self.mid = mid
         self.description = description
-        self.date_create = date_create
-        self.date_modify = date_modify
+        self.date_created= date_create
+        self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_STOCK_NAME('%s', '%s', '%s', '%s', '%s')>" % (self.name, self.mid, self.description, self.date_create, self.date_modify)
+        return "<T_STOCK_NAME('%s', '%s', '%s', '%s', '%s')>" % (self.name, self.mid, self.description, self.date_created, self.date_modified)
 
 class T_MARKET(object):
     """ T_MARKET """
 
-    def __init__(self, code, name, country, date_create, date_modify):
+    def __init__(self, code, name, country, date_created, date_modified):
         self.code = code
         self.name = name
         self.country = country
-        self.date_create = date_create
-        self.date_modify = date_modify
+        self.date_created= date_create
+        self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_MARKET('%s', '%s', '%s', '%s', '%s')>" % (self.code, self.name, self.country, self.date_create, self.date_modify)
+        return "<T_MARKET('%s', '%s', '%s', '%s', '%s')>" % (self.code, self.name, self.country, self.date_created, self.date_modified)
 
 class T_PRODUCT(object):
     """ T_PRODUCT"""
 
-    def __init__(self, name, flg_income, date_create, date_modify):
+    def __init__(self, name, flg_income, date_created, date_modified):
         self.name = name
         self.flg_income = flg_income 
-        self.date_create = date_create
-        self.date_modify = date_modify
+        self.date_created= date_create
+        self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_PRODUCT('%s', '%s', '%s', '%s')>" % (self.name, self.flg_income, self.date_create, self.date_modify)
+        return "<T_PRODUCT('%s', '%s', '%s', '%s')>" % (self.name, self.flg_income, self.date_created, self.date_modified)
 
 class T_MARGIN(object):
     """ T_MARGIN """
 
-    def __init__(self, smid, margin_type_id, description, value, date_create, date_modify):
+    def __init__(self, smid, margin_type_id, description, value, date_created, date_modified):
         self.smid = smid
         self.margin_type_id = margin_type_id
         self.description = description 
         self.value = value 
-        self.date_create = date_create
-        self.date_modify = date_modify
+        self.date_created= date_create
+        self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_MARGIN('%s', '%s', '%s', '%s' ,'%s', '%s')>" % (self.smid, self.margin_type_id, self.description, value, self.date_create, self.date_modify)
+        return "<T_MARGIN('%s', '%s', '%s', '%s' ,'%s', '%s')>" % (self.smid, self.margin_type_id, self.description, value, self.date_created, self.date_modified)
 
 class T_MARGIN_TYPE(object):
     """ T_MARGIN_TYPE """

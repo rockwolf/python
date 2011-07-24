@@ -55,6 +55,10 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
             self.gui.cmb_product, 
             QtCore.SIGNAL('currentIndexChanged(const QString&)'), 
             self.cmb_product_changed)
+        self.gui.cmb_object.connect(
+            self.gui.cmb_object, 
+            QtCore.SIGNAL('currentIndexChanged(const QString&)'), 
+            self.cmb_object_changed)
         self.gui.tab_details.connect(
             self.gui.tab_details, 
             QtCore.SIGNAL('currentChanged(int)'), 
@@ -67,10 +71,10 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
             self.gui.cmb_marketcode, 
             QtCore.SIGNAL('currentIndexChanged(const QString&)'), 
             self.cmb_marketcode_changed)
-        #self.gui.cmb_stockname.connect(
-        #    self.gui.cmb_stockname, 
-        #    QtCore.SIGNAL("currentIndexchanged(const QString&)"), 
-        #    self.cmb_stockname_changed)
+        self.gui.cmb_stockname.connect(
+            self.gui.cmb_stockname, 
+            QtCore.SIGNAL("currentIndexchanged(const QString&)"), 
+            self.cmb_stockname_changed)
         self.gui.btn_exit.connect(
             self.gui.btn_execute, 
             QtCore.SIGNAL("clicked()"), 
@@ -103,17 +107,34 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
         """ When the product combo selection changes. """
         self.process_product_changed(selstr)
 
+    def cmb_object_changed(self, selstr):
+        """ When the object combo selection changes. """
+        self.process_object_changed(selstr)
+        
     def process_product_changed(self, selstr):
-        """ When the account combo selection changes. """
+        """ When the product combo selection changes. """
         self.gui.txt_comment.setEnabled(True)
-        #TODO: invest.txt AND object = buystock or sellstocks in first if
-        if(selstr == 'invest.tx'):
+        object_ = self.gui.cmb_object.currentText()
+        if(selstr == 'invest.tx' and ( object_ == 'buystocks' or object_ == 'sellstocks')):
             self.gui.tab_details.currentTabName = \
             self.gui.tab_details.setCurrentIndex(2)
             self.ctl.update_info_details()
         else:
             self.gui.tab_details.currentTabName = \
             self.gui.tab_details.setCurrentIndex(0)
+    
+    def process_object_changed(self, selstr):
+        """ When the object combo selection changes. """
+        self.gui.txt_comment.setEnabled(True)
+        product = self.gui.cmb_product.currentText()
+        if(product == 'invest.tx' and ( selstr == 'buystocks' or selstr == 'sellstocks')):
+            self.gui.tab_details.currentTabName = \
+            self.gui.tab_details.setCurrentIndex(2)
+            self.ctl.update_info_details()
+        else:
+            self.gui.tab_details.currentTabName = \
+            self.gui.tab_details.setCurrentIndex(0)
+
 
     def tab_details_changed(self, index):
         """ What to do if you change a tab. """

@@ -164,7 +164,7 @@ class Controller():
             prod == 'invest.tx'
         ) and stock != '':
             info = dba.get_stockinfo(stock)
-            self.gui.lbl_infodetails.setText('[' + info[1] + '] : ' + info[0])
+            self.gui.lbl_infodetails.setText(info[1] + '(' + info[2] +'): ' + info[0])
         dba = None
 
     def fillcmb_stockname(self):

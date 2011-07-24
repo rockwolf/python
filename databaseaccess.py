@@ -216,14 +216,20 @@ class DatabaseAccess():
 
     def get_stockinfo(self, sname):
         """ Get extra stock info. """
-        #str_list = [
-        #        'select t1.description, t2.description from',
-        #        self.tblstockname,
-        #        't1 join',
-        #        self.tblmarket,
-        #        't2 on t1.mid = t2.mid where t1.name =',
-        #        "'" + str(sname) + "';"]
         values = []
+        try:
+            session = self.Session()
+            query = session.query(T_STOCK_NAME.name.label("stockname"), T_MARKET.name.label("marketname"), T_MARKET.country).join(T_MARKET, T_STOCK_NAME.mid == T_MARKET.mid).filter(T_STOCK_NAME.name == sname)
+            for instance in query: 
+                values.append(instance.stockname)
+                values.append(instance.marketname)
+                values.append(instance.country)
+        except Exception as ex:
+            print("Error in get_stockinfo: ", ex)
+        finally:
+            session.rollback()
+            session = None
+
         return values
         
     def get_expenses(self):
@@ -280,8 +286,8 @@ class DatabaseAccess():
                 session = self.Session()
                 try:
                     now = datetime.now()
-                    date_create = now.strftime("%Y-%m-%d %H:%M:%S")
-                    date_modify = now.strftime("%Y-%m-%d %H:%M:%S")
+                    date_created = now.strftime("%Y-%m-%d %H:%M:%S")
+                    date_modified = now.strftime("%Y-%m-%d %H:%M:%S")
                     
                     print("GENERAL")
                     print("_______")
@@ -289,14 +295,14 @@ class DatabaseAccess():
                     statements = []
                     records = 0
                     for fields in fields_db:
-                        oid = self.oid_from_object(fields['object'], date_create, date_modify)
-                        aid = self.aid_from_account(fields['account'], date_create, date_modify)
-                        pid = self.pid_from_product(fields['product'], date_create, date_modify)
+                        oid = self.oid_from_object(fields['object'], date_created, date_modified)
+                        aid = self.aid_from_account(fields['account'], date_created, date_modified)
+                        pid = self.pid_from_product(fields['product'], date_created, date_modified)
                                                 
                         obj = session.query(T_FINANCE).filter_by(date=fields['date'], aid=aid, pid=pid, oid=oid, amount=Decimal(fields['amount']), flag=int(fields['flag']), comment=fields['comment']).first() is not None
                         if not obj: 
                             records = records + 1
-                            statements.append(T_FINANCE(fields['date'], aid, pid, oid, Decimal(fields['amount']), int(fields['flag']), fields['comment'], 1, date_create, date_modify))
+                            statements.append(T_FINANCE(fields['date'], aid, pid, oid, Decimal(fields['amount']), int(fields['flag']), fields['comment'], 1, date_created, date_modified))
                     #for s in statements:
                     #    print('test: ', s)
 
@@ -317,8 +323,8 @@ class DatabaseAccess():
                 session = self.Session()
                 try:
                     now = datetime.now()
-                    date_create = now.strftime("%Y-%m-%d %H:%M:%S")
-                    date_modify = now.strftime("%Y-%m-%d %H:%M:%S")
+                    date_created = now.strftime("%Y-%m-%d %H:%M:%S")
+                    date_modified = now.strftime("%Y-%m-%d %H:%M:%S")
                     
                     print("STOCKS")
                     print("______")
@@ -327,23 +333,23 @@ class DatabaseAccess():
                     records = 0
                     i = 0
                     for fields in fields_db:
-                        oid = self.oid_from_object(fields['object'], date_create, date_modify)
-                        aid = self.aid_from_account(fields['account'], date_create, date_modify)
-                        pid = self.pid_from_product(fields['product'], date_create, date_modify)
+                        oid = self.oid_from_object(fields['object'], date_created, date_modified)
+                        aid = self.aid_from_account(fields['account'], date_created, date_modified)
+                        pid = self.pid_from_product(fields['product'], date_created, date_modified)
                         # Get id from T_FINANCE (to import in T_STOCK)
                         for instance in session.query(T_FINANCE).filter_by(date=fields['date'], aid=aid, pid=pid, oid=oid, amount=Decimal(fields['amount']), flag=int(fields['flag']), comment=fields['comment']):
                             id = instance.id
 
                         # Get snid from T_STOCK_NAME if it exists (a new entry will be made in T_STOCK_NAME if it doesn't)
                         if fields_comment[i] != {}:
-                            mid = self.mid_from_market(fields_comment[i]['market'], date_create, date_modify)
-                            snid = self.snid_from_stockname(fields_comment[i]['name'], mid, date_create, date_modify)
+                            mid = self.mid_from_market(fields_comment[i]['market'], date_created, date_modified)
+                            snid = self.snid_from_stockname(fields_comment[i]['name'], mid, date_created, date_modified)
 
                             # Add new entry if it doesn't already exist
                             obj = session.query(T_STOCK).filter_by(id=id, snid=snid, action=fields_comment[i]['action'], price=Decimal(fields_comment[i]['price']), quantity=int(fields_comment[i]['quantity'])).first() is not None
                             if not obj: 
                                 records = records + 1
-                                statements.append(T_STOCK(id, snid, fields_comment[i]['action'], Decimal(fields_comment[i]['price']), int(fields_comment[i]['quantity']), 0, date_create, date_modify))
+                                statements.append(T_STOCK(id, snid, fields_comment[i]['action'], Decimal(fields_comment[i]['price']), int(fields_comment[i]['quantity']), 0, date_created, date_modified))
                         #fields_db and fields_comment are the same size, so we use an integer in the fields_db loop as an index
                         #to get the corresponding fields_comment value
                         i = i + 1
@@ -401,7 +407,7 @@ class DatabaseAccess():
         exportline.append(line.comment)
         return exportline
 
-    def oid_from_object(self, object_, date_create, date_modify):
+    def oid_from_object(self, object_, date_created, date_modified):
         """ Get the oid from an object. """
         result = -1
         session = self.Session()
@@ -411,7 +417,7 @@ class DatabaseAccess():
             # in T_OBJECT. If not, add it to the t_object table.
             obj = session.query(T_OBJECT).filter_by(name=object_).first() is not None
             if not obj: 
-                session.add(T_OBJECT(object_, date_create, date_modify))
+                session.add(T_OBJECT(object_, date_created, date_modified))
                 session.commit()
                 for instance in session.query(func.max(T_OBJECT.oid).label('oid')):
                     result = instance.oid
@@ -425,7 +431,7 @@ class DatabaseAccess():
             session = None
         return result
 
-    def aid_from_account(self, account, date_create, date_modify):
+    def aid_from_account(self, account, date_created, date_modified):
         """ Get the aid from an account. """
         result = -1
         session = self.Session()
@@ -435,7 +441,7 @@ class DatabaseAccess():
             # in T_ACCOUNT. If not, add it to the t_account table.
             obj = session.query(T_ACCOUNT).filter_by(name=account).first() is not None
             if not obj: 
-                session.add(T_ACCOUNT(account, date_create, date_modify))
+                session.add(T_ACCOUNT(account, date_created, date_modified))
                 session.commit()
                 for instance in session.query(func.max(T_ACCOUNT.aid).label('aid')):
                     result = instance.aid
@@ -449,7 +455,7 @@ class DatabaseAccess():
             session = None
         return result
 
-    def pid_from_product(self, product, date_create, date_modify):
+    def pid_from_product(self, product, date_created, date_modified):
         """ Get the pid from a product. """
         result = -1
         session = self.Session()
@@ -466,7 +472,7 @@ class DatabaseAccess():
                 raise Exception("Wrong product in input-file: {0}".format(product))
             obj = session.query(T_PRODUCT).filter_by(name=product).first() is not None
             if not obj: 
-                session.add(T_PRODUCT(product, flg_income, date_create, date_modify))
+                session.add(T_PRODUCT(product, flg_income, date_created, date_modified))
                 session.commit()
                 for instance in session.query(func.max(T_PRODUCT.pid).label('pid')):
                     result = instance.pid
@@ -480,7 +486,7 @@ class DatabaseAccess():
             session = None
         return result
 
-    def snid_from_stockname(self, stockname, mid, date_create, date_modify):
+    def snid_from_stockname(self, stockname, mid, date_created, date_modified):
         """ Get the snid from T_STOCK_NAME. """
         result = -1
         session = self.Session()
@@ -490,7 +496,7 @@ class DatabaseAccess():
             # in T_ACCOUNT. If not, add it to the t_account table.
             obj = session.query(T_STOCK_NAME).filter_by(name=stockname, mid=mid).first() is not None
             if not obj: 
-                session.add(T_STOCK_NAME(stockname, mid, '', date_create, date_modify))
+                session.add(T_STOCK_NAME(stockname, mid, '', date_created, date_modified))
                 session.commit()
                 for instance in session.query(func.max(T_STOCK_NAME.snid).label('snid')):
                     result = instance.snid
@@ -504,7 +510,7 @@ class DatabaseAccess():
             session = None
         return result
 
-    def mid_from_market(self, code, date_create, date_modify):
+    def mid_from_market(self, code, date_created, date_modified):
         """ Get the mid from T_MARKET. """
         result = -1
         session = self.Session()
@@ -516,7 +522,7 @@ class DatabaseAccess():
                 # to fill in the name and country of the market.
                 # For now, assume no new ones are added. If there are, add them to the
                 # init_tables script!
-                session.add(T_MARKET(code, 'TBD', '??', date_create, date_modify))
+                session.add(T_MARKET(code, 'TBD', '??', date_created, date_modified))
                 session.commit()
                 for instance in session.query(func.max(T_MARKET.mid).label('mid')):
                     result = instance.mid

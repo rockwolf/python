@@ -58,8 +58,8 @@ CREATE TABLE T_FINANCE
     flag int not null default 0,
     comment varchar(256),
     active int not null default 1, 
-    date_create timestamp default current_date,
-    date_modify timestamp default current_date,
+    date_created timestamp default current_date,
+    date_modified timestamp default current_date,
     constraint pk_id primary key(id),
     constraint fk_aid foreign key(aid) references T_ACCOUNT,
     constraint fk_pid foreign key(pid) references T_PRODUCT,
@@ -101,8 +101,8 @@ CREATE TABLE T_STOCK
     price decimal(18,4) default 0,
     quantity int default 0,
     historical decimal(18,4) default 0,
-    date_create timestamp default current_date,
-    date_modify timestamp default current_date,
+    date_created timestamp default current_date,
+    date_modified timestamp default current_date,
     constraint pk_sid primary key(sid),
     constraint fk_id foreign key(id) references T_FINANCE(id),
     constraint fk_snid foreign key(snid) references T_STOCK_NAME(snid)
@@ -119,8 +119,8 @@ CREATE TABLE T_STOCK_CURRENT
     historical decimal(18,4) default 0,
     yield decimal(18,4) default 0,
     yield_percent decimal(18,4) default 0,
-    date_create timestamp default current_date,
-    date_modify timestamp default current_date,
+    date_created timestamp default current_date,
+    date_modified timestamp default current_date,
     primary key(code, name)
 );
 COMMIT;
