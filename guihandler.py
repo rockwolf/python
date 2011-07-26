@@ -29,6 +29,7 @@ from guicode import Ui_frm_main
 from databaseaccess import DatabaseAccess
 from subprocess import Popen, PIPE
 from mainhandler import Controller
+from tablemodel import TableModel
 
 class GuiHandler(QtGui.QDialog, Ui_frm_main):
     """ Less Interaction Saves Arbeit Main Class """
@@ -100,7 +101,7 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
     
     def btn_add_clicked(self):
         """ Create the command to send to clipf and add it to the buffer. """
-        self.ctl.add_command()
+        self.ctl.add_inputline()
 
     # Events
     def cmb_product_changed(self, selstr):
@@ -117,7 +118,7 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
         object_ = self.gui.cmb_object.currentText()
         if(selstr == 'invest.tx' and ( object_ == 'buystocks' or object_ == 'sellstocks')):
             self.gui.tab_details.currentTabName = \
-            self.gui.tab_details.setCurrentIndex(2)
+            self.gui.tab_details.setCurrentIndex(1)
             self.ctl.update_info_details()
         else:
             self.gui.tab_details.currentTabName = \
@@ -129,7 +130,7 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
         product = self.gui.cmb_product.currentText()
         if(product == 'invest.tx' and ( selstr == 'buystocks' or selstr == 'sellstocks')):
             self.gui.tab_details.currentTabName = \
-            self.gui.tab_details.setCurrentIndex(2)
+            self.gui.tab_details.setCurrentIndex(1)
             self.ctl.update_info_details()
         else:
             self.gui.tab_details.currentTabName = \

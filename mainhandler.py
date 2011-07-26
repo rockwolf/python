@@ -26,7 +26,9 @@ from subprocess import call
 from mdlimport import FileImport
 from mdlexport import FileExport
 from PyQt4 import QtCore, QtGui
+from PyQt4.QtGui import QTableView, QFont
 from databaseaccess import DatabaseAccess
+from tablemodel import TableModel
 
 class Controller():
     """ Contains the bussiness logic of the application. """
@@ -37,7 +39,7 @@ class Controller():
         self.gui = gui #QtGui.QDialog 
         self.config = config #object
         # initialise the command buffer
-        self.cmdbuffer = []
+        self.inputbuffer = []
 
     # Methods
     ## General
@@ -75,7 +77,7 @@ class Controller():
         # write to current
         if isfile(self.config.exportfile):
             try:
-                for cmd in self.cmdbuffer:                
+                for cmd in self.inputbuffer:                
                     pipe1 = Popen(
                         ['echo',
                         'set acc ' + self.gui.cmb_account.currentText(),
@@ -108,29 +110,26 @@ class Controller():
         self.fillcmb_stockname()
         dba = None
 
-    def layout(self):
-        """ Everything about the layout off the application. """
-        #print('layout not implemented yet...')
-        # Theming?
-
     ## Clear
     def clear_commands(self):
         """ Clear the command buffer and the summary panel. """
-        self.cmdbuffer = [] 
-        self.gui.txt_summary.clear()
+        self.inputbuffer = [] 
+        #TODO: clear the table
+        #self.gui.txt_summary.clear()
 
     def clear_fields(self):
         """ Clear the main input fields. """
         self.gui.txt_comment.clear()
         self.gui.spn_amount.setValue(0)
 
-    def add_command(self):
-        """ Create the command to send to clipf and add it to the buffer. """
+    def add_inputline(self):
+        """ Command that adds an input finance line into a temporary buffer. """
         # parse comment?
         prod = self.gui.cmb_product.currentText() 
+        object_ = self.gui.cmb_object.currentText() 
         if(
-            prod == 'invest.buystocks' or
-            prod == 'invest.sellstocks'):
+            prod == 'invest.tx' and (object_ == 'buystocks' or
+            object_ == 'sellstocks')):
             str_list = [
                 self.gui.cmb_marketcode.currentText(),
                 '.',
@@ -144,15 +143,18 @@ class Controller():
         else:
             comment = self.gui.txt_comment.text() 
         str_list = [
-            'op add -d ',
             str(self.gui.dt_date.date().toString(QtCore.Qt.ISODate)),
+            str(self.gui.cmb_account.currentText()),
             str(self.gui.cmb_product.currentText()),
-            ' ',
+            str(self.gui.cmb_object.currentText()),
             str(self.gui.spn_amount.textFromValue(self.gui.spn_amount.value())),
-            ' "' + str(comment) + '"']
-        cmd = ''.join(str_list)
-        self.cmdbuffer.append(cmd)
-        self.gui.txt_summary.append(cmd)
+            str(comment)]
+        #TODO: add creation of tableview here?
+        #inputline = ';'.join(str_list)
+        self.inputbuffer.append(str_list)
+        self.init_tbl_summary(self.inputbuffer)
+        #TODO: add to tbl_summary
+        #self.gui.txt_summary.append(cmd)
         self.clear_fields()
 
     def update_info_details(self):
@@ -200,3 +202,12 @@ class Controller():
             call(["sh", "uninstall.sh"])
         except:
             print('Error: could not load uninstall.sh script.')
+
+    def init_tbl_summary(self, inputbuffer):
+        """ Initialize tbl_summary. """
+        # set the table header
+        header = ['date', 'account', 'product', 'object', 'amount', 'comment']
+        data = self.inputbuffer
+        table = TableModel(header, data, len(data), len(header))
+        self.gui.tbl_summary = table
+        self.gui.tbl_summary.show()

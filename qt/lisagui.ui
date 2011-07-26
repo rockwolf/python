@@ -248,6 +248,9 @@
       </item>
       <item row="0" column="7">
        <widget class="QDoubleSpinBox" name="spn_amount">
+        <property name="locale">
+         <locale language="C" country="AnyCountry"/>
+        </property>
         <property name="maximum">
          <double>999999.989999999990687</double>
         </property>
@@ -303,7 +306,7 @@
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <property name="elideMode">
          <enum>Qt::ElideNone</enum>
@@ -314,11 +317,6 @@
         <property name="documentMode">
          <bool>true</bool>
         </property>
-        <widget class="QWidget" name="tab_page_empty">
-         <attribute name="title">
-          <string>~/</string>
-         </attribute>
-        </widget>
         <widget class="QWidget" name="tab_page_summary">
          <attribute name="title">
           <string>Summary</string>
@@ -337,57 +335,10 @@
             <enum>QLayout::SetDefaultConstraint</enum>
            </property>
            <item row="0" column="0">
-            <widget class="QGroupBox" name="grp_summary">
-             <property name="maximumSize">
-              <size>
-               <width>1677721</width>
-               <height>1677721</height>
-              </size>
+            <widget class="QTableWidget" name="tbl_summary">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgba(255, 255, 255, 100);</string>
              </property>
-             <property name="font">
-              <font>
-               <family>Envy Code R</family>
-              </font>
-             </property>
-             <property name="title">
-              <string>Summary</string>
-             </property>
-             <widget class="QWidget" name="verticalLayoutWidget">
-              <property name="geometry">
-               <rect>
-                <x>10</x>
-                <y>19</y>
-                <width>961</width>
-                <height>351</height>
-               </rect>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout">
-               <item>
-                <widget class="QTextEdit" name="txt_summary">
-                 <property name="font">
-                  <font>
-                   <family>Envy Code R</family>
-                  </font>
-                 </property>
-                 <property name="autoFillBackground">
-                  <bool>false</bool>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">background-color: transparent;</string>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::NoFrame</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Sunken</enum>
-                 </property>
-                 <property name="readOnly">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
             </widget>
            </item>
           </layout>

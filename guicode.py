@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'qt/lisagui.ui'
+# Form implementation generated from reading ui file 'lisagui.ui'
 #
-# Created: Fri Jul 15 17:12:39 2011
+# Created: Tue Jul 26 18:43:37 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -115,6 +115,7 @@ class Ui_frm_main(object):
         self.lbl_amount.setObjectName(_fromUtf8("lbl_amount"))
         self.gridLayout_4.addWidget(self.lbl_amount, 0, 6, 1, 1)
         self.spn_amount = QtGui.QDoubleSpinBox(self.layoutWidget)
+        self.spn_amount.setLocale(QtCore.QLocale(QtCore.QLocale.C, QtCore.QLocale.AnyCountry))
         self.spn_amount.setMaximum(999999.99)
         self.spn_amount.setProperty(_fromUtf8("value"), 0.0)
         self.spn_amount.setObjectName(_fromUtf8("spn_amount"))
@@ -151,9 +152,6 @@ class Ui_frm_main(object):
         self.tab_details.setUsesScrollButtons(True)
         self.tab_details.setDocumentMode(True)
         self.tab_details.setObjectName(_fromUtf8("tab_details"))
-        self.tab_page_empty = QtGui.QWidget()
-        self.tab_page_empty.setObjectName(_fromUtf8("tab_page_empty"))
-        self.tab_details.addTab(self.tab_page_empty, _fromUtf8(""))
         self.tab_page_summary = QtGui.QWidget()
         self.tab_page_summary.setObjectName(_fromUtf8("tab_page_summary"))
         self.layoutWidget1 = QtGui.QWidget(self.tab_page_summary)
@@ -163,30 +161,12 @@ class Ui_frm_main(object):
         self.gridLayout_3.setSizeConstraint(QtGui.QLayout.SetDefaultConstraint)
         self.gridLayout_3.setMargin(0)
         self.gridLayout_3.setObjectName(_fromUtf8("gridLayout_3"))
-        self.grp_summary = QtGui.QGroupBox(self.layoutWidget1)
-        self.grp_summary.setMaximumSize(QtCore.QSize(1677721, 1677721))
-        font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Envy Code R"))
-        self.grp_summary.setFont(font)
-        self.grp_summary.setObjectName(_fromUtf8("grp_summary"))
-        self.verticalLayoutWidget = QtGui.QWidget(self.grp_summary)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 19, 961, 351))
-        self.verticalLayoutWidget.setObjectName(_fromUtf8("verticalLayoutWidget"))
-        self.verticalLayout = QtGui.QVBoxLayout(self.verticalLayoutWidget)
-        self.verticalLayout.setMargin(0)
-        self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.txt_summary = QtGui.QTextEdit(self.verticalLayoutWidget)
-        font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Envy Code R"))
-        self.txt_summary.setFont(font)
-        self.txt_summary.setAutoFillBackground(False)
-        self.txt_summary.setStyleSheet(_fromUtf8("background-color: transparent;"))
-        self.txt_summary.setFrameShape(QtGui.QFrame.NoFrame)
-        self.txt_summary.setFrameShadow(QtGui.QFrame.Sunken)
-        self.txt_summary.setReadOnly(True)
-        self.txt_summary.setObjectName(_fromUtf8("txt_summary"))
-        self.verticalLayout.addWidget(self.txt_summary)
-        self.gridLayout_3.addWidget(self.grp_summary, 0, 0, 1, 1)
+        self.tbl_summary = QtGui.QTableWidget(self.layoutWidget1)
+        self.tbl_summary.setStyleSheet(_fromUtf8("background-color: rgba(255, 255, 255, 100);"))
+        self.tbl_summary.setObjectName(_fromUtf8("tbl_summary"))
+        self.tbl_summary.setColumnCount(0)
+        self.tbl_summary.setRowCount(0)
+        self.gridLayout_3.addWidget(self.tbl_summary, 0, 0, 1, 1)
         self.tab_details.addTab(self.tab_page_summary, _fromUtf8(""))
         self.tab_page_stocks = QtGui.QWidget()
         self.tab_page_stocks.setObjectName(_fromUtf8("tab_page_stocks"))
@@ -243,7 +223,7 @@ class Ui_frm_main(object):
         self.gridLayout.addLayout(self.horizontalLayout, 4, 0, 1, 1)
 
         self.retranslateUi(frm_main)
-        self.tab_details.setCurrentIndex(1)
+        self.tab_details.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(frm_main)
 
     def retranslateUi(self, frm_main):
@@ -263,8 +243,6 @@ class Ui_frm_main(object):
         self.lbl_amount.setText(QtGui.QApplication.translate("frm_main", "Amount", None, QtGui.QApplication.UnicodeUTF8))
         self.lbl_comment.setText(QtGui.QApplication.translate("frm_main", "Comment", None, QtGui.QApplication.UnicodeUTF8))
         self.lbl_object.setText(QtGui.QApplication.translate("frm_main", "Object", None, QtGui.QApplication.UnicodeUTF8))
-        self.tab_details.setTabText(self.tab_details.indexOf(self.tab_page_empty), QtGui.QApplication.translate("frm_main", "~/", None, QtGui.QApplication.UnicodeUTF8))
-        self.grp_summary.setTitle(QtGui.QApplication.translate("frm_main", "Summary", None, QtGui.QApplication.UnicodeUTF8))
         self.tab_details.setTabText(self.tab_details.indexOf(self.tab_page_summary), QtGui.QApplication.translate("frm_main", "Summary", None, QtGui.QApplication.UnicodeUTF8))
         self.lbl_marketcode.setText(QtGui.QApplication.translate("frm_main", "Market code", None, QtGui.QApplication.UnicodeUTF8))
         self.lbl_stockname.setText(QtGui.QApplication.translate("frm_main", "Stock name", None, QtGui.QApplication.UnicodeUTF8))
