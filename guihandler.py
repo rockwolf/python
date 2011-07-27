@@ -102,6 +102,7 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
     def btn_add_clicked(self):
         """ Create the command to send to clipf and add it to the buffer. """
         self.ctl.add_inputline()
+        self.gui.cmb_object.setCurrentIndex(0)
 
     # Events
     def cmb_product_changed(self, selstr):
