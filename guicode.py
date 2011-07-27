@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'lisagui.ui'
 #
-# Created: Tue Jul 26 18:43:37 2011
+# Created: Wed Jul 27 11:11:03 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -157,16 +157,15 @@ class Ui_frm_main(object):
         self.layoutWidget1 = QtGui.QWidget(self.tab_page_summary)
         self.layoutWidget1.setGeometry(QtCore.QRect(0, 0, 971, 381))
         self.layoutWidget1.setObjectName(_fromUtf8("layoutWidget1"))
-        self.gridLayout_3 = QtGui.QGridLayout(self.layoutWidget1)
-        self.gridLayout_3.setSizeConstraint(QtGui.QLayout.SetDefaultConstraint)
-        self.gridLayout_3.setMargin(0)
-        self.gridLayout_3.setObjectName(_fromUtf8("gridLayout_3"))
+        self.glo_summary = QtGui.QGridLayout(self.layoutWidget1)
+        self.glo_summary.setSizeConstraint(QtGui.QLayout.SetDefaultConstraint)
+        self.glo_summary.setMargin(0)
+        self.glo_summary.setObjectName(_fromUtf8("glo_summary"))
         self.tbl_summary = QtGui.QTableWidget(self.layoutWidget1)
-        self.tbl_summary.setStyleSheet(_fromUtf8("background-color: rgba(255, 255, 255, 100);"))
         self.tbl_summary.setObjectName(_fromUtf8("tbl_summary"))
         self.tbl_summary.setColumnCount(0)
         self.tbl_summary.setRowCount(0)
-        self.gridLayout_3.addWidget(self.tbl_summary, 0, 0, 1, 1)
+        self.glo_summary.addWidget(self.tbl_summary, 0, 0, 1, 1)
         self.tab_details.addTab(self.tab_page_summary, _fromUtf8(""))
         self.tab_page_stocks = QtGui.QWidget()
         self.tab_page_stocks.setObjectName(_fromUtf8("tab_page_stocks"))

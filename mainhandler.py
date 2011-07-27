@@ -26,7 +26,6 @@ from subprocess import call
 from mdlimport import FileImport
 from mdlexport import FileExport
 from PyQt4 import QtCore, QtGui
-from PyQt4.QtGui import QTableView, QFont
 from databaseaccess import DatabaseAccess
 from tablemodel import TableModel
 
@@ -109,6 +108,8 @@ class Controller():
         # Stock names
         self.fillcmb_stockname()
         dba = None
+        # Init tbl_summary
+        self.init_tbl_summary()
 
     ## Clear
     def clear_commands(self):
@@ -152,7 +153,7 @@ class Controller():
         #TODO: add creation of tableview here?
         #inputline = ';'.join(str_list)
         self.inputbuffer.append(str_list)
-        self.init_tbl_summary(self.inputbuffer)
+        self.init_tbl_summary()
         #TODO: add to tbl_summary
         #self.gui.txt_summary.append(cmd)
         self.clear_fields()
@@ -203,11 +204,15 @@ class Controller():
         except:
             print('Error: could not load uninstall.sh script.')
 
-    def init_tbl_summary(self, inputbuffer):
+    def init_tbl_summary(self):
         """ Initialize tbl_summary. """
         # set the table header
         header = ['date', 'account', 'product', 'object', 'amount', 'comment']
         data = self.inputbuffer
-        table = TableModel(header, data, len(data), len(header))
-        self.gui.tbl_summary = table
-        self.gui.tbl_summary.show()
+        self.table = TableModel(header, data, len(data), len(header))
+        self.gui.tbl_summary = self.table
+        # can't seem to get existing table updating to work,
+        # so takeAt(0) removes the table that's there and addWidget
+        # adds a newly created one.
+        self.gui.glo_summary.takeAt(0)
+        self.gui.glo_summary.addWidget(self.table)
