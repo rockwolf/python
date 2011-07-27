@@ -306,7 +306,7 @@
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <property name="elideMode">
          <enum>Qt::ElideNone</enum>
@@ -359,6 +359,14 @@
            </item>
            <item row="3" column="4">
             <widget class="QDoubleSpinBox" name="spn_price">
+             <property name="font">
+              <font>
+               <family>Liberation Mono</family>
+              </font>
+             </property>
+             <property name="locale">
+              <locale language="C" country="AnyCountry"/>
+             </property>
              <property name="maximum">
               <double>999999.989999999990687</double>
              </property>
@@ -366,6 +374,14 @@
            </item>
            <item row="2" column="4">
             <widget class="QSpinBox" name="spn_quantity">
+             <property name="font">
+              <font>
+               <family>Liberation Mono</family>
+              </font>
+             </property>
+             <property name="locale">
+              <locale language="C" country="AnyCountry"/>
+             </property>
              <property name="maximum">
               <number>999999</number>
              </property>

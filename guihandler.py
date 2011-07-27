@@ -119,10 +119,12 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
         if(selstr == 'invest.tx' and ( object_ == 'buystocks' or object_ == 'sellstocks')):
             self.gui.tab_details.currentTabName = \
             self.gui.tab_details.setCurrentIndex(1)
+            self.gui.txt_comment.setEnabled(False)
             self.ctl.update_info_details()
         else:
             self.gui.tab_details.currentTabName = \
             self.gui.tab_details.setCurrentIndex(0)
+            self.gui.txt_comment.setEnabled(True)
     
     def process_object_changed(self, selstr):
         """ When the object combo selection changes. """
@@ -131,10 +133,12 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
         if(product == 'invest.tx' and ( selstr == 'buystocks' or selstr == 'sellstocks')):
             self.gui.tab_details.currentTabName = \
             self.gui.tab_details.setCurrentIndex(1)
+            self.gui.txt_comment.setEnabled(False)
             self.ctl.update_info_details()
         else:
             self.gui.tab_details.currentTabName = \
             self.gui.tab_details.setCurrentIndex(0)
+            self.gui.txt_comment.setEnabled(True)
 
 
     def tab_details_changed(self, index):

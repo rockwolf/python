@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'lisagui.ui'
 #
-# Created: Wed Jul 27 11:11:03 2011
+# Created: Wed Jul 27 14:53:18 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -179,10 +179,18 @@ class Ui_frm_main(object):
         self.cmb_marketcode.setObjectName(_fromUtf8("cmb_marketcode"))
         self.gridLayout_5.addWidget(self.cmb_marketcode, 0, 4, 1, 1)
         self.spn_price = QtGui.QDoubleSpinBox(self.gridLayoutWidget_5)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Liberation Mono"))
+        self.spn_price.setFont(font)
+        self.spn_price.setLocale(QtCore.QLocale(QtCore.QLocale.C, QtCore.QLocale.AnyCountry))
         self.spn_price.setMaximum(999999.99)
         self.spn_price.setObjectName(_fromUtf8("spn_price"))
         self.gridLayout_5.addWidget(self.spn_price, 3, 4, 1, 1)
         self.spn_quantity = QtGui.QSpinBox(self.gridLayoutWidget_5)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Liberation Mono"))
+        self.spn_quantity.setFont(font)
+        self.spn_quantity.setLocale(QtCore.QLocale(QtCore.QLocale.C, QtCore.QLocale.AnyCountry))
         self.spn_quantity.setMaximum(999999)
         self.spn_quantity.setObjectName(_fromUtf8("spn_quantity"))
         self.gridLayout_5.addWidget(self.spn_quantity, 2, 4, 1, 1)
@@ -222,7 +230,7 @@ class Ui_frm_main(object):
         self.gridLayout.addLayout(self.horizontalLayout, 4, 0, 1, 1)
 
         self.retranslateUi(frm_main)
-        self.tab_details.setCurrentIndex(0)
+        self.tab_details.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(frm_main)
 
     def retranslateUi(self, frm_main):

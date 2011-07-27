@@ -136,10 +136,10 @@ class Controller():
                 '.',
                 self.gui.cmb_stockname.currentText(),
                 ',', 
-                self.gui.spnQuantity.textFromValue(
-                    self.gui.spnQuantity.value()),
+                self.gui.spn_quantity.textFromValue(
+                    self.gui.spn_quantity.value()),
                 ',',
-                self.gui.spnPrice.textFromValue(self.gui.spnPrice.value())]
+                self.gui.spn_price.textFromValue(self.gui.spn_price.value())]
             comment = ''.join(str_list) 
         else:
             comment = self.gui.txt_comment.text() 
