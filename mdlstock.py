@@ -17,3 +17,50 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 """
 
 from databaseaccess import DatabaseAccess
+
+class Stock():
+    """ Class with methods regarding stocks. """
+    
+    def __init__(self, config):
+        """ Initializes the class. """
+        self.config = config
+
+    def process_stocks(self, fields_db, fields_comment_db):
+        """ Import stock information. """
+        dba = DatabaseAccess(self.config)
+        dba.file_import_stocks(fields_db, fields_comment_db)
+        dba = None
+
+    def parse_comment_stocks(self, fields):
+        """ Convert financial entries that abuse the comment field for stock functionality. """
+        fields_comment = []
+        fields_comment_db = {}
+        
+        try:
+            if fields['object'] == 'buystocks' or fields['object'] == 'sellstocks':
+                # stocks
+                name = ''
+                market = ''
+                action = ''
+                price = '0'
+                quantity = '0'
+                fields_comment = fields['comment'].split(',')
+                name = str(fields_comment[0]).split('.')[1]
+                market = fields_comment[0].split('.')[0]
+                quantity = fields_comment[1]
+                price = fields_comment[2]
+                action = fields['object'] #buystocks/sellstocks
+                #print 'test: action =' + action
+                fields_comment_db = {
+                    'name': name,
+                    'market': market,
+                    'action': action,
+                    'price': price,
+                    'quantity': quantity,
+                }
+            else:
+                fields_comment_db = {}
+        except Exception as ex:
+            print("Error in parse_comment: ", ex)
+        finally:
+            return fields_comment_db

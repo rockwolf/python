@@ -92,12 +92,12 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
         
     def btn_exit_clicked(self):
         """ Exit """
-        self.ctl.clear_commands() # dummy pylint test
+        self.ctl.clear_inputbuffer() # dummy pylint test
         sys.exit(0)
 
     def btn_clear_clicked(self):
         """ Clear the command buffer. """
-        self.ctl.clear_commands()
+        self.ctl.clear_inputbuffer()
     
     def btn_add_clicked(self):
         """ Create the command to send to clipf and add it to the buffer. """

@@ -25,6 +25,7 @@ from os.path import isfile
 from subprocess import call
 from mdlimport import FileImport
 from mdlexport import FileExport
+from mdlstock import Stock
 from PyQt4 import QtCore, QtGui
 from databaseaccess import DatabaseAccess
 from tablemodel import TableModel
@@ -48,9 +49,36 @@ class Controller():
         """ """
         # Safety first: take backup
         self.backup()
-        #TODO: fix the functions below too.
-        #self.pipe_commands()
-        #self.clear_commands()
+        try:
+            fields_db = []
+            for field in self.inputbuffer:
+                product = field[2]
+                if(product[-3:] == '.rx'):
+                    flg_income = 1
+                elif(product[-3:] == '.tx'):
+                    flg_income = 0
+                fields_db.append({
+                                'date':field[0],
+                                'account':field[1], #Note: Get AID from T_ACCOUNT for final insert
+                                'product':field[2], #Note: Get PID from T_PRODUCT for final insert
+                                'object':field[3], #Note: Get OID from T_OBJECT for final insert
+                                'amount':field[4],
+                                'flag':flg_income,
+                                'comment':field[5]
+                            })
+            # import finance info from inputbuffer
+            dba = DatabaseAccess(self.config)
+            dba.file_import_lines(fields_db)
+            dba = None
+            # import stock info from inputbuffer
+            stock = Stock(self.config)
+            for field in fields_db:
+                fields_comment_db = stock.parse_comment_stocks(field)
+            stock.process_stocks(fields_db, fields_comment_db)
+            stock = None
+            self.clear_inputbuffer()
+        except Exception as ex:
+            print("Error in write_commands: ", ex)
 
     def backup(self):
         """ Make a backup of the output file for clipf. """
@@ -114,9 +142,10 @@ class Controller():
         self.init_tbl_summary()
 
     ## Clear
-    def clear_commands(self):
+    def clear_inputbuffer(self):
         """ Clear the command buffer and the summary panel. """
         self.inputbuffer = [] 
+        self.gui.tbl_summary.clearContents()
         #TODO: clear the table
         #self.gui.txt_summary.clear()
 

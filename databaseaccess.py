@@ -267,132 +267,122 @@ class DatabaseAccess():
         values = []
         return values
 
-    def calculate_sw(self, sname):
-        """ Calculate the safe withdrawal value. """
-        #str_list = [
-        #        'select t1.description, t2.description from',
-        #        self.tblstockname,
-        #        't1 join',
-        #        self.tblmarket,
-        #        't2 on t1.mid = t2.mid where t1.name =',
-        #        "'" + str(sname) + "';"]
-        values = []
-        return values
-
     def file_import_lines(self, fields_db):
-            """ Convert general financial information. """
-            #TODO: put this in the inherited class
+        """ Convert general financial information. """
+        #TODO: put this in the inherited class
+        try:
+            session = self.Session()
             try:
-                session = self.Session()
-                try:
-                    now = datetime.now()
-                    date_created = now.strftime("%Y-%m-%d %H:%M:%S")
-                    date_modified = now.strftime("%Y-%m-%d %H:%M:%S")
-                    
-                    print("GENERAL")
-                    print("_______")
-                    print("Preparing statements...")
-                    statements = []
-                    records = 0
-                    for fields in fields_db:
-                        oid = self.oid_from_object(fields['object'], date_created, date_modified)
-                        aid = self.aid_from_account(fields['account'], date_created, date_modified)
-                        pid = self.pid_from_product(fields['product'], date_created, date_modified)
-                                                
-                        obj = session.query(T_FINANCE).filter_by(date=fields['date'], aid=aid, pid=pid, oid=oid, amount=Decimal(fields['amount']), flag=int(fields['flag']), comment=fields['comment']).first() is not None
-                        if not obj: 
-                            records = records + 1
-                            statements.append(T_FINANCE(fields['date'], aid, pid, oid, Decimal(fields['amount']), int(fields['flag']), fields['comment'], 1, date_created, date_modified))
-                    #for s in statements:
-                    #    print('test: ', s)
+                now = datetime.now()
+                date_created = now.strftime("%Y-%m-%d %H:%M:%S")
+                date_modified = now.strftime("%Y-%m-%d %H:%M:%S")
+                
+                print("GENERAL")
+                print("_______")
+                print("Preparing statements...")
+                statements = []
+                records = 0
+                for fields in fields_db:
+                    oid = self.oid_from_object(fields['object'], date_created, date_modified)
+                    aid = self.aid_from_account(fields['account'], date_created, date_modified)
+                    pid = self.pid_from_product(fields['product'], date_created, date_modified)
+                                            
+                    obj = session.query(T_FINANCE).filter_by(date=fields['date'], aid=aid, pid=pid, oid=oid, amount=Decimal(fields['amount']), flag=int(fields['flag']), comment=fields['comment']).first() is not None
+                    if not obj: 
+                        records = records + 1
+                        statements.append(T_FINANCE(fields['date'], aid, pid, oid, Decimal(fields['amount']), int(fields['flag']), fields['comment'], 1, date_created, date_modified))
+                #for s in statements:
+                #    print('test: ', s)
 
-                    print("Executing statements all at once...")
-                    session.add_all(statements)
-                finally:
-                    session.commit()
-                    session = None
-                    print("{0} records added.".format(str(records)))
-                    print("Done.")
-            except Exception as ex:
-                print("Error in file_import_lines: ", ex)
+                print("Executing statements all at once...")
+                session.add_all(statements)
+            finally:
+                session.commit()
+                session = None
+                print("{0} records added.".format(str(records)))
+                print("Done.")
+        except Exception as ex:
+            print("Error in file_import_lines: ", ex)
    
     def file_import_stocks(self, fields_db, fields_comment):
-            """ Import stocks from comment information. """
-            #TODO: put this in the inherited class
+        """ Import stocks from comment information. """
+        #TODO: put this in the inherited class
+        try:
+            session = self.Session()
             try:
-                session = self.Session()
-                try:
-                    now = datetime.now()
-                    date_created = now.strftime("%Y-%m-%d %H:%M:%S")
-                    date_modified = now.strftime("%Y-%m-%d %H:%M:%S")
-                    
-                    print("STOCKS")
-                    print("______")
-                    print("Preparing statements...")
-                    statements = []
-                    records = 0
-                    i = 0
-                    for fields in fields_db:
-                        oid = self.oid_from_object(fields['object'], date_created, date_modified)
-                        aid = self.aid_from_account(fields['account'], date_created, date_modified)
-                        pid = self.pid_from_product(fields['product'], date_created, date_modified)
-                        # Get id from T_FINANCE (to import in T_STOCK)
-                        for instance in session.query(T_FINANCE).filter_by(date=fields['date'], aid=aid, pid=pid, oid=oid, amount=Decimal(fields['amount']), flag=int(fields['flag']), comment=fields['comment']):
-                            id = instance.id
+                now = datetime.now()
+                date_created = now.strftime("%Y-%m-%d %H:%M:%S")
+                date_modified = now.strftime("%Y-%m-%d %H:%M:%S")
+                
+                print("STOCKS")
+                print("______")
+                print("Preparing statements...")
+                statements = []
+                records = 0
+                i = 0
+                for fields in fields_db:
+                    oid = self.oid_from_object(fields['object'], date_created, date_modified)
+                    aid = self.aid_from_account(fields['account'], date_created, date_modified)
+                    pid = self.pid_from_product(fields['product'], date_created, date_modified)
+                    # Get id from T_FINANCE (to import in T_STOCK)
+                    for instance in session.query(T_FINANCE).filter_by(date=fields['date'], aid=aid, pid=pid, oid=oid, amount=Decimal(fields['amount']), flag=int(fields['flag']), comment=fields['comment']):
+                        id = instance.id
 
-                        # Get snid from T_STOCK_NAME if it exists (a new entry will be made in T_STOCK_NAME if it doesn't)
-                        if fields_comment[i] != {}:
-                            mid = self.mid_from_market(fields_comment[i]['market'], date_created, date_modified)
-                            snid = self.snid_from_stockname(fields_comment[i]['name'], mid, date_created, date_modified)
+                    # Get snid from T_STOCK_NAME if it exists (a new entry will be made in T_STOCK_NAME if it doesn't)
+                    if fields_comment[i] != {}:
+                        mid = self.mid_from_market(fields_comment[i]['market'], date_created, date_modified)
+                        snid = self.snid_from_stockname(fields_comment[i]['name'], mid, date_created, date_modified)
 
-                            # Add new entry if it doesn't already exist
-                            obj = session.query(T_STOCK).filter_by(id=id, snid=snid, action=fields_comment[i]['action'], price=Decimal(fields_comment[i]['price']), quantity=int(fields_comment[i]['quantity'])).first() is not None
-                            if not obj: 
-                                records = records + 1
-                                statements.append(T_STOCK(id, snid, fields_comment[i]['action'], Decimal(fields_comment[i]['price']), int(fields_comment[i]['quantity']), 0, date_created, date_modified))
-                        #fields_db and fields_comment are the same size, so we use an integer in the fields_db loop as an index
-                        #to get the corresponding fields_comment value
-                        i = i + 1
-                    #for s in statements:
-                    #    print('test: ', s)
+                        # Add new entry if it doesn't already exist
+                        obj = session.query(T_STOCK).filter_by(id=id, snid=snid, action=fields_comment[i]['action'], price=Decimal(fields_comment[i]['price']), quantity=int(fields_comment[i]['quantity'])).first() is not None
+                        if not obj: 
+                            records = records + 1
+                            statements.append(T_STOCK(id, snid, fields_comment[i]['action'], Decimal(fields_comment[i]['price']), int(fields_comment[i]['quantity']), 0, date_created, date_modified))
+                    #fields_db and fields_comment are the same size, so we use an integer in the fields_db loop as an index
+                    #to get the corresponding fields_comment value
+                    i = i + 1
+                #for s in statements:
+                #    print('test: ', s)
 
-                    print("Executing statements all at once...")
-                    session.add_all(statements)
-                finally:
-                    session.commit()
-                    session = None
-                    print("{0} records added.".format(str(records)))
-                    print("Done.")
+                print("Executing statements all at once...")
+                session.add_all(statements)
             except Exception as ex:
                 print("Error in file_import_stocks: ", ex)
+            finally:
+                session.commit()
+                session = None
+                print("{0} records added.".format(str(records)))
+                print("Done.")
+        except Exception as ex:
+            print("Error creating session in file_import_stocks: ", ex)
 
     def export_lines(self, all=False):
-            """ Returns the t_finance lines from the database. """
-            #TODO: Retrieve the object name 
-            results = []
+        """ Returns the t_finance lines from the database. """
+        #TODO: Retrieve the object name 
+        results = []
+        try:
+            session = self.Session()
             try:
-                session = self.Session()
-                try:
-                    records = 0
-                    if all:
-                        for instance in session.query(T_FINANCE):
-                            records = records + 1
-                            outline = self.export_line(instance)
-                            results.append(':'.join(outline))
-                    else:
-                        for instance in session.query(T_FINANCE).filter_by(active=1):
-                            records = records + 1
-                            outline = self.export_line(instance)
-                            results.append(':'.join(outline))
-                finally:
-                    session.rollback()
-                    session = None
-                    print("{0} records retrieved.".format(str(records)))
-
-            except Exception as ex:
-                print("Error in export_lines: ", ex)
+                records = 0
+                if all:
+                    for instance in session.query(T_FINANCE):
+                        records = records + 1
+                        outline = self.export_line(instance)
+                        results.append(':'.join(outline))
+                else:
+                    for instance in session.query(T_FINANCE).filter_by(active=1):
+                        records = records + 1
+                        outline = self.export_line(instance)
+                        results.append(':'.join(outline))
             finally:
-                return results
+                session.rollback()
+                session = None
+                print("{0} records retrieved.".format(str(records)))
+
+        except Exception as ex:
+            print("Error in export_lines: ", ex)
+        finally:
+            return results
 
     def export_line(self, line):
         """ Assemble an export line. """

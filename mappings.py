@@ -27,7 +27,7 @@ class T_FINANCE(object):
         self.flag = flag
         self.comment = comment
         self.active = active
-        self.date_created= date_create
+        self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
@@ -43,7 +43,7 @@ class T_STOCK(object):
         self.price = price
         self.quantity = quantity
         self.historical = historical
-        self.date_created= date_create
+        self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
@@ -61,7 +61,7 @@ class T_STOCK_CURRENT(object):
         self.amount = amount
         self.historical = historical
         self.yield_ = yield_percent
-        self.date_created= date_create
+        self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
@@ -75,7 +75,7 @@ class T_STOCK_NAME(object):
         self.name = name
         self.mid = mid
         self.description = description
-        self.date_created= date_create
+        self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
@@ -88,7 +88,7 @@ class T_MARKET(object):
         self.code = code
         self.name = name
         self.country = country
-        self.date_created= date_create
+        self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
@@ -100,7 +100,7 @@ class T_PRODUCT(object):
     def __init__(self, name, flg_income, date_created, date_modified):
         self.name = name
         self.flg_income = flg_income 
-        self.date_created= date_create
+        self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
@@ -114,7 +114,7 @@ class T_MARGIN(object):
         self.margin_type_id = margin_type_id
         self.description = description 
         self.value = value 
-        self.date_created= date_create
+        self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
