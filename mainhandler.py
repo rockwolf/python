@@ -28,6 +28,8 @@ from mdlexport import FileExport
 from PyQt4 import QtCore, QtGui
 from databaseaccess import DatabaseAccess
 from tablemodel import TableModel
+import shutil
+import os
 
 class Controller():
     """ Contains the bussiness logic of the application. """
@@ -44,11 +46,11 @@ class Controller():
     ## General
     def write_commands(self):
         """ """
-        #TODO: working with session etc. Use this for the export.
         # Safety first: take backup
         self.backup()
-        self.pipe_commands()
-        self.clear_commands()
+        #TODO: fix the functions below too.
+        #self.pipe_commands()
+        #self.clear_commands()
 
     def backup(self):
         """ Make a backup of the output file for clipf. """
@@ -58,15 +60,15 @@ class Controller():
                 os.remove(self.config.backupfile)
                 print(self.config.backupfile + ' removed.')
             #except IOError as strerror:
-            except:
-                print("Error: {0}".format(strerror))
+            except Exception as ex:
+                print("Error: ", ex)
         # copy current to .bak
         if isfile(self.config.exportfile) and not isfile(self.config.backupfile):
             try:
                 shutil.copy(self.config.exportfile, self.config.backupfile)
                 print(self.config.backupfile + ' created.')
-            except:
-                print('Error: application fucked up while creating backup.')
+            except Exception as ex:
+                print('Error: application fucked up while creating backup: ', ex)
         else:
             print('Error: backup file already exists.')
 
