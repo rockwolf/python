@@ -55,7 +55,6 @@ CREATE TABLE T_FINANCE
     pid int not null,
     oid int not null,
     amount decimal(18,4) default 0,
-    flag int not null default 0,
     comment varchar(256),
     active int not null default 1, 
     date_created timestamp default current_date,

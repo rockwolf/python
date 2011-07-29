@@ -232,41 +232,6 @@ class DatabaseAccess():
 
         return values
         
-    def get_expenses(self):
-        """ Get the total expenses, ordered by year. """
-        #TODO: extra flag in database, in seperate table?
-        #prd_expenses = [
-        #        'account.start',
-        #        'account.tx',
-        #        'invest.invest',
-        #        'invest.changestocks',
-        #        'invest.buystocks']
-        #strprd_expenses = ''
-        #for prd in prd_expenses:
-        #    str_list = [
-        #            strprd_expenses,
-        #            'and t1.product <>',
-        #            "'" + prd + "'"]
-        #    prd_expensestr = ' '.join(str_list)
-        #str_list = [
-        #        'select extract(year from t1.date), sum(t1.amount) from',
-        #        self.tblfinance,
-        #        't1 where t1.flag = 0 and',
-        #        strprd_expensess,
-        #        'group by extract(year from t1.date);']
-        values = []
-        return values
-
-    def get_passive(self):
-        """ Get the total passive income, ordered by year. """
-        #str_list = [
-        #        'select sum(t1.amount) from',
-        #        self.finance,
-        #        "t1 where t1.product = 'invest.dividend'",
-        #        "or t1.product = 'invest.refund';"]
-        values = []
-        return values
-
     def file_import_lines(self, fields_db):
         """ Convert general financial information. """
         #TODO: put this in the inherited class
@@ -287,10 +252,10 @@ class DatabaseAccess():
                     aid = self.aid_from_account(fields['account'], date_created, date_modified)
                     pid = self.pid_from_product(fields['product'], date_created, date_modified)
                                             
-                    obj = session.query(T_FINANCE).filter_by(date=fields['date'], aid=aid, pid=pid, oid=oid, amount=Decimal(fields['amount']), flag=int(fields['flag']), comment=fields['comment']).first() is not None
+                    obj = session.query(T_FINANCE).filter_by(date=fields['date'], aid=aid, pid=pid, oid=oid, amount=Decimal(fields['amount']), comment=fields['comment']).first() is not None
                     if not obj: 
                         records = records + 1
-                        statements.append(T_FINANCE(fields['date'], aid, pid, oid, Decimal(fields['amount']), int(fields['flag']), fields['comment'], 1, date_created, date_modified))
+                        statements.append(T_FINANCE(fields['date'], aid, pid, oid, Decimal(fields['amount']), fields['comment'], 1, date_created, date_modified))
                 #for s in statements:
                 #    print('test: ', s)
 
@@ -325,7 +290,7 @@ class DatabaseAccess():
                     aid = self.aid_from_account(fields['account'], date_created, date_modified)
                     pid = self.pid_from_product(fields['product'], date_created, date_modified)
                     # Get id from T_FINANCE (to import in T_STOCK)
-                    for instance in session.query(T_FINANCE).filter_by(date=fields['date'], aid=aid, pid=pid, oid=oid, amount=Decimal(fields['amount']), flag=int(fields['flag']), comment=fields['comment']):
+                    for instance in session.query(T_FINANCE).filter_by(date=fields['date'], aid=aid, pid=pid, oid=oid, amount=Decimal(fields['amount']), comment=fields['comment']):
                         id = instance.id
 
                     # Get snid from T_STOCK_NAME if it exists (a new entry will be made in T_STOCK_NAME if it doesn't)
@@ -365,22 +330,22 @@ class DatabaseAccess():
             try:
                 records = 0
                 if all:
-                    for instance in session.query(T_FINANCE):
-                        records = records + 1
-                        outline = self.export_line(instance)
-                        results.append(':'.join(outline))
+                    query = session.query(T_FINANCE)
                 else:
-                    for instance in session.query(T_FINANCE).filter_by(active=1):
-                        records = records + 1
-                        outline = self.export_line(instance)
-                        results.append(':'.join(outline))
+                    query = session.query(T_FINANCE).filter_by(active=1)
+                for instance in query:
+                    records = records + 1
+                    outline = self.export_line(instance)
+                    results.append(':'.join(outline))
+            except Exception as ex:
+                print("Error in export_lines: ", ex)
             finally:
                 session.rollback()
                 session = None
                 print("{0} records retrieved.".format(str(records)))
 
         except Exception as ex:
-            print("Error in export_lines: ", ex)
+            print("Error in session of export_lines: ", ex)
         finally:
             return results
 
@@ -389,11 +354,10 @@ class DatabaseAccess():
         exportline = []
         date = datetime.strftime(line.date, '%Y-%m-%d')
         exportline.append(str(date))
-        exportline.append(self.accountname_from_aid(line.account))
-        exportline.append(self.productname_from_pid(line.product))
+        exportline.append(self.accountname_from_aid(line.aid))
+        exportline.append(self.productname_from_pid(line.pid))
         exportline.append(self.objectname_from_oid(line.oid))
         exportline.append(str(line.amount))
-        exportline.append(str(line.flag))
         exportline.append(line.comment)
         return exportline
 

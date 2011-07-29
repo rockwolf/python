@@ -48,8 +48,7 @@ class FileImport():
                         'product':fields[2], #Note: Get PID from T_PRODUCT for final insert
                         'object':fields[3], #Note: Get OID from T_OBJECT for final insert
                         'amount':fields[4],
-                        'flag':fields[5],
-                        'comment':fields[6]
+                        'comment':fields[5]
                         #.replace('\'','\\\'')
                     })
                     i = i + 1

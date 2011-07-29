@@ -18,20 +18,19 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 class T_FINANCE(object):
     """ T_FINANCE """
 
-    def __init__(self, date, aid, pid, oid, amount, flag, comment, active, date_created, date_modified):
+    def __init__(self, date, aid, pid, oid, amount, comment, active, date_created, date_modified):
         self.date = date
         self.aid = aid
         self.pid = pid 
         self.oid = oid
         self.amount = amount
-        self.flag = flag
         self.comment = comment
         self.active = active
         self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.date, self.aid, self.pid, self.oid, self.amount, self.flag, self.comment, self.active, self.date_created, self.date_modified)
+        return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.date, self.aid, self.pid, self.oid, self.amount, self.comment, self.active, self.date_created, self.date_modified)
 
 class T_STOCK(object):
     """ T_STOCK """
