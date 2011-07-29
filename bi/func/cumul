@@ -1,0 +1,44 @@
+/*CREATE OR REPLACE FUNCTION cumul(TEXT, INT8)
+RETURNS INT8
+LANGUAGE plperl
+AS $BODY$
+my ($code, $value) = @_;
+if ($code ne $_SHARED{'cumulative_sum_code'}) {
+$_SHARED{'cumulative_sum_value'} = 0;
+$_SHARED{'cumulative_sum_code'} = $code;
+}
+$_SHARED{'cumulative_sum_value'} += $value;
+return $_SHARED{'cumulative_sum_value'};
+$BODY$;
+
+
+CREATE FUNCTION hello(str text)
+  RETURNS text
+AS $$
+  global x
+  x = 'hello'  # comment
+  return x
+$$ LANGUAGE plpythonu;*/
+
+CREATE OR REPLACE FUNCTION cumul(dt TEXT, value DECIMAL(18,4))
+RETURNS DECIMAL(18,4)
+LANGUAGE plpgsql
+as $BODY$
+DECLARE
+current_id TEXT;
+current_sum DECIMAL(18,4);
+settings_id TEXT;
+BEGIN
+current_id := statement_timestamp()::TEXT || dt;
+settings_id := current_setting('cumulative_sum_name');
+IF settings_id IS DISTINCT FROM current_id THEN
+PERFORM set_config('cumulative_sum_name', dt::TEXT, false);
+current_sum := 0;
+ELSE
+current_sum := current_setting('cumulative_sum_count')::DECIMAL(18,4);
+END IF;
+current_sum := current_sum + coalesce(value, 0);
+PERFORM set_config('cumulative_sum_count', current_sum::TEXT, false);
+RETURN current_sum;
+END;
+$BODY$;
