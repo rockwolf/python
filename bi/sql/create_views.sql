@@ -154,6 +154,7 @@ from
 		where
 			p.name = 'invest.rx'
 			and (o.name = 'refund' or o.name = 'dividend')
+            or p.name = 'bill.rx'
 		group by
 			extract(year from f.date)
 	) a
@@ -176,7 +177,6 @@ from
 			or p2.name = 'gift.tx'
 			or p2.name = 'hobby.tx'
 			or p2.name = 'house.tx'
-			or p2.name = 'invest.tx'
 			or p2.name = 'salary.tx'
 			or p2.name = 'tax.tx'
 			or p2.name = 'travel.tx'
@@ -206,7 +206,12 @@ select
     (vwIncome.income - vwExpenses.expenses) as savedIncome,
     (vwExpenses.expenses/vwIncome.income)*100 as savedIncomeProc,
     (vwIN.intotal - vwOUT.outtotal) as savedTotal,
-    (vwOUT.outtotal/vwIN.intotal)*100 as savedTotalProc
+    (
+        case 
+            when (vwIN.intotal - vwOUT.outtotal)/vwIN.intotal*100 < 0 then  0
+            else (vwIN.intotal - vwOUT.outtotal)/vwIN.intotal*100
+        end
+    ) as savedTotalProc
 from
 (
     select
@@ -276,7 +281,6 @@ inner join
         or p.name = 'gift.tx'
         or p.name = 'hobby.tx'
         or p.name = 'house.tx'
-        or p.name = 'invest.tx'
         or p.name = 'salary.tx'
         or p.name = 'tax.tx'
         or p.name = 'travel.tx'
@@ -301,6 +305,7 @@ inner join
     where
         p.name = 'invest.rx'
         and (o.name = 'refund' or o.name = 'dividend')
+        or p.name = 'bill.rx'
     group by
         extract(year from f.date)
 ) vwPassiveIncome
@@ -321,7 +326,7 @@ inner join
             inner join T_PRODUCT p on f.pid = p.pid
             inner join T_OBJECT o on f.oid = o.oid
     where
-        p.name like 'invest%'
+        p.name = 'invest.rx'
         and (o.name <> 'refund' and o.name <> 'dividend')
         or p.name like 'salary%'
         or p.name like 'bet%'
