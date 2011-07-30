@@ -16,17 +16,17 @@ from
 			when a.name = 'binb00' and p.name = 'invest.rx' and o.name = 'dividend' then 0
 			else
 				case
-					when f.flag = 0 then -1*f.amount
-					when f.flag = 1 then f.amount
+					when p.flg_income = 0 then -1*f.amount
+					when p.flg_income = 1 then f.amount
 				end
 		end as amount
 	from T_FINANCE f
         inner join T_ACCOUNT a on f.aid = a.aid
         inner join T_PRODUCT p on f.pid = p.pid
         inner join T_OBJECT o on f.oid = o.oid
-	group by a.name, f.date, p.name, f.flag, f.amount
+	group by a.name, f.date, p.name, o.name, p.flg_income, f.amount
 ) res
-group by res.account,date_part('year', res.date)
+group by res.account, date_part('year', res.date)
 order by date_part('year', res.date), res.account;
 
 /* V_REP_PROGRESSPERACCPERMONTH */
@@ -46,15 +46,15 @@ from
 			when a.name = 'binb00' and p.name = 'invest.rx' and o.name = 'dividend' then 0
 			else
 				case
-					when f.flag = 0 then -1*f.amount
-					when f.flag = 1 then f.amount
+					when p.flg_income = 0 then -1*f.amount
+					when p.flg_income = 1 then f.amount
 				end
 		end as amount
 	from T_FINANCE f
         inner join T_ACCOUNT a on f.aid = a.aid
         inner join T_PRODUCT p on f.pid = p.pid
         inner join T_OBJECT o on f.oid = o.oid
-	group by a.name, f.date, p.name, f.flag, f.amount
+	group by a.name, f.date, p.name, o.name, p.flg_income, f.amount
 ) res
 group by date_part('year', res.date), date_part('month', res.date), res.account
 order by date_part('year', res.date), date_part('month', res.date), res.account;
@@ -71,14 +71,14 @@ from
 		a.name as account,
 		f.date,
         case
-            when f.flag = 0 then -1*f.amount
-            when f.flag = 1 then f.amount
+            when p.flg_income = 0 then -1*f.amount
+            when p.flg_income = 1 then f.amount
         end as amount
 	from T_FINANCE f
         inner join T_ACCOUNT a on f.aid = a.aid
         inner join T_PRODUCT p on f.pid = p.pid
         inner join T_OBJECT o on f.oid = o.oid
-	group by a.name, f.date, p.name, f.flag, f.amount
+	group by a.name, f.date, p.name, p.flg_income, f.amount
 ) res
 group by date_part('year', date);
 
@@ -100,35 +100,35 @@ from
 			when a.name = 'binb00' and p.name = 'invest.rx' and o.name = 'dividend' then 0
 			else
 				case
-					when f.flag = 0 then -1*f.amount
-					when f.flag = 1 then f.amount
+					when p.flg_income = 0 then -1*f.amount
+					when p.flg_income = 1 then f.amount
 				end
 		end as amount
 	from T_FINANCE f
         inner join T_ACCOUNT a on f.aid = a.aid
         inner join T_PRODUCT p on f.pid = p.pid
         inner join T_OBJECT o on f.oid = o.oid
-	group by f.id, a.name, f.date, p.name, f.flag, f.amount
+	group by f.id, a.name, f.date, p.name, o.name, p.flg_income, f.amount
 ) t1
 join
 (
 	select
 		f.id,
-		f.account,
+		a.name as account,
 		f.date,
 		case
-			when f.account = 'binb00' and p.name = 'invest.rx' and o.name = 'dividend') then 0
+			when a.name = 'binb00' and p.name = 'invest.rx' and o.name = 'dividend' then 0
 			else
 				case
-					when f.flag = 0 then -1*f.amount
-					when f.flag = 1 then f.amount
+					when p.flg_income = 0 then -1*f.amount
+					when p.flg_income = 1 then f.amount
 				end
 		end as amount
 	from T_FINANCE f
         inner join T_ACCOUNT a on f.aid = a.aid
         inner join T_PRODUCT p on f.pid = p.pid
         inner join T_OBJECT o on f.oid = o.oid
-	group by f.id, a.name, f.date, p.name, f.flag, f.amount
+	group by f.id, a.name, f.date, p.name, o.name, p.flg_income, f.amount
 ) t2
 on
 date_part('year', t2.date) = date_part('year', t1.date) and t2.id <= t1.id
@@ -145,7 +145,7 @@ from
 	(
 		select
 			extract(year from f.date) as year,
-			sum(t1.amount) as passive
+			sum(f.amount) as passive
 		from
 			T_FINANCE f 
                 inner join T_ACCOUNT a on f.aid = a.aid
@@ -214,7 +214,7 @@ from
         sum(
             case p.flg_income 
                 when 1 then f.amount
-                else then -1*f.amount
+                else -1*f.amount
             end
             ) as salary
     from 
@@ -234,6 +234,7 @@ inner join
         sum(f.amount) as intotal
     from 
         t_finance f
+            inner join t_product p on f.pid = p.pid
     where
         p.flg_income = 1
     group by
@@ -249,64 +250,83 @@ inner join
         sum(f.amount) as outtotal
     from 
         t_finance f
+            inner join t_product p on f.pid = p.pid
     where
-        f.flag = 0
+        p.flg_income = 0
     group by
-        extract(year from t1.date)
+        extract(year from f.date)
     order by
-        extract(year from t1.date)
+        extract(year from f.date)
 ) vwOUT
 on vwOUT.year = vwIN.year
 inner join
 (
     select
-        extract(year from t1.date) as year,
-        sum(t1.amount) as expenses
+        extract(year from f.date) as year,
+        sum(f.amount) as expenses
     from 
-        t_finance t1
+        t_finance f
+            inner join t_product p on f.pid = p.pid
     where
-        t1.flag = 0
-        and t1.product <> 'account.start'
-        and t1.product <> 'account.tx'
-        and t1.product <> 'invest.invest'
-        and t1.product <> 'invest.buystocks'
-        and t1.product <> 'invest.changestocks'
-        and t1.product <> 'bet.place'
+        p.name = 'bill.tx'
+        or p.name = 'car.tx'
+        or p.name = 'clothes.tx'
+        or p.name = 'extra.tx'
+        or p.name = 'food.tx'
+        or p.name = 'gift.tx'
+        or p.name = 'hobby.tx'
+        or p.name = 'house.tx'
+        or p.name = 'invest.tx'
+        or p.name = 'salary.tx'
+        or p.name = 'tax.tx'
+        or p.name = 'travel.tx'
+        or p.name = 'utilities.tx'
+        or p.name = 'other.tx'
     group by
-        extract(year from t1.date)
+        extract(year from f.date)
     order by
-        extract(year from t1.date)
+        extract(year from f.date)
 ) vwExpenses
 on vwExpenses.year = vwOUT.year
 inner join
 (
     select
-        extract(year from t1.date) as year,
-        sum(t1.amount) as passive
+        extract(year from f.date) as year,
+        sum(f.amount) as passive
     from
-        t_finance t1
+        t_finance f 
+            inner join T_ACCOUNT a on f.aid = a.aid
+            inner join T_PRODUCT p on f.pid = p.pid
+            inner join T_OBJECT o on f.oid = o.oid
     where
-        t1.product = 'invest.dividend'
-        or t1.product = 'invest.refund'
+        p.name = 'invest.rx'
+        and (o.name = 'refund' or o.name = 'dividend')
     group by
-        extract(year from t1.date)
+        extract(year from f.date)
 ) vwPassiveIncome
 on vwPassiveIncome.year = vwExpenses.year
 inner join
 (
     select
-        extract(year from t1.date) as year,
-        sum(t1.amount) as income
+        extract(year from f.date) as year,
+        sum(
+            case p.flg_income
+                when 1 then f.amount
+                else -1*f.amount
+            end
+            ) as income
     from
-        t_finance t1
+        t_finance f 
+            inner join T_ACCOUNT a on f.aid = a.aid
+            inner join T_PRODUCT p on f.pid = p.pid
+            inner join T_OBJECT o on f.oid = o.oid
     where
-        t1.product = 'invest.dividend'
-        or t1.product = 'invest.refund'
-        or t1.product = 'salary'
-        or t1.product = 'stocks.sell'
-        or t1.product = 'bets.cashin'
+        p.name like 'invest%'
+        and (o.name <> 'refund' and o.name <> 'dividend')
+        or p.name like 'salary%'
+        or p.name like 'bet%'
     group by
-        extract(year from t1.date)
+        extract(year from f.date)
 ) vwIncome
 on vwIncome.year = vwPassiveIncome.year;
 

@@ -82,6 +82,12 @@ INSERT INTO T_PRODUCT(name, flg_income, date_created, date_modified)
 values('account.tx', 0, current_date, current_date);
 
 INSERT INTO T_PRODUCT(name, flg_income, date_created, date_modified)
+values('bet.rx', 1, current_date, current_date);
+
+INSERT INTO T_PRODUCT(name, flg_income, date_created, date_modified)
+values('bet.tx', 0, current_date, current_date);
+
+INSERT INTO T_PRODUCT(name, flg_income, date_created, date_modified)
 values('bill.rx', 1, current_date, current_date);
 
 INSERT INTO T_PRODUCT(name, flg_income, date_created, date_modified)
