@@ -335,4 +335,22 @@ inner join
 ) vwIncome
 on vwIncome.year = vwPassiveIncome.year;
 
+/* V_REP_CHECK */
+CREATE OR REPLACE VIEW V_REP_CHECK
+AS
+select
+    a.name as account,
+    sum(
+        case p.flg_income
+            when 1 then f.amount
+            else -1*f.amount
+        end
+    ) as total 
+from
+    t_finance f 
+        inner join T_ACCOUNT a on f.aid = a.aid
+        inner join T_PRODUCT p on f.pid = p.pid
+group by a.name
+order by a.name;
+
 COMMIT;
