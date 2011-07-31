@@ -284,7 +284,6 @@ class DatabaseAccess():
                 print("Preparing statements...")
                 statements = []
                 records = 0
-                i = 0
                 for fields in fields_db:
                     oid = self.oid_from_object(fields['object'], date_created, date_modified)
                     aid = self.aid_from_account(fields['account'], date_created, date_modified)
@@ -294,18 +293,17 @@ class DatabaseAccess():
                         id = instance.id
 
                     # Get snid from T_STOCK_NAME if it exists (a new entry will be made in T_STOCK_NAME if it doesn't)
-                    if fields_comment[i] != {}:
-                        mid = self.mid_from_market(fields_comment[i]['market'], date_created, date_modified)
-                        snid = self.snid_from_stockname(fields_comment[i]['name'], mid, date_created, date_modified)
+                    if fields_comment != {}:
+                        mid = self.mid_from_market(fields_comment['market'], date_created, date_modified)
+                        snid = self.snid_from_stockname(fields_comment['name'], mid, date_created, date_modified)
 
                         # Add new entry if it doesn't already exist
-                        obj = session.query(T_STOCK).filter_by(id=id, snid=snid, action=fields_comment[i]['action'], price=Decimal(fields_comment[i]['price']), quantity=int(fields_comment[i]['quantity'])).first() is not None
+                        obj = session.query(T_STOCK).filter_by(id=id, snid=snid, action=fields_comment['action'], price=Decimal(fields_comment['price']), quantity=int(fields_comment['quantity'])).first() is not None
                         if not obj: 
                             records = records + 1
-                            statements.append(T_STOCK(id, snid, fields_comment[i]['action'], Decimal(fields_comment[i]['price']), int(fields_comment[i]['quantity']), 0, date_created, date_modified))
+                            statements.append(T_STOCK(id, snid, fields_comment['action'], Decimal(fields_comment['price']), int(fields_comment['quantity']), 0, date_created, date_modified))
                     #fields_db and fields_comment are the same size, so we use an integer in the fields_db loop as an index
                     #to get the corresponding fields_comment value
-                    i = i + 1
                 #for s in statements:
                 #    print('test: ', s)
 

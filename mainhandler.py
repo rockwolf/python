@@ -47,8 +47,6 @@ class Controller():
     ## General
     def write_commands(self):
         """ """
-        # Safety first: take backup
-        self.backup()
         try:
             fields_db = []
             for field in self.inputbuffer:
@@ -218,6 +216,8 @@ class Controller():
     def file_export(self):
         """ Export data to text file. """
         fe = FileExport(self.config)
+        # Safety first: take backup
+        self.backup()
         fe.file_export()
         fe = None
 
