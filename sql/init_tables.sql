@@ -171,6 +171,12 @@ values('other.rx', 1, current_date, current_date);
 INSERT INTO T_PRODUCT(name, flg_income, date_created, date_modified)
 values('other.tx', 0, current_date, current_date);
 
+INSERT INTO T_PRODUCT(name, flg_income, date_created, date_modified)
+values('phone.rx', 1, current_date, current_date);
+
+INSERT INTO T_PRODUCT(name, flg_income, date_created, date_modified)
+values('phone.tx', 0, current_date, current_date);
+
 /* t_object */
 INSERT INTO T_OBJECT(name, date_created, date_modified)
 values('none', current_date, current_date);
