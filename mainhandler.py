@@ -160,7 +160,7 @@ class Controller():
         prod = self.gui.cmb_product.currentText() 
         object_ = self.gui.cmb_object.currentText() 
         if(
-            prod == 'invest.tx' and (object_ == 'buystocks' or
+            (prod == 'invest.tx' or prod == 'invest.rx') and (object_ == 'buystocks' or
             object_ == 'sellstocks')):
             str_list = [
                 self.gui.cmb_marketcode.currentText(),
@@ -198,7 +198,7 @@ class Controller():
             prod == 'invest.tx'
         ) and stock != '':
             info = dba.get_stockinfo(stock)
-            self.gui.lbl_infodetails.setText(info[1] + '(' + info[2] +'): ' + info[0])
+            self.gui.lbl_infodetails.setText(info[1] + '(' + ''.join(info[2].split()) +'): ' + info[0])
         dba = None
 
     def fillcmb_stockname(self):

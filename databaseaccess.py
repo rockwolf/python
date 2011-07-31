@@ -311,6 +311,7 @@ class DatabaseAccess():
 
                 print("Executing statements all at once...")
                 session.add_all(statements)
+
             except Exception as ex:
                 print("Error in file_import_stocks: ", ex)
             finally:
