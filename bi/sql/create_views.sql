@@ -78,6 +78,9 @@ from
         inner join T_ACCOUNT a on f.aid = a.aid
         inner join T_PRODUCT p on f.pid = p.pid
         inner join T_OBJECT o on f.oid = o.oid
+    where
+        p.name like 'account%'
+        or p.name = 'invest.tx'
 	group by a.name, f.date, p.name, p.flg_income, f.amount
 ) res
 group by date_part('year', date);
