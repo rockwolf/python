@@ -1,7 +1,9 @@
 BEGIN;
 
+/* NOTE: Create or replace view... is bugged! Using drop view in stead. */
 /* V_REP_PROGRESSPERYEAR */
-CREATE OR REPLACE VIEW V_REP_PROGRESSPERYEAR
+DROP VIEW V_REP_PROGRESSPERYEAR;
+CREATE VIEW V_REP_PROGRESSPERYEAR
 as
 select
 	res.account,
@@ -30,7 +32,8 @@ group by res.account, date_part('year', res.date)
 order by date_part('year', res.date), res.account;
 
 /* V_REP_PROGRESSPERACCPERMONTH */
-CREATE OR REPLACE VIEW V_REP_PROGRESSPERACCPERMONTH
+DROP VIEW V_REP_PROGRESSPERACCPERMONTH;
+CREATE VIEW V_REP_PROGRESSPERACCPERMONTH
 AS
 select
     date_part('year', res.date) as year,
@@ -60,7 +63,8 @@ group by date_part('year', res.date), date_part('month', res.date), res.account
 order by date_part('year', res.date), date_part('month', res.date), res.account;
 
 /* V_REP_NETWORTH */
-CREATE OR REPLACE VIEW V_REP_NETWORTH
+DROP VIEW V_REP_NETWORTH;
+CREATE VIEW V_REP_NETWORTH
 AS
 select
     date_part('year', date),
@@ -86,7 +90,8 @@ from
 group by date_part('year', date);
 
 /* V_REP_PROGRESSCUMUL */
-CREATE OR REPLACE VIEW V_REP_PROGRESSCUMUL
+DROP VIEW V_REP_PROGRESSCUMUL;
+CREATE VIEW V_REP_PROGRESSCUMUL
 AS
 select
 	t1.id,
@@ -139,7 +144,8 @@ group by date_part('year', t1.date), t1.id, t1.amount
 order by date_part('year', t1.date), t1.id;
 
 /* V_REP_CROSSOVER */
-CREATE OR REPLACE VIEW V_REP_CROSSOVER
+DROP VIEW V_REP_CROSSOVER;
+CREATE VIEW V_REP_CROSSOVER
 AS
 select 
 	res.year, res.expenses, res.passive
@@ -194,7 +200,8 @@ from
 ) res;
 
 /* V_REP_EXPVSINC */
-CREATE OR REPLACE VIEW V_REP_EXPVSINC
+DROP VIEW V_REP_EXPVSINC;
+CREATE VIEW V_REP_EXPVSINC
 AS
 select
     vwExpenses.year as year,
@@ -339,7 +346,8 @@ inner join
 on vwIncome.year = vwPassiveIncome.year;
 
 /* V_REP_CHECK */
-CREATE OR REPLACE VIEW V_REP_CHECK
+DROP VIEW V_REP_CHECK;
+CREATE VIEW V_REP_CHECK
 AS
 select
     a.name as account,
@@ -355,5 +363,24 @@ from
         inner join T_PRODUCT p on f.pid = p.pid
 group by a.name
 order by a.name;
+
+/* V_REP_EXPENSESPERPRODUCT */
+DROP VIEW V_REP_EXPENSESPERPRODUCT;
+CREATE VIEW V_REP_EXPENSESPERPRODUCT
+AS
+select
+    extract(year from f.date) as year,
+    p.name as product,
+    sum(f.amount) as expenses 
+from
+    t_finance f 
+        inner join T_ACCOUNT a on f.aid = a.aid
+        inner join T_PRODUCT p on f.pid = p.pid
+where 
+    p.flg_income = 0
+    and a.name <> 'binb00'
+    and p.name <> 'account.tx'
+group by
+    extract(year from f.date), p.name;
 
 COMMIT;
