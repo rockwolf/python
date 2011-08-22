@@ -370,12 +370,12 @@ CREATE VIEW V_REP_EXPENSESPERPRODUCT
 AS
 select
     extract(year from f.date) as year,
-    p.name as product,
-    sum(f.amount) as expenses 
+    substring(p.name, 1, char_length(p.name)-3) as product,
+    sum(coalesce(f.amount, 0)) as expenses 
 from
-    t_finance f 
-        inner join T_ACCOUNT a on f.aid = a.aid
-        inner join T_PRODUCT p on f.pid = p.pid
+    t_product p
+    left outer join t_finance f on p.pid = f.pid
+    inner join T_ACCOUNT a on f.aid = a.aid
 where 
     p.flg_income = 0
     and a.name <> 'binb00'
