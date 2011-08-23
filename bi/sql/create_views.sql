@@ -369,18 +369,32 @@ DROP VIEW V_REP_EXPENSESPERPRODUCT;
 CREATE VIEW V_REP_EXPENSESPERPRODUCT
 AS
 select
-    extract(year from f.date) as year,
-    substring(p.name, 1, char_length(p.name)-3) as product,
-    sum(coalesce(f.amount, 0)) as expenses 
+    subq.*
 from
-    t_product p
-    left outer join t_finance f on p.pid = f.pid
-    inner join T_ACCOUNT a on f.aid = a.aid
-where 
-    p.flg_income = 0
-    and a.name <> 'binb00'
-    and p.name <> 'account.tx'
-group by
-    extract(year from f.date), p.name;
+(
+    select 
+        /*extract(year from f.date) as year,*/
+        y.year,
+        substring(p.name, 1, char_length(p.name)-3) as product,
+        sum(coalesce(f.amount, 0)) as expenses 
+    from
+    (   
+        (select distinct extract(year from f.date) as year from t_finance f) as x
+        cross join t_product
+        /*cross join (select aid, name as account from t_account) as acc*/
+    ) as y
+    left outer join t_finance f on y.year = extract(year from f.date) and y.pid = f.pid
+    inner join t_product p on p.pid = y.pid
+    /*inner join T_ACCOUNT a on a.aid = y.aid*/
+    where 
+        p.flg_income = 0
+        /*and a.name <> 'binb00'*/
+        /*and f.aid <> 4*/
+        and p.name <> 'account.tx'
+        and p.name <> 'invest.tx'
+    group by
+        y.year, p.name
+        /*extract(year from f.date), p.name*/
+) subq;
 
 COMMIT;
