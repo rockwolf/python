@@ -123,3 +123,33 @@ CREATE TABLE T_STOCK_CURRENT
     primary key(code, name)
 );
 COMMIT;
+
+BEGIN;
+CREATE TABLE T_TRADE
+(
+    tid serial not null,
+    sid int not null, /* this becomes the link to t_finance: find the sid in T_TRADE (with the correct year and month that's not closed. Otherwise, make another. */
+    year int not null default 0,
+    month int not null default 0,
+    buy_price decimal(18,4) default 0, /* (buy_price + new buy_price)/2 */
+    sell_price decimal(18,4) default 0, /* (sell_price + new sell_price)/2 */
+    stop_loss decimal(18,4) default 0, /* automatically recalculate this */
+    shares_total int default 0, /* if buy_flg : add shares, if not buy: subtract shares, when 0 => trade closed */
+    buy_flag int not null default 1,
+    closed int not null default 0,
+    win_flag int not null default 1, /* win_sum not needed, we can get that in a query */
+    date_created timestamp default current_date,
+    date_modified timestamp default current_date,
+    constraint pk_tid primary key(tid),
+    constraint fk_sid foreign key(sid) references T_STOCK(sid)
+);
+
+CREATE TABLE T_TRADE_DRAWDOWN
+(
+    did serial not null,
+    tid int not null,
+    constraint pk_did primary key(did),
+    constraint fk_tid foreign key(tid) references T_TRADE(tid)
+);
+
+COMMIT;
