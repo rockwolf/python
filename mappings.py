@@ -18,43 +18,51 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 class T_FINANCE(object):
     """ T_FINANCE """
 
-    def __init__(self, date, aid, pid, oid, amount, comment, active, date_created, date_modified):
+    def __init__(self, date, aid, pid, oid, amount, comment, stock, market, shares, price, tax, commission, active, date_created, date_modified):
         self.date = date
         self.aid = aid
         self.pid = pid 
         self.oid = oid
         self.amount = amount
         self.comment = comment
+        self.stock = stock
+        self.market = market
+        self.shares = shares
+        self.price = price
+        self.tax = tax
+        self.commission = commission
         self.active = active
         self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.date, self.aid, self.pid, self.oid, self.amount, self.comment, self.active, self.date_created, self.date_modified)
+        return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.date, self.aid, self.pid, self.oid, self.amount, self.comment, self.stock, self.market, self.shares, self.price, self.tax, self.commission, self.active, self.date_created, self.date_modified)
 
 class T_STOCK(object):
     """ T_STOCK """
 
-    def __init__(self, id, snid, action, price, quantity, historical, date_created, date_modified):
+    def __init__(self, id, snid, action, price, shares, tax, commission, historical, date_created, date_modified):
         self.id = id
         self.snid = snid
         self.action = action
         self.price = price
-        self.quantity = quantity
+        self.shares = shares
+        self.tax = tax
+        self.commission = commission
         self.historical = historical
         self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_STOCK('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.id, self.snid, self.action, self.price, self.quantity, self.historical, self.date_created, self.date_modified)
+        return "<T_STOCK('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.id, self.snid, self.action, self.price, self.shares, self.tax, self.commission, self.historical, self.date_created, self.date_modified)
 
 class T_STOCK_CURRENT(object):
     """ T_STOCK_CURRENT"""
 
-    def __init__(self, code, name, quantity, current_value, buy_value, amount, historical, yield_, yield_percent, date_created, date_modified):
+    def __init__(self, code, name, shares, current_value, buy_value, amount, historical, yield_, yield_percent, date_created, date_modified):
         self.code = code
         self.name = name
-        self.quantity = quantity
+        self.shares = shares
         self.current_value = current_value
         self.buy_value = buy_value
         self.amount = amount
@@ -64,7 +72,7 @@ class T_STOCK_CURRENT(object):
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_STOCK_CURRENT('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.code, self.name, self.quantity, self.current_value, self.buy_value, self. amount, self.historical, self.yield_, self.yield_percent, self.date_created, self.date_modified)
+        return "<T_STOCK_CURRENT('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.code, self.name, self.shares, self.current_value, self.buy_value, self. amount, self.historical, self.yield_, self.yield_percent, self.date_created, self.date_modified)
 
 
 class T_STOCK_NAME(object):

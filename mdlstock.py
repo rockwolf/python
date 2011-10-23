@@ -25,42 +25,42 @@ class Stock():
         """ Initializes the class. """
         self.config = config
 
-    def process_stocks(self, fields_db, fields_comment_db):
+    def process_stocks(self, fields_db, fields_stock):
         """ Import stock information. """
         dba = DatabaseAccess(self.config)
-        dba.file_import_stocks(fields_db, fields_comment_db)
+        dba.file_import_stocks(fields_db, fields_stock)
         dba = None
 
-    def parse_comment_stocks(self, fields):
-        """ Convert financial entries that abuse the comment field for stock functionality. """
-        fields_comment = []
-        fields_comment_db = {}
+    def parse_stocks(self, fields):
+        """ Gather the stock information from the stock related fields. """
+        fields_stock = {}
         
         try:
             if fields['object'] == 'buystocks' or fields['object'] == 'sellstocks':
                 # stocks
-                name = ''
-                market = ''
                 action = ''
                 price = '0'
-                quantity = '0'
-                fields_comment = fields['comment'].split(',')
-                name = str(fields_comment[0]).split('.')[1]
-                market = fields_comment[0].split('.')[0]
-                quantity = fields_comment[1]
-                price = fields_comment[2]
+                shares = '0'
+                name = fields['stock']
+                market = fields['market']
+                shares = fields['shares']
+                price = fields['price']
+                tax = fields['tax']
+                commission = fields['commission']
                 action = fields['object'] #buystocks/sellstocks
                 #print 'test: action =' + action
-                fields_comment_db = {
+                fields_stock= {
                     'name': name,
                     'market': market,
                     'action': action,
+                    'shares': shares,
                     'price': price,
-                    'quantity': quantity,
+                    'tax': tax,
+                    'commission': commission,
                 }
             else:
-                fields_comment_db = {}
+                fields_stock = {}
         except Exception as ex:
-            print("Error in parse_comment: ", ex)
+            print("Error in parse_stocks: ", ex)
         finally:
-            return fields_comment_db
+            return fields_stock

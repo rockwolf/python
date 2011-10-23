@@ -56,6 +56,12 @@ CREATE TABLE T_FINANCE
     oid int not null,
     amount decimal(18,4) default 0,
     comment varchar(256),
+    market varchar(256),
+    stock varchar(256),
+    shares int,
+    price decimal(18,4),
+    tax decimal(18,4),
+    commission decimal (18,4),
     active int not null default 1, 
     date_created timestamp default current_date,
     date_modified timestamp default current_date,
@@ -83,7 +89,7 @@ CREATE TABLE T_STOCK_NAME
     snid serial not null,
     name varchar(10) not null,
     mid int not null,
-    description varchar(30),
+    description varchar(256),
     date_created timestamp default current_date,
     date_modified timestamp default current_date,
     constraint pk_snid primary key(snid),
@@ -98,7 +104,7 @@ CREATE TABLE T_STOCK
     snid int not null,
     action varchar(50) not null,
     price decimal(18,4) default 0,
-    quantity int default 0,
+    shares int default 0,
     historical decimal(18,4) default 0,
     date_created timestamp default current_date,
     date_modified timestamp default current_date,
@@ -111,7 +117,7 @@ CREATE TABLE T_STOCK_CURRENT
 (
     code varchar(5) not null,
     name varchar(20) not null,
-    quantity int default 0,
+    shares int default 0,
     current_value decimal(18,4) default 0,
     buy_value decimal(18,4) default 0,
     amount decimal(18,4) default 0,
@@ -122,9 +128,7 @@ CREATE TABLE T_STOCK_CURRENT
     date_modified timestamp default current_date,
     primary key(code, name)
 );
-COMMIT;
 
-BEGIN;
 CREATE TABLE T_TRADE
 (
     tid serial not null,
@@ -133,23 +137,32 @@ CREATE TABLE T_TRADE
     month int not null default 0,
     buy_price decimal(18,4) default 0, /* (buy_price + new buy_price)/2 */
     sell_price decimal(18,4) default 0, /* (sell_price + new sell_price)/2 */
-    stop_loss decimal(18,4) default 0, /* automatically recalculate this */
+    stoploss decimal(18,4) default 0, /* automatically recalculate this */
     shares_total int default 0, /* if buy_flg : add shares, if not buy: subtract shares, when 0 => trade closed */
-    buy_flag int not null default 1,
-    closed int not null default 0,
-    win_flag int not null default 1, /* win_sum not needed, we can get that in a query */
+    closed int not null default 0, /* if shares_total becomes zero, this flag will be set to 1 */
+    win_flag int, /* win_sum not needed, we can get that in a query + it's calc. for/when closed flag = 1 */
+    --accuracy decimal(18,4) default 0, /* we can get that in a query */
+    drawdown int default 0,
     date_created timestamp default current_date,
     date_modified timestamp default current_date,
     constraint pk_tid primary key(tid),
     constraint fk_sid foreign key(sid) references T_STOCK(sid)
 );
 
-CREATE TABLE T_TRADE_DRAWDOWN
-(
-    did serial not null,
-    tid int not null,
-    constraint pk_did primary key(did),
-    constraint fk_tid foreign key(tid) references T_TRADE(tid)
-);
-
+/*
+DROP VIEW V_REP_TRADEJOURNAL;
+CREATE VIEW V_REP_TRADEJOURNAL
+as
+select
+    t.year,
+    t.month,
+    t.buy_price,
+    t.sell_price,
+    t.stoploss,
+    t.shares_total,
+    t.closed,
+    t.win_flag
+from
+    T_TRADE t
+*/
 COMMIT;

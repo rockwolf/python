@@ -252,10 +252,10 @@ class DatabaseAccess():
                     aid = self.aid_from_account(fields['account'], date_created, date_modified)
                     pid = self.pid_from_product(fields['product'], date_created, date_modified)
                                             
-                    obj = session.query(T_FINANCE).filter_by(date=fields['date'], aid=aid, pid=pid, oid=oid, amount=Decimal(fields['amount']), comment=fields['comment']).first() is not None
+                    obj = session.query(T_FINANCE).filter_by(date=fields['date'], aid=aid, pid=pid, oid=oid, amount=Decimal(fields['amount']), comment=fields['comment'], market=fields['market'], stock=fields['stock'], shares=fields['shares'], price=fields['price'], tax=fields['tax'], commission=fields['commission']).first() is not None
                     if not obj: 
                         records = records + 1
-                        statements.append(T_FINANCE(fields['date'], aid, pid, oid, Decimal(fields['amount']), fields['comment'], 1, date_created, date_modified))
+                        statements.append(T_FINANCE(fields['date'], aid, pid, oid, Decimal(fields['amount']), fields['comment'], fields['market'], fields['stock'], fields['shares'], fields['price'], fields['tax'], fields['commission'], 1, date_created, date_modified))
                 #for s in statements:
                 #    print('test: ', s)
 
@@ -269,8 +269,8 @@ class DatabaseAccess():
         except Exception as ex:
             print("Error in file_import_lines: ", ex)
    
-    def file_import_stocks(self, fields_db, fields_comment):
-        """ Import stocks from comment information. """
+    def file_import_stocks(self, fields_db, fields_stock):
+        """ Import stock information. """
         #TODO: put this in the inherited class
         try:
             session = self.Session()
@@ -286,7 +286,7 @@ class DatabaseAccess():
                 records = 0
                 i = 0
                 for fields in fields_db:
-                    if ('market' in fields_comment[i]) :
+                    if (not fields_stock[i]['stock'] == '') :
                         oid = self.oid_from_object(fields['object'], date_created, date_modified)
                         aid = self.aid_from_account(fields['account'], date_created, date_modified)
                         pid = self.pid_from_product(fields['product'], date_created, date_modified)
@@ -295,18 +295,20 @@ class DatabaseAccess():
                             id = instance.id
 
                         # Get snid from T_STOCK_NAME if it exists (a new entry will be made in T_STOCK_NAME if it doesn't)
-                        if fields_comment != {}:
-                            mid = self.mid_from_market(fields_comment[i]['market'], date_created, date_modified)
-                            snid = self.snid_from_stockname(fields_comment[i]['name'], mid, date_created, date_modified)
+                        if fields_stock != {}:
+                            mid = self.mid_from_market(fields_stock[i]['market'], date_created, date_modified)
+                            snid = self.snid_from_stockname(fields_stock[i]['stock'], mid, date_created, date_modified)
+                            tax = fields_stock[i]['tax']
+                            commission = fields_stock[i]['commission']
 
                             # Add new entry if it doesn't already exist
-                            obj = session.query(T_STOCK).filter_by(id=id, snid=snid, action=fields_comment[i]['action'], price=Decimal(fields_comment[i]['price']), quantity=int(fields_comment[i]['quantity'])).first() is not None
+                            obj = session.query(T_STOCK).filter_by(id=id, snid=snid, action=fields_stock[i]['action'], market=fields_stock[i]['market'], stock=fields_stock[i]['stock'], shares=int(fields_stock[i]['shares']), price=Decimal(fields_stock[i]['price']), tax=Decimal(fields_stock[i]['tax']), commission=Decimal(fields_stock[i]['commission'])).first() is not None
                             if not obj: 
                                 records = records + 1
-                                statements.append(T_STOCK(id, snid, fields_comment[i]['action'], Decimal(fields_comment[i]['price']), int(fields_comment[i]['quantity']), 0, date_created, date_modified))
-                    # fields_db and fields_comment are the same size,
+                                statements.append(T_STOCK(id, snid, fields_stock[i]['action'], fields_stock[i]['market'], fields_stock[i]['stock'], int(fields_stock[i]['shares']), Decimal(fields_stock[i]['price']), Decimal(fields_stock[i]['tax']), Decimal(fields_stock[i]['commission']), 0, date_created, date_modified))
+                    # fields_db and fields_stock are the same size,
                     # so we use an integer in the fields_db loop as an index
-                    # to get the corresponding fields_comment value
+                    # to get the corresponding fields_stock value
                     i = i + 1
                 #for s in statements:
                 #    print('test: ', s)
@@ -361,7 +363,13 @@ class DatabaseAccess():
         exportline.append(self.productname_from_pid(line.pid))
         exportline.append(self.objectname_from_oid(line.oid))
         exportline.append(str(line.amount))
-        exportline.append(line.comment)
+        exportline.append(str(line.market))
+        exportline.append(str(line.stock))
+        exportline.append(str(line.shares))
+        exportline.append(str(line.price))
+        exportline.append(str(line.tax))
+        exportline.append(str(line.commission))
+        exportline.append(str(line.comment))
         return exportline
 
     def oid_from_object(self, object_, date_created, date_modified):

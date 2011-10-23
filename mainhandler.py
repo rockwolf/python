@@ -71,8 +71,8 @@ class Controller():
             # import stock info from inputbuffer
             stock = Stock(self.config)
             for field in fields_db:
-                fields_comment_db = stock.parse_comment_stocks(field)
-            stock.process_stocks(fields_db, fields_comment_db)
+                fields_stock = stock.parse_stocks(field)
+            stock.process_stocks(fields_db, fields_stock)
             stock = None
             self.clear_inputbuffer()
         except Exception as ex:
