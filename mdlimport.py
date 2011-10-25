@@ -77,7 +77,7 @@ class FileImport():
                     break
             print('')
             self.process_lines(fields_db)
-            self.process_comments(fields_db)
+            self.process_stocks(fields_db)
         except Exception as ex:
             print('')
             print("Error while processing {0}:".format(self.config.importfile), ex)
@@ -85,7 +85,7 @@ class FileImport():
             source.close()
             exit(1)
                 
-    def process_comments(self, fields_db):
+    def process_stocks(self, fields_db):
         """ Processing lines of the input file. """
         # stocks
         fields_stocks = []
@@ -96,7 +96,7 @@ class FileImport():
             if fields_stocks != {}:
                 stock.process_stocks(fields_db, fields_stocks)
         except Exception as ex:
-            print("Error in process_comments: ", ex)
+            print("Error in process_stocks: ", ex)
         finally:
             stock = None
 
