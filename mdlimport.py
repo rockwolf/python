@@ -93,8 +93,7 @@ class FileImport():
             stock = Stock(self.config) 
             for field in fields_db:
                 fields_stocks.append(stock.parse_stocks(field))
-            cmnt = fields_stocks
-            if cmnt != {}:
+            if fields_stocks != {}:
                 stock.process_stocks(fields_db, fields_stocks)
         except Exception as ex:
             print("Error in process_comments: ", ex)
