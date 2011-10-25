@@ -41,49 +41,23 @@ class FileImport():
             i = 0
             print('[{0}{1}]'.format('  0','%') , end = "")
             for line in lines:
-                print(line)
+                #print(line)
                 try:
                     fields = line.strip().split(':')
-                    # Solution to invalid string literal in int(): 'None'
-                    # There's got to be a much better way though...
-                    if fields[4].isdigit():
-                        amount = Decimal(fields[4])
-                    else:
-                        amount = 0.0
-
-                    if fields[8].isdigit():
-                       shares = int(fields[8])
-                    else:
-                        shares = 0
-
-                    if fields[9].isdigit():
-                       price = Decimal(fields[9])
-                    else:
-                        price = 0.0
-
-                    if fields[10].isdigit():
-                       tax = int(fields[10])
-                    else:
-                        tax = 0.0
-                    
-                    if fields[11].isdigit():
-                       commission = int(fields[11])
-                    else:
-                        commission = 0.0
-                        
+                    # The "or 0.0" avoids the invalid string literal error when converting a None value to int or decimal    
                     fields_db.append({
                         'date':fields[0],
                         'account':str(fields[1]), #Note: Get AID from T_ACCOUNT for final insert
                         'product':str(fields[2]), #Note: Get PID from T_PRODUCT for final insert
                         'object':str(fields[3]), #Note: Get OID from T_OBJECT for final insert
-                        'amount':amount, 
-                        'comment':str(fields[5]),
-                        'market':str(fields[6]),
-                        'stock':str(fields[7]),
-                        'shares':shares,
-                        'price':price,
-                        'tax':tax,
-                        'commission':commission
+                        'amount':Decimal(fields[4]), 
+                        'market':str(fields[5]),
+                        'stock':str(fields[6]),
+                        'shares':int(fields[7]),
+                        'price':Decimal(fields[8]),
+                        'tax':Decimal(fields[9]),
+                        'commission':Decimal(fields[10]),
+                        'comment':str(fields[11])
                         #.replace('\'','\\\'')
                     })
                     i = i + 1

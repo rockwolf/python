@@ -238,6 +238,7 @@ class DatabaseAccess():
         try:
             session = self.Session()
             try:
+                exit
                 now = datetime.now()
                 date_created = now.strftime("%Y-%m-%d %H:%M:%S")
                 date_modified = now.strftime("%Y-%m-%d %H:%M:%S")
