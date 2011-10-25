@@ -18,6 +18,7 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 from time import sleep
 import sys
 from mdlstock import Stock
+from mdltrade import TradeJournal
 from databaseaccess import DatabaseAccess
 from decimal import Decimal
 
@@ -76,8 +77,14 @@ class FileImport():
                     print("Error in for loop: ", ex)
                     break
             print('')
+
+            # finance info
             self.process_lines(fields_db)
+            # stocks
             self.process_stocks(fields_db)
+            # trade journal
+            self.process_trades(fields_db)
+
         except Exception as ex:
             print('')
             print("Error while processing {0}:".format(self.config.importfile), ex)
@@ -85,9 +92,14 @@ class FileImport():
             source.close()
             exit(1)
                 
+    def process_lines(self, fields_db):
+        """ Convert general financial information. """
+        dba = DatabaseAccess(self.config)
+        dba.file_import_lines(fields_db)
+        dba = None
+
     def process_stocks(self, fields_db):
-        """ Processing lines of the input file. """
-        # stocks
+        """ Processing stock information. """
         fields_stocks = []
         try:
             stock = Stock(self.config) 
@@ -99,9 +111,19 @@ class FileImport():
             print("Error in process_stocks: ", ex)
         finally:
             stock = None
+    
+    def process_trades(self, fields_db):
+        """ Processing trading information. """
+        fields_trades = []
+        try:
+            trade_journal = TradeJournal(self.config)
+            for field in fields_db:
+                fields_trades.append(trade_journal.parse_trades(field))
+            if fields_trades != {}:
+                    trade_journal.process_trades(fields_db, fields_trades)
+        except Exception as ex:
+            print("Error in process_trades: ", ex)
+        finally:
+            trade_journal = None
 
-    def process_lines(self, fields_db):
-        """ Convert general financial information. """
-        dba = DatabaseAccess(self.config)
-        dba.file_import_lines(fields_db)
-        dba = None
+
