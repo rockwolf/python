@@ -117,10 +117,10 @@ class FileImport():
         fields_trades = []
         try:
             trade_journal = TradeJournal(self.config)
-            for field in fields_db:
-                fields_trades.append(trade_journal.parse_trades(field))
-            if fields_trades != {}:
-                    trade_journal.process_trades(fields_db, fields_trades)
+            #for field in fields_db:
+            #    fields_trades.append(trade_journal.parse_trades(field))
+            #if fields_trades != {}:
+            #        trade_journal.process_trades(fields_db, fields_trades)
         except Exception as ex:
             print("Error in process_trades: ", ex)
         finally:

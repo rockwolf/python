@@ -105,6 +105,8 @@ CREATE TABLE T_STOCK
     action varchar(50) not null,
     price decimal(18,4) not null default 0.0,
     shares int not null default 0,
+    tax decimal(18,4) not null default 0.0,
+    commission decimal (18,4) not null default 0.0,
     historical decimal(18,4) not null default 0.0,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
