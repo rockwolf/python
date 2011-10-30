@@ -40,9 +40,9 @@ class MainWrapper():
         """ Construct basic QApplication, add widgets and start exec_loop. """
         # general properties of the app
         self.pprog = 'lisa.py'
-        self.pversion = '0.91'
+        self.pversion = '0.92'
         self.prelease = 'The Stocks And Trading Journey'
-        self.pdate = '2011-06-12'
+        self.pdate = '2011-10-30'
         self.exitstate = 0   
         self.msghandler = __import__('messagehandler')
         # config

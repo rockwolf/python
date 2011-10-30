@@ -142,6 +142,12 @@ INSERT INTO T_PRODUCT(name, flg_income, date_created, date_modified)
 values('invest.tx', 0, current_date, current_date);
 
 INSERT INTO T_PRODUCT(name, flg_income, date_created, date_modified)
+values('trade.rx', 1, current_date, current_date);
+
+INSERT INTO T_PRODUCT(name, flg_income, date_created, date_modified)
+values('trade.tx', 0, current_date, current_date);
+
+INSERT INTO T_PRODUCT(name, flg_income, date_created, date_modified)
 values('salary.rx', 1, current_date, current_date);
 
 INSERT INTO T_PRODUCT(name, flg_income, date_created, date_modified)

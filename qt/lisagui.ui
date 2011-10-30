@@ -126,6 +126,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="btn_new_product">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>New Product</string>
         </property>
@@ -133,6 +136,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="btn_new_stock">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>New Stock</string>
         </property>
@@ -140,6 +146,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="btn_new_marketcode">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>New Market Code</string>
         </property>
@@ -147,6 +156,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="btn_new_account">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>New Account</string>
         </property>
@@ -350,7 +362,7 @@
             <x>20</x>
             <y>20</y>
             <width>251</width>
-            <height>151</height>
+            <height>176</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_5">
@@ -417,6 +429,50 @@
            </item>
            <item row="1" column="4">
             <widget class="QComboBox" name="cmb_stockname"/>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="lbl_commission">
+             <property name="text">
+              <string>Commission</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="4">
+            <widget class="QDoubleSpinBox" name="spn_commission">
+             <property name="font">
+              <font>
+               <family>Liberation Mono</family>
+              </font>
+             </property>
+             <property name="locale">
+              <locale language="C" country="AnyCountry"/>
+             </property>
+             <property name="maximum">
+              <double>999999.989999999990687</double>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QLabel" name="lbl_tax">
+             <property name="text">
+              <string>Tax（％）</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="4">
+            <widget class="QDoubleSpinBox" name="spn_tax">
+             <property name="font">
+              <font>
+               <family>Liberation Mono</family>
+              </font>
+             </property>
+             <property name="locale">
+              <locale language="C" country="AnyCountry"/>
+             </property>
+             <property name="maximum">
+              <double>999999.989999999990687</double>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>

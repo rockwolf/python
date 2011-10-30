@@ -115,31 +115,27 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
         
     def process_product_changed(self, selstr):
         """ When the product combo selection changes. """
-        self.gui.txt_comment.setEnabled(True)
         object_ = self.gui.cmb_object.currentText()
-        if((selstr == 'invest.tx' or selstr == 'invest.rx') and ( object_ == 'buystocks' or object_ == 'sellstocks')):
+        if((selstr == 'invest.tx' or selstr == 'invest.rx' or selstr == 'trade.tx' or selstr == 'trade.rx') and ( object_ == 'buystocks' or object_ == 'sellstocks')):
             self.gui.tab_details.currentTabName = \
             self.gui.tab_details.setCurrentIndex(1)
-            self.gui.txt_comment.setEnabled(False)
             self.ctl.update_info_details()
         else:
             self.gui.tab_details.currentTabName = \
             self.gui.tab_details.setCurrentIndex(0)
-            self.gui.txt_comment.setEnabled(True)
     
     def process_object_changed(self, selstr):
         """ When the object combo selection changes. """
         self.gui.txt_comment.setEnabled(True)
         product = self.gui.cmb_product.currentText()
-        if((product == 'invest.tx' or product == 'invest.rx') and ( selstr == 'buystocks' or selstr == 'sellstocks')):
+        if((product == 'invest.tx' or product == 'invest.rx' or product == 'trade.tx' or product == 'trade.rx') and ( selstr == 'buystocks' or selstr == 'sellstocks')):
             self.gui.tab_details.currentTabName = \
             self.gui.tab_details.setCurrentIndex(1)
-            self.gui.txt_comment.setEnabled(False)
             self.ctl.update_info_details()
+            self.gui.spn_tax.setValue(0.17)
         else:
             self.gui.tab_details.currentTabName = \
             self.gui.tab_details.setCurrentIndex(0)
-            self.gui.txt_comment.setEnabled(True)
 
 
     def tab_details_changed(self, index):

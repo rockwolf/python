@@ -50,8 +50,15 @@ class TradeJournal():
                 # drawdown
                 # date created and modified
                 
-                action = ''
-                price = '0'
+                buy_price = '0' #(previous buyprice + new price) / 2
+                if fields['object'] == 'sellstocks':
+                    sell_price = '0' # (previous sellprice + new price)/2 
+                    shares_total = '0' # current shares - fields['shares']
+                else:
+                    sell_price = '0' # previous sellprice
+                    shares_total = '0' # current shares + fields['shares']
+                stoploss = '0' # calculate this... see spreadsheet
+
                 shares = '0'
                 name = fields['stock']
                 market = fields['market']
@@ -60,11 +67,15 @@ class TradeJournal():
                 tax = fields['tax']
                 commission = fields['commission']
                 action = fields['object'] #buystocks/sellstocks
+
                 fields_trades = {
                     'sid' : get_sid_from_name(), # TODO: create this function somewhere
                     'year' : datetime.strftime(fields['date'], '%Y'),
                     'month' : datetime.strftime(fields['date'], '%m'),
-                    'name': name,
+                    'buy_price': buy_price, 
+                    'sell_price': sell_price, 
+                    'stoploss': stoploss, 
+                    'shares_total': shares_total,
                     'market': market,
                     'action': action,
                     'shares': shares,

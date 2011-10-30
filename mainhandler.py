@@ -31,6 +31,7 @@ from databaseaccess import DatabaseAccess
 from tablemodel import TableModel
 import shutil
 import os
+from decimal import *
 
 class Controller():
     """ Contains the bussiness logic of the application. """
@@ -42,6 +43,8 @@ class Controller():
         self.config = config #object
         # initialise the command buffer
         self.inputbuffer = []
+        # Decimal precision
+        getcontext().prec = 4
 
     # Methods
     ## General
@@ -62,18 +65,26 @@ class Controller():
                                 'object':field[3], #Note: Get OID from T_OBJECT for final insert
                                 'amount':field[4],
                                 'flag':flg_income,
-                                'comment':field[5]
+                                'comment':field[5],
+                                'market':field[6],
+                                'stock':field[7],
+                                'shares':field[8],
+                                'price':field[9],
+                                'commission':field[10],
+                                'tax':field[11]
                             })
             # import finance info from inputbuffer
             dba = DatabaseAccess(self.config)
             dba.file_import_lines(fields_db)
             dba = None
             # import stock info from inputbuffer
+            fields_stock = []
             stock = Stock(self.config)
             for field in fields_db:
-                fields_stock = stock.parse_stocks(field)
+                fields_stock.append(stock.parse_stocks(field))
             stock.process_stocks(fields_db, fields_stock)
             stock = None
+            #TODO: process_trades
             self.clear_inputbuffer()
         except Exception as ex:
             print("Error in write_commands: ", ex)
@@ -154,33 +165,28 @@ class Controller():
 
     def add_inputline(self):
         """ Command that adds an input finance line into a temporary buffer. """
-        # parse comment?
-        prod = self.gui.cmb_product.currentText() 
-        object_ = self.gui.cmb_object.currentText() 
-        if(
-            (prod == 'invest.tx' or prod == 'invest.rx') and (object_ == 'buystocks' or
-            object_ == 'sellstocks')):
-            str_list = [
-                self.gui.cmb_marketcode.currentText(),
-                '.',
-                self.gui.cmb_stockname.currentText(),
-                ',', 
-                self.gui.spn_quantity.textFromValue(
-                    self.gui.spn_quantity.value()),
-                ',',
-                self.gui.spn_price.textFromValue(self.gui.spn_price.value())]
-            comment = ''.join(str_list) 
+        if(self.gui.cmb_object.currentText() == 'buystocks' or \
+                self.gui.cmb_object.currentText() == 'sellstocks'):
+            market = str(self.gui.cmb_marketcode.currentText())
+            stock = str(self.gui.cmb_stockname.currentText())
         else:
-            comment = self.gui.txt_comment.text() 
+            market = ''
+            stock = ''
         str_list = [
             str(self.gui.dt_date.date().toString(QtCore.Qt.ISODate)),
             str(self.gui.cmb_account.currentText()),
             str(self.gui.cmb_product.currentText()),
             str(self.gui.cmb_object.currentText()),
             str(self.gui.spn_amount.textFromValue(self.gui.spn_amount.value())),
-            str(comment)]
-        #TODO: add creation of tableview here?
-        #inputline = ';'.join(str_list)
+            str(self.gui.txt_comment.text()),
+            market,
+            stock,
+            str(self.gui.spn_quantity.textFromValue(
+                self.gui.spn_quantity.value())),
+            str(self.gui.spn_price.textFromValue(self.gui.spn_price.value())),
+            str(self.gui.spn_commission.textFromValue(self.gui.spn_commission.value())),
+            str(Decimal(self.gui.spn_tax.textFromValue(self.gui.spn_tax.value()))/100)
+            ]
         self.inputbuffer.append(str_list)
         self.init_tbl_summary()
         #TODO: add to tbl_summary
@@ -238,7 +244,7 @@ class Controller():
     def init_tbl_summary(self):
         """ Initialize tbl_summary. """
         # set the table header
-        header = ['date', 'account', 'product', 'object', 'amount', 'comment']
+        header = ['date', 'account', 'product', 'object', 'amount', 'comment', 'market', 'stock', 'quantity', 'price', 'commission', 'tax']
         data = self.inputbuffer
         self.table = TableModel(header, data, len(data), len(header))
         self.gui.tbl_summary = self.table

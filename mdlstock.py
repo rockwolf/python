@@ -33,8 +33,6 @@ class Stock():
 
     def parse_stocks(self, fields):
         """ Gather the stock information from the stock related fields. """
-        fields_stock = {}
-        
         try:
             if fields['object'] == 'buystocks' or fields['object'] == 'sellstocks':
                 # stocks
@@ -56,7 +54,7 @@ class Stock():
                     'shares': shares,
                     'price': price,
                     'tax': tax,
-                    'commission': commission,
+                    'commission': commission
                 }
             else:
                 fields_stock = {}
