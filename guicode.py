@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'lisagui.ui'
 #
-# Created: Sun Oct 30 09:56:39 2011
+# Created: Tue Nov  1 15:00:14 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -282,6 +282,27 @@ class Ui_frm_main(object):
         self.retranslateUi(frm_main)
         self.tab_details.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(frm_main)
+        frm_main.setTabOrder(self.cmb_account, self.dt_date)
+        frm_main.setTabOrder(self.dt_date, self.cmb_product)
+        frm_main.setTabOrder(self.cmb_product, self.cmb_object)
+        frm_main.setTabOrder(self.cmb_object, self.spn_amount)
+        frm_main.setTabOrder(self.spn_amount, self.txt_comment)
+        frm_main.setTabOrder(self.txt_comment, self.btn_add)
+        frm_main.setTabOrder(self.btn_add, self.cmb_marketcode)
+        frm_main.setTabOrder(self.cmb_marketcode, self.cmb_stockname)
+        frm_main.setTabOrder(self.cmb_stockname, self.spn_quantity)
+        frm_main.setTabOrder(self.spn_quantity, self.spn_price)
+        frm_main.setTabOrder(self.spn_price, self.spn_commission)
+        frm_main.setTabOrder(self.spn_commission, self.spn_tax)
+        frm_main.setTabOrder(self.spn_tax, self.tab_details)
+        frm_main.setTabOrder(self.tab_details, self.btn_execute)
+        frm_main.setTabOrder(self.btn_execute, self.btn_exit)
+        frm_main.setTabOrder(self.btn_exit, self.btn_clear)
+        frm_main.setTabOrder(self.btn_clear, self.btn_new_product)
+        frm_main.setTabOrder(self.btn_new_product, self.btn_new_stock)
+        frm_main.setTabOrder(self.btn_new_stock, self.btn_new_marketcode)
+        frm_main.setTabOrder(self.btn_new_marketcode, self.btn_new_account)
+        frm_main.setTabOrder(self.btn_new_account, self.tbl_summary)
 
     def retranslateUi(self, frm_main):
         self.tab_details.setTabText(self.tab_details.indexOf(self.tab_page_summary), QtGui.QApplication.translate("frm_main", "Summary", None, QtGui.QApplication.UnicodeUTF8))

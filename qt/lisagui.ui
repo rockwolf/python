@@ -515,6 +515,30 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>cmb_account</tabstop>
+  <tabstop>dt_date</tabstop>
+  <tabstop>cmb_product</tabstop>
+  <tabstop>cmb_object</tabstop>
+  <tabstop>spn_amount</tabstop>
+  <tabstop>txt_comment</tabstop>
+  <tabstop>btn_add</tabstop>
+  <tabstop>cmb_marketcode</tabstop>
+  <tabstop>cmb_stockname</tabstop>
+  <tabstop>spn_quantity</tabstop>
+  <tabstop>spn_price</tabstop>
+  <tabstop>spn_commission</tabstop>
+  <tabstop>spn_tax</tabstop>
+  <tabstop>tab_details</tabstop>
+  <tabstop>btn_execute</tabstop>
+  <tabstop>btn_exit</tabstop>
+  <tabstop>btn_clear</tabstop>
+  <tabstop>btn_new_product</tabstop>
+  <tabstop>btn_new_stock</tabstop>
+  <tabstop>btn_new_marketcode</tabstop>
+  <tabstop>btn_new_account</tabstop>
+  <tabstop>tbl_summary</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

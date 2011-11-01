@@ -83,7 +83,7 @@ class FileImport():
             # stocks
             self.process_stocks(fields_db)
             # trade journal
-            self.process_trades(fields_db)
+            #self.process_trades(fields_db)
 
         except Exception as ex:
             print('')
