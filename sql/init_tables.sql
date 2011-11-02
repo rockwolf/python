@@ -28,6 +28,9 @@ values('etr', 'Xetra', 'DE', current_date, current_date);
 INSERT INTO T_MARKET(code, name, country, date_created, date_modified)
 values('epa', 'Paris', 'FR', current_date, current_date);
 
+INSERT INTO T_MARKET(code, name, country, date_created, date_modified)
+values('other', 'Other', '', current_date, current_date);
+
 /* stock names */
 INSERT INTO T_STOCK_NAME(name, mid, description, date_created, date_modified)
 values('rhji', '2', 'RHJI International', current_date, current_date);
@@ -73,6 +76,9 @@ values('fme', '3', 'Fresenius Medical Care', current_date, current_date);
 
 INSERT INTO T_STOCK_NAME(name, mid, description, date_created, date_modified)
 values('gsz', '4', 'GDF Suez SA', current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, mid, description, date_created, date_modified)
+values('zsl23.90', '2', 'Zilver Sprinter Long 23.90', current_date, current_date);
 
 /* products */
 INSERT INTO T_PRODUCT(name, flg_income, date_created, date_modified)

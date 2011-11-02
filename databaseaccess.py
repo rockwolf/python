@@ -256,7 +256,7 @@ class DatabaseAccess():
                     obj = session.query(T_FINANCE).filter_by(date=fields['date'], aid=aid, pid=pid, oid=oid, amount=Decimal(fields['amount']), comment=fields['comment'], market=fields['market'], stock=fields['stock'], shares=fields['shares'], price=fields['price'], tax=fields['tax'], commission=fields['commission']).first() is not None
                     if not obj: 
                         records = records + 1
-                        statements.append(T_FINANCE(fields['date'], aid, pid, oid, Decimal(fields['amount']), fields['comment'], fields['market'], fields['stock'], fields['shares'], fields['price'], fields['tax'], fields['commission'], 1, date_created, date_modified))
+                        statements.append(T_FINANCE(fields['date'], aid, pid, oid, Decimal(fields['amount']), fields['comment'], fields['stock'], fields['market'], fields['shares'], fields['price'], fields['tax'], fields['commission'], 1, date_created, date_modified))
                 #for s in statements:
                 #    print('test: ', s)
 

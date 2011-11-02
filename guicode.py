@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'lisagui.ui'
 #
-# Created: Tue Nov  1 15:00:14 2011
+# Created: Tue Nov  1 21:13:14 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -193,9 +193,11 @@ class Ui_frm_main(object):
         self.gridLayoutWidget_5.setGeometry(QtCore.QRect(20, 20, 251, 176))
         self.gridLayoutWidget_5.setObjectName(_fromUtf8("gridLayoutWidget_5"))
         self.gridLayout_5 = QtGui.QGridLayout(self.gridLayoutWidget_5)
+        self.gridLayout_5.setSizeConstraint(QtGui.QLayout.SetDefaultConstraint)
         self.gridLayout_5.setMargin(0)
         self.gridLayout_5.setObjectName(_fromUtf8("gridLayout_5"))
         self.cmb_marketcode = QtGui.QComboBox(self.gridLayoutWidget_5)
+        self.cmb_marketcode.setEditable(True)
         self.cmb_marketcode.setObjectName(_fromUtf8("cmb_marketcode"))
         self.gridLayout_5.addWidget(self.cmb_marketcode, 0, 4, 1, 1)
         self.spn_price = QtGui.QDoubleSpinBox(self.gridLayoutWidget_5)
@@ -231,6 +233,7 @@ class Ui_frm_main(object):
         self.lbl_price.setObjectName(_fromUtf8("lbl_price"))
         self.gridLayout_5.addWidget(self.lbl_price, 3, 0, 1, 1)
         self.cmb_stockname = QtGui.QComboBox(self.gridLayoutWidget_5)
+        self.cmb_stockname.setEditable(True)
         self.cmb_stockname.setObjectName(_fromUtf8("cmb_stockname"))
         self.gridLayout_5.addWidget(self.cmb_stockname, 1, 4, 1, 1)
         self.lbl_commission = QtGui.QLabel(self.gridLayoutWidget_5)
@@ -257,6 +260,9 @@ class Ui_frm_main(object):
         self.spn_tax.setMaximum(999999.99)
         self.spn_tax.setObjectName(_fromUtf8("spn_tax"))
         self.gridLayout_5.addWidget(self.spn_tax, 5, 4, 1, 1)
+        self.lineEdit = QtGui.QLineEdit(self.gridLayoutWidget_5)
+        self.lineEdit.setObjectName(_fromUtf8("lineEdit"))
+        self.gridLayout_5.addWidget(self.lineEdit, 1, 5, 1, 1)
         self.tab_details.addTab(self.tab_page_stocks, _fromUtf8(""))
         self.verticalLayout_2.addWidget(self.tab_details)
         self.gridLayout.addLayout(self.verticalLayout_2, 5, 0, 1, 1)

@@ -52,8 +52,8 @@ class FileImport():
                         'product':str(fields[2]), #Note: Get PID from T_PRODUCT for final insert
                         'object':str(fields[3]), #Note: Get OID from T_OBJECT for final insert
                         'amount':Decimal(fields[4]), 
-                        'market':str(fields[5]),
-                        'stock':str(fields[6]),
+                        'stock':str(fields[5]),
+                        'market':str(fields[6]),
                         'shares':int(fields[7]),
                         'price':Decimal(fields[8]),
                         'tax':Decimal(fields[9]),

@@ -66,8 +66,8 @@ class Controller():
                                 'amount':field[4],
                                 'flag':flg_income,
                                 'comment':field[5],
-                                'market':field[6],
-                                'stock':field[7],
+                                'stock':field[6],
+                                'market':field[7],
                                 'shares':field[8],
                                 'price':field[9],
                                 'commission':field[10],
@@ -179,8 +179,8 @@ class Controller():
             str(self.gui.cmb_object.currentText()),
             str(self.gui.spn_amount.textFromValue(self.gui.spn_amount.value())),
             str(self.gui.txt_comment.text()),
-            market,
             stock,
+            market,
             str(self.gui.spn_quantity.textFromValue(
                 self.gui.spn_quantity.value())),
             str(self.gui.spn_price.textFromValue(self.gui.spn_price.value())),
@@ -244,7 +244,7 @@ class Controller():
     def init_tbl_summary(self):
         """ Initialize tbl_summary. """
         # set the table header
-        header = ['date', 'account', 'product', 'object', 'amount', 'comment', 'market', 'stock', 'quantity', 'price', 'commission', 'tax']
+        header = ['date', 'account', 'product', 'object', 'amount', 'comment', 'stock', 'market', 'quantity', 'price', 'commission', 'tax']
         data = self.inputbuffer
         self.table = TableModel(header, data, len(data), len(header))
         self.gui.tbl_summary = self.table

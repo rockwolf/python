@@ -87,7 +87,7 @@ CREATE TABLE T_MARKET
 CREATE TABLE T_STOCK_NAME
 (
     snid serial not null,
-    name varchar(10) not null,
+    name varchar(15) not null,
     mid int not null,
     description varchar(256) not null default '',
     date_created timestamp not null default current_date,
