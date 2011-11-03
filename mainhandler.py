@@ -146,6 +146,8 @@ class Controller():
             self.gui.cmb_marketcode.addItem(mcd)
         # Stock names
         self.fillcmb_stockname()
+        self.filltxt_marketdescription()
+        self.filltxt_stockdescription()
         dba = None
         # Init tbl_summary
         self.init_tbl_summary()
@@ -211,6 +213,24 @@ class Controller():
         self.gui.cmb_stockname.clear()
         for name in dba.get_stocknames(self.gui.cmb_marketcode.currentText()):
             self.gui.cmb_stockname.addItem(name)
+        dba = None
+    
+    def filltxt_marketdescription(self):
+        """ fill market description """
+        dba = DatabaseAccess(self.config)
+        self.gui.txt_marketdescription.clear()
+        self.gui.txt_marketdescription.setText( \
+                dba.get_marketdescription( \
+                self.gui.cmb_marketcode.currentText()))
+        dba = None
+
+    def filltxt_stockdescription(self):
+        """ fill stock description """
+        dba = DatabaseAccess(self.config)
+        self.gui.txt_stockdescription.clear()
+        self.gui.txt_stockdescription.setText( \
+                dba.get_stockdescription( \
+                self.gui.cmb_stockname.currentText()))
         dba = None
 
     def file_import(self):

@@ -70,11 +70,11 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
             self.btn_add_clicked)
         self.gui.cmb_marketcode.connect(
             self.gui.cmb_marketcode, 
-            QtCore.SIGNAL('currentIndexChanged(const QString&)'), 
+            QtCore.SIGNAL('currentIndexChanged(int)'), 
             self.cmb_marketcode_changed)
         self.gui.cmb_stockname.connect(
             self.gui.cmb_stockname, 
-            QtCore.SIGNAL("currentIndexchanged(const QString&)"), 
+            QtCore.SIGNAL('currentIndexChanged(int)'), 
             self.cmb_stockname_changed)
         self.gui.btn_exit.connect(
             self.gui.btn_execute, 
@@ -137,19 +137,20 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
             self.gui.tab_details.currentTabName = \
             self.gui.tab_details.setCurrentIndex(0)
 
-
     def tab_details_changed(self, index):
         """ What to do if you change a tab. """
         self.cmb_product_changed(self.gui.cmb_product.currentText())
 
-    def cmb_marketcode_changed(self, selstr):
-        """ When the marketcode combo selection changes. """
-        self.ctl.fillcmb_stockname()
-    
-    def cmb_stockname_changed(self, selstr):
+    def cmb_stockname_changed(self):
         """ When the stock name selection changes. """    
+        self.ctl.filltxt_stockdescription()
         self.ctl.update_info_details()        
         
+    def cmb_marketcode_changed(self):
+        """ When the marketcode combo selection changes. """
+        self.ctl.fillcmb_stockname()
+        self.ctl.filltxt_marketdescription()
+    
     def initgui(self):
         """ Initialise fields """
         # Info labels

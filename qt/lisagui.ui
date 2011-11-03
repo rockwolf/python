@@ -61,7 +61,11 @@
        <enum>QLayout::SetFixedSize</enum>
       </property>
       <item row="0" column="2">
-       <widget class="QComboBox" name="cmb_account"/>
+       <widget class="QComboBox" name="cmb_account">
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="0" column="1">
        <widget class="QLabel" name="lbl_account">
@@ -112,72 +116,6 @@
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_8">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btn_new_product">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string>New Product</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btn_new_stock">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string>New Stock</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btn_new_marketcode">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string>New Market Code</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btn_new_account">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string>New Account</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
        <widget class="QPushButton" name="btn_execute">
         <property name="font">
          <font>
@@ -190,7 +128,7 @@
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_4">
+       <spacer name="horizontalSpacer_8">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -359,15 +297,15 @@
          <widget class="QWidget" name="gridLayoutWidget_5">
           <property name="geometry">
            <rect>
-            <x>20</x>
-            <y>20</y>
-            <width>251</width>
+            <x>10</x>
+            <y>10</y>
+            <width>951</width>
             <height>176</height>
            </rect>
           </property>
-          <layout class="QGridLayout" name="gridLayout_5" columnstretch="0,0,0,0,0,0" columnminimumwidth="0,0,0,0,0,0">
+          <layout class="QGridLayout" name="gridLayout_5" rowstretch="0,0,0,0,0,0" columnstretch="0,0,0,0,0,0" rowminimumheight="0,0,0,0,0,0" columnminimumwidth="0,0,0,0,0,0">
            <property name="sizeConstraint">
-            <enum>QLayout::SetDefaultConstraint</enum>
+            <enum>QLayout::SetFixedSize</enum>
            </property>
            <item row="0" column="4">
             <widget class="QComboBox" name="cmb_marketcode">
@@ -486,7 +424,10 @@
             </widget>
            </item>
            <item row="1" column="5">
-            <widget class="QLineEdit" name="lineEdit"/>
+            <widget class="QLineEdit" name="txt_stockdescription"/>
+           </item>
+           <item row="0" column="5">
+            <widget class="QLineEdit" name="txt_marketdescription"/>
            </item>
           </layout>
          </widget>
@@ -536,21 +477,18 @@
   <tabstop>cmb_object</tabstop>
   <tabstop>spn_amount</tabstop>
   <tabstop>txt_comment</tabstop>
-  <tabstop>btn_add</tabstop>
   <tabstop>cmb_marketcode</tabstop>
+  <tabstop>txt_marketdescription</tabstop>
   <tabstop>cmb_stockname</tabstop>
+  <tabstop>txt_stockdescription</tabstop>
   <tabstop>spn_quantity</tabstop>
   <tabstop>spn_price</tabstop>
   <tabstop>spn_commission</tabstop>
   <tabstop>spn_tax</tabstop>
-  <tabstop>tab_details</tabstop>
-  <tabstop>btn_execute</tabstop>
-  <tabstop>btn_exit</tabstop>
+  <tabstop>btn_add</tabstop>
   <tabstop>btn_clear</tabstop>
-  <tabstop>btn_new_product</tabstop>
-  <tabstop>btn_new_stock</tabstop>
-  <tabstop>btn_new_marketcode</tabstop>
-  <tabstop>btn_new_account</tabstop>
+  <tabstop>btn_exit</tabstop>
+  <tabstop>tab_details</tabstop>
   <tabstop>tbl_summary</tabstop>
  </tabstops>
  <resources/>

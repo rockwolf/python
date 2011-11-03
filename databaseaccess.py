@@ -214,6 +214,39 @@ class DatabaseAccess():
             session = None
         return values
 
+    def get_marketdescription(self, market):
+        """ Get the market description """
+        value = ''
+        try:
+            session = self.Session()
+            query = session.query(T_MARKET).filter(T_MARKET.code == market)
+            for instance in query:
+                value = instance.name
+                break
+        except Exception as ex:
+            print("Error in get_marketdescription: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return value 
+
+
+    def get_stockdescription(self, stock):
+        """ Get the stock description """
+        value = ''
+        try:
+            session = self.Session()
+            query = session.query(T_STOCK_NAME).filter(T_STOCK_NAME.name == stock)
+            for instance in query:
+                value = instance.description
+                break
+        except Exception as ex:
+            print("Error in get_stockdescription: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return value 
+
     def get_stockinfo(self, sname):
         """ Get extra stock info. """
         values = []
