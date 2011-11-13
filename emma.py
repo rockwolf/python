@@ -25,6 +25,7 @@ import getopt
 import sys
 from mdlprocess import Process
 from mdlconfig import ConfigParser
+from decimal import Decimal
         
 class MainWrapper():
     """ Main logic 
@@ -41,22 +42,38 @@ class MainWrapper():
         self.prelease = 'I Want Some Mushu!'
         self.pdate = '2011-11-12'
         self.exitstate = 0   
+        # option vars
+        self.capital = 0.0
+        self.used = 0.0 
+        self.tax = 0.0 
+        self.commission = 0.0 
+        self.price = 0.0 
+        self.verbose = False
+        self.risk = 0.0
+        self.amount = 0
+        self.sellprice = 0.0
         # config
         self.config = ConfigParser()
+        self.tax = Decimal(self.config.tax)/100
+        self.risk = Decimal(self.config.risk)/100
     
     def usage(self):
         """ Print usage info and exit """
         print('''{0} : Equations for Money Management Application
 Options (buy): 
+--------------
  -C <Capital (total pool)>
  -u <used (traded capital)>
  -t <tax>
  -c <commission>
  -p <price>
- [-r <risk percentage>] (default: 2)
- [-s <sell price>] (default: -1)
- [-a <amount you sell>]
+ [-r <risk percentage>] (default: 2) -- N/A
+Options (sell):
+---------------
+ [-s <sell price>] (default: -1) -- N/A
+ [-a <amount you sell>] -- N/A
 Options (general):
+------------------
  --verbose, -v : verbose mode
  --help, -h : displays this help message
  --version : displays version
@@ -67,7 +84,9 @@ Options (general):
         if self.exitstate == 1:
             sys.exit(0)
         # run the data processing
-        myapp = Process(self.config)
+        myapp = Process(self.config, self.capital, self.used, \
+                self.tax, self.commission, self.price, self.risk, \
+                self.sellprice, self.amount, self.verbose)
         myapp.buy()
         exit(0)
 
@@ -76,12 +95,13 @@ def main():
     # Gonna switch this to optparse later
     try:
         options, xarguments = getopt.getopt(
-                sys.argv[1:], 'C:t:c:p:r:s:a:h', ['version', 'python'])
+                sys.argv[1:], 'C:u:t:c:p:r:s:a:hvV', ['version', 'verbose'])
     except getopt.error as err:
         print('Error: ' + str(err))
         sys.exit(1)
     wrapper = MainWrapper()
-    
+    wrapper.exitstate = 0
+
     if len(options) == 0:
         wrapper.usage()
         wrapper.exitstate = 1
@@ -103,9 +123,26 @@ def main():
                 '\' release.']
             print(''.join(str_list))
             wrapper.exitstate = 1
-        elif opt in ('--python'):
-            print('Python ' + sys.version)
-            wrapper.exitstate = 1
+        elif opt in ('-v', '--verbose'):
+            wrapper.verbose = True
+        elif opt in ('-C'):
+            wrapper.capital = arg
+        elif opt in ('-u'):
+            wrapper.used = arg
+        elif opt in ('-t'):
+            if arg.isdigit():
+                wrapper.tax = arg
+        elif opt in ('-c'):
+            wrapper.commission = arg
+        elif opt in ('-p'):
+            wrapper.price = arg
+        elif opt in ('-r'):
+            if arg.isdigit():
+                wrapper.risk = arg
+        elif opt in ('-s'):
+            wrapper.sellprice = arg
+        elif opt in ('-a'):
+            wrapper.amount = arg
 
     wrapper.run() #run the main method for the program
 

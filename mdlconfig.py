@@ -23,8 +23,8 @@ class ConfigParser():
     def __init__(self):
         """ Initialise config class. """ 
         self.myconf = 'config/emma.rc'
-        self.risk = ''
-        self.tax = ''
+        self.risk = 0.0 
+        self.tax = 0.0
         self.config()
  
     def config(self):
@@ -32,5 +32,5 @@ class ConfigParser():
         config = configparser.RawConfigParser()
         config.read(self.myconf)
         
-        self.risk = config.get('data', 'risk')[1:-1]
-        self.tax = config.get('data', 'tax')[1:-1]
+        self.tax = config.get('data', 'tax')
+        self.risk = config.get('data', 'risk')

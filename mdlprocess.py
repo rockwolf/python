@@ -15,21 +15,41 @@ You should have received a copy of the GNU General Public License
 along with Emma. If not, see <http://www.gnu.org/licenses/>.
 					
 """
-from decimal import Decimal
+from decimal import *
 
 class Process():
     """ Class that contains values from the config file. """
 
-    def __init__(self, config):
+    def __init__(self, config, capital, used, \
+            tax, commission, price, risk, \
+            sellprice, amount, verbose):
         """ Initialise class. """ 
+        # input
         self.config = config
-        self.capital = 30000
-        self.use = 2000
-        self.price = 12
-        self.tax = Decimal(self.config.tax)/100
-        self.commission = 7.25
+        self.capital = capital
+        self.used = used
+        self.tax = tax
+        self.commission = commission
+        self.price = price
+        self.risk = risk
+        # calculated
+        self.buy_shares = 0
+        self.buy_stoploss = 0.0
+        self.buy_lossontax = 0.0
+        self.buy_lossoncommission = 0.0
+        self.buy_losstotal = 0.0
+        self.sell_return = 0.0
+        self.sell_profit = 0.0
+        self.sell_lossontax = 0.0
+        self.sell_lossoncommission = 0.0
+        self.sell_losstotal = 0.0
+        self.total_stillinvested = 0.0
+        self.total_sharesleft = 0
+        self.total_lossontax = 0.0
+        self.total_lossoncommission = 0.0
+        self.total_losstotal = 0.0
  
-    def buy(self):
+    def buy(self,):
         """ Process buy values. """
         shares = 0
         self.output_header()
@@ -39,20 +59,36 @@ class Process():
 
     def output_header(self):
         """ Header portion of the output. """
-        header = 'C: ' + str(self.capital) + ' | u: ' + str(self.use) + \
-                ' | p: ' + str(self.price) + ' | t: ' + str(self.tax) + \
-                ' | c: ' + str(self.commission)
+        getcontext().prec = 2
+        header = 'C: ' + str(self.capital) + ' | u: ' + str(self.used) + \
+                ' | p: ' + str(self.price) + ' | t: ' + str(self.tax*100) + '%'\
+                ' | c: ' + str(self.commission) + ' | r: ' + str(self.risk*100) + '%'
         print(header)
         print('-'*len(header))
         
     def output_buy(self):
         """ Buy portion of the output. """
-        print('BUY\n---')
+        print('\nBUY\n---')
+        print('Shares to buy: ', self.buy_shares)
+        print('Stop loss: ', self.buy_stoploss)
+        print('Loss on tax: ', self.buy_lossontax)
+        print('Loss on commission: ', self.buy_lossoncommission)
+        print('Loss total: ', self.buy_losstotal)
         
     def output_sell(self):
         """ Sell portion of the output. """
-        print('SELL\n---')
+        print('\nSELL\n----')
+        print('Return: ', self.sell_return)
+        print('Profit: ', self.sell_profit)
+        print('Loss on tax: ', self.sell_lossontax)
+        print('Loss on commission: ', self.sell_lossoncommission)
+        print('Loss total: ', self.sell_losstotal)
 
     def output_general(self):
         """ General portion of the output. """
-        print('TOTAL\n-----');
+        print('\nTOTAL\n-----');
+        print('Money still invested: ', self.total_stillinvested)
+        print('Shares left: ', self.total_sharesleft)
+        print('Loss on tax: ', self.total_lossontax)
+        print('Loss on commission: ', self.total_lossoncommission)
+        print('Loss total: ', self.total_losstotal)

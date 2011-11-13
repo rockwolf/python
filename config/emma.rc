@@ -4,6 +4,6 @@
 
 [data]
 # default risk percentage
-risk = '2'
+risk = 2
 # default tax percentage
-tax = '0.17'
+tax = 0.17
