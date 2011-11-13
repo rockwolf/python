@@ -43,19 +43,19 @@ class MainWrapper():
         self.pdate = '2011-11-12'
         self.exitstate = 0   
         # option vars
-        self.capital = 0.0
-        self.used = 0.0 
-        self.tax = 0.0 
-        self.commission = 0.0 
-        self.price = 0.0 
+        self.capital = Decimal(0.0)
+        self.used = Decimal(0.0) 
+        self.tax = Decimal(0.0) 
+        self.commission = Decimal(0.0) 
+        self.price = Decimal(0.0) 
         self.verbose = False
-        self.risk = 0.0
+        self.risk = Decimal(0.0)
         self.amount = 0
-        self.sellprice = 0.0
+        self.sellprice = Decimal(0.0)
         # config
         self.config = ConfigParser()
-        self.tax = Decimal(self.config.tax)/100
-        self.risk = Decimal(self.config.risk)/100
+        self.tax = Decimal(self.config.tax)/Decimal(100)
+        self.risk = Decimal(self.config.risk)/Decimal(100)
     
     def usage(self):
         """ Print usage info and exit """
@@ -87,7 +87,7 @@ Options (general):
         myapp = Process(self.config, self.capital, self.used, \
                 self.tax, self.commission, self.price, self.risk, \
                 self.sellprice, self.amount, self.verbose)
-        myapp.buy()
+        myapp.process()
         exit(0)
 
 def main():
@@ -106,43 +106,45 @@ def main():
         wrapper.usage()
         wrapper.exitstate = 1
 
-    for opt, arg in options:
-        if opt in ('-h','--help'):
-            wrapper.usage()
-            # don't run the program after the optionparsing
-            wrapper.exitstate = 1
-        elif opt in ('-V', '--version'):
-            str_list = [
-                wrapper.pprog,
-                ' version ',
-                wrapper.pversion,
-                ' (',
-                wrapper.pdate,
-                '), \'',
-                wrapper.prelease,
-                '\' release.']
-            print(''.join(str_list))
-            wrapper.exitstate = 1
-        elif opt in ('-v', '--verbose'):
-            wrapper.verbose = True
-        elif opt in ('-C'):
-            wrapper.capital = arg
-        elif opt in ('-u'):
-            wrapper.used = arg
-        elif opt in ('-t'):
-            if arg.isdigit():
-                wrapper.tax = arg
-        elif opt in ('-c'):
-            wrapper.commission = arg
-        elif opt in ('-p'):
-            wrapper.price = arg
-        elif opt in ('-r'):
-            if arg.isdigit():
-                wrapper.risk = arg
-        elif opt in ('-s'):
-            wrapper.sellprice = arg
-        elif opt in ('-a'):
-            wrapper.amount = arg
+    try:
+        for opt, arg in options:
+            if opt in ('-h','--help'):
+                wrapper.usage()
+                # don't run the program after the optionparsing
+                wrapper.exitstate = 1
+            elif opt in ('-V', '--version'):
+                str_list = [
+                    wrapper.pprog,
+                    ' version ',
+                    wrapper.pversion,
+                    ' (',
+                    wrapper.pdate,
+                    '), \'',
+                    wrapper.prelease,
+                    '\' release.']
+                print(''.join(str_list))
+                wrapper.exitstate = 1
+            elif opt in ('-v', '--verbose'):
+                    wrapper.verbose = True
+            elif opt in ('-C'):
+                    wrapper.capital = Decimal(arg)
+            elif opt in ('-u'):
+                    wrapper.used = Decimal(arg)
+            elif opt in ('-t'):
+                    wrapper.tax = Decimal(arg)
+            elif opt in ('-c'):
+                    wrapper.commission = Decimal(arg)
+            elif opt in ('-p'):
+                    wrapper.price = Decimal(arg)
+            elif opt in ('-r'):
+                    wrapper.risk = Decimal(arg)
+            elif opt in ('-s'):
+                    wrapper.sellprice = Decimal(arg)
+            elif opt in ('-a'):
+                    wrapper.amount = int(arg)
+    except Exception as ex:
+        print('Error parsing arguments: ', ex)
+        exit(1)
 
     wrapper.run() #run the main method for the program
 

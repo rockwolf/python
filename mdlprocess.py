@@ -34,28 +34,39 @@ class Process():
         self.risk = risk
         # calculated
         self.buy_shares = 0
-        self.buy_stoploss = 0.0
-        self.buy_lossontax = 0.0
-        self.buy_lossoncommission = 0.0
-        self.buy_losstotal = 0.0
-        self.sell_return = 0.0
-        self.sell_profit = 0.0
-        self.sell_lossontax = 0.0
-        self.sell_lossoncommission = 0.0
-        self.sell_losstotal = 0.0
-        self.total_stillinvested = 0.0
+        self.buy_stoploss = Decimal(0.0)
+        self.buy_lossontax = Decimal(0.0)
+        self.buy_lossoncommission = Decimal(0.0)
+        self.buy_losstotal = Decimal(0.0)
+        self.sell_return = Decimal(0.0)
+        self.sell_profit = Decimal(0.0)
+        self.sell_lossontax = Decimal(0.0)
+        self.sell_lossoncommission = Decimal(0.0)
+        self.sell_losstotal = Decimal(0.0)
+        self.total_stillinvested = Decimal(0.0)
         self.total_sharesleft = 0
-        self.total_lossontax = 0.0
-        self.total_lossoncommission = 0.0
-        self.total_losstotal = 0.0
+        self.total_lossontax = Decimal(0.0)
+        self.total_lossoncommission = Decimal(0.0)
+        self.total_losstotal = Decimal(0.0)
  
-    def buy(self,):
+    def process(self):
         """ Process buy values. """
         shares = 0
+        self.math_shares()
+        print('test: ' , self.buy_shares)
         self.output_header()
         self.output_buy()
         self.output_sell()
         self.output_general()
+
+    def math_shares(self):
+        """ Shares """
+        getcontext().prec = 0
+        print(self.used, '<= used | tax =>', self.tax, '| commission =>', self.commission, '| price =>', self.price)
+        test = subtract(self.used, self.tax * self.used)
+        crap = (self.used - self.tax * self.used - self.commission)/self.price
+        print(crap)
+        self.buy_shares = crap
 
     def output_header(self):
         """ Header portion of the output. """
