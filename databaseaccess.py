@@ -329,17 +329,16 @@ class DatabaseAccess():
                             id = instance.id
 
                         if fields_stock[i] != {}:
-                        # Get snid from T_STOCK_NAME if it exists (a new entry will be made in T_STOCK_NAME if it doesn't)
+                            # Get snid from T_STOCK_NAME if it exists (a new entry will be made in T_STOCK_NAME if it doesn't)
+                            #TODO: add descriptions to mid_from_market and to snid_from_stockname)
                             mid = self.mid_from_market(fields_stock[i]['market'], date_created, date_modified)
                             snid = self.snid_from_stockname(fields_stock[i]['name'], mid, date_created, date_modified)
                             tax = fields_stock[i]['tax']
                             commission = fields_stock[i]['commission']
 
                             # Add new entry if it doesn't already exist
-                            obj = session.query(T_STOCK).filter_by(id=id, snid=snid, action=fields_stock[i]['action'], price=Decimal(fields_stock[i]['price']), shares=int(fields_stock[i]['shares']), tax=Decimal(fields_stock[i]['tax']), commission=Decimal(fields_stock[i]['commission'])).first() is not None
-                            if not obj: 
+                            if update_stock(fields_stock, session):
                                 records = records + 1
-                                statements.append(T_STOCK(id, snid, fields_stock[i]['action'], Decimal(fields_stock[i]['price']), int(fields_stock[i]['shares']), Decimal(fields_stock[i]['tax']), Decimal(fields_stock[i]['commission']), 0, date_created, date_modified))
                     # fields_db and fields_stock are the same size,
                     # so we use an integer in the fields_db loop as an index
                     # to get the corresponding fields_stock value
@@ -359,6 +358,22 @@ class DatabaseAccess():
                 print("Done.")
         except Exception as ex:
             print("Error creating session in file_import_stocks: ", ex)
+
+    def update_stock(self, fields_stock, session):
+        """ Add a new stock entry or update an existing one. """
+        try
+            obj = session.query(T_STOCK).filter_by(id=id, snid=snid, action=fields_stock[i]['action'], price=Decimal(fields_stock[i]['price']), shares=int(fields_stock[i]['shares']), tax=Decimal(fields_stock[i]['tax']), commission=Decimal(fields_stock[i]['commission'])).first() is not None
+            if not obj: 
+                statements.append(T_STOCK(id, snid, fields_stock[i]['action'], Decimal(fields_stock[i]['price']), int(fields_stock[i]['shares']), Decimal(fields_stock[i]['tax']), Decimal(fields_stock[i]['commission']), 0, date_created, date_modified))
+                return true;
+
+        except Exception as ex:
+           print("Error in update_stock: ", ex)
+        return false;
+    
+    def update_market(self):
+        """ Add a new market or update an existing one. """
+        return true;
 
     def export_lines(self, all=False):
         """ Returns the t_finance lines from the database. """
@@ -509,6 +524,10 @@ class DatabaseAccess():
             session = None
         return result
 
+    def new_stockname(self, session):
+        """ Add a new stock name. """
+        return true;
+
     def mid_from_market(self, code, date_created, date_modified):
         """ Get the mid from T_MARKET. """
         result = -1
@@ -535,6 +554,9 @@ class DatabaseAccess():
             session = None
         return result
 
+    def new_market():
+        """ Add a new market. """
+        return true;
 
     def objectname_from_oid(self, oid):
         """ Get the objectname for a given oid from the T_OBJECT table. """
