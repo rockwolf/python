@@ -2,7 +2,7 @@ BEGIN;
 
 /* NOTE: Create or replace view... is bugged! Using drop view in stead. */
 /* V_REP_PROGRESSPERYEAR */
-DROP VIEW V_REP_PROGRESSPERYEAR;
+--DROP VIEW V_REP_PROGRESSPERYEAR;
 CREATE VIEW V_REP_PROGRESSPERYEAR
 as
 select
@@ -32,7 +32,7 @@ group by res.account, date_part('year', res.date)
 order by date_part('year', res.date), res.account;
 
 /* V_REP_PROGRESSPERACCPERMONTH */
-DROP VIEW V_REP_PROGRESSPERACCPERMONTH;
+--DROP VIEW V_REP_PROGRESSPERACCPERMONTH;
 CREATE VIEW V_REP_PROGRESSPERACCPERMONTH
 AS
 select
@@ -63,7 +63,7 @@ group by date_part('year', res.date), date_part('month', res.date), res.account
 order by date_part('year', res.date), date_part('month', res.date), res.account;
 
 /* V_REP_NETWORTH */
-DROP VIEW V_REP_NETWORTH;
+--DROP VIEW V_REP_NETWORTH;
 CREATE VIEW V_REP_NETWORTH
 AS
 select
@@ -90,7 +90,7 @@ from
 group by date_part('year', date);
 
 /* V_REP_PROGRESSCUMUL */
-DROP VIEW V_REP_PROGRESSCUMUL;
+--DROP VIEW V_REP_PROGRESSCUMUL;
 CREATE VIEW V_REP_PROGRESSCUMUL
 AS
 select
@@ -144,63 +144,64 @@ group by date_part('year', t1.date), t1.id, t1.amount
 order by date_part('year', t1.date), t1.id;
 
 /* V_REP_CROSSOVER */
-DROP VIEW V_REP_CROSSOVER;
+--DROP VIEW V_REP_CROSSOVER;
 CREATE VIEW V_REP_CROSSOVER
 AS
 select 
 	res.year, res.expenses, res.passive
 from
 (
-	(
-		select
+    (	
+		select 
 			extract(year from f.date) as year,
-			sum(f.amount) as passive
-		from
+			sum(f.amount) as expenses
+		from 
 			T_FINANCE f 
                 inner join T_ACCOUNT a on f.aid = a.aid
                 inner join T_PRODUCT p on f.pid = p.pid
                 inner join T_OBJECT o on f.oid = o.oid
 		where
-			p.name = 'invest.rx'
-			and (o.name = 'refund' or o.name = 'dividend')
-            or p.name = 'bill.rx'
+			p.name = 'bill.tx'
+			or p.name = 'car.tx'
+			or p.name = 'clothes.tx'
+			or p.name = 'extra.tx'
+			or p.name = 'food.tx'
+			or p.name = 'gift.tx'
+			or p.name = 'hobby.tx'
+			or p.name = 'house.tx'
+			or p.name = 'salary.tx'
+			or p.name = 'tax.tx'
+			or p.name = 'travel.tx'
+			or p.name = 'utilities.tx'
+			or p.name = 'other.tx'
+            or p.name = 'extra.tx'
 		group by
 			extract(year from f.date)
+		order by
+			extract(year from f.date)
 	) a
-	join
-	(	
-		select 
+	left join
+	(
+		select
 			extract(year from f2.date) as year2,
-			sum(f2.amount) as expenses
-		from 
+			sum(f2.amount) as passive
+		from
 			T_FINANCE f2 
                 inner join T_ACCOUNT a2 on f2.aid = a2.aid
                 inner join T_PRODUCT p2 on f2.pid = p2.pid
                 inner join T_OBJECT o2 on f2.oid = o2.oid
 		where
-			p2.name = 'bill.tx'
-			or p2.name = 'car.tx'
-			or p2.name = 'clothes.tx'
-			or p2.name = 'extra.tx'
-			or p2.name = 'food.tx'
-			or p2.name = 'gift.tx'
-			or p2.name = 'hobby.tx'
-			or p2.name = 'house.tx'
-			or p2.name = 'salary.tx'
-			or p2.name = 'tax.tx'
-			or p2.name = 'travel.tx'
-			or p2.name = 'utilities.tx'
-			or p2.name = 'other.tx'
+			p2.name = 'invest.rx'
+			and (o2.name = 'refund' or o2.name = 'dividend')
+            or p2.name = 'bill.rx'
 		group by
-			extract(year from f2.date)
-		order by
 			extract(year from f2.date)
 	) b
 	on a.year = b.year2
 ) res;
 
 /* V_REP_EXPVSINC */
-DROP VIEW V_REP_EXPVSINC;
+--DROP VIEW V_REP_EXPVSINC;
 CREATE VIEW V_REP_EXPVSINC
 AS
 select
@@ -346,7 +347,7 @@ inner join
 on vwIncome.year = vwPassiveIncome.year;
 
 /* V_REP_CHECK */
-DROP VIEW V_REP_CHECK;
+--DROP VIEW V_REP_CHECK;
 CREATE VIEW V_REP_CHECK
 AS
 select
@@ -365,7 +366,7 @@ group by a.name
 order by a.name;
 
 /* V_REP_EXPENSESPERPRODUCT */
-DROP VIEW V_REP_EXPENSESPERPRODUCT;
+--DROP VIEW V_REP_EXPENSESPERPRODUCT;
 CREATE VIEW V_REP_EXPENSESPERPRODUCT
 AS
 select
