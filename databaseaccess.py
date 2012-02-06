@@ -361,7 +361,7 @@ class DatabaseAccess():
 
     def update_stock(self, fields_stock, session):
         """ Add a new stock entry or update an existing one. """
-        try
+        try:
             obj = session.query(T_STOCK).filter_by(id=id, snid=snid, action=fields_stock[i]['action'], price=Decimal(fields_stock[i]['price']), shares=int(fields_stock[i]['shares']), tax=Decimal(fields_stock[i]['tax']), commission=Decimal(fields_stock[i]['commission'])).first() is not None
             if not obj: 
                 statements.append(T_STOCK(id, snid, fields_stock[i]['action'], Decimal(fields_stock[i]['price']), int(fields_stock[i]['shares']), Decimal(fields_stock[i]['tax']), Decimal(fields_stock[i]['commission']), 0, date_created, date_modified))
