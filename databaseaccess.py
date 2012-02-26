@@ -290,6 +290,9 @@ class DatabaseAccess():
                     if not obj: 
                         records = records + 1
                         statements.append(T_FINANCE(fields['date'], aid, pid, oid, Decimal(fields['amount']), fields['comment'], fields['stock'], fields['market'], fields['shares'], fields['price'], fields['tax'], fields['commission'], 1, date_created, date_modified))
+                    #else update? something like the below, but I need to look it up to be sure...
+                    #else:
+                    #    statements.update(T_FINANCE(fields['date'], aid, pid, oid, Decimal(fields['amount']), fields['comment'], fields['stock'], fields['market'], fields['shares'], fields['price'], fields['tax'], fields['commission'], 1, date_modified))
                 #for s in statements:
                 #    print('test: ', s)
 

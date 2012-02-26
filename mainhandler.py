@@ -59,20 +59,20 @@ class Controller():
                 elif(product[-3:] == '.tx'):
                     flg_income = 0
                 fields_db.append({
-                                'date':field[0],
-                                'account':field[1], #Note: Get AID from T_ACCOUNT for final insert
-                                'product':field[2], #Note: Get PID from T_PRODUCT for final insert
-                                'object':field[3], #Note: Get OID from T_OBJECT for final insert
-                                'amount':field[4],
-                                'flag':flg_income,
-                                'comment':field[5],
-                                'stock':field[6],
-                                'market':field[7],
-                                'shares':field[8],
-                                'price':field[9],
-                                'commission':field[10],
-                                'tax':field[11]
-                            })
+                    'date':field[0],
+                    'account':field[1], #Note: Get AID from T_ACCOUNT for final insert
+                    'product':field[2], #Note: Get PID from T_PRODUCT for final insert
+                    'object':field[3], #Note: Get OID from T_OBJECT for final insert
+                    'amount':field[4],
+                    'flag':flg_income,
+                    'comment':field[5],
+                    'stock':field[6],
+                    'market':field[7],
+                    'shares':field[8],
+                    'price':field[9],
+                    'commission':field[10],
+                    'tax':field[11]
+                })
             # import finance info from inputbuffer
             dba = DatabaseAccess(self.config)
             dba.file_import_lines(fields_db)
