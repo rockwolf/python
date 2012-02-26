@@ -1,6 +1,6 @@
 #!/bin/sh
 
-HOSTNAME="evy"
+HOSTNAME="testdb"
 DATABASE="finance"
 SCRIPTV="drop_views.sql"
 SCRIPTT="drop_tables.sql"

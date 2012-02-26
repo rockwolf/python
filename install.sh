@@ -1,6 +1,6 @@
 #!/bin/sh
 
-HOSTNAME="evy"
+HOSTNAME="testdb"
 DATABASE="finance"
 SQLDIR="sql/"
 
