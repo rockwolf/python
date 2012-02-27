@@ -291,8 +291,24 @@ class DatabaseAccess():
                         records = records + 1
                         statements.append(T_FINANCE(fields['date'], aid, pid, oid, Decimal(fields['amount']), fields['comment'], fields['stock'], fields['market'], fields['shares'], fields['price'], fields['tax'], fields['commission'], 1, date_created, date_modified))
                     #else update? something like the below, but I need to look it up to be sure...
-                    #else:
-                    #    statements.update(T_FINANCE(fields['date'], aid, pid, oid, Decimal(fields['amount']), fields['comment'], fields['stock'], fields['market'], fields['shares'], fields['price'], fields['tax'], fields['commission'], 1, date_modified))
+                    else:
+                        #statements.update(T_FINANCE(fields['date'], aid, pid, oid, Decimal(fields['amount']), fields['comment'], fields['stock'], fields['market'], fields['shares'], fields['price'], fields['tax'], fields['commission'], 1, date_modified))
+                        obj.date = fields['date']
+                        obj.aid = aid
+                        obj.pid = pid
+                        obj.oid = oid
+                        obj.amount = Decimal(fields['amount'])
+                        obj.comment = fields['comment']
+                        obj.stock = fields['stock']
+                        obj.market = fields['market']
+                        obj.shares = fields['shares']
+                        obj.price = fields['price']
+                        obj.tax = fields['tax']
+                        obj.commission = fields['commission']
+                        obj.active = 1
+                        obj.date_modified = date_modified
+                        session.save(obj)
+                        session.flush()
                 #for s in statements:
                 #    print('test: ', s)
 
