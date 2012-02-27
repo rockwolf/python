@@ -99,28 +99,6 @@ class DatabaseAccess():
         self.dbname = config.get('database', 'name')[1:-1]
         self.dbuser = config.get('database', 'user')[1:-1]
         self.dbpass = config.get('database', 'password')[1:-1]
-
-    def get_values(self, query):
-        """ Global wrapper for retrieving values. """
-        #db = dbapi2.connect(
-        #        host=self.dbhost,
-        #        database=self.dbname,
-        #        user=self.dbuser,
-        #        password=self.dbpass)
-        #cur = db.cursor()
-        #cur.execute (qry)
-        #rows = cur.fetchall()
-        #values = []
-        #for row in rows:
-        #    i = 0
-        #    for col in row:
-        #        values.append(row[i])
-        #        i = i+1
-        #db.commit()
-        #cur.close()
-        #db.close()
-        values = []
-        return values
  
     def get_products(self):
         """ Get the products. """
@@ -152,7 +130,6 @@ class DatabaseAccess():
         #    session.rollback()
         #    session = None
         return values
-
 
     def get_accounts(self):
         """ Get the accounts. """
@@ -230,7 +207,6 @@ class DatabaseAccess():
             session = None
         return value 
 
-
     def get_stockdescription(self, stock):
         """ Get the stock description """
         value = ''
@@ -290,9 +266,7 @@ class DatabaseAccess():
                     if not obj: 
                         records = records + 1
                         statements.append(T_FINANCE(fields['date'], aid, pid, oid, Decimal(fields['amount']), fields['comment'], fields['stock'], fields['market'], fields['shares'], fields['price'], fields['tax'], fields['commission'], 1, date_created, date_modified))
-                    #else update? something like the below, but I need to look it up to be sure...
                     else:
-                        #statements.update(T_FINANCE(fields['date'], aid, pid, oid, Decimal(fields['amount']), fields['comment'], fields['stock'], fields['market'], fields['shares'], fields['price'], fields['tax'], fields['commission'], 1, date_modified))
                         obj.date = fields['date']
                         obj.aid = aid
                         obj.pid = pid
@@ -309,9 +283,7 @@ class DatabaseAccess():
                         obj.date_modified = date_modified
                         session.save(obj)
                         session.flush()
-                #for s in statements:
-                #    print('test: ', s)
-
+                        
                 print("Executing statements all at once...")
                 session.add_all(statements)
             finally:
@@ -362,8 +334,6 @@ class DatabaseAccess():
                     # so we use an integer in the fields_db loop as an index
                     # to get the corresponding fields_stock value
                     i = i + 1
-                #for s in statements:
-                #    print('test: ', s)
 
                 print("Executing statements all at once...")
                 session.add_all(statements)
@@ -389,10 +359,6 @@ class DatabaseAccess():
         except Exception as ex:
            print("Error in update_stock: ", ex)
         return false;
-    
-    def update_market(self):
-        """ Add a new market or update an existing one. """
-        return true;
 
     def export_lines(self, all=False):
         """ Returns the t_finance lines from the database. """
@@ -543,10 +509,6 @@ class DatabaseAccess():
             session = None
         return result
 
-    def new_stockname(self, session):
-        """ Add a new stock name. """
-        return true;
-
     def mid_from_market(self, code, date_created, date_modified):
         """ Get the mid from T_MARKET. """
         result = -1
@@ -572,10 +534,6 @@ class DatabaseAccess():
             session.rollback()
             session = None
         return result
-
-    def new_market():
-        """ Add a new market. """
-        return true;
 
     def objectname_from_oid(self, oid):
         """ Get the objectname for a given oid from the T_OBJECT table. """
