@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
+    <width>1200</width>
     <height>615</height>
    </rect>
   </property>
@@ -21,7 +21,7 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>1000</width>
+    <width>1200</width>
     <height>600</height>
    </size>
   </property>
@@ -44,18 +44,18 @@
     <rect>
      <x>10</x>
      <y>2</y>
-     <width>981</width>
+     <width>1181</width>
      <height>611</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0,0,0">
+   <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0,0,0,0">
     <property name="sizeConstraint">
      <enum>QLayout::SetDefaultConstraint</enum>
     </property>
     <property name="verticalSpacing">
      <number>6</number>
     </property>
-    <item row="0" column="0">
+    <item row="1" column="0">
      <layout class="QGridLayout" name="gridLayout_8">
       <property name="sizeConstraint">
        <enum>QLayout::SetFixedSize</enum>
@@ -67,13 +67,6 @@
         </property>
         <property name="editable">
          <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLabel" name="lbl_account">
-        <property name="text">
-         <string>Account</string>
         </property>
        </widget>
       </item>
@@ -90,9 +83,16 @@
         </property>
        </spacer>
       </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="lbl_account">
+        <property name="text">
+         <string>Account</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
-    <item row="3" column="0">
+    <item row="4" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QPushButton" name="btn_add">
@@ -157,113 +157,7 @@
       </item>
      </layout>
     </item>
-    <item row="1" column="0">
-     <layout class="QGridLayout" name="gridLayout_4" columnstretch="0,0,0,2,0,0,0,1,0,2">
-      <property name="sizeConstraint">
-       <enum>QLayout::SetDefaultConstraint</enum>
-      </property>
-      <property name="verticalSpacing">
-       <number>2</number>
-      </property>
-      <item row="0" column="0">
-       <widget class="QLabel" name="lbl_date">
-        <property name="text">
-         <string>Date</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QDateEdit" name="dt_date">
-        <property name="displayFormat">
-         <string>yyyy-MM-dd</string>
-        </property>
-        <property name="calendarPopup">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="lbl_product">
-        <property name="text">
-         <string>Product</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QComboBox" name="cmb_product">
-        <property name="inputMethodHints">
-         <set>Qt::ImhLowercaseOnly</set>
-        </property>
-        <property name="editable">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="6">
-       <widget class="QLabel" name="lbl_amount">
-        <property name="text">
-         <string>Amount</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="7">
-       <widget class="QDoubleSpinBox" name="spn_amount">
-        <property name="locale">
-         <locale language="C" country="AnyCountry"/>
-        </property>
-        <property name="maximum">
-         <double>999999.989999999990687</double>
-        </property>
-        <property name="value">
-         <double>0.000000000000000</double>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="8">
-       <widget class="QLabel" name="lbl_comment">
-        <property name="font">
-         <font>
-          <family>Envy Code R</family>
-         </font>
-        </property>
-        <property name="text">
-         <string>Comment</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="9">
-       <widget class="QLineEdit" name="txt_comment">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="5">
-       <widget class="QComboBox" name="cmb_object">
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="inputMethodHints">
-         <set>Qt::ImhLowercaseOnly</set>
-        </property>
-        <property name="editable">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="4">
-       <widget class="QLabel" name="lbl_object">
-        <property name="text">
-         <string>Object</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="5" column="0">
+    <item row="6" column="0">
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
        <widget class="QTabWidget" name="tab_details">
@@ -299,8 +193,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>971</width>
-            <height>381</height>
+            <width>1181</width>
+            <height>421</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="glo_summary">
@@ -308,155 +202,14 @@
             <enum>QLayout::SetDefaultConstraint</enum>
            </property>
            <item row="0" column="0">
-            <widget class="QTableWidget" name="tbl_summary"/>
-           </item>
-          </layout>
-         </widget>
-        </widget>
-        <widget class="QWidget" name="tab_page_stocks">
-         <attribute name="title">
-          <string>Stocks</string>
-         </attribute>
-         <widget class="QWidget" name="gridLayoutWidget_5">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>10</y>
-            <width>951</width>
-            <height>176</height>
-           </rect>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_5" rowstretch="0,0,0,0,0,0" columnstretch="0,0,0,0,0,0" rowminimumheight="0,0,0,0,0,0" columnminimumwidth="0,0,0,0,0,0">
-           <property name="sizeConstraint">
-            <enum>QLayout::SetFixedSize</enum>
-           </property>
-           <item row="0" column="4">
-            <widget class="QComboBox" name="cmb_marketcode">
-             <property name="inputMethodHints">
-              <set>Qt::ImhLowercaseOnly</set>
-             </property>
-             <property name="editable">
-              <bool>true</bool>
+            <widget class="QTableWidget" name="tbl_summary">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
             </widget>
-           </item>
-           <item row="3" column="4">
-            <widget class="QDoubleSpinBox" name="spn_price">
-             <property name="font">
-              <font>
-               <family>Liberation Mono</family>
-              </font>
-             </property>
-             <property name="locale">
-              <locale language="C" country="AnyCountry"/>
-             </property>
-             <property name="maximum">
-              <double>999999.989999999990687</double>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="4">
-            <widget class="QSpinBox" name="spn_quantity">
-             <property name="font">
-              <font>
-               <family>Liberation Mono</family>
-              </font>
-             </property>
-             <property name="locale">
-              <locale language="C" country="AnyCountry"/>
-             </property>
-             <property name="maximum">
-              <number>999999</number>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="lbl_marketcode">
-             <property name="text">
-              <string>Market code</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="lbl_stockname">
-             <property name="text">
-              <string>Stock name</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="lbl_quantity">
-             <property name="text">
-              <string>Quantity</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="lbl_price">
-             <property name="text">
-              <string>Price</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="4">
-            <widget class="QComboBox" name="cmb_stockname">
-             <property name="inputMethodHints">
-              <set>Qt::ImhLowercaseOnly</set>
-             </property>
-             <property name="editable">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="lbl_commission">
-             <property name="text">
-              <string>Commission</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="4">
-            <widget class="QDoubleSpinBox" name="spn_commission">
-             <property name="font">
-              <font>
-               <family>Liberation Mono</family>
-              </font>
-             </property>
-             <property name="locale">
-              <locale language="C" country="AnyCountry"/>
-             </property>
-             <property name="maximum">
-              <double>999999.989999999990687</double>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QLabel" name="lbl_tax">
-             <property name="text">
-              <string>Tax（％）</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="4">
-            <widget class="QDoubleSpinBox" name="spn_tax">
-             <property name="font">
-              <font>
-               <family>Liberation Mono</family>
-              </font>
-             </property>
-             <property name="locale">
-              <locale language="C" country="AnyCountry"/>
-             </property>
-             <property name="maximum">
-              <double>999999.989999999990687</double>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="5">
-            <widget class="QLineEdit" name="txt_stockdescription"/>
-           </item>
-           <item row="0" column="5">
-            <widget class="QLineEdit" name="txt_marketdescription"/>
            </item>
           </layout>
          </widget>
@@ -465,7 +218,7 @@
       </item>
      </layout>
     </item>
-    <item row="4" column="0">
+    <item row="5" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
       <property name="sizeConstraint">
        <enum>QLayout::SetFixedSize</enum>
@@ -496,6 +249,294 @@
       </item>
      </layout>
     </item>
+    <item row="2" column="0">
+     <layout class="QGridLayout" name="gridLayout_4" columnstretch="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetDefaultConstraint</enum>
+      </property>
+      <property name="verticalSpacing">
+       <number>2</number>
+      </property>
+      <item row="1" column="3">
+       <widget class="QComboBox" name="cmb_product">
+        <property name="minimumSize">
+         <size>
+          <width>150</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="inputMethodHints">
+         <set>Qt::ImhLowercaseOnly</set>
+        </property>
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="7">
+       <widget class="QDoubleSpinBox" name="spn_amount">
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="locale">
+         <locale language="C" country="AnyCountry"/>
+        </property>
+        <property name="maximum">
+         <double>999999.989999999990687</double>
+        </property>
+        <property name="value">
+         <double>0.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="5">
+       <widget class="QComboBox" name="cmb_object">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="inputMethodHints">
+         <set>Qt::ImhLowercaseOnly</set>
+        </property>
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="10">
+       <widget class="QLabel" name="lbl_stockname">
+        <property name="text">
+         <string>Stock name</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QDateEdit" name="dt_date">
+        <property name="minimumSize">
+         <size>
+          <width>90</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="displayFormat">
+         <string>yyyy-MM-dd</string>
+        </property>
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="9">
+       <widget class="QLabel" name="lbl_marketcode">
+        <property name="text">
+         <string>Market code</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QLabel" name="lbl_product">
+        <property name="text">
+         <string>Product</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="12">
+       <widget class="QDoubleSpinBox" name="spn_price">
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Liberation Mono</family>
+         </font>
+        </property>
+        <property name="locale">
+         <locale language="C" country="AnyCountry"/>
+        </property>
+        <property name="maximum">
+         <double>999999.989999999990687</double>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="8">
+       <widget class="QLabel" name="lbl_comment">
+        <property name="font">
+         <font>
+          <family>Envy Code R</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>Comment</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="11">
+       <widget class="QLabel" name="lbl_quantity">
+        <property name="text">
+         <string>Quantity</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="7">
+       <widget class="QLabel" name="lbl_amount">
+        <property name="text">
+         <string>Amount</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="lbl_date">
+        <property name="text">
+         <string>Date</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="13">
+       <widget class="QLabel" name="lbl_commission">
+        <property name="text">
+         <string>Commission</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="10">
+       <widget class="QLineEdit" name="txt_stockdescription"/>
+      </item>
+      <item row="1" column="9">
+       <widget class="QComboBox" name="cmb_marketcode">
+        <property name="inputMethodHints">
+         <set>Qt::ImhLowercaseOnly</set>
+        </property>
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="11">
+       <widget class="QSpinBox" name="spn_quantity">
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Liberation Mono</family>
+         </font>
+        </property>
+        <property name="locale">
+         <locale language="C" country="AnyCountry"/>
+        </property>
+        <property name="maximum">
+         <number>999999</number>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="9">
+       <widget class="QLineEdit" name="txt_marketdescription"/>
+      </item>
+      <item row="0" column="12">
+       <widget class="QLabel" name="lbl_price">
+        <property name="text">
+         <string>Price</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="8">
+       <widget class="QLineEdit" name="txt_comment">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>200</width>
+          <height>0</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="QLabel" name="lbl_object">
+        <property name="text">
+         <string>Object</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="10">
+       <widget class="QComboBox" name="cmb_stockname">
+        <property name="minimumSize">
+         <size>
+          <width>150</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="inputMethodHints">
+         <set>Qt::ImhLowercaseOnly</set>
+        </property>
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="13">
+       <widget class="QDoubleSpinBox" name="spn_commission">
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Liberation Mono</family>
+         </font>
+        </property>
+        <property name="locale">
+         <locale language="C" country="AnyCountry"/>
+        </property>
+        <property name="maximum">
+         <double>999999.989999999990687</double>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="14">
+       <widget class="QLabel" name="lbl_tax">
+        <property name="text">
+         <string>Tax（％）</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="14">
+       <widget class="QDoubleSpinBox" name="spn_tax">
+        <property name="font">
+         <font>
+          <family>Liberation Mono</family>
+         </font>
+        </property>
+        <property name="locale">
+         <locale language="C" country="AnyCountry"/>
+        </property>
+        <property name="maximum">
+         <double>999999.989999999990687</double>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
    </layout>
   </widget>
  </widget>
@@ -505,15 +546,6 @@
   <tabstop>cmb_product</tabstop>
   <tabstop>cmb_object</tabstop>
   <tabstop>spn_amount</tabstop>
-  <tabstop>txt_comment</tabstop>
-  <tabstop>cmb_marketcode</tabstop>
-  <tabstop>txt_marketdescription</tabstop>
-  <tabstop>cmb_stockname</tabstop>
-  <tabstop>txt_stockdescription</tabstop>
-  <tabstop>spn_quantity</tabstop>
-  <tabstop>spn_price</tabstop>
-  <tabstop>spn_commission</tabstop>
-  <tabstop>spn_tax</tabstop>
   <tabstop>btn_add</tabstop>
   <tabstop>btn_clear</tabstop>
   <tabstop>btn_exit</tabstop>
