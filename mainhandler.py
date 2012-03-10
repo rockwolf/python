@@ -201,10 +201,15 @@ class Controller():
         prod = self.gui.cmb_product.currentText()
         stock = self.gui.cmb_stockname.currentText()
         if(
-            prod == 'invest.tx'
+            prod == 'invest.tx' or
+            prod == 'trade.tx' or
+            prod == 'invest.rx' or
+            prod == 'trade.rx'
         ) and stock != '':
             info = dba.get_stockinfo(stock)
             self.gui.lbl_infodetails.setText(info[1] + '(' + ''.join(info[2].split()) +'): ' + info[0])
+        else:
+            self.gui.lbl_infodetails.setText('')
         dba = None
 
     def fillcmb_stockname(self):

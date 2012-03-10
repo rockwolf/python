@@ -116,26 +116,44 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
     def process_product_changed(self, selstr):
         """ When the product combo selection changes. """
         object_ = self.gui.cmb_object.currentText()
-        if((selstr == 'invest.tx' or selstr == 'invest.rx' or selstr == 'trade.tx' or selstr == 'trade.rx') and ( object_ == 'buystocks' or object_ == 'sellstocks')):
-            self.gui.tab_details.currentTabName = \
-            self.gui.tab_details.setCurrentIndex(1)
-            self.ctl.update_info_details()
-        else:
-            self.gui.tab_details.currentTabName = \
-            self.gui.tab_details.setCurrentIndex(0)
+        self.toggle_stockinputs()
     
     def process_object_changed(self, selstr):
         """ When the object combo selection changes. """
         self.gui.txt_comment.setEnabled(True)
+        self.toggle_stockinputs()
+
+    def toggle_stockinputs(self):
+        """ Enable/disable all inputs related to stock information """
         product = self.gui.cmb_product.currentText()
-        if((product == 'invest.tx' or product == 'invest.rx' or product == 'trade.tx' or product == 'trade.rx') and ( selstr == 'buystocks' or selstr == 'sellstocks')):
-            self.gui.tab_details.currentTabName = \
-            self.gui.tab_details.setCurrentIndex(1)
-            self.ctl.update_info_details()
+        object_ = self.gui.cmb_object.currentText()
+        if((product == 'invest.tx' or product == 'invest.rx' or product == 'trade.tx' or product == 'trade.rx') and ( object_ == 'buystocks' or object_ == 'sellstocks')):
+            # enable stock inputs
+            self.gui.cmb_marketcode.setEnabled(True)
+            self.gui.txt_marketdescription.setEnabled(True)
+            self.gui.cmb_stockname.setEnabled(True)
+            self.gui.txt_stockdescription.setEnabled(True)
+            self.gui.spn_quantity.setEnabled(True)
+            self.gui.spn_price.setEnabled(True)
+            self.gui.spn_commission.setEnabled(True)
+            self.gui.spn_tax.setEnabled(True)
             self.gui.spn_tax.setValue(0.17)
         else:
-            self.gui.tab_details.currentTabName = \
-            self.gui.tab_details.setCurrentIndex(0)
+            # disable stock inputs
+            self.gui.cmb_marketcode.setEnabled(False)
+            self.gui.txt_marketdescription.setEnabled(False)
+            self.gui.cmb_stockname.setEnabled(False)
+            self.gui.txt_stockdescription.setEnabled(False)
+            self.gui.spn_quantity.setEnabled(False)
+            self.gui.spn_price.setEnabled(False)
+            self.gui.spn_commission.setEnabled(False)
+            self.gui.spn_tax.setEnabled(False)
+            # reset input fields
+            self.gui.spn_quantity.setValue(0.0)
+            self.gui.spn_price.setValue(0.0)
+            self.gui.spn_tax.setValue(0.0)
+            self.gui.spn_commission.setValue(0.0)
+        self.ctl.update_info_details()
 
     def tab_details_changed(self, index):
         """ What to do if you change a tab. """
