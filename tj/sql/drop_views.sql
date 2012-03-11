@@ -1,0 +1,3 @@
+BEGIN;
+drop view V_TRADING_JOURNAL;
+COMMIT;
