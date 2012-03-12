@@ -137,7 +137,7 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
             self.gui.spn_price.setEnabled(True)
             self.gui.spn_commission.setEnabled(True)
             self.gui.spn_tax.setEnabled(True)
-            self.gui.spn_tax.setValue(0.17)
+            self.gui.spn_tax.setValue(Decimal(self.config.default_tax))
         else:
             # disable stock inputs
             self.gui.cmb_marketcode.setEnabled(False)
