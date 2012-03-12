@@ -5,7 +5,7 @@ DATABASE="finance"
 SCRIPTV="sql/drop_views.sql"
 SCRIPTT="sql/drop_tables.sql"
 
-echo "Drop.sh"
+echo "uninstall.sh"
 echo "-------"
 echo
 echo "HOSTNAME=$HOSTNAME"
