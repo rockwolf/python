@@ -398,6 +398,9 @@ from
         /*extract(year from f.date), p.name*/
 ) subq;
 
+/* TODO: put this in tj */
+/* V_REP_TRADING_JOURNAL */
+--DROP VIEW V_REP_TRADING_JOURNAL;
 CREATE VIEW V_REP_TRADING_JOURNAL
 AS
 select
@@ -413,5 +416,24 @@ from
     inner join t_object o on t.oid = o.oid
 where
     p.pid = 23 or p.pid = 24;
+
+/* TODO: put this in tj? perhaps better not... it's for a report anyway */
+/* TODO: put division by 20 in a T_ALLOCATION to make it variable */
+/* TODO: use pids and aids in all these queries */
+/* V_REP_ALLOCATION_CAPITAL */
+--DROP VIEW V_REP_ALLOCATION_CAPITAL;
+CREATE VIEW V_REP_ALLOCATION_CAPITAL
+AS
+select
+    sum(f.amount) as pool,
+    sum(f.amount)/20 as offense,
+    sum(f.amount) - sum(f.amount)/20 as defense
+from 
+    t_finance f
+    inner join t_account a on f.aid = a.aid
+    inner join t_product p on f.pid = p.pid
+where
+    p.name = 'account.rx'
+    and a.name = 'binb00';
 
 COMMIT;
