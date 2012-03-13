@@ -15,7 +15,7 @@ from
 		a.name as account,
 		f.date,
 		case
-			when a.name = 'binb00' and p.name = 'invest.rx' and o.name = 'dividend' then 0
+			when f.aid = 4 and f.pid = 21 and f.oid = 6 then 0
 			else
 				case
 					when p.flg_income = 0 then -1*f.amount
@@ -46,7 +46,7 @@ from
 		a.name as account,
 		f.date,
 		case
-			when a.name = 'binb00' and p.name = 'invest.rx' and o.name = 'dividend' then 0
+			when f.aid = 4 and f.pid = 21 and f.oid = 6 then 0
 			else
 				case
 					when p.flg_income = 0 then -1*f.amount
@@ -83,8 +83,8 @@ from
         inner join T_PRODUCT p on f.pid = p.pid
         inner join T_OBJECT o on f.oid = o.oid
     where
-        p.name like 'account%'
-        or p.name = 'invest.tx'
+        f.pid in (1,2)
+        or f.pid = 22
 	group by a.name, f.date, p.name, p.flg_income, f.amount
 ) res
 group by date_part('year', date);
@@ -105,7 +105,7 @@ from
 		a.name as account,
 		f.date,
 		case
-			when a.name = 'binb00' and p.name = 'invest.rx' and o.name = 'dividend' then 0
+			when f.aid = 4 and f.pid = 21 and f.oid = 6 then 0
 			else
 				case
 					when p.flg_income = 0 then -1*f.amount
@@ -125,7 +125,7 @@ join
 		a.name as account,
 		f.date,
 		case
-			when a.name = 'binb00' and p.name = 'invest.rx' and o.name = 'dividend' then 0
+			when f.aid = 4 and f.pid = 21 and f.oid = 6 then 0
 			else
 				case
 					when p.flg_income = 0 then -1*f.amount
@@ -152,33 +152,32 @@ select
 from
 (
     (	
-		select 
-			extract(year from f.date) as year,
-			sum(f.amount) as expenses
-		from 
-			T_FINANCE f 
-                inner join T_ACCOUNT a on f.aid = a.aid
-                inner join T_PRODUCT p on f.pid = p.pid
-                inner join T_OBJECT o on f.oid = o.oid
-		where
-			p.name = 'bill.tx'
-			or p.name = 'car.tx'
-			or p.name = 'clothes.tx'
-			or p.name = 'extra.tx'
-			or p.name = 'food.tx'
-			or p.name = 'gift.tx'
-			or p.name = 'hobby.tx'
-			or p.name = 'house.tx'
-			or p.name = 'salary.tx'
-			or p.name = 'tax.tx'
-			or p.name = 'travel.tx'
-			or p.name = 'utilities.tx'
-			or p.name = 'other.tx'
-            or p.name = 'extra.tx'
-		group by
-			extract(year from f.date)
-		order by
-			extract(year from f.date)
+        select 
+            extract(year from f.date) as year,
+	    sum(f.amount) as expenses
+	from 
+            T_FINANCE f 
+            inner join T_ACCOUNT a on f.aid = a.aid
+            inner join T_PRODUCT p on f.pid = p.pid
+            inner join T_OBJECT o on f.oid = o.oid
+        where
+	    f.pid =  6 --'bill.tx'
+	    or f.pid = 8 --'car.tx'
+	    or f.pid = 10 --'clothes.tx'
+	    or f.pid = 12 --'extra.tx'
+	    or f.pid = 14 --'food.tx'
+	    or f.pid = 16 --'gift.tx'
+	    or f.pid = 18 --'hobby.tx'
+	    or f.pid = 20 --'house.tx'
+	    or f.pid = 26 --'salary.tx'
+	    or f.pid = 28 --'tax.tx'
+	    or f.pid = 30 --'travel.tx'
+	    or f.pid = 32 --'utilities.tx'
+	    or f.pid = 34 --'other.tx'
+	group by
+	    extract(year from f.date)
+	order by
+	    extract(year from f.date)
 	) a
 	left join
 	(
@@ -191,9 +190,9 @@ from
                 inner join T_PRODUCT p2 on f2.pid = p2.pid
                 inner join T_OBJECT o2 on f2.oid = o2.oid
 		where
-			p2.name = 'invest.rx'
-			and (o2.name = 'refund' or o2.name = 'dividend')
-            or p2.name = 'bill.rx'
+			f2.pid = 21
+			and (f2.oid = 5 or f2.oid = 6)
+            or f2.pid = 5
 		group by
 			extract(year from f2.date)
 	) b
@@ -237,7 +236,7 @@ from
         t_finance f 
             inner join t_product p on f.pid = p.pid
     where
-        p.name like 'salary%'
+        f.pid in (25,26)
     group by
         extract(year from f.date)
     order by
@@ -284,19 +283,19 @@ inner join
         t_finance f
             inner join t_product p on f.pid = p.pid
     where
-        p.name = 'bill.tx'
-        or p.name = 'car.tx'
-        or p.name = 'clothes.tx'
-        or p.name = 'extra.tx'
-        or p.name = 'food.tx'
-        or p.name = 'gift.tx'
-        or p.name = 'hobby.tx'
-        or p.name = 'house.tx'
-        or p.name = 'salary.tx'
-        or p.name = 'tax.tx'
-        or p.name = 'travel.tx'
-        or p.name = 'utilities.tx'
-        or p.name = 'other.tx'
+        f.pid =  6 --'bill.tx'
+	or f.pid = 8 --'car.tx'
+	or f.pid = 10 --'clothes.tx'
+	or f.pid = 12 --'extra.tx'
+	or f.pid = 14 --'food.tx'
+	or f.pid = 16 --'gift.tx'
+	or f.pid = 18 --'hobby.tx'
+	or f.pid = 20 --'house.tx'
+	or f.pid = 26 --'salary.tx'
+	or f.pid = 28 --'tax.tx'
+	or f.pid = 30 --'travel.tx'
+	or f.pid = 32 --'utilities.tx'
+	or f.pid = 34 --'other.tx'
     group by
         extract(year from f.date)
     order by
@@ -314,9 +313,9 @@ inner join
             inner join T_PRODUCT p on f.pid = p.pid
             inner join T_OBJECT o on f.oid = o.oid
     where
-        p.name = 'invest.rx'
-        and (o.name = 'refund' or o.name = 'dividend')
-        or p.name = 'bill.rx'
+        f.pid = 21
+        and (f.oid = 5 or f.oid = 6)
+        or f.pid = 5
     group by
         extract(year from f.date)
 ) vwPassiveIncome
