@@ -42,4 +42,15 @@ CREATE TABLE T_REPORT_BUDGET_MONTHLY
     constraint fk_category_id_monthly foreign key(category_id) references T_BUDGET(category_id)
 );
 
+/* T_ALLOCATION_CAPITAL */
+CREATE TABLE T_ALLOCATION_CAPITAL
+(
+    acid serial not null,
+    defense decimal(18,4) not null default 0,
+    offense decimal(18,4) not null default 0,
+    cash decimal(18,4) not null default 0,
+    growth decimal(18,4) not null default 0,
+    constraint pk_acid primary key(acid)
+);
+
 COMMIT;
