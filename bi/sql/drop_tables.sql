@@ -2,4 +2,5 @@ BEGIN;
 drop table T_REPORT_BUDGET_MONTHLY;
 drop table T_REPORT_BUDGET;
 drop table T_BUDGET;
+drop table T_ALLOCATION_CAPITAL;
 COMMIT;
