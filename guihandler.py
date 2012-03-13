@@ -30,6 +30,7 @@ from databaseaccess import DatabaseAccess
 from subprocess import Popen, PIPE
 from mainhandler import Controller
 from tablemodel import TableModel
+from decimal import Decimal
 
 class GuiHandler(QtGui.QDialog, Ui_frm_main):
     """ Less Interaction Saves Arbeit Main Class """
@@ -60,10 +61,6 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
             self.gui.cmb_object, 
             QtCore.SIGNAL('currentIndexChanged(const QString&)'), 
             self.cmb_object_changed)
-        self.gui.tab_details.connect(
-            self.gui.tab_details, 
-            QtCore.SIGNAL('currentChanged(int)'), 
-            self.tab_details_changed)
         self.gui.btn_add.connect(
             self.gui.btn_add, 
             QtCore.SIGNAL("clicked()"), 
@@ -137,7 +134,16 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
             self.gui.spn_price.setEnabled(True)
             self.gui.spn_commission.setEnabled(True)
             self.gui.spn_tax.setEnabled(True)
+            if(product == 'trade.tx' or product == 'trade.rx'):
+                self.gui.spn_risk.setEnabled(True)
+            else:
+                self.gui.spn_risk.setEnabled(False)
+            # set inputfields
             self.gui.spn_tax.setValue(Decimal(self.config.default_tax))
+            if(product == 'trade.tx' or product == 'trade.rx'):
+                self.gui.spn_risk.setValue(Decimal(self.config.default_risk))
+            else:
+                self.gui.spn_risk.setValue(0.0)
         else:
             # disable stock inputs
             self.gui.cmb_marketcode.setEnabled(False)
@@ -148,16 +154,14 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
             self.gui.spn_price.setEnabled(False)
             self.gui.spn_commission.setEnabled(False)
             self.gui.spn_tax.setEnabled(False)
+            self.gui.spn_risk.setEnabled(False)
             # reset input fields
             self.gui.spn_quantity.setValue(0.0)
             self.gui.spn_price.setValue(0.0)
             self.gui.spn_tax.setValue(0.0)
             self.gui.spn_commission.setValue(0.0)
+            self.gui.spn_risk.setValue(0.0)
         self.ctl.update_info_details()
-
-    def tab_details_changed(self, index):
-        """ What to do if you change a tab. """
-        self.cmb_product_changed(self.gui.cmb_product.currentText())
 
     def cmb_stockname_changed(self):
         """ When the stock name selection changes. """    

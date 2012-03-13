@@ -156,9 +156,7 @@ class Controller():
     def clear_inputbuffer(self):
         """ Clear the command buffer and the summary panel. """
         self.inputbuffer = [] 
-        self.gui.tbl_summary.clearContents()
-        #TODO: clear the table
-        #self.gui.txt_summary.clear()
+        self.table.clearContents()
 
     def clear_fields(self):
         """ Clear the main input fields. """
@@ -190,7 +188,7 @@ class Controller():
             str(Decimal(self.gui.spn_tax.textFromValue(self.gui.spn_tax.value()))/100)
             ]
         self.inputbuffer.append(str_list)
-        self.init_tbl_summary()
+        self.update_tbl_summary(str_list)
         #TODO: add to tbl_summary
         #self.gui.txt_summary.append(cmd)
         self.clear_fields()
@@ -272,9 +270,12 @@ class Controller():
         header = ['date', 'account', 'product', 'object', 'amount', 'comment', 'stock', 'market', 'quantity', 'price', 'commission', 'tax']
         data = self.inputbuffer
         self.table = TableModel(header, data, len(data), len(header))
-        self.gui.tbl_summary = self.table
-        # can't seem to get existing table updating to work,
-        # so takeAt(0) removes the table that's there and addWidget
+        # takeAt(0) removes the default empty table that's there and addWidget
         # adds a newly created one.
-        self.gui.glo_summary.takeAt(0)
-        self.gui.glo_summary.addWidget(self.table)
+        self.gui.vl_table.takeAt(0)
+        self.gui.vl_table.addWidget(self.table)
+
+    def update_tbl_summary(self, data):
+        """ Add or remove a line from the table view """
+        self.table.setmydata(data)
+         

@@ -32,6 +32,7 @@ class ConfigParser():
         self.logfile = ''
         self.backup = ''
         self.default_tax = ''
+        self.default_risk = ''
         self.config()
  
     def config(self):
@@ -47,4 +48,5 @@ class ConfigParser():
         self.exportfile = config.get('data', 'exportfile')[1:-1]
         self.backupfile = config.get('data', 'backupfile')[1:-1]
         self.default_tax = config.get('data', 'default_tax')[1:-1]
+        self.default_risk = config.get('data', 'default_risk')[1:-1]
         self.logfile = config.get('logging', 'logfile')[1:-1]

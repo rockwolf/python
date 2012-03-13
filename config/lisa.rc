@@ -12,7 +12,10 @@ password = ''
 importfile = 'import/op'
 exportfile = 'export/finance.txt'
 backupfile = 'export/finance.bak'
+# tax value in %
 default_tax = '0.22'
+# risk value in %
+default_risk = '2'
 
 [logging]
 # Set this to 1 if you want to use logging 
