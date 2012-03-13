@@ -277,5 +277,5 @@ class Controller():
 
     def update_tbl_summary(self, data):
         """ Add or remove a line from the table view """
-        self.table.setmydata(data)
-         
+        self.table.add_row(data)
+        self.table.display_data()
