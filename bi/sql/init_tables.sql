@@ -1,6 +1,6 @@
-----/*T_REPORT_BUDGET */
---BEGIN;
+BEGIN;
 
+----/*T_REPORT_BUDGET */
 --/* TODO: Get amountset values from T_REPORT_BUDGET_MONTHLY (x12)
 --the monthly budget is the most important one */
 --/* 2010 */
@@ -92,8 +92,6 @@
 --insert into T_REPORT_BUDGET(year, category, amountset, amountcur)
 --values(2010, 800.0, 1190.00)
 --where category = 'travel';
-
---COMMIT;
 
 --/* T_REPORT_BUDGET_MONTHLY */
 --BEGIN;
@@ -211,4 +209,8 @@
 --insert into T_BUDGET(budget_id, category_id, category_name, year, value)
 --values(1, 12, 'health', 2011, 0.00);
 
---commit;*/
+/* T_ALLOCATION_CAPITAL */
+insert into T_ALLOCATION_CAPITAL(defense, offense, cash, growth, date_created, date_modified)
+values(80.0, 20.0, 0.0, 0.0, current_date, current_date);
+
+commit;
