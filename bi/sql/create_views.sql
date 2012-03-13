@@ -368,34 +368,24 @@ order by a.name;
 --DROP VIEW V_REP_EXPENSESPERPRODUCT;
 CREATE VIEW V_REP_EXPENSESPERPRODUCT
 AS
-select
-    subq.*
+select 
+    y.year,
+    substring(p.name, 1, char_length(p.name)-3) as product,
+    sum(coalesce(f.amount, 0)) as expenses 
 from
-(
-    select 
-        /*extract(year from f.date) as year,*/
-        y.year,
-        substring(p.name, 1, char_length(p.name)-3) as product,
-        sum(coalesce(f.amount, 0)) as expenses 
-    from
     (   
-        (select distinct extract(year from f.date) as year from t_finance f) as x
-        cross join t_product
-        /*cross join (select aid, name as account from t_account) as acc*/
+       (select distinct extract(year from f.date) as year from t_finance f) as x
+       cross join t_product
     ) as y
-    left outer join t_finance f on y.year = extract(year from f.date) and y.pid = f.pid
+    left join t_finance f on y.year = extract(year from f.date)
+        and y.pid = f.pid
     inner join t_product p on p.pid = y.pid
-    /*inner join T_ACCOUNT a on a.aid = y.aid*/
-    where 
-        p.flg_income = 0
-        /*and a.name <> 'binb00'*/
-        /*and f.aid <> 4*/
-        and p.name <> 'account.tx'
-        and p.name <> 'invest.tx'
+where 
+    p.flg_income = 0
+        and f.pid <> 2
+        and f.pid <> 22
     group by
         y.year, p.name
-        /*extract(year from f.date), p.name*/
-) subq;
 
 /* TODO: put this in tj */
 /* V_REP_TRADING_JOURNAL */
@@ -429,10 +419,8 @@ select
     sum(f.amount) - sum(f.amount)/20 as defense
 from 
     t_finance f
-    inner join t_account a on f.aid = a.aid
-    inner join t_product p on f.pid = p.pid
 where
-    p.name = 'account.rx'
-    and a.name = 'binb00';
+    f.pid = 1
+    and f.aid = 4;
 
 COMMIT;
