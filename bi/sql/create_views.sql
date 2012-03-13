@@ -336,10 +336,9 @@ inner join
             inner join T_PRODUCT p on f.pid = p.pid
             inner join T_OBJECT o on f.oid = o.oid
     where
-        p.name = 'invest.rx'
-        and (o.name <> 'refund' and o.name <> 'dividend')
-        or p.name like 'salary%'
-        or p.name like 'bet%'
+        f.pid = 21
+        and (p.oid <> 5 and p.oid <> 6)
+        or f.pid in (3,4,25,26) --bet% and salary%
     group by
         extract(year from f.date)
 ) vwIncome
