@@ -189,8 +189,6 @@ class Controller():
             ]
         self.inputbuffer.append(str_list)
         self.add_tbl_summary(str_list)
-        #TODO: add to tbl_summary
-        #self.gui.txt_summary.append(cmd)
         self.clear_fields()
 
     def update_info_details(self):
