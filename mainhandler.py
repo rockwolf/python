@@ -276,7 +276,6 @@ class Controller():
         self.gui.vl_table.takeAt(0)
         self.gui.vl_table.addWidget(self.table)
 
-    def add_tbl_summary(self, line):
-        """ Add or remove a line from the table view """
-        self.table.add_row(line)
-        self.table.refresh()
+    def add_tbl_summary(self, row):
+        """ Add or remove a row from the table view """
+        self.table.add_row(row)
