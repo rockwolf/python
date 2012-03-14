@@ -13,7 +13,7 @@ class TableModel(QTableWidget):
         self.setHorizontalHeaderLabels(header)
         self.initialize_data(data)
        
-    def display_data(self):
+    def refresh(self):
         """ Display the data as a 2D list and format + display it in the table """
         nrows = len(self.tablecontent)
         ncols = len(self.tablecontent[0])
@@ -40,6 +40,8 @@ class TableModel(QTableWidget):
 
     def initialize_data(self, data):
         """ set data for the table. """
+        # TODO: is this function still necessary?
+        # Can't I just use refresh()?
         n = 0
         m = 0
         for key in data:
@@ -58,16 +60,20 @@ class TableModel(QTableWidget):
             table_items.append(table_item)
             return table_items
 
-    def add_row(self, data):
+    def add_row(self, row):
         """ insert new row """
-        for item in data:
-            newitem = QTableWidgetItem(item)
-            self.setItem(len(self.tablecontent)+1, len(data), newitem)
+        #for item in data:
+        #    newitem = QTableWidgetItem(item)
+        #    self.setItem(len(self.tablecontent)+1, len(data), newitem)
+        self.tablecontent.append(row)
+        self.refresh()
 
-    def delete_row(self, data):
+    def delete_row(self):
         """ delete the last row """
-        self.delete_row(data, len(data))
+        item = self.tablecontent.pop()
+        self.refresh()
 
-    def delete_row(self, data, index):
+    def delete_row(self, index):
         """ delete a row """
-        print('TBD')
+        del self.tablecontent[index]
+        self.refresh()
