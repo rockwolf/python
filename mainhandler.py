@@ -188,7 +188,7 @@ class Controller():
             str(Decimal(self.gui.spn_tax.textFromValue(self.gui.spn_tax.value()))/100)
             ]
         self.inputbuffer.append(str_list)
-        self.update_tbl_summary(str_list)
+        self.add_tbl_summary(str_list)
         #TODO: add to tbl_summary
         #self.gui.txt_summary.append(cmd)
         self.clear_fields()
@@ -198,6 +198,8 @@ class Controller():
         dba = DatabaseAccess(self.config)
         prod = self.gui.cmb_product.currentText()
         stock = self.gui.cmb_stockname.currentText()
+        #TODO: make entire program dependent on pids, so there are no longer
+        #hardcoded strings.
         if(
             prod == 'invest.tx' or
             prod == 'trade.tx' or
@@ -267,6 +269,7 @@ class Controller():
     def init_tbl_summary(self):
         """ Initialize tbl_summary. """
         # set the table header
+        # TODO: set header values in mdlconstants and use the constants
         header = ['date', 'account', 'product', 'object', 'amount', 'comment', 'stock', 'market', 'quantity', 'price', 'commission', 'tax']
         data = self.inputbuffer
         self.table = TableModel(header, data, len(data), len(header))
@@ -275,7 +278,7 @@ class Controller():
         self.gui.vl_table.takeAt(0)
         self.gui.vl_table.addWidget(self.table)
 
-    def update_tbl_summary(self, data):
+    def add_tbl_summary(self, line):
         """ Add or remove a line from the table view """
-        self.table.add_row(data)
-        self.table.display_data()
+        self.table.add_row(line)
+        self.table.refresh()
