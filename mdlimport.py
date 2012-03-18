@@ -58,8 +58,8 @@ class FileImport():
                         'price':Decimal(fields[8]),
                         'tax':Decimal(fields[9]),
                         'commission':Decimal(fields[10]),
-                        'comment':str(fields[11])
-                        #.replace('\'','\\\'')
+                        'comment':str(fields[11]),
+                        'risk':Decimal(fields[12])
                     })
                     i = i + 1
                     percent = int(i/len(lines)*100)

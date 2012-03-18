@@ -157,6 +157,7 @@ class Controller():
         """ Clear the command buffer and the summary panel. """
         self.inputbuffer = [] 
         self.table.clearContents()
+        self.table.tablecontent = []
 
     def clear_fields(self):
         """ Clear the main input fields. """
@@ -185,9 +186,10 @@ class Controller():
                 self.gui.spn_quantity.value())),
             str(self.gui.spn_price.textFromValue(self.gui.spn_price.value())),
             str(self.gui.spn_commission.textFromValue(self.gui.spn_commission.value())),
-            str(Decimal(self.gui.spn_tax.textFromValue(self.gui.spn_tax.value()))/100)
+            str(Decimal(self.gui.spn_tax.textFromValue(self.gui.spn_tax.value()))/100),
+            str(self.gui.spn_risk.textFromValue(self.gui.spn_risk.value())),
             ]
-        self.inputbuffer.append(str_list)
+        #self.inputbuffer.append(str_list)
         self.add_tbl_summary(str_list)
         self.clear_fields()
 
@@ -268,7 +270,7 @@ class Controller():
         """ Initialize tbl_summary. """
         # set the table header
         # TODO: set header values in mdlconstants and use the constants
-        header = ['date', 'account', 'product', 'object', 'amount', 'comment', 'stock', 'market', 'quantity', 'price', 'commission', 'tax']
+        header = ['date', 'account', 'product', 'object', 'amount', 'comment', 'stock', 'market', 'quantity', 'price', 'commission', 'tax', 'risk']
         data = self.inputbuffer
         self.table = TableModel(header, data, len(data), len(header))
         # takeAt(0) removes the default empty table that's there and addWidget

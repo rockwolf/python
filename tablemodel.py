@@ -21,14 +21,12 @@ class TableModel(QTableWidget):
         self.setColumnCount(ncols)
         self.setHorizontalHeaderLabels(self.header)
         rows = self.tablecontent
-        print(rows)
         for row in range(len(rows)):
             cols = self.list_to_qtablewidgetitems(rows[row])
             for col in range(len(cols)):
-                print(cols[col])
                 self.setItem(row, col, cols[col])
-            self.setRowHeight(row, 18)
 
+            self.setRowHeight(row, 18)
             # set col width first time through
             if row == 0:
                 self.resizeColumnsToContents()
@@ -58,7 +56,7 @@ class TableModel(QTableWidget):
         for i in range(len(list)):
             table_item = QTableWidgetItem(list[i])
             table_items.append(table_item)
-            return table_items
+        return table_items
 
     def add_row(self, row):
         """ insert new row """
