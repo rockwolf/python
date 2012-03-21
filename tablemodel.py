@@ -50,6 +50,12 @@ class TableModel(QTableWidget):
                 m += 1
             n+=1
 
+    def clear():
+        """ Clear the table """
+        self.table.clearContent()
+        self.table.tablecontent = []
+        self.refresh()
+        
     def list_to_qtablewidgetitems(self, list):
         """ transforms a list in a collection of QTableWidgetItems """
         table_items = []
