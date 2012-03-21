@@ -41,10 +41,10 @@ class Controller():
         # initialise special vars
         self.gui = gui #QtGui.QDialog 
         self.config = config #object
-        # initialise the command buffer
-        self.inputbuffer = []
         # Decimal precision
         getcontext().prec = 4
+        # Init tbl_summary
+        self.init_tbl_summary()
 
     # Methods
     ## General
@@ -52,7 +52,7 @@ class Controller():
         """ """
         try:
             fields_db = []
-            for field in self.inputbuffer:
+            for field in self.tablecontent:
                 product = field[2]
                 if(product[-3:] == '.rx'):
                     flg_income = 1
@@ -73,11 +73,11 @@ class Controller():
                     'commission':field[10],
                     'tax':field[11]
                 })
-            # import finance info from inputbuffer
+            # import finance info from table data
             dba = DatabaseAccess(self.config)
             dba.file_import_lines(fields_db)
             dba = None
-            # import stock info from inputbuffer
+            # import stock info from table data
             fields_stock = []
             stock = Stock(self.config)
             for field in fields_db:
@@ -85,7 +85,7 @@ class Controller():
             stock.process_stocks(fields_db, fields_stock)
             stock = None
             #TODO: process_trades
-            self.clear_inputbuffer()
+            self.table.clear()
         except Exception as ex:
             print("Error in write_commands: ", ex)
 
@@ -109,24 +109,6 @@ class Controller():
         else:
             print('Error: backup file already exists.')
 
-    def pipe_commands(self):
-        """ Pipe the commands in the buffer to clipf. """
-        #TODO: no longer piping of commands. It's all done in a session, so add values to a session array or something.
-        # write to current
-        if isfile(self.config.exportfile):
-            try:
-                for cmd in self.inputbuffer:                
-                    pipe1 = Popen(
-                        ['echo',
-                        'set acc ' + self.gui.cmb_account.currentText(),
-                        '\n' + str(cmd)],
-                        stdout=PIPE)
-                    Popen(
-                        ['clipf'],
-                        stdin=pipe1.stdout)
-            #except Exception as strerror:
-            except:
-                print("Error: {0}.".format(strerror))
     ## Init of gui
     def fillcombos(self):
         """ fill in the combo boxes with values. """
@@ -149,15 +131,11 @@ class Controller():
         self.filltxt_marketdescription()
         self.filltxt_stockdescription()
         dba = None
-        # Init tbl_summary
-        self.init_tbl_summary()
 
     ## Clear
     def clear_inputbuffer(self):
         """ Clear the command buffer and the summary panel. """
-        self.inputbuffer = [] 
-        self.table.clearContents()
-        self.table.tablecontent = []
+        self.table.clear()
 
     def clear_fields(self):
         """ Clear the main input fields. """
@@ -271,8 +249,7 @@ class Controller():
         # set the table header
         # TODO: set header values in mdlconstants and use the constants
         header = ['date', 'account', 'product', 'object', 'amount', 'comment', 'stock', 'market', 'quantity', 'price', 'commission', 'tax', 'risk']
-        data = self.inputbuffer
-        self.table = TableModel(header, data, len(data), len(header))
+        self.table = TableModel(header, [], 0, len(header))
         # takeAt(0) removes the default empty table that's there and addWidget
         # adds a newly created one.
         self.gui.vl_table.takeAt(0)
