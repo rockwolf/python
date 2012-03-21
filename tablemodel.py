@@ -11,7 +11,7 @@ class TableModel(QTableWidget):
         self.header = header 
         self.tablecontent = data
         self.setHorizontalHeaderLabels(header)
-        self.initialize_data(data)
+        self.refresh()
        
     def refresh(self):
         """ Display the data as a 2D list and format + display it in the table """
@@ -35,20 +35,6 @@ class TableModel(QTableWidget):
         # format col width
         self.resizeColumnsToContents()
         #self.setColumnWidth(4,250)
-
-    def initialize_data(self, data):
-        """ set data for the table. """
-        # TODO: is this function still necessary?
-        # Can't I just use refresh()?
-        n = 0
-        m = 0
-        for key in data:
-            m = 0
-            for item in data[data.index(key)]:
-                newitem = QTableWidgetItem(item)
-                self.setItem(n, m, newitem)
-                m += 1
-            n+=1
 
     def clear():
         """ Clear the table """
