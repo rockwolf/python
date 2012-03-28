@@ -18,7 +18,7 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 class T_FINANCE(object):
     """ T_FINANCE """
 
-    def __init__(self, date, aid, pid, oid, amount, comment, stock, market, shares, price, tax, commission, active, date_created, date_modified):
+    def __init__(self, date, aid, pid, oid, amount, comment, stock, market, shares, price, tax, commission, active, date_created, date_modified, risk):
         self.date = date
         self.aid = aid
         self.pid = pid 
@@ -34,9 +34,10 @@ class T_FINANCE(object):
         self.active = active
         self.date_created = date_created
         self.date_modified = date_modified
+        self.risk = risk
 
     def __repr__(self):
-        return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.date, self.aid, self.pid, self.oid, self.amount, self.comment, self.stock, self.market, self.shares, self.price, self.tax, self.commission, self.active, self.date_created, self.date_modified)
+        return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.date, self.aid, self.pid, self.oid, self.amount, self.comment, self.stock, self.market, self.shares, self.price, self.tax, self.commission, self.active, self.date_created, self.date_modified, self.risk)
 
 class T_STOCK(object):
     """ T_STOCK """

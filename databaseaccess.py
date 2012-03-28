@@ -265,7 +265,7 @@ class DatabaseAccess():
                     obj = session.query(T_FINANCE).filter_by(date=fields['date'], aid=aid, pid=pid, oid=oid, amount=Decimal(fields['amount']), comment=fields['comment'], market=fields['market'], stock=fields['stock'], shares=int(fields['shares']), price=Decimal(fields['price']), tax=Decimal(fields['tax']), commission=Decimal(fields['commission']), risk=Decimal(fields['risk'])).first() is not None
                     if not obj: 
                         records = records + 1
-                        statements.append(T_FINANCE(fields['date'], aid, pid, oid, Decimal(fields['amount']), fields['comment'], fields['stock'], fields['market'], int(fields['shares']), Decimal(fields['price']), Decimail(fields['tax']), Decimal(fields['commission']), 1, date_created, date_modified, Decimal(fields['risk'])))
+                        statements.append(T_FINANCE(fields['date'], aid, pid, oid, Decimal(fields['amount']), fields['comment'], fields['stock'], fields['market'], int(fields['shares']), Decimal(fields['price']), Decimal(fields['tax']), Decimal(fields['commission']), 1, date_created, date_modified, Decimal(fields['risk'])))
                     else:
                         obj.date = fields['date']
                         obj.aid = aid
@@ -329,7 +329,7 @@ class DatabaseAccess():
                             commission = fields_stock[i]['commission']
 
                             # Add new entry if it doesn't already exist
-                            if update_stock(fields_stock, session):
+                            if self.update_stock(fields_stock, session):
                                 records = records + 1
                     # fields_db and fields_stock are the same size,
                     # so we use an integer in the fields_db loop as an index
@@ -352,7 +352,7 @@ class DatabaseAccess():
     def update_stock(self, fields_stock, session):
         """ Add a new stock entry or update an existing one. """
         try:
-            obj = session.query(T_STOCK).filter_by(id=id, snid=snid, action=fields_stock[i]['action'], price=Decimal(fields_stock[i]['price']), shares=int(fields_stock[i]['shares']), tax=Decimal(fields_stock[i]['tax']), commission=Decimal(fields_stock[i]['commission']), risk=Decimal(fields_stock[i]['risk'])).first() is not None
+            obj = session.query(T_STOCK).filter_by(id=id, action=fields_stock[i]['action'], price=Decimal(fields_stock[i]['price']), shares=int(fields_stock[i]['shares']), tax=Decimal(fields_stock[i]['tax']), commission=Decimal(fields_stock[i]['commission']), risk=Decimal(fields_stock[i]['risk'])).first() is not None
             if not obj: 
                 statements.append(T_STOCK(id, snid, fields_stock[i]['action'], Decimal(fields_stock[i]['price']), int(fields_stock[i]['shares']), Decimal(fields_stock[i]['tax']), Decimal(fields_stock[i]['commission']), 0, date_created, date_modified, Decimal(fields_stock[i]['risk'])))
                 return true;

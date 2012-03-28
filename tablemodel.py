@@ -16,7 +16,10 @@ class TableModel(QTableWidget):
     def refresh(self):
         """ Display the data as a 2D list and format + display it in the table """
         nrows = len(self.tablecontent)
-        ncols = len(self.tablecontent[0])
+        if nrows > 0:
+            ncols = len(self.tablecontent[0])
+        else:
+            ncols = 0;
         self.setRowCount(nrows)
         self.setColumnCount(ncols)
         self.setHorizontalHeaderLabels(self.header)
@@ -36,10 +39,10 @@ class TableModel(QTableWidget):
         self.resizeColumnsToContents()
         #self.setColumnWidth(4,250)
 
-    def clear():
+    def clear(self):
         """ Clear the table """
-        self.table.clearContent()
-        self.table.tablecontent = []
+        self.clearContents()
+        self.tablecontent = []
         self.refresh()
         
     def list_to_qtablewidgetitems(self, list):

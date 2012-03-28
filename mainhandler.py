@@ -52,7 +52,7 @@ class Controller():
         """ """
         try:
             fields_db = []
-            for field in self.tablecontent:
+            for field in self.table.tablecontent:
                 product = field[2]
                 if(product[-3:] == '.rx'):
                     flg_income = 1
@@ -71,7 +71,8 @@ class Controller():
                     'shares':field[8],
                     'price':field[9],
                     'commission':field[10],
-                    'tax':field[11]
+                    'tax':field[11],
+                    'risk':field[12]
                 })
             # import finance info from table data
             dba = DatabaseAccess(self.config)
