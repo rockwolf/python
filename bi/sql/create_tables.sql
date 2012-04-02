@@ -39,7 +39,6 @@ CREATE TABLE T_BUDGET_CATEGORY
     name varchar(50) not null,
     name_short varchar(10) not null,
     value decimal(18,4) not null default 0,
-    active int not null default 0,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
     constraint pk_budget_id primary key(budget_id),
