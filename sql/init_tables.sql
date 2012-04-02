@@ -243,6 +243,7 @@ INSERT INTO T_MARGIN_TYPE(margin_type)
 values('safety');
 
 /* margins */
+/* -- Note: this might belong to the bi sql folder
 INSERT INTO T_MARGIN(margin_type_id, description, value, date_created, date_modified)
 values(1, 'Financial reserve', 5000, current_date, current_date);
 
@@ -256,5 +257,5 @@ INSERT INTO T_MARGIN(margin_type_id, description, value, date_created, date_modi
 values(1, 'Safe withdrawal rate', 0.03, current_date, current_date);
 
 INSERT INTO T_MARGIN(margin_type_id, description, value, date_created, date_modified)
-values(1, 'Bargain reserve', 100000, current_date, current_date);
+values(1, 'Bargain reserve', 100000, current_date, current_date);*/
 COMMIT;
