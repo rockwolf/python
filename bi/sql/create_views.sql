@@ -415,17 +415,14 @@ from
 where
     p.pid = 23 or p.pid = 24;
 
-/* TODO: put this in tj? perhaps better not... it's for a report anyway */
-/* TODO: put division by 20 in a T_ALLOCATION to make it variable */
-/* TODO: use pids and aids in all these queries */
 /* V_REP_ALLOCATION_CAPITAL */
 --DROP VIEW V_REP_ALLOCATION_CAPITAL;
 CREATE VIEW V_REP_ALLOCATION_CAPITAL
 AS
 select
     sum(f.amount) as pool,
-    sum(f.amount)/20 as offense,
-    sum(f.amount) - sum(f.amount)/20 as defense
+    sum(f.amount)/(select allocation_proc from T_ALLOCATION_CAPITAL where acid = 1) as offense,
+    sum(f.amount) - sum(f.amount)/(select allocation_proc from T_ALLOCATION_CAPITAL where acid = 2) as defense
 from 
     t_finance f
 where
