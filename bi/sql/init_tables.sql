@@ -13,12 +13,13 @@ insert into T_BUDGET_CATEGORY(bcid, name, name_short, date_created, date_modifie
 values(
     select 
         pid,
-        substring(name, 0 , len(name) - 4),
+        substring(name, 0 , len(name) - 3),
         name
     from
         T_PRODUCT
     where
-        p.flg_income = 0);
+        p.flg_income = 0
+);
 
 /* T_BUDGET */
 -- counter = 1, which means the first month
