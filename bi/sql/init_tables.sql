@@ -8,8 +8,9 @@ insert into T_BUDGET_NAME(name, name_short, date_created, date_modified)
 values('Standard monthly budget', 'monthly', current_date, current_date);
 
 /* T_BUDGET_CATEGORY */
-insert into T_BUDGET_CATEGORY()
-values()
+-- perhaps something like this, to utilize the products?
+insert into T_BUDGET_CATEGORY(bcid, name, name_short, date_created, date_modified)
+values(select pid, substring(name, 0 , len(name) - 4), name from T_PRODUCT);
 
 /* T_BUDGET */
 insert into T_BUDGET(bnid, bcid, counter, amount, date_created, date_modified)
