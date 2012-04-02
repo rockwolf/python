@@ -209,6 +209,13 @@ BEGIN;
 --insert into T_BUDGET(budget_id, category_id, category_name, year, value)
 --values(1, 12, 'health', 2011, 0.00);
 
+/* T_BUDGET_NAME */
+insert into T_BUDGET_NAME(name, name_short, date_created, date_modified)
+values('Standard yearly budget', 'yearly', current_date, current_date);
+
+insert into T_BUDGET_NAME(name, name_short, date_created, date_modified)
+values('Standard monthly budget', 'monthly', current_date, current_date);
+
 /* T_ALLOCATION_CAPITAL */
 insert into T_ALLOCATION_CAPITAL(defense, offense, cash, growth, date_created, date_modified)
 values(80.0, 20.0, 0.0, 0.0, current_date, current_date);
