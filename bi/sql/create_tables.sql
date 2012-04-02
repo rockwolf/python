@@ -21,7 +21,7 @@ CREATE TABLE T_BUDGET
 /* T_BUDGET_NAME */
 CREATE TABLE T_BUDGET_NAME
 (
-    bnid int not null,
+    bnid serial not null,
     name varchar(50) not null default 'standard',
     name_short varchar(10) not null default 'standard',
     date_created timestamp not null default current_date,
