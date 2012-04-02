@@ -8,7 +8,7 @@ CREATE TABLE T_BUDGET
     category_id int not null,
     category_name varchar(50) not null,
     year varchar(4) not null,
-    value decimal(18,4) default 0,
+    value decimal(18,4) not null default 0,
     constraint pk_budget_id primary key(budget_id),
     unique(category_id)
 );
@@ -19,8 +19,8 @@ CREATE TABLE T_REPORT_BUDGET
     bid serial not null,
     category_id int not null,
     year varchar(4) not null,    
-    amount decimal(18,4) default 0,
-    comment varchar(100),
+    amount decimal(18,4) not null default 0,
+    comment varchar(100) not null default '',
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
     constraint pk_report_budget_id primary key(bid),
@@ -34,8 +34,8 @@ CREATE TABLE T_REPORT_BUDGET_MONTHLY
     category_id int not null,
     year varchar(4) not null,
     month varchar(2) not null,
-    amount decimal(18,4) default 0,
-    comment varchar(100),
+    amount decimal(18,4) not null default 0,
+    comment varchar(100) not null default '',
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
     constraint pk_report_budget_id_monthly primary key(bmid),
@@ -46,10 +46,8 @@ CREATE TABLE T_REPORT_BUDGET_MONTHLY
 CREATE TABLE T_ALLOCATION_CAPITAL
 (
     acid serial not null,
-    defense decimal(18,4) not null default 0,
-    offense decimal(18,4) not null default 0,
-    cash decimal(18,4) not null default 0,
-    growth decimal(18,4) not null default 0,
+    category decimal(18,4) not null default 0,
+    description varchar(100) not null default '',
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
     constraint pk_acid primary key(acid)
