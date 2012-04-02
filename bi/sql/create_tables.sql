@@ -10,6 +10,7 @@ CREATE TABLE T_BUDGET
     bcid int not null,
     counter int not null default 1, -- year (2008, 2009, ...) or month (1, 2, ... 12) counter
     amount decimal(18,4) not null default 0,
+    active int not null default 0,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
     constraint pk_bid primary key(bid),
