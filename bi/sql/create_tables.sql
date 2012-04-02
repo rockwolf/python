@@ -40,6 +40,7 @@ CREATE TABLE T_BUDGET_CATEGORY
 CREATE TABLE T_REPORT_BUDGET
 (
     rbid serial not null,
+    bid int not null default 1,
     bcid int not null,
     year varchar(4) not null,    
     amount decimal(18,4) not null default 0,
@@ -47,8 +48,9 @@ CREATE TABLE T_REPORT_BUDGET
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
     constraint pk_report_budget_id primary key(rbid),
+    constraint fk_bid foreign key(bid) references T_BUDGET(bid),
     constraint fk_bcid foreign key(bcid) references T_BUDGET_CATEGORY(bcid),
-    unique(year, bcid)
+    unique(year, bid, bcid)
 );
 
 /* T_REPORT_BUDGET_MONTHLY */
