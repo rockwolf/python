@@ -217,7 +217,16 @@ insert into T_BUDGET_NAME(name, name_short, date_created, date_modified)
 values('Standard monthly budget', 'monthly', current_date, current_date);
 
 /* T_ALLOCATION_CAPITAL */
-insert into T_ALLOCATION_CAPITAL(defense, offense, cash, growth, date_created, date_modified)
-values(80.0, 20.0, 0.0, 0.0, current_date, current_date);
+insert into T_ALLOCATION_CAPITAL(allocation_proc, description, date_created, date_modified)
+values(20.0, 'offense - trading', current_date, current_date);
+
+insert into T_ALLOCATION_CAPITAL(allocation_proc, description, date_created, date_modified)
+values(80.0, 'defense - dividend', current_date, current_date);
+
+insert into T_ALLOCATION_CAPITAL(allocation_proc, description, date_created, date_modified)
+values(0.0, 'spy offense - growth', current_date, current_date);
+
+insert into T_ALLOCATION_CAPITAL(allocation_proc, description, date_created, date_modified)
+values(0.0, 'spy defense - cash', current_date, current_date);
 
 commit;
