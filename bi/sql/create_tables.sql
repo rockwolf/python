@@ -46,7 +46,7 @@ CREATE TABLE T_REPORT_BUDGET_MONTHLY
 CREATE TABLE T_ALLOCATION_CAPITAL
 (
     acid serial not null,
-    category decimal(18,4) not null default 0,
+    allocation_proc decimal(18,4) not null default 0,
     description varchar(100) not null default '',
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
