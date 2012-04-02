@@ -5,7 +5,7 @@ BEGIN;
 -- otherwise, the yearly budget/12 will suffice.
 CREATE TABLE T_BUDGET
 (
-    bid int not null,
+    bid serial not null,
     bnid int not null,
     bcid int not null,
     counter int not null default 1, -- year (2008, 2009, ...) or month (1, 2, ... 12) counter
