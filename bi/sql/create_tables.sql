@@ -14,7 +14,8 @@ CREATE TABLE T_BUDGET
     date_modified timestamp not null default current_date,
     constraint pk_bid primary key(bid),
     constraint fk_bnid foreign key(bnid) references T_BUDGET_NAME(bnid),
-    constraint fk_bcid foreign key(bcid) references T_BUDGET_CATEGORY(bcid)
+    constraint fk_bcid foreign key(bcid) references T_BUDGET_CATEGORY(bcid),
+    unique(bnid, bcid, counter) -- e.g.: 'standard', 'extra', 2011
 );
 
 /* T_BUDGET_NAME */
@@ -49,16 +50,12 @@ CREATE TABLE T_REPORT_BUDGET
 (
     rbid serial not null,
     bid int not null default 1,
-    bcid int not null,
-    counter int not null,    
     amount decimal(18,4) not null default 0,
     comment varchar(100) not null default '',
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
     constraint pk_report_budget_id primary key(rbid),
-    constraint fk_bid foreign key(bid) references T_BUDGET(bid),
-    constraint fk_bcid foreign key(bcid) references T_BUDGET_CATEGORY(bcid),
-    unique(year, bid, bcid)
+    constraint fk_bid foreign key(bid) references T_BUDGET(bid)
 );
 
 /* T_ALLOCATION_CAPITAL */
