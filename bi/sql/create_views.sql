@@ -212,14 +212,24 @@ select
     vwIN.intotal as intotal,
     vwOUT.outtotal as outtotal,
     (vwSalary.salary - vwExpenses.expenses) as savedFromSalary,
-    (vwExpenses.expenses/vwSalary.salary)*100 as savedFromSalaryProc,
+    (
+        case 
+            when (100 - vwExpenses.expenses/vwSalary.salary*100) < 0 then  0
+            else (100 - vwExpenses.expenses/vwSalary.salary*100)
+        end
+    )  as savedFromSalaryProc,
     (vwIncome.income - vwExpenses.expenses) as savedIncome,
-    (vwExpenses.expenses/vwIncome.income)*100 as savedIncomeProc,
+    (
+        case 
+            when (100 - vwExpenses.expenses/vwIncome.income*100) < 0 then  0
+            else (100 - vwExpenses.expenses/vwIncome.income*100)
+        end
+    ) as savedIncomeProc,
     (vwIN.intotal - vwOUT.outtotal) as savedTotal,
     (
         case 
-            when (vwIN.intotal - vwOUT.outtotal)/vwIN.intotal*100 < 0 then  0
-            else (vwIN.intotal - vwOUT.outtotal)/vwIN.intotal*100
+            when (100 - vwOUT.outtotal/vwIN.intotal*100) < 0 then  0
+            else (100 - vwOUT.outtotal/vwIN.intotal*100)
         end
     ) as savedTotalProc
 from
