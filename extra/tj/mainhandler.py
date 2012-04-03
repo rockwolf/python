@@ -24,11 +24,12 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 from os.path import isfile
 from subprocess import call
 from PyQt4 import QtCore, QtGui
-from databaseaccess import DatabaseAccess
-from tablemodel import TableModel
 import shutil
 import os
 from decimal import *
+
+from database.databaseaccess import DatabaseAccess
+from modules_generic.tablemodel import TableModel
 
 class Controller():
     """ Contains the bussiness logic of the application. """

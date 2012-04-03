@@ -22,9 +22,10 @@ from sqlalchemy.orm import mapper, clear_mappers
 from sqlalchemy.sql import exists
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import func
-from mappings import *
 from decimal import Decimal
 from datetime import datetime
+
+from mappings import *
 
 #TODO: compare this one with the lisa databaseaccess.py and put the same code in a global databaseaccess
 # and inherit from that one.

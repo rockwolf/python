@@ -26,10 +26,11 @@ import shutil
 import os
 from PyQt4 import QtCore, QtGui
 from guicode import Ui_Dialog
-from databaseaccess import DatabaseAccess
 from subprocess import Popen, PIPE
+
+from database.databaseaccess import DatabaseAccess
 from mainhandler import Controller
-from tablemodel import TableModel
+from modules_generic.tablemodel import TableModel
 
 class GuiHandler(QtGui.QDialog, Ui_Dialog):
     """ Trading Journal, main class """
