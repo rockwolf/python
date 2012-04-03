@@ -62,14 +62,14 @@ class Controller():
     def install(self):
         """ Setup the database through an external script. """
         try:
-            call(["sh", "install.sh"])
+            call(["sh", "setup/install.sh"])
         except:
             print('Error: could not load install.sh script.')
 
     def uninstall(self):
         """ Remove all from database through an external script. """
         try:
-            call(["sh", "uninstall.sh"])
+            call(["sh", "setup/uninstall.sh"])
         except:
             print('Error: could not load uninstall.sh script.')
 

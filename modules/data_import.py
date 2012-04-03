@@ -17,10 +17,11 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 """
 from time import sleep
 import sys
-from mdlstock import Stock
-from mdltrade import TradeJournal
-from databaseaccess import DatabaseAccess
 from decimal import Decimal
+
+from modules.stock import Stock
+from modules.trade import TradeJournal
+from database.databaseaccess import DatabaseAccess
 
 class FileImport():
     """ Class with methods to import files. """

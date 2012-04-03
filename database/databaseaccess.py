@@ -22,9 +22,10 @@ from sqlalchemy.orm import mapper, clear_mappers
 from sqlalchemy.sql import exists
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import func
-from mappings import *
 from decimal import Decimal
 from datetime import datetime
+
+from mappings import *
 
 class DatabaseAccess():
     """ Connecting to the database. """ 

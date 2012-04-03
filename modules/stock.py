@@ -16,7 +16,7 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
 
-from databaseaccess import DatabaseAccess
+from database.databaseaccess import DatabaseAccess
 
 class Stock():
     """ Class with methods regarding stocks. """

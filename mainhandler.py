@@ -23,15 +23,16 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 """
 from os.path import isfile
 from subprocess import call
-from mdlimport import FileImport
-from mdlexport import FileExport
-from mdlstock import Stock
-from PyQt4 import QtCore, QtGui
-from databaseaccess import DatabaseAccess
-from tablemodel import TableModel
 import shutil
 import os
 from decimal import *
+from PyQt4 import QtCore, QtGui
+
+from modules.data_import import FileImport
+from modules.data_export import FileExport
+from modules.stock import Stock
+from database.databaseaccess import DatabaseAccess
+from modules_generic.tablemodel import TableModel
 
 class Controller():
     """ Contains the bussiness logic of the application. """
@@ -234,14 +235,14 @@ class Controller():
     def install(self):
         """ Setup the database through an external script. """
         try:
-            call(["sh", "install.sh"])
+            call(["sh", "setup/install.sh"])
         except:
             print('Error: could not load install.sh script.')
 
     def uninstall(self):
         """ Remove all from database through an external script. """
         try:
-            call(["sh", "uninstall.sh"])
+            call(["sh", "setup/uninstall.sh"])
         except:
             print('Error: could not load uninstall.sh script.')
 
