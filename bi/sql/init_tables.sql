@@ -13,8 +13,8 @@ insert into T_BUDGET_CATEGORY(bcid, name, name_short, date_created, date_modifie
 values(
     select 
         pid,
-        substring(name, 0 , len(name) - 3),
-        name
+        name,
+        substring(name, 0 , len(name) - 3)
     from
         T_PRODUCT
     where
