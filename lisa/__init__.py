@@ -45,10 +45,23 @@ class MainWrapper():
         self.prelease = 'The Stocks And Trading Journey'
         self.pdate = '2011-10-30'
         self.exitstate = 0   
+        
+        # Adjust system path so we can import from our
+        # own module directories
+        self.adjust_syspath()
+
         self.msghandler = __import__('messagehandler')
         # config
         self.config = ConfigParser()
     
+    def adjust_syspath(self):
+        """ Adjust the system path, so we can search in custom dirs for modules. """
+        sys.path.append('gui')
+        sys.path.append('database')
+        sys.path.append('database_generic')
+        sys.path.append('modules')
+        sys.path.append('modules_generic')
+
     def usage(self):
         """ Print usage info and exit """
         print('''{0} : Less Interaction Saves Arbeit
