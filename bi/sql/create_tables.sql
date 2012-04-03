@@ -1,14 +1,13 @@
 BEGIN;
 
 /* T_BUDGET */
--- month values could be used for setting a specific budget for specific months
--- otherwise, the yearly budget/12 will suffice.
 CREATE TABLE T_BUDGET
 (
     bid serial not null,
     bnid int not null,
     bcid int not null,
-    counter int not null default 1, -- year (2008, 2009, ...) or month (1, 2, ... 12) counter
+    year int not null default 0,
+    month in not null default 0,
     amount decimal(18,4) not null default 0,
     active int not null default 0,
     date_created timestamp not null default current_date,
@@ -23,8 +22,8 @@ CREATE TABLE T_BUDGET
 CREATE TABLE T_BUDGET_NAME
 (
     bnid serial not null,
-    name varchar(50) not null default 'standard',
-    name_short varchar(10) not null default 'standard',
+    name varchar(50) not null default '',
+    name_short varchar(10) not null default '',
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
     constraint pk_bnid primary key(bnid),
