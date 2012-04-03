@@ -2,7 +2,8 @@
 """
 Author: Andy Nagels
 Date: 2010-08-24
-Lisa: Pyqt gui for clipf, with extra functionality.
+Lisa: Less Interaction Saves Action
+A frontend for a database to store financial transactions in a convenient way.
 
 Copyright (C) 2010 Andy Nagels
 
@@ -36,13 +37,14 @@ class MainWrapper():
     it's seperate from the gui part of the app.
     
     """ 
+    __VERSION__ = '0.92'
 
     def __init__(self, parent=None):
         """ Construct basic QApplication, add widgets and start exec_loop. """
         # general properties of the app
         self.pprog = 'lisa.py'
-        self.pversion = '0.92'
-        self.prelease = 'The Stocks And Trading Journey'
+        self.pversion = __VERSION__
+        self.prelease = 'unknown'
         self.pdate = '2011-10-30'
         self.exitstate = 0   
         
