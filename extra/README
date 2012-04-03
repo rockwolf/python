@@ -1,0 +1,13 @@
+This directory contains extra applications that will build upon lisa.
+
+bi
+--
+
+Add extra information to the db. This folder also contains report files for use with Pentaho reporting studio.
+
+The reports in this folder can be used to visualize the data entered through lisa.
+
+tj
+--
+
+A trading journal, which uses the information from lisa.

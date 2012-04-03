@@ -1,0 +1,24 @@
+### This is the main configuration file for the clipf2db python program.
+### Please keep everything in this file intact and change only the options
+### that need to be changed.
+
+[database]
+host = 'testdb'
+name = 'finance'
+user = 'rockwolf'
+password = ''
+
+[data]
+importfile = 'import/op'
+exportfile = 'export/finance.txt'
+backupfile = 'export/finance.bak'
+# tax value in %
+default_tax = '0.22'
+# risk value in %
+default_risk = '2'
+
+[logging]
+# Set this to 1 if you want to use logging 
+log = 0
+# logfile
+logfile = 'log/lisa.log'

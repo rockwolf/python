@@ -25,13 +25,13 @@ import sys
 import shutil
 import os
 from PyQt4 import QtCore, QtGui
-
-from guicode import Ui_frm_main
-from databaseaccess import DatabaseAccess
-from subprocess import Popen, PIPE
-from mainhandler import Controller
-from tablemodel import TableModel
 from decimal import Decimal
+from subprocess import Popen, PIPE
+
+from gui.guicode import Ui_frm_main
+from database.databaseaccess import DatabaseAccess
+from mainhandler import Controller
+from modules_generic.tablemodel import TableModel
 
 class GuiHandler(QtGui.QDialog, Ui_frm_main):
     """ Less Interaction Saves Arbeit Main Class """

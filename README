@@ -1,6 +1,12 @@
 LISA
 ----
 
+Short explanation
+-----------------
+
+The main application files are in the lisa package folder.
+The bi and tj folders are seperate applications that expand on lisa.
+
 1. What is it?
 --------------
 
