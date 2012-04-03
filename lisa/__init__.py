@@ -23,9 +23,10 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 """
 import getopt
 import sys
+from PyQt4 import QtCore, QtGui
+
 from gui.guihandler import GuiHandler
 from mainhandler import Controller
-from PyQt4 import QtCore, QtGui
 from modules.config import ConfigParser
         
 class MainWrapper():

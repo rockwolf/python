@@ -28,9 +28,9 @@ import os
 from decimal import *
 from PyQt4 import QtCore, QtGui
 
-from modules.data_import import FileImport
-from modules.data_export import FileExport
-from modules.stock import Stock
+from data_import import FileImport
+from data_export import FileExport
+from stock import Stock
 from database.databaseaccess import DatabaseAccess
 from modules_generic.tablemodel import TableModel
 

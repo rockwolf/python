@@ -20,7 +20,7 @@ import sys
 from decimal import Decimal
 from datetime import datetime
 
-from modules.stock import Stock
+from stock import Stock
 from database.databaseaccess import DatabaseAccess
 
 class TradeJournal():
