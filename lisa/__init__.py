@@ -26,7 +26,7 @@ import getopt
 import sys
 from PyQt4 import QtCore, QtGui
 
-from gui.guihandler import GuiHandler
+from guihandler import GuiHandler
 from mainhandler import Controller
 from modules.config import ConfigParser
         
