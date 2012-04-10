@@ -42,9 +42,9 @@ class MainWrapper():
         """ Construct basic QApplication, add widgets and start exec_loop. """
         # general properties of the app
         self.pprog = 'lisa.py'
-        self.pversion = '0.92'
-        self.prelease = 'unknown'
-        self.pdate = '2011-10-30'
+        self.pversion = '01.00'
+        self.prelease = 'Mass Convenience'
+        self.pdate = '2012-04-10'
         self.exitstate = 0   
         
         # Adjust system path so we can import from our
