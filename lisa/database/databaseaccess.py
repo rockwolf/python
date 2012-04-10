@@ -25,7 +25,7 @@ from sqlalchemy import func
 from decimal import Decimal
 from datetime import datetime
 
-from mappings import *
+from database.mappings import *
 
 class DatabaseAccess():
     """ Connecting to the database. """ 

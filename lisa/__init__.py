@@ -37,13 +37,12 @@ class MainWrapper():
     it's seperate from the gui part of the app.
     
     """ 
-    __VERSION__ = '0.92'
-
+    
     def __init__(self, parent=None):
         """ Construct basic QApplication, add widgets and start exec_loop. """
         # general properties of the app
         self.pprog = 'lisa.py'
-        self.pversion = __VERSION__
+        self.pversion = '0.92'
         self.prelease = 'unknown'
         self.pdate = '2011-10-30'
         self.exitstate = 0   
