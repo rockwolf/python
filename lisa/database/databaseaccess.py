@@ -258,7 +258,6 @@ class DatabaseAccess():
         try:
             session = self.Session()
             try:
-                exit
                 now = datetime.now()
                 date_created = now.strftime("%Y-%m-%d %H:%M:%S")
                 date_modified = now.strftime("%Y-%m-%d %H:%M:%S")
@@ -266,6 +265,9 @@ class DatabaseAccess():
                 print("GENERAL")
                 print("_______")
                 print("Preparing statements...")
+                # TODO: also use the Statement class for the statements here. Requires
+                # extension/rewrite of the Statement class.
+                # TODO: put the below in a function called update_finance()
                 statements = []
                 records = 0
                 for fields in fields_db:
@@ -288,6 +290,7 @@ class DatabaseAccess():
                               risk=Decimal(fields['risk'])
                           ).first() is not None
                     if not obj: 
+                        # NEW
                         records = records + 1
                         statements.append(
                             T_FINANCE(
@@ -310,6 +313,7 @@ class DatabaseAccess():
                             )
                         )
                     else:
+                        # UPDATE EXISTING
                         obj.date = fields['date']
                         obj.aid = aid
                         obj.pid = pid
@@ -371,7 +375,6 @@ class DatabaseAccess():
                             id = instance.id
 
                         if fields_stock[i] != {}:
-
                             # Add new entry if it doesn't already exist
                             if self.update_stock(fields_stock, session, i, id, statements):
                                 records = records + 1
@@ -381,8 +384,7 @@ class DatabaseAccess():
                     i = i + 1
 
                 print("Executing statements all at once...")
-                #statements.Execute(session)
-                statements.Print()
+                statements.Execute(session)
 
             except Exception as ex:
                 print("Error in file_import_stocks: ", ex)
@@ -408,7 +410,6 @@ class DatabaseAccess():
             tax = fields_stock[i]['tax']
             commission = fields_stock[i]['commission']
 
-            print('test: before obj selection query');
             obj = session.query(T_STOCK).filter_by(
                       id=id,
                       price=Decimal(fields_stock[i]['price']),
@@ -416,7 +417,6 @@ class DatabaseAccess():
                       tax=Decimal(fields_stock[i]['tax']),
                       commission=Decimal(fields_stock[i]['commission'])
                   ).first() is not None
-            print('test: after obj selection query');
             if not obj: 
                 statements.Add(
                     id,
@@ -666,7 +666,8 @@ class Statement():
             print("Error in initialisation of Statements: ", ex)
 
     def Add(self, id, snid, action, price, shares, tax, commission, historical, date_created, date_modified, risk):
-        """ Add a statement """
+        """ Add a statement for T_STOCK """
+        #TODO: Needs to work for T_FINANCE too. Perhaps rename the functions to AddStock and AddFinance?
         try:
             # Add a statement
             self.statements.append(
@@ -698,6 +699,6 @@ class Statement():
     def Print(self):
         """ Prints the currently held statements. """
         print('Statements')
-        print('----------','\n')
+        print('__________','\n')
         for s in self.statements:
             print(s)
