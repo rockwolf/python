@@ -46,6 +46,7 @@ class Stock():
                 tax = fields['tax']
                 commission = fields['commission']
                 action = fields['object'] #buystocks/sellstocks
+                risk = fields['risk']
                 #print 'test: action =' + action
                 fields_stock= {
                     'name': name,
@@ -54,7 +55,8 @@ class Stock():
                     'shares': shares,
                     'price': price,
                     'tax': tax,
-                    'commission': commission
+                    'commission': commission,
+                    'risk': risk
                 }
             else:
                 fields_stock = {}

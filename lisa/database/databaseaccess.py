@@ -351,7 +351,7 @@ class DatabaseAccess():
                 print("STOCKS")
                 print("______")
                 print("Preparing statements...")
-                statements = []
+                statements = Statement()
                 records = 0
                 i = 0
                 for fields in fields_db:
@@ -371,15 +371,9 @@ class DatabaseAccess():
                             id = instance.id
 
                         if fields_stock[i] != {}:
-                            # Get snid from T_STOCK_NAME if it exists (a new entry will be made in T_STOCK_NAME if it doesn't)
-                            #TODO: add descriptions to mid_from_market and to snid_from_stockname)
-                            mid = self.mid_from_market(fields_stock[i]['market'], date_created, date_modified)
-                            snid = self.snid_from_stockname(fields_stock[i]['name'], mid, date_created, date_modified)
-                            tax = fields_stock[i]['tax']
-                            commission = fields_stock[i]['commission']
 
                             # Add new entry if it doesn't already exist
-                            if self.update_stock(fields_stock, session, i):
+                            if self.update_stock(fields_stock, session, i, id, statements):
                                 records = records + 1
                     # fields_db and fields_stock are the same size,
                     # so we use an integer in the fields_db loop as an index
@@ -387,7 +381,8 @@ class DatabaseAccess():
                     i = i + 1
 
                 print("Executing statements all at once...")
-                session.add_all(statements)
+                #statements.Execute(session)
+                statements.Print()
 
             except Exception as ex:
                 print("Error in file_import_stocks: ", ex)
@@ -399,33 +394,42 @@ class DatabaseAccess():
         except Exception as ex:
             print("Error creating session in file_import_stocks: ", ex)
 
-    def update_stock(self, fields_stock, session, i):
+    def update_stock(self, fields_stock, session, i, id, statements):
         """ Add a new stock entry or update an existing one. """
         try:
+            now = datetime.now()
+            date_created = now.strftime("%Y-%m-%d %H:%M:%S")
+            date_modified = now.strftime("%Y-%m-%d %H:%M:%S")
+
+            # Get snid from T_STOCK_NAME if it exists (a new entry will be made in T_STOCK_NAME if it doesn't)
+            #TODO: add descriptions to mid_from_market and to snid_from_stockname)
+            mid = self.mid_from_market(fields_stock[i]['market'], date_created, date_modified)
+            snid = self.snid_from_stockname(fields_stock[i]['name'], mid, date_created, date_modified)
+            tax = fields_stock[i]['tax']
+            commission = fields_stock[i]['commission']
+
+            print('test: before obj selection query');
             obj = session.query(T_STOCK).filter_by(
                       id=id,
-                      action=fields_stock[i]['action'],
                       price=Decimal(fields_stock[i]['price']),
                       shares=int(fields_stock[i]['shares']),
                       tax=Decimal(fields_stock[i]['tax']),
-                      commission=Decimal(fields_stock[i]['commission']),
-                      risk=Decimal(fields_stock[i]['risk'])
+                      commission=Decimal(fields_stock[i]['commission'])
                   ).first() is not None
+            print('test: after obj selection query');
             if not obj: 
-                statements.append(
-                    T_STOCK(
-                        id,
-                        snid,
-                        fields_stock[i]['action'],
-                        Decimal(fields_stock[i]['price']),
-                        int(fields_stock[i]['shares']),
-                        Decimal(fields_stock[i]['tax']),
-                        Decimal(fields_stock[i]['commission']),
-                        0,
-                        date_created,
-                        date_modified,
-                        Decimal(fields_stock[i]['risk'])
-                    )
+                statements.Add(
+                    id,
+                    snid,
+                    fields_stock[i]['action'],
+                    Decimal(fields_stock[i]['price']),
+                    int(fields_stock[i]['shares']),
+                    Decimal(fields_stock[i]['tax']),
+                    Decimal(fields_stock[i]['commission']),
+                    0,
+                    date_created,
+                    date_modified,
+                    Decimal(fields_stock[i]['risk'])
                 )
                 return True;
 
@@ -650,3 +654,50 @@ class DatabaseAccess():
             session.rollback()
             session = None
         return result
+
+class Statement():
+    """ A class to contain statements to be executed within the orm session. """
+    
+    def __init__(self):
+        """ Init """
+        try:
+            self.statements = []
+        except Exception as ex:
+            print("Error in initialisation of Statements: ", ex)
+
+    def Add(self, id, snid, action, price, shares, tax, commission, historical, date_created, date_modified, risk):
+        """ Add a statement """
+        try:
+            # Add a statement
+            self.statements.append(
+                T_STOCK(
+                    id,
+                    snid,
+                    action,
+                    price,
+                    shares,
+                    tax,
+                    commission,
+                    historical,
+                    date_created,
+                    date_modified,
+                    risk
+                )
+            )
+        except Exception as ex:
+            print("Error adding statement: ", ex)
+
+    def Execute(self, session):
+        """ Execute list of statements for given session """
+        try:
+            # Execute all statements at once.
+            session.add_all(self.statements)
+        except Exception as ex:
+            print("Error executing statements: ", ex)
+
+    def Print(self):
+        """ Prints the currently held statements. """
+        print('Statements')
+        print('----------','\n')
+        for s in self.statements:
+            print(s)

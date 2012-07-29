@@ -90,6 +90,7 @@ class TradeJournal():
             print("Error in parse_stocks: ", ex)
         finally:
             return fields_stock
+
     def process_lines(self, fields_db):
         """ Convert general financial information. """
         dba = DatabaseAccess(self.config)

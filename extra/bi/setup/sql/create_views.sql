@@ -191,8 +191,7 @@ from
                 inner join T_OBJECT o2 on f2.oid = o2.oid
 		where
 			f2.pid = 21
-			and (f2.oid = 5 or f2.oid = 6)
-            or f2.pid = 5
+			and f2.oid = 6
 		group by
 			extract(year from f2.date)
 	) b

@@ -42,7 +42,7 @@ class T_FINANCE(object):
 class T_STOCK(object):
     """ T_STOCK """
 
-    def __init__(self, id, snid, action, price, shares, tax, commission, historical, date_created, date_modified):
+    def __init__(self, id, snid, action, price, shares, tax, commission, historical, date_created, date_modified, risk):
         self.id = id
         self.snid = snid
         self.action = action
@@ -53,9 +53,10 @@ class T_STOCK(object):
         self.historical = historical
         self.date_created = date_created
         self.date_modified = date_modified
+        self.risk = risk
 
     def __repr__(self):
-        return "<T_STOCK('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.id, self.snid, self.action, self.price, self.shares, self.tax, self.commission, self.historical, self.date_created, self.date_modified)
+        return "<T_STOCK('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.id, self.snid, self.action, self.price, self.shares, self.tax, self.commission, self.historical, self.date_created, self.date_modified, self.risk)
 
 class T_STOCK_CURRENT(object):
     """ T_STOCK_CURRENT"""
