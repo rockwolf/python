@@ -136,6 +136,8 @@ CREATE TABLE T_TRADE
 (
     tid serial not null,
     sid int not null, /* this becomes the link to t_finance: find the sid in T_TRADE (with the correct year and month that's not closed. Otherwise, make another. */
+    date_buy timestamp not null default current_date,
+    date_sell timestamp not null default current_date,
     year int not null default 0,
     month int not null default 0,
     buy_price decimal(18,4) not null default 0.0, /* (buy_price + new buy_price)/2 */
@@ -151,6 +153,21 @@ CREATE TABLE T_TRADE
     constraint pk_tid primary key(tid),
     constraint fk_sid foreign key(sid) references T_STOCK(sid)
 );
+
+-- see ods calc_profile
+/*CREATE TABLE T_PROFILE_PARAMETERS
+(
+);*/
+
+-- views?
+/*CREATE TABLE T_PROFILE_INVESTING
+(
+);*/
+
+-- view?
+/*CREATE TABLE T_PROFILE_TRADING
+(
+);*/
 
 /*
 DROP VIEW V_REP_TRADEJOURNAL;
