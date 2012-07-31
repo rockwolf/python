@@ -51,6 +51,9 @@ CREATE TABLE T_FINANCE
 (
     id serial not null,
     date timestamp not null default current_date,
+    year int not null default 0,
+    month int not null default 0,
+    day int not null default 0,
     aid int not null,
     pid int not null,
     oid int not null,

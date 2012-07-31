@@ -265,9 +265,6 @@ class DatabaseAccess():
                 print("GENERAL")
                 print("_______")
                 print("Preparing statements...")
-                # TODO: also use the Statement class for the statements here. Requires
-                # extension/rewrite of the Statement class.
-                # TODO: put the below in a function called update_finance()
                 statements = []
                 records = 0
                 for fields in fields_db:
@@ -275,9 +272,13 @@ class DatabaseAccess():
                     aid = self.aid_from_account(fields['account'], date_created, date_modified)
                     pid = self.pid_from_product(fields['product'], date_created, date_modified)
                                             
+                    #TODO: date contains HH:MM:SS too, fin a way to skip
+                    #that, perhaps by using F_YEAR, F_MONTH and F_DAY in the
+                    #tables.
                     obj = session.query(T_FINANCE).filter_by(
                               date=fields['date'],
-                              aid=aid, pid=pid,
+                              aid=aid,
+                              pid=pid,
                               oid=oid,
                               amount=Decimal(fields['amount']),
                               comment=fields['comment'],
@@ -396,6 +397,9 @@ class DatabaseAccess():
         except Exception as ex:
             print("Error creating session in file_import_stocks: ", ex)
 
+    def update_finance(self, fields_db, session, i, id, statements):
+        """ Add a new finance entry or update an existing one. """
+
     def update_stock(self, fields_stock, session, i, id, statements):
         """ Add a new stock entry or update an existing one. """
         try:
@@ -418,6 +422,7 @@ class DatabaseAccess():
                       commission=Decimal(fields_stock[i]['commission'])
                   ).first() is not None
             if not obj: 
+                # NEW
                 statements.Add(
                     id,
                     snid,
@@ -432,6 +437,12 @@ class DatabaseAccess():
                     Decimal(fields_stock[i]['risk'])
                 )
                 return True;
+            else:
+                # Update existing
+                #WTF should I put here? I add statements to the class and
+                #execute them all at once?
+                #Perhaps use 2 lists: one with new values and one with
+                #values to update?
 
         except Exception as ex:
            print("Error in update_stock: ", ex)
@@ -661,16 +672,38 @@ class Statement():
     def __init__(self):
         """ Init """
         try:
-            self.statements = []
+            self.statements_finance = []
+            self.statements_stock = []
         except Exception as ex:
             print("Error in initialisation of Statements: ", ex)
 
-    def Add(self, id, snid, action, price, shares, tax, commission, historical, date_created, date_modified, risk):
-        """ Add a statement for T_STOCK """
-        #TODO: Needs to work for T_FINANCE too. Perhaps rename the functions to AddStock and AddFinance?
+    def AddFinance(self, id, snid, action, price, shares, tax, commission, historical, date_created, date_modified, risk):
+        """ Add a statement for T_FINANCE """
         try:
             # Add a statement
-            self.statements.append(
+            self.statements_finance.append(
+                T_FINANCE(
+                    id,
+                    snid,
+                    action,
+                    price,
+                    shares,
+                    tax,
+                    commission,
+                    historical,
+                    date_created,
+                    date_modified,
+                    risk
+                )
+            )
+        except Exception as ex:
+            print("Error adding statement: ", ex)
+
+    def AddStock(self, id, snid, action, price, shares, tax, commission, historical, date_created, date_modified, risk):
+        """ Add a statement for T_STOCK """
+        try:
+            # Add a statement
+            self.statements_stock.append(
                 T_STOCK(
                     id,
                     snid,
@@ -688,17 +721,38 @@ class Statement():
         except Exception as ex:
             print("Error adding statement: ", ex)
 
-    def Execute(self, session):
-        """ Execute list of statements for given session """
+    def ExecuteFinance(self, session):
+        """ Execute list of statements_finance for given session """
         try:
             # Execute all statements at once.
-            session.add_all(self.statements)
+            session.add_all(self.statements_finance)
         except Exception as ex:
-            print("Error executing statements: ", ex)
+            print("Error executing statements in ExecuteFinance: ", ex)
 
-    def Print(self):
-        """ Prints the currently held statements. """
-        print('Statements')
-        print('__________','\n')
-        for s in self.statements:
+    def ExecuteStock(self, session):
+        """ Execute list of statements_stock for given session """
+        try:
+            # Execute all statements at once.
+            session.add_all(self.statements_stock)
+        except Exception as ex:
+            print("Error executing statements in ExecuteStock: ", ex)
+
+    def Print(self, listname, tablename):
+        """ Method that actually prints the statement info and text on the screen. """
+        print('Statements for ', tablename)
+        print('________________________','\n')
+        for s in listname:
             print(s)
+
+    def PrintAll(self):
+        """ Prints all the currently held statements in this class. """
+        self.PrintFinance
+        self.PrintStock
+
+    def PrintFinance(self):
+        """ Prints the currently held statements for T_FINANCE. """
+        self.Print(self.statements_finance, 'T_FINANCE')
+
+    def PrintStock(self):
+        """ Prints the currently held statements for T_STOCK. """
+        self.Print(self.statements_stock, 'T_STOCK')
