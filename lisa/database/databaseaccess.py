@@ -289,8 +289,8 @@ class DatabaseAccess():
                               tax=Decimal(fields['tax']),
                               commission=Decimal(fields['commission']),
                               risk=Decimal(fields['risk'])
-                          ).first() is not None
-                    if not obj: 
+                          ).first()
+                    if obj is None: 
                         # NEW
                         records = records + 1
                         statements.append(
@@ -315,6 +315,7 @@ class DatabaseAccess():
                         )
                     else:
                         # UPDATE EXISTING
+                        #TODO: fix - SessionMaker has no attribute save - error
                         obj.date = fields['date']
                         obj.aid = aid
                         obj.pid = pid
@@ -322,7 +323,7 @@ class DatabaseAccess():
                         obj.amount = Decimal(fields['amount'])
                         obj.comment = fields['comment']
                         obj.stock = fields['stock']
-                        obj.market = Decimal(fields['market'])
+                        obj.market = fields['market']
                         obj.shares = int(fields['shares'])
                         obj.price = Decimal(fields['price'])
                         obj.tax = Decimal(fields['tax'])
@@ -385,7 +386,7 @@ class DatabaseAccess():
                     i = i + 1
 
                 print("Executing statements all at once...")
-                statements.Execute(session)
+                statements.ExecuteFinance(session)
 
             except Exception as ex:
                 print("Error in file_import_stocks: ", ex)
@@ -411,17 +412,17 @@ class DatabaseAccess():
             #TODO: add descriptions to mid_from_market and to snid_from_stockname)
             mid = self.mid_from_market(fields_stock[i]['market'], date_created, date_modified)
             snid = self.snid_from_stockname(fields_stock[i]['name'], mid, date_created, date_modified)
-            tax = fields_stock[i]['tax']
-            commission = fields_stock[i]['commission']
+            vartax = Decimal(fields_stock[i]['tax'])
+            varcommission = Decimal(fields_stock[i]['commission'])
 
             obj = session.query(T_STOCK).filter_by(
                       id=id,
                       price=Decimal(fields_stock[i]['price']),
                       shares=int(fields_stock[i]['shares']),
-                      tax=Decimal(fields_stock[i]['tax']),
-                      commission=Decimal(fields_stock[i]['commission'])
-                  ).first() is not None
-            if not obj: 
+                      tax=vartax,
+                      commission=varcommission
+                  ).first()
+            if obj is None: 
                 # NEW
                 statements.Add(
                     id,
@@ -429,8 +430,8 @@ class DatabaseAccess():
                     fields_stock[i]['action'],
                     Decimal(fields_stock[i]['price']),
                     int(fields_stock[i]['shares']),
-                    Decimal(fields_stock[i]['tax']),
-                    Decimal(fields_stock[i]['commission']),
+                    vartax,
+                    varcommission,
                     0,
                     date_created,
                     date_modified,
@@ -443,7 +444,7 @@ class DatabaseAccess():
                 #execute them all at once?
                 #Perhaps use 2 lists: one with new values and one with
                 #values to update?
-
+                print('test:')
         except Exception as ex:
            print("Error in update_stock: ", ex)
         return False;
