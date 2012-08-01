@@ -157,35 +157,4 @@ CREATE TABLE T_TRADE
     constraint fk_sid foreign key(sid) references T_STOCK(sid)
 );
 
--- see ods calc_profile
-/*CREATE TABLE T_PROFILE_PARAMETERS
-(
-);*/
-
--- views?
-/*CREATE TABLE T_PROFILE_INVESTING
-(
-);*/
-
--- view?
-/*CREATE TABLE T_PROFILE_TRADING
-(
-);*/
-
-/*
-DROP VIEW V_REP_TRADEJOURNAL;
-CREATE VIEW V_REP_TRADEJOURNAL
-as
-select
-    t.year,
-    t.month,
-    t.buy_price,
-    t.sell_price,
-    t.stoploss,
-    t.shares_total,
-    t.closed,
-    t.win_flag
-from
-    T_TRADE t
-*/
 COMMIT;
