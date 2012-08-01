@@ -440,10 +440,14 @@ class DatabaseAccess():
                 return True;
             else:
                 # Update existing
-                #WTF should I put here? I add statements to the class and
+                #TODO:WTF should I put here? I add statements to the class and
                 #execute them all at once?
                 #Perhaps use 2 lists: one with new values and one with
                 #values to update?
+                #Note: Why update this? Just assume we only add new stuff,
+                #which is the case anyway.
+                #We do however, need to be able to update the lists in the
+                #Statement class, for when we made a mistake.
                 print('test:')
         except Exception as ex:
            print("Error in update_stock: ", ex)
@@ -669,20 +673,48 @@ class DatabaseAccess():
 
 class Statement():
     """ A class to contain statements to be executed within the orm session. """
-    
+
     def __init__(self):
         """ Init """
         try:
-            self.statements_finance = []
-            self.statements_stock = []
+            self.statements = []
         except Exception as ex:
             print("Error in initialisation of Statements: ", ex)
+    
+    def Remove(self):
+        """ Remove the last statement added for T_FINANCE """
+        self.Remove(nil)
+    
+    def Remove(self, index=-1):
+        """ Remove statement added for T_FINANCE on specified index """
+        try:
+            self.statements.pop(index)
+        except Exception as ex:
+            print("Error removing statement from the list: ", ex)
+    
+    def Execute(self, session):
+        """ Execute list of statements_finance for given session """
+        try:
+            # Execute all statements at once.
+            session.add_all(self.statements)
+        except Exception as ex:
+            print("Error executing statements: ", ex)
 
-    def AddFinance(self, id, snid, action, price, shares, tax, commission, historical, date_created, date_modified, risk):
+    def Print(self, tablename):
+        """ Method that actually prints the statement info and text on the screen. """
+        print('Statements for ', tablename)
+        print('________________________','\n')
+        for s in self.statements:
+            print(s)
+
+class StatementFinance(Statement):
+    """ A derived Statement class for T_FINANCE. """
+    
+    def Add(self, id, snid, action, price, shares, tax, commission, historical, date_created, date_modified, risk):
         """ Add a statement for T_FINANCE """
         try:
             # Add a statement
-            self.statements_finance.append(
+            self.statements.append(
                 T_FINANCE(
                     id,
                     snid,
@@ -698,13 +730,20 @@ class Statement():
                 )
             )
         except Exception as ex:
-            print("Error adding statement: ", ex)
+            print("Error adding statement for T_FINANCE: ", ex)
+    
+    def Print(self):
+        """ Prints the currently held statements for T_FINANCE. """
+        super(StatementFinance, self).Print('T_FINANCE')
 
-    def AddStock(self, id, snid, action, price, shares, tax, commission, historical, date_created, date_modified, risk):
+class StatementStock(Statement):
+    """ A derived Statement class for T_STOCK. """
+    
+    def Add(self, id, snid, action, price, shares, tax, commission, historical, date_created, date_modified, risk):
         """ Add a statement for T_STOCK """
         try:
             # Add a statement
-            self.statements_stock.append(
+            self.statements.append(
                 T_STOCK(
                     id,
                     snid,
@@ -720,40 +759,8 @@ class Statement():
                 )
             )
         except Exception as ex:
-            print("Error adding statement: ", ex)
+            print("Error adding statement for T_STOCK: ", ex)
 
-    def ExecuteFinance(self, session):
-        """ Execute list of statements_finance for given session """
-        try:
-            # Execute all statements at once.
-            session.add_all(self.statements_finance)
-        except Exception as ex:
-            print("Error executing statements in ExecuteFinance: ", ex)
-
-    def ExecuteStock(self, session):
-        """ Execute list of statements_stock for given session """
-        try:
-            # Execute all statements at once.
-            session.add_all(self.statements_stock)
-        except Exception as ex:
-            print("Error executing statements in ExecuteStock: ", ex)
-
-    def Print(self, listname, tablename):
-        """ Method that actually prints the statement info and text on the screen. """
-        print('Statements for ', tablename)
-        print('________________________','\n')
-        for s in listname:
-            print(s)
-
-    def PrintAll(self):
-        """ Prints all the currently held statements in this class. """
-        self.PrintFinance
-        self.PrintStock
-
-    def PrintFinance(self):
-        """ Prints the currently held statements for T_FINANCE. """
-        self.Print(self.statements_finance, 'T_FINANCE')
-
-    def PrintStock(self):
+    def Print(self):
         """ Prints the currently held statements for T_STOCK. """
-        self.Print(self.statements_stock, 'T_STOCK')
+        super(StatementStock, self).Print('T_STOCK')
