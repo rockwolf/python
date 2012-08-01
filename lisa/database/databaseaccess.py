@@ -265,7 +265,7 @@ class DatabaseAccess():
                 print("GENERAL")
                 print("_______")
                 print("Preparing statements...")
-                statements = []
+                statements = StatementFinance()
                 records = 0
                 for fields in fields_db:
                     oid = self.oid_from_object(fields['object'], date_created, date_modified)
@@ -291,6 +291,24 @@ class DatabaseAccess():
                               risk=Decimal(fields['risk'])
                           ).first()
                     if obj is None: 
+                        #TODO: Change the list to contain both an id and the
+                        # T_FINANCE(... object. Then also search in the
+                        # lists if the current id is already present or not
+                        # and change it? => can't work, because it's gonna
+                        # be a new id.
+                        # Updating can only be done on a count record (see
+                        # the one below, and then only when triggered from
+                        # a rowclick or something.
+                        # Aha: input field + press an update button, but
+                        # make sure that at least one row is always selected
+                        # in the table
+                        # Then the rownumber can act as the recordid to
+                        # search for in the statement-list.
+                        # e.g.: StatementsFinance.statements =
+                        # [[1,''],[2,''],[3,'']] 
+                        # and StatementsStock.statements = 
+                        # [[2,''],[3,'']]  (in this ex., only the last 2
+                        # entries are stocks.
                         # NEW
                         records = records + 1
                         statements.append(
@@ -313,26 +331,26 @@ class DatabaseAccess():
                                 Decimal(fields['risk'])
                             )
                         )
-                    else:
-                        # UPDATE EXISTING
-                        #TODO: fix - SessionMaker has no attribute save - error
-                        obj.date = fields['date']
-                        obj.aid = aid
-                        obj.pid = pid
-                        obj.oid = oid
-                        obj.amount = Decimal(fields['amount'])
-                        obj.comment = fields['comment']
-                        obj.stock = fields['stock']
-                        obj.market = fields['market']
-                        obj.shares = int(fields['shares'])
-                        obj.price = Decimal(fields['price'])
-                        obj.tax = Decimal(fields['tax'])
-                        obj.commission = Decimal(fields['commission'])
-                        obj.active = 1
-                        obj.date_modified = date_modified
-                        obj.risk = Decimal(fields['risk'])
-                        session.save(obj)
-                        session.flush()
+                    #else:
+                    #    # UPDATE EXISTING
+                    #    #TODO: fix - SessionMaker has no attribute save - error
+                    #    obj.date = fields['date']
+                    #    obj.aid = aid
+                    #    obj.pid = pid
+                    #    obj.oid = oid
+                    #    obj.amount = Decimal(fields['amount'])
+                    #    obj.comment = fields['comment']
+                    #    obj.stock = fields['stock']
+                    #    obj.market = fields['market']
+                    #    obj.shares = int(fields['shares'])
+                    #    obj.price = Decimal(fields['price'])
+                    #    obj.tax = Decimal(fields['tax'])
+                    #    obj.commission = Decimal(fields['commission'])
+                    #    obj.active = 1
+                    #    obj.date_modified = date_modified
+                    #    obj.risk = Decimal(fields['risk'])
+                    #    session.save(obj)
+                    #    session.flush()
                         
                 print("Executing statements all at once...")
                 session.add_all(statements)
@@ -357,7 +375,7 @@ class DatabaseAccess():
                 print("STOCKS")
                 print("______")
                 print("Preparing statements...")
-                statements = Statement()
+                statements = StatementStock()
                 records = 0
                 i = 0
                 for fields in fields_db:
@@ -438,17 +456,16 @@ class DatabaseAccess():
                     Decimal(fields_stock[i]['risk'])
                 )
                 return True;
-            else:
-                # Update existing
-                #TODO:WTF should I put here? I add statements to the class and
-                #execute them all at once?
-                #Perhaps use 2 lists: one with new values and one with
-                #values to update?
-                #Note: Why update this? Just assume we only add new stuff,
-                #which is the case anyway.
-                #We do however, need to be able to update the lists in the
-                #Statement class, for when we made a mistake.
-                print('test:')
+            #else:
+            #    # Update existing
+            #    #TODO:WTF should I put here? I add statements to the class and
+            #    #execute them all at once?
+            #    #Perhaps use 2 lists: one with new values and one with
+            #    #values to update?
+            #    #Note: Why update this? Just assume we only add new stuff,
+            #    #which is the case anyway.
+            #    #We do however, need to be able to update the lists in the
+            #    #Statement class, for when we made a mistake.
         except Exception as ex:
            print("Error in update_stock: ", ex)
         return False;
@@ -499,6 +516,12 @@ class DatabaseAccess():
         exportline.append(str(line.comment))
         exportline.append(str(line.risk))
         return exportline
+
+    def remove_line(self, rownumber):
+        """ Removes a line from the table. """
+        #TODO: when trade.tx, tr... etc. (= stock), remove from both
+        #classes.
+        #TODO: make the Statement-classes accessible from this function?
 
     def oid_from_object(self, object_, date_created, date_modified):
         """ Get the oid from an object. """
