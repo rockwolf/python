@@ -140,9 +140,13 @@ CREATE TABLE T_TRADE
     tid serial not null,
     sid int not null, /* this becomes the link to t_finance: find the sid in T_TRADE (with the correct year and month that's not closed. Otherwise, make another. */
     date_buy timestamp not null default current_date,
+    year_buy int not null default 0,
+    month_buy int not null default 0,
+    day_buy int not null default 0,
     date_sell timestamp not null default current_date,
-    year int not null default 0,
-    month int not null default 0,
+    year_sell int not null default 0,
+    month_sell int not null default 0,
+    day_sell int not null default 0,
     buy_price decimal(18,4) not null default 0.0, /* (buy_price + new buy_price)/2 */
     sell_price decimal(18,4) not null default 0.0, /* (sell_price + new sell_price)/2 */
     stoploss decimal(18,4) not null default 0.0, /* automatically recalculate this */
