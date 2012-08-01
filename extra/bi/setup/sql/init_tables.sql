@@ -75,17 +75,14 @@ values(1, 32, 2012, 1, 150.0, 1, current_date, current_date); -- utilities
 insert into T_BUDGET(bnid, bcid, year, month, amount, active, date_created, date_modified)
 values(1, 34, 2012, 1, 0.0, 1, current_date, current_date); -- other
 
-/* T_ALLOCATION_CAPITAL */
-insert into T_ALLOCATION_CAPITAL(allocation_proc, description, date_created, date_modified)
-values(20.0, 'offense - trading', current_date, current_date);
-
-insert into T_ALLOCATION_CAPITAL(allocation_proc, description, date_created, date_modified)
-values(80.0, 'defense - dividend', current_date, current_date);
-
-insert into T_ALLOCATION_CAPITAL(allocation_proc, description, date_created, date_modified)
-values(0.0, 'spy offense - growth', current_date, current_date);
-
-insert into T_ALLOCATION_CAPITAL(allocation_proc, description, date_created, date_modified)
-values(0.0, 'spy defense - cash', current_date, current_date);
+/* T_PROFILE */
+INSERT INTO T_PROFILE(
+    1,
+    defense_percentage,
+    offense_percentage,
+    investing_percentage,
+    cash_percentage,
+    trading_percentage)
+values(80, 20, 80, 20, 100);
 
 commit;

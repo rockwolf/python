@@ -69,4 +69,24 @@ CREATE TABLE T_ALLOCATION_CAPITAL
     constraint pk_acid primary key(acid)
 );
 
+/* T_PROFILE */
+--TODO: check if this table exists at startup of lisa.
+--if it does, enable an update button for the profile
+--(or even update automatically?)
+--This allows for manual manipulation when needed.
+-- Note: sometimes you can fill in investing and get values,
+-- sometimes you fill in something else and then you get values.
+-- This can not be done automatically.
+-- Perhaps keep the ods for playing around and just use 80 20 values here?
+-- -> YES!
+CREATE TABLE T_PROFILE
+(
+    profile_id int not null,
+    defense_percentage decimal(3,2) not null default 0.0,
+    offense_percentage decimal(3,2) not null default 0.0,
+    investing_percentage decimal(3,2) not null default 0.0,
+    cash_percentage decimal(3,2) not null default 0.0,
+    trading_percentage decimal(3,2) not null default 0.0,
+    constraint pk_profile_id primary key(profile_id)
+);
 COMMIT;

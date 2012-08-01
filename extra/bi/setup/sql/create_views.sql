@@ -395,7 +395,7 @@ where
     group by
         y.year, p.name
 
-/* TODO: put this in tj */
+/* TODO: put this in tj and finish the calculations. */
 /* V_REP_TRADING_JOURNAL */
 --DROP VIEW V_REP_TRADING_JOURNAL;
 CREATE VIEW V_REP_TRADING_JOURNAL
@@ -414,11 +414,18 @@ from
 where
     p.pid = 23 or p.pid = 24;
 
-/* V_REP_ALLOCATION_CAPITAL */
---DROP VIEW V_REP_ALLOCATION_CAPITAL;
-CREATE VIEW V_REP_ALLOCATION_CAPITAL
+/* V_REP_PROFILE */
+--DROP VIEW V_REP_PROFILE;
+CREATE VIEW V_REP_PROFILE
 AS
 select
+    'dummy_defense' as defense,
+    'dummy_offense' as offense,
+    'dummy_defense_investing' as investing,
+    'dummy_defense_cash' as cash,
+    'dummy_offense_trading' as trading
+    /* something like this:
+    select
     sum(f.amount) as pool,
     sum(f.amount)/(select allocation_proc from T_ALLOCATION_CAPITAL where acid = 1) as offense,
     sum(f.amount) - sum(f.amount)/(select allocation_proc from T_ALLOCATION_CAPITAL where acid = 2) as defense
@@ -426,6 +433,10 @@ from
     t_finance f
 where
     f.pid = 1
-    and f.aid = 4;
+    and f.aid = 4;*/
+from
+    t_finance f 
+        inner join T_ACCOUNT a on f.aid = a.aid
+        inner join T_PRODUCT p on f.pid = p.pid
 
 COMMIT;
