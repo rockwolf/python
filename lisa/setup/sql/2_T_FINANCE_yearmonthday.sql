@@ -7,6 +7,6 @@
 alter table t_finance add year int not null default 0;
 alter table t_finance add month int not null default 0;
 alter table t_finance add day int not null default 0;
-update t_finance set year = (select EXTRACT(YEAR from date) from t_finance);
-update t_finance set month = (select EXTRACT(MONTH from date) from t_finance);
-update t_finance set day = (select EXTRACT(DAY from date) from t_finance);
+update t_finance set year = EXTRACT(YEAR from date);
+update t_finance set month = EXTRACT(MONTH from date);
+update t_finance set day = EXTRACT(DAY from date);
