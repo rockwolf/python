@@ -275,9 +275,6 @@ class DatabaseAccess():
                     aid = self.aid_from_account(fields['account'], date_created, date_modified)
                     pid = self.pid_from_product(fields['product'], date_created, date_modified)
                                             
-                    #TODO: date contains HH:MM:SS too, fin a way to skip
-                    #that, perhaps by using F_YEAR, F_MONTH and F_DAY in the
-                    #tables.
                     obj = session.query(T_FINANCE).filter_by(
                               date=fields['date'],
                               aid=aid,
@@ -332,9 +329,13 @@ class DatabaseAccess():
                                 1,
                                 date_created,
                                 date_modified,
-                                Decimal(fields['risk'])
+                                Decimal(fields['risk']),
+                                fields['date'].year,
+                                fields['date'].month,
+                                fields['date'].day
                             )
                         )
+                        
                     #else:
                     #    # UPDATE EXISTING
                     #    #TODO: fix - SessionMaker has no attribute save - error
@@ -379,7 +380,7 @@ class DatabaseAccess():
                 print("STOCKS")
                 print("______")
                 print("Preparing statements...")
-                statements = StatementStock()
+                self.statementStock = StatementStock()
                 records = 0
                 i = 0
                 for fields in fields_db:
@@ -394,13 +395,21 @@ class DatabaseAccess():
                             pid=pid,
                             oid=oid,
                             amount=Decimal(fields['amount']),
-                            comment=fields['comment']
+                            comment=fields['comment'],
+                            market=fields['market'],
+                            stock=fields['stock'],
+                            shares=int(fields['shares']),
+                            price=Decimal(fields['price']),
+                            tax=Decimal(fields['tax']),
+                            commission=Decimal(fields['commission']),
+                            risk=Decimal(fields['risk'])
                         ):
                             id = instance.id
 
                         if fields_stock[i] != {}:
                             # Add new entry if it doesn't already exist
-                            if self.update_stock(fields_stock, session, i, id, statements):
+                            if self.update_stock(fields_stock, session, i,
+                                    id, i):
                                 records = records + 1
                     # fields_db and fields_stock are the same size,
                     # so we use an integer in the fields_db loop as an index
@@ -420,10 +429,10 @@ class DatabaseAccess():
         except Exception as ex:
             print("Error creating session in file_import_stocks: ", ex)
 
-    def update_finance(self, fields_db, session, i, id, statements):
+    def update_finance(self, fields_db, session, i, id, recordid):
         """ Add a new finance entry or update an existing one. """
 
-    def update_stock(self, fields_stock, session, i, id, statements):
+    def update_stock(self, fields_stock, session, i, id, recordid):
         """ Add a new stock entry or update an existing one. """
         try:
             now = datetime.now()
@@ -446,18 +455,21 @@ class DatabaseAccess():
                   ).first()
             if obj is None: 
                 # NEW
-                statements.Add(
-                    id,
-                    snid,
-                    fields_stock[i]['action'],
-                    Decimal(fields_stock[i]['price']),
-                    int(fields_stock[i]['shares']),
-                    vartax,
-                    varcommission,
-                    0,
-                    date_created,
-                    date_modified,
-                    Decimal(fields_stock[i]['risk'])
+                self.statementStock.Add(
+                    recordid,
+                    T_STOCK(
+                        id,
+                        snid,
+                        fields_stock[i]['action'],
+                        Decimal(fields_stock[i]['price']),
+                        int(fields_stock[i]['shares']),
+                        vartax,
+                        varcommission,
+                        0,
+                        date_created,
+                        date_modified,
+                        Decimal(fields_stock[i]['risk'])
+                    )
                 )
                 return True;
             #else:
