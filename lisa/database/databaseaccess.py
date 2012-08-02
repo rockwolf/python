@@ -85,6 +85,9 @@ class DatabaseAccess():
             self.sqlcreate = [ 'create_tables.sql' ]
             self.sqlinit = [ 'init_tables.sql' ]
             self.msgHandler = __import__('messagehandler')
+
+            self.statementFinance = StatementFinance()
+            self.statementStock = StatementStock()
         except Exception as ex:
             print("Error in initialisation of DatabaseAccess: ", ex)
     
@@ -265,7 +268,7 @@ class DatabaseAccess():
                 print("GENERAL")
                 print("_______")
                 print("Preparing statements...")
-                statements = StatementFinance()
+                self.statementFinance = StatementFinance()
                 records = 0
                 for fields in fields_db:
                     oid = self.oid_from_object(fields['object'], date_created, date_modified)
@@ -311,7 +314,8 @@ class DatabaseAccess():
                         # entries are stocks.
                         # NEW
                         records = records + 1
-                        statements.append(
+                        self.statementFinance.Add(
+                            records,
                             T_FINANCE(
                                 fields['date'],
                                 aid,
@@ -404,7 +408,7 @@ class DatabaseAccess():
                     i = i + 1
 
                 print("Executing statements all at once...")
-                statements.ExecuteFinance(session)
+                statements.Execute(session)
 
             except Exception as ex:
                 print("Error in file_import_stocks: ", ex)
@@ -703,22 +707,33 @@ class Statement():
             self.statements = []
         except Exception as ex:
             print("Error in initialisation of Statements: ", ex)
-    
-    def Remove(self):
-        """ Remove the last statement added for T_FINANCE """
-        self.Remove(nil)
-    
+ 
+    def Add(self, recordid, tablerow_object, tablename='table'):
+        """ Add a statement with recordid and tablerow object. """
+        try:
+            # Add a statement
+            # recordid
+            self.statements[recordid-1].append(recordid)
+            # tablerow object (statement)
+            self.statements[recordid-1].append(tablerow_object)
+        except Exception as ex:
+            print("Error adding statement for ", tablename, ": ", ex)
+   
     def Remove(self, index=-1):
-        """ Remove statement added for T_FINANCE on specified index """
+        """ Remove statement added on specified index """
         try:
             self.statements.pop(index)
         except Exception as ex:
             print("Error removing statement from the list: ", ex)
     
     def Execute(self, session):
-        """ Execute list of statements_finance for given session """
+        """ Execute list of statements for given session """
         try:
-            # Execute all statements at once.
+            # First collect the statements, without the recordid.
+            tablerow_objects = []
+            for line in self.statements:
+                tablerow_objects.append(line[1])
+            # Now add the tablerows to the database, all at once.
             session.add_all(self.statements)
         except Exception as ex:
             print("Error executing statements: ", ex)
@@ -733,57 +748,29 @@ class Statement():
 class StatementFinance(Statement):
     """ A derived Statement class for T_FINANCE. """
     
-    def Add(self, id, snid, action, price, shares, tax, commission, historical, date_created, date_modified, risk):
-        """ Add a statement for T_FINANCE """
-        try:
-            # Add a statement
-            self.statements.append(
-                T_FINANCE(
-                    id,
-                    snid,
-                    action,
-                    price,
-                    shares,
-                    tax,
-                    commission,
-                    historical,
-                    date_created,
-                    date_modified,
-                    risk
-                )
-            )
-        except Exception as ex:
-            print("Error adding statement for T_FINANCE: ", ex)
-    
+    def Add(self, recordid, tablerow_object):
+        """ Add a statement with recordid and tablerow object for T_FINANCE. """
+        super(StatementFinance, self).Add(
+            recordid,
+            tablerow_object,
+            'T_FINANCE'
+        )
+
     def Print(self):
         """ Prints the currently held statements for T_FINANCE. """
         super(StatementFinance, self).Print('T_FINANCE')
 
 class StatementStock(Statement):
     """ A derived Statement class for T_STOCK. """
-    
-    def Add(self, id, snid, action, price, shares, tax, commission, historical, date_created, date_modified, risk):
-        """ Add a statement for T_STOCK """
-        try:
-            # Add a statement
-            self.statements.append(
-                T_STOCK(
-                    id,
-                    snid,
-                    action,
-                    price,
-                    shares,
-                    tax,
-                    commission,
-                    historical,
-                    date_created,
-                    date_modified,
-                    risk
-                )
-            )
-        except Exception as ex:
-            print("Error adding statement for T_STOCK: ", ex)
-
+ 
+    def Add(self, recordid, tablerow_object):
+        """ Add a statement with recordid and tablerow object for T_STOCK. """
+        super(StatementStock, self).Add(
+            recordid,
+            tablerow_object,
+            'T_STOCK'
+        )
+   
     def Print(self):
         """ Prints the currently held statements for T_STOCK. """
         super(StatementStock, self).Print('T_STOCK')
