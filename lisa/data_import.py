@@ -46,12 +46,11 @@ class FileImport():
                 #print(line)
                 try:
                     fields = line.strip().split(':')
-                    # The "or 0.0" avoids the invalid string literal error when converting a None value to int or decimal    
                     fields_db.append({
                         'date':fields[0],
                         'account':str(fields[1]), #Note: Get AID from T_ACCOUNT for final insert
-                        'product':str(fields[2]), #Note: Get PID from T_PRODUCT for final insert
-                        'object':str(fields[3]), #Note: Get OID from T_OBJECT for final insert
+                        'category':str(fields[2]), #Note: Get CID from T_CATEGORY for final insert
+                        'subcategory':str(fields[3]), #Note: Get SCID from T_SUBCATEGORY for final insert
                         'amount':Decimal(fields[4]), 
                         'stock':str(fields[5]),
                         'market':str(fields[6]),

@@ -62,7 +62,7 @@ class DatabaseAccess():
             self.tblcategory = Table('t_category', self.metadata, autoload=True)
             self.tblmargin = Table('t_margin', self.metadata, autoload=True)
             self.tblmargintype = Table('t_margin_type', self.metadata, autoload=True)
-            self.tblsubcategory = Table('t_sub_category', self.metadata, autoload=True)
+            self.tblsubcategory = Table('t_subcategory', self.metadata, autoload=True)
             self.tblaccount = Table('t_account', self.metadata, autoload=True)
             
             self.map_tables()
@@ -76,7 +76,7 @@ class DatabaseAccess():
                 'category': 't_category',
                 'margin': 't_margin',
                 'margintype': 't_margin_type',
-                'subcategory': 't_sub_category',
+                'subcategory': 't_subcategory',
                 'account': 't_account'
             }
 
@@ -271,7 +271,7 @@ class DatabaseAccess():
                 self.statementFinance = StatementFinance()
                 records = 0
                 for fields in fields_db:
-                    scid = self.scid_from_subcategory(fields['subcat'], date_created, date_modified)
+                    scid = self.scid_from_subcategory(fields['subcategory'], date_created, date_modified)
                     aid = self.aid_from_account(fields['account'], date_created, date_modified)
                     cid = self.cid_from_category(fields['category'], date_created, date_modified)
                                             
@@ -385,7 +385,8 @@ class DatabaseAccess():
                 i = 0
                 for fields in fields_db:
                     if (not fields['stock'] == '') :
-                        scid = self.scid_from_subcategory(fields['subcat'], date_created, date_modified)
+                        scid =
+                        self.scid_from_subcategory(fields['subcategory'], date_created, date_modified)
                         aid = self.aid_from_account(fields['account'], date_created, date_modified)
                         cid = self.cid_from_category(fields['category'], date_created, date_modified)
                         # Get id from T_FINANCE (to import in T_STOCK)
@@ -540,22 +541,23 @@ class DatabaseAccess():
         #classes.
         #TODO: make the Statement-classes accessible from this function?
 
-    def scid_from_subcategory(self, subcat, date_created, date_modified):
+    def scid_from_subcategory(self, subcategory, date_created, date_modified):
         """ Get the scid from a subcategory. """
         result = -1
         session = self.Session()
         try:
-            # Get scid, based on subcat name
-            # but first check if the subcat already exists
+            # Get scid, based on subcategory
+            # but first check if the subcategory already exists
             # in T_SUBCATEGORY. If not, add it to the t_sub_categorytable.
-            obj = session.query(T_SUBCATEGORY).filter_by(name=subcat).first() is not None
+            obj = session.query(T_SUBCATEGORY).filter_by(name=subcategory).first() is not None
             if not obj: 
-                session.add(T_SUBCATEGORY(subcat, date_created, date_modified))
+                session.add(T_SUBCATEGORY(subcategory, date_created, date_modified))
                 session.commit()
                 for instance in session.query(func.max(T_SUBCATEGORY.scid).label('scid')):
                     result = instance.scid
             else:
-                for instance in session.query(T_SUBCATEGORY).filter_by(name=subcat):
+                for instance in
+                    session.query(T_SUBCATEGORY).filter_by(name=subcategory):
                     result = str(instance.scid)
         except Exception as ex:
             print("Error retrieving scid: ", ex)
