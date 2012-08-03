@@ -1,3 +1,0 @@
-BEGIN;
-drop table T_TRADING_JOURNAL;
-COMMIT;
