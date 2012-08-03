@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dm:diagramModel xmlns:dm="http://sqldeveloper.solyp.com/diagram/diagrammodel" xmlns:ddm="http://sqldeveloper.solyp.com/diagram/diagramdatamodel" xmlns:dgm="http://sqldeveloper.solyp.com/diagram/diagramgraphmodel" version="1.2.0">
+<dm:properties creationDate="2012-08-03T10:22:39Z" creator="anagels" modificationDate="2012-08-03T10:32:20Z" modifier="anagels"/>
+<dm:diagramDataModel>
+<ddm:objects/>
+<ddm:tables>
+<ddm:table id="31" name="T_ACCOUNT">
+<ddm:tableColumns>
+<ddm:tableColumn defaultValue="" id="32" name="aid" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="" id="33" name="name" nullable="false" scale="" size="6" typeName="varchar"/>
+<ddm:tableColumn defaultValue="(getdate())" id="34" name="date_created" nullable="false" scale="" size="" typeName="datetime"/>
+<ddm:tableColumn defaultValue="(getdate())" id="35" name="date_modified" nullable="false" scale="" size="" typeName="datetime"/>
+</ddm:tableColumns>
+<ddm:primaryKey id="36" name="pk_aid">
+<ddm:refIds>
+<ddm:refId value="32"/>
+</ddm:refIds>
+</ddm:primaryKey>
+</ddm:table>
+<ddm:table id="9" name="T_FINANCE">
+<ddm:tableColumns>
+<ddm:tableColumn defaultValue="" id="10" name="id" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="(getdate())" id="11" name="date" nullable="false" scale="" size="" typeName="datetime"/>
+<ddm:tableColumn defaultValue="((0))" id="12" name="year" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="((0))" id="13" name="month" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="((0))" id="14" name="day" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="" id="15" name="aid" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="" id="16" name="pid" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="" id="17" name="oid" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="((0.0))" id="18" name="amount" nullable="false" scale="4" size="18" typeName="decimal"/>
+<ddm:tableColumn defaultValue="('')" id="19" name="comment" nullable="false" scale="" size="256" typeName="varchar"/>
+<ddm:tableColumn defaultValue="('')" id="20" name="market" nullable="false" scale="" size="256" typeName="varchar"/>
+<ddm:tableColumn defaultValue="('')" id="21" name="stock" nullable="false" scale="" size="256" typeName="varchar"/>
+<ddm:tableColumn defaultValue="((0))" id="22" name="shares" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="((0.0))" id="23" name="price" nullable="false" scale="4" size="18" typeName="decimal"/>
+<ddm:tableColumn defaultValue="((0.0))" id="24" name="tax" nullable="false" scale="4" size="18" typeName="decimal"/>
+<ddm:tableColumn defaultValue="((0.0))" id="25" name="commission" nullable="false" scale="4" size="18" typeName="decimal"/>
+<ddm:tableColumn defaultValue="((0))" id="26" name="reference" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="((1))" id="27" name="active" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="(getdate())" id="28" name="date_created" nullable="false" scale="" size="" typeName="datetime"/>
+<ddm:tableColumn defaultValue="(getdate())" id="29" name="date_modified" nullable="false" scale="" size="" typeName="datetime"/>
+</ddm:tableColumns>
+<ddm:primaryKey id="30" name="pk_id">
+<ddm:refIds>
+<ddm:refId value="10"/>
+</ddm:refIds>
+</ddm:primaryKey>
+</ddm:table>
+<ddm:table id="1" name="T_MARGIN">
+<ddm:tableColumns>
+<ddm:tableColumn defaultValue="" id="2" name="smid" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="" id="3" name="margin_type_id" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="('')" id="4" name="description" nullable="false" scale="" size="100" typeName="varchar"/>
+<ddm:tableColumn defaultValue="((0.0))" id="5" name="value" nullable="false" scale="4" size="18" typeName="decimal"/>
+<ddm:tableColumn defaultValue="(getdate())" id="6" name="date_created" nullable="false" scale="" size="" typeName="datetime"/>
+<ddm:tableColumn defaultValue="(getdate())" id="7" name="date_modified" nullable="false" scale="" size="" typeName="datetime"/>
+</ddm:tableColumns>
+<ddm:primaryKey id="8" name="pk_smid">
+<ddm:refIds>
+<ddm:refId value="2"/>
+</ddm:refIds>
+</ddm:primaryKey>
+</ddm:table>
+<ddm:table id="37" name="T_MARGIN_TYPE">
+<ddm:tableColumns>
+<ddm:tableColumn defaultValue="" id="38" name="mtid" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="" id="39" name="margin_type" nullable="false" scale="" size="50" typeName="varchar"/>
+</ddm:tableColumns>
+<ddm:primaryKey id="40" name="pk_mtid">
+<ddm:refIds>
+<ddm:refId value="38"/>
+</ddm:refIds>
+</ddm:primaryKey>
+</ddm:table>
+<ddm:table id="41" name="T_MARKET">
+<ddm:tableColumns>
+<ddm:tableColumn defaultValue="" id="42" name="mid" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="" id="43" name="code" nullable="false" scale="" size="5" typeName="varchar"/>
+<ddm:tableColumn defaultValue="" id="44" name="name" nullable="false" scale="" size="30" typeName="varchar"/>
+<ddm:tableColumn defaultValue="" id="45" name="country" nullable="false" scale="" size="3" typeName="char"/>
+<ddm:tableColumn defaultValue="(getdate())" id="46" name="date_created" nullable="false" scale="" size="" typeName="datetime"/>
+<ddm:tableColumn defaultValue="(getdate())" id="47" name="date_modified" nullable="false" scale="" size="" typeName="datetime"/>
+</ddm:tableColumns>
+<ddm:primaryKey id="48" name="pk_mid">
+<ddm:refIds>
+<ddm:refId value="42"/>
+</ddm:refIds>
+</ddm:primaryKey>
+</ddm:table>
+<ddm:table id="49" name="T_OBJECT">
+<ddm:tableColumns>
+<ddm:tableColumn defaultValue="" id="50" name="oid" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="" id="51" name="name" nullable="false" scale="" size="20" typeName="varchar"/>
+<ddm:tableColumn defaultValue="(getdate())" id="52" name="date_created" nullable="false" scale="" size="" typeName="datetime"/>
+<ddm:tableColumn defaultValue="(getdate())" id="53" name="date_modified" nullable="false" scale="" size="" typeName="datetime"/>
+</ddm:tableColumns>
+<ddm:primaryKey id="54" name="pk_oid">
+<ddm:refIds>
+<ddm:refId value="50"/>
+</ddm:refIds>
+</ddm:primaryKey>
+</ddm:table>
+<ddm:table id="55" name="T_PRODUCT">
+<ddm:tableColumns>
+<ddm:tableColumn defaultValue="" id="56" name="pid" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="" id="57" name="name" nullable="false" scale="" size="30" typeName="varchar"/>
+<ddm:tableColumn defaultValue="" id="58" name="flg_income" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="(getdate())" id="59" name="date_created" nullable="false" scale="" size="" typeName="datetime"/>
+<ddm:tableColumn defaultValue="(getdate())" id="60" name="date_modified" nullable="false" scale="" size="" typeName="datetime"/>
+</ddm:tableColumns>
+<ddm:primaryKey id="61" name="pk_pid">
+<ddm:refIds>
+<ddm:refId value="56"/>
+</ddm:refIds>
+</ddm:primaryKey>
+</ddm:table>
+<ddm:table id="62" name="T_STOCK">
+<ddm:tableColumns>
+<ddm:tableColumn defaultValue="" id="63" name="sid" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="" id="64" name="id" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="" id="65" name="snid" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="" id="66" name="action" nullable="false" scale="" size="50" typeName="varchar"/>
+<ddm:tableColumn defaultValue="((0.0))" id="67" name="price" nullable="false" scale="4" size="18" typeName="decimal"/>
+<ddm:tableColumn defaultValue="((0))" id="68" name="shares" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="((0.0))" id="69" name="tax" nullable="false" scale="4" size="18" typeName="decimal"/>
+<ddm:tableColumn defaultValue="((0.0))" id="70" name="commission" nullable="false" scale="4" size="18" typeName="decimal"/>
+<ddm:tableColumn defaultValue="((0.0))" id="71" name="historical" nullable="false" scale="4" size="18" typeName="decimal"/>
+<ddm:tableColumn defaultValue="(getdate())" id="72" name="date_created" nullable="false" scale="" size="" typeName="datetime"/>
+<ddm:tableColumn defaultValue="(getdate())" id="73" name="date_modified" nullable="false" scale="" size="" typeName="datetime"/>
+</ddm:tableColumns>
+<ddm:primaryKey id="74" name="pk_sid">
+<ddm:refIds>
+<ddm:refId value="63"/>
+</ddm:refIds>
+</ddm:primaryKey>
+</ddm:table>
+<ddm:table id="75" name="T_STOCK_CURRENT">
+<ddm:tableColumns>
+<ddm:tableColumn defaultValue="" id="76" name="code" nullable="false" scale="" size="5" typeName="varchar"/>
+<ddm:tableColumn defaultValue="" id="77" name="name" nullable="false" scale="" size="20" typeName="varchar"/>
+<ddm:tableColumn defaultValue="((0))" id="78" name="shares" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="((0.0))" id="79" name="current_value" nullable="false" scale="4" size="18" typeName="decimal"/>
+<ddm:tableColumn defaultValue="((0.0))" id="80" name="buy_value" nullable="false" scale="4" size="18" typeName="decimal"/>
+<ddm:tableColumn defaultValue="((0.0))" id="81" name="amount" nullable="false" scale="4" size="18" typeName="decimal"/>
+<ddm:tableColumn defaultValue="((0))" id="82" name="historical" nullable="false" scale="4" size="18" typeName="decimal"/>
+<ddm:tableColumn defaultValue="((0.0))" id="83" name="yield" nullable="false" scale="4" size="18" typeName="decimal"/>
+<ddm:tableColumn defaultValue="((0.0))" id="84" name="yield_percent" nullable="false" scale="4" size="18" typeName="decimal"/>
+<ddm:tableColumn defaultValue="(getdate())" id="85" name="date_created" nullable="false" scale="" size="" typeName="datetime"/>
+<ddm:tableColumn defaultValue="(getdate())" id="86" name="date_modified" nullable="false" scale="" size="" typeName="datetime"/>
+</ddm:tableColumns>
+<ddm:primaryKey id="87" name="PK__T_STOCK___82535E09534D60F1">
+<ddm:refIds>
+<ddm:refId value="76"/>
+<ddm:refId value="77"/>
+</ddm:refIds>
+</ddm:primaryKey>
+</ddm:table>
+<ddm:table id="88" name="T_STOCK_NAME">
+<ddm:tableColumns>
+<ddm:tableColumn defaultValue="" id="89" name="snid" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="" id="90" name="name" nullable="false" scale="" size="15" typeName="varchar"/>
+<ddm:tableColumn defaultValue="" id="91" name="mid" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="('')" id="92" name="description" nullable="false" scale="" size="256" typeName="varchar"/>
+<ddm:tableColumn defaultValue="(getdate())" id="93" name="date_created" nullable="false" scale="" size="" typeName="datetime"/>
+<ddm:tableColumn defaultValue="(getdate())" id="94" name="date_modified" nullable="false" scale="" size="" typeName="datetime"/>
+</ddm:tableColumns>
+<ddm:primaryKey id="95" name="pk_snid">
+<ddm:refIds>
+<ddm:refId value="89"/>
+</ddm:refIds>
+</ddm:primaryKey>
+</ddm:table>
+<ddm:table id="96" name="T_TRADE">
+<ddm:tableColumns>
+<ddm:tableColumn defaultValue="" id="97" name="tid" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="" id="98" name="sid" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="(getdate())" id="99" name="date_buy" nullable="false" scale="" size="" typeName="datetime"/>
+<ddm:tableColumn defaultValue="((0))" id="100" name="year_buy" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="((0))" id="101" name="month_buy" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="((0))" id="102" name="day_buy" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="(getdate())" id="103" name="date_sell" nullable="false" scale="" size="" typeName="datetime"/>
+<ddm:tableColumn defaultValue="((0))" id="104" name="year_sell" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="((0))" id="105" name="month_sell" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="((0))" id="106" name="day_sell" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="((1))" id="107" name="long_flag" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="((0.0))" id="108" name="buy_price" nullable="false" scale="4" size="18" typeName="decimal"/>
+<ddm:tableColumn defaultValue="((0.0))" id="109" name="sell_price" nullable="false" scale="4" size="18" typeName="decimal"/>
+<ddm:tableColumn defaultValue="((0.0))" id="110" name="stoploss" nullable="false" scale="4" size="18" typeName="decimal"/>
+<ddm:tableColumn defaultValue="((0))" id="111" name="shares_total" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="((1))" id="112" name="win_flag" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="((0))" id="113" name="drawdown" nullable="false" scale="" size="10" typeName="int"/>
+<ddm:tableColumn defaultValue="(getdate())" id="114" name="date_created" nullable="false" scale="" size="" typeName="datetime"/>
+<ddm:tableColumn defaultValue="(getdate())" id="115" name="date_modified" nullable="false" scale="" size="" typeName="datetime"/>
+</ddm:tableColumns>
+<ddm:primaryKey id="116" name="pk_tid">
+<ddm:refIds>
+<ddm:refId value="97"/>
+</ddm:refIds>
+</ddm:primaryKey>
+</ddm:table>
+</ddm:tables>
+<ddm:views/>
+<ddm:references>
+<ddm:reference id="117" name="fk_aid" sourceRefId="9" targetRefId="31">
+<ddm:referenceJoins>
+<ddm:referenceJoin sourceColumnRefId="15" targetColumnRefId="32"/>
+</ddm:referenceJoins>
+</ddm:reference>
+<ddm:reference id="121" name="fk_id" sourceRefId="62" targetRefId="9">
+<ddm:referenceJoins>
+<ddm:referenceJoin sourceColumnRefId="64" targetColumnRefId="10"/>
+</ddm:referenceJoins>
+</ddm:reference>
+<ddm:reference id="122" name="fk_margin_type_id" sourceRefId="1" targetRefId="37">
+<ddm:referenceJoins>
+<ddm:referenceJoin sourceColumnRefId="3" targetColumnRefId="38"/>
+</ddm:referenceJoins>
+</ddm:reference>
+<ddm:reference id="118" name="fk_mid" sourceRefId="88" targetRefId="41">
+<ddm:referenceJoins>
+<ddm:referenceJoin sourceColumnRefId="91" targetColumnRefId="42"/>
+</ddm:referenceJoins>
+</ddm:reference>
+<ddm:reference id="119" name="fk_oid" sourceRefId="9" targetRefId="49">
+<ddm:referenceJoins>
+<ddm:referenceJoin sourceColumnRefId="17" targetColumnRefId="50"/>
+</ddm:referenceJoins>
+</ddm:reference>
+<ddm:reference id="120" name="fk_pid" sourceRefId="9" targetRefId="55">
+<ddm:referenceJoins>
+<ddm:referenceJoin sourceColumnRefId="16" targetColumnRefId="56"/>
+</ddm:referenceJoins>
+</ddm:reference>
+<ddm:reference id="124" name="fk_sid" sourceRefId="96" targetRefId="62">
+<ddm:referenceJoins>
+<ddm:referenceJoin sourceColumnRefId="98" targetColumnRefId="63"/>
+</ddm:referenceJoins>
+</ddm:reference>
+<ddm:reference id="123" name="fk_snid" sourceRefId="62" targetRefId="88">
+<ddm:referenceJoins>
+<ddm:referenceJoin sourceColumnRefId="65" targetColumnRefId="89"/>
+</ddm:referenceJoins>
+</ddm:reference>
+</ddm:references>
+<ddm:dependencies/>
+</dm:diagramDataModel>
+<dm:diagramGraphModel>
+<dgm:tables>
+<dgm:table refId="1">
+<dgm:style backgroundColor="#ffffcc" bounds="50.0 50.0 208.0 125.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
+</dgm:table>
+<dgm:table refId="96">
+<dgm:style backgroundColor="#99ccff" bounds="740.0 164.0 202.0 333.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
+</dgm:table>
+<dgm:table refId="37">
+<dgm:style backgroundColor="#ffffcc" bounds="61.0 248.0 177.0 61.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
+</dgm:table>
+<dgm:table refId="9">
+<dgm:style backgroundColor="#ffffa0" bounds="317.0 179.0 202.0 349.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
+</dgm:table>
+<dgm:table refId="41">
+<dgm:style backgroundColor="#ffcc66" bounds="858.0 621.0 188.0 125.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
+</dgm:table>
+<dgm:table refId="75">
+<dgm:style backgroundColor="#cccccc" bounds="39.0 399.0 202.0 205.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
+</dgm:table>
+<dgm:table refId="49">
+<dgm:style backgroundColor="#ff9999" bounds="286.0 14.0 188.0 93.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
+</dgm:table>
+<dgm:table refId="55">
+<dgm:style backgroundColor="#ff9999" bounds="506.0 11.0 188.0 109.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
+</dgm:table>
+<dgm:table refId="62">
+<dgm:style backgroundColor="#ffcc66" bounds="320.0 586.0 202.0 205.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
+</dgm:table>
+<dgm:table refId="88">
+<dgm:style backgroundColor="#ffcc66" bounds="606.0 625.0 195.0 125.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
+</dgm:table>
+<dgm:table refId="31">
+<dgm:style backgroundColor="#99cc99" bounds="740.0 8.0 181.0 93.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
+</dgm:table>
+</dgm:tables>
+<dgm:views/>
+<dgm:references>
+<dgm:reference refId="124">
+<dgm:style color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="10.0 10.0 20.0 20.0"/>
+</dgm:reference>
+<dgm:reference refId="123">
+<dgm:style color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="10.0 10.0 20.0 20.0"/>
+</dgm:reference>
+<dgm:reference refId="122">
+<dgm:style color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="10.0 10.0 20.0 20.0"/>
+</dgm:reference>
+<dgm:reference refId="121">
+<dgm:style color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="10.0 10.0 20.0 20.0"/>
+</dgm:reference>
+<dgm:reference refId="120">
+<dgm:style color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="10.0 10.0 20.0 20.0"/>
+</dgm:reference>
+<dgm:reference refId="119">
+<dgm:style color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="10.0 10.0 20.0 20.0"/>
+</dgm:reference>
+<dgm:reference refId="118">
+<dgm:style color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="10.0 10.0 20.0 20.0"/>
+</dgm:reference>
+<dgm:reference refId="117">
+<dgm:style color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="10.0 10.0 20.0 20.0"/>
+</dgm:reference>
+</dgm:references>
+<dgm:dependencies/>
+</dm:diagramGraphModel>
+</dm:diagramModel>
