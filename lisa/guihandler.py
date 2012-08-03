@@ -2,7 +2,7 @@
 """
 Author: Andy Nagels
 Date: 2010-08-24
-Lisa: Pyqt gui for clipf, with extra functionality.
+Lisa: Pyqt gui frontend for a postgresql db, used to store financial data.
 
 Copyright (C) 2010 Andy Nagels
 
@@ -125,7 +125,7 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
         """ Enable/disable all inputs related to stock information """
         category = self.gui.cmb_category.currentText()
         subcategory_ = self.gui.cmb_subcategory.currentText()
-        if((category == 'invest.tx' or category == 'invest.rx' or category == 'trade.tx' or category == 'trade.rx') and ( subcategory_ == 'buystocks' or subcategory_ == 'sellstocks')):
+        if((category == 'invest.tx' or category == 'invest.rx' or category == 'trade.tx' or category == 'trade.rx') and ( subcategory_ == 'buy' or subcategory_ == 'sell')):
             # enable stock inputs
             self.gui.cmb_marketcode.setEnabled(True)
             self.gui.txt_marketdescription.setEnabled(True)

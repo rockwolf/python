@@ -146,8 +146,8 @@ class Controller():
 
     def add_inputline(self):
         """ Command that adds an input finance line into a temporary buffer. """
-        if(self.gui.cmb_subcategory.currentText() == 'buystocks' or \
-                self.gui.cmb_subcategory.currentText() == 'sellstocks'):
+        if(self.gui.cmb_subcategory.currentText() == 'buy' or \
+                self.gui.cmb_subcategory.currentText() == 'sell'):
             market = str(self.gui.cmb_marketcode.currentText())
             stock = str(self.gui.cmb_stockname.currentText())
         else:

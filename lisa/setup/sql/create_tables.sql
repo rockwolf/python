@@ -1,8 +1,9 @@
 BEGIN;
+
 /* finance */
 CREATE TABLE T_SUBCATEGORY
 (
-    scid serial not null,
+    scid int not null,
     name varchar(20) not null,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
@@ -11,8 +12,8 @@ CREATE TABLE T_SUBCATEGORY
 
 CREATE TABLE T_CATEGORY
 (
-    cid serial not null,
-    scid int not null default 1, --enter default value for scid for 'None' here.
+    cid int not null,
+    scid int not null default 1,
     name varchar(30) not null,
     flg_income int not null,
     date_created timestamp not null default current_date,
@@ -28,25 +29,6 @@ CREATE TABLE T_ACCOUNT
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
     constraint pk_aid primary key(aid)
-);
-
-create table T_MARGIN_TYPE
-(
-    mtid serial not null,
-    margin_type varchar(50) not null,
-    constraint pk_mtid primary key(mtid)
-);
-
-CREATE TABLE T_MARGIN
-(
-    smid serial not null,
-    margin_type_id int not null,
-    description varchar(100) not null default '',
-    value decimal(18,4) not null default 0.0,
-    date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date,
-    constraint pk_smid primary key(smid),
-    constraint fk_margin_type_id foreign key(margin_type_id) references T_MARGIN_TYPE(mtid)
 );
 
 CREATE TABLE T_FINANCE
@@ -85,7 +67,7 @@ CREATE TABLE T_MARKET
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
     constraint pk_mid primary key(mid),
-    unique (code)
+    unique(code)
 );
 
 CREATE TABLE T_STOCK_NAME
@@ -159,6 +141,26 @@ CREATE TABLE T_TRADE
     date_modified timestamp not null default current_date,
     constraint pk_tid primary key(tid),
     constraint fk_sid foreign key(sid) references T_STOCK(sid)
+);
+
+/* This might belong in bi */
+create table T_MARGIN_TYPE
+(
+    mtid serial not null,
+    margin_type varchar(50) not null,
+    constraint pk_mtid primary key(mtid)
+);
+
+CREATE TABLE T_MARGIN
+(
+    smid serial not null,
+    margin_type_id int not null,
+    description varchar(100) not null default '',
+    value decimal(18,4) not null default 0.0,
+    date_created timestamp not null default current_date,
+    date_modified timestamp not null default current_date,
+    constraint pk_smid primary key(smid),
+    constraint fk_margin_type_id foreign key(margin_type_id) references T_MARGIN_TYPE(mtid)
 );
 
 COMMIT;

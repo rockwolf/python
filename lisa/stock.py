@@ -34,7 +34,7 @@ class Stock():
     def parse_stocks(self, fields):
         """ Gather the stock information from the stock related fields. """
         try:
-            if fields['subcategory'] == 'buystocks' or fields['subcategory'] == 'sellstocks':
+            if fields['subcategory'] == 'buy' or fields['subcategory'] == 'sell':
                 # stocks
                 action = ''
                 price = '0'
@@ -45,7 +45,7 @@ class Stock():
                 price = fields['price']
                 tax = fields['tax']
                 commission = fields['commission']
-                action = fields['subcategory'] #buystocks/sellstocks
+                action = fields['subcategory'] #buy/sell
                 risk = fields['risk']
                 #print 'test: action =' + action
                 fields_stock= {

@@ -35,7 +35,7 @@ class TradeJournal():
         fields_trades = {}
         
         try:
-            if fields['subcategory'] == 'buystocks' or fields['subcategory'] == 'sellstocks':
+            if fields['subcategory'] == 'buy' or fields['subcategory'] == 'sell':
                 # trades
 
                 # tid
@@ -52,7 +52,7 @@ class TradeJournal():
                 # date created and modified
                 
                 buy_price = '0' #(previous buyprice + new price) / 2
-                if fields['subcategory'] == 'sellstocks':
+                if fields['subcategory'] == 'sell':
                     sell_price = '0' # (previous sellprice + new price)/2 
                     shares_total = '0' # current shares - fields['shares']
                 else:
@@ -67,7 +67,7 @@ class TradeJournal():
                 price = fields['price']
                 tax = fields['tax']
                 commission = fields['commission']
-                action = fields['subcategory'] #buystocks/sellstocks
+                action = fields['subcategory'] #buy/sell
 
                 fields_trades = {
                     'sid' : get_sid_from_name(), # TODO: create this function somewhere
