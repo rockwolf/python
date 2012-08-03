@@ -59,10 +59,10 @@ class DatabaseAccess():
             self.tblstockcurrent = Table('t_stock_current', self.metadata, autoload=True)
             self.tblmarket = Table('t_market', self.metadata, autoload=True)
             self.tblstockname = Table('t_stock_name', self.metadata, autoload=True)
-            self.tblproduct = Table('t_product', self.metadata, autoload=True)
+            self.tblcategory = Table('t_category', self.metadata, autoload=True)
             self.tblmargin = Table('t_margin', self.metadata, autoload=True)
             self.tblmargintype = Table('t_margin_type', self.metadata, autoload=True)
-            self.tblobject = Table('t_object', self.metadata, autoload=True)
+            self.tblsubcategory = Table('t_sub_category', self.metadata, autoload=True)
             self.tblaccount = Table('t_account', self.metadata, autoload=True)
             
             self.map_tables()
@@ -73,10 +73,10 @@ class DatabaseAccess():
                 'stockcurrent': 't_stock_current',
                 'market': 't_market',
                 'stockname': 't_stock_name',
-                'product': 't_product',
+                'category': 't_category',
                 'margin': 't_margin',
                 'margintype': 't_margin_type',
-                'object': 't_object',
+                'subcategory': 't_sub_category',
                 'account': 't_account'
             }
 
@@ -98,10 +98,10 @@ class DatabaseAccess():
         mapper(T_STOCK_CURRENT, self.tblstockcurrent)
         mapper(T_MARKET, self.tblmarket)
         mapper(T_STOCK_NAME, self.tblstockname)
-        mapper(T_PRODUCT, self.tblproduct)
+        mapper(T_PRODUCT, self.tblcategory)
         mapper(T_MARGIN, self.tblmargin)
         mapper(T_MARGIN_TYPE, self.tblmargintype)
-        mapper(T_OBJECT, self.tblobject)
+        mapper(T_SUB_CATEGORY, self.tblsubcategory)
         mapper(T_ACCOUNT, self.tblaccount)
         
     def config(self):
@@ -114,8 +114,8 @@ class DatabaseAccess():
         self.dbuser = config.get('database', 'user')[1:-1]
         self.dbpass = config.get('database', 'password')[1:-1]
  
-    def get_products(self):
-        """ Get the products. """
+    def get_categorys(self):
+        """ Get the categorys. """
         values = []
         try:
             session = self.Session()
@@ -123,7 +123,7 @@ class DatabaseAccess():
             for instance in query: 
                 values.append(instance.name)
         except Exception as ex:
-            print("Error in get_products: ", ex)
+            print("Error in get_categorys: ", ex)
         finally:
             session.rollback()
             session = None
@@ -144,16 +144,16 @@ class DatabaseAccess():
             session = None
         return values
 
-    def get_objects(self):
-        """ Get the objects. """
+    def get_subcategories(self):
+        """ Get the subcategories. """
         values = []
         try:
             session = self.Session()
-            query = session.query(T_OBJECT)
+            query = session.query(T_SUB_CATEGORY)
             for instance in query: 
                 values.append(instance.name)
         except Exception as ex:
-            print("Error in get_objects: ", ex)
+            print("Error in get_subcategories: ", ex)
         finally:
             session.rollback()
             session = None
@@ -271,15 +271,15 @@ class DatabaseAccess():
                 self.statementFinance = StatementFinance()
                 records = 0
                 for fields in fields_db:
-                    oid = self.oid_from_object(fields['object'], date_created, date_modified)
+                    scid = self.scid_from_subcategory(fields['subcat'], date_created, date_modified)
                     aid = self.aid_from_account(fields['account'], date_created, date_modified)
-                    pid = self.pid_from_product(fields['product'], date_created, date_modified)
+                    cid = self.cid_from_category(fields['category'], date_created, date_modified)
                                             
                     obj = session.query(T_FINANCE).filter_by(
                               date=fields['date'],
                               aid=aid,
-                              pid=pid,
-                              oid=oid,
+                              cid=cid,
+                              scid=scid,
                               amount=Decimal(fields['amount']),
                               comment=fields['comment'],
                               market=fields['market'],
@@ -316,8 +316,8 @@ class DatabaseAccess():
                             T_FINANCE(
                                 fields['date'],
                                 aid,
-                                pid,
-                                oid,
+                                cid,
+                                scid,
                                 Decimal(fields['amount']),
                                 fields['comment'],
                                 fields['stock'],
@@ -341,8 +341,8 @@ class DatabaseAccess():
                     #    #TODO: fix - SessionMaker has no attribute save - error
                     #    obj.date = fields['date']
                     #    obj.aid = aid
-                    #    obj.pid = pid
-                    #    obj.oid = oid
+                    #    obj.cid = cid
+                    #    obj.scid = scid
                     #    obj.amount = Decimal(fields['amount'])
                     #    obj.comment = fields['comment']
                     #    obj.stock = fields['stock']
@@ -385,15 +385,15 @@ class DatabaseAccess():
                 i = 0
                 for fields in fields_db:
                     if (not fields['stock'] == '') :
-                        oid = self.oid_from_object(fields['object'], date_created, date_modified)
+                        scid = self.scid_from_subcategory(fields['subcat'], date_created, date_modified)
                         aid = self.aid_from_account(fields['account'], date_created, date_modified)
-                        pid = self.pid_from_product(fields['product'], date_created, date_modified)
+                        cid = self.cid_from_category(fields['category'], date_created, date_modified)
                         # Get id from T_FINANCE (to import in T_STOCK)
                         for instance in session.query(T_FINANCE).filter_by(
                             date=fields['date'],
                             aid=aid,
-                            pid=pid,
-                            oid=oid,
+                            cid=cid,
+                            scid=scid,
                             amount=Decimal(fields['amount']),
                             comment=fields['comment'],
                             market=fields['market'],
@@ -488,7 +488,8 @@ class DatabaseAccess():
 
     def export_lines(self, all=False):
         """ Returns the t_finance lines from the database. """
-        #TODO: Retrieve the object name 
+        #TODO: create an export line. Perhaps gather everything in a view
+        #and export that? That might make this a whole lot easier!
         results = []
         try:
             session = self.Session()
@@ -520,8 +521,8 @@ class DatabaseAccess():
         date = datetime.strftime(line.date, '%Y-%m-%d')
         exportline.append(str(date))
         exportline.append(self.accountname_from_aid(line.aid))
-        exportline.append(self.productname_from_pid(line.pid))
-        exportline.append(self.objectname_from_oid(line.oid))
+        exportline.append(self.category_from_cid(line.cid))
+        exportline.append(self.subcategory_from_scid(line.scid))
         exportline.append(str(line.amount))
         exportline.append(str(line.market))
         exportline.append(str(line.stock))
@@ -539,25 +540,25 @@ class DatabaseAccess():
         #classes.
         #TODO: make the Statement-classes accessible from this function?
 
-    def oid_from_object(self, object_, date_created, date_modified):
-        """ Get the oid from an object. """
+    def scid_from_subcategory(self, subcat, date_created, date_modified):
+        """ Get the scid from a subcategory. """
         result = -1
         session = self.Session()
         try:
-            # Get object id, based on object name
-            # but first check if the object already exists
-            # in T_OBJECT. If not, add it to the t_object table.
-            obj = session.query(T_OBJECT).filter_by(name=object_).first() is not None
+            # Get scid, based on subcat name
+            # but first check if the subcat already exists
+            # in T_SUB_CATEGORY. If not, add it to the t_sub_categorytable.
+            obj = session.query(T_SUB_CATEGORY).filter_by(name=subcat).first() is not None
             if not obj: 
-                session.add(T_OBJECT(object_, date_created, date_modified))
+                session.add(T_SUB_CATEGORY(subcat, date_created, date_modified))
                 session.commit()
-                for instance in session.query(func.max(T_OBJECT.oid).label('oid')):
-                    result = instance.oid
+                for instance in session.query(func.max(T_SUB_CATEGORY.scid).label('scid')):
+                    result = instance.scid
             else:
-                for instance in session.query(T_OBJECT).filter_by(name=object_):
-                    result = str(instance.oid)
+                for instance in session.query(T_SUB_CATEGORY).filter_by(name=subcat):
+                    result = str(instance.scid)
         except Exception as ex:
-            print("Error retrieving oid: ", ex)
+            print("Error retrieving scid: ", ex)
         finally:
             session.rollback()
             session = None
@@ -587,32 +588,32 @@ class DatabaseAccess():
             session = None
         return result
 
-    def pid_from_product(self, product, date_created, date_modified):
-        """ Get the pid from a product. """
+    def cid_from_category(self, category, date_created, date_modified):
+        """ Get the cid from a category. """
         result = -1
         session = self.Session()
         try:
-            # Get pid, based on product name
-            # but first check if the product already exists
-            # in T_PRODUCT. If not, add it to the t_product table.
-            # if product ends with .rx: flg_income = 1, else 0
-            if(product[-3:] == '.rx'):
+            # Get cid, based on category name
+            # but first check if the category already exists
+            # in T_PRODUCT. If not, add it to the t_category table.
+            # if category ends with .rx: flg_income = 1, else 0
+            if(category[-3:] == '.rx'):
                 flg_income = 1
-            elif(product[-3:] == '.tx'):
+            elif(category[-3:] == '.tx'):
                 flg_income = 0
             else:
-                raise Exception("Wrong product in input-file: {0}".format(product))
-            obj = session.query(T_PRODUCT).filter_by(name=product).first() is not None
+                raise Exception("Wrong category in input-file: {0}".format(category))
+            obj = session.query(T_PRODUCT).filter_by(name=category).first() is not None
             if not obj: 
-                session.add(T_PRODUCT(product, flg_income, date_created, date_modified))
+                session.add(T_PRODUCT(category, flg_income, date_created, date_modified))
                 session.commit()
-                for instance in session.query(func.max(T_PRODUCT.pid).label('pid')):
-                    result = instance.pid
+                for instance in session.query(func.max(T_PRODUCT.cid).label('cid')):
+                    result = instance.cid
             else:
-                for instance in session.query(T_PRODUCT).filter_by(name=product):
-                    result = str(instance.pid)
+                for instance in session.query(T_PRODUCT).filter_by(name=category):
+                    result = str(instance.cid)
         except Exception as ex:
-            print("Error retrieving pid: ", ex)
+            print("Error retrieving cid: ", ex)
         finally:
             session.rollback()
             session = None
@@ -668,15 +669,15 @@ class DatabaseAccess():
             session = None
         return result
 
-    def objectname_from_oid(self, oid):
-        """ Get the objectname for a given oid from the T_OBJECT table. """
+    def subcategory_from_scid(self, scid):
+        """ Get the subcategory for a given scid from the T_SUB_CATEGORY table. """
         result = ''
         try:
             session = self.Session()
-            for instance in session.query(T_OBJECT).filter_by(oid=oid):
+            for instance in session.query(T_SUB_CATEGORY).filter_by(scid=scid):
                 result = instance.name
         except Exception as ex:
-            print("Error retrieving objectname from oid: ", ex)
+            print("Error retrieving subcategory from scid: ", ex)
         finally:
             session.rollback()
             session = None
@@ -696,15 +697,15 @@ class DatabaseAccess():
             session = None
         return result
 
-    def productname_from_pid(self, pid):
-        """ Get the productname for a given pid from the T_PRODUCT table. """
+    def category_from_cid(self, cid):
+        """ Get the category for a given cid from the T_PRODUCT table. """
         result = ''
         try:
             session = self.Session()
-            for instance in session.query(T_PRODUCT).filter_by(pid=pid):
+            for instance in session.query(T_PRODUCT).filter_by(cid=cid):
                 result = instance.name
         except Exception as ex:
-            print("Error retrieving productname from pid: ", ex)
+            print("Error retrieving category from cid: ", ex)
         finally:
             session.rollback()
             session = None
