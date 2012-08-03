@@ -1,22 +1,24 @@
 BEGIN;
 /* finance */
-CREATE TABLE T_OBJECT
+CREATE TABLE T_SUB_CATEGORY
 (
-    oid serial not null,
+    scid serial not null,
     name varchar(20) not null,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
-    constraint pk_oid primary key(oid)
+    constraint pk_scid primary key(scid)
 );
 
-CREATE TABLE T_PRODUCT
+CREATE TABLE T_CATEGORY
 (
-    pid serial not null,
+    cid serial not null,
+    scid int not null default 1, --enter default value for scid for 'None' here.
     name varchar(30) not null,
     flg_income int not null,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
-    constraint pk_pid primary key(pid)
+    constraint pk_cid primary key(cid),
+    constraint fk_foreign key(sub_category_id) references T_SUB_CATEGORY(scid)
 );
 
 CREATE TABLE T_ACCOUNT
@@ -147,11 +149,11 @@ CREATE TABLE T_TRADE
     year_sell int not null default 0,
     month_sell int not null default 0,
     day_sell int not null default 0,
+    long_flag int not null default 1,
     buy_price decimal(18,4) not null default 0.0, /* (buy_price + new buy_price)/2 */
     sell_price decimal(18,4) not null default 0.0, /* (sell_price + new sell_price)/2 */
     stoploss decimal(18,4) not null default 0.0, /* automatically recalculate this */
     shares_total int not null default 0, /* if buy_flg : add shares, if not buy: subtract shares, when 0 => trade closed */
-    closed int not null default 0, /* if shares_total becomes zero, this flag will be set to 1 */
     win_flag int not null default 1, /* win_sum not needed, we can get that in a query + it's calc. for/when closed flag = 1 */
     --accuracy decimal(18,4) not null default 0, /* we can get that in a query */
     drawdown int not null default 0,
