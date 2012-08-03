@@ -20,5 +20,3 @@ The application has support for stocks (investing and trading) and it's also pos
 
 All monitoring and graphing of data is done with Pentaho Reporting studio.
 These reports are included in the bi section, with a custom setup for everything related to the reporting component.
-
-A trading journal is also an extra application, that is still in development.
