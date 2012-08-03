@@ -57,8 +57,7 @@ CREATE TABLE T_FINANCE
     month int not null default 0,
     day int not null default 0,
     aid int not null,
-    pid int not null,
-    oid int not null,
+    cid int not null,
     amount decimal(18,4) not null default 0.0,
     comment varchar(256) not null default '',
     market varchar(256) not null default '',
@@ -73,7 +72,7 @@ CREATE TABLE T_FINANCE
     date_modified timestamp not null default current_date,
     constraint pk_id primary key(id),
     constraint fk_aid foreign key(aid) references T_ACCOUNT,
-    constraint fk_pid foreign key(pid) references T_PRODUCT,
+    constraint fk_cid foreign key(cid) references T_CATEGORY,
     constraint fk_oid foreign key(oid) references T_OBJECT
 );
 
