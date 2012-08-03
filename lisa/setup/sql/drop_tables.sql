@@ -1,17 +1,6 @@
 BEGIN;
-truncate table T_FINANCE cascade;
-truncate table T_SUB_CATEGORY cascade;
-truncate table T_CATEGORY cascade;
-truncate table T_ACCOUNT cascade;
-truncate table T_STOCK cascade;
-truncate table T_STOCK_NAME cascade;
-truncate table T_MARKET cascade;
-truncate table T_MARGIN cascade;
-truncate table T_MARGIN_TYPE cascade;
-truncate table T_STOCK_CURRENT;
-truncate table T_TRADE cascade;
 drop table T_FINANCE cascade;
-drop table T_SUB_CATEGORY cascade;
+drop table T_SUBCATEGORY cascade;
 drop table T_CATEGORY cascade;
 drop table T_ACCOUNT cascade;
 drop table T_STOCK cascade;

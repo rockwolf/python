@@ -1,6 +1,6 @@
 BEGIN;
 /* finance */
-CREATE TABLE T_SUB_CATEGORY
+CREATE TABLE T_SUBCATEGORY
 (
     scid serial not null,
     name varchar(20) not null,

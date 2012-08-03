@@ -17,7 +17,7 @@ CREATE TABLE T_CATEGORY
     constraint pk_cid primary key(cid),
     constraint fk_foreign key(sub_category_id) references T_SUB_CATEGORY(scid)
 );
-CREATE TABLE T_SUB_CATEGORY
+CREATE TABLE T_SUBCATEGORY
 (
     scid serial not null,
     name varchar(20) not null,

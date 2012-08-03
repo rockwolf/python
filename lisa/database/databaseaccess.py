@@ -101,7 +101,7 @@ class DatabaseAccess():
         mapper(T_PRODUCT, self.tblcategory)
         mapper(T_MARGIN, self.tblmargin)
         mapper(T_MARGIN_TYPE, self.tblmargintype)
-        mapper(T_SUB_CATEGORY, self.tblsubcategory)
+        mapper(T_SUBCATEGORY, self.tblsubcategory)
         mapper(T_ACCOUNT, self.tblaccount)
         
     def config(self):
@@ -149,7 +149,7 @@ class DatabaseAccess():
         values = []
         try:
             session = self.Session()
-            query = session.query(T_SUB_CATEGORY)
+            query = session.query(T_SUBCATEGORY)
             for instance in query: 
                 values.append(instance.name)
         except Exception as ex:
@@ -547,15 +547,15 @@ class DatabaseAccess():
         try:
             # Get scid, based on subcat name
             # but first check if the subcat already exists
-            # in T_SUB_CATEGORY. If not, add it to the t_sub_categorytable.
-            obj = session.query(T_SUB_CATEGORY).filter_by(name=subcat).first() is not None
+            # in T_SUBCATEGORY. If not, add it to the t_sub_categorytable.
+            obj = session.query(T_SUBCATEGORY).filter_by(name=subcat).first() is not None
             if not obj: 
-                session.add(T_SUB_CATEGORY(subcat, date_created, date_modified))
+                session.add(T_SUBCATEGORY(subcat, date_created, date_modified))
                 session.commit()
-                for instance in session.query(func.max(T_SUB_CATEGORY.scid).label('scid')):
+                for instance in session.query(func.max(T_SUBCATEGORY.scid).label('scid')):
                     result = instance.scid
             else:
-                for instance in session.query(T_SUB_CATEGORY).filter_by(name=subcat):
+                for instance in session.query(T_SUBCATEGORY).filter_by(name=subcat):
                     result = str(instance.scid)
         except Exception as ex:
             print("Error retrieving scid: ", ex)
@@ -670,11 +670,11 @@ class DatabaseAccess():
         return result
 
     def subcategory_from_scid(self, scid):
-        """ Get the subcategory for a given scid from the T_SUB_CATEGORY table. """
+        """ Get the subcategory for a given scid from the T_SUBCATEGORY table. """
         result = ''
         try:
             session = self.Session()
-            for instance in session.query(T_SUB_CATEGORY).filter_by(scid=scid):
+            for instance in session.query(T_SUBCATEGORY).filter_by(scid=scid):
                 result = instance.name
         except Exception as ex:
             print("Error retrieving subcategory from scid: ", ex)
