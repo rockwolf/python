@@ -110,17 +110,18 @@ class T_MARKET(object):
     def __repr__(self):
         return "<T_MARKET('%s', '%s', '%s', '%s', '%s')>" % (self.code, self.name, self.country, self.date_created, self.date_modified)
 
-class T_PRODUCT(object):
-    """ T_PRODUCT"""
+class T_CATEGORY(object):
+    """ T_CATEGORY """
 
-    def __init__(self, name, flg_income, date_created, date_modified):
+    def __init__(self, scid, name, flg_income, date_created, date_modified):
+        self.scid = scid
         self.name = name
         self.flg_income = flg_income 
         self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_PRODUCT('%s', '%s', '%s', '%s')>" % (self.name, self.flg_income, self.date_created, self.date_modified)
+        return "<T_CATEGORY('%s', '%s', '%s', '%s', '%s')>" % (self.scid, self.name, self.flg_income, self.date_created, self.date_modified)
 
 class T_MARGIN(object):
     """ T_MARGIN """
@@ -146,8 +147,8 @@ class T_MARGIN_TYPE(object):
     def __repr__(self):
         return "<T_MARGIN_TYPE('%s', '%s')>" % (self.mtid, self.margin_type)
 
-class T_OBJECT(object):
-    """ T_OBJECT """
+class T_SUBCATEGORY(object):
+    """ T_SUBCATEGORY """
 
     def __init__(self, name, date_created, date_modified):
         self.name = name
@@ -155,7 +156,7 @@ class T_OBJECT(object):
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_OBJECT('%s', '%s', '%s')>" % (self.name, self.date_created, self.date_modified)
+        return "<T_SUBCATEGORY('%s', '%s', '%s')>" % (self.name, self.date_created, self.date_modified)
 
 class T_ACCOUNT(object):
     """ T_ACCOUNT """

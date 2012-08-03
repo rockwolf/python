@@ -72,8 +72,7 @@ CREATE TABLE T_FINANCE
     date_modified timestamp not null default current_date,
     constraint pk_id primary key(id),
     constraint fk_aid foreign key(aid) references T_ACCOUNT,
-    constraint fk_cid foreign key(cid) references T_CATEGORY,
-    constraint fk_oid foreign key(oid) references T_OBJECT
+    constraint fk_cid foreign key(cid) references T_CATEGORY
 );
 
 /* stock */

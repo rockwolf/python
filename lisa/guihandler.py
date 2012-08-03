@@ -54,14 +54,14 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
             self.gui.btn_exit, 
             QtCore.SIGNAL('clicked()'), 
             self.btn_exit_clicked)
-        self.gui.cmb_product.connect(
-            self.gui.cmb_product, 
+        self.gui.cmb_category.connect(
+            self.gui.cmb_category, 
             QtCore.SIGNAL('currentIndexChanged(const QString&)'), 
-            self.cmb_product_changed)
-        self.gui.cmb_object.connect(
-            self.gui.cmb_object, 
+            self.cmb_category_changed)
+        self.gui.cmb_subcategory.connect(
+            self.gui.cmb_subcategory, 
             QtCore.SIGNAL('currentIndexChanged(const QString&)'), 
-            self.cmb_object_changed)
+            self.cmb_subcategory_changed)
         self.gui.btn_add.connect(
             self.gui.btn_add, 
             QtCore.SIGNAL("clicked()"), 
@@ -100,32 +100,32 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
     def btn_add_clicked(self):
         """ Create the command to send to clipf and add it to the buffer. """
         self.ctl.add_inputline()
-        self.gui.cmb_object.setCurrentIndex(0)
+        self.gui.cmb_subcategory.setCurrentIndex(0)
 
     # Events
-    def cmb_product_changed(self, selstr):
-        """ When the product combo selection changes. """
-        self.process_product_changed(selstr)
+    def cmb_category_changed(self, selstr):
+        """ When the category combo selection changes. """
+        self.process_category_changed(selstr)
 
-    def cmb_object_changed(self, selstr):
-        """ When the object combo selection changes. """
-        self.process_object_changed(selstr)
+    def cmb_subcategory_changed(self, selstr):
+        """ When the subcategory combo selection changes. """
+        self.process_subcategory_changed(selstr)
         
-    def process_product_changed(self, selstr):
-        """ When the product combo selection changes. """
-        object_ = self.gui.cmb_object.currentText()
+    def process_category_changed(self, selstr):
+        """ When the category combo selection changes. """
+        subcategory_ = self.gui.cmb_subcategory.currentText()
         self.toggle_stockinputs()
     
-    def process_object_changed(self, selstr):
-        """ When the object combo selection changes. """
+    def process_subcategory_changed(self, selstr):
+        """ When the subcategory combo selection changes. """
         self.gui.txt_comment.setEnabled(True)
         self.toggle_stockinputs()
 
     def toggle_stockinputs(self):
         """ Enable/disable all inputs related to stock information """
-        product = self.gui.cmb_product.currentText()
-        object_ = self.gui.cmb_object.currentText()
-        if((product == 'invest.tx' or product == 'invest.rx' or product == 'trade.tx' or product == 'trade.rx') and ( object_ == 'buystocks' or object_ == 'sellstocks')):
+        category = self.gui.cmb_category.currentText()
+        subcategory_ = self.gui.cmb_subcategory.currentText()
+        if((category == 'invest.tx' or category == 'invest.rx' or category == 'trade.tx' or category == 'trade.rx') and ( subcategory_ == 'buystocks' or subcategory_ == 'sellstocks')):
             # enable stock inputs
             self.gui.cmb_marketcode.setEnabled(True)
             self.gui.txt_marketdescription.setEnabled(True)
@@ -135,13 +135,13 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
             self.gui.spn_price.setEnabled(True)
             self.gui.spn_commission.setEnabled(True)
             self.gui.spn_tax.setEnabled(True)
-            if(product == 'trade.tx' or product == 'trade.rx'):
+            if(category == 'trade.tx' or category == 'trade.rx'):
                 self.gui.spn_risk.setEnabled(True)
             else:
                 self.gui.spn_risk.setEnabled(False)
             # set inputfields
             self.gui.spn_tax.setValue(Decimal(self.config.default_tax))
-            if(product == 'trade.tx' or product == 'trade.rx'):
+            if(category == 'trade.tx' or category == 'trade.rx'):
                 self.gui.spn_risk.setValue(Decimal(self.config.default_risk))
             else:
                 self.gui.spn_risk.setValue(0.0)

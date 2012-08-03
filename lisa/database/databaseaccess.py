@@ -491,6 +491,8 @@ class DatabaseAccess():
         """ Returns the t_finance lines from the database. """
         #TODO: create an export line. Perhaps gather everything in a view
         #and export that? That might make this a whole lot easier!
+        #Since we no longer keep oid (=scid) in T_FINANCE, just exporting
+        #the T_FINANCE line will not suffice.
         results = []
         try:
             session = self.Session()

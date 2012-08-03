@@ -54,16 +54,16 @@ class Controller():
         try:
             fields_db = []
             for field in self.table.tablecontent:
-                product = field[2]
-                if(product[-3:] == '.rx'):
+                category = field[2]
+                if(category[-3:] == '.rx'):
                     flg_income = 1
-                elif(product[-3:] == '.tx'):
+                elif(category[-3:] == '.tx'):
                     flg_income = 0
                 fields_db.append({
                     'date':field[0],
                     'account':field[1], #Note: Get AID from T_ACCOUNT for final insert
-                    'product':field[2], #Note: Get PID from T_PRODUCT for final insert
-                    'object':field[3], #Note: Get OID from T_OBJECT for final insert
+                    'category':field[2], #Note: Get CID from T_CATEGORY for final insert
+                    'subcategory':field[3], #Note: Get SCID from T_SUBCATEGORY for final insert
                     'amount':field[4],
                     'flag':flg_income,
                     'comment':field[5],
@@ -117,14 +117,14 @@ class Controller():
         #TODO: fix databaseaccess first
         dba = DatabaseAccess(self.config)
         # Products
-        for prod in dba.get_products():
-            self.gui.cmb_product.addItem(prod)
+        for prod in dba.get_categories():
+            self.gui.cmb_category.addItem(prod)
         # Accounts
         for acc in dba.get_accounts():
             self.gui.cmb_account.addItem(acc)
         # Object
-        for obj in dba.get_objects():
-            self.gui.cmb_object.addItem(obj)
+        for obj in dba.get_subcategories():
+            self.gui.cmb_subcategory.addItem(obj)
         # Market codes
         for mcd in dba.get_markets():
             self.gui.cmb_marketcode.addItem(mcd)
@@ -146,8 +146,8 @@ class Controller():
 
     def add_inputline(self):
         """ Command that adds an input finance line into a temporary buffer. """
-        if(self.gui.cmb_object.currentText() == 'buystocks' or \
-                self.gui.cmb_object.currentText() == 'sellstocks'):
+        if(self.gui.cmb_subcategory.currentText() == 'buystocks' or \
+                self.gui.cmb_subcategory.currentText() == 'sellstocks'):
             market = str(self.gui.cmb_marketcode.currentText())
             stock = str(self.gui.cmb_stockname.currentText())
         else:
@@ -156,8 +156,8 @@ class Controller():
         str_list = [
             str(self.gui.dt_date.date().toString(QtCore.Qt.ISODate)),
             str(self.gui.cmb_account.currentText()),
-            str(self.gui.cmb_product.currentText()),
-            str(self.gui.cmb_object.currentText()),
+            str(self.gui.cmb_category.currentText()),
+            str(self.gui.cmb_subcategory.currentText()),
             str(self.gui.spn_amount.textFromValue(self.gui.spn_amount.value())),
             str(self.gui.txt_comment.text()),
             stock,
@@ -176,9 +176,9 @@ class Controller():
     def update_info_details(self):
         """ Update infolabel details. """
         dba = DatabaseAccess(self.config)
-        prod = self.gui.cmb_product.currentText()
+        prod = self.gui.cmb_category.currentText()
         stock = self.gui.cmb_stockname.currentText()
-        #TODO: make entire program dependent on pids, so there are no longer
+        #TODO: make entire program dependent on cids, so there are no longer
         #hardcoded strings.
         if(
             prod == 'invest.tx' or
@@ -250,7 +250,7 @@ class Controller():
         """ Initialize tbl_summary. """
         # set the table header
         # TODO: set header values in mdlconstants and use the constants
-        header = ['date', 'account', 'product', 'object', 'amount', 'comment', 'stock', 'market', 'quantity', 'price', 'commission', 'tax', 'risk']
+        header = ['date', 'account', 'category', 'subcategory', 'amount', 'comment', 'stock', 'market', 'quantity', 'price', 'commission', 'tax', 'risk']
         self.table = TableModel(header, [], 0, len(header))
         # takeAt(0) removes the default empty table that's there and addWidget
         # adds a newly created one.
