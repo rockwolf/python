@@ -22,14 +22,10 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
 import sys
-import shutil
-import os
 from PyQt4 import QtCore, QtGui
 from decimal import Decimal
-from subprocess import Popen, PIPE
 
 from gui.guicode import Ui_frm_main
-from database.databaseaccess import DatabaseAccess
 from mainhandler import Controller
 from modules_generic.tablemodel import TableModel
 
@@ -90,7 +86,7 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
         
     def btn_exit_clicked(self):
         """ Exit """
-        self.ctl.clear_inputbuffer() # dummy pylint test
+        self.ctl.clear_inputbuffer(self.table) # dummy pylint test
         sys.exit(0)
 
     def btn_clear_clicked(self):
@@ -99,7 +95,7 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
     
     def btn_add_clicked(self):
         """ Create the command to send to clipf and add it to the buffer. """
-        self.ctl.add_inputline()
+        self.ctl.add_inputline(self.table)
         self.gui.cmb_subcategory.setCurrentIndex(0)
 
     # Events
@@ -113,7 +109,8 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
         
     def process_category_changed(self, selstr):
         """ When the category combo selection changes. """
-        subcategory_ = self.gui.cmb_subcategory.currentText()
+        #TODO: limit the cominations = also need to improve the gui behaviour
+        subcategory = self.gui.cmb_subcategory.currentText()
         self.toggle_stockinputs()
     
     def process_subcategory_changed(self, selstr):
@@ -174,6 +171,17 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
         self.ctl.fillcmb_stockname()
         self.ctl.filltxt_marketdescription()
     
+    def init_tbl_summary(self):
+        """ Initialize tbl_summary. """
+        # set the table header
+        # TODO: set header values in mdlconstants and use the constants
+        header = ['date', 'account', 'category', 'subcategory', 'amount', 'comment', 'stock', 'market', 'quantity', 'price', 'commission', 'tax', 'risk']
+        self.table = TableModel(header, [], 0, len(header))
+        # takeAt(0) removes the default empty table that's there and addWidget
+        # adds a newly created one.
+        self.gui.vl_table.takeAt(0)
+        self.gui.vl_table.addWidget(self.table)
+
     def initgui(self):
         """ Initialise fields """
         # Info labels
@@ -183,3 +191,5 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
         # fill all combo boxes
         self.ctl.fillcombos()
         self.gui.cmb_account.setCurrentIndex(0)
+        # Init tbl_summary
+        self.init_tbl_summary()

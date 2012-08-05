@@ -98,7 +98,7 @@ class DatabaseAccess():
         mapper(T_STOCK_CURRENT, self.tblstockcurrent)
         mapper(T_MARKET, self.tblmarket)
         mapper(T_STOCK_NAME, self.tblstockname)
-        mapper(T_PRODUCT, self.tblcategory)
+        mapper(T_CATEGORY, self.tblcategory)
         mapper(T_MARGIN, self.tblmargin)
         mapper(T_MARGIN_TYPE, self.tblmargintype)
         mapper(T_SUBCATEGORY, self.tblsubcategory)
@@ -114,16 +114,16 @@ class DatabaseAccess():
         self.dbuser = config.get('database', 'user')[1:-1]
         self.dbpass = config.get('database', 'password')[1:-1]
  
-    def get_categorys(self):
-        """ Get the categorys. """
+    def get_categories(self):
+        """ Get the categories. """
         values = []
         try:
             session = self.Session()
-            query = session.query(T_PRODUCT)
+            query = session.query(T_CATEGORY)
             for instance in query: 
                 values.append(instance.name)
         except Exception as ex:
-            print("Error in get_categorys: ", ex)
+            print("Error in get_categories: ", ex)
         finally:
             session.rollback()
             session = None
@@ -385,8 +385,7 @@ class DatabaseAccess():
                 i = 0
                 for fields in fields_db:
                     if (not fields['stock'] == '') :
-                        scid =
-                        self.scid_from_subcategory(fields['subcategory'], date_created, date_modified)
+                        scid = self.scid_from_subcategory(fields['subcategory'], date_created, date_modified)
                         aid = self.aid_from_account(fields['account'], date_created, date_modified)
                         cid = self.cid_from_category(fields['category'], date_created, date_modified)
                         # Get id from T_FINANCE (to import in T_STOCK)
@@ -558,8 +557,7 @@ class DatabaseAccess():
                 for instance in session.query(func.max(T_SUBCATEGORY.scid).label('scid')):
                     result = instance.scid
             else:
-                for instance in
-                    session.query(T_SUBCATEGORY).filter_by(name=subcategory):
+                for instance in session.query(T_SUBCATEGORY).filter_by(name=subcategory):
                     result = str(instance.scid)
         except Exception as ex:
             print("Error retrieving scid: ", ex)
@@ -599,7 +597,7 @@ class DatabaseAccess():
         try:
             # Get cid, based on category name
             # but first check if the category already exists
-            # in T_PRODUCT. If not, add it to the t_category table.
+            # in T_CATEGORY. If not, add it to the t_category table.
             # if category ends with .rx: flg_income = 1, else 0
             if(category[-3:] == '.rx'):
                 flg_income = 1
@@ -607,14 +605,14 @@ class DatabaseAccess():
                 flg_income = 0
             else:
                 raise Exception("Wrong category in input-file: {0}".format(category))
-            obj = session.query(T_PRODUCT).filter_by(name=category).first() is not None
+            obj = session.query(T_CATEGORY).filter_by(name=category).first() is not None
             if not obj: 
-                session.add(T_PRODUCT(category, flg_income, date_created, date_modified))
+                session.add(T_CATEGORY(category, flg_income, date_created, date_modified))
                 session.commit()
-                for instance in session.query(func.max(T_PRODUCT.cid).label('cid')):
+                for instance in session.query(func.max(T_CATEGORY.cid).label('cid')):
                     result = instance.cid
             else:
-                for instance in session.query(T_PRODUCT).filter_by(name=category):
+                for instance in session.query(T_CATEGORY).filter_by(name=category):
                     result = str(instance.cid)
         except Exception as ex:
             print("Error retrieving cid: ", ex)
@@ -702,11 +700,11 @@ class DatabaseAccess():
         return result
 
     def category_from_cid(self, cid):
-        """ Get the category for a given cid from the T_PRODUCT table. """
+        """ Get the category for a given cid from the T_CATEGORY table. """
         result = ''
         try:
             session = self.Session()
-            for instance in session.query(T_PRODUCT).filter_by(cid=cid):
+            for instance in session.query(T_CATEGORY).filter_by(cid=cid):
                 result = instance.name
         except Exception as ex:
             print("Error retrieving category from cid: ", ex)

@@ -80,6 +80,61 @@ values('gsz', '4', 'GDF Suez SA', current_date, current_date);
 INSERT INTO T_STOCK_NAME(name, mid, description, date_created, date_modified)
 values('zsl23.90', '2', 'Zilver Sprinter Long 23.90', current_date, current_date);
 
+/* t_subcategory */
+INSERT INTO T_SUBCATEGORY(scid, name, date_created, date_modified)
+values(1, 'none', current_date, current_date);
+
+INSERT INTO T_SUBCATEGORY(scid, name, date_created, date_modified)
+values(2, 'buy', current_date, current_date);
+
+INSERT INTO T_SUBCATEGORY(scid, name, date_created, date_modified)
+values(3, 'sell', current_date, current_date);
+
+INSERT INTO T_SUBCATEGORY(scid, name, date_created, date_modified)
+values(4, 'invest', current_date, current_date);
+
+INSERT INTO T_SUBCATEGORY(scid, name, date_created, date_modified)
+values(5, 'refund', current_date, current_date);
+
+INSERT INTO T_SUBCATEGORY(scid, name, date_created, date_modified)
+values(6, 'dividend', current_date, current_date);
+
+INSERT INTO T_SUBCATEGORY(scid, name, date_created, date_modified)
+values(7, 'close', current_date, current_date);
+
+INSERT INTO T_SUBCATEGORY(scid, name, date_created, date_modified)
+values(8, 'electricity', current_date, current_date);
+
+INSERT INTO T_SUBCATEGORY(scid, name, date_created, date_modified)
+values(9, 'gas', current_date, current_date);
+
+INSERT INTO T_SUBCATEGORY(scid, name, date_created, date_modified)
+values(10, 'water', current_date, current_date);
+
+INSERT INTO T_SUBCATEGORY(scid, name, date_created, date_modified)
+values(11, 'mutuality', current_date, current_date);
+
+INSERT INTO T_SUBCATEGORY(scid, name, date_created, date_modified)
+values(12, 'internet', current_date, current_date);
+
+INSERT INTO T_SUBCATEGORY(scid, name, date_created, date_modified)
+values(13, 'belfius', current_date, current_date);
+
+INSERT INTO T_SUBCATEGORY(scid, name, date_created, date_modified)
+values(14, 'insurance', current_date, current_date);
+
+INSERT INTO T_SUBCATEGORY(scid, name, date_created, date_modified)
+values(15, 'police', current_date, current_date);
+
+INSERT INTO T_SUBCATEGORY(scid, name, date_created, date_modified)
+values(16, 'vik', current_date, current_date);
+
+INSERT INTO T_SUBCATEGORY(scid, name, date_created, date_modified)
+values(17, 'phone', current_date, current_date);
+
+INSERT INTO T_SUBCATEGORY(scid, name, date_created, date_modified)
+values(18, 'other', current_date, current_date);
+
 /* t_category */
 --TODO: gather all product combinations and put them in here.
 --it's no longer sufficient to put in bill.rx for example,
@@ -298,61 +353,6 @@ values(69, 1, 'other.rx', 1, current_date, current_date);
 
 INSERT INTO T_CATEGORY(cid, scid, name, flg_income, date_created, date_modified)
 values(70, 1, 'other.tx', 0, current_date, current_date);
-
-/* t_subcategory */
-INSERT INTO T_SUBCATEGORY(name, date_created, date_modified)
-values(1, 'none', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(name, date_created, date_modified)
-values(2, 'buy', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(name, date_created, date_modified)
-values(3, 'sell', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(name, date_created, date_modified)
-values(4, 'invest', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(name, date_created, date_modified)
-values(5, 'refund', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(name, date_created, date_modified)
-values(6, 'dividend', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(name, date_created, date_modified)
-values(7, 'close', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(name, date_created, date_modified)
-values(8, 'electricity', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(name, date_created, date_modified)
-values(9, 'gas', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(name, date_created, date_modified)
-values(10, 'water', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(name, date_created, date_modified)
-values(11, 'mutuality', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(name, date_created, date_modified)
-values(12, 'internet', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(name, date_created, date_modified)
-values(13, 'belfius', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(name, date_created, date_modified)
-values(14, 'insurance', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(name, date_created, date_modified)
-values(15, 'police', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(name, date_created, date_modified)
-values(16, 'vik', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(name, date_created, date_modified)
-values(17, 'phone', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(name, date_created, date_modified)
-values(18, 'other', current_date, current_date);
 
 /* margin types */
 INSERT INTO T_MARGIN_TYPE(margin_type)

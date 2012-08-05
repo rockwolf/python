@@ -25,14 +25,13 @@ from os.path import isfile
 from subprocess import call
 import shutil
 import os
-from decimal import *
-from PyQt4 import QtCore, QtGui
+from decimal import Decimal, getcontext
+from PyQt4 import QtCore
 
 from data_import import FileImport
 from data_export import FileExport
 from stock import Stock
 from database.databaseaccess import DatabaseAccess
-from modules_generic.tablemodel import TableModel
 
 class Controller():
     """ Contains the bussiness logic of the application. """
@@ -44,8 +43,6 @@ class Controller():
         self.config = config #object
         # Decimal precision
         getcontext().prec = 4
-        # Init tbl_summary
-        self.init_tbl_summary()
 
     # Methods
     ## General
@@ -135,16 +132,16 @@ class Controller():
         dba = None
 
     ## Clear
-    def clear_inputbuffer(self):
+    def clear_inputbuffer(self, table):
         """ Clear the command buffer and the summary panel. """
-        self.table.clear()
+        table.clear()
 
     def clear_fields(self):
         """ Clear the main input fields. """
         self.gui.txt_comment.clear()
         self.gui.spn_amount.setValue(0)
 
-    def add_inputline(self):
+    def add_inputline(self, table):
         """ Command that adds an input finance line into a temporary buffer. """
         if(self.gui.cmb_subcategory.currentText() == 'buy' or \
                 self.gui.cmb_subcategory.currentText() == 'sell'):
@@ -170,7 +167,7 @@ class Controller():
             str(self.gui.spn_risk.textFromValue(self.gui.spn_risk.value())),
             ]
         #self.inputbuffer.append(str_list)
-        self.add_tbl_summary(str_list)
+        self.add_tbl_summary(table, str_list)
         self.clear_fields()
 
     def update_info_details(self):
@@ -246,17 +243,6 @@ class Controller():
         except:
             print('Error: could not load uninstall.sh script.')
 
-    def init_tbl_summary(self):
-        """ Initialize tbl_summary. """
-        # set the table header
-        # TODO: set header values in mdlconstants and use the constants
-        header = ['date', 'account', 'category', 'subcategory', 'amount', 'comment', 'stock', 'market', 'quantity', 'price', 'commission', 'tax', 'risk']
-        self.table = TableModel(header, [], 0, len(header))
-        # takeAt(0) removes the default empty table that's there and addWidget
-        # adds a newly created one.
-        self.gui.vl_table.takeAt(0)
-        self.gui.vl_table.addWidget(self.table)
-
-    def add_tbl_summary(self, row):
+    def add_tbl_summary(self, table, row):
         """ Add or remove a row from the table view """
-        self.table.add_row(row)
+        table.add_row(row)

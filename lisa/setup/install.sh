@@ -2,7 +2,7 @@
 
 HOSTNAME="testdb"
 DATABASE="finance"
-SQLDIR="sql/"
+SQLDIR="setup/sql/"
 
 echo "Create.sh"
 echo "---------"

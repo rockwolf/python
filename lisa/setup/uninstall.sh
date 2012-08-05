@@ -2,7 +2,7 @@
 
 HOSTNAME="testdb"
 DATABASE="finance"
-SQLDIR="sql/"
+SQLDIR="setup/sql/"
 SCRIPTV=$SQLDIR"drop_views.sql"
 SCRIPTT=$SQLDIR"drop_tables.sql"
 

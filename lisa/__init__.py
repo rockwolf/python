@@ -65,7 +65,7 @@ class MainWrapper():
 
     def usage(self):
         """ Print usage info and exit """
-        print('''{0} : Less Interaction Saves Arbeit
+        print('''{0} : Less Interaction Saves Action
 Options: 
  -h : displays this help message
  --install : creates tables and views needed
@@ -108,6 +108,20 @@ All arguments are optional.'''.format(self.pprog))
         ctl = Controller(None, self.config)
         ctl.uninstall()
         ctl = None
+
+    #def install(self):
+    #    """ Setup the database through an external script. """
+    #    try:
+    #        call(["sh", "setup/install.sh"])
+    #    except:
+    #        print('Error: could not load install.sh script.')
+
+    #def uninstall(self):
+    #    """ Remove all from database through an external script. """
+    #    try:
+    #        call(["sh", "setup/uninstall.sh"])
+    #    except:
+    #        print('Error: could not load uninstall.sh script.')
 
 def main():
     """ Main driver, startup and cli options parsing. """

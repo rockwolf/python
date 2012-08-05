@@ -19,7 +19,7 @@ CREATE TABLE T_CATEGORY
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
     constraint pk_cid primary key(cid),
-    constraint fk_foreign key(sub_category_id) references T_SUB_CATEGORY(scid)
+    constraint fk_scid foreign key(scid) references T_SUBCATEGORY(scid)
 );
 
 CREATE TABLE T_ACCOUNT

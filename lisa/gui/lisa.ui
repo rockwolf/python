@@ -41,7 +41,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <layout class="QGridLayout" name="gl_main" rowstretch="0,0,0,0,10,100" columnstretch="0" rowminimumheight="0,0,0,0,0,250" columnminimumwidth="0">
+    <layout class="QGridLayout" name="gl_main" rowstretch="0,0,0,0,10,100" columnstretch="0">
      <property name="sizeConstraint">
       <enum>QLayout::SetDefaultConstraint</enum>
      </property>
@@ -51,6 +51,132 @@
      <property name="verticalSpacing">
       <number>6</number>
      </property>
+     <item row="4" column="0">
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="4">
+        <widget class="QPushButton" name="btn_clear">
+         <property name="font">
+          <font>
+           <family>Envy Code R</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>&amp;Clear</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="6">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="9">
+        <widget class="QPushButton" name="btn_exit">
+         <property name="font">
+          <font>
+           <family>Envy Code R</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>&amp;Quit</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="btn_add">
+         <property name="font">
+          <font>
+           <family>Envy Code R</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>&amp;Add</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="5">
+        <widget class="QPushButton" name="btn_execute">
+         <property name="font">
+          <font>
+           <family>Envy Code R</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>E&amp;xecute</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="7">
+        <widget class="QLabel" name="lbl_infodetails">
+         <property name="font">
+          <font>
+           <family>Envy Code R</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="btn_update">
+         <property name="font">
+          <font>
+           <family>Envy Code R</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>&amp;Update</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="btn_remove">
+         <property name="font">
+          <font>
+           <family>Envy Code R</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>&amp;Remove</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QPushButton" name="btn_removelast">
+         <property name="font">
+          <font>
+           <family>Envy Code R</family>
+          </font>
+         </property>
+         <property name="text">
+          <string>Remove &amp;last</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="8">
+        <spacer name="horizontalSpacer_8">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
      <item row="1" column="0">
       <layout class="QGridLayout" name="gridLayout_8">
        <property name="sizeConstraint">
@@ -100,96 +226,6 @@
        </item>
       </layout>
      </item>
-     <item row="4" column="0">
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <widget class="QPushButton" name="btn_add">
-         <property name="font">
-          <font>
-           <family>Envy Code R</family>
-          </font>
-         </property>
-         <property name="text">
-          <string>&amp;Add</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btn_clear">
-         <property name="font">
-          <font>
-           <family>Envy Code R</family>
-          </font>
-         </property>
-         <property name="text">
-          <string>&amp;Clear</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btn_execute">
-         <property name="font">
-          <font>
-           <family>Envy Code R</family>
-          </font>
-         </property>
-         <property name="text">
-          <string>E&amp;xecute</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QLabel" name="lbl_infodetails">
-         <property name="font">
-          <font>
-           <family>Envy Code R</family>
-          </font>
-         </property>
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer_8">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btn_exit">
-         <property name="font">
-          <font>
-           <family>Envy Code R</family>
-          </font>
-         </property>
-         <property name="text">
-          <string>&amp;Quit</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
      <item row="2" column="0">
       <layout class="QGridLayout" name="gridLayout_4" columnstretch="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">
        <property name="sizeConstraint">
@@ -199,7 +235,7 @@
         <number>2</number>
        </property>
        <item row="1" column="3">
-        <widget class="QComboBox" name="cmb_product">
+        <widget class="QComboBox" name="cmb_category">
          <property name="minimumSize">
           <size>
            <width>150</width>
@@ -234,7 +270,7 @@
         </widget>
        </item>
        <item row="1" column="5">
-        <widget class="QComboBox" name="cmb_object">
+        <widget class="QComboBox" name="cmb_subcategory">
          <property name="minimumSize">
           <size>
            <width>100</width>
@@ -286,9 +322,9 @@
         </widget>
        </item>
        <item row="0" column="3">
-        <widget class="QLabel" name="lbl_product">
+        <widget class="QLabel" name="lbl_category">
          <property name="text">
-          <string>Product</string>
+          <string>Category</string>
          </property>
         </widget>
        </item>
@@ -411,9 +447,9 @@
         </widget>
        </item>
        <item row="0" column="5">
-        <widget class="QLabel" name="lbl_object">
+        <widget class="QLabel" name="lbl_subcategory">
          <property name="text">
-          <string>Object</string>
+          <string>Subcategory</string>
          </property>
         </widget>
        </item>
@@ -513,7 +549,7 @@
       </layout>
      </item>
      <item row="5" column="0">
-      <layout class="QVBoxLayout" name="vl_table" stretch="">
+      <layout class="QVBoxLayout" name="vl_table">
        <property name="sizeConstraint">
         <enum>QLayout::SetFixedSize</enum>
        </property>
@@ -526,8 +562,8 @@
  <tabstops>
   <tabstop>cmb_account</tabstop>
   <tabstop>dt_date</tabstop>
-  <tabstop>cmb_product</tabstop>
-  <tabstop>cmb_object</tabstop>
+  <tabstop>cmb_category</tabstop>
+  <tabstop>cmb_subcategory</tabstop>
   <tabstop>spn_amount</tabstop>
   <tabstop>txt_comment</tabstop>
   <tabstop>cmb_marketcode</tabstop>
