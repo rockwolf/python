@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dm:diagramModel xmlns:dm="http://sqldeveloper.solyp.com/diagram/diagrammodel" xmlns:ddm="http://sqldeveloper.solyp.com/diagram/diagramdatamodel" xmlns:dgm="http://sqldeveloper.solyp.com/diagram/diagramgraphmodel" version="1.2.0">
-<dm:properties creationDate="2012-08-05T12:17:07Z" creator="rockwolf" modificationDate="2012-08-05T12:21:04Z" modifier="rockwolf"/>
+<dm:properties creationDate="2012-08-05T12:17:07Z" creator="rockwolf" modificationDate="2012-08-05T19:54:54Z" modifier="rockwolf"/>
 <dm:diagramDataModel>
 <ddm:objects/>
 <ddm:tables>
