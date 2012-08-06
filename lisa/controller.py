@@ -26,12 +26,13 @@ from subprocess import call
 import shutil
 import os
 from decimal import Decimal, getcontext
-from PyQt4 import QtCore
+from PyQt4 import QtCore, QtGui
 
 from modules.fileimport import FileImport
 from modules.fileexport import FileExport
-from stock import Stock
+from modules.stock import Stock
 from database.databaseaccess import DatabaseAccess
+from gui.viewpyqt import GuiHandler
 
 class Controller():
     """ Contains the bussiness logic of the application. """
@@ -46,6 +47,13 @@ class Controller():
 
     # Methods
     ## General
+    def run(self):
+        """ Call gui function to start the gui. """
+        app = QtGui.QApplication(sys.argv)
+        myapp = GuiHandler(self.config)
+        myapp.show()
+        sys.exit(app.exec_()) 
+
     def write_commands(self):
         """ """
         try:
@@ -217,34 +225,6 @@ class Controller():
                 dba.get_stockdescription( \
                 self.gui.cmb_stockname.currentText()))
         dba = None
-
-    def file_import(self):
-        """ Import data from text file. """
-        fi = FileImport(self.config)
-        fi.file_import()
-        fi = None
-
-    def file_export(self):
-        """ Export data to text file. """
-        fe = FileExport(self.config)
-        # Safety first: take backup
-        self.backup()
-        fe.file_export()
-        fe = None
-
-    def install(self):
-        """ Setup the database through an external script. """
-        try:
-            call(["sh", "setup/install.sh"])
-        except:
-            print('Error: could not load install.sh script.')
-
-    def uninstall(self):
-        """ Remove all from database through an external script. """
-        try:
-            call(["sh", "setup/uninstall.sh"])
-        except:
-            print('Error: could not load uninstall.sh script.')
 
     def add_tbl_summary(self, table, row):
         """ Add or remove a row from the table view """

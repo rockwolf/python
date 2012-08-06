@@ -25,8 +25,8 @@ import sys
 from PyQt4 import QtCore, QtGui
 from decimal import Decimal
 
-from gui.guicode import Ui_frm_main
-from mainhandler import Controller
+from gui.guipyqt import Ui_frm_main
+from controller import Controller
 from modules_generic.tablemodel import TableModel
 
 class GuiHandler(QtGui.QDialog, Ui_frm_main):

@@ -24,11 +24,12 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 """
 import getopt
 import sys
-from PyQt4 import QtCore, QtGui
 
-from guihandler import GuiHandler
-from mainhandler import Controller
+from controller import Controller
 from modules.config import ConfigParser
+from setup.setup import Setup
+from modules.fileimport import FileImport
+from modules.fileexport import FileExport
         
 class MainWrapper():
     """ Main logic 
@@ -39,7 +40,7 @@ class MainWrapper():
     """ 
     
     def __init__(self, parent=None):
-        """ Construct basic QApplication, add widgets and start exec_loop. """
+        """ Set program params and python path and load the config. """
         # general properties of the app
         self.pprog = 'lisa.py'
         self.pversion = '01.00'
@@ -62,6 +63,7 @@ class MainWrapper():
         sys.path.append('database_generic')
         sys.path.append('modules')
         sys.path.append('modules_generic')
+        sys.path.append('setup')
 
     def usage(self):
         """ Print usage info and exit """
@@ -82,55 +84,37 @@ All arguments are optional.'''.format(self.pprog))
         #controller.
         if self.exitstate == 1:
             sys.exit(0)
-        #TODO: run the controller
-        # run the gui app
-        app = QtGui.QApplication(sys.argv)
-        myapp = GuiHandler(self.config)
-        myapp.show()
-        sys.exit(app.exec_())
+        else:
+            #run the controller
+            ctl = Controller(None, self.config)
+            ctl.run(self)
+            ctl = None
+        
 
     def file_import(self):
         """ import """
-        ctl = Controller(None, self.config)
-        ctl.file_import()
-        ctl = None
+        imp = FileImport(self.config)
+        imp.file_import()
+        imp = None
 
     def file_export(self):
         """ export """
-        #TODO: controller start gui, bypass
-        # use of the controller and directly use data_import
-        # and data_export
-        ctl = Controller(None, self.config)
-        ctl.file_export()
-        ctl = None
+        exp = FileExport(self.config)
+        exp.file_export()
+        exp = None
 
     def install(self):
         """ install """
-        #TODO: controller start gui, bypass
-        # use of the controller and directly use setup.py
-        ctl = Controller(None, self.config)
-        ctl.install()
-        ctl = None
+        setup = Setup()
+        setup.install()
+        setup = None
 
     def uninstall(self):
         """ uninstall """
-        ctl = Controller(None, self.config)
-        ctl.uninstall()
-        ctl = None
+        setup = Setup()
+        setup.uninstall()
+        setup = None
 
-    #def install(self):
-    #    """ Setup the database through an external script. """
-    #    try:
-    #        call(["sh", "setup/install.sh"])
-    #    except:
-    #        print('Error: could not load install.sh script.')
-
-    #def uninstall(self):
-    #    """ Remove all from database through an external script. """
-    #    try:
-    #        call(["sh", "setup/uninstall.sh"])
-    #    except:
-    #        print('Error: could not load uninstall.sh script.')
 
 def main():
     """ Main driver, startup and cli options parsing. """
