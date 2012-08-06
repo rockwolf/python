@@ -5,7 +5,7 @@ Short explanation
 -----------------
 
 The main application files are in the lisa package folder.
-The bi and tj folders are seperate applications that expand on lisa.
+The bi folder contains reporting (Pentaho) en related setups that expands on lisa.
 
 1. What is it?
 --------------
