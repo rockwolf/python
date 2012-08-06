@@ -22,24 +22,22 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
 from os.path import isfile
-from subprocess import call
 import shutil
 import os
-from decimal import Decimal, getcontext
-from PyQt4 import QtCore, QtGui
+from decimal import getcontext
 
-from modules.fileimport import FileImport
-from modules.fileexport import FileExport
 from modules.stock import Stock
 from database.databaseaccess import DatabaseAccess
+from pyqt.controllerpyqt import ControllerPyqt
 
-class Controller():
+class ControllerMain():
     """ Contains the bussiness logic of the application. """
     
     def __init__(self, gui, config):
         """ Construct basic QApplication, add widgets and start exec_loop """
         # initialise special vars
-        self.gui = gui #QtGui.QDialog 
+        #TODO: the below statement can't work due to the circular reference.
+        self.gui = ControllerPyqt(config)
         self.config = config #object
         # Decimal precision
         getcontext().prec = 4

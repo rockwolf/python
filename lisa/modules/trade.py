@@ -15,12 +15,8 @@ You should have received a copy of the GNU General Public License
 along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
-from time import sleep
-import sys
-from decimal import Decimal
 from datetime import datetime
 
-from stock import Stock
 from database.databaseaccess import DatabaseAccess
 
 class TradeJournal():

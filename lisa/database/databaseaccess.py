@@ -16,15 +16,12 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
 from datetime import datetime
-import psycopg2 as dbapi2
 from sqlalchemy import create_engine, Table, MetaData
 from sqlalchemy.orm import mapper, clear_mappers
-from sqlalchemy.sql import exists
+#from sqlalchemy.sql import exists
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import func
 from decimal import Decimal
-from datetime import datetime
-
 from database.mappings import *
 
 class DatabaseAccess():

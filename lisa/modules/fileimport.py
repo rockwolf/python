@@ -19,8 +19,8 @@ from time import sleep
 import sys
 from decimal import Decimal
 
-from stock import Stock
-from trade import TradeJournal
+from modules.stock import Stock
+from modules.trade import TradeJournal
 from database.databaseaccess import DatabaseAccess
 
 class FileImport():

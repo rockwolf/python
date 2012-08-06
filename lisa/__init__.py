@@ -25,7 +25,7 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 import getopt
 import sys
 
-from controller import Controller
+from main.controller import ControllerMain
 from modules.config import ConfigParser
 from setup.setup import Setup
 from modules.fileimport import FileImport
@@ -58,7 +58,8 @@ class MainWrapper():
     
     def adjust_syspath(self):
         """ Adjust the system path, so we can search in custom dirs for modules. """
-        sys.path.append('gui')
+        sys.path.append('main')
+        sys.path.append('pyqt')
         sys.path.append('database')
         sys.path.append('database_generic')
         sys.path.append('modules')
@@ -86,10 +87,9 @@ All arguments are optional.'''.format(self.pprog))
             sys.exit(0)
         else:
             #run the controller
-            ctl = Controller(None, self.config)
-            ctl.run(self)
+            ctl = ControllerMain(None, self.config)
+            ctl.run()
             ctl = None
-        
 
     def file_import(self):
         """ import """

@@ -26,22 +26,24 @@ from PyQt4 import QtCore, QtGui
 from decimal import Decimal
 
 from pyqt.viewpyqt import Ui_frm_main
-from controller import Controller
-from gui.tablemodel import TableModel
+from pyqt.tablemodel import TableModel
+from main.controller import ControllerMain
 
-class GuiHandler(QtGui.QDialog, Ui_frm_main):
+class ControllerPyqt(QtGui.QDialog, Ui_frm_main):
     """ Less Interaction Saves Arbeit Main Class """
     
     def __init__(self, config, parent=None):
         """ Construct basic QApplication, add widgets and start exec_loop """
         # initialise special vars
         self.config = config
+        #TODO: keep testing with this, after you fix the import error.
+        #self.run()
         # initialize gui
         QtGui.QDialog.__init__(self, parent)
         self.gui = Ui_frm_main()
         self.gui.setupUi(self) 
         self.connectslots()
-        self.ctl = Controller(self.gui, self.config)
+        self.ctl = ControllerMain(self.gui, self.config)
         self.initgui()
 
     def connectslots(self):
@@ -221,8 +223,11 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
 
     def run(self):
         """ Start the gui. """
+        #TODO: fix error about must start a QApplication in the init of this
+        #class. Perhaps the run function should be executed before this init?
+        #Possible solution: put this in the init?
         app = QtGui.QApplication(sys.argv)
-        myapp = GuiHandler(self.config)
+        myapp = ControllerMain(self.config)
         myapp.show()
         sys.exit(app.exec_())
 
@@ -299,36 +304,36 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
         return str(Decimal(self.gui.spn_risk.textFromValue( \
                 self.gui.spn_risk.value()))/100)
 
-   def set_infodetails(self, value):
+    def set_infodetails(self, value):
        """ Sets new info on the lbl_infodetails label. """
        self.gui.lbl_infodetails.setText(value)
 
-   def set_marketdescription(self, value):
+    def set_marketdescription(self, value):
        """ Sets new info on txt_marketdescription. """
        self.gui.txt_marketdescription.clear()
        self.gui.txt_marketdescription.setText(value)
 
-   def set_stockdescription(self, value):
+    def set_stockdescription(self, value):
        """ Sets new info on txt_stockdescription. """
        self.gui.txt_stockdescription.clear()
        self.gui.txt_stockdescription.setText(value)
    
-   def add_stockname(self, value):
+    def add_stockname(self, value):
        """ Add a new item to cmb_stockname. """
        self.gui.cmb_stockname.addItem(value)
 
-   def add_category(self, value):
+    def add_category(self, value):
        """ Add a new item to cmb_category. """
        self.gui.cmb_category.addItem(value)
 
-   def add_subcategory(self, value):
+    def add_subcategory(self, value):
        """ Add a new item to cmb_subcategory. """
        self.gui.cmb_subcategory.addItem(value)
 
-   def add_account(self, value):
+    def add_account(self, value):
        """ Add a new item to cmb_account. """
        self.gui.cmb_account.addItem(value)
 
-   def add_marketcode(self, value):
+    def add_marketcode(self, value):
        """ Add a new item to cmb_marketcode. """
        self.gui.cmb_marketcode.addItem(value)
