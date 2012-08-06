@@ -77,8 +77,12 @@ All arguments are optional.'''.format(self.pprog))
 
     def run(self):
         """ This is the main driver for the program. """
+        #TODO: put the QTGui crap in the view and call that from the
+        #controller. This part of the code should be used to start the
+        #controller.
         if self.exitstate == 1:
             sys.exit(0)
+        #TODO: run the controller
         # run the gui app
         app = QtGui.QApplication(sys.argv)
         myapp = GuiHandler(self.config)
@@ -93,12 +97,17 @@ All arguments are optional.'''.format(self.pprog))
 
     def file_export(self):
         """ export """
+        #TODO: controller start gui, bypass
+        # use of the controller and directly use data_import
+        # and data_export
         ctl = Controller(None, self.config)
         ctl.file_export()
         ctl = None
 
     def install(self):
         """ install """
+        #TODO: controller start gui, bypass
+        # use of the controller and directly use setup.py
         ctl = Controller(None, self.config)
         ctl.install()
         ctl = None

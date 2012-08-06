@@ -192,6 +192,8 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
         
     def cmb_marketcode_changed(self):
         """ When the marketcode combo selection changes. """
+        #TODO: there should be no link to the controller, the view is a
+        # completely seperate piece of code
         self.ctl.fillcmb_stockname()
         self.ctl.filltxt_marketdescription()
     
@@ -208,6 +210,9 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
 
     def initgui(self):
         """ Initialise fields """
+        #TODO: there should be no link to the controller, the view is a
+        # completely seperate piece of code
+
         # Info labels
         self.gui.lbl_infofinance.clear()
         self.gui.lbl_infofinance.setText('>> ' + self.config.exportfile)

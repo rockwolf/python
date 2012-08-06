@@ -28,8 +28,8 @@ import os
 from decimal import Decimal, getcontext
 from PyQt4 import QtCore
 
-from data_import import FileImport
-from data_export import FileExport
+from modules.fileimport import FileImport
+from modules.fileexport import FileExport
 from stock import Stock
 from database.databaseaccess import DatabaseAccess
 
@@ -143,6 +143,9 @@ class Controller():
 
     def add_inputline(self, table):
         """ Command that adds an input finance line into a temporary buffer. """
+        #TODO: self....cerrentText() and all this crap is PyQt specific.
+        #This should be moved to the view (guihandler).
+        # create a self.gui.get_subcategory etc.
         if(self.gui.cmb_subcategory.currentText() == 'buy' or \
                 self.gui.cmb_subcategory.currentText() == 'sell'):
             market = str(self.gui.cmb_marketcode.currentText())
