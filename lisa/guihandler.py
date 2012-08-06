@@ -78,6 +78,18 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
             self.gui.btn_clear, 
             QtCore.SIGNAL("clicked()"), 
             self.btn_clear_clicked)
+        self.gui.btn_update.connect(
+            self.gui.btn_update, 
+            QtCore.SIGNAL("clicked()"), 
+            self.btn_update_clicked)
+        self.gui.btn_remove.connect(
+            self.gui.btn_remove, 
+            QtCore.SIGNAL("clicked()"), 
+            self.btn_remove_clicked)
+        self.gui.btn_removelast.connect(
+            self.gui.btn_removelast, 
+            QtCore.SIGNAL("clicked()"), 
+            self.btn_removelast_clicked)
 
     # Button Events
     def btn_execute_clicked(self):
@@ -97,6 +109,18 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
         """ Create the command to send to clipf and add it to the buffer. """
         self.ctl.add_inputline(self.table)
         self.gui.cmb_subcategory.setCurrentIndex(0)
+
+    def btn_update_clicked(self):
+        """ Update the selected record in the table. """
+        pass
+
+    def btn_remove_clicked(self):
+        """ Remove the selected record in the table. """
+        pass
+    
+    def btn_removelast_clicked(self):
+        """ Remove the last added record from the table. """
+        pass
 
     # Events
     def cmb_category_changed(self, selstr):
