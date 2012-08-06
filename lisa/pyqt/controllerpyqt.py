@@ -36,9 +36,12 @@ class ControllerPyqt(QtGui.QDialog, Ui_frm_main):
         """ Construct basic QApplication, add widgets and start exec_loop """
         # initialise special vars
         self.config = config
-        #TODO: keep testing with this, after you fix the import error.
-        #self.run()
         # initialize gui
+        # TODO: Put this crap in __init__.py?
+        # Think like this: try to start __init__,
+        # run the gui app and then from gui to view to controller is how
+        # it goes. This means: no reference to the gui in the controller,
+        # unless we give it to the function!
         QtGui.QDialog.__init__(self, parent)
         self.gui = Ui_frm_main()
         self.gui.setupUi(self) 
@@ -148,8 +151,8 @@ class ControllerPyqt(QtGui.QDialog, Ui_frm_main):
     def toggle_stockinputs(self):
         """ Enable/disable all inputs related to stock information """
         category = self.gui.cmb_category.currentText()
-        subcategory_ = self.gui.cmb_subcategory.currentText()
-        if((category == 'invest.tx' or category == 'invest.rx' or category == 'trade.tx' or category == 'trade.rx') and ( subcategory_ == 'buy' or subcategory_ == 'sell')):
+        subcategory = self.gui.cmb_subcategory.currentText()
+        if((category == 'invest.tx' or category == 'invest.rx' or category == 'trade.tx' or category == 'trade.rx') and ( subcategory == 'buy' or subcategory == 'sell')):
             # enable stock inputs
             self.gui.cmb_marketcode.setEnabled(True)
             self.gui.txt_marketdescription.setEnabled(True)

@@ -46,7 +46,7 @@ class ControllerMain():
     ## General
     def run(self):
         """ Call gui function to start the gui. """
-        self.gui.run() 
+        self.gui.run(self) 
 
     def write_commands(self, tablecontent):
         """ Write the commands that are in the table. """
