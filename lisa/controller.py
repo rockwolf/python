@@ -32,7 +32,6 @@ from modules.fileimport import FileImport
 from modules.fileexport import FileExport
 from modules.stock import Stock
 from database.databaseaccess import DatabaseAccess
-from gui.viewpyqt import GuiHandler
 
 class Controller():
     """ Contains the bussiness logic of the application. """
@@ -49,16 +48,13 @@ class Controller():
     ## General
     def run(self):
         """ Call gui function to start the gui. """
-        app = QtGui.QApplication(sys.argv)
-        myapp = GuiHandler(self.config)
-        myapp.show()
-        sys.exit(app.exec_()) 
+        self.gui.run() 
 
-    def write_commands(self):
-        """ """
+    def write_commands(self, tablecontent):
+        """ Write the commands that are in the table. """
         try:
             fields_db = []
-            for field in self.table.tablecontent:
+            for field in tablecontent:
                 category = field[2]
                 if(category[-3:] == '.rx'):
                     flg_income = 1
@@ -92,7 +88,6 @@ class Controller():
             stock.process_stocks(fields_db, fields_stock)
             stock = None
             #TODO: process_trades
-            self.table.clear()
         except Exception as ex:
             print("Error in write_commands: ", ex)
 
@@ -121,71 +116,57 @@ class Controller():
         """ fill in the combo boxes with values. """
         #TODO: fix databaseaccess first
         dba = DatabaseAccess(self.config)
-        # Products
-        for prod in dba.get_categories():
-            self.gui.cmb_category.addItem(prod)
         # Accounts
         for acc in dba.get_accounts():
-            self.gui.cmb_account.addItem(acc)
-        # Object
-        for obj in dba.get_subcategories():
-            self.gui.cmb_subcategory.addItem(obj)
+            self.gui.add_account(acc)
+        # Categories 
+        for category in dba.get_categories():
+            self.gui.add_category(category)
+        # Subcategories. 
+        for subcategory in dba.get_subcategories():
+            self.gui.add_subcategory(subcategory)
         # Market codes
         for mcd in dba.get_markets():
-            self.gui.cmb_marketcode.addItem(mcd)
+            self.gui.add_marketcode(mcd)
         # Stock names
         self.fillcmb_stockname()
         self.filltxt_marketdescription()
         self.filltxt_stockdescription()
         dba = None
 
-    ## Clear
-    def clear_inputbuffer(self, table):
-        """ Clear the command buffer and the summary panel. """
-        table.clear()
-
-    def clear_fields(self):
-        """ Clear the main input fields. """
-        self.gui.txt_comment.clear()
-        self.gui.spn_amount.setValue(0)
-
     def add_inputline(self, table):
         """ Command that adds an input finance line into a temporary buffer. """
-        #TODO: self....cerrentText() and all this crap is PyQt specific.
-        #This should be moved to the view (guihandler).
-        # create a self.gui.get_subcategory etc.
-        if(self.gui.cmb_subcategory.currentText() == 'buy' or \
-                self.gui.cmb_subcategory.currentText() == 'sell'):
-            market = str(self.gui.cmb_marketcode.currentText())
-            stock = str(self.gui.cmb_stockname.currentText())
+        if(self.gui.get_subcategory() == 'buy' or \
+                self.gui.get_subcategory() == 'sell'):
+            market = self.gui.get_marketcode()
+            stock = self.gui.cmb_stockname()
         else:
             market = ''
             stock = ''
         str_list = [
-            str(self.gui.dt_date.date().toString(QtCore.Qt.ISODate)),
-            str(self.gui.cmb_account.currentText()),
-            str(self.gui.cmb_category.currentText()),
-            str(self.gui.cmb_subcategory.currentText()),
-            str(self.gui.spn_amount.textFromValue(self.gui.spn_amount.value())),
-            str(self.gui.txt_comment.text()),
+            self.gui.get_date(),
+            self.gui.get_account(),
+            self.gui.get_category(),
+            self.gui.get_subcategory(),
+            self.gui.get_amount(),
+            self.gui.get_comment(),
             stock,
             market,
-            str(self.gui.spn_quantity.textFromValue(
-                self.gui.spn_quantity.value())),
-            str(self.gui.spn_price.textFromValue(self.gui.spn_price.value())),
-            str(self.gui.spn_commission.textFromValue(self.gui.spn_commission.value())),
-            str(Decimal(self.gui.spn_tax.textFromValue(self.gui.spn_tax.value()))/100),
-            str(self.gui.spn_risk.textFromValue(self.gui.spn_risk.value())),
+            self.gui.get_quantity(),
+            self.gui.spn_price(),
+            self.gui.spn_commission(),
+            self.gui.get_tax(),
+            self.gui.get_risk(),
             ]
         #self.inputbuffer.append(str_list)
         self.add_tbl_summary(table, str_list)
-        self.clear_fields()
+        self.gui.clear_fields()
 
-    def update_info_details(self):
+    def set_infodetails(self):
         """ Update infolabel details. """
         dba = DatabaseAccess(self.config)
-        prod = self.gui.cmb_category.currentText()
-        stock = self.gui.cmb_stockname.currentText()
+        prod = self.gui.get_category()
+        stock = self.gui.get_stockname()
         #TODO: make entire program dependent on cids, so there are no longer
         #hardcoded strings.
         if(
@@ -195,35 +176,34 @@ class Controller():
             prod == 'trade.rx'
         ) and stock != '':
             info = dba.get_stockinfo(stock)
-            self.gui.lbl_infodetails.setText(info[1] + '(' + ''.join(info[2].split()) +'): ' + info[0])
+            self.gui.set_infodetails( \
+                    info[1] + '(' + ''.join(info[2].split()) +'): ' + info[0])
         else:
-            self.gui.lbl_infodetails.setText('')
+            self.gui.set_infodetails('')
         dba = None
 
     def fillcmb_stockname(self):
         """ fill cmb function """
         dba = DatabaseAccess(self.config)
-        self.gui.cmb_stockname.clear()
-        for name in dba.get_stocknames(self.gui.cmb_marketcode.currentText()):
-            self.gui.cmb_stockname.addItem(name)
+        self.gui.clear_cmb_stockname()
+        for name in dba.get_stocknames(self.gui.get_marketcode()):
+            self.gui.add_stockname(name)
         dba = None
     
     def filltxt_marketdescription(self):
         """ fill market description """
         dba = DatabaseAccess(self.config)
-        self.gui.txt_marketdescription.clear()
-        self.gui.txt_marketdescription.setText( \
+        self.gui.set_marketdescription( \
                 dba.get_marketdescription( \
-                self.gui.cmb_marketcode.currentText()))
+                self.gui.get_marketcode()))
         dba = None
 
     def filltxt_stockdescription(self):
         """ fill stock description """
         dba = DatabaseAccess(self.config)
-        self.gui.txt_stockdescription.clear()
-        self.gui.txt_stockdescription.setText( \
+        self.gui.set_stockdescription( \
                 dba.get_stockdescription( \
-                self.gui.cmb_stockname.currentText()))
+                self.gui.get_stockname()))
         dba = None
 
     def add_tbl_summary(self, table, row):

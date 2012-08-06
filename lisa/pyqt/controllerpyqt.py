@@ -25,9 +25,9 @@ import sys
 from PyQt4 import QtCore, QtGui
 from decimal import Decimal
 
-from gui.guipyqt import Ui_frm_main
+from pyqt.viewpyqt import Ui_frm_main
 from controller import Controller
-from modules_generic.tablemodel import TableModel
+from gui.tablemodel import TableModel
 
 class GuiHandler(QtGui.QDialog, Ui_frm_main):
     """ Less Interaction Saves Arbeit Main Class """
@@ -94,16 +94,17 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
     # Button Events
     def btn_execute_clicked(self):
         """ Pipe commands to clipf. """
-        self.ctl.write_commands()
+        self.ctl.write_commands(self.table.tablecontent)
+        self.table.clear()
         
     def btn_exit_clicked(self):
         """ Exit """
-        self.ctl.clear_inputbuffer(self.table) # dummy pylint test
+        self.clear_inputbuffer()
         sys.exit(0)
 
     def btn_clear_clicked(self):
         """ Clear the command buffer. """
-        self.ctl.clear_inputbuffer()
+        self.clear_inputbuffer()
     
     def btn_add_clicked(self):
         """ Create the command to send to clipf and add it to the buffer. """
@@ -183,17 +184,15 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
             self.gui.spn_tax.setValue(0.0)
             self.gui.spn_commission.setValue(0.0)
             self.gui.spn_risk.setValue(0.0)
-        self.ctl.update_info_details()
+        self.ctl.set_infodetails()
 
     def cmb_stockname_changed(self):
         """ When the stock name selection changes. """    
         self.ctl.filltxt_stockdescription()
-        self.ctl.update_info_details()        
+        self.ctl.set_infodetails()        
         
     def cmb_marketcode_changed(self):
         """ When the marketcode combo selection changes. """
-        #TODO: there should be no link to the controller, the view is a
-        # completely seperate piece of code
         self.ctl.fillcmb_stockname()
         self.ctl.filltxt_marketdescription()
     
@@ -210,9 +209,6 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
 
     def initgui(self):
         """ Initialise fields """
-        #TODO: there should be no link to the controller, the view is a
-        # completely seperate piece of code
-
         # Info labels
         self.gui.lbl_infofinance.clear()
         self.gui.lbl_infofinance.setText('>> ' + self.config.exportfile)
@@ -222,3 +218,117 @@ class GuiHandler(QtGui.QDialog, Ui_frm_main):
         self.gui.cmb_account.setCurrentIndex(0)
         # Init tbl_summary
         self.init_tbl_summary()
+
+    def run(self):
+        """ Start the gui. """
+        app = QtGui.QApplication(sys.argv)
+        myapp = GuiHandler(self.config)
+        myapp.show()
+        sys.exit(app.exec_())
+
+    # Clear fields
+    def clear_inputbuffer(self):
+        """ Clears the table that contains the data. """
+        self.table.clear()
+
+    def clear_fields(self):
+        """ Clear the main input fields. """
+        self.gui.txt_comment.clear()
+        self.gui.spn_amount.setValue(0)
+
+    def clear_cmb_stockname(self):
+        """ Clear the cmb_stockname combobox. """
+        self.gui.cmb_stockname.clear()
+
+    # Getters and setters
+    def get_date(self):
+        """ Returns the date from the date-picker. """
+        return str(self.gui.dt_date.date().toString(QtCore.Qt.ISODate))
+
+    def get_account(self):
+        """ Returns the account name from the cmb_account combobox. """
+        return str(self.gui.cmb_account.currentText())
+
+    def get_category(self):
+        """ Returns the category name from the cmb_category combobox. """
+        return str(self.gui.cmb_category.currentText())
+    
+    def get_subcategory(self):
+        """ Returns the subcategory name from the cmb_subcategory combobox. """
+        return str(self.gui.cmb_subcategory.currentText())
+    
+    def get_amount(self):
+        """ Returns the amount from the spn_amount spinedit. """
+        return str(self.gui.spn_amount.textFromValue( \
+                self.gui.spn_amount.value()))
+
+    def get_comment(self):
+        """ Returns the comment text. """
+        return str(self.gui.txt_comment.text())
+
+    def get_marketcode(self):
+        """ Returns the marketcode. """
+        return str(self.gui.txt_comment.text())
+    
+    def get_stockname(self):
+        """ Returns the stockname. """
+        return str(self.gui.txt_comment.text())
+
+    def get_quantity(self):
+        """ Returns the quantity from the spn_quantity spinedit. """
+        return str(self.gui.spn_quantity.textFromValue( \
+                self.gui.spn_quantity.value()))
+
+    def get_price(self):
+        """ Returns the price from the spn_price spinedit. """
+        return str(self.gui.spn_price.textFromValue( \
+                self.gui.spn_price.value()))
+
+    def get_commission(self):
+        """ Returns the commission from the spn_commission spinedit. """
+        return str(self.gui.spn_commission.textFromValue( \
+                self.gui.spn_commission.value()))
+
+    def get_tax(self):
+        """ Returns the tax from the spn_tax spinedit. """
+        return str(self.gui.spn_tax.textFromValue( \
+                self.gui.spn_tax.value()))
+
+    def get_risk(self):
+        """ Returns the risk from the spn_risk spinedit. """
+        return str(Decimal(self.gui.spn_risk.textFromValue( \
+                self.gui.spn_risk.value()))/100)
+
+   def set_infodetails(self, value):
+       """ Sets new info on the lbl_infodetails label. """
+       self.gui.lbl_infodetails.setText(value)
+
+   def set_marketdescription(self, value):
+       """ Sets new info on txt_marketdescription. """
+       self.gui.txt_marketdescription.clear()
+       self.gui.txt_marketdescription.setText(value)
+
+   def set_stockdescription(self, value):
+       """ Sets new info on txt_stockdescription. """
+       self.gui.txt_stockdescription.clear()
+       self.gui.txt_stockdescription.setText(value)
+   
+   def add_stockname(self, value):
+       """ Add a new item to cmb_stockname. """
+       self.gui.cmb_stockname.addItem(value)
+
+   def add_category(self, value):
+       """ Add a new item to cmb_category. """
+       self.gui.cmb_category.addItem(value)
+
+   def add_subcategory(self, value):
+       """ Add a new item to cmb_subcategory. """
+       self.gui.cmb_subcategory.addItem(value)
+
+   def add_account(self, value):
+       """ Add a new item to cmb_account. """
+       self.gui.cmb_account.addItem(value)
+
+   def add_marketcode(self, value):
+       """ Add a new item to cmb_marketcode. """
+       self.gui.cmb_marketcode.addItem(value)
