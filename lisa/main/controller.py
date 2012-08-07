@@ -36,7 +36,7 @@ class ControllerMain():
     def __init__(self, gui, config):
         """ Construct basic QApplication, add widgets and start exec_loop """
         # initialise special vars
-        self.gui = ControllerPyqt(config, self)
+        self.gui = ControllerPyqt(config)
         self.config = config #object
         # Decimal precision
         getcontext().prec = 4
@@ -44,8 +44,15 @@ class ControllerMain():
     # Methods
     ## General
     def run(self):
-        """ Call gui function to start the gui. """
-        self.gui.run() 
+        """ Start the gui. """
+        #TODO: fix error about must start a QApplication in the init of this
+        #class. Perhaps the run function should be executed before this init?
+        #Possible solution: put this in the init?
+        app = self.gui.QtGui.QApplication(self.gui.sys.argv)
+        self.gui.show()
+        self.gui.sys.exit(app.exec_())
+
+ 
 
     def write_commands(self, tablecontent):
         """ Write the commands that are in the table. """

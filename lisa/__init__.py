@@ -39,7 +39,7 @@ class MainWrapper():
     
     """ 
     
-    def __init__(self, parent=None):
+    def __init__(self):
         """ Set program params and python path and load the config. """
         # general properties of the app
         self.pprog = 'lisa.py'
