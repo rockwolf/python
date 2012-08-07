@@ -36,8 +36,7 @@ class ControllerMain():
     def __init__(self, gui, config):
         """ Construct basic QApplication, add widgets and start exec_loop """
         # initialise special vars
-        #TODO: the below statement can't work due to the circular reference.
-        self.gui = ControllerPyqt(config)
+        self.gui = ControllerPyqt(config, self)
         self.config = config #object
         # Decimal precision
         getcontext().prec = 4
@@ -46,7 +45,7 @@ class ControllerMain():
     ## General
     def run(self):
         """ Call gui function to start the gui. """
-        self.gui.run(self) 
+        self.gui.run() 
 
     def write_commands(self, tablecontent):
         """ Write the commands that are in the table. """

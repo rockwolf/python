@@ -27,26 +27,20 @@ from decimal import Decimal
 
 from pyqt.viewpyqt import Ui_frm_main
 from pyqt.tablemodel import TableModel
-from main.controller import ControllerMain
 
 class ControllerPyqt(QtGui.QDialog, Ui_frm_main):
     """ Less Interaction Saves Arbeit Main Class """
     
-    def __init__(self, config, parent=None):
+    def __init__(self, config, parent=None, controller=None):
         """ Construct basic QApplication, add widgets and start exec_loop """
         # initialise special vars
         self.config = config
         # initialize gui
-        # TODO: Put this crap in __init__.py?
-        # Think like this: try to start __init__,
-        # run the gui app and then from gui to view to controller is how
-        # it goes. This means: no reference to the gui in the controller,
-        # unless we give it to the function!
         QtGui.QDialog.__init__(self, parent)
         self.gui = Ui_frm_main()
         self.gui.setupUi(self) 
         self.connectslots()
-        self.ctl = ControllerMain(self.gui, self.config)
+        self.ctl = controller
         self.initgui()
 
     def connectslots(self):
