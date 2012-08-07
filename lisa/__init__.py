@@ -87,7 +87,7 @@ All arguments are optional.'''.format(self.pprog))
             sys.exit(0)
         else:
             #run the controller
-            ctl = ControllerMain(None, self.config)
+            ctl = ControllerMain(self.config)
             ctl.run()
             ctl = None
 

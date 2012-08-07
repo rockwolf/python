@@ -31,7 +31,7 @@ from pyqt.tablemodel import TableModel
 class ControllerPyqt(QtGui.QMainWindow):
     """ Controller that also contains pyqt related code. """
     
-    def __init__(self, config, controller=None):
+    def __init__(self, config, controller):
         """ Construct basic QApplication, add widgets and start exec_loop """
         # initialise special vars
         self.config = config
