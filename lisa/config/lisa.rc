@@ -13,7 +13,7 @@ importfile = 'import/op'
 exportfile = 'export/finance.txt'
 backupfile = 'export/finance.bak'
 # tax value in %
-default_tax = '0.22'
+default_tax = '0.25'
 # risk value in %
 default_risk = '2'
 
