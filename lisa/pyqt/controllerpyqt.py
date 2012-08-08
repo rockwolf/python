@@ -42,7 +42,6 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.gui.setupUi(self) 
         self.connectslots()
         self.ctl = controller
-        self.initgui()
 
     def connectslots(self):
         """ Connect methods to the signals the gui emits """
@@ -207,7 +206,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.gui.vl_table.takeAt(0)
         self.gui.vl_table.addWidget(self.table)
 
-    def initgui(self):
+    def init_gui(self):
         """ Initialise fields """
         # Info labels
         self.gui.lbl_infofinance.clear()
@@ -219,7 +218,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         # Init tbl_summary
         self.init_tbl_summary()
 
-   # Clear fields
+    # Clear fields
     def clear_inputbuffer(self):
         """ Clears the table that contains the data. """
         self.table.clear()

@@ -52,6 +52,7 @@ class ControllerMain():
         app = QtGui.QApplication(sys.argv)
         window = ControllerPyqt(self.config, self)
         self.gui = window
+        window.init_gui()
         window.show()
         sys.exit(app.exec_())
 
@@ -119,7 +120,6 @@ class ControllerMain():
     ## Init of gui
     def fillcombos(self):
         """ fill in the combo boxes with values. """
-        #TODO: fix databaseaccess first
         dba = DatabaseAccess(self.config)
         # Accounts
         for acc in dba.get_accounts():
@@ -166,6 +166,11 @@ class ControllerMain():
         #self.inputbuffer.append(str_list)
         self.add_tbl_summary(table, str_list)
         self.gui.clear_fields()
+    
+    #def set_gui(self, gui):
+    #    """ Used to set a reference to the viewcontroller that calls these
+    #    functions. """
+    #    self.gui = gui
 
     def set_infodetails(self):
         """ Update infolabel details. """
@@ -181,8 +186,8 @@ class ControllerMain():
             prod == 'trade.rx'
         ) and stock != '':
             info = dba.get_stockinfo(stock)
-            self.gui.set_infodetails( \
-                    info[1] + '(' + ''.join(info[2].split()) +'): ' + info[0])
+            self.gui.set_infodetails(info[1] + '(' + 
+                    ''.join(info[2].split()) +'): ' + info[0])
         else:
             self.gui.set_infodetails('')
         dba = None
@@ -198,17 +203,15 @@ class ControllerMain():
     def filltxt_marketdescription(self):
         """ fill market description """
         dba = DatabaseAccess(self.config)
-        self.gui.set_marketdescription( \
-                dba.get_marketdescription( \
-                self.gui.get_marketcode()))
+        self.gui.set_marketdescription(
+                dba.get_marketdescription(self.gui.get_marketcode()))
         dba = None
 
     def filltxt_stockdescription(self):
         """ fill stock description """
         dba = DatabaseAccess(self.config)
-        self.gui.set_stockdescription( \
-                dba.get_stockdescription( \
-                self.gui.get_stockname()))
+        self.gui.set_stockdescription(
+                dba.get_stockdescription(self.gui.get_stockname()))
         dba = None
 
     def add_tbl_summary(self, table, row):
