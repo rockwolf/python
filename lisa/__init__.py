@@ -39,7 +39,7 @@ class MainWrapper():
     
     """ 
     
-    def __init__(self, parent=None):
+    def __init__(self):
         """ Set program params and python path and load the config. """
         # general properties of the app
         self.pprog = 'lisa.py'
@@ -87,7 +87,7 @@ All arguments are optional.'''.format(self.pprog))
             sys.exit(0)
         else:
             #run the controller
-            ctl = ControllerMain(None, self.config)
+            ctl = ControllerMain(self.config)
             ctl.run()
             ctl = None
 

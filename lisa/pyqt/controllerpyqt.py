@@ -25,19 +25,20 @@ import sys
 from PyQt4 import QtCore, QtGui
 from decimal import Decimal
 
-from pyqt.viewpyqt import Ui_frm_main
+from pyqt.viewpyqt import Ui_MainWindow
 from pyqt.tablemodel import TableModel
 
-class ControllerPyqt(QtGui.QDialog, Ui_frm_main):
-    """ Less Interaction Saves Arbeit Main Class """
+class ControllerPyqt(QtGui.QMainWindow):
+    """ Controller that also contains pyqt related code. """
     
-    def __init__(self, config, parent=None, controller=None):
+    def __init__(self, config, controller):
         """ Construct basic QApplication, add widgets and start exec_loop """
         # initialise special vars
         self.config = config
         # initialize gui
-        QtGui.QDialog.__init__(self, parent)
-        self.gui = Ui_frm_main()
+        QtGui.QMainWindow.__init__(self)
+
+        self.gui = Ui_MainWindow()
         self.gui.setupUi(self) 
         self.connectslots()
         self.ctl = controller
@@ -218,17 +219,7 @@ class ControllerPyqt(QtGui.QDialog, Ui_frm_main):
         # Init tbl_summary
         self.init_tbl_summary()
 
-    def run(self):
-        """ Start the gui. """
-        #TODO: fix error about must start a QApplication in the init of this
-        #class. Perhaps the run function should be executed before this init?
-        #Possible solution: put this in the init?
-        app = QtGui.QApplication(sys.argv)
-        myapp = ControllerMain(self.config)
-        myapp.show()
-        sys.exit(app.exec_())
-
-    # Clear fields
+   # Clear fields
     def clear_inputbuffer(self):
         """ Clears the table that contains the data. """
         self.table.clear()

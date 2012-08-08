@@ -23,20 +23,20 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 """
 from os.path import isfile
 import shutil
-import os
+import os, sys
 from decimal import getcontext
 
 from modules.stock import Stock
 from database.databaseaccess import DatabaseAccess
 from pyqt.controllerpyqt import ControllerPyqt
+from PyQt4 import QtGui
 
 class ControllerMain():
     """ Contains the bussiness logic of the application. """
     
-    def __init__(self, gui, config):
+    def __init__(self, config):
         """ Construct basic QApplication, add widgets and start exec_loop """
         # initialise special vars
-        self.gui = ControllerPyqt(config, self)
         self.config = config #object
         # Decimal precision
         getcontext().prec = 4
@@ -44,8 +44,17 @@ class ControllerMain():
     # Methods
     ## General
     def run(self):
-        """ Call gui function to start the gui. """
-        self.gui.run() 
+        """ Start the gui. """
+        #TODO: fix error about must start a QApplication in the init of this
+        #class. Perhaps the run function should be executed before this init?
+        #Possible solution: put this in the init?
+        app = QtGui.QApplication(sys.argv)
+        window = ControllerPyqt(self.config, self)
+        self.gui = window
+        window.show()
+        sys.exit(app.exec_())
+
+ 
 
     def write_commands(self, tablecontent):
         """ Write the commands that are in the table. """
