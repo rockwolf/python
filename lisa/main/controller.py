@@ -144,7 +144,7 @@ class ControllerMain():
         if(self.gui.get_subcategory() == 'buy' or \
                 self.gui.get_subcategory() == 'sell'):
             market = self.gui.get_marketcode()
-            stock = self.gui.cmb_stockname()
+            stock = self.gui.get_stockname()
         else:
             market = ''
             stock = ''
@@ -158,8 +158,8 @@ class ControllerMain():
             stock,
             market,
             self.gui.get_quantity(),
-            self.gui.spn_price(),
-            self.gui.spn_commission(),
+            self.gui.get_price(),
+            self.gui.get_commission(),
             self.gui.get_tax(),
             self.gui.get_risk(),
             ]
@@ -167,11 +167,6 @@ class ControllerMain():
         self.add_tbl_summary(table, str_list)
         self.gui.clear_fields()
     
-    #def set_gui(self, gui):
-    #    """ Used to set a reference to the viewcontroller that calls these
-    #    functions. """
-    #    self.gui = gui
-
     def set_infodetails(self):
         """ Update infolabel details. """
         dba = DatabaseAccess(self.config)

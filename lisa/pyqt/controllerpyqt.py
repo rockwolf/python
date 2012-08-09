@@ -260,11 +260,11 @@ class ControllerPyqt(QtGui.QMainWindow):
 
     def get_marketcode(self):
         """ Returns the marketcode. """
-        return str(self.gui.txt_comment.text())
+        return str(self.gui.cmb_marketcode.currentText())
     
     def get_stockname(self):
         """ Returns the stockname. """
-        return str(self.gui.txt_comment.text())
+        return str(self.gui.cmb_stockname.currentText())
 
     def get_quantity(self):
         """ Returns the quantity from the spn_quantity spinedit. """

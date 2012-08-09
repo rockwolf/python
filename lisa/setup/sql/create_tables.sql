@@ -135,12 +135,29 @@ CREATE TABLE T_TRADE
     stoploss decimal(18,4) not null default 0.0, /* automatically recalculate this */
     shares_total int not null default 0, /* if buy_flg : add shares, if not buy: subtract shares, when 0 => trade closed */
     win_flag int not null default 1, /* win_sum not needed, we can get that in a query + it's calc. for/when closed flag = 1 */
-    --accuracy decimal(18,4) not null default 0, /* we can get that in a query */
+    accuracy decimal(18,4) not null default 0, /* we can get that in a query */
     drawdown int not null default 0,
+    id_buy int not null,
+    id_sell int not null,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
     constraint pk_tid primary key(tid),
-    constraint fk_sid foreign key(sid) references T_STOCK(sid)
+    constraint fk_sid foreign key(sid) references T_STOCK(sid),
+    constraint fk_id_buy foreign key(id_buy) references T_FINANCE(id),
+    constraint fk_id_sell foreign key(id_sell) references T_FINANCE(id)
+);
+
+CREATE TABLE T_RATES
+(
+    rid int not null,
+    mid int not null,
+    extra decimal(18, 4) not null default 0.0,
+    extra_proc decimal(18, 4) not null default 0.0,
+    on_shares decimal(18, 4) not null default 0.0,
+    on_commission decimal(18, 4) not null default 0.0,
+    constraint pk_rid primary key(rid),
+    constraint fk_mid foreign key(mid) references T_MARKET,
+    unique(rid)
 );
 
 /* This might belong in bi */

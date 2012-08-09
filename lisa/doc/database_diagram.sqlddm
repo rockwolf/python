@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dm:diagramModel xmlns:dm="http://sqldeveloper.solyp.com/diagram/diagrammodel" xmlns:ddm="http://sqldeveloper.solyp.com/diagram/diagramdatamodel" xmlns:dgm="http://sqldeveloper.solyp.com/diagram/diagramgraphmodel" version="1.2.0">
-<dm:properties creationDate="2012-08-05T12:17:07Z" creator="rockwolf" modificationDate="2012-08-05T19:54:54Z" modifier="rockwolf"/>
+<dm:properties creationDate="2012-08-05T12:17:07Z" creator="rockwolf" modificationDate="2012-08-09T21:05:12Z" modifier="rockwolf"/>
 <dm:diagramDataModel>
 <ddm:objects/>
 <ddm:tables>
@@ -101,6 +101,21 @@
 </ddm:refIds>
 </ddm:primaryKey>
 </ddm:table>
+<ddm:table id="152" name="t_rates">
+<ddm:tableColumns>
+<ddm:tableColumn defaultValue="" id="153" name="rid" nullable="false" scale="" size="10" typeName="int4"/>
+<ddm:tableColumn defaultValue="" id="154" name="mid" nullable="false" scale="" size="10" typeName="int4"/>
+<ddm:tableColumn defaultValue="0.0" id="155" name="extra" nullable="false" scale="4" size="18" typeName="numeric"/>
+<ddm:tableColumn defaultValue="0.0" id="156" name="extra_proc" nullable="false" scale="4" size="18" typeName="numeric"/>
+<ddm:tableColumn defaultValue="0.0" id="157" name="on_shares" nullable="false" scale="4" size="18" typeName="numeric"/>
+<ddm:tableColumn defaultValue="0.0" id="158" name="on_commission" nullable="false" scale="4" size="18" typeName="numeric"/>
+</ddm:tableColumns>
+<ddm:primaryKey id="159" name="pk_rid">
+<ddm:refIds>
+<ddm:refId value="153"/>
+</ddm:refIds>
+</ddm:primaryKey>
+</ddm:table>
 <ddm:table id="56" name="t_stock">
 <ddm:tableColumns>
 <ddm:tableColumn defaultValue="nextval('t_stock_sid_seq'::regclass)" id="57" name="sid" nullable="false" scale="" size="10" typeName="serial"/>
@@ -170,31 +185,34 @@
 </ddm:refIds>
 </ddm:primaryKey>
 </ddm:table>
-<ddm:table id="96" name="t_trade">
+<ddm:table id="125" name="t_trade">
 <ddm:tableColumns>
-<ddm:tableColumn defaultValue="nextval('t_trade_tid_seq'::regclass)" id="97" name="tid" nullable="false" scale="" size="10" typeName="serial"/>
-<ddm:tableColumn defaultValue="" id="98" name="sid" nullable="false" scale="" size="10" typeName="int4"/>
-<ddm:tableColumn defaultValue="('now'::text)::date" id="99" name="date_buy" nullable="false" scale="" size="" typeName="timestamp"/>
-<ddm:tableColumn defaultValue="0" id="100" name="year_buy" nullable="false" scale="" size="10" typeName="int4"/>
-<ddm:tableColumn defaultValue="0" id="101" name="month_buy" nullable="false" scale="" size="10" typeName="int4"/>
-<ddm:tableColumn defaultValue="0" id="102" name="day_buy" nullable="false" scale="" size="10" typeName="int4"/>
-<ddm:tableColumn defaultValue="('now'::text)::date" id="103" name="date_sell" nullable="false" scale="" size="" typeName="timestamp"/>
-<ddm:tableColumn defaultValue="0" id="104" name="year_sell" nullable="false" scale="" size="10" typeName="int4"/>
-<ddm:tableColumn defaultValue="0" id="105" name="month_sell" nullable="false" scale="" size="10" typeName="int4"/>
-<ddm:tableColumn defaultValue="0" id="106" name="day_sell" nullable="false" scale="" size="10" typeName="int4"/>
-<ddm:tableColumn defaultValue="1" id="107" name="long_flag" nullable="false" scale="" size="10" typeName="int4"/>
-<ddm:tableColumn defaultValue="0.0" id="108" name="buy_price" nullable="false" scale="4" size="18" typeName="numeric"/>
-<ddm:tableColumn defaultValue="0.0" id="109" name="sell_price" nullable="false" scale="4" size="18" typeName="numeric"/>
-<ddm:tableColumn defaultValue="0.0" id="110" name="stoploss" nullable="false" scale="4" size="18" typeName="numeric"/>
-<ddm:tableColumn defaultValue="0" id="111" name="shares_total" nullable="false" scale="" size="10" typeName="int4"/>
-<ddm:tableColumn defaultValue="1" id="112" name="win_flag" nullable="false" scale="" size="10" typeName="int4"/>
-<ddm:tableColumn defaultValue="0" id="113" name="drawdown" nullable="false" scale="" size="10" typeName="int4"/>
-<ddm:tableColumn defaultValue="('now'::text)::date" id="114" name="date_created" nullable="false" scale="" size="" typeName="timestamp"/>
-<ddm:tableColumn defaultValue="('now'::text)::date" id="115" name="date_modified" nullable="false" scale="" size="" typeName="timestamp"/>
+<ddm:tableColumn defaultValue="nextval('t_trade_tid_seq'::regclass)" id="126" name="tid" nullable="false" scale="" size="10" typeName="serial"/>
+<ddm:tableColumn defaultValue="" id="127" name="sid" nullable="false" scale="" size="10" typeName="int4"/>
+<ddm:tableColumn defaultValue="('now'::text)::date" id="128" name="date_buy" nullable="false" scale="" size="" typeName="timestamp"/>
+<ddm:tableColumn defaultValue="0" id="129" name="year_buy" nullable="false" scale="" size="10" typeName="int4"/>
+<ddm:tableColumn defaultValue="0" id="130" name="month_buy" nullable="false" scale="" size="10" typeName="int4"/>
+<ddm:tableColumn defaultValue="0" id="131" name="day_buy" nullable="false" scale="" size="10" typeName="int4"/>
+<ddm:tableColumn defaultValue="('now'::text)::date" id="132" name="date_sell" nullable="false" scale="" size="" typeName="timestamp"/>
+<ddm:tableColumn defaultValue="0" id="133" name="year_sell" nullable="false" scale="" size="10" typeName="int4"/>
+<ddm:tableColumn defaultValue="0" id="134" name="month_sell" nullable="false" scale="" size="10" typeName="int4"/>
+<ddm:tableColumn defaultValue="0" id="135" name="day_sell" nullable="false" scale="" size="10" typeName="int4"/>
+<ddm:tableColumn defaultValue="1" id="136" name="long_flag" nullable="false" scale="" size="10" typeName="int4"/>
+<ddm:tableColumn defaultValue="0.0" id="137" name="buy_price" nullable="false" scale="4" size="18" typeName="numeric"/>
+<ddm:tableColumn defaultValue="0.0" id="138" name="sell_price" nullable="false" scale="4" size="18" typeName="numeric"/>
+<ddm:tableColumn defaultValue="0.0" id="139" name="stoploss" nullable="false" scale="4" size="18" typeName="numeric"/>
+<ddm:tableColumn defaultValue="0" id="140" name="shares_total" nullable="false" scale="" size="10" typeName="int4"/>
+<ddm:tableColumn defaultValue="1" id="141" name="win_flag" nullable="false" scale="" size="10" typeName="int4"/>
+<ddm:tableColumn defaultValue="0" id="142" name="accuracy" nullable="false" scale="4" size="18" typeName="numeric"/>
+<ddm:tableColumn defaultValue="0" id="143" name="drawdown" nullable="false" scale="" size="10" typeName="int4"/>
+<ddm:tableColumn defaultValue="" id="144" name="id_buy" nullable="false" scale="" size="10" typeName="int4"/>
+<ddm:tableColumn defaultValue="" id="145" name="id_sell" nullable="false" scale="" size="10" typeName="int4"/>
+<ddm:tableColumn defaultValue="('now'::text)::date" id="146" name="date_created" nullable="false" scale="" size="" typeName="timestamp"/>
+<ddm:tableColumn defaultValue="('now'::text)::date" id="147" name="date_modified" nullable="false" scale="" size="" typeName="timestamp"/>
 </ddm:tableColumns>
-<ddm:primaryKey id="116" name="pk_tid">
+<ddm:primaryKey id="148" name="pk_tid">
 <ddm:refIds>
-<ddm:refId value="97"/>
+<ddm:refId value="126"/>
 </ddm:refIds>
 </ddm:primaryKey>
 </ddm:table>
@@ -216,9 +234,24 @@
 <ddm:referenceJoin sourceColumnRefId="58" targetColumnRefId="16"/>
 </ddm:referenceJoins>
 </ddm:reference>
+<ddm:reference id="149" name="fk_id_buy" sourceRefId="125" targetRefId="15">
+<ddm:referenceJoins>
+<ddm:referenceJoin sourceColumnRefId="144" targetColumnRefId="16"/>
+</ddm:referenceJoins>
+</ddm:reference>
+<ddm:reference id="150" name="fk_id_sell" sourceRefId="125" targetRefId="15">
+<ddm:referenceJoins>
+<ddm:referenceJoin sourceColumnRefId="145" targetColumnRefId="16"/>
+</ddm:referenceJoins>
+</ddm:reference>
 <ddm:reference id="123" name="fk_margin_type_id" sourceRefId="36" targetRefId="44">
 <ddm:referenceJoins>
 <ddm:referenceJoin sourceColumnRefId="38" targetColumnRefId="45"/>
+</ddm:referenceJoins>
+</ddm:reference>
+<ddm:reference id="160" name="fk_mid" sourceRefId="152" targetRefId="48">
+<ddm:referenceJoins>
+<ddm:referenceJoin sourceColumnRefId="154" targetColumnRefId="49"/>
 </ddm:referenceJoins>
 </ddm:reference>
 <ddm:reference id="124" name="fk_mid" sourceRefId="82" targetRefId="48">
@@ -231,9 +264,9 @@
 <ddm:referenceJoin sourceColumnRefId="9" targetColumnRefId="91"/>
 </ddm:referenceJoins>
 </ddm:reference>
-<ddm:reference id="122" name="fk_sid" sourceRefId="96" targetRefId="56">
+<ddm:reference id="151" name="fk_sid" sourceRefId="125" targetRefId="56">
 <ddm:referenceJoins>
-<ddm:referenceJoin sourceColumnRefId="98" targetColumnRefId="57"/>
+<ddm:referenceJoin sourceColumnRefId="127" targetColumnRefId="57"/>
 </ddm:referenceJoins>
 </ddm:reference>
 <ddm:reference id="121" name="fk_snid" sourceRefId="56" targetRefId="82">
@@ -247,64 +280,76 @@
 <dm:diagramGraphModel>
 <dgm:tables>
 <dgm:table refId="1">
-<dgm:style backgroundColor="#99cc99" bounds="50.0 50.0 202.0 88.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
+<dgm:style backgroundColor="#99cc99" bounds="50.0 50.0 202.0 88.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineColor="#000000" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
 </dgm:table>
 <dgm:table refId="69">
-<dgm:style backgroundColor="#cccccc" bounds="780.0 669.0 224.0 193.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
+<dgm:style backgroundColor="#cccccc" bounds="780.0 669.0 224.0 193.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineColor="#000000" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
 </dgm:table>
 <dgm:table refId="36">
-<dgm:style backgroundColor="#ffffcc" bounds="467.0 673.0 229.0 118.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
-</dgm:table>
-<dgm:table refId="96">
-<dgm:style backgroundColor="#99ffcc" bounds="816.0 27.0 224.0 313.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
+<dgm:style backgroundColor="#ffffcc" bounds="467.0 673.0 229.0 118.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineColor="#000000" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
 </dgm:table>
 <dgm:table refId="7">
-<dgm:style backgroundColor="#ffcc99" bounds="147.0 644.0 209.0 118.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
+<dgm:style backgroundColor="#ffcc99" bounds="147.0 644.0 209.0 118.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineColor="#000000" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
 </dgm:table>
 <dgm:table refId="44">
-<dgm:style backgroundColor="#ffffcc" bounds="493.0 866.0 197.0 58.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
+<dgm:style backgroundColor="#ffffcc" bounds="493.0 866.0 197.0 58.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineColor="#000000" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
 </dgm:table>
 <dgm:table refId="15">
-<dgm:style backgroundColor="#ffffa0" bounds="145.0 279.0 224.0 313.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
+<dgm:style backgroundColor="#ffffa0" bounds="125.0 240.0 224.0 313.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineColor="#000000" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
 </dgm:table>
 <dgm:table refId="48">
-<dgm:style backgroundColor="#ffcc66" bounds="480.0 515.0 209.0 118.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
+<dgm:style backgroundColor="#ffcc66" bounds="1030.0 51.0 209.0 118.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineColor="#000000" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
 </dgm:table>
 <dgm:table refId="82">
-<dgm:style backgroundColor="#ffcc66" bounds="471.0 361.0 217.0 118.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
+<dgm:style backgroundColor="#ffcc66" bounds="723.0 59.0 217.0 118.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineColor="#000000" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
 </dgm:table>
 <dgm:table refId="56">
-<dgm:style backgroundColor="#ffcc66" bounds="469.0 41.0 224.0 193.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
+<dgm:style backgroundColor="#ffcc66" bounds="419.0 31.0 224.0 193.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineColor="#000000" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
 </dgm:table>
 <dgm:table refId="90">
-<dgm:style backgroundColor="#ffcc99" bounds="152.0 833.0 209.0 88.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
+<dgm:style backgroundColor="#ffcc99" bounds="152.0 833.0 209.0 88.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineColor="#000000" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
+</dgm:table>
+<dgm:table refId="125">
+<dgm:style backgroundColor="#99ffcc" bounds="552.0 302.0 224.0 349.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineColor="#000000" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
+</dgm:table>
+<dgm:table refId="152">
+<dgm:style backgroundColor="#99cccc" bounds="1010.0 315.0 231.0 118.0" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="false" lineEndShape="0" lineEndSize="10" lineWidth="1.0" opaque="true"/>
 </dgm:table>
 </dgm:tables>
 <dgm:views/>
 <dgm:references>
-<dgm:reference refId="124">
-<dgm:style color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="10.0 10.0 20.0 20.0"/>
+<dgm:reference refId="160">
+<dgm:style color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="1125.5 374.0 1134.5 110.0"/>
 </dgm:reference>
-<dgm:reference refId="123">
-<dgm:style color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="10.0 10.0 20.0 20.0"/>
+<dgm:reference refId="151">
+<dgm:style backgroundColor="#000000" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineColor="#000000" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="1019.0 213.5 581.0 137.5"/>
 </dgm:reference>
-<dgm:reference refId="122">
-<dgm:style color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="10.0 10.0 20.0 20.0"/>
+<dgm:reference refId="150">
+<dgm:style color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="1019.0 213.5 257.0 435.5"/>
 </dgm:reference>
-<dgm:reference refId="121">
-<dgm:style color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="10.0 10.0 20.0 20.0"/>
-</dgm:reference>
-<dgm:reference refId="120">
-<dgm:style color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="10.0 10.0 20.0 20.0"/>
-</dgm:reference>
-<dgm:reference refId="119">
-<dgm:style color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="10.0 10.0 20.0 20.0"/>
-</dgm:reference>
-<dgm:reference refId="118">
-<dgm:style color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="10.0 10.0 20.0 20.0"/>
+<dgm:reference refId="149">
+<dgm:style color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="1039.0 153.5 257.0 435.5"/>
 </dgm:reference>
 <dgm:reference refId="117">
-<dgm:style color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="10.0 10.0 20.0 20.0"/>
+<dgm:style backgroundColor="#000000" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineColor="#000000" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="10.0 10.0 20.0 20.0"/>
+</dgm:reference>
+<dgm:reference refId="118">
+<dgm:style backgroundColor="#000000" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineColor="#000000" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="10.0 10.0 20.0 20.0"/>
+</dgm:reference>
+<dgm:reference refId="119">
+<dgm:style backgroundColor="#000000" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineColor="#000000" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="10.0 10.0 20.0 20.0"/>
+</dgm:reference>
+<dgm:reference refId="120">
+<dgm:style backgroundColor="#000000" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineColor="#000000" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="10.0 10.0 20.0 20.0"/>
+</dgm:reference>
+<dgm:reference refId="121">
+<dgm:style backgroundColor="#000000" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineColor="#000000" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="10.0 10.0 20.0 20.0"/>
+</dgm:reference>
+<dgm:reference refId="123">
+<dgm:style backgroundColor="#000000" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineColor="#000000" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="10.0 10.0 20.0 20.0"/>
+</dgm:reference>
+<dgm:reference refId="124">
+<dgm:style backgroundColor="#000000" color="#000000" fontFamily="SansSerif" fontSize="12" fontStyle="normal" fontWeight="normal" labelPosition="500.0 0.0" lineBeginFill="false" lineBeginShape="0" lineBeginSize="10" lineColor="#000000" lineEndFill="true" lineEndShape="2" lineEndSize="10" lineWidth="1.0" opaque="false" points="10.0 10.0 20.0 20.0"/>
 </dgm:reference>
 </dgm:references>
 <dgm:dependencies/>

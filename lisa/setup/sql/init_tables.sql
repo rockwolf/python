@@ -15,6 +15,9 @@ values('binb00', current_date, current_date);
 INSERT INTO T_ACCOUNT(name, date_created, date_modified)
 values('unib00', current_date, current_date);
 
+INSERT INTO T_ACCOUNT(name, date_created, date_modified)
+values('whsi00', current_date, current_date);
+
 /* markets */
 INSERT INTO T_MARKET(code, name, country, date_created, date_modified)
 values('ams', 'Amsterdam', 'NL', current_date, current_date);
