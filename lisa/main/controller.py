@@ -212,3 +212,15 @@ class ControllerMain():
     def add_tbl_summary(self, table, row):
         """ Add or remove a row from the table view """
         table.add_row(row)
+
+    def parse_formula(self, formula_id, value_list):
+        """ Parse formula for trading, to calculate the commission. """
+        #TODO: create the get_formula function in databaseaccess.
+        dba = DatabaseAccess(self.config)
+        formula = dba.get_formula(formula_id)
+        #TODO: loop over elements in formula and substitute the values.
+        dba = None
+
+    def convert_to_base_currency(self, currency_base, currency_new, value):
+        """ Convert a new currency to the base currency. """
+        pass
