@@ -149,35 +149,65 @@ CREATE TABLE T_TRADE
 
 CREATE TABLE T_RATES
 (
-    rid int not null,
+    rate_id int not null,
     mid int not null,
+    account_id int not null,
     extra decimal(18, 4) not null default 0.0,
     extra_proc decimal(18, 4) not null default 0.0,
     on_shares decimal(18, 4) not null default 0.0,
     on_commission decimal(18, 4) not null default 0.0,
     constraint pk_rid primary key(rid),
     constraint fk_mid foreign key(mid) references T_MARKET,
+    constraint fk_account_id foreign key(account_id) references T_ACCOUNT,
     unique(rid)
 );
 
-/* This might belong in bi */
-create table T_MARGIN_TYPE
+CREATE TABLE T_FORMULA
 (
-    mtid serial not null,
+    formula_id int not null,
+    value varchar(512) not null,
+    description varchar(256) not null,
+    conrstraint pk_formula_id primary key(formula_id),
+    unique(formula_id)
+);
+
+CREATE TABLE T_CURRENCY
+(
+    currency_id int not null,
+    code varchar(3) not null default '',
+    description varchar(256) not null default '',
+    constraint pk_currency_id primary key(currency_id),
+    unique(currency_id)
+);
+
+CREATE TABLE T_CURRENCY_EXCHANGE
+(
+    currency_exchange_id serial not null,
+    currency_id int not null,
+    exchange_rate decimal(18,6) not null default(1.0),
+    finance_id int not null,
+    constraint pk_currency_exchange_id primary key(currency_exchange_id),
+    constraint fk_finance_id foreign key(finance_id) references T_FINANCE
+);
+
+/* This might belong in bi */
+CREATE TABLE T_MARGIN_TYPE
+(
+    margin_type_id serial not null,
     margin_type varchar(50) not null,
-    constraint pk_mtid primary key(mtid)
+    constraint pk_margin_type_id primary key(margin_type_id)
 );
 
 CREATE TABLE T_MARGIN
 (
-    smid serial not null,
+    margin_id serial not null,
     margin_type_id int not null,
     description varchar(100) not null default '',
     value decimal(18,4) not null default 0.0,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
-    constraint pk_smid primary key(smid),
-    constraint fk_margin_type_id foreign key(margin_type_id) references T_MARGIN_TYPE(mtid)
+    constraint pk_smid primary key(margin_id),
+    constraint fk_margin_type_id foreign key(margin_type_id) references T_MARGIN_TYPE(margin_type_id)
 );
 
 COMMIT;

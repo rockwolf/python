@@ -357,7 +357,57 @@ values(69, 1, 'other.rx', 1, current_date, current_date);
 INSERT INTO T_CATEGORY(cid, scid, name, flg_income, date_created, date_modified)
 values(70, 1, 'other.tx', 0, current_date, current_date);
 
-/* margin types */
+/* currencies */
+INSERT INTO T_CURRENCY(currency_id, code, description)
+values(1, 'EUR', 'Euro');
+
+INSERT INTO T_CURRENCY(currency_id, code, description)
+values(2, 'USD', 'United States Dollar');
+
+INSERT INTO T_CURRENCY(currency_id, code, description)
+values(3, 'CHF', 'Swiss Frank');
+
+INSERT INTO T_CURRENCY(currency_id, code, description)
+values(4, 'CAD', 'Canadian Dollar');
+
+INSERT INTO T_CURRENCY(currency_id, code, description)
+values(5, 'JPY', 'Japanese Yen');
+
+INSERT INTO T_CURRENCY(currency_id, code, description)
+values(6, 'NZD', 'New Zealand Dollar');
+
+INSERT INTO T_CURRENCY(currency_id, code, description)
+values(7, 'AUD', 'Australian Dollar');
+
+INSERT INTO T_CURRENCY(currency_id, code, description)
+values(8, 'GBP', 'British Pound');
+
+INSERT INTO T_CURRENCY(currency_id, code, description)
+values(9, 'HKD', 'Hong Kong Dollar');
+
+INSERT INTO T_CURRENCY(currency_id, code, description)
+values(10, 'DKK', 'Danish Krone');
+
+INSERT INTO T_CURRENCY(currency_id, code, description)
+values(11, 'PLN', 'Polish Zloty');
+
+INSERT INTO T_CURRENCY(currency_id, code, description)
+values(12, 'MXN', 'Mexican Peso');
+
+INSERT INTO T_CURRENCY(currency_id, code, description)
+values(13, 'SEK', 'Swedish Krona');
+
+INSERT INTO T_CURRENCY(currency_id, code, description)
+values(14, 'RUB', 'Russian Ruble');
+
+/* t_formula */
+INSERT INTO T_FORUMULA(formula_id, value, description)
+values(1, '%d0+%d1*%d2', 'WHS commission calculation for US markets: <solid amount>+<small fraction>*<number of shares>.');
+
+INSERT INTO T_FORUMULA(formula_id, value, description)
+values(2, '%d0+%d1*%d2/100', 'WHS commission calculation for non-US markets: <solid amount>+<small percentage>*<order size>.');
+
+/* t_margin_types */
 INSERT INTO T_MARGIN_TYPE(margin_type)
 values('safety');
 
