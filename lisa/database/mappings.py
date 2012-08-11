@@ -18,12 +18,14 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 class T_FINANCE(object):
     """ T_FINANCE """
 
-    def __init__(self, date, aid, cid, amount, comment, stock, \
-            market, shares, price, tax, commission, active, date_created, \
+    def __init__(self, date, account_id, category_id, subcategory_id,
+            amount, comment, stock,
+            market, shares, price, tax, commission, active, date_created,
             date_modified, risk, year, month, day):
         self.date = date
-        self.aid = aid
-        self.cid = cid 
+        self.account_id = account_id
+        self.category_id = category_id 
+        self.subcategory_id = subcategory_id 
         self.amount = amount
         self.comment = comment
         self.stock = stock
@@ -41,19 +43,19 @@ class T_FINANCE(object):
         self.day = day
 
     def __repr__(self):
-        return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-                '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" \
-            % (self.date, self.aid, self.cid, self.amount, self.comment,
-            self.stock, self.market, self.shares, self.price, self.tax,
-            self.commission, self.active, self.date_created,
+        return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
+            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
+            self.date, self.account_id, self.category_id, self.subcategory_id, 
+            self.amount, self.comment, self.stock, self.market, self.shares, 
+            self.price, self.tax, self.commission, self.active, self.date_created,
             self.date_modified, self.risk, self.year, self.month, self.day)
 
 class T_STOCK(object):
     """ T_STOCK """
 
-    def __init__(self, id, snid, action, price, shares, tax, commission, historical, date_created, date_modified, risk):
-        self.id = id
-        self.snid = snid
+    def __init__(self, finance_id, stock_name_id, action, price, shares, tax, commission, historical, date_created, date_modified, risk):
+        self.finance_id = finance_id
+        self.stock_name_id = stock_name_id
         self.action = action
         self.price = price
         self.shares = shares
@@ -65,7 +67,7 @@ class T_STOCK(object):
         self.risk = risk
 
     def __repr__(self):
-        return "<T_STOCK('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.id, self.snid, self.action, self.price, self.shares, self.tax, self.commission, self.historical, self.date_created, self.date_modified, self.risk)
+        return "<T_STOCK('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.finance_id, self.stock_name_id, self.action, self.price, self.shares, self.tax, self.commission, self.historical, self.date_created, self.date_modified, self.risk)
 
 class T_STOCK_CURRENT(object):
     """ T_STOCK_CURRENT"""
@@ -89,15 +91,15 @@ class T_STOCK_CURRENT(object):
 class T_STOCK_NAME(object):
     """ T_STOCK_NAME """
 
-    def __init__(self, name, mid, description, date_created, date_modified):
+    def __init__(self, name, market_id, description, date_created, date_modified):
         self.name = name
-        self.mid = mid
+        self.market_id = market_id
         self.description = description
         self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_STOCK_NAME('%s', '%s', '%s', '%s', '%s')>" % (self.name, self.mid, self.description, self.date_created, self.date_modified)
+        return "<T_STOCK_NAME('%s', '%s', '%s', '%s', '%s')>" % (self.name, self.market_id, self.description, self.date_created, self.date_modified)
 
 class T_MARKET(object):
     """ T_MARKET """
@@ -115,21 +117,21 @@ class T_MARKET(object):
 class T_CATEGORY(object):
     """ T_CATEGORY """
 
-    def __init__(self, scid, name, flg_income, date_created, date_modified):
-        self.scid = scid
+    def __init__(self, subcategory_id, name, flg_income, date_created, date_modified):
+        self.subcategory_id = subcategory_id
         self.name = name
         self.flg_income = flg_income 
         self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_CATEGORY('%s', '%s', '%s', '%s', '%s')>" % (self.scid, self.name, self.flg_income, self.date_created, self.date_modified)
+        return "<T_CATEGORY('%s', '%s', '%s', '%s', '%s')>" % (self.subcategory_id, self.name, self.flg_income, self.date_created, self.date_modified)
 
 class T_MARGIN(object):
     """ T_MARGIN """
 
-    def __init__(self, smid, margin_type_id, description, value, date_created, date_modified):
-        self.smid = smid
+    def __init__(self, margin_id, margin_type_id, description, value, date_created, date_modified):
+        self.margin_id = margin_id
         self.margin_type_id = margin_type_id
         self.description = description 
         self.value = value 
@@ -137,17 +139,18 @@ class T_MARGIN(object):
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_MARGIN('%s', '%s', '%s', '%s' ,'%s', '%s')>" % (self.smid, self.margin_type_id, self.description, value, self.date_created, self.date_modified)
+        return "<T_MARGIN('%s', '%s', '%s', '%s' ,'%s', '%s')>" % (self.margin_id, self.margin_type_id, 
+                self.description, self.value, self.date_created, self.date_modified)
 
 class T_MARGIN_TYPE(object):
     """ T_MARGIN_TYPE """
 
-    def __init__(self, mtid, margin_type):
-        self.mtid = mtid
+    def __init__(self, margin_type_id, margin_type):
+        self.margin_type_id = margin_type_id
         self.margin_type = margin_type
 
     def __repr__(self):
-        return "<T_MARGIN_TYPE('%s', '%s')>" % (self.mtid, self.margin_type)
+        return "<T_MARGIN_TYPE('%s', '%s')>" % (self.margin_type_id, self.margin_type)
 
 class T_SUBCATEGORY(object):
     """ T_SUBCATEGORY """

@@ -3,43 +3,44 @@ BEGIN;
 /* finance */
 CREATE TABLE T_SUBCATEGORY
 (
-    scid int not null,
+    subcategory_id int not null,
     name varchar(20) not null,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
-    constraint pk_scid primary key(scid)
+    constraint pk_subcategory_id primary key(subcategory_id)
 );
 
 CREATE TABLE T_CATEGORY
 (
-    cid int not null,
-    scid int not null default 1,
+    category_id int not null,
+    subcategory_id int not null default 1,
     name varchar(30) not null,
     flg_income int not null,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
-    constraint pk_cid primary key(cid),
-    constraint fk_scid foreign key(scid) references T_SUBCATEGORY(scid)
+    constraint pk_category_id primary key(category_id),
+    constraint fk_subcategory_id foreign key(subcategory_id) references T_SUBCATEGORY(subcategory_id)
 );
 
 CREATE TABLE T_ACCOUNT
 (
-    aid serial not null,
+    account_id serial not null,
     name varchar(6) not null,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
-    constraint pk_aid primary key(aid)
+    constraint pk_account_id primary key(account_id)
 );
 
 CREATE TABLE T_FINANCE
 (
-    id serial not null,
+    finance_id serial not null,
     date timestamp not null default current_date,
     year int not null default 0,
     month int not null default 0,
     day int not null default 0,
-    aid int not null,
-    cid int not null,
+    account_id int not null,
+    category_id int not null,
+    subcategory_id int not null,
     amount decimal(18,4) not null default 0.0,
     comment varchar(256) not null default '',
     market varchar(256) not null default '',
@@ -52,42 +53,44 @@ CREATE TABLE T_FINANCE
     active int not null default 1, 
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
-    constraint pk_id primary key(id),
-    constraint fk_aid foreign key(aid) references T_ACCOUNT,
-    constraint fk_cid foreign key(cid) references T_CATEGORY
+    constraint pk_finance_id primary key(finance_id),
+    constraint fk_account_id foreign key(account_id) references T_ACCOUNT,
+    constraint fk_category_id foreign key(category_id) references T_CATEGORY,
+    constraint fk_subcategory_id foreign key(subcategory_id) references T_SUBCATEGORY
 );
 
 /* stock */
 CREATE TABLE T_MARKET
 (
-    mid serial not null,
+    market_id int not null,
     code varchar(5) not null,
     name varchar(30) not null,
     country char(3) not null,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
-    constraint pk_mid primary key(mid),
+    constraint pk_market_id primary key(market_id),
+    unique(market_id),
     unique(code)
 );
 
 CREATE TABLE T_STOCK_NAME
 (
-    snid serial not null,
+    stock_name_id serial not null,
     name varchar(15) not null,
-    mid int not null,
+    market_id int not null,
     description varchar(256) not null default '',
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
-    constraint pk_snid primary key(snid),
-    constraint fk_mid foreign key(mid) references T_MARKET(mid),
-    unique (name, mid)
+    constraint pk_stock_name_id primary key(stock_name_id),
+    constraint fk_market_id foreign key(market_id) references T_MARKET(market_id),
+    unique (name, market_id)
 );
 
 CREATE TABLE T_STOCK
 (
-    sid serial not null,
-    id int not null,
-    snid int not null,
+    stock_id serial not null,
+    finance_id int not null,
+    stock_name_id int not null,
     action varchar(50) not null,
     price decimal(18,4) not null default 0.0,
     shares int not null default 0,
@@ -96,9 +99,9 @@ CREATE TABLE T_STOCK
     historical decimal(18,4) not null default 0.0,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
-    constraint pk_sid primary key(sid),
-    constraint fk_id foreign key(id) references T_FINANCE(id),
-    constraint fk_snid foreign key(snid) references T_STOCK_NAME(snid)
+    constraint pk_stock_id primary key(stock_id),
+    constraint fk_finance_id foreign key(finance_id) references T_FINANCE(finance_id),
+    constraint fk_stock_name_id foreign key(stock_name_id) references T_STOCK_NAME(stock_name_id)
 );
 
 CREATE TABLE T_STOCK_CURRENT
@@ -117,10 +120,38 @@ CREATE TABLE T_STOCK_CURRENT
     primary key(code, name)
 );
 
+CREATE TABLE T_CURRENCY
+(
+    currency_id int not null,
+    code varchar(3) not null default '',
+    description varchar(256) not null default '',
+    constraint pk_currency_id primary key(currency_id),
+    unique(currency_id)
+);
+
+CREATE TABLE T_CURRENCY_EXCHANGE
+(
+    currency_exchange_id serial not null,
+    currency_id int not null,
+    exchange_rate decimal(18,6) not null default(1.0),
+    finance_id int not null,
+    constraint pk_currency_exchange_id primary key(currency_exchange_id),
+    constraint fk_currency_id foreign key(currency_id) references T_CURRENCY(currency_id),
+    constraint fk_finance_id foreign key(finance_id) references T_FINANCE(finance_id)
+);
+
+/* This might belong in bi */
+CREATE TABLE T_MARGIN_TYPE
+(
+    margin_type_id serial not null,
+    margin_type varchar(50) not null,
+    constraint pk_margin_type_id primary key(margin_type_id)
+);
+
 CREATE TABLE T_TRADE
 (
-    tid serial not null,
-    sid int not null, /* this becomes the link to t_finance: find the sid in T_TRADE (with the correct year and month that's not closed. Otherwise, make another. */
+    trade_id serial not null,
+    stock_id int not null, /* this becomes the link to t_finance: find the stock_id in T_TRADE (with the correct year and month that's not closed. Otherwise, make another. */
     date_buy timestamp not null default current_date,
     year_buy int not null default 0,
     month_buy int not null default 0,
@@ -139,27 +170,32 @@ CREATE TABLE T_TRADE
     drawdown int not null default 0,
     id_buy int not null,
     id_sell int not null,
+    currency_id int not null,
+    risk decimal(18,4) not null default 0.0,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
-    constraint pk_tid primary key(tid),
-    constraint fk_sid foreign key(sid) references T_STOCK(sid),
-    constraint fk_id_buy foreign key(id_buy) references T_FINANCE(id),
-    constraint fk_id_sell foreign key(id_sell) references T_FINANCE(id)
+    constraint pk_trade_id primary key(trade_id),
+    constraint fk_stock_id foreign key(stock_id) references T_STOCK(stock_id),
+    constraint fk_id_buy foreign key(id_buy) references T_FINANCE(finance_id),
+    constraint fk_id_sell foreign key(id_sell) references T_FINANCE(finance_id),
+    constraint fk_currency_id foreign key(currency_id) references T_CURRENCY(currency_id)
 );
 
 CREATE TABLE T_RATES
 (
     rate_id int not null,
-    mid int not null,
+    market_id int not null,
     account_id int not null,
     extra decimal(18, 4) not null default 0.0,
     extra_proc decimal(18, 4) not null default 0.0,
     on_shares decimal(18, 4) not null default 0.0,
     on_commission decimal(18, 4) not null default 0.0,
-    constraint pk_rid primary key(rid),
-    constraint fk_mid foreign key(mid) references T_MARKET,
-    constraint fk_account_id foreign key(account_id) references T_ACCOUNT,
-    unique(rid)
+    finance_id int not null,
+    constraint pk_rate_id primary key(rate_id),
+    constraint fk_market_id foreign key(market_id) references T_MARKET,
+    constraint fk_account_id foreign key(account_id) references T_ACCOUNT(account_id),
+    constraint fk_finance_id foreign key(finance_id) references T_FINANCE(finance_id),
+    unique(rate_id)
 );
 
 CREATE TABLE T_FORMULA
@@ -167,35 +203,8 @@ CREATE TABLE T_FORMULA
     formula_id int not null,
     value varchar(512) not null,
     description varchar(256) not null,
-    conrstraint pk_formula_id primary key(formula_id),
+    constraint pk_formula_id primary key(formula_id),
     unique(formula_id)
-);
-
-CREATE TABLE T_CURRENCY
-(
-    currency_id int not null,
-    code varchar(3) not null default '',
-    description varchar(256) not null default '',
-    constraint pk_currency_id primary key(currency_id),
-    unique(currency_id)
-);
-
-CREATE TABLE T_CURRENCY_EXCHANGE
-(
-    currency_exchange_id serial not null,
-    currency_id int not null,
-    exchange_rate decimal(18,6) not null default(1.0),
-    finance_id int not null,
-    constraint pk_currency_exchange_id primary key(currency_exchange_id),
-    constraint fk_finance_id foreign key(finance_id) references T_FINANCE
-);
-
-/* This might belong in bi */
-CREATE TABLE T_MARGIN_TYPE
-(
-    margin_type_id serial not null,
-    margin_type varchar(50) not null,
-    constraint pk_margin_type_id primary key(margin_type_id)
 );
 
 CREATE TABLE T_MARGIN
@@ -206,7 +215,7 @@ CREATE TABLE T_MARGIN
     value decimal(18,4) not null default 0.0,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
-    constraint pk_smid primary key(margin_id),
+    constraint pk_smarket_id primary key(margin_id),
     constraint fk_margin_type_id foreign key(margin_type_id) references T_MARGIN_TYPE(margin_type_id)
 );
 

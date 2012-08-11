@@ -68,9 +68,9 @@ class ControllerMain():
                     flg_income = 0
                 fields_db.append({
                     'date':field[0],
-                    'account':field[1], #Note: Get AID from T_ACCOUNT for final insert
-                    'category':field[2], #Note: Get CID from T_CATEGORY for final insert
-                    'subcategory':field[3], #Note: Get SCID from T_SUBCATEGORY for final insert
+                    'account':field[1], #Note: Get account_id from T_ACCOUNT for final insert
+                    'category':field[2], #Note: Get category_id from T_CATEGORY for final insert
+                    'subcategory':field[3], #Note: Get subcategory_id from T_SUBCATEGORY for final insert
                     'amount':field[4],
                     'flag':flg_income,
                     'comment':field[5],
