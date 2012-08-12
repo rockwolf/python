@@ -173,3 +173,58 @@ class T_ACCOUNT(object):
 
     def __repr__(self):
         return "<T_ACCOUNT('%s', '%s', '%s')>" % (self.name, self.date_created, self.date_modified)
+
+class T_CURRENCY(object):
+    """ T_CURRENCY """
+
+    def __init__(self, code, description):
+        self.code = code
+        self.description = description
+
+    def __repr__(self):
+        return "<T_CURRENCY('%s', '%s')>" % (self.code, self.description)
+
+class T_CURRENCY_EXCHANGE(object):
+    """ T_CURRENCY_EXCHANGE """
+
+    def __init__(self, currency_id, exchange_rate, finance_id):
+        self.currency_id = currency_id 
+        self.exchange_rate = exchange_rate
+        self.finance_id = finance_id
+
+    def __repr__(self):
+        return "<T_CURRENCY_EXCHANGE('%s', '%s', '%s')>" % (self.currency_id,
+                self.exchange_rate, self.finance_id)
+
+class T_FORMULA(object):
+    """ T_FORMULA """
+
+    def __init__(self, formula_id, value, description):
+        self.formula_id = formula_id 
+        self.value = value 
+        self.description = description
+
+    def __repr__(self):
+        return "<T_FORMULA('%s', '%s', '%s')>" % (self.formula_id,
+                self.value, self.description)
+
+class T_TRADE(object):
+    """ T_TRADE """
+    #TODO: accuracy? Isn't that displayed with the R_multiple? Look this up!
+    #TODO: drawdown: needs an input... perhaps leave this out and use a max of
+    #2 days always?
+
+    def __init__(self, trade_id, stock_id, date_buy, year_buy, month_buy,
+            day_buy, date_sell, year_sell, month_sell, day_sell, long_flag,
+            buy_price, sell_price, risk, initial_risk, initial_risk_percent,
+            stoploss, profit_loss, profit_loss_percent, r_multiple,
+            win_flag, at_work, accuracy, drawdown, id_buy, id_sell,
+            currency_id, date_created, date_modified):
+        self.formula_id = formula_id 
+        self.value = value 
+        self.description = description
+
+    def __repr__(self):
+        return "<T_CURRENCY_EXCHANGE('%s', '%s', '%s')>" % (self.formula_id,
+                self.value, self.description)
+

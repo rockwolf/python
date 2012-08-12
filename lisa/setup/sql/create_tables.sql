@@ -163,15 +163,20 @@ CREATE TABLE T_TRADE
     long_flag int not null default 1,
     buy_price decimal(18,4) not null default 0.0, /* (buy_price + new buy_price)/2 */
     sell_price decimal(18,4) not null default 0.0, /* (sell_price + new sell_price)/2 */
+    risk decimal(18,4) not null default 0.0,
+    initial_risk decimal(18,4) not null default 0.0,
+    initial_risk_percent decimal(18,4) not null default 0.0,
     stoploss decimal(18,4) not null default 0.0, /* automatically recalculate this */
-    shares_total int not null default 0, /* if buy_flg : add shares, if not buy: subtract shares, when 0 => trade closed */
-    win_flag int not null default 1, /* win_sum not needed, we can get that in a query + it's calc. for/when closed flag = 1 */
+    profit_loss decimal(18,4) not null default 0.0,
+    profit_loss_percent decimal(18,4) not null default 0.0,
+    r_multiple decimal(18,4) not null default 0.0,
+    win_flag int not null default 1, /* win_precent and win_sum not possible, we have to get that in a query in a view */
+    at_work decimal(18,4) not null default 0.0,
     accuracy decimal(18,4) not null default 0, /* we can get that in a query */
     drawdown int not null default 0,
     id_buy int not null,
     id_sell int not null,
     currency_id int not null,
-    risk decimal(18,4) not null default 0.0,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
     constraint pk_trade_id primary key(trade_id),
@@ -181,13 +186,13 @@ CREATE TABLE T_TRADE
     constraint fk_currency_id foreign key(currency_id) references T_CURRENCY(currency_id)
 );
 
-CREATE TABLE T_RATES
+CREATE TABLE T_RATE
 (
     rate_id int not null,
     market_id int not null,
     account_id int not null,
     extra decimal(18, 4) not null default 0.0,
-    extra_proc decimal(18, 4) not null default 0.0,
+    extra_percent decimal(18, 4) not null default 0.0,
     on_shares decimal(18, 4) not null default 0.0,
     on_commission decimal(18, 4) not null default 0.0,
     finance_id int not null,

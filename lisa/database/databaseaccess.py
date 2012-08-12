@@ -61,6 +61,11 @@ class DatabaseAccess():
             self.tblmargintype = Table('t_margin_type', self.metadata, autoload=True)
             self.tblsubcategory = Table('t_subcategory', self.metadata, autoload=True)
             self.tblaccount = Table('t_account', self.metadata, autoload=True)
+            self.tblcurrency = Table('t_currency', self.metadata, autoload=True)
+            self.tblexchangerate = Table('t_exchange_rate', self.metadata, autoload=True)
+            self.tblformula = Table('t_formula', self.metadata, autoload=True)
+            self.tblrate = Table('t_rate', self.metadata, autoload=True)
+            self.tbltrade = Table('t_trade', self.metadata, autoload=True)
             
             self.map_tables()
             
@@ -74,7 +79,12 @@ class DatabaseAccess():
                 'margin': 't_margin',
                 'margintype': 't_margin_type',
                 'subcategory': 't_subcategory',
-                'account': 't_account'
+                'account': 't_account',
+                'currency': 't_currency',
+                'exchange_rate': 't_exchange_rate',
+                'formula': 't_formula',
+                'rate': 't_rate',
+                'trade': 't_trade',
             }
 
             self.sqlpath = 'sql'
@@ -251,7 +261,23 @@ class DatabaseAccess():
             session = None
 
         return values
-        
+     
+    def get_currencies(self):
+        """ Get the currency codes. """
+        values = []
+        try:
+            session = self.Session()
+            query = session.query(T_CURRENCY)
+            for instance in query: 
+                values.append(instance.code)
+        except Exception as ex:
+            print("Error in get_currencies: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return values
+    
+
     def file_import_lines(self, fields_db):
         """ Convert general financial information. """
         #TODO: put this in the inherited class

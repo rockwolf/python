@@ -324,3 +324,11 @@ class ControllerPyqt(QtGui.QMainWindow):
     def add_marketcode(self, value):
        """ Add a new item to cmb_marketcode. """
        self.gui.cmb_marketcode.addItem(value)
+        
+    def set_defaultcurrency(self):
+        """ Set the default currency value at startup. """
+        pass
+
+    def add_currency(self, value):
+        """ Add a new item to cmb_currency. """ 
+        self.gui.cmb_currency.addItem(value)

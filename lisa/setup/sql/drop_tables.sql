@@ -10,7 +10,7 @@ drop table T_MARGIN_TYPE cascade;
 drop table T_MARGIN cascade;
 drop table T_STOCK_CURRENT;
 drop table T_TRADE cascade;
-drop table T_RATES cascade;
+drop table T_RATE cascade;
 drop table T_CURRENCY_EXCHANGE cascade;
 drop table T_CURRENCY cascade;
 drop table T_FORMULA cascade;
