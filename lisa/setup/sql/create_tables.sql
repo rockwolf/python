@@ -43,8 +43,8 @@ CREATE TABLE T_FINANCE
     subcategory_id int not null,
     amount decimal(18,4) not null default 0.0,
     comment varchar(256) not null default '',
-    market varchar(256) not null default '',
-    stock varchar(256) not null default '',
+    market_id int not null default 0,
+    stock_name_id int not null default 0,
     shares int not null default 0,
     price decimal(18,4) not null default 0.0,
     tax decimal(18,4) not null default 0.0,
@@ -56,7 +56,9 @@ CREATE TABLE T_FINANCE
     constraint pk_finance_id primary key(finance_id),
     constraint fk_account_id foreign key(account_id) references T_ACCOUNT,
     constraint fk_category_id foreign key(category_id) references T_CATEGORY,
-    constraint fk_subcategory_id foreign key(subcategory_id) references T_SUBCATEGORY
+    constraint fk_subcategory_id foreign key(subcategory_id) references T_SUBCATEGORY,
+    constraint fk_market_id foreign key(market_id) references T_MARKET,
+    constraint fk_stock_name_id foreign key(stock_name_id) references T_STOCK_NAME
 );
 
 /* stock */

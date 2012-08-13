@@ -10,9 +10,9 @@ select
     c.name as category,
     sc.name as subcategory,
     f.amount,
-    f.quantity,
+    f.shares,
     f.price,
-    s.name as stock,
+    s.name as symbol,
     m.name as market,
     f.tax,
     f.commission,
@@ -81,7 +81,7 @@ select
     t.long_flag,
     t.buy_price,
     t.sell_price,
-    t.stock_id, -- TODO: make this symbol + market
+    t.stock_name_id, -- TODO: make this symbol + market
     t.market_id, --TODO: make this the market name
     t.risk,
     t.initial_risk,
@@ -96,19 +96,17 @@ select
     (select total_trades from cte_total_trade)/(select total_wins from cte_total_win)*100 as 'win_percent',
     (select total_wins from cte_total_win) as 'win_sum'
     t.at_work,
-    -- TODO: make join with t_finance to show comments for buy and sell
-    -- This requires converting row fields to columns.
     f_buy.comment as 'comment_buy'
     f_sell.comment as 'comment_sell'
+    f_buy.commission as 'commission_buy',
+    f_sell.commission as 'commission_sell',
     (select commission_total from cte_commission_total) as 'commission_total',
-    -- TODO: commission_buy, commission_sell => does not need to be
-    -- displayed, just the total cost is all we need, but these are needed
-    -- to make the calculation
-    c.code as 'currency'
+    c.code as 'currency' -- Just for informational purpuses. The values are all displayed in EUR.
 from
     T_TRADE t
     inner join T_CURRENCY c on t.currency_id = c.currency_id
     inner join T_FINANCE f_buy on f_buy.finance_id = t.id_buy
     inner join T_FINANCE f_sell on f_sell.finance_id = t.id_sell
+    inner join T_STOCK_NAME sn on sn.stock_name_id = t.stock_name_id
 
 COMMIT;
