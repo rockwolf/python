@@ -151,7 +151,6 @@ CREATE TABLE T_MARGIN_TYPE
 CREATE TABLE T_TRADE
 (
     trade_id serial not null,
-    stock_id int not null, /* this becomes the link to t_finance: find the stock_id in T_TRADE (with the correct year and month that's not closed. Otherwise, make another. */
     date_buy timestamp not null default current_date,
     year_buy int not null default 0,
     month_buy int not null default 0,
@@ -161,19 +160,16 @@ CREATE TABLE T_TRADE
     month_sell int not null default 0,
     day_sell int not null default 0,
     long_flag int not null default 1,
-    buy_price decimal(18,4) not null default 0.0, /* (buy_price + new buy_price)/2 */
-    sell_price decimal(18,4) not null default 0.0, /* (sell_price + new sell_price)/2 */
+    buy_price decimal(18,4) not null default 0.0,
+    sell_price decimal(18,4) not null default 0.0,
     risk decimal(18,4) not null default 0.0,
     initial_risk decimal(18,4) not null default 0.0,
     initial_risk_percent decimal(18,4) not null default 0.0,
-    stoploss decimal(18,4) not null default 0.0, /* automatically recalculate this */
+    stoploss decimal(18,4) not null default 0.0,
     profit_loss decimal(18,4) not null default 0.0,
     profit_loss_percent decimal(18,4) not null default 0.0,
-    r_multiple decimal(18,4) not null default 0.0,
-    win_flag int not null default 1, /* win_precent and win_sum not possible, we have to get that in a query in a view */
+    win_flag int not null default 1,
     at_work decimal(18,4) not null default 0.0,
-    accuracy decimal(18,4) not null default 0, /* we can get that in a query */
-    drawdown int not null default 0,
     id_buy int not null,
     id_sell int not null,
     currency_id int not null,
@@ -181,6 +177,7 @@ CREATE TABLE T_TRADE
     date_modified timestamp not null default current_date,
     constraint pk_trade_id primary key(trade_id),
     constraint fk_stock_id foreign key(stock_id) references T_STOCK(stock_id),
+    constraint fk_market_id foreign key(market_id) references T_MARKET(market_id),
     constraint fk_id_buy foreign key(id_buy) references T_FINANCE(finance_id),
     constraint fk_id_sell foreign key(id_sell) references T_FINANCE(finance_id),
     constraint fk_currency_id foreign key(currency_id) references T_CURRENCY(currency_id)
