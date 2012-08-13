@@ -185,6 +185,19 @@ CREATE TABLE T_TRADE
     constraint fk_currency_id foreign key(currency_id) references T_CURRENCY(currency_id)
 );
 
+-- TODO: We need to keep drawdown records... dammit!
+-- TODO: create a gui part to maintain this.
+CREATE TABLE T_DRAWDOWN
+(
+    drawdown_id int not null default 0,
+    trade_id int not null default 0, 
+    date_created timestamp not null default current_date,
+    date_modified timestamp not null default current_date
+    constraint pk_drawdown_id primary key(drawdown_id),
+    unique(drawdown_id),
+    constraint fk_trade_id foreign key(trade_id) references T_TRADE
+);
+
 CREATE TABLE T_RATE
 (
     rate_id int not null,
