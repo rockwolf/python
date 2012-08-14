@@ -31,7 +31,6 @@ class DatabaseAccess():
         """ Initialize object. """
         try:
             self.config = config
-            
             #print('postgresql://' + self.config.dbuser + ':' + self.config.dbpass + '@' + self.config.dbhost + '/' + self.config.dbname)
             self.db = create_engine(
                 'postgresql://' 
@@ -45,12 +44,9 @@ class DatabaseAccess():
                 ,echo=False
             )
             self.Session = sessionmaker(bind=self.db) 
-            
             # When recreating this object, the previous mappers where remembered by sqlalchemy. We need to clear them first.
             clear_mappers()
-
             self.metadata = MetaData(self.db)
-            
             self.tblfinance = Table('t_finance', self.metadata, autoload=True)
             self.tblstock = Table('t_stock', self.metadata, autoload=True)
             self.tblstockcurrent = Table('t_stock_current', self.metadata, autoload=True)
@@ -67,36 +63,9 @@ class DatabaseAccess():
             self.tbldrawdown = Table('t_drawdown', self.metadata, autoload=True)
             self.tblmargin = Table('t_margin', self.metadata, autoload=True)
             self.tblmargintype = Table('t_margin_type', self.metadata, autoload=True)
-            
             self.map_tables()
-           
-            #TODO: we might be able to make this generic with 
-            #metadata.tables.keys(), which gives the names of the tables
             self.tables = metadata.tables.keys()
-            #self.tables = { 
-            #    'finance': 't_finance',
-            #    'stock': 't_stock',
-            #    'stockcurrent': 't_stock_current',
-            #    'market': 't_market',
-            #    'stockname': 't_stock_name',
-            #    'category': 't_category',
-            #    'margin': 't_margin',
-            #    'margintype': 't_margin_type',
-            #    'subcategory': 't_subcategory',
-            #    'account': 't_account',
-            #    'currency': 't_currency',
-            #    'exchange_rate': 't_exchange_rate',
-            #    'formula': 't_formula',
-            #    'rate': 't_rate',
-            #    'trade': 't_trade',
-            #}
-
-            self.sqlpath = 'sql'
-            self.sqldrop = [ 'drop_tables.sql' ]
-            self.sqlcreate = [ 'create_tables.sql' ]
-            self.sqlinit = [ 'init_tables.sql' ]
             self.msgHandler = __import__('messagehandler')
-
             self.statementFinance = StatementFinance()
             self.statementStock = StatementStock()
         except Exception as ex:
@@ -124,7 +93,6 @@ class DatabaseAccess():
         """ Retrieve config file values """
         config = ConfigParser.RawConfigParser()
         config.read(self.myconf)
-        
         self.dbhost = config.get('database', 'host')[1:-1]
         self.dbname = config.get('database', 'name')[1:-1]
         self.dbuser = config.get('database', 'user')[1:-1]
@@ -268,7 +236,6 @@ class DatabaseAccess():
         finally:
             session.rollback()
             session = None
-
         return values
      
     def get_currencies(self):
@@ -367,28 +334,6 @@ class DatabaseAccess():
                                 fields['date'].day
                             )
                         )
-                        
-                    #else:
-                    #    # UPDATE EXISTING
-                    #    #TODO: fix - SessionMaker has no attribute save - error
-                    #    obj.date = fields['date']
-                    #    obj.account_id = account_id
-                    #    obj.category_id = category_id
-                    #    obj.subcategory_id = subcategory_id
-                    #    obj.amount = Decimal(fields['amount'])
-                    #    obj.comment = fields['comment']
-                    #    obj.stock = fields['stock']
-                    #    obj.market = fields['market']
-                    #    obj.shares = int(fields['shares'])
-                    #    obj.price = Decimal(fields['price'])
-                    #    obj.tax = Decimal(fields['tax'])
-                    #    obj.commission = Decimal(fields['commission'])
-                    #    obj.active = 1
-                    #    obj.date_modified = date_modified
-                    #    obj.risk = Decimal(fields['risk'])
-                    #    session.save(obj)
-                    #    session.flush()
-                        
                 print("Executing statements all at once...")
                 session.add_all(statements)
             finally:
@@ -408,7 +353,6 @@ class DatabaseAccess():
                 now = datetime.now()
                 date_created = now.strftime("%Y-%m-%d %H:%M:%S")
                 date_modified = now.strftime("%Y-%m-%d %H:%M:%S")
-                
                 print("STOCKS")
                 print("______")
                 print("Preparing statements...")
@@ -437,7 +381,6 @@ class DatabaseAccess():
                             risk=Decimal(fields['risk'])
                         ):
                             finance_id = instance.finance_id
-
                         if fields_stock[i] != {}:
                             # Add new entry if it doesn't already exist
                             if self.update_stock(fields_stock, session, i,
@@ -447,10 +390,8 @@ class DatabaseAccess():
                     # so we use an integer in the fields_db loop as an index
                     # to get the corresponding fields_stock value
                     i = i + 1
-
                 print("Executing statements all at once...")
                 statements.Execute(session)
-
             except Exception as ex:
                 print("Error in file_import_stocks: ", ex)
             finally:
@@ -463,6 +404,7 @@ class DatabaseAccess():
 
     def update_finance(self, fields_db, session, i, finance_id, recordid):
         """ Add a new finance entry or update an existing one. """
+        pass
 
     def update_stock(self, fields_stock, session, i, finance_id, recordid):
         """ Add a new stock entry or update an existing one. """
@@ -470,14 +412,12 @@ class DatabaseAccess():
             now = datetime.now()
             date_created = now.strftime("%Y-%m-%d %H:%M:%S")
             date_modified = now.strftime("%Y-%m-%d %H:%M:%S")
-
             # Get stock_name_id from T_STOCK_NAME if it exists (a new entry will be made in T_STOCK_NAME if it doesn't)
             #TODO: add descriptions to market_id_from_market and to stock_name_id_from_stockname)
             market_id = self.market_id_from_market(fields_stock[i]['market'], date_created, date_modified)
             stock_name_id = self.stock_name_id_from_stockname(fields_stock[i]['name'], market_id, date_created, date_modified)
             vartax = Decimal(fields_stock[i]['tax'])
             varcommission = Decimal(fields_stock[i]['commission'])
-
             obj = session.query(T_STOCK).filter_by(
                       finance_id=finance_id,
                       price=Decimal(fields_stock[i]['price']),
@@ -504,16 +444,6 @@ class DatabaseAccess():
                     )
                 )
                 return True;
-            #else:
-            #    # Update existing
-            #    #TODO:WTF should I put here? I add statements to the class and
-            #    #execute them all at once?
-            #    #Perhaps use 2 lists: one with new values and one with
-            #    #values to update?
-            #    #Note: Why update this? Just assume we only add new stuff,
-            #    #which is the case anyway.
-            #    #We do however, need to be able to update the lists in the
-            #    #Statement class, for when we made a mistake.
         except Exception as ex:
            print("Error in update_stock: ", ex)
         return False;
@@ -538,7 +468,6 @@ class DatabaseAccess():
                 session.rollback()
                 session = None
                 print("{0} records retrieved.".format(str(records)))
-
         except Exception as ex:
             print("Error in session of export_lines: ", ex)
         finally:
@@ -570,6 +499,7 @@ class DatabaseAccess():
         #TODO: when trade.tx, tr... etc. (= stock), remove from both
         #classes.
         #TODO: make the Statement-classes accessible from this function?
+        pass
 
     def subcategory_id_from_subcategory(self, subcategory, date_created, date_modified):
         """ Get the subcategory_id from a subcategory. """
