@@ -23,6 +23,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import func
 from decimal import Decimal
 from database.mappings import *
+from modules_generic import current_date
 
 class DatabaseAccess():
     """ Connecting to the database. """ 
@@ -260,9 +261,8 @@ class DatabaseAccess():
         try:
             session = self.Session()
             try:
-                now = datetime.now()
-                date_created = now.strftime("%Y-%m-%d %H:%M:%S")
-                date_modified = now.strftime("%Y-%m-%d %H:%M:%S")
+                date_created = current_date()
+                date_modified = current_date()
                 
                 print("GENERAL")
                 print("_______")
@@ -350,9 +350,8 @@ class DatabaseAccess():
         try:
             session = self.Session()
             try:
-                now = datetime.now()
-                date_created = now.strftime("%Y-%m-%d %H:%M:%S")
-                date_modified = now.strftime("%Y-%m-%d %H:%M:%S")
+                date_created = current_date()
+                date_modified = current_date()
                 print("STOCKS")
                 print("______")
                 print("Preparing statements...")
@@ -409,9 +408,8 @@ class DatabaseAccess():
     def update_stock(self, fields_stock, session, i, finance_id, recordid):
         """ Add a new stock entry or update an existing one. """
         try:
-            now = datetime.now()
-            date_created = now.strftime("%Y-%m-%d %H:%M:%S")
-            date_modified = now.strftime("%Y-%m-%d %H:%M:%S")
+            date_created = current_date()
+            date_modified = current_date()
             # Get stock_name_id from T_STOCK_NAME if it exists (a new entry will be made in T_STOCK_NAME if it doesn't)
             #TODO: add descriptions to market_id_from_market and to stock_name_id_from_stockname)
             market_id = self.market_id_from_market(fields_stock[i]['market'], date_created, date_modified)
