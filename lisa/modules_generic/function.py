@@ -15,14 +15,9 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 """
 from datetime import datetime
 
-class Functions:
-    """ A class with functions that can be used everywhere """
+""" A file with functions that can be used everywhere """
 
-    def __init__(self):
-        """ Init of class """
-        print('test: generic module loaded: ', __name__)
-
-    def current_date(self, date_format='%Y-%m-%d %H:%M:%S'):
-        """ Returns the current date, formatted. """
-        now = datetime.now()
-        return now.strftime(date_format)
+def current_date(self, date_format='%Y-%m-%d %H:%M:%S'):
+    """ Returns the current date, formatted. """
+    now = datetime.now()
+    return now.strftime(date_format)

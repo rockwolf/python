@@ -16,6 +16,7 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
 from database.databaseaccess import DatabaseAccess
+from modules_generic.function import current_date
 
 class FileExport():
     """ Class with methods to export to a textfile. """
@@ -25,16 +26,31 @@ class FileExport():
         self.config = config
 
     def file_export(self):
-        """ Export financial data to text-file. """
+        """ Export all data to text-files. """
         try:
             dba = DatabaseAccess(self.config)
             try:
-                print("Retrieving lines from database...")
-                lines = dba.export_lines()
-                print("Writing data to file...")
-                file = open(self.config.exportfile, 'w')
-                for line in lines:
-                    file.write(line + '\n')
+                #Prepare export dir
+                exportdir = self.config.exportdir
+                if not os.path.isdir(exportdir)
+                    os.makedirs(exportdir)
+                #Create subdir to store the txt-files in
+                subdir = os.path.join(exportdir, 'export_' + current_date())
+                if not os.path.isdir(subdir)
+                    os.makedirs(subdir)
+                print("Retrieving table records from database...")
+                #Process all tables that are loaded by the ORM
+                #But views where created per table to have more control:
+                #to limit the export, only the views need to be updated.
+                viewnames = []
+                for name in dba.tables:
+                    viewnames.append(name.upper().replace('T_', 'V_'))
+                for name in viewnames:
+                    exportfile = open(os.path.join(subdir, name), 'w')
+                    lines = dba.export_lines(name)
+                    print("Writing data for", name, "to file", exportfile, "...")
+                    for line in lines:
+                        exportfile.write(line + '\n')
             finally:
                 print("Done.")
                 file.close()

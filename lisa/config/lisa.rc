@@ -9,9 +9,8 @@ user = 'rockwolf'
 password = ''
 
 [data]
-importfile = 'import/op'
-exportfile = 'export/finance.txt'
-backupfile = 'export/finance.bak'
+importdir= 'import'
+exportdir = 'export'
 # tax value in %
 default_tax = '0.25'
 # risk value in %

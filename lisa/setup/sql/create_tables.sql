@@ -43,7 +43,6 @@ CREATE TABLE T_FINANCE
     subcategory_id int not null,
     amount decimal(18,4) not null default 0.0,
     comment varchar(256) not null default '',
-    market_id int not null default 0,
     stock_name_id int not null default 0,
     shares int not null default 0,
     price decimal(18,4) not null default 0.0,

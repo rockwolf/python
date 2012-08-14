@@ -57,35 +57,39 @@ class DatabaseAccess():
             self.tblmarket = Table('t_market', self.metadata, autoload=True)
             self.tblstockname = Table('t_stock_name', self.metadata, autoload=True)
             self.tblcategory = Table('t_category', self.metadata, autoload=True)
-            self.tblmargin = Table('t_margin', self.metadata, autoload=True)
-            self.tblmargintype = Table('t_margin_type', self.metadata, autoload=True)
             self.tblsubcategory = Table('t_subcategory', self.metadata, autoload=True)
             self.tblaccount = Table('t_account', self.metadata, autoload=True)
             self.tblcurrency = Table('t_currency', self.metadata, autoload=True)
-            self.tblexchangerate = Table('t_exchange_rate', self.metadata, autoload=True)
+            self.tblcurrencyexchange = Table('t_currency_exchange', self.metadata, autoload=True)
             self.tblformula = Table('t_formula', self.metadata, autoload=True)
             self.tblrate = Table('t_rate', self.metadata, autoload=True)
             self.tbltrade = Table('t_trade', self.metadata, autoload=True)
+            self.tbldrawdown = Table('t_drawdown', self.metadata, autoload=True)
+            self.tblmargin = Table('t_margin', self.metadata, autoload=True)
+            self.tblmargintype = Table('t_margin_type', self.metadata, autoload=True)
             
             self.map_tables()
-            
-            self.tables = { 
-                'finance': 't_finance',
-                'stock': 't_stock',
-                'stockcurrent': 't_stock_current',
-                'market': 't_market',
-                'stockname': 't_stock_name',
-                'category': 't_category',
-                'margin': 't_margin',
-                'margintype': 't_margin_type',
-                'subcategory': 't_subcategory',
-                'account': 't_account',
-                'currency': 't_currency',
-                'exchange_rate': 't_exchange_rate',
-                'formula': 't_formula',
-                'rate': 't_rate',
-                'trade': 't_trade',
-            }
+           
+            #TODO: we might be able to make this generic with 
+            #metadata.tables.keys(), which gives the names of the tables
+            self.tables = metadata.tables.keys()
+            #self.tables = { 
+            #    'finance': 't_finance',
+            #    'stock': 't_stock',
+            #    'stockcurrent': 't_stock_current',
+            #    'market': 't_market',
+            #    'stockname': 't_stock_name',
+            #    'category': 't_category',
+            #    'margin': 't_margin',
+            #    'margintype': 't_margin_type',
+            #    'subcategory': 't_subcategory',
+            #    'account': 't_account',
+            #    'currency': 't_currency',
+            #    'exchange_rate': 't_exchange_rate',
+            #    'formula': 't_formula',
+            #    'rate': 't_rate',
+            #    'trade': 't_trade',
+            #}
 
             self.sqlpath = 'sql'
             self.sqldrop = [ 'drop_tables.sql' ]
@@ -110,6 +114,11 @@ class DatabaseAccess():
         mapper(T_MARGIN_TYPE, self.tblmargintype)
         mapper(T_SUBCATEGORY, self.tblsubcategory)
         mapper(T_ACCOUNT, self.tblaccount)
+        mapper(T_TRADE, self.tbltrade)
+        mapper(T_RATE, self.tblrate)
+        mapper(T_CURRENCY, self.tblcurrency)
+        mapper(T_CURRENCY_EXCHANGE, self.tblcurrencyexchange)
+        mapper(T_DRAWDOWN, self.tbldrawdown)
         
     def config(self):
         """ Retrieve config file values """
@@ -509,25 +518,20 @@ class DatabaseAccess():
            print("Error in update_stock: ", ex)
         return False;
 
-    def export_lines(self, all=False):
-        """ Returns the t_finance lines from the database. """
-        #TODO: create an export line. Perhaps gather everything in a view
-        #and export that? That might make this a whole lot easier!
-        #Since we no longer keep subcategory_id in T_FINANCE, just exporting
-        #the T_FINANCE line will not suffice.
+    def export_lines(self, name):
+        """ Returns the lines from the table or view, defined by name. """
+        #TODO: rename this function to something more generic
+        #TODO: this code is no longer valid with the new export system
         results = []
         try:
             session = self.Session()
             try:
                 records = 0
-                if all:
-                    query = session.query(T_FINANCE)
-                else:
-                    query = session.query(T_FINANCE).filter_by(active=1)
+                query = session.query(name)
                 for instance in query:
                     records = records + 1
-                    outline = self.export_line(instance)
-                    results.append(':'.join(outline))
+                    #outline = self.export_line(instance)
+                    results.append(':'.join(instance))
             except Exception as ex:
                 print("Error in export_lines: ", ex)
             finally:
@@ -542,8 +546,10 @@ class DatabaseAccess():
 
     def export_line(self, line):
         """ Assemble an export line. """
+        #TODO: test if the new export system works. If it does, remove this
+        #function, for it is obsolete.
         exportline = []
-        date = datetime.strftime(line.date, '%Y-%m-%d')
+        date = datetime.strftime(line.date, '%Y-%m-%d %H:%M:%S')
         exportline.append(str(date))
         exportline.append(self.accountname_from_account_id(line.account_id))
         exportline.append(self.category_from_category_id(line.category_id))
