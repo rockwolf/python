@@ -52,9 +52,8 @@ class FileExport():
                     print("Writing data for", name, "to file", exportfile, "...")
                     for line in lines:
                         exportfile.write(line + '\n')
-            finally:
                 print("Done.")
-                file.close()
+            finally:
                 dba = None
         except Exception as ex:
             print("Error in file_export: ", ex)

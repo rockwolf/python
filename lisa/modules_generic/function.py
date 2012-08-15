@@ -17,7 +17,7 @@ from datetime import datetime
 
 """ A file with functions that can be used everywhere """
 
-def current_date(self, date_format='%Y-%m-%d %H:%M:%S'):
+def current_date(date_format='%Y-%m-%d %H:%M:%S'):
     """ Returns the current date, formatted. """
     now = datetime.now()
     return now.strftime(date_format)
