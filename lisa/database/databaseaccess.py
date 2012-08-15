@@ -16,13 +16,14 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
 from datetime import datetime
-from sqlalchemy import create_engine, Table, MetaData
+from sqlalchemy import create_engine, Table, MetaData, Column, Integer
 from sqlalchemy.orm import mapper, clear_mappers
 #from sqlalchemy.sql import exists
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import func
 from decimal import Decimal
 from database.mappings import *
+from database.mappings_views import *
 from modules_generic import *
 
 class DatabaseAccess():
@@ -50,7 +51,6 @@ class DatabaseAccess():
             self.metadata = MetaData(self.db)
             self.tblfinance = Table('t_finance', self.metadata, autoload=True)
             self.tblstock = Table('t_stock', self.metadata, autoload=True)
-            self.tblstockcurrent = Table('t_stock_current', self.metadata, autoload=True)
             self.tblmarket = Table('t_market', self.metadata, autoload=True)
             self.tblstockname = Table('t_stock_name', self.metadata, autoload=True)
             self.tblcategory = Table('t_category', self.metadata, autoload=True)
@@ -65,6 +65,37 @@ class DatabaseAccess():
             self.tblmargin = Table('t_margin', self.metadata, autoload=True)
             self.tblmargintype = Table('t_margin_type', self.metadata, autoload=True)
             self.map_tables()
+            self.vwfinance = Table('v_finance', self.metadata,
+                    Column('finance_id', Integer, primary_key=True), autoload=True)
+            self.vwstock = Table('v_stock', self.metadata,
+                    Column('stock_id', Integer, primary_key=True), autoload=True)
+            self.vwmarket = Table('v_market', self.metadata, 
+                    Column('market_id', Integer, primary_key=True), autoload=True)
+            self.vwstockname = Table('v_stock_name', self.metadata,
+                    Column('stock_name_id', Integer, primary_key=True), autoload=True)
+            self.vwcategory = Table('v_category', self.metadata,
+                    Column('category_id', Integer, primary_key=True), autoload=True)
+            self.vwsubcategory = Table('v_subcategory', self.metadata,
+                    Column('subcategory_id', Integer, primary_key=True), autoload=True)
+            self.vwaccount = Table('v_account', self.metadata,
+                    Column('account_id', Integer, primary_key=True), autoload=True)
+            self.vwcurrency = Table('v_currency', self.metadata,
+                    Column('currency_id', Integer, primary_key=True), autoload=True)
+            self.vwcurrencyexchange = Table('v_currency_exchange', self.metadata,
+                    Column('currency_exchange_id', Integer, primary_key=True), autoload=True)
+            self.vwformula = Table('v_formula', self.metadata,
+                    Column('formula_id', Integer, primary_key=True), autoload=True)
+            self.vwrate = Table('v_rate', self.metadata,
+                    Column('rate_id', Integer, primary_key=True), autoload=True)
+            self.vwtrade = Table('v_trade', self.metadata,
+                    Column('trade_id', Integer, primary_key=True), autoload=True)
+            self.vwdrawdown = Table('v_drawdown', self.metadata,
+                    Column('drawdown_id', Integer, primary_key=True), autoload=True)
+            self.vwmargin = Table('v_margin', self.metadata,
+                    Column('margin_id', Integer, primary_key=True), autoload=True)
+            self.vwmargintype = Table('v_margin_type', self.metadata,
+                    Column('margin_type_id', Integer, primary_key=True), autoload=True)
+            self.map_views()
             self.tables = self.metadata.tables.keys()
             self.msgHandler = __import__('messagehandler')
             self.statementFinance = StatementFinance()
@@ -76,7 +107,6 @@ class DatabaseAccess():
         """ Create mappers for the tables on the db and the table classes. """
         mapper(T_FINANCE, self.tblfinance)
         mapper(T_STOCK, self.tblstock)
-        mapper(T_STOCK_CURRENT, self.tblstockcurrent)
         mapper(T_MARKET, self.tblmarket)
         mapper(T_STOCK_NAME, self.tblstockname)
         mapper(T_CATEGORY, self.tblcategory)
@@ -89,6 +119,23 @@ class DatabaseAccess():
         mapper(T_CURRENCY, self.tblcurrency)
         mapper(T_CURRENCY_EXCHANGE, self.tblcurrencyexchange)
         mapper(T_DRAWDOWN, self.tbldrawdown)
+ 
+    def map_views(self):
+        """ Create mappers for the views on the db and the view classes. """
+        mapper(V_FINANCE, self.vwfinance)
+        mapper(V_STOCK, self.vwstock)
+        mapper(V_MARKET, self.vwmarket)
+        mapper(V_STOCK_NAME, self.vwstockname)
+        mapper(V_CATEGORY, self.vwcategory)
+        mapper(V_MARGIN, self.vwmargin)
+        mapper(V_MARGIN_TYPE, self.vwmargintype)
+        mapper(V_SUBCATEGORY, self.vwsubcategory)
+        mapper(V_ACCOUNT, self.vwaccount)
+        mapper(V_TRADE, self.vwtrade)
+        mapper(V_RATE, self.vwrate)
+        mapper(V_CURRENCY, self.vwcurrency)
+        mapper(V_CURRENCY_EXCHANGE, self.vwcurrencyexchange)
+        mapper(V_DRAWDOWN, self.vwdrawdown)
         
     def config(self):
         """ Retrieve config file values """
@@ -459,7 +506,7 @@ class DatabaseAccess():
                 for instance in query:
                     records = records + 1
                     #outline = self.export_line(instance)
-                    results.append(':'.join(instance))
+                    results.append(';'.join(instance.name))
             except Exception as ex:
                 print("Error in export_lines: ", ex)
             finally:

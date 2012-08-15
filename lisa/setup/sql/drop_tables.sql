@@ -8,7 +8,6 @@ drop table T_STOCK_NAME cascade;
 drop table T_MARKET cascade;
 drop table T_MARGIN_TYPE cascade;
 drop table T_MARGIN cascade;
-drop table T_STOCK_CURRENT;
 drop table T_TRADE cascade;
 drop table T_RATE cascade;
 drop table T_CURRENCY_EXCHANGE cascade;

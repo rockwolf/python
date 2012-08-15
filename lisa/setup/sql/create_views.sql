@@ -110,16 +110,6 @@ from
     t_subcategory sc
 ;
 
-/* V_STOCK_CURRENT */
---DROP VIEW V_STOCK_CURRENT;
-CREATE VIEW V_STOCK_CURRENT
-AS
-select
-    sc.*
-from
-    t_stock_current sc
-;
-
 /* V_MARGIN */
 --DROP VIEW V_MARGIN;
 CREATE VIEW V_MARGIN

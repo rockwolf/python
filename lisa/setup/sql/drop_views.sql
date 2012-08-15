@@ -8,7 +8,6 @@ drop view V_STOCK_NAME;
 drop view V_MARKET;
 drop view V_MARGIN_TYPE;
 drop view V_MARGIN;
-drop view V_STOCK_CURRENT;
 drop view V_TRADE;
 drop view V_RATE;
 drop view V_CURRENCY_EXCHANGE;

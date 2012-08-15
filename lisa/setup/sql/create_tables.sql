@@ -149,22 +149,6 @@ CREATE TABLE T_STOCK
     constraint fk_stock_name_id foreign key(stock_name_id) references T_STOCK_NAME(stock_name_id)
 );
 
-CREATE TABLE T_STOCK_CURRENT
-(
-    code varchar(5) not null,
-    name varchar(20) not null,
-    shares int not null default 0,
-    current_value decimal(18,4) not null default 0.0,
-    buy_value decimal(18,4) not null default 0.0,
-    amount decimal(18,4) not null default 0.0,
-    historical decimal(18,4) not null default 0,
-    yield decimal(18,4) not null default 0.0,
-    yield_percent decimal(18,4) not null default 0.0,
-    date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date,
-    primary key(code, name)
-);
-
 CREATE TABLE T_CURRENCY
 (
     currency_id int not null,

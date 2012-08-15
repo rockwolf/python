@@ -2,7 +2,7 @@
 """
 This file is part of Lisa.
 
-Clipf2db is free software: you can redistribute it and/or modify
+Lisa is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
@@ -68,25 +68,6 @@ class T_STOCK(object):
 
     def __repr__(self):
         return "<T_STOCK('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.finance_id, self.stock_name_id, self.action, self.price, self.shares, self.tax, self.commission, self.historical, self.date_created, self.date_modified, self.risk)
-
-class T_STOCK_CURRENT(object):
-    """ T_STOCK_CURRENT"""
-
-    def __init__(self, code, name, shares, current_value, buy_value, amount, historical, yield_, yield_percent, date_created, date_modified):
-        self.code = code
-        self.name = name
-        self.shares = shares
-        self.current_value = current_value
-        self.buy_value = buy_value
-        self.amount = amount
-        self.historical = historical
-        self.yield_ = yield_percent
-        self.date_created = date_created
-        self.date_modified = date_modified
-
-    def __repr__(self):
-        return "<T_STOCK_CURRENT('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.code, self.name, self.shares, self.current_value, self.buy_value, self. amount, self.historical, self.yield_, self.yield_percent, self.date_created, self.date_modified)
-
 
 class T_STOCK_NAME(object):
     """ T_STOCK_NAME """
