@@ -36,7 +36,7 @@ class FileExport():
                 if not os.path.isdir(exportdir):
                     os.makedirs(exportdir)
                 #Create subdir to store the txt-files in
-                subdir = os.path.join(exportdir, 'export_' + current_date())
+                subdir = os.path.join(exportdir, 'export_' + current_date('%Y-%m-%d_%H%M%S'))
                 if not os.path.isdir(subdir):
                     os.makedirs(subdir)
                 print("Retrieving table records from database...")
@@ -47,11 +47,15 @@ class FileExport():
                 for name in dba.tables:
                     viewnames.append(name.upper().replace('T_', 'V_'))
                 for name in viewnames:
-                    exportfile = open(os.path.join(subdir, name), 'w')
+                    tablename = name.replace('V_', 'T_')
+                    exportpath = os.path.join(subdir, tablename)
+                    exportfile = open(exportpath, 'w')
+                    # use the viewname for this function,
+                    # the tablename to create the file
                     lines = dba.export_lines(name)
-                    print("Writing data for", name, "to file", exportfile, "...")
-                    for line in lines:
-                        exportfile.write(line + '\n')
+                    print("Writing data for", tablename, "to file", exportpath, "...")
+                    #for line in lines:
+                    #    exportfile.write(line + '\n')
                 print("Done.")
             finally:
                 dba = None
