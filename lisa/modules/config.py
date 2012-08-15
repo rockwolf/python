@@ -34,6 +34,7 @@ class ConfigParser():
         self.default_risk = ''
         self.default_currency = ''
         self.default_exchange_rate = ''
+        self.default_account = ''
         self.config()
  
     def config(self):
@@ -51,4 +52,5 @@ class ConfigParser():
         self.default_risk = config.get('data', 'default_risk')[1:-1]
         self.default_currency = config.get('data', 'default_currency')[1:-1]
         self.default_exchange_rate = config.get('data', 'default_exchange_rate')[1:-1]
+        self.default_account = config.get('data', 'default_account')[1:-1]
         self.logfile = config.get('logging', 'logfile')[1:-1]

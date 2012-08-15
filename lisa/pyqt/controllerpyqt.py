@@ -215,9 +215,9 @@ class ControllerPyqt(QtGui.QMainWindow):
         # fill all combo boxes
         self.ctl.fillcombos()
         # default values
+        self.set_default_account()
         self.set_default_exchange_rate()
         self.set_default_currency()
-        self.gui.cmb_account.setCurrentIndex(0)
         # Init tbl_summary
         self.init_tbl_summary()
 
@@ -327,16 +327,25 @@ class ControllerPyqt(QtGui.QMainWindow):
     def add_marketcode(self, value):
        """ Add a new item to cmb_marketcode. """
        self.gui.cmb_marketcode.addItem(value)
-        
+       
+    def set_default_account(self):
+        """ Select the default account. """
+        index = int(self.config.default_account)-1
+        self.set_combo_selection(index, self.gui.cmb_account)
+
     def set_default_currency(self):
         """ Set the default currency value at startup. """
         index = int(self.config.default_currency)-1
-        if index > 0:
-            self.gui.cmb_currency.setCurrentIndex(index)
+        self.set_combo_selection(index, self.gui.cmb_currency)
 
     def set_default_exchange_rate(self):
         """ Set the default exchange rate value at startup. """
         self.gui.spn_exchange_rate.setValue(Decimal(self.config.default_exchange_rate))
+
+    def set_combo_selection(self, index, combobox):
+        """ Sets a combobox selection. """
+        if index > 0:
+            combobox.setCurrentIndex(index)
 
     def add_currency(self, value):
         """ Add a new item to cmb_currency. """ 
