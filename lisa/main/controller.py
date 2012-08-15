@@ -135,7 +135,7 @@ class ControllerMain():
             self.gui.add_marketcode(mcd)
         # Currencies
         for currency in dba.get_currencies():
-            self.gui.add_currency()
+            self.gui.add_currency(currency)
         # Stock names
         self.fillcmb_stockname()
         self.filltxt_marketdescription()

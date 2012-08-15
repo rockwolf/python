@@ -65,7 +65,7 @@ class DatabaseAccess():
             self.tblmargin = Table('t_margin', self.metadata, autoload=True)
             self.tblmargintype = Table('t_margin_type', self.metadata, autoload=True)
             self.map_tables()
-            self.tables = metadata.tables.keys()
+            self.tables = self.metadata.tables.keys()
             self.msgHandler = __import__('messagehandler')
             self.statementFinance = StatementFinance()
             self.statementStock = StatementStock()
