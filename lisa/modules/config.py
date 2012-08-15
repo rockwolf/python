@@ -27,10 +27,9 @@ class ConfigParser():
         self.dbname = ''
         self.dbuser = ''
         self.dbpass = ''
-        self.importfile = ''
-        self.exportfile = ''
+        self.importdir = ''
+        self.exportdir = ''
         self.logfile = ''
-        self.backup = ''
         self.default_tax = ''
         self.default_risk = ''
         self.default_currency = ''
@@ -46,9 +45,8 @@ class ConfigParser():
         self.dbname = config.get('database', 'name')[1:-1]
         self.dbuser = config.get('database', 'user')[1:-1]
         self.dbpass = config.get('database', 'password')[1:-1]
-        self.importfile = config.get('data', 'importfile')[1:-1]
-        self.exportfile = config.get('data', 'exportfile')[1:-1]
-        self.backupfile = config.get('data', 'backupfile')[1:-1]
+        self.importdir = config.get('data', 'importdir')[1:-1]
+        self.exportdir = config.get('data', 'exportdir')[1:-1]
         self.default_tax = config.get('data', 'default_tax')[1:-1]
         self.default_risk = config.get('data', 'default_risk')[1:-1]
         self.default_currency = config.get('data', 'default_currency')[1:-1]

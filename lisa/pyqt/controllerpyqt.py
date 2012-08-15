@@ -210,7 +210,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         """ Initialise fields """
         # Info labels
         self.gui.lbl_infofinance.clear()
-        self.gui.lbl_infofinance.setText('>> ' + self.config.exportfile)
+        self.gui.lbl_infofinance.setText('>> ' + self.config.exportdir)
         self.gui.lbl_infodetails.clear()
         # fill all combo boxes
         self.ctl.fillcombos()

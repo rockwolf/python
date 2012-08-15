@@ -31,6 +31,34 @@ CREATE TABLE T_ACCOUNT
     constraint pk_account_id primary key(account_id)
 );
 
+CREATE TABLE T_MARKET
+(
+    market_id int not null,
+    code varchar(5) not null,
+    name varchar(30) not null,
+    country char(3) not null,
+    date_created timestamp not null default current_date,
+    date_modified timestamp not null default current_date,
+    constraint pk_market_id primary key(market_id),
+    unique(market_id),
+    unique(code)
+);
+
+CREATE TABLE T_STOCK_NAME
+(
+    stock_name_id serial not null,
+    name varchar(15) not null,
+    market_id int not null,
+    description varchar(256) not null default '',
+    date_created timestamp not null default current_date,
+    date_modified timestamp not null default current_date,
+    constraint pk_stock_name_id primary key(stock_name_id),
+    constraint fk_market_id foreign key(market_id) references T_MARKET(market_id),
+    unique (name, market_id)
+);
+
+
+/* main finance table */
 CREATE TABLE T_FINANCE
 (
     finance_id serial not null,
@@ -56,35 +84,7 @@ CREATE TABLE T_FINANCE
     constraint fk_account_id foreign key(account_id) references T_ACCOUNT,
     constraint fk_category_id foreign key(category_id) references T_CATEGORY,
     constraint fk_subcategory_id foreign key(subcategory_id) references T_SUBCATEGORY,
-    constraint fk_market_id foreign key(market_id) references T_MARKET,
     constraint fk_stock_name_id foreign key(stock_name_id) references T_STOCK_NAME
-);
-
-/* stock */
-CREATE TABLE T_MARKET
-(
-    market_id int not null,
-    code varchar(5) not null,
-    name varchar(30) not null,
-    country char(3) not null,
-    date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date,
-    constraint pk_market_id primary key(market_id),
-    unique(market_id),
-    unique(code)
-);
-
-CREATE TABLE T_STOCK_NAME
-(
-    stock_name_id serial not null,
-    name varchar(15) not null,
-    market_id int not null,
-    description varchar(256) not null default '',
-    date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date,
-    constraint pk_stock_name_id primary key(stock_name_id),
-    constraint fk_market_id foreign key(market_id) references T_MARKET(market_id),
-    unique (name, market_id)
 );
 
 CREATE TABLE T_STOCK
@@ -177,8 +177,6 @@ CREATE TABLE T_TRADE
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
     constraint pk_trade_id primary key(trade_id),
-    constraint fk_stock_id foreign key(stock_id) references T_STOCK(stock_id),
-    constraint fk_market_id foreign key(market_id) references T_MARKET(market_id),
     constraint fk_id_buy foreign key(id_buy) references T_FINANCE(finance_id),
     constraint fk_id_sell foreign key(id_sell) references T_FINANCE(finance_id),
     constraint fk_currency_id foreign key(currency_id) references T_CURRENCY(currency_id)
@@ -191,7 +189,7 @@ CREATE TABLE T_DRAWDOWN
     drawdown_id int not null default 0,
     trade_id int not null default 0, 
     date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date
+    date_modified timestamp not null default current_date,
     constraint pk_drawdown_id primary key(drawdown_id),
     unique(drawdown_id),
     constraint fk_trade_id foreign key(trade_id) references T_TRADE

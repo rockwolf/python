@@ -23,7 +23,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import func
 from decimal import Decimal
 from database.mappings import *
-from modules_generic import current_date
+from modules_generic import *
 
 class DatabaseAccess():
     """ Connecting to the database. """ 

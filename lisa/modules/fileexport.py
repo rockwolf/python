@@ -17,6 +17,7 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 """
 from database.databaseaccess import DatabaseAccess
 from modules_generic.function import current_date
+import os
 
 class FileExport():
     """ Class with methods to export to a textfile. """
@@ -32,11 +33,11 @@ class FileExport():
             try:
                 #Prepare export dir
                 exportdir = self.config.exportdir
-                if not os.path.isdir(exportdir)
+                if not os.path.isdir(exportdir):
                     os.makedirs(exportdir)
                 #Create subdir to store the txt-files in
                 subdir = os.path.join(exportdir, 'export_' + current_date())
-                if not os.path.isdir(subdir)
+                if not os.path.isdir(subdir):
                     os.makedirs(subdir)
                 print("Retrieving table records from database...")
                 #Process all tables that are loaded by the ORM
