@@ -214,17 +214,108 @@ class T_TRADE(object):
     #TODO: drawdown: needs an input... perhaps leave this out and use a max of
     #2 days always?
 
-    def __init__(self, trade_id, stock_id, date_buy, year_buy, month_buy,
+    def __init__(self, trade_id, date_buy, year_buy, month_buy,
             day_buy, date_sell, year_sell, month_sell, day_sell, long_flag,
-            buy_price, sell_price, risk, initial_risk, initial_risk_percent,
+            price_buy, price_sell, risk, initial_risk, initial_risk_percent,
             stoploss, profit_loss, profit_loss_percent, r_multiple,
-            win_flag, at_work, accuracy, drawdown, id_buy, id_sell,
-            currency_id, date_created, date_modified):
-        self.formula_id = formula_id 
-        self.value = value 
-        self.description = description
+            win_flag, at_work, id_buy, id_sell,
+            currency_id, drawdown_id, date_created, date_modified):
+        self.trade_id = trade_id 
+        self.date_buy = date_buy
+        self.year_buy = year_buy
+        self.month_buy = month_buy
+        self.day_buy = day_buy
+        self.date_sell = date_sell
+        self.year_sell = year_sell
+        self.month_sell = month_sell
+        self.day_sell = day_sell
+        self.long_flag = long_flag
+        self.price_buy = price_buy
+        self.price_sell = price_sell
+        self.risk = risk
+        self.initial_risk = initial_risk
+        self.initial_risk_percent = initial_risk_percent
+        self.stop_loss = stoploss
+        self.profit_loss = profit_loss
+        self.profit_loss_percent = profit_loss_percent
+        self.r_multiple = r_multiple
+        self.win_flag = win_flag
+        self.at_work = at_work
+        self.id_buy = id_buy
+        self.id_sell = id_sell
+        self.currency_id = currency_id
+        self.date_created = date_created
+        self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_CURRENCY_EXCHANGE('%s', '%s', '%s')>" % (self.formula_id,
-                self.value, self.description)
+        return "<T_TRADE('%s', '%s', '%s', '%s', '%s', '%s', \
+                '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
+                '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
+                '%s', '%s', '%s', '%s')>" % (self.trade_id, 
+                        self.date_buy,
+                        self.year_buy,
+                        self.month_buy,
+                        self.day_buy,
+                        self.date_sell,
+                        self.year_sell,
+                        self.month_sell,
+                        self.day_sell,
+                        self.long_flag,
+                        self.price_buy,
+                        self.price_sell,
+                        self.risk,
+                        self.initial_risk,
+                        self.initial_risk_percent,
+                        self.stoploss,
+                        self.profit_loss,
+                        self.profit_loss_percent,
+                        self.r_multiple,
+                        self.win_flag,
+                        self.at_work,
+                        self.id_buy,
+                        self.id_sell,
+                        self.currency_id,
+                        self.drawdown_id,
+                        self.date_created,
+                        self.date_modified)
 
+class T_RATE(object):
+    """ T_RATE """
+
+    def __init__(self, market_id, account_id, extra, extra_percent,
+            on_shares, on_commission, on_ordersize, on_other, commission, tax,
+            formula_id, manual_flag, date_created, date_modified):
+        self.market_id = account_id 
+        self.extra = extra
+        self.extra_percent = extra_percent
+        self.on_shares = on_shares
+        self.on_commission = on_commission
+        self.on_ordersize = on_ordersize
+        self.on_other = on_other
+        self.commission = commission
+        self.tax = tax
+        self.formula_id = formula_id
+        self.manual_flag = manual_flag
+        self.date_created = date_created
+        self.date_modified = date_modified
+
+    def __repr__(self):
+        return "<T_RATE('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
+                '%s', '%s', '%s')>" % (self.market_id, self.account_id,
+                        self.extra, self.extra_percent, self.on_shares,
+                        self.on_commission, self.on_ordersize, self.on_other,
+                        self.commission, self.tax, self.formula_id,
+                        self.manual_flag, self.date_created, self.date_modified)
+
+class T_DRAWDOWN(object):
+    """ T_DRAWDOWN """
+
+    def __init__(self, drawdown_id, value, date_created, date_modified):
+        self.drawdown_id = drawdown_id 
+        self.value = value 
+        self.date_created = date_created
+        self.date_modified = date_modified
+
+    def __repr__(self):
+        return "<T_DRAWDOWN('%s', '%s', '%s', '%s')>" % (self.drawdown_id,
+                self.value, self.date_created, self.date_modified)

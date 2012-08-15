@@ -14,4 +14,5 @@ drop table T_RATE cascade;
 drop table T_CURRENCY_EXCHANGE cascade;
 drop table T_CURRENCY cascade;
 drop table T_FORMULA cascade;
+drop table T_DRAWDOWN cascade;
 COMMIT;

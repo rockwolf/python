@@ -57,6 +57,48 @@ CREATE TABLE T_STOCK_NAME
     unique (name, market_id)
 );
 
+CREATE TABLE T_FORMULA
+(
+    formula_id int not null,
+    value varchar(512) not null,
+    description varchar(256) not null,
+    constraint pk_formula_id primary key(formula_id),
+    unique(formula_id)
+);
+
+-- TODO: when creating records (both trade + finance)
+-- you create an entry here, for automatically calculating the commission.
+-- create finance record
+-- create trade record
+-- create rate record
+-- update finance record with calculculated commission
+-- ?? But should happen in the gui already????
+-- extra button to calculate the commission?
+-- or on property change of price and shares and amount
+--
+-- commission and rate are 0? will be calculated here
+-- or dependend on checkbox? <= better
+-- no checkbox = use those values
+CREATE TABLE T_RATE
+(
+    rate_id serial not null,
+    market_id int not null,
+    account_id int not null,
+    extra decimal(18, 4) not null default 0.0,
+    extra_percent decimal(18, 4) not null default 0.0,
+    on_shares decimal(18, 4) not null default 0.0,
+    on_commission decimal(18, 4) not null default 0.0,
+    on_ordersize decimal(18, 4) not null default 0.0,
+    on_other decimal(18, 4) not null default 0.0,
+    commission decimal(18, 4) not null default 0.0,
+    tax decimal(18, 4) not null default 0.0,
+    formula_id int not null,
+    manual_flag int not null default 0,
+    constraint pk_rate_id primary key(rate_id),
+    constraint fk_market_id foreign key(market_id) references T_MARKET,
+    constraint fk_account_id foreign key(account_id) references T_ACCOUNT(account_id),
+    constraint fk_formula_id foreign key(formula_id) references T_FORMULA(formula_id)
+);
 
 /* main finance table */
 CREATE TABLE T_FINANCE
@@ -78,13 +120,15 @@ CREATE TABLE T_FINANCE
     commission decimal (18,4) not null default 0.0,
     reference int not null default 0,
     active int not null default 1, 
+    rate_id int not null default 0,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
     constraint pk_finance_id primary key(finance_id),
     constraint fk_account_id foreign key(account_id) references T_ACCOUNT,
     constraint fk_category_id foreign key(category_id) references T_CATEGORY,
     constraint fk_subcategory_id foreign key(subcategory_id) references T_SUBCATEGORY,
-    constraint fk_stock_name_id foreign key(stock_name_id) references T_STOCK_NAME
+    constraint fk_stock_name_id foreign key(stock_name_id) references T_STOCK_NAME,
+    constraint fk_rate_id foreign key(rate_id) references T_RATE
 );
 
 CREATE TABLE T_STOCK
@@ -149,6 +193,19 @@ CREATE TABLE T_MARGIN_TYPE
     constraint pk_margin_type_id primary key(margin_type_id)
 );
 
+-- TODO: We need to keep drawdown records... dammit!
+-- TODO: create a gui part to maintain this.
+-- TODO: when creating trade records, a record needs to be created here too
+CREATE TABLE T_DRAWDOWN
+(
+    drawdown_id int not null default 0,
+    value int not null default 0,
+    date_created timestamp not null default current_date,
+    date_modified timestamp not null default current_date,
+    constraint pk_drawdown_id primary key(drawdown_id),
+    unique(drawdown_id)
+);
+
 CREATE TABLE T_TRADE
 (
     trade_id serial not null,
@@ -161,8 +218,8 @@ CREATE TABLE T_TRADE
     month_sell int not null default 0,
     day_sell int not null default 0,
     long_flag int not null default 1,
-    buy_price decimal(18,4) not null default 0.0,
-    sell_price decimal(18,4) not null default 0.0,
+    price_buy decimal(18,4) not null default 0.0,
+    price_sell decimal(18,4) not null default 0.0,
     risk decimal(18,4) not null default 0.0,
     initial_risk decimal(18,4) not null default 0.0,
     initial_risk_percent decimal(18,4) not null default 0.0,
@@ -173,52 +230,15 @@ CREATE TABLE T_TRADE
     at_work decimal(18,4) not null default 0.0,
     id_buy int not null,
     id_sell int not null,
-    currency_id int not null,
+    currency_id int not null default 0,
+    drawdown_id int not null default 0,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
     constraint pk_trade_id primary key(trade_id),
     constraint fk_id_buy foreign key(id_buy) references T_FINANCE(finance_id),
     constraint fk_id_sell foreign key(id_sell) references T_FINANCE(finance_id),
-    constraint fk_currency_id foreign key(currency_id) references T_CURRENCY(currency_id)
-);
-
--- TODO: We need to keep drawdown records... dammit!
--- TODO: create a gui part to maintain this.
-CREATE TABLE T_DRAWDOWN
-(
-    drawdown_id int not null default 0,
-    trade_id int not null default 0, 
-    date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date,
-    constraint pk_drawdown_id primary key(drawdown_id),
-    unique(drawdown_id),
-    constraint fk_trade_id foreign key(trade_id) references T_TRADE
-);
-
-CREATE TABLE T_RATE
-(
-    rate_id int not null,
-    market_id int not null,
-    account_id int not null,
-    extra decimal(18, 4) not null default 0.0,
-    extra_percent decimal(18, 4) not null default 0.0,
-    on_shares decimal(18, 4) not null default 0.0,
-    on_commission decimal(18, 4) not null default 0.0,
-    finance_id int not null,
-    constraint pk_rate_id primary key(rate_id),
-    constraint fk_market_id foreign key(market_id) references T_MARKET,
-    constraint fk_account_id foreign key(account_id) references T_ACCOUNT(account_id),
-    constraint fk_finance_id foreign key(finance_id) references T_FINANCE(finance_id),
-    unique(rate_id)
-);
-
-CREATE TABLE T_FORMULA
-(
-    formula_id int not null,
-    value varchar(512) not null,
-    description varchar(256) not null,
-    constraint pk_formula_id primary key(formula_id),
-    unique(formula_id)
+    constraint fk_currency_id foreign key(currency_id) references T_CURRENCY(currency_id),
+    constraint fk_drawdown_id foreign key(drawdown_id) references T_DRAWDOWN(drawdown_id)
 );
 
 CREATE TABLE T_MARGIN
