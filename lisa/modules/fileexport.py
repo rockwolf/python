@@ -15,9 +15,11 @@ You should have received a copy of the GNU General Public License
 along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
+import os
+import csv
+
 from database.databaseaccess import DatabaseAccess
 from modules_generic.function import current_date
-import os
 
 class FileExport():
     """ Class with methods to export to a textfile. """
@@ -29,6 +31,12 @@ class FileExport():
     def file_export(self):
         """ Export all data to text-files. """
         try:
+            #TODO: write to csv like this:
+            #records = session.Query(MyModel).all()
+            #[ outcsv.writerow(curr.field_one, curr.field_two)  for curr in records ]
+            ## or maybe use outcsv.writerows(records)
+            #outfile.close()
+            
             dba = DatabaseAccess(self.config)
             try:
                 #Prepare export dir
@@ -40,22 +48,30 @@ class FileExport():
                 if not os.path.isdir(subdir):
                     os.makedirs(subdir)
                 print("Retrieving table records from database...")
-                #Process all tables that are loaded by the ORM
+                #Export all tables that are loaded by the ORM
                 #But views where created per table to have more control:
                 #to limit the export, only the views need to be updated.
                 viewnames = []
-                for name in dba.tables:
+                for tablename in dba.tables:
                     viewnames.append(name.upper().replace('T_', 'V_'))
-                for name in viewnames:
-                    tablename = name.replace('V_', 'T_')
-                    exportpath = os.path.join(subdir, tablename)
-                    exportfile = open(exportpath, 'w')
+                for viewname in viewnames:
                     # use the viewname for this function,
                     # the tablename to create the file
-                    lines = dba.export_lines(name)
+                    tablename = viewname.replace('V_', 'T_')
+                    exportpath = os.path.join(subdir, tablename)
+                    exportfile = open(exportpath, 'w')
+                    outcsv = csv.writer(exportfile)
+                    records = dba.export_lines(self.loaded_objects[viewname])
+                    for record in records:
+                        #outcsv.writerow(record.field_one, record.field_two)
+                        outcsv.writerow([ getattr(record, column.name) for
+                            column in viewname.upper().__mapper__.columns ])
+                    #[ outcsv.writerow(curr.field_one, curr.field_two)  for curr in records ]
                     print("Writing data for", tablename, "to file", exportpath, "...")
                     #for line in lines:
                     #    exportfile.write(line + '\n')
+                exportfile.close()
+                outcsv.close()
                 print("Done.")
             finally:
                 dba = None

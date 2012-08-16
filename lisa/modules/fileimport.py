@@ -18,6 +18,7 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 from time import sleep
 import sys
 from decimal import Decimal
+import csv
 
 from modules.stock import Stock
 from modules.trade import TradeJournal
@@ -31,36 +32,30 @@ class FileImport():
         self.config = config
 
     def file_import(self):
-        """ Parse textfile and insert data in db. """
+        """ Parse textfiles and insert data in db. """
         try:
-            source = open(self.config.importfile)
-            lines = source.readlines()
-            fields = {}
-            fields_db = []
-            
+            dba = DataBaseAccess(self.config)
             print(self.config.importfile + ' -> ' + self.config.dbhost + '/' + self.config.dbname + ': ')
-            
             i = 0
             print('[{0}{1}]'.format('  0','%') , end = "")
-            for line in lines:
-                #print(line)
-                try:
-                    fields = line.strip().split(':')
-                    fields_db.append({
-                        'date':fields[0],
-                        'account':str(fields[1]), #Note: Get AID from T_ACCOUNT for final insert
-                        'category':str(fields[2]), #Note: Get CID from T_CATEGORY for final insert
-                        'subcategory':str(fields[3]), #Note: Get SCID from T_SUBCATEGORY for final insert
-                        'amount':Decimal(fields[4]), 
-                        'stock':str(fields[5]),
-                        'market':str(fields[6]),
-                        'shares':int(fields[7]),
-                        'price':Decimal(fields[8]),
-                        'tax':Decimal(fields[9]),
-                        'commission':Decimal(fields[10]),
-                        'comment':str(fields[11]),
-                        'risk':Decimal(fields[12])
-                    })
+            importdir = self.config.importdir
+            for files in os.walk(importdir):
+                for file_ in files:
+                    source = open(file_, 'r')
+                    # assume first line is header
+                    csv_ = csv.DictReader(source, delimiter=';')
+                    for row in header:
+                        #insert data in table
+                        #source.name should be the filename = e.g. T_ACCOUNT
+                        #TODO: source.name is a string and not a table
+                        #object (I think).
+                        table = dba.loaded_objects[source.name]
+                        table.insert().values(**row).execute()
+                   
+                    for line in lines:
+                        #TODO: call function to process the line.
+                        #with source.name as the tablename.
+                        print('test: adding to line.')
                     i = i + 1
                     percent = int(i/len(lines)*100)
                     percentlen = len(str(percent))-1
@@ -76,54 +71,10 @@ class FileImport():
                 except Exception as ex:
                     print("Error in for loop: ", ex)
                     break
+                finally:
+                    dba = None
+                    source.close()
             print('')
-
-            # finance info
-            self.process_lines(fields_db)
-            # stocks
-            self.process_stocks(fields_db)
-            # trade journal
-            #self.process_trades(fields_db)
-
         except Exception as ex:
             print('')
-            print("Error while processing {0}:".format(self.config.importfile), ex)
-        finally:
-            source.close()
-            exit(1)
-                
-    def process_lines(self, fields_db):
-        """ Convert general financial information. """
-        dba = DatabaseAccess(self.config)
-        dba.file_import_lines(fields_db)
-        dba = None
-
-    def process_stocks(self, fields_db):
-        """ Processing stock information. """
-        fields_stocks = []
-        try:
-            stock = Stock(self.config) 
-            for field in fields_db:
-                fields_stocks.append(stock.parse_stocks(field))
-            if fields_stocks != {}:
-                stock.process_stocks(fields_db, fields_stocks)
-        except Exception as ex:
-            print("Error in process_stocks: ", ex)
-        finally:
-            stock = None
-    
-    def process_trades(self, fields_db):
-        """ Processing trading information. """
-        fields_trades = []
-        try:
-            trade_journal = TradeJournal(self.config)
-            for field in fields_db:
-                fields_trades.append(trade_journal.parse_trades(field))
-            if fields_trades != {}:
-                    trade_journal.process_trades(fields_db, fields_trades)
-        except Exception as ex:
-            print("Error in process_trades: ", ex)
-        finally:
-            trade_journal = None
-
-
+            print("Error while processing {0}:".format(source.name), ex)
