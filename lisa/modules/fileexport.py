@@ -53,7 +53,7 @@ class FileExport():
                 #to limit the export, only the views need to be updated.
                 viewnames = []
                 for tablename in dba.tables:
-                    viewnames.append(name.upper().replace('T_', 'V_'))
+                    viewnames.append(tablename.upper().replace('T_', 'V_'))
                 for viewname in viewnames:
                     # use the viewname for this function,
                     # the tablename to create the file
@@ -61,7 +61,7 @@ class FileExport():
                     exportpath = os.path.join(subdir, tablename)
                     exportfile = open(exportpath, 'w')
                     outcsv = csv.writer(exportfile)
-                    records = dba.export_lines(self.loaded_objects[viewname])
+                    records = dba.export_lines(dba.loaded_objects[viewname])
                     for record in records:
                         #outcsv.writerow(record.field_one, record.field_two)
                         outcsv.writerow([ getattr(record, column.name) for

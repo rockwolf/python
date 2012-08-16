@@ -17,11 +17,10 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 """
 from time import sleep
 import sys
+import os
 from decimal import Decimal
 import csv
 
-from modules.stock import Stock
-from modules.trade import TradeJournal
 from database.databaseaccess import DatabaseAccess
 
 class FileImport():
@@ -34,47 +33,49 @@ class FileImport():
     def file_import(self):
         """ Parse textfiles and insert data in db. """
         try:
-            dba = DataBaseAccess(self.config)
+            dba = DatabaseAccess(self.config)
             print(self.config.importfile + ' -> ' + self.config.dbhost + '/' + self.config.dbname + ': ')
-            i = 0
-            print('[{0}{1}]'.format('  0','%') , end = "")
+            i = 0 
+            print('[{0}{1}]'.format('  0','%'), end = '')
             importdir = self.config.importdir
             for files in os.walk(importdir):
-                for file_ in files:
-                    source = open(file_, 'r')
-                    # assume first line is header
-                    csv_ = csv.DictReader(source, delimiter=';')
-                    for row in header:
-                        #insert data in table
-                        #source.name should be the filename = e.g. T_ACCOUNT
-                        #TODO: source.name is a string and not a table
-                        #object (I think).
-                        table = dba.loaded_objects[source.name]
-                        table.insert().values(**row).execute()
-                   
-                    for line in lines:
-                        #TODO: call function to process the line.
-                        #with source.name as the tablename.
-                        print('test: adding to line.')
-                    i = i + 1
-                    percent = int(i/len(lines)*100)
-                    percentlen = len(str(percent))-1
+                try:
+                    for file_ in files:
+                        source = open(file_, 'r')
+                        # assume first line is header
+                        csv_ = csv.DictReader(source, delimiter=';')
+                        for row in csv_:
+                            #insert data in table
+                            #source.name should be the filename = e.g. T_ACCOUNT
+                            #TODO: source.name is a string and not a table
+                            #object (I think).
+                            table = dba.loaded_objects[source.name]
+                            table.insert().values(**row).execute()
+                    
+                        #for line in lines:
+                            #TODO: call function to process the line.
+                            #with source.name as the tablename.
+                        #    print('test: adding to line.')
+                        i = i + 1
+                        percent = int(i/len(lines)*100)
+                        percentlen = len(str(percent))-1
 
-                    #[  1%]
-                    #[123%]
-                    #123456
-                    print(6*'\b', end = "")
+                        #[  1%]
+                        #[123%]
+                        #123456
+                        print(6*'\b', end = "")
 
-                    print('[{0}{1}]'.format((3-percentlen-1)*' ' + str(percent),'%') , end = "")
-                    sleep(0.001)
-                    sys.stdout.flush()
+                        print('[{0}{1}]'.format((3-percentlen-1)*' ' + str(percent),'%') , end = "")
+                        sleep(0.001)
+                        sys.stdout.flush()
                 except Exception as ex:
                     print("Error in for loop: ", ex)
                     break
                 finally:
-                    dba = None
                     source.close()
             print('')
         except Exception as ex:
             print('')
             print("Error while processing {0}:".format(source.name), ex)
+        finally:
+            dba = None
