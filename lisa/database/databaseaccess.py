@@ -114,7 +114,7 @@ class DatabaseAccess():
             self.map_tables()
             self.map_views()
             #TODO: check if this doesn't give the views too...
-            self.tables = [x for x  in self.metadata.tables.keys() if not
+            self.tables = [x for x  in self.metadata.tables.keys() if
                     self.remove_views_from(x) ]
             print(self.tables)
             self.msgHandler = __import__('messagehandler')
