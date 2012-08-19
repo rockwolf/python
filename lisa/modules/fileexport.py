@@ -61,11 +61,13 @@ class FileExport():
                     exportpath = os.path.join(subdir, tablename)
                     exportfile = open(exportpath, 'w')
                     outcsv = csv.writer(exportfile)
-                    records = dba.export_lines(dba.loaded_objects[viewname])
+                    records = dba.export_records(dba.loaded_objects[viewname])
                     for record in records:
                         #outcsv.writerow(record.field_one, record.field_two)
-                        outcsv.writerow([ getattr(record, column.name) for
-                            column in viewname.upper().__mapper__.columns ])
+                        #outcsv.writerow([ getattr(record, column.name) for
+                        #    column in dba.loaded_objects[viewname].__mapper__.columns ])
+                        for col in dba.loaded_objects[viewname].c:
+                            print(col)
                     #[ outcsv.writerow(curr.field_one, curr.field_two)  for curr in records ]
                     print("Writing data for", tablename, "to file", exportpath, "...")
                     #for line in lines:

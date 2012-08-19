@@ -60,8 +60,8 @@ class DatabaseAccess():
                     'T_CURRENCY': Table('t_currency', self.metadata, autoload=True),
                     'T_CURRENCY_EXCHANGE': Table('t_currency_exchange', self.metadata, autoload=True),
                     'T_FORMULA': Table('t_formula', self.metadata, autoload=True),
-                    'T_RATE': Table('t_rate', self.metadata, autoload=True),
                     'T_TRADE': Table('t_trade', self.metadata, autoload=True),
+                    'T_RATE': Table('t_rate', self.metadata, autoload=True),
                     'T_DRAWDOWN': Table('t_drawdown', self.metadata, autoload=True),
                     'T_MARGIN': Table('t_margin', self.metadata, autoload=True),
                     'T_MARGIN_TYPE': Table('t_margin_type', self.metadata,
@@ -96,11 +96,11 @@ class DatabaseAccess():
                     'V_FORMULA': Table('v_formula', self.metadata,
                         Column('formula_id', Integer, primary_key=True),
                         autoload=True),
-                    'V_RATE': Table('v_rate', self.metadata,
-                        Column('rate_id', Integer, primary_key=True),
-                        autoload=True),
                     'V_TRADE': Table('v_trade', self.metadata,
                         Column('trade_id', Integer, primary_key=True),
+                        autoload=True),
+                    'V_RATE': Table('v_rate', self.metadata,
+                        Column('rate_id', Integer, primary_key=True),
                         autoload=True),
                     'V_DRAWDOWN': Table('v_drawdown', self.metadata,
                         Column('drawdown_id', Integer, primary_key=True),
@@ -137,15 +137,16 @@ class DatabaseAccess():
         mapper(T_MARKET, self.loaded_objects['T_MARKET'])
         mapper(T_STOCK_NAME, self.loaded_objects['T_STOCK_NAME'])
         mapper(T_CATEGORY, self.loaded_objects['T_CATEGORY'])
-        mapper(T_MARGIN, self.loaded_objects['T_MARGIN'])
-        mapper(T_MARGIN_TYPE, self.loaded_objects['T_MARGIN_TYPE'])
         mapper(T_SUBCATEGORY, self.loaded_objects['T_SUBCATEGORY'])
         mapper(T_ACCOUNT, self.loaded_objects['T_ACCOUNT'])
         mapper(T_TRADE, self.loaded_objects['T_TRADE'])
         mapper(T_RATE, self.loaded_objects['T_RATE'])
         mapper(T_CURRENCY, self.loaded_objects['T_CURRENCY'])
         mapper(T_CURRENCY_EXCHANGE, self.loaded_objects['T_CURRENCY_EXCHANGE'])
+        mapper(T_FORMULA, self.loaded_objects['T_FORMULA'])
         mapper(T_DRAWDOWN, self.loaded_objects['T_DRAWDOWN'])
+        mapper(T_MARGIN, self.loaded_objects['T_MARGIN'])
+        mapper(T_MARGIN_TYPE, self.loaded_objects['T_MARGIN_TYPE'])
  
     def map_views(self):
         """ Create mappers for the views on the db and the view classes. """
@@ -154,15 +155,16 @@ class DatabaseAccess():
         mapper(V_MARKET, self.loaded_objects['V_MARKET'])
         mapper(V_STOCK_NAME, self.loaded_objects['V_STOCK_NAME'])
         mapper(V_CATEGORY, self.loaded_objects['V_CATEGORY'])
-        mapper(V_MARGIN, self.loaded_objects['V_MARGIN'])
-        mapper(V_MARGIN_TYPE, self.loaded_objects['V_MARGIN_TYPE'])
         mapper(V_SUBCATEGORY, self.loaded_objects['V_SUBCATEGORY'])
         mapper(V_ACCOUNT, self.loaded_objects['V_ACCOUNT'])
         mapper(V_TRADE, self.loaded_objects['V_TRADE'])
         mapper(V_RATE, self.loaded_objects['V_RATE'])
         mapper(V_CURRENCY, self.loaded_objects['V_CURRENCY'])
         mapper(V_CURRENCY_EXCHANGE, self.loaded_objects['V_CURRENCY_EXCHANGE'])
+        mapper(V_FORMULA, self.loaded_objects['V_FORMULA'])
         mapper(V_DRAWDOWN, self.loaded_objects['V_DRAWDOWN'])
+        mapper(V_MARGIN, self.loaded_objects['V_MARGIN'])
+        mapper(V_MARGIN_TYPE, self.loaded_objects['V_MARGIN_TYPE'])
         
     def config(self):
         """ Retrieve config file values """
@@ -519,19 +521,19 @@ class DatabaseAccess():
            print("Error in update_stock: ", ex)
         return False;
 
-    #def export_records(self, name):
-    #    """ Return the records from the table or view, defined by name. """
-    #    #TODO: use either this or the export_lines function
-    #    records = None
-    #    try:
-    #        session = self.Session()
-    #        records = session.query(name).all()
-    #    except Exception as ex:
-    #        print("Error in export_records: ", ex)
-    #    finally:
-    #        session.rollback()
-    #        session = None
-    #        return records
+    def export_records(self, name):
+        """ Return the records from the table or view, defined by name. """
+        #TODO: use either this or the export_lines function
+        records = None
+        try:
+            session = self.Session()
+            records = session.query(name).all()
+        except Exception as ex:
+            print("Error in export_records: ", ex)
+        finally:
+            session.rollback()
+            session = None
+            return records
         
     def export_lines(self, database_object):
         """ Returns the lines from the table or view, defined by
