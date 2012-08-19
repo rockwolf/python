@@ -113,10 +113,8 @@ class DatabaseAccess():
             }
             self.map_tables()
             self.map_views()
-            #TODO: check if this doesn't give the views too...
-            self.tables = [x for x  in self.metadata.tables.keys() if
+            self.tables = [x for x in self.metadata.tables.keys() if
                     self.remove_views_from(x) ]
-            print(self.tables)
             self.msgHandler = __import__('messagehandler')
             self.statementFinance = StatementFinance()
             self.statementStock = StatementStock()
@@ -535,53 +533,6 @@ class DatabaseAccess():
             session = None
             return records
         
-    def export_lines(self, database_object):
-        """ Returns the lines from the table or view, defined by
-        database_object. """
-        #TODO: rename this function to something more generic
-        #TODO: this code is no longer valid with the new export system
-        results = []
-        try:
-            session = self.Session()
-            try:
-                records = 0
-                query = session.query(database_object)
-                for instance in query:
-                    records = records + 1
-                    #outline = self.export_line(instance)
-                    results.append(';'.join(instance.name))
-            except Exception as ex:
-                print("Error in export_lines: ", ex)
-            finally:
-                session.rollback()
-                session = None
-                print("{0} records retrieved.".format(str(records)))
-        except Exception as ex:
-            print("Error in session of export_lines: ", ex)
-        finally:
-            return results
-
-    def export_line(self, line):
-        """ Assemble an export line. """
-        #TODO: test if the new export system works. If it does, remove this
-        #function, for it is obsolete.
-        exportline = []
-        date = datetime.strftime(line.date, '%Y-%m-%d %H:%M:%S')
-        exportline.append(str(date))
-        exportline.append(self.accountname_from_account_id(line.account_id))
-        exportline.append(self.category_from_category_id(line.category_id))
-        exportline.append(self.subcategory_from_subcategory_id(line.subcategory_id))
-        exportline.append(str(line.amount))
-        exportline.append(str(line.market))
-        exportline.append(str(line.stock))
-        exportline.append(str(line.shares))
-        exportline.append(str(line.price))
-        exportline.append(str(line.tax))
-        exportline.append(str(line.commission))
-        exportline.append(str(line.comment))
-        exportline.append(str(line.risk))
-        return exportline
-
     def remove_line(self, rownumber):
         """ Removes a line from the table. """
         #TODO: when trade.tx, tr... etc. (= stock), remove from both

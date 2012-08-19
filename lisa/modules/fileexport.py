@@ -63,17 +63,13 @@ class FileExport():
                     outcsv = csv.writer(exportfile)
                     records = dba.export_records(dba.loaded_objects[viewname])
                     for record in records:
-                        #outcsv.writerow(record.field_one, record.field_two)
-                        #outcsv.writerow([ getattr(record, column.name) for
-                        #    column in dba.loaded_objects[viewname].__mapper__.columns ])
-                        for col in dba.loaded_objects[viewname].c:
-                            print(col)
-                    #[ outcsv.writerow(curr.field_one, curr.field_two)  for curr in records ]
-                    print("Writing data for", tablename, "to file", exportpath, "...")
-                    #for line in lines:
-                    #    exportfile.write(line + '\n')
+                        outcsv.writerow([ getattr(record, column.name) for
+                            column in dba.loaded_objects[viewname].c ])
+                    print("Writing", len(records), "records for", tablename, "to file", exportpath, "...")
                 exportfile.close()
-                outcsv.close()
+                #Note: no need to close the csv, because it's just a parser
+                #that uses exportfile as an underlying file. Closing exportfile
+                #is all you need to do.
                 print("Done.")
             finally:
                 dba = None
