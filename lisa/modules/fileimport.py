@@ -43,12 +43,10 @@ class FileImport():
                     for file_ in files:
                         source = open(file_, 'r')
                         # assume first line is header
-                        csv_ = csv.DictReader(source, delimiter=';')
+                        csv_ = csv.DictReader(source, delimiter=',')
                         for row in csv_:
                             #insert data in table
                             #source.name should be the filename = e.g. T_ACCOUNT
-                            #TODO: source.name is a string and not a table
-                            #object (I think).
                             table = dba.loaded_objects[source.name]
                             table.insert().values(**row).execute()
                     
