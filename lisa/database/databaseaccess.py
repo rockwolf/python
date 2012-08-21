@@ -223,7 +223,8 @@ class DatabaseAccess():
         values = []
         try:
             session = self.Session()
-            query = session.query(T_MARKET)
+            query = session.query(T_MARKET).filter(
+                    active == 1)
             for instance in query: 
                 values.append(instance.code)
         except Exception as ex:
@@ -238,13 +239,12 @@ class DatabaseAccess():
         values = []
         try:
             session = self.Session()
-            query = session.query(T_STOCK_NAME).join \
-            (
+            query = session.query(T_STOCK_NAME).join(
                 T_MARKET, 
                 T_STOCK_NAME.market_id == T_MARKET.market_id
-            ).filter \
-            (
-                T_MARKET.code == code
+            ).filter(
+                T_MARKET.code == code,
+                T_STOCK_NAME.active == 1
             )
             for instance in query: 
                 values.append(instance.name)

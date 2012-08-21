@@ -19,69 +19,78 @@ INSERT INTO T_ACCOUNT(name, date_created, date_modified)
 values('whsi00', current_date, current_date);
 
 /* markets */
-INSERT INTO T_MARKET(market_id, code, name, country, date_created, date_modified)
-values(1, 'ams', 'Amsterdam', 'NL', current_date, current_date);
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(1, 'ams', 'Amsterdam', 'NL', 1, current_date, current_date);
 
-INSERT INTO T_MARKET(market_id, code, name, country, date_created, date_modified)
-values(2, 'ebr', 'Brussels', 'BE', current_date, current_date);
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(2, 'ebr', 'Brussels', 'BE', 1, current_date, current_date);
 
-INSERT INTO T_MARKET(market_id, code, name, country, date_created, date_modified)
-values(3, 'etr', 'Xetra', 'DE', current_date, current_date);
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(3, 'etr', 'Xetra', 'DE', 1, current_date, current_date);
 
-INSERT INTO T_MARKET(market_id, code, name, country, date_created, date_modified)
-values(4, 'epa', 'Paris', 'FR', current_date, current_date);
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(4, 'epa', 'Paris', 'FR', 1, current_date, current_date);
 
-INSERT INTO T_MARKET(market_id, code, name, country, date_created, date_modified)
-values(5, 'other', 'Other', '', current_date, current_date);
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(5, 'other', 'Other', '', 1, current_date, current_date);
+
+--TODO: enter market names for commodities here
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(6, 'gbp', 'London', '', 1, current_date, current_date);
 
 /* stock names */
-INSERT INTO T_STOCK_NAME(name, market_id, description, date_created, date_modified)
-values('rhji', 2, 'RHJI International', current_date, current_date);
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('rhji', 2, 'RHJI International', 1, current_date, current_date);
 
-INSERT INTO T_STOCK_NAME(name, market_id, description, date_created, date_modified)
-values('nests', 2, 'Nestle', current_date, current_date);
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('nests', 2, 'Nestle', 1, current_date, current_date);
 
-INSERT INTO T_STOCK_NAME(name, market_id, description, date_created, date_modified)
-values('devg', 2, 'Devgen', current_date, current_date);
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('devg', 2, 'Devgen', 1, current_date, current_date);
 
-INSERT INTO T_STOCK_NAME(name, market_id, description, date_created, date_modified)
-values('enin', 2, '4 Energy Invest', current_date, current_date);
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('enin', 2, '4 Energy Invest', 1, current_date, current_date);
 
-INSERT INTO T_STOCK_NAME(name, market_id, description, date_created, date_modified)
-values('adhof', 1, 'Koninklijke AHOLD N.V.', current_date, current_date);
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('adhof', 1, 'Koninklijke AHOLD N.V.', 1, current_date, current_date);
 
-INSERT INTO T_STOCK_NAME(name, market_id, description, date_created, date_modified)
-values('dexb', 2, 'Dexia', current_date, current_date);
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('dexb', 2, 'Dexia', 1, current_date, current_date);
 
-INSERT INTO T_STOCK_NAME(name, market_id, description, date_created, date_modified)
-values('crxl', 1, 'Crucell N.V.', current_date, current_date);
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('crxl', 1, 'Crucell N.V.', 1, current_date, current_date);
 
-INSERT INTO T_STOCK_NAME(name, market_id, description, date_created, date_modified)
-values('drak', 1, 'Draka Holding N.V.', current_date, current_date);
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('drak', 1, 'Draka Holding N.V.', 1, current_date, current_date);
 
-INSERT INTO T_STOCK_NAME(name, market_id, description, date_created, date_modified)
-values('theb', 2, 'Thenergo N.V.', current_date, current_date);
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('theb', 2, 'Thenergo N.V.', 1, current_date, current_date);
 
-INSERT INTO T_STOCK_NAME(name, market_id, description, date_created, date_modified)
-values('eurn', 2, 'Euronav', current_date, current_date);
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('eurn', 2, 'Euronav', 1, current_date, current_date);
 
-INSERT INTO T_STOCK_NAME(name, market_id, description, date_created, date_modified)
-values('tnet', 2, 'Telenet', current_date, current_date);
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('tnet', 2, 'Telenet', 1, current_date, current_date);
 
-INSERT INTO T_STOCK_NAME(name, market_id, description, date_created, date_modified)
-values('exm', 2, 'Exmar', current_date, current_date);
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('exm', 2, 'Exmar', 1, current_date, current_date);
 
-INSERT INTO T_STOCK_NAME(name, market_id, description, date_created, date_modified)
-values('cofb', 2, 'Cofinimmo N.V.', current_date, current_date);
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('cofb', 2, 'Cofinimmo N.V.', 1, current_date, current_date);
 
-INSERT INTO T_STOCK_NAME(name, market_id, description, date_created, date_modified)
-values('fme', 3, 'Fresenius Medical Care', current_date, current_date);
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('fme', 3, 'Fresenius Medical Care', 1, current_date, current_date);
 
-INSERT INTO T_STOCK_NAME(name, market_id, description, date_created, date_modified)
-values('gsz', 4, 'GDF Suez SA', current_date, current_date);
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('gsz', 4, 'GDF Suez SA', 1, current_date, current_date);
 
-INSERT INTO T_STOCK_NAME(name, market_id, description, date_created, date_modified)
-values('zsl23.90', 2, 'Zilver Sprinter Long 23.90', current_date, current_date);
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('zsl23.90', 2, 'Zilver Sprinter Long 23.90', 1, current_date, current_date);
+
+--TODO: enter commoditie names here
+--TODO: figure out the markets to which each commodity belongs.
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('SBV2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
 
 /* t_subcategory */
 INSERT INTO T_SUBCATEGORY(subcategory_id, name, date_created, date_modified)
