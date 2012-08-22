@@ -87,10 +87,154 @@ values('gsz', 4, 'GDF Suez SA', 1, current_date, current_date);
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
 values('zsl23.90', 2, 'Zilver Sprinter Long 23.90', 1, current_date, current_date);
 
---TODO: enter commoditie names here
 --TODO: figure out the markets to which each commodity belongs.
+--TODO: enter commodity descriptions
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('CFI2Z2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('CFI2Z3.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('NGU2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('NGV2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('.GOLD.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('.MGOLD.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('.MSILVER.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('.SILVER.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('GCV2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('HGU2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('HGZ2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('MINISIU2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('MINISIZ2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('PAU2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('PAZ2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('PLV2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('SIU2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('SIZ2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('.BRENT.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('.WTI.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('CLV2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('CLX2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('HOU2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('HOV2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('LCOV2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('LCOX2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('LGOU2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('LGOV2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('CCZ2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('CTV2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('CTZ2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('KCZ2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('LCCU2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('LEV2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('LRCU2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('LRCX2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('LSUV2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('LWBX2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('OJU2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('OJX2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
 values('SBV2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('ZCU2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('ZCZ2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('ZLU2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('ZLV2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('ZSU2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('ZSX2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('ZWU2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('ZWZ2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
 
 /* t_subcategory */
 INSERT INTO T_SUBCATEGORY(subcategory_id, name, date_created, date_modified)
