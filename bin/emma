@@ -1,0 +1,3 @@
+#!/bin/sh
+cd ../emma
+python __init__.py $1
