@@ -23,9 +23,13 @@ along with Emma. If not, see <http://www.gnu.org/licenses/>.
 """
 import getopt
 import sys
-from mdlprocess import Process
-from mdlconfig import ConfigParser
 from decimal import Decimal
+
+from main.controller import ControllerMain
+from modules.config import ConfigParser
+from modules.mdlprocess import Process
+from modules.mdlconfig import ConfigParser
+from setup.setup import Setup
         
 class MainWrapper():
     """ Main logic 
@@ -37,65 +41,70 @@ class MainWrapper():
     def __init__(self, parent=None):
         """ Init. """
         # general properties of the app
-        self.pprog = 'Emma.py'
-        self.pversion = '0.01'
-        self.prelease = 'I Want Some Mushu!'
-        self.pdate = '2011-11-12'
+        self.pprog = 'Emma'
+        self.pversion = '0.02'
+        self.prelease = 'I want some mushu!'
+        self.pdate = '2012-08-26'
         self.exitstate = 0   
-        # option vars
-        self.capital = Decimal(0.0)
-        self.used = Decimal(0.0) 
-        self.tax = Decimal(0.0) 
-        self.commission = Decimal(0.0) 
-        self.price = Decimal(0.0) 
-        self.verbose = False
-        self.risk = Decimal(0.0)
-        self.amount = 0
-        self.sellprice = Decimal(0.0)
+
+        # Adjust system path so we can import from our
+        # own module directories
+        self.adjust_syspath()
+
+        self.msghandler = __import__('messagehandler')
         # config
         self.config = ConfigParser()
         self.tax = Decimal(self.config.tax)/Decimal(100)
         self.risk = Decimal(self.config.risk)/Decimal(100)
-    
+ 
+    def adjust_syspath(self):
+        """ Adjust the system path, so we can search in custom dirs for modules. """
+        sys.path.append('main')
+        sys.path.append('pyqt')
+        sys.path.append('modules')
+        sys.path.append('modules_generic')
+        sys.path.append('setup')
+
+   
     def usage(self):
         """ Print usage info and exit """
         print('''{0} : Equations for Money Management Application
-Options (buy): 
---------------
- -C <Capital (total pool)>
- -u <used (traded capital)>
- -t <tax>
- -c <commission>
- -p <price>
- [-r <risk percentage>] (default: 2) -- N/A
-Options (sell):
----------------
- [-s <sell price>] (default: -1) -- N/A
- [-a <amount you sell>] -- N/A
 Options (general):
 ------------------
  --verbose, -v : verbose mode
  --help, -h : displays this help message
- --version : displays version
+ --version, -V : displays version
  --python : displays Python version '''.format(self.pprog))
 
     def run(self):
         """ This is the main driver for the program. """
         if self.exitstate == 1:
             sys.exit(0)
-        # run the data processing
-        myapp = Process(self.config, self.capital, self.used, \
-                self.tax, self.commission, self.price, self.risk, \
-                self.sellprice, self.amount, self.verbose)
-        myapp.process()
-        exit(0)
+        else:
+            #run the controller
+            ctl = ControllerMain(self.config)
+            ctl.run()
+            ctl = None
+
+    def install(self):
+        """ install """
+        setup = Setup()
+        setup.install()
+        setup = None
+
+    def uninstall(self):
+        """ uninstall """
+        setup = Setup()
+        setup.uninstall()
+        setup = None
+
 
 def main():
     """ Main driver, startup and cli options parsing. """
     # Gonna switch this to optparse later
     try:
         options, xarguments = getopt.getopt(
-                sys.argv[1:], 'C:u:t:c:p:r:s:a:hvV', ['version', 'verbose'])
+                sys.argv[1:], 'hvV', ['version', 'verbose'])
     except getopt.error as err:
         print('Error: ' + str(err))
         sys.exit(1)
@@ -126,22 +135,6 @@ def main():
                 wrapper.exitstate = 1
             elif opt in ('-v', '--verbose'):
                     wrapper.verbose = True
-            elif opt in ('-C'):
-                    wrapper.capital = Decimal(arg)
-            elif opt in ('-u'):
-                    wrapper.used = Decimal(arg)
-            elif opt in ('-t'):
-                    wrapper.tax = Decimal(arg)
-            elif opt in ('-c'):
-                    wrapper.commission = Decimal(arg)
-            elif opt in ('-p'):
-                    wrapper.price = Decimal(arg)
-            elif opt in ('-r'):
-                    wrapper.risk = Decimal(arg)
-            elif opt in ('-s'):
-                    wrapper.sellprice = Decimal(arg)
-            elif opt in ('-a'):
-                    wrapper.amount = int(arg)
     except Exception as ex:
         print('Error parsing arguments: ', ex)
         exit(1)
