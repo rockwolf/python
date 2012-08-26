@@ -15,13 +15,13 @@ You should have received a copy of the GNU General Public License
 along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
-from datetime import datetime
 from sqlalchemy import create_engine, Table, MetaData, Column, Integer
 from sqlalchemy.orm import mapper, clear_mappers
 #from sqlalchemy.sql import exists
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import func
 from decimal import Decimal
+
 from database.mappings import *
 from database.mappings_views import *
 from modules_generic import *
