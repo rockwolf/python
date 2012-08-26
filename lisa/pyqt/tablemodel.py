@@ -1,6 +1,5 @@
 #/usr/env/python
 from PyQt4.QtGui import QTableWidget, QTableWidgetItem
-from PyQt4 import QtCore, QtGui
 
 class TableModel(QTableWidget): 
     """ Model for a table. """
