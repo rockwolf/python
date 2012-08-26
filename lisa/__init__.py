@@ -60,6 +60,7 @@ class MainWrapper():
         """ Adjust the system path, so we can search in custom dirs for modules. """
         sys.path.append('main')
         sys.path.append('pyqt')
+        sys.path.append('pyqt_generic')
         sys.path.append('database')
         sys.path.append('database_generic')
         sys.path.append('modules')

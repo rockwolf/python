@@ -26,7 +26,7 @@ from PyQt4 import QtCore, QtGui
 from decimal import Decimal
 
 from pyqt.viewpyqt import Ui_MainWindow
-from pyqt.tablemodel import TableModel
+from pyqt_generic.tablemodel import TableModel
 
 class ControllerPyqt(QtGui.QMainWindow):
     """ Controller that also contains pyqt related code. """
