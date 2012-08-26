@@ -22,15 +22,10 @@ class ConfigParser():
 
     def __init__(self):
         """ Initialise config class. """ 
-        self.myconf = 'config/emma.rc'
-        self.risk = 0.0 
-        self.tax = 0.0
+        self.myconf = 'config/lisa.rc'
         self.config()
  
     def config(self):
         """ Retrieve config file values """
         config = configparser.RawConfigParser()
         config.read(self.myconf)
-        
-        self.tax = config.get('data', 'tax')
-        self.risk = config.get('data', 'risk')

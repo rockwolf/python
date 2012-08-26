@@ -1,6 +1,6 @@
 #! /usr/local/bin/python
 """
-This file is part of Lisa.
+This file is part of Emma.
 
 Emma is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,10 +15,25 @@ You should have received a copy of the GNU General Public License
 along with Emma. If not, see <http://www.gnu.org/licenses/>.
 					
 """
+from subprocess import call
 
-class Constant():
-    """ Constants. """
+class Setup():
+    """ Setup methods. """
 
     def __init__(self):
-        """ Initialise constants. """ 
-        self.DUMMY = 'dummy'
+        """ Initialise, nothing to see here... """ 
+        pass
+
+    def install(self):
+        """ Setup the database through an external script. """
+        try:
+            call(["sh", "setup/install.sh"])
+        except:
+            print('Error: could not load install.sh script.')
+
+    def uninstall(self):
+        """ Remove all from database through an external script. """
+        try:
+            call(["sh", "setup/uninstall.sh"])
+        except:
+            print('Error: could not load uninstall.sh script.')

@@ -27,8 +27,8 @@ from decimal import Decimal
 
 from main.controller import ControllerMain
 from modules.config import ConfigParser
-from modules.mdlprocess import Process
-from modules.mdlconfig import ConfigParser
+#from modules.mdlprocess import Process
+from modules.config import ConfigParser
 from setup.setup import Setup
         
 class MainWrapper():
@@ -54,8 +54,6 @@ class MainWrapper():
         self.msghandler = __import__('messagehandler')
         # config
         self.config = ConfigParser()
-        self.tax = Decimal(self.config.tax)/Decimal(100)
-        self.risk = Decimal(self.config.risk)/Decimal(100)
  
     def adjust_syspath(self):
         """ Adjust the system path, so we can search in custom dirs for modules. """
@@ -110,10 +108,6 @@ def main():
         sys.exit(1)
     wrapper = MainWrapper()
     wrapper.exitstate = 0
-
-    if len(options) == 0:
-        wrapper.usage()
-        wrapper.exitstate = 1
 
     try:
         for opt, arg in options:
