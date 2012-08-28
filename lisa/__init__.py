@@ -94,6 +94,9 @@ All arguments are optional.'''.format(self.pprog))
 
     def file_import(self):
         """ import """
+        setup = Setup()
+        setup.clear_tables()
+        setup = None
         imp = FileImport(self.config)
         imp.file_import()
         imp = None

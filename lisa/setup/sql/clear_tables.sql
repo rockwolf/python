@@ -1,0 +1,17 @@
+BEGIN;
+truncate table T_FINANCE;
+truncate table T_SUBCATEGORY;
+truncate table T_CATEGORY;
+truncate table T_ACCOUNT;
+truncate table T_STOCK;
+truncate table T_STOCK_NAME;
+truncate table T_MARKET;
+truncate table T_MARGIN_TYPE;
+truncate table T_MARGIN;
+truncate table T_TRADE;
+truncate table T_RATE;
+truncate table T_CURRENCY_EXCHANGE;
+truncate table T_CURRENCY;
+truncate table T_FORMULA;
+truncate table T_DRAWDOWN;
+COMMIT;

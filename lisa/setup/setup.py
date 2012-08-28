@@ -37,3 +37,10 @@ class Setup():
             call(["sh", "setup/uninstall.sh"])
         except:
             print('Error: could not load uninstall.sh script.')
+
+    def clear_tables(self):
+        """ This function can be used to empty the database tables. """
+        try:
+            call(["sh", "setup/clear.sh"])
+        except:
+            print('Error: could not load clear_tables.sh script.')
