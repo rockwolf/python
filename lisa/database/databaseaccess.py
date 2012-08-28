@@ -24,7 +24,8 @@ from decimal import Decimal
 
 from database.mappings import *
 from database.mappings_views import *
-from modules_generic import *
+from modules_generic.function import *
+from modulesn_generic.messagehandler import *
 
 class DatabaseAccess():
     """ Connecting to the database. """ 
@@ -115,7 +116,6 @@ class DatabaseAccess():
             self.map_views()
             self.tables = [x for x in self.metadata.tables.keys() if
                     self.remove_views_from(x) ]
-            self.msgHandler = __import__('messagehandler')
             self.statementFinance = StatementFinance()
             self.statementStock = StatementStock()
         except Exception as ex:
