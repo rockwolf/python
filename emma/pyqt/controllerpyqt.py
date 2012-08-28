@@ -62,19 +62,169 @@ class ControllerPyqt(QtGui.QMainWindow):
         """ Initialize table division. """
         # set the table header
         # TODO: set header values in mdlconstants and use the constants
-        header = ['total', 'defense', 'offense', 'invest']
+        header = ['', '', '', '']
         self.table_division = TableModel(header, [], 0, len(header))
         self.gui.grd_tables.addWidget(self.table_division, 1, 0)
-        self.table_division.add_row(['test1', 'test2', 'test3', 'test4'])
+        row1 = ['Total', 'Defense %', 'Offense %', 'Invest']
+        row2 = ['', '', '', '']
+        row3 = ['Defense', '', 'Offense', '']
+        row4 = ['', '', '', '']
+        row5 = ['INVESTING', 'CASH', 'TRADING', '']
+        row6 = ['', '', '', '']
+        row7 = ['INVESTING++', 'CASH++', 'TRADING++', '']
+        row8 = ['', '', '', '']
+        self.table_division.add_row(row1)
+        self.table_division.add_row(row2)
+        self.table_division.add_row(row3)
+        self.table_division.add_row(row4)
+        self.table_division.add_row(row5)
+        self.table_division.add_row(row6)
+        self.table_division.add_row(row7)
+        self.table_division.add_row(row8)
+
+    def init_tbl_current_values(self):
+        """ Initialize table current_values. """
+        # set the table header
+        # TODO: set header values in mdlconstants and use the constants
+        header = ['', '', '', '']
+        self.table_current_values = TableModel(header, [], 0, len(header))
+        self.gui.grd_tables.addWidget(self.table_current_values, 1, 1)
+        row1 = ['Total', 'Defense %', 'Offense %', 'Invest']
+        row2 = ['', '', '', '']
+        row3 = ['Defense', '', 'Offense', '']
+        row4 = ['', '', '', '']
+        row5 = ['INVESTING', 'CASH', 'TRADING', '']
+        row6 = ['', '', '', '']
+        row7 = ['INVESTING++', 'CASH++', 'TRADING++', '']
+        row8 = ['', '', '', '']
+        self.table_current_values.add_row(row1)
+        self.table_current_values.add_row(row2)
+        self.table_current_values.add_row(row3)
+        self.table_current_values.add_row(row4)
+        self.table_current_values.add_row(row5)
+        self.table_current_values.add_row(row6)
+        self.table_current_values.add_row(row7)
+        self.table_current_values.add_row(row8)
+
+    def init_tbl_set_defense(self):
+        """ Initialize table set_defense. """
+        # set the table header
+        # TODO: set header values in mdlconstants and use the constants
+        header = ['', '', '', '']
+        self.table_set_defense = TableModel(header, [], 0, len(header))
+        self.gui.grd_tables.addWidget(self.table_set_defense, 3, 0)
+        row1 = ['Total', 'Defense %', 'Offense %', 'Invest']
+        row2 = ['', '', '', '']
+        row3 = ['Defense', '', 'Offense', '']
+        row4 = ['', '', '', '']
+        row5 = ['INVESTING', 'CASH', 'TRADING', '']
+        row6 = ['', '', '', '']
+        row7 = ['INVESTING++', 'CASH++', 'TRADING++', '']
+        row8 = ['', '', '', '']
+        self.table_set_defense.add_row(row1)
+        self.table_set_defense.add_row(row2)
+        self.table_set_defense.add_row(row3)
+        self.table_set_defense.add_row(row4)
+        self.table_set_defense.add_row(row5)
+        self.table_set_defense.add_row(row6)
+        self.table_set_defense.add_row(row7)
+        self.table_set_defense.add_row(row8)
+
+    def init_tbl_set_offense(self):
+        """ Initialize table set_offense. """
+        # set the table header
+        # TODO: set header values in mdlconstants and use the constants
+        header = ['', '', '', '']
+        self.table_set_offense = TableModel(header, [], 0, len(header))
+        self.gui.grd_tables.addWidget(self.table_set_offense, 3, 1)
+        row1 = ['Total', 'Defense %', 'Offense %', 'Invest']
+        row2 = ['', '', '', '']
+        row3 = ['Defense', '', 'Offense', '']
+        row4 = ['', '', '', '']
+        row5 = ['INVESTING', 'CASH', 'TRADING', '']
+        row6 = ['', '', '', '']
+        row7 = ['INVESTING++', 'CASH++', 'TRADING++', '']
+        row8 = ['', '', '', '']
+        self.table_set_offense.add_row(row1)
+        self.table_set_offense.add_row(row2)
+        self.table_set_offense.add_row(row3)
+        self.table_set_offense.add_row(row4)
+        self.table_set_offense.add_row(row5)
+        self.table_set_offense.add_row(row6)
+        self.table_set_offense.add_row(row7)
+        self.table_set_offense.add_row(row8)
+
+    def init_tbl_set_investing(self):
+        """ Initialize table set_investing. """
+        # set the table header
+        # TODO: set header values in mdlconstants and use the constants
+        header = ['', '', '', '']
+        self.table_set_investing = TableModel(header, [], 0, len(header))
+        self.gui.grd_tables.addWidget(self.table_set_investing, 5, 0)
+        row1 = ['Total', 'Defense %', 'Offense %', 'Invest']
+        row2 = ['', '', '', '']
+        row3 = ['Defense', '', 'Offense', '']
+        row4 = ['', '', '', '']
+        row5 = ['INVESTING', 'CASH', 'TRADING', '']
+        row6 = ['', '', '', '']
+        row7 = ['INVESTING++', 'CASH++', 'TRADING++', '']
+        row8 = ['', '', '', '']
+        self.table_set_investing.add_row(row1)
+        self.table_set_investing.add_row(row2)
+        self.table_set_investing.add_row(row3)
+        self.table_set_investing.add_row(row4)
+        self.table_set_investing.add_row(row5)
+        self.table_set_investing.add_row(row6)
+        self.table_set_investing.add_row(row7)
+        self.table_set_investing.add_row(row8)
+
+    def init_tbl_set_cash(self):
+        """ Initialize table set_cash. """
+        # set the table header
+        # TODO: set header values in mdlconstants and use the constants
+        header = ['', '', '', '']
+        self.table_set_cash = TableModel(header, [], 0, len(header))
+        self.gui.grd_tables.addWidget(self.table_set_cash, 5, 1)
+        row1 = ['Total', 'Defense %', 'Offense %', 'Invest']
+        row2 = ['', '', '', '']
+        row3 = ['Defense', '', 'Offense', '']
+        row4 = ['', '', '', '']
+        row5 = ['INVESTING', 'CASH', 'TRADING', '']
+        row6 = ['', '', '', '']
+        row7 = ['INVESTING++', 'CASH++', 'TRADING++', '']
+        row8 = ['', '', '', '']
+        self.table_set_cash.add_row(row1)
+        self.table_set_cash.add_row(row2)
+        self.table_set_cash.add_row(row3)
+        self.table_set_cash.add_row(row4)
+        self.table_set_cash.add_row(row5)
+        self.table_set_cash.add_row(row6)
+        self.table_set_cash.add_row(row7)
+        self.table_set_cash.add_row(row8)
 
     def init_tbl_set_trading(self):
         """ Initialize table division. """
         # set the table header
         # TODO: set header values in mdlconstants and use the constants
-        header = ['total', 'defense', 'offense', 'invest']
+        header = ['', '', '', '']
         self.table_set_trading = TableModel(header, [], 0, len(header))
-        self.gui.grd_tables.addWidget(self.table_set_trading, 5, 3)
-        self.table_set_trading.add_row(['test1', 'test2', 'test3', 'test4'])
+        self.gui.grd_tables.addWidget(self.table_set_trading, 5, 2)
+        row1 = ['Total', 'Defense %', 'Offense %', 'Invest']
+        row2 = ['', '', '', '']
+        row3 = ['Defense', '', 'Offense', '']
+        row4 = ['', '', '', '']
+        row5 = ['INVESTING', 'CASH', 'TRADING', '']
+        row6 = ['', '', '', '']
+        row7 = ['INVESTING++', 'CASH++', 'TRADING++', '']
+        row8 = ['', '', '', '']
+        self.table_set_trading.add_row(row1)
+        self.table_set_trading.add_row(row2)
+        self.table_set_trading.add_row(row3)
+        self.table_set_trading.add_row(row4)
+        self.table_set_trading.add_row(row5)
+        self.table_set_trading.add_row(row6)
+        self.table_set_trading.add_row(row7)
+        self.table_set_trading.add_row(row8)
 
     def print_objects_in_grid(self):
         """ Used for testing. """
@@ -94,10 +244,7 @@ class ControllerPyqt(QtGui.QMainWindow):
 
     def delete_table_widgets(self, gridlayout):
         """ Deletes table widgets at a certain index in a given gridlayout. """
-        print('Delete shit')
-        print('-----------')
         for i in range(gridlayout.count()):
-            print(i)
             if gridlayout.itemAt(i) is not None:
                 if isinstance(gridlayout.itemAt(i).widget(), QtGui.QTableWidget):
                     self.gui.grd_tables.takeAt(i)
@@ -105,9 +252,14 @@ class ControllerPyqt(QtGui.QMainWindow):
     def init_gui(self):
         """ Initialise fields """
         self.gui.tab_main.setCurrentIndex(4)
-        self.print_objects_in_grid()
+        #self.print_objects_in_grid()
         # Delete tables
         self.delete_table_widgets(self.gui.grd_tables)
         # Init tables
         self.init_tbl_division()
-        #self.init_tbl_set_trading()
+        self.init_tbl_current_values()
+        self.init_tbl_set_defense()
+        self.init_tbl_set_offense()
+        self.init_tbl_set_investing()
+        self.init_tbl_set_cash()
+        self.init_tbl_set_trading()
