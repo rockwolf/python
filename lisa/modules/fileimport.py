@@ -34,13 +34,13 @@ class FileImport():
         """ Parse textfiles and insert data in db. """
         try:
             dba = DatabaseAccess(self.config)
-            print(self.config.importfile + ' -> ' + self.config.dbhost + '/' + self.config.dbname + ': ')
             i = 0 
             print('[{0}{1}]'.format('  0','%'), end = '')
             importdir = self.config.importdir
+            print(importdir + ' -> ' + self.config.dbhost + '/' + self.config.dbname + ': ')
             for files in os.walk(importdir):
                 try:
-                    for file_ in files:
+                    for file_ in files[2]:
                         source = open(file_, 'r')
                         # assume first line is header
                         csv_ = csv.DictReader(source, delimiter=',')
@@ -74,6 +74,6 @@ class FileImport():
             print('')
         except Exception as ex:
             print('')
-            print("Error while processing {0}:".format(source.name), ex)
+            print("Error in file_import:", ex)
         finally:
             dba = None

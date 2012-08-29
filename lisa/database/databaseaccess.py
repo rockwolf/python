@@ -25,7 +25,7 @@ from decimal import Decimal
 from database.mappings import *
 from database.mappings_views import *
 from modules_generic.function import *
-from modulesn_generic.messagehandler import *
+from modules_generic.messagehandler import *
 
 class DatabaseAccess():
     """ Connecting to the database. """ 

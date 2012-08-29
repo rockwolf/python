@@ -85,15 +85,17 @@ class T_STOCK_NAME(object):
 class T_MARKET(object):
     """ T_MARKET """
 
-    def __init__(self, code, name, country, date_created, date_modified):
+    def __init__(self, code, name, country, active, date_created, date_modified):
         self.code = code
         self.name = name
         self.country = country
+        self.active = active
         self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_MARKET('%s', '%s', '%s', '%s', '%s')>" % (self.code, self.name, self.country, self.date_created, self.date_modified)
+        return "<T_MARKET('%s', '%s', '%s', '%s', '%s', '%s')>" % (self.code,
+                self.name, self.country, self.active, self.date_created, self.date_modified)
 
 class T_CATEGORY(object):
     """ T_CATEGORY """
