@@ -38,10 +38,10 @@ class FileImport():
             print('[{0}{1}]'.format('  0','%'), end = '')
             importdir = self.config.importdir
             print(importdir + ' -> ' + self.config.dbhost + '/' + self.config.dbname + ': ')
-            for files in os.walk(importdir):
+            for root, dirs, files in os.walk(importdir):
                 try:
-                    for file_ in files[2]:
-                        source = open(file_, 'r')
+                    for filename in files:
+                        source = open(os.path.join(importdir, root[len(importdir):], filename), 'r')
                         # assume first line is header
                         csv_ = csv.DictReader(source, delimiter=',')
                         for row in csv_:
