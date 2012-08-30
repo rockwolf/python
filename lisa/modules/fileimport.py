@@ -47,7 +47,7 @@ class FileImport():
                         for row in csv_:
                             #insert data in table
                             #source.name should be the filename = e.g. T_ACCOUNT
-                            table = dba.loaded_objects[source.name]
+                            table = dba.loaded_objects[filename]
                             table.insert().values(**row).execute()
                     
                         #for line in lines:
