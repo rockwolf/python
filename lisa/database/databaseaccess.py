@@ -224,7 +224,7 @@ class DatabaseAccess():
         try:
             session = self.Session()
             query = session.query(T_MARKET).filter(
-                    active == 1)
+                    T_MARKET.active == 1)
             for instance in query: 
                 values.append(instance.code)
         except Exception as ex:
