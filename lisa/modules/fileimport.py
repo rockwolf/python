@@ -34,41 +34,28 @@ class FileImport():
         """ Parse textfiles and insert data in db. """
         try:
             dba = DatabaseAccess(self.config)
-            i = 0 
-            print('[{0}{1}]'.format('  0','%'), end = '')
             importdir = self.config.importdir
             print(importdir + ' -> ' + self.config.dbhost + '/' + self.config.dbname + ': ')
             for root, dirs, files in os.walk(importdir):
                 try:
                     for filename in files:
+                        print('Importing table', filename + ':', end = ' ')
                         source = open(os.path.join(importdir, root[len(importdir):], filename), 'r')
                         # assume first line is header
                         csv_ = csv.DictReader(source, delimiter=',')
+                        i = 0 
                         for row in csv_:
                             #insert data in table
                             #source.name should be the filename = e.g. T_ACCOUNT
                             table = dba.loaded_objects[filename]
-                            print('Importing table', filename, '...', end = '')
                             table.insert().values(**row).execute()
-                    
-                        #for line in lines:
-                            #TODO: call function to process the line.
-                            #with source.name as the tablename.
-                        #    print('test: adding to line.')
-                        i = i + 1
-                        #percent = int(i/len(lines)*100)
-                        #percentlen = len(str(percent))-1
-
-                        #[  1%]
-                        #[123%]
-                        #123456
-                        #print(6*'\b', end = '')
-
-                        #print('[{0}{1}]'.format((3-percentlen-1)*' ' + str(percent),'%') , end = "")
-                        sleep(0.001)
+                            i = i + 1
                         sys.stdout.flush()
+                        sleep(0.001)
+                        print(str(i), 'rows imported...', end = ' ')
                         print('[OK]')
                 except Exception as ex:
+                    print('[Error!]')
                     print("Error in for loop: ", ex)
                     break
                 finally:

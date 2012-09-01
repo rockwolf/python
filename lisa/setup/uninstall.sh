@@ -12,11 +12,11 @@ echo
 echo "HOSTNAME=$HOSTNAME"
 echo "DATABASE=$DATABASE"
 echo
-echo "Dropping tables..."
-psql -h $HOSTNAME $DATABASE < $SCRIPTT
-echo "Running $SCRIPT [OK]"
 echo "Dropping views..."
 psql -h $HOSTNAME $DATABASE < $SCRIPTV
+echo "Running $SCRIPT [OK]"
+echo "Dropping tables..."
+psql -h $HOSTNAME $DATABASE < $SCRIPTT
 echo "Running $SCRIPT [OK]"
 echo
 echo 'Done.'

@@ -6,9 +6,10 @@ CREATE TABLE T_SUBCATEGORY
     subcategory_id int not null,
     name varchar(20) not null,
     date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date,
-    constraint pk_subcategory_id primary key(subcategory_id)
+    date_modified timestamp not null default current_date
 );
+alter table T_SUBCATEGORY
+    add constraint pk_subcategory_id primary key(subcategory_id);
 
 CREATE TABLE T_CATEGORY
 (
@@ -17,19 +18,23 @@ CREATE TABLE T_CATEGORY
     name varchar(30) not null,
     flg_income int not null,
     date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date,
-    constraint pk_category_id primary key(category_id),
-    constraint fk_subcategory_id foreign key(subcategory_id) references T_SUBCATEGORY(subcategory_id)
+    date_modified timestamp not null default current_date
 );
+alter table T_CATEGORY
+    add constraint pk_category_id primary key(category_id);
+alter table T_CATEGORY
+    add constraint fk_subcategory_id foreign key(subcategory_id)
+    references T_SUBCATEGORY(subcategory_id);
 
 CREATE TABLE T_ACCOUNT
 (
     account_id serial not null,
     name varchar(6) not null,
     date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date,
-    constraint pk_account_id primary key(account_id)
+    date_modified timestamp not null default current_date
 );
+alter table T_ACCOUNT
+    add constraint pk_account_id primary key(account_id);
 
 CREATE TABLE T_MARKET
 (
@@ -40,10 +45,11 @@ CREATE TABLE T_MARKET
     active int not null default 1,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
-    constraint pk_market_id primary key(market_id),
     unique(market_id),
     unique(code)
 );
+alter table T_MARKET
+    add constraint pk_market_id primary key(market_id);
 
 CREATE TABLE T_STOCK_NAME
 (
@@ -54,19 +60,22 @@ CREATE TABLE T_STOCK_NAME
     active int not null default 1,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
-    constraint pk_stock_name_id primary key(stock_name_id),
-    constraint fk_market_id foreign key(market_id) references T_MARKET(market_id),
     unique (name, market_id)
 );
+alter table T_STOCK_NAME
+    add constraint pk_stock_name_id primary key(stock_name_id);
+alter table T_STOCK_NAME
+    add constraint fk_market_id foreign key(market_id) references T_MARKET(market_id);
 
 CREATE TABLE T_FORMULA
 (
     formula_id int not null,
     value varchar(512) not null,
     description varchar(256) not null,
-    constraint pk_formula_id primary key(formula_id),
     unique(formula_id)
 );
+alter table T_FORMULA
+    add constraint pk_formula_id primary key(formula_id);
 
 -- TODO: when creating records (both trade + finance)
 -- you create an entry here, for automatically calculating the commission.
@@ -95,12 +104,16 @@ CREATE TABLE T_RATE
     commission decimal(18, 4) not null default 0.0,
     tax decimal(18, 4) not null default 0.0,
     formula_id int not null,
-    manual_flag int not null default 0,
-    constraint pk_rate_id primary key(rate_id),
-    constraint fk_market_id foreign key(market_id) references T_MARKET,
-    constraint fk_account_id foreign key(account_id) references T_ACCOUNT(account_id),
-    constraint fk_formula_id foreign key(formula_id) references T_FORMULA(formula_id)
+    manual_flag int not null default 0
 );
+alter table T_RATE
+    add constraint pk_rate_id primary key(rate_id);
+alter table T_RATE
+    add constraint fk_market_id foreign key(market_id) references T_MARKET;
+alter table T_RATE
+    add constraint fk_account_id foreign key(account_id) references T_ACCOUNT(account_id);
+alter table T_RATE
+    add constraint fk_formula_id foreign key(formula_id) references T_FORMULA(formula_id);
 
 /* main finance table */
 CREATE TABLE T_FINANCE
@@ -124,14 +137,20 @@ CREATE TABLE T_FINANCE
     active int not null default 1, 
     rate_id int not null default 0,
     date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date,
-    constraint pk_finance_id primary key(finance_id),
-    constraint fk_account_id foreign key(account_id) references T_ACCOUNT,
-    constraint fk_category_id foreign key(category_id) references T_CATEGORY,
-    constraint fk_subcategory_id foreign key(subcategory_id) references T_SUBCATEGORY,
-    constraint fk_stock_name_id foreign key(stock_name_id) references T_STOCK_NAME,
-    constraint fk_rate_id foreign key(rate_id) references T_RATE
+    date_modified timestamp not null default current_date
 );
+alter table T_FINANCE
+    add constraint pk_finance_id primary key(finance_id);
+alter table T_FINANCE
+    add constraint fk_account_id foreign key(account_id) references T_ACCOUNT;
+alter table T_FINANCE
+    add constraint fk_category_id foreign key(category_id) references T_CATEGORY;
+alter table T_FINANCE
+    add constraint fk_subcategory_id foreign key(subcategory_id) references T_SUBCATEGORY;
+alter table T_FINANCE
+    add constraint fk_stock_name_id foreign key(stock_name_id) references T_STOCK_NAME;
+alter table T_FINANCE
+    add constraint fk_rate_id foreign key(rate_id) references T_RATE;
 
 CREATE TABLE T_STOCK
 (
@@ -145,39 +164,47 @@ CREATE TABLE T_STOCK
     commission decimal (18,4) not null default 0.0,
     historical decimal(18,4) not null default 0.0,
     date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date,
-    constraint pk_stock_id primary key(stock_id),
-    constraint fk_finance_id foreign key(finance_id) references T_FINANCE(finance_id),
-    constraint fk_stock_name_id foreign key(stock_name_id) references T_STOCK_NAME(stock_name_id)
+    date_modified timestamp not null default current_date
 );
+alter table T_STOCK
+    add constraint pk_stock_id primary key(stock_id);
+alter table T_STOCK
+    add constraint fk_finance_id foreign key(finance_id) references T_FINANCE(finance_id);
+alter table T_STOCK
+    add constraint fk_stock_name_id foreign key(stock_name_id) references T_STOCK_NAME(stock_name_id);
 
 CREATE TABLE T_CURRENCY
 (
     currency_id int not null,
     code varchar(3) not null default '',
     description varchar(256) not null default '',
-    constraint pk_currency_id primary key(currency_id),
     unique(currency_id)
 );
+alter table T_CURRENCY
+    add constraint pk_currency_id primary key(currency_id);
 
 CREATE TABLE T_CURRENCY_EXCHANGE
 (
     currency_exchange_id serial not null,
     currency_id int not null,
     exchange_rate decimal(18,6) not null default(1.0),
-    finance_id int not null,
-    constraint pk_currency_exchange_id primary key(currency_exchange_id),
-    constraint fk_currency_id foreign key(currency_id) references T_CURRENCY(currency_id),
-    constraint fk_finance_id foreign key(finance_id) references T_FINANCE(finance_id)
+    finance_id int not null
 );
+alter table T_CURRENCY_EXCHANGE
+    add constraint pk_currency_exchange_id primary key(currency_exchange_id);
+alter table T_CURRENCY_EXCHANGE
+    add constraint fk_currency_id foreign key(currency_id) references T_CURRENCY(currency_id);
+alter table T_CURRENCY_EXCHANGE
+    add constraint fk_finance_id foreign key(finance_id) references T_FINANCE(finance_id);
 
 /* This might belong in bi */
 CREATE TABLE T_MARGIN_TYPE
 (
     margin_type_id serial not null,
-    margin_type varchar(50) not null,
-    constraint pk_margin_type_id primary key(margin_type_id)
+    margin_type varchar(50) not null
 );
+alter table T_MARGIN_TYPE
+    add constraint pk_margin_type_id primary key(margin_type_id);
 
 -- TODO: We need to keep drawdown records... dammit!
 -- TODO: create a gui part to maintain this.
@@ -188,9 +215,10 @@ CREATE TABLE T_DRAWDOWN
     value int not null default 0,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
-    constraint pk_drawdown_id primary key(drawdown_id),
     unique(drawdown_id)
 );
+alter table T_DRAWDOWN
+    add constraint pk_drawdown_id primary key(drawdown_id);
 
 CREATE TABLE T_TRADE
 (
@@ -219,13 +247,18 @@ CREATE TABLE T_TRADE
     currency_id int not null default 0,
     drawdown_id int not null default 0,
     date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date,
-    constraint pk_trade_id primary key(trade_id),
-    constraint fk_id_buy foreign key(id_buy) references T_FINANCE(finance_id),
-    constraint fk_id_sell foreign key(id_sell) references T_FINANCE(finance_id),
-    constraint fk_currency_id foreign key(currency_id) references T_CURRENCY(currency_id),
-    constraint fk_drawdown_id foreign key(drawdown_id) references T_DRAWDOWN(drawdown_id)
+    date_modified timestamp not null default current_date
 );
+alter table T_TRADE
+    add constraint pk_trade_id primary key(trade_id);
+alter table T_TRADE
+    add constraint fk_id_buy foreign key(id_buy) references T_FINANCE(finance_id);
+alter table T_TRADE
+    add constraint fk_id_sell foreign key(id_sell) references T_FINANCE(finance_id);
+alter table T_TRADE
+    add constraint fk_currency_id foreign key(currency_id) references T_CURRENCY(currency_id);
+alter table T_TRADE
+    add constraint fk_drawdown_id foreign key(drawdown_id) references T_DRAWDOWN(drawdown_id);
 
 CREATE TABLE T_MARGIN
 (
@@ -234,9 +267,11 @@ CREATE TABLE T_MARGIN
     description varchar(100) not null default '',
     value decimal(18,4) not null default 0.0,
     date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date,
-    constraint pk_smarket_id primary key(margin_id),
-    constraint fk_margin_type_id foreign key(margin_type_id) references T_MARGIN_TYPE(margin_type_id)
+    date_modified timestamp not null default current_date
 );
+alter table T_MARGIN
+    add constraint pk_smarket_id primary key(margin_id);
+alter table T_MARGIN
+    add constraint fk_margin_type_id foreign key(margin_type_id) references T_MARGIN_TYPE(margin_type_id);
 
 COMMIT;
