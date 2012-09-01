@@ -48,6 +48,7 @@ class FileImport():
                             #insert data in table
                             #source.name should be the filename = e.g. T_ACCOUNT
                             table = dba.loaded_objects[filename]
+                            print('Importing table', filename, '...', end = '')
                             table.insert().values(**row).execute()
                     
                         #for line in lines:
@@ -55,17 +56,18 @@ class FileImport():
                             #with source.name as the tablename.
                         #    print('test: adding to line.')
                         i = i + 1
-                        percent = int(i/len(lines)*100)
-                        percentlen = len(str(percent))-1
+                        #percent = int(i/len(lines)*100)
+                        #percentlen = len(str(percent))-1
 
                         #[  1%]
                         #[123%]
                         #123456
-                        print(6*'\b', end = "")
+                        #print(6*'\b', end = '')
 
-                        print('[{0}{1}]'.format((3-percentlen-1)*' ' + str(percent),'%') , end = "")
+                        #print('[{0}{1}]'.format((3-percentlen-1)*' ' + str(percent),'%') , end = "")
                         sleep(0.001)
                         sys.stdout.flush()
+                        print('[OK]')
                 except Exception as ex:
                     print("Error in for loop: ", ex)
                     break

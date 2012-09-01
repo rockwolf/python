@@ -62,6 +62,13 @@ class FileExport():
                     exportfile = open(exportpath, 'w')
                     outcsv = csv.writer(exportfile)
                     records = dba.export_records(dba.loaded_objects[viewname])
+                    # write column names on first row
+                    i = 0
+                    if i == 0:
+                        outcsv.writerow([column.name for column
+                            in dba.loaded_objects[viewname].c])
+                    i = i + 1
+                    # write records
                     for record in records:
                         outcsv.writerow([ getattr(record, column.name) for
                             column in dba.loaded_objects[viewname].c ])
