@@ -14,6 +14,11 @@ FILE=$SQLDIR"create_tables.sql"
 psql -h $HOSTNAME $DATABASE < $FILE
 echo "Running $FILE [OK]"
 echo
+echo "Adding constraints to tables..."
+FILE=$SQLDIR"add_constraints.sql"
+psql -h $HOSTNAME $DATABASE < $FILE
+echo "Running $FILE [OK]"
+echo
 echo "Creating views..."
 FILE=$SQLDIR"create_views.sql"
 psql -h $HOSTNAME $DATABASE < $FILE

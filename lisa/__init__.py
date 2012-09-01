@@ -96,9 +96,11 @@ All arguments are optional.'''.format(self.pprog))
         """ import """
         setup = Setup()
         setup.clear_tables()
-        setup = None
+        setup.drop_constraints()
         imp = FileImport(self.config)
         imp.file_import()
+        setup.add_constraints()
+        setup = None
         imp = None
 
     def file_export(self):

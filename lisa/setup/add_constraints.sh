@@ -3,10 +3,10 @@
 HOSTNAME="testdb"
 DATABASE="finance"
 SQLDIR="setup/sql/"
-SCRIPTT=$SQLDIR"clear_tables.sql"
+SCRIPTT=$SQLDIR"add_constraints.sql"
 
-echo "Drop.sh"
-echo "-------"
+echo "add_constraints.sh"
+echo "------------------"
 echo
 echo "HOSTNAME=$HOSTNAME"
 echo "DATABASE=$DATABASE"
