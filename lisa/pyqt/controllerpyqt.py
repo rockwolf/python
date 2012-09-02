@@ -107,16 +107,21 @@ class ControllerPyqt(QtGui.QMainWindow):
     
     def btn_add_clicked(self):
         """ Create the command to send to clipf and add it to the buffer. """
-        self.ctl.add_inputline(self.table)
+        self.ctl.add_tbl_summary(self.table, self.ctl.get_input_line(self.table))
+        self.clear_fields()
         self.gui.cmb_subcategory.setCurrentIndex(0)
 
     def btn_update_clicked(self):
         """ Update the selected record in the table. """
-        pass
+        selected_index = self.table.selectionModel().selectedRows()
+        print('Test:', str(selected_index))
+        self.table.update_row(self.table, selected_index)
 
     def btn_remove_clicked(self):
         """ Remove the selected record in the table. """
-        self.ctl.remove_selected(self.table) 
+        #TODO: get the table row to get the index
+        selected_index = -1
+        self.ctl.remove_selected(self.table, selected_index) 
     
     def btn_removelast_clicked(self):
         """ Remove the last added record from the table. """

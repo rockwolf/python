@@ -142,8 +142,8 @@ class ControllerMain():
         self.filltxt_stockdescription()
         dba = None
 
-    def add_inputline(self, table):
-        """ Command that adds an input finance line into a temporary buffer. """
+    def get_input_line(self, table):
+        """ Get the input values. """
         if(self.gui.get_subcategory() == 'buy' or \
                 self.gui.get_subcategory() == 'sell'):
             market = self.gui.get_marketcode()
@@ -166,15 +166,11 @@ class ControllerMain():
             self.gui.get_tax(),
             self.gui.get_risk(),
             ]
-        #self.inputbuffer.append(str_list)
-        self.add_tbl_summary(table, str_list)
-        self.gui.clear_fields()
-   
-    def remove_selected(self, table):
+        return str_list
+
+    def remove_selected(self, table, selected_index):
         """ Removes the selected record from the input buffer. """
-        #TODO: get the table row to get the index
-        someindex = -1
-        table.delete_row(someindex)
+        table.delete_row(selected_index)
 
     def remove_last(self, table):
         """ Removes the most recently added record from the input buffer. """
