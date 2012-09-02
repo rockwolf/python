@@ -53,7 +53,8 @@ class T_FINANCE(object):
 class T_STOCK(object):
     """ T_STOCK """
 
-    def __init__(self, finance_id, stock_name_id, action, price, shares, tax, commission, historical, date_created, date_modified, risk):
+    def __init__(self, finance_id, stock_name_id, action, price, shares, tax,
+            commission, historical, active, date_created, date_modified, risk):
         self.finance_id = finance_id
         self.stock_name_id = stock_name_id
         self.action = action
@@ -62,12 +63,14 @@ class T_STOCK(object):
         self.tax = tax
         self.commission = commission
         self.historical = historical
+        self.active = active
         self.date_created = date_created
         self.date_modified = date_modified
         self.risk = risk
 
     def __repr__(self):
-        return "<T_STOCK('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.finance_id, self.stock_name_id, self.action, self.price, self.shares, self.tax, self.commission, self.historical, self.date_created, self.date_modified, self.risk)
+        return "<T_STOCK('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.finance_id, 
+                self.stock_name_id, self.action, self.price, self.shares, self.tax, self.commission, self.historical, self.active, self.date_created, self.date_modified, self.risk)
 
 class T_STOCK_NAME(object):
     """ T_STOCK_NAME """
@@ -80,7 +83,8 @@ class T_STOCK_NAME(object):
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_STOCK_NAME('%s', '%s', '%s', '%s', '%s')>" % (self.name, self.market_id, self.description, self.date_created, self.date_modified)
+        return "<T_STOCK_NAME('%s', '%s', '%s', '%s', '%s')>" % (self.name, 
+                self.market_id, self.description, self.date_created, self.date_modified)
 
 class T_MARKET(object):
     """ T_MARKET """
@@ -100,15 +104,17 @@ class T_MARKET(object):
 class T_CATEGORY(object):
     """ T_CATEGORY """
 
-    def __init__(self, subcategory_id, name, flg_income, date_created, date_modified):
+    def __init__(self, subcategory_id, name, flg_income, active, date_created, date_modified):
         self.subcategory_id = subcategory_id
         self.name = name
         self.flg_income = flg_income 
+        self.active = active
         self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_CATEGORY('%s', '%s', '%s', '%s', '%s')>" % (self.subcategory_id, self.name, self.flg_income, self.date_created, self.date_modified)
+        return "<T_CATEGORY('%s', '%s', '%s', '%s', '%s', '%s')>" % (self.subcategory_id, 
+                self.name, self.flg_income, self.active, self.date_created, self.date_modified)
 
 class T_MARGIN(object):
     """ T_MARGIN """
@@ -138,24 +144,28 @@ class T_MARGIN_TYPE(object):
 class T_SUBCATEGORY(object):
     """ T_SUBCATEGORY """
 
-    def __init__(self, name, date_created, date_modified):
+    def __init__(self, name, active, date_created, date_modified):
         self.name = name
+        self.active = active
         self.date_created = date_created 
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_SUBCATEGORY('%s', '%s', '%s')>" % (self.name, self.date_created, self.date_modified)
+        return "<T_SUBCATEGORY('%s', '%s', '%s', '%s')>" % (self.name,
+                self.active, self.date_created, self.date_modified)
 
 class T_ACCOUNT(object):
     """ T_ACCOUNT """
 
-    def __init__(self, name, date_created, date_modified):
+    def __init__(self, name, active, date_created, date_modified):
         self.name = name
+        self.active = active
         self.date_created = date_created 
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_ACCOUNT('%s', '%s', '%s')>" % (self.name, self.date_created, self.date_modified)
+        return "<T_ACCOUNT('%s', '%s', '%s', '%s')>" % (self.name, 
+                self.active, self.date_created, self.date_modified)
 
 class T_CURRENCY(object):
     """ T_CURRENCY """
@@ -202,7 +212,7 @@ class T_TRADE(object):
             price_buy, price_sell, risk, initial_risk, initial_risk_percent,
             stoploss, profit_loss, profit_loss_percent, r_multiple,
             win_flag, at_work, id_buy, id_sell,
-            currency_id, drawdown_id, date_created, date_modified):
+            currency_id, drawdown_id, active, date_created, date_modified):
         self.trade_id = trade_id 
         self.date_buy = date_buy
         self.year_buy = year_buy
@@ -227,6 +237,7 @@ class T_TRADE(object):
         self.id_buy = id_buy
         self.id_sell = id_sell
         self.currency_id = currency_id
+        self.active = active
         self.date_created = date_created
         self.date_modified = date_modified
 
@@ -234,7 +245,7 @@ class T_TRADE(object):
         return "<T_TRADE('%s', '%s', '%s', '%s', '%s', '%s', \
                 '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
                 '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-                '%s', '%s', '%s', '%s')>" % (self.trade_id, 
+                '%s', '%s', '%s', '%s', '%s')>" % (self.trade_id, 
                         self.date_buy,
                         self.year_buy,
                         self.month_buy,
@@ -259,6 +270,7 @@ class T_TRADE(object):
                         self.id_sell,
                         self.currency_id,
                         self.drawdown_id,
+                        self.active,
                         self.date_created,
                         self.date_modified)
 

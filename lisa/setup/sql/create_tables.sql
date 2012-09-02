@@ -5,6 +5,7 @@ CREATE TABLE T_SUBCATEGORY
 (
     subcategory_id int not null,
     name varchar(20) not null,
+    active int not null default 1,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date
 );
@@ -15,6 +16,7 @@ CREATE TABLE T_CATEGORY
     subcategory_id int not null default 1,
     name varchar(30) not null,
     flg_income int not null,
+    active int not null default 1,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date
 );
@@ -23,6 +25,7 @@ CREATE TABLE T_ACCOUNT
 (
     account_id serial not null,
     name varchar(6) not null,
+    active int not null default 1,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date
 );
@@ -126,6 +129,7 @@ CREATE TABLE T_STOCK
     tax decimal(18,4) not null default 0.0,
     commission decimal (18,4) not null default 0.0,
     historical decimal(18,4) not null default 0.0,
+    active int not null default 1,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date
 );
@@ -156,6 +160,7 @@ CREATE TABLE T_MARGIN_TYPE
 -- TODO: We need to keep drawdown records... dammit!
 -- TODO: create a gui part to maintain this.
 -- TODO: when creating trade records, a record needs to be created here too
+-- Perhaps maintain this true the position sizing part of the emma app?
 CREATE TABLE T_DRAWDOWN
 (
     drawdown_id int not null default 0,
@@ -191,6 +196,7 @@ CREATE TABLE T_TRADE
     id_sell int not null,
     currency_id int not null default 0,
     drawdown_id int not null default 0,
+    active int not null default 1,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date
 );
