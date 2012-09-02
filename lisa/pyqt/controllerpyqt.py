@@ -116,11 +116,11 @@ class ControllerPyqt(QtGui.QMainWindow):
 
     def btn_remove_clicked(self):
         """ Remove the selected record in the table. """
-        pass
+        self.ctl.remove_selected(self.table) 
     
     def btn_removelast_clicked(self):
         """ Remove the last added record from the table. """
-        pass
+        self.ctl.remove_last(self.table)
 
     # Events
     def cmb_category_changed(self, selstr):

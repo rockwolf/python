@@ -169,7 +169,17 @@ class ControllerMain():
         #self.inputbuffer.append(str_list)
         self.add_tbl_summary(table, str_list)
         self.gui.clear_fields()
-    
+   
+    def remove_selected(self, table):
+        """ Removes the selected record from the input buffer. """
+        #TODO: get the table row to get the index
+        someindex = -1
+        table.delete_row(someindex)
+
+    def remove_last(self, table):
+        """ Removes the most recently added record from the input buffer. """
+        table.delete_row()
+
     def set_infodetails(self):
         """ Update infolabel details. """
         dba = DatabaseAccess(self.config)
