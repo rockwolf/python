@@ -80,7 +80,9 @@ class ControllerMain():
                     'price':field[9],
                     'commission':field[10],
                     'tax':field[11],
-                    'risk':field[12]
+                    'risk':field[12],
+                    'currency':field[13],
+                    'exchange_rate':field[14]
                 })
             # import finance info from table data
             dba = DatabaseAccess(self.config)
