@@ -165,6 +165,8 @@ class ControllerMain():
             self.gui.get_commission(),
             self.gui.get_tax(),
             self.gui.get_risk(),
+            self.gui.get_currency(),
+            self.gui.get_exchange_rate()
             ]
         return str_list
 
