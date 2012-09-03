@@ -298,6 +298,15 @@ class ControllerPyqt(QtGui.QMainWindow):
         """ Returns the risk from the spn_risk spinedit. """
         return str(Decimal(self.gui.spn_risk.textFromValue( \
                 self.gui.spn_risk.value()))/100)
+                
+    def get_currency(self):
+    	""" Returns the currency used. """
+    	return str(self.gui.cmb_currency.currentText())
+    	
+    def get_exchange_rate(self):
+    	""" Returns the exchange rate used. """
+    	return str(self.gui.spn_exchange_rate.textFromValue( \
+    		self.gui.spl_exchange_rate.value()))
 
     def set_infodetails(self, value):
        """ Sets new info on the lbl_infodetails label. """
