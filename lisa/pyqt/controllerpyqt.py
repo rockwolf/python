@@ -306,7 +306,7 @@ class ControllerPyqt(QtGui.QMainWindow):
     def get_exchange_rate(self):
     	""" Returns the exchange rate used. """
     	return str(self.gui.spn_exchange_rate.textFromValue( \
-    		self.gui.spl_exchange_rate.value()))
+    		self.gui.spn_exchange_rate.value()))
 
     def set_infodetails(self, value):
        """ Sets new info on the lbl_infodetails label. """
