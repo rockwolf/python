@@ -121,8 +121,8 @@ class DatabaseAccess():
         except Exception as ex:
             print("Error in initialisation of DatabaseAccess: ", ex)
    
-    def remove_views_from(self, key):
-        """ Removes all dictionary entries starting with v_ """
+    def is_a_table(self, key):
+        """ Used to ignore all dictionary entries that don't start with t_ """
         if key.lower()[0:2] == 't_':
             return True
         else:
