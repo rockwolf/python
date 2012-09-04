@@ -340,8 +340,8 @@ class DatabaseAccess():
                 
                 print("GENERAL")
                 print("_______")
-                print("Preparing statements...")
-                self.statementFinance = Statement('T_FINANCE')
+                print(MESSAGE_PREPARING)
+                self.statementFinance = Statement(TABLE_FINANCE)
                 records = 0
                 for fields in fields_db:
                     subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'], date_created, date_modified)
@@ -408,7 +408,7 @@ class DatabaseAccess():
                                 fields['date'].day
                             )
                         )
-                print("Executing statements all at once...")
+                print(MESSAGE_EXEC_ALL)
                 session.add_all(statements)
             finally:
                 session.commit()
@@ -416,7 +416,7 @@ class DatabaseAccess():
                 print("{0} records added.".format(str(records)))
                 print("Done.")
         except Exception as ex:
-            print("Error in file_import_lines: ", ex)
+            print(ERROR_FILE_IMPORT_LINES, ex)
    
     def file_import_stocks(self, fields_db, fields_stock):
         """ Import stock information. """
@@ -428,8 +428,8 @@ class DatabaseAccess():
                 date_modified = current_date()
                 print("STOCKS")
                 print("______")
-                print("Preparing statements...")
-                self.statementStock = Statement('T_STOCK')
+                print(MESSAGE_PREPARING)
+                self.statementStock = Statement(TABLE_STOCK)
                 records = 0
                 i = 0
                 for fields in fields_db:
@@ -463,17 +463,17 @@ class DatabaseAccess():
                     # so we use an integer in the fields_db loop as an index
                     # to get the corresponding fields_stock value
                     i = i + 1
-                print("Executing statements all at once...")
+                print(MESSAGE_EXEC_ALL)
                 statements.Execute(session)
             except Exception as ex:
-                print("Error in file_import_stocks: ", ex)
+                print(ERROR_FILE_IMPORT_STOCKS, ex)
             finally:
                 session.commit()
                 session = None
                 print("{0} records added.".format(str(records)))
-                print("Done.")
+                print(DONE)
         except Exception as ex:
-            print("Error creating session in file_import_stocks: ", ex)
+            print(ERROR_FILE_IMPORT_STOCKS_SESSION, ex)
 
     def update_finance(self, fields_db, session, i, finance_id, recordid):
         """ Add a new finance entry or update an existing one. """
@@ -517,7 +517,7 @@ class DatabaseAccess():
                 )
                 return True;
         except Exception as ex:
-           print("Error in update_stock: ", ex)
+           print(ERROR_UPDATE_STOCK, ex)
         return False;
 
     def export_records(self, name):
@@ -559,7 +559,7 @@ class DatabaseAccess():
                 for instance in session.query(T_SUBCATEGORY).filter_by(name=subcategory):
                     result = str(instance.subcategory_id)
         except Exception as ex:
-            print("Error retrieving subcategory_id: ", ex)
+            print(ERROR_SUBCATEGORY_ID_FROM_SUBCATEGORY, ex)
         finally:
             session.rollback()
             session = None
@@ -583,7 +583,7 @@ class DatabaseAccess():
                 for instance in session.query(T_ACCOUNT).filter_by(name=account):
                     result = str(instance.account_id)
         except Exception as ex:
-            print("Error retrieving account_id: ", ex)
+            print(ERROR_ACCOUNT_ID_FROM_ACCOUNT, ex)
         finally:
             session.rollback()
             session = None
