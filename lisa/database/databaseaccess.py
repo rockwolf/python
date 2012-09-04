@@ -27,6 +27,7 @@ from database.mappings_views import *
 from modules_generic.function import *
 from modules_generic.messagehandler import *
 from modules.statement import Statement
+from modules.constant import *
 
 class DatabaseAccess():
     """ Connecting to the database. """ 
