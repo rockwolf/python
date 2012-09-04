@@ -5,9 +5,9 @@ alter table T_SUBCATEGORY
     add constraint pk_subcategory_id primary key(subcategory_id);
 alter table T_CATEGORY
     add constraint pk_category_id primary key(category_id);
-alter table T_CATEGORY
-    add constraint fk_subcategory_id foreign key(subcategory_id)
-    references T_SUBCATEGORY(subcategory_id);
+alter table T_SUBCATEGORY
+    add constraint fk_category_id foreign key(category_id)
+    references T_CATEGORY(category_id);
 alter table T_ACCOUNT
     add constraint pk_account_id primary key(account_id);
 alter table T_MARKET

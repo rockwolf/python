@@ -184,7 +184,7 @@ class DatabaseAccess():
             for instance in query: 
                 values.append(instance.name)
         except Exception as ex:
-            print("Error in get_categories: ", ex)
+            print(ERROR_GET_CATEGORIES, ex)
         finally:
             session.rollback()
             session = None
@@ -199,7 +199,7 @@ class DatabaseAccess():
             for instance in query: 
                 values.append(instance.name)
         except Exception as ex:
-            print("Error in get_accounts: ", ex)
+            print(ERROR_GET_ACCOUNTS, ex)
         finally:
             session.rollback()
             session = None
@@ -214,7 +214,7 @@ class DatabaseAccess():
             for instance in query: 
                 values.append(instance.name)
         except Exception as ex:
-            print("Error in get_subcategories: ", ex)
+            print(ERROR_GET_SUBCATEGORIES, ex)
         finally:
             session.rollback()
             session = None
@@ -230,7 +230,7 @@ class DatabaseAccess():
             for instance in query: 
                 values.append(instance.code)
         except Exception as ex:
-            print("Error in get_markets: ", ex)
+            print(ERROR_GET_MARKETS, ex)
         finally:
             session.rollback()
             session = None
@@ -309,7 +309,7 @@ class DatabaseAccess():
                 values.append(instance.marketname)
                 values.append(instance.country)
         except Exception as ex:
-            print("Error in get_stockinfo: ", ex)
+            print(ERROR_GET_STOCK_INFO, ex)
         finally:
             session.rollback()
             session = None
@@ -324,7 +324,7 @@ class DatabaseAccess():
             for instance in query: 
                 values.append(instance.code)
         except Exception as ex:
-            print("Error in get_currencies: ", ex)
+            print(ERROR_GET_CURRENCIES, ex)
         finally:
             session.rollback()
             session = None

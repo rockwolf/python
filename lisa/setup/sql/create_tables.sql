@@ -4,6 +4,7 @@ BEGIN;
 CREATE TABLE T_SUBCATEGORY
 (
     subcategory_id int not null,
+    category_id int not null,
     name varchar(20) not null,
     active int not null default 1,
     date_created timestamp not null default current_date,
@@ -13,7 +14,6 @@ CREATE TABLE T_SUBCATEGORY
 CREATE TABLE T_CATEGORY
 (
     category_id int not null,
-    subcategory_id int not null default 1,
     name varchar(30) not null,
     flg_income int not null,
     active int not null default 1,

@@ -236,279 +236,157 @@ values('ZWU2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
 values('ZWZ2.cfd', 6, 'London Brent Oil', 1, current_date, current_date);
 
-/* t_subcategory */
-INSERT INTO T_SUBCATEGORY(subcategory_id, name, date_created, date_modified)
-values(1, 'none', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, name, date_created, date_modified)
-values(2, 'buy', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, name, date_created, date_modified)
-values(3, 'sell', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, name, date_created, date_modified)
-values(4, 'invest', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, name, date_created, date_modified)
-values(5, 'refund', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, name, date_created, date_modified)
-values(6, 'dividend', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, name, date_created, date_modified)
-values(7, 'close', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, name, date_created, date_modified)
-values(8, 'electricity', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, name, date_created, date_modified)
-values(9, 'gas', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, name, date_created, date_modified)
-values(10, 'water', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, name, date_created, date_modified)
-values(11, 'mutuality', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, name, date_created, date_modified)
-values(12, 'internet', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, name, date_created, date_modified)
-values(13, 'belfius', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, name, date_created, date_modified)
-values(14, 'insurance', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, name, date_created, date_modified)
-values(15, 'police', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, name, date_created, date_modified)
-values(16, 'vik', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, name, date_created, date_modified)
-values(17, 'phone', current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, name, date_created, date_modified)
-values(18, 'other', current_date, current_date);
-
 /* t_category */
---TODO: gather all product combinations and put them in here.
---it's no longer sufficient to put in bill.rx for example,
---we need:
---bill.rx None
---bill.rx mutuality
---bill.rx police
---...
---and also check other combo's
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(1, 1, 'account.rx', 1, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(1, 'account.rx', 1, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(2, 1, 'account.tx', 0, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(2, 'account.tx', 0, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(3, 1, 'bet.rx', 1, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(3, 'bet.rx', 1, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(4, 1, 'bet.tx', 0, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(4, 'bet.tx', 0, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(5, 8, 'bill.rx', 1, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(5, 'bill.rx', 1, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(6, 8, 'bill.tx', 0, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(6, 'bill.tx', 0, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(7, 9, 'bill.rx', 1, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(7, 'car.rx', 1, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(8, 9, 'bill.tx', 0, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(8, 'car.tx', 0, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(9, 10, 'bill.rx', 1, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(9, 'clothes.rx', 1, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(10, 10, 'bill.tx', 0, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(10, 'clothes.tx', 0, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(11, 11, 'bill.rx', 1, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(11, 'extra.rx', 1, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(12, 11, 'bill.tx', 0, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(12, 'extra.tx', 0, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(13, 12, 'bill.rx', 1, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(13, 'food.rx', 1, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(14, 12, 'bill.tx', 0, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(14, 'food.tx', 0, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(15, 13, 'bill.rx', 1, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(15, 'gift.rx', 1, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(16, 13, 'bill.tx', 0, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(16, 'gift.tx', 0, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(17, 14, 'bill.rx', 1, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(17, 'hobby.rx', 1, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(18, 14, 'bill.tx', 0, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(18, 'hobby.tx', 0, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(19, 15, 'bill.rx', 1, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(19, 'house.rx', 1, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(20, 15, 'bill.tx', 0, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(20, 'house.tx', 0, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(21, 16, 'bill.rx', 1, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(21, 'invest.rx', 1, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(22, 16, 'bill.tx', 0, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(22, 'invest.tx', 0, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(23, 17, 'bill.rx', 1, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(23, 'trade.rx', 1, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(24, 17, 'bill.tx', 0, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(24, 'trade.tx', 0, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(25, 18, 'bill.rx', 1, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(25, 'salary.rx', 1, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(26, 18, 'bill.tx', 0, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(26, 'salary.tx', 0, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(27, 1, 'car.rx', 1, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(27, 'tax.rx', 1, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(28, 1, 'car.tx', 0, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(28, 'tax.tx', 0, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(29, 1, 'clothes.rx', 1, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(29, 'travel.rx', 1, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(30, 1, 'clothes.tx', 0, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(30, 'travel.tx', 0, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(31, 1, 'extra.rx', 1, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(31, 'other.rx', 1, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(32, 1, 'extra.tx', 0, current_date, current_date);
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(32, 'other.tx', 0, 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(33, 1, 'food.rx', 1, current_date, current_date);
+/* t_subcategory */
+INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
+values(1, 1, 'none', 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(34, 1, 'food.tx', 0, current_date, current_date);
+INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
+values(2, 1, 'buy', 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(35, 1, 'gift.rx', 1, current_date, current_date);
+INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
+values(3, 1, 'sell', 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(36, 1, 'gift.tx', 0, current_date, current_date);
+INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
+values(4, 1, 'invest', 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(37, 1, 'hobby.rx', 1, current_date, current_date);
+INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
+values(5, 1, 'refund', 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(38, 1, 'hobby.tx', 0, current_date, current_date);
+INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
+values(6, 1, 'dividend', 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(39, 1, 'house.rx', 1, current_date, current_date);
+INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
+values(7, 1, 'close', 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(40, 1, 'house.tx', 0, current_date, current_date);
+INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
+values(8, 1, 'electricity', 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(41, 2, 'invest.rx', 1, current_date, current_date);
+INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
+values(9, 1, 'gas', 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(42, 2, 'invest.tx', 0, current_date, current_date);
+INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
+values(10, 1, 'water', 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(43, 3, 'invest.rx', 1, current_date, current_date);
+INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
+values(11, 1, 'mutuality', 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(44, 3, 'invest.tx', 0, current_date, current_date);
+INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
+values(12, 1, 'internet', 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(45, 4, 'invest.rx', 1, current_date, current_date);
+INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
+values(13, 1, 'belfius', 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(46, 4, 'invest.tx', 0, current_date, current_date);
+INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
+values(14, 1, 'insurance', 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(47, 5, 'invest.rx', 1, current_date, current_date);
+INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
+values(15, 1, 'police', 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(48, 5, 'invest.tx', 0, current_date, current_date);
+INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
+values(16, 1, 'vik', 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(49, 6, 'invest.rx', 1, current_date, current_date);
+INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
+values(17, 1, 'phone', 1, current_date, current_date);
 
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(50, 6, 'invest.tx', 0, current_date, current_date);
-
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(51, 7, 'invest.rx', 1, current_date, current_date);
-
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(52, 7, 'invest.tx', 0, current_date, current_date);
-
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(53, 2, 'trade.rx', 1, current_date, current_date);
-
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(54, 2, 'trade.tx', 0, current_date, current_date);
-
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(55, 3, 'trade.rx', 1, current_date, current_date);
-
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(56, 3, 'trade.tx', 0, current_date, current_date);
-
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(57, 5, 'trade.rx', 1, current_date, current_date);
-
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(58, 5, 'trade.tx', 0, current_date, current_date);
-
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(59, 6, 'trade.rx', 1, current_date, current_date);
-
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(60, 6, 'trade.tx', 0, current_date, current_date);
-
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(61, 18, 'trade.rx', 1, current_date, current_date);
-
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(62, 18, 'trade.tx', 0, current_date, current_date);
-
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(63, 1, 'salary.rx', 1, current_date, current_date);
-
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(64, 1, 'salary.tx', 0, current_date, current_date);
-
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(65, 1, 'tax.rx', 1, current_date, current_date);
-
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(66, 1, 'tax.tx', 0, current_date, current_date);
-
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(67, 1, 'travel.rx', 1, current_date, current_date);
-
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(68, 1, 'travel.tx', 0, current_date, current_date);
-
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(69, 1, 'other.rx', 1, current_date, current_date);
-
-INSERT INTO T_CATEGORY(category_id, subcategory_id, name, flg_income, date_created, date_modified)
-values(70, 1, 'other.tx', 0, current_date, current_date);
+INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
+values(18, 1, 'other', 1, current_date, current_date);
 
 /* currencies */
 INSERT INTO T_CURRENCY(currency_id, code, description)
