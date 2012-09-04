@@ -26,6 +26,7 @@ from database.mappings import *
 from database.mappings_views import *
 from modules_generic.function import *
 from modules_generic.messagehandler import *
+from modules.statement import Statement
 
 class DatabaseAccess():
     """ Connecting to the database. """ 
@@ -116,8 +117,8 @@ class DatabaseAccess():
             self.map_views()
             self.tables = [x for x in self.metadata.tables.keys() if
                     self.is_a_table(x) ]
-            self.statementFinance = StatementFinance()
-            self.statementStock = StatementStock()
+            self.statementFinance = Statement('T_FINANCE')
+            self.statementStock = Statement('T_STOCK')
         except Exception as ex:
             print("Error in initialisation of DatabaseAccess: ", ex)
    
@@ -340,7 +341,7 @@ class DatabaseAccess():
                 print("GENERAL")
                 print("_______")
                 print("Preparing statements...")
-                self.statementFinance = StatementFinance()
+                self.statementFinance = Statement('T_FINANCE')
                 records = 0
                 for fields in fields_db:
                     subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'], date_created, date_modified)
@@ -428,7 +429,7 @@ class DatabaseAccess():
                 print("STOCKS")
                 print("______")
                 print("Preparing statements...")
-                self.statementStock = StatementStock()
+                self.statementStock = Statement('T_STOCK')
                 records = 0
                 i = 0
                 for fields in fields_db:
@@ -710,80 +711,3 @@ class DatabaseAccess():
             session.rollback()
             session = None
         return result
-
-class Statement():
-    """ A class to contain statements to be executed within the orm session. """
-
-    def __init__(self):
-        """ Init """
-        try:
-            self.statements = []
-        except Exception as ex:
-            print("Error in initialisation of Statements: ", ex)
- 
-    def Add(self, recordid, tablerow_object, tablename='table'):
-        """ Add a statement with recordid and tablerow object. """
-        try:
-            # Add a statement
-            # recordid
-            self.statements[recordid-1].append(recordid)
-            # tablerow object (statement)
-            self.statements[recordid-1].append(tablerow_object)
-        except Exception as ex:
-            print("Error adding statement for ", tablename, ": ", ex)
-   
-    def Remove(self, index=-1):
-        """ Remove statement added on specified index """
-        try:
-            self.statements.pop(index)
-        except Exception as ex:
-            print("Error removing statement from the list: ", ex)
-    
-    def Execute(self, session):
-        """ Execute list of statements for given session """
-        try:
-            # First collect the statements, without the recordid.
-            tablerow_objects = []
-            for line in self.statements:
-                tablerow_objects.append(line[1])
-            # Now add the tablerows to the database, all at once.
-            session.add_all(self.statements)
-        except Exception as ex:
-            print("Error executing statements: ", ex)
-
-    def Print(self, tablename):
-        """ Method that actually prints the statement info and text on the screen. """
-        print('Statements for ', tablename)
-        print('________________________','\n')
-        for s in self.statements:
-            print(s)
-
-class StatementFinance(Statement):
-    """ A derived Statement class for T_FINANCE. """
-    
-    def Add(self, recordid, tablerow_object):
-        """ Add a statement with recordid and tablerow object for T_FINANCE. """
-        super(StatementFinance, self).Add(
-            recordid,
-            tablerow_object,
-            'T_FINANCE'
-        )
-
-    def Print(self):
-        """ Prints the currently held statements for T_FINANCE. """
-        super(StatementFinance, self).Print('T_FINANCE')
-
-class StatementStock(Statement):
-    """ A derived Statement class for T_STOCK. """
- 
-    def Add(self, recordid, tablerow_object):
-        """ Add a statement with recordid and tablerow object for T_STOCK. """
-        super(StatementStock, self).Add(
-            recordid,
-            tablerow_object,
-            'T_STOCK'
-        )
-   
-    def Print(self):
-        """ Prints the currently held statements for T_STOCK. """
-        super(StatementStock, self).Print('T_STOCK')
