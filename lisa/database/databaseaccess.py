@@ -115,7 +115,7 @@ class DatabaseAccess():
             self.map_tables()
             self.map_views()
             self.tables = [x for x in self.metadata.tables.keys() if
-                    self.remove_views_from(x) ]
+                    self.is_a_table(x) ]
             self.statementFinance = StatementFinance()
             self.statementStock = StatementStock()
         except Exception as ex:
