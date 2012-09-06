@@ -30,6 +30,7 @@ from modules.stock import Stock
 from database.databaseaccess import DatabaseAccess
 from pyqt.controllerpyqt import ControllerPyqt
 from PyQt4 import QtGui
+from modules.constant import *
 
 class ControllerMain():
     """ Contains the bussiness logic of the application. """
@@ -69,6 +70,8 @@ class ControllerMain():
             # statements object
             dba.write_to_database(statements)
             dba = None
+        except  Exception as ex:
+            print(ERROR_WRITE_TO_DATABASE, ex)
 
     def get_input_fields(self, tablecontent):
         #TODO: expand this list to include the marketname etc.
@@ -103,7 +106,7 @@ class ControllerMain():
                     'exchange_rate':field[14]
                 })
         except Exception as ex:
-            print("Error in get_input_fields: ", ex)
+            print(ERROR_GET_INPUT_FIELDS, ex)
         finally:
             return fields_db 
 

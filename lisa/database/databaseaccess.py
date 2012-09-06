@@ -53,73 +53,73 @@ class DatabaseAccess():
             clear_mappers()
             self.metadata = MetaData(self.db)
             self.loaded_objects = {
-                    'T_FINANCE': Table('t_finance', self.metadata, autoload=True),
-                    'T_STOCK': Table('t_stock', self.metadata, autoload=True),
-                    'T_MARKET': Table('t_market', self.metadata, autoload=True),
-                    'T_STOCK_NAME': Table('t_stock_name', self.metadata, autoload=True),
-                    'T_CATEGORY': Table('t_category', self.metadata, autoload=True),
-                    'T_SUBCATEGORY': Table('t_subcategory', self.metadata, autoload=True),
-                    'T_ACCOUNT': Table('t_account', self.metadata, autoload=True),
-                    'T_CURRENCY': Table('t_currency', self.metadata, autoload=True),
-                    'T_CURRENCY_EXCHANGE': Table('t_currency_exchange', self.metadata, autoload=True),
-                    'T_FORMULA': Table('t_formula', self.metadata, autoload=True),
-                    'T_TRADE': Table('t_trade', self.metadata, autoload=True),
-                    'T_RATE': Table('t_rate', self.metadata, autoload=True),
-                    'T_DRAWDOWN': Table('t_drawdown', self.metadata, autoload=True),
-                    'T_MARGIN': Table('t_margin', self.metadata, autoload=True),
-                    'T_MARGIN_TYPE': Table('t_margin_type', self.metadata,
+                    TABLE_FINANCE : Table(TABLE_FINANCE, self.metadata, autoload=True),
+                    TABLE_STOCK: Table(TABLE_STOCK, self.metadata, autoload=True),
+                    TABLE_MARKET: Table(TABLE_MARKET, self.metadata, autoload=True),
+                    TABLE_STOCK_NAME: Table(TABLE_STOCK_NAME, self.metadata, autoload=True),
+                    TABLE_CATEGORY: Table(TABLE_CATEGORY, self.metadata, autoload=True),
+                    TABLE_SUBCATEGORY: Table(TABLE_SUBCATEGORY, self.metadata, autoload=True),
+                    TABLE_ACCOUNT: Table(TABLE_ACCOUNT, self.metadata, autoload=True),
+                    TABLE_CURRENCY: Table(TABLE_CURRENCY, self.metadata, autoload=True),
+                    TABLE_CURRENCY_EXCHANGE: Table(TABLE_CURRENCY_EXCHANGE, self.metadata, autoload=True),
+                    TABLE_FORMULA: Table(TABLE_FORMULA, self.metadata, autoload=True),
+                    TABLE_TRADE: Table(TABLE_TRADE, self.metadata, autoload=True),
+                    TABLE_RATE: Table(TABLE_RATE, self.metadata, autoload=True),
+                    TABLE_DRAWDOWN: Table(TABLE_DRAWDOWN, self.metadata, autoload=True),
+                    TABLE_MARGIN: Table(TABLE_MARGIN, self.metadata, autoload=True),
+                    TABLE_MARGIN_TYPE: Table(TABLE_MARGIN_TYPE, self.metadata,
                         autoload=True),
-                    'V_FINANCE': Table('v_finance', self.metadata,
+                    VIEW_FINANCE: Table(VIEW_FINANCE, self.metadata,
                         Column('finance_id', Integer, primary_key=True),
                         autoload=True),
-                    'V_STOCK': Table('v_stock', self.metadata,
+                    VIEW_STOCK: Table(VIEW_STOCK, self.metadata,
                         Column('stock_id', Integer, primary_key=True),
                         autoload=True),
-                    'V_MARKET': Table('v_market', self.metadata,
+                    VIEW_MARKET: Table(VIEW_MARKET, self.metadata,
                         Column('market_id', Integer, primary_key=True),
                         autoload=True),
-                    'V_STOCK_NAME': Table('v_stock_name', self.metadata,
+                    VIEW_STOCK_NAME: Table(VIEW_STOCK_NAME, self.metadata,
                         Column('stock_name_id', Integer, primary_key=True),
                         autoload=True),
-                    'V_CATEGORY': Table('v_category', self.metadata,
+                    VIEW_CATEGORY: Table(VIEW_CATEGORY, self.metadata,
                         Column('category_id', Integer, primary_key=True),
                         autoload=True),
-                    'V_SUBCATEGORY': Table('v_subcategory', self.metadata,
+                    VIEW_SUBCATEGORY: Table(VIEW_SUBCATEGORY, self.metadata,
                         Column('subcategory_id', Integer, primary_key=True),
                         autoload=True),
-                    'V_ACCOUNT': Table('v_account', self.metadata,
+                    VIEW_ACCOUNT: Table(VIEW_ACCOUNT, self.metadata,
                         Column('account_id', Integer, primary_key=True),
                         autoload=True),
-                    'V_CURRENCY': Table('v_currency', self.metadata,
+                    VIEW_CURRENCY: Table(VIEW_CURRENCY, self.metadata,
                         Column('currency_id', Integer, primary_key=True),
                         autoload=True),
-                    'V_CURRENCY_EXCHANGE': Table('v_currency_exchange', self.metadata,
+                    VIEW_CURRENCY_EXCHANGE: Table(VIEW_CURRENCY_EXCHANGE, self.metadata,
                         Column('currency_exchange_id', Integer, primary_key=True),
                         autoload=True),
-                    'V_FORMULA': Table('v_formula', self.metadata,
+                    VIEW_FORMULA: Table(VIEW_FORMULA, self.metadata,
                         Column('formula_id', Integer, primary_key=True),
                         autoload=True),
-                    'V_TRADE': Table('v_trade', self.metadata,
+                    VIEW_TRADE: Table(VIEW_TRADE, self.metadata,
                         Column('trade_id', Integer, primary_key=True),
                         autoload=True),
-                    'V_RATE': Table('v_rate', self.metadata,
+                    VIEW_RATE: Table(VIEW_RATE, self.metadata,
                         Column('rate_id', Integer, primary_key=True),
                         autoload=True),
-                    'V_DRAWDOWN': Table('v_drawdown', self.metadata,
+                    VIEW_DRAWDOWN: Table(VIEW_DRAWDOWN, self.metadata,
                         Column('drawdown_id', Integer, primary_key=True),
                         autoload=True),
-                    'V_MARGIN': Table('v_margin', self.metadata,
+                    VIEW_MARGIN: Table(VIEW_MARGIN, self.metadata,
                         Column('margin_id', Integer, primary_key=True),
                         autoload=True),
-                    'V_MARGIN_TYPE': Table('v_margin_type', self.metadata,
+                    VIEW_MARGIN_TYPE: Table(VIEW_MARGIN_TYPE, self.metadata,
                         Column('margin_type_id', Integer, primary_key=True), autoload=True)
             }
             self.map_tables()
             self.map_views()
             self.tables = [x for x in self.metadata.tables.keys() if
                     self.is_a_table(x) ]
-            self.statementFinance = Statement('T_FINANCE')
-            self.statementStock = Statement('T_STOCK')
+            self.statementFinance = Statement(TABLE_FINANCE)
+            self.statementStock = Statement(TABLE_STOCK)
         except Exception as ex:
             print("Error in initialisation of DatabaseAccess: ", ex)
    
@@ -132,39 +132,39 @@ class DatabaseAccess():
 
     def map_tables(self):
         """ Create mappers for the tables on the db and the table classes. """
-        mapper(T_FINANCE, self.loaded_objects['T_FINANCE'])
-        mapper(T_STOCK, self.loaded_objects['T_STOCK'])
-        mapper(T_MARKET, self.loaded_objects['T_MARKET'])
-        mapper(T_STOCK_NAME, self.loaded_objects['T_STOCK_NAME'])
-        mapper(T_CATEGORY, self.loaded_objects['T_CATEGORY'])
-        mapper(T_SUBCATEGORY, self.loaded_objects['T_SUBCATEGORY'])
-        mapper(T_ACCOUNT, self.loaded_objects['T_ACCOUNT'])
-        mapper(T_TRADE, self.loaded_objects['T_TRADE'])
-        mapper(T_RATE, self.loaded_objects['T_RATE'])
-        mapper(T_CURRENCY, self.loaded_objects['T_CURRENCY'])
-        mapper(T_CURRENCY_EXCHANGE, self.loaded_objects['T_CURRENCY_EXCHANGE'])
-        mapper(T_FORMULA, self.loaded_objects['T_FORMULA'])
-        mapper(T_DRAWDOWN, self.loaded_objects['T_DRAWDOWN'])
-        mapper(T_MARGIN, self.loaded_objects['T_MARGIN'])
-        mapper(T_MARGIN_TYPE, self.loaded_objects['T_MARGIN_TYPE'])
+        mapper(T_FINANCE, self.loaded_objects[TABLE_FINANCE])
+        mapper(T_STOCK, self.loaded_objects[TABLE_STOCK])
+        mapper(T_MARKET, self.loaded_objects[TABLE_MARKET])
+        mapper(T_STOCK_NAME, self.loaded_objects[TABLE_STOCK_NAME])
+        mapper(T_CATEGORY, self.loaded_objects[TABLE_CATEGORY])
+        mapper(T_SUBCATEGORY, self.loaded_objects[TABLE_SUBCATEGORY])
+        mapper(T_ACCOUNT, self.loaded_objects[TABLE_ACCOUNT])
+        mapper(T_TRADE, self.loaded_objects[TABLE_TRADE])
+        mapper(T_RATE, self.loaded_objects[TABLE_RATE])
+        mapper(T_CURRENCY, self.loaded_objects[TABLE_CURRENCY])
+        mapper(T_CURRENCY_EXCHANGE, self.loaded_objects[TABLE_CURRENCY_EXCHANGE])
+        mapper(T_FORMULA, self.loaded_objects[TABLE_FORMULA])
+        mapper(T_DRAWDOWN, self.loaded_objects[TABLE_DRAWDOWN])
+        mapper(T_MARGIN, self.loaded_objects[TABLE_MARGIN])
+        mapper(T_MARGIN_TYPE, self.loaded_objects[TABLE_MARGIN_TYPE])
  
     def map_views(self):
         """ Create mappers for the views on the db and the view classes. """
-        mapper(V_FINANCE, self.loaded_objects['V_FINANCE'])
-        mapper(V_STOCK, self.loaded_objects['V_STOCK'])
-        mapper(V_MARKET, self.loaded_objects['V_MARKET'])
-        mapper(V_STOCK_NAME, self.loaded_objects['V_STOCK_NAME'])
-        mapper(V_CATEGORY, self.loaded_objects['V_CATEGORY'])
-        mapper(V_SUBCATEGORY, self.loaded_objects['V_SUBCATEGORY'])
-        mapper(V_ACCOUNT, self.loaded_objects['V_ACCOUNT'])
-        mapper(V_TRADE, self.loaded_objects['V_TRADE'])
-        mapper(V_RATE, self.loaded_objects['V_RATE'])
-        mapper(V_CURRENCY, self.loaded_objects['V_CURRENCY'])
-        mapper(V_CURRENCY_EXCHANGE, self.loaded_objects['V_CURRENCY_EXCHANGE'])
-        mapper(V_FORMULA, self.loaded_objects['V_FORMULA'])
-        mapper(V_DRAWDOWN, self.loaded_objects['V_DRAWDOWN'])
-        mapper(V_MARGIN, self.loaded_objects['V_MARGIN'])
-        mapper(V_MARGIN_TYPE, self.loaded_objects['V_MARGIN_TYPE'])
+        mapper(V_FINANCE, self.loaded_objects[VIEW_FINANCE])
+        mapper(V_STOCK, self.loaded_objects[VIEW_STOCK])
+        mapper(V_MARKET, self.loaded_objects[VIEW_MARKET])
+        mapper(V_STOCK_NAME, self.loaded_objects[VIEW_STOCK_NAME])
+        mapper(V_CATEGORY, self.loaded_objects[VIEW_CATEGORY])
+        mapper(V_SUBCATEGORY, self.loaded_objects[VIEW_SUBCATEGORY])
+        mapper(V_ACCOUNT, self.loaded_objects[VIEW_ACCOUNT])
+        mapper(V_TRADE, self.loaded_objects[VIEW_TRADE])
+        mapper(V_RATE, self.loaded_objects[VIEW_RATE])
+        mapper(V_CURRENCY, self.loaded_objects[VIEW_CURRENCY])
+        mapper(V_CURRENCY_EXCHANGE, self.loaded_objects[VIEW_CURRENCY_EXCHANGE])
+        mapper(V_FORMULA, self.loaded_objects[VIEW_FORMULA])
+        mapper(V_DRAWDOWN, self.loaded_objects[VIEW_DRAWDOWN])
+        mapper(V_MARGIN, self.loaded_objects[VIEW_MARGIN])
+        mapper(V_MARGIN_TYPE, self.loaded_objects[VIEW_MARGIN_TYPE])
         
     def config(self):
         """ Retrieve config file values """
@@ -267,7 +267,7 @@ class DatabaseAccess():
                 value = instance.name
                 break
         except Exception as ex:
-            print("Error in get_marketdescription: ", ex)
+            print(ERROR_GET_MARKET_DESCRIPTION, ex)
         finally:
             session.rollback()
             session = None
@@ -332,9 +332,9 @@ class DatabaseAccess():
 
     def create_statements(self, fields, table_name):
         """ Creates the record statements for a given table. """
-        if table_name = TABLE_FINANCE:
+        if table_name == TABLE_FINANCE:
             create_statements_TABLE_FINANCE()
-        elif table_name = TABLE_STOCK:
+        elif table_name == TABLE_STOCK:
             create_statements_TABLE_STOCK()
 
     def create_statements_TABLE_FINANCE(self):
@@ -345,6 +345,8 @@ class DatabaseAccess():
 
     def create_statements_TABLE_STOCK(self):
         """ Creates the records needed for TABLE_STOCK. """
+        # TODO: creaet a statement object here, with
+        # records for T_FINCANCE
         pass
 
     def write_to_database(self, statements):
@@ -358,16 +360,16 @@ class DatabaseAccess():
                 session.commit()
                 session = None
                 print("{0} records added.".format(str(len(statements))))
-                print("Done.")
             except Exception as ex:
                 session.rollback()
-                print("Error in write_to_database: ", ex)
+                print(ERROR_WRITE_TO_DATABASE, ex)
         except Exception as ex:
-            print("Error creating session in write_to_database: ", ex)
+            print(ERROR_WRITE_TO_DATABASE_SESSION, ex)
 
     def file_import_lines(self, fields_db):
         """ Convert general financial information. """
-        #TODO: put this in the inherited class
+        #TODO: this will become the statements(..., TABLE_FINANCE) function.
+        # This will completely change.
         try:
             session = self.Session()
             try:
@@ -456,7 +458,8 @@ class DatabaseAccess():
    
     def file_import_stocks(self, fields_db, fields_stock):
         """ Import stock information. """
-        #TODO: put this in the inherited class
+        #TODO: this will become the statements(..., TABLE_STOCK) function
+        # It will completely change too.
         try:
             session = self.Session()
             try:
@@ -517,6 +520,8 @@ class DatabaseAccess():
 
     def update_stock(self, fields_stock, session, i, finance_id, recordid):
         """ Add a new stock entry or update an existing one. """
+        #TODO: figure out what to do with this,
+        # after the statement(..., TABLE_NAME) stuff is implemented.
         try:
             date_created = current_date()
             date_modified = current_date()
