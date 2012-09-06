@@ -330,6 +330,41 @@ class DatabaseAccess():
             session = None
         return values
 
+    def create_statements(self, fields, table_name):
+        """ Creates the record statements for a given table. """
+        if table_name = TABLE_FINANCE:
+            create_statements_TABLE_FINANCE()
+        elif table_name = TABLE_STOCK:
+            create_statements_TABLE_STOCK()
+
+    def create_statements_TABLE_FINANCE(self):
+        """ Creates the records needed for TABLE_FINANCE. """
+        # TODO: creaet a statement object here, with
+        # records for T_FINCANCE
+        pass
+
+    def create_statements_TABLE_STOCK(self):
+        """ Creates the records needed for TABLE_STOCK. """
+        pass
+
+    def write_to_database(self, statements):
+        """ Writes the records of a given statements list to the database.
+        """
+        try:
+            session = self.Session()
+            try:
+                print(MESSAGE_EXEC_ALL)
+                session.add_all(statements)
+                session.commit()
+                session = None
+                print("{0} records added.".format(str(len(statements))))
+                print("Done.")
+            except Exception as ex:
+                session.rollback()
+                print("Error in write_to_database: ", ex)
+        except Exception as ex:
+            print("Error creating session in write_to_database: ", ex)
+
     def file_import_lines(self, fields_db):
         """ Convert general financial information. """
         #TODO: put this in the inherited class

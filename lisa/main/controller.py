@@ -56,10 +56,28 @@ class ControllerMain():
         window.show()
         sys.exit(app.exec_())
 
-    def write_commands(self, tablecontent):
-        """ Write the commands that are in the table. """
+    def generate_for_database(self, tablecontent):
+        """ Generate the appropriate records to write to the database. """
+        create_statements(self.get_input_fields, TABLE_FINANCE)
+
+    def write_to_database(self, statements):
+        """ Write the records to write to the database. """
         try:
-            fields_db = []
+            dba = DatabaseAcces(self.config)
+            #session_all(sitnsitn)
+            # call function that writes all the records of a given
+            # statements object
+            dba.write_to_database(statements)
+            dba = None
+
+    def get_input_fields(self, tablecontent):
+        #TODO: expand this list to include the marketname etc.
+        #this way, we have it available and this saves us from
+        #having to execute functions to retrieve the name from the id
+        #???
+        """ Gets input, adds extra info and puts this in a list. """
+        fields_db = []
+        try:
             for field in tablecontent:
                 category = field[2]
                 if(category[-3:] == '.rx'):
@@ -84,20 +102,23 @@ class ControllerMain():
                     'currency':field[13],
                     'exchange_rate':field[14]
                 })
-            # import finance info from table data
-            dba = DatabaseAccess(self.config)
-            dba.file_import_lines(fields_db)
-            dba = None
-            # import stock info from table data
-            fields_stock = []
-            stock = Stock(self.config)
-            for field in fields_db:
-                fields_stock.append(stock.parse_stocks(field))
-            stock.process_stocks(fields_db, fields_stock)
-            stock = None
-            #TODO: process_trades
         except Exception as ex:
-            print("Error in write_commands: ", ex)
+            print("Error in get_input_fields: ", ex)
+        finally:
+            return fields_db 
+
+            ## import finance info from table data
+            #dba = DatabaseAccess(self.config)
+            #dba.file_import_lines(fields_db)
+            #dba = None
+            ## import stock info from table data
+            #fields_stock = []
+            #stock = Stock(self.config)
+            #for field in fields_db:
+            #    fields_stock.append(stock.parse_stocks(field))
+            #stock.process_stocks(fields_db, fields_stock)
+            #stock = None
+            ##TODO: process_trades
 
     def backup(self):
         """ Make a backup of the output file for clipf. """
