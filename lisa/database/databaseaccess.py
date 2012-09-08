@@ -330,23 +330,78 @@ class DatabaseAccess():
             session = None
         return values
 
-    def create_statements(self, fields, table_name):
+    def create_statements(self, input_fields, table_name):
         """ Creates the record statements for a given table. """
         if table_name == TABLE_FINANCE:
-            create_statements_TABLE_FINANCE()
+            return create_statements_TABLE_FINANCE(input_fields)
         elif table_name == TABLE_STOCK:
-            create_statements_TABLE_STOCK()
+            return create_statements_TABLE_STOCK(input_fields)
+        elif table_name == TABLE_TRADE:
+            return create_statements_TABLE_TRADE(input_fields)
 
-    def create_statements_TABLE_FINANCE(self):
+    def create_statements_TABLE_FINANCE(self, input_fields):
         """ Creates the records needed for TABLE_FINANCE. """
-        # TODO: creaet a statement object here, with
-        # records for T_FINCANCE
-        pass
+        # TODO: double check this and update the fields
+        # to the new db structure
+        try:
+            statement_finance = Statement(TABLE_FINANCE)
+            for fields in input_fields:
+                subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'], date_created, date_modified)
+                account_id = self.account_id_from_account(fields['account'], date_created, date_modified)
+                category_id = self.category_id_from_category(fields['category'], date_created, date_modified)
+                                                    
+                obj = session.query(T_FINANCE).filter_by(
+                            date=fields['date'],
+                            account_id=account_id,
+                            category_id=category_id,
+                            subcategory_id=subcategory_id,
+                            amount=Decimal(fields['amount']),
+                            comment=fields['comment'],
+                            market=fields['market'],
+                            stock=fields['stock'],
+                            shares=int(fields['shares']),
+                            price=Decimal(fields['price']),
+                            tax=Decimal(fields['tax']),
+                            commission=Decimal(fields['commission']),
+                            risk=Decimal(fields['risk'])
+                        ).first()
+                if obj is None: 
+                        records = records + 1
+                        self.statement_finance.Add(
+                            records,
+                            T_FINANCE(
+                                fields['date'],
+                                account_id,
+                                category_id,
+                                subcategory_id,
+                                Decimal(fields['amount']),
+                                fields['comment'],
+                                fields['stock'],
+                                fields['market'],
+                                int(fields['shares']),
+                                Decimal(fields['price']),
+                                Decimal(fields['tax']),
+                                Decimal(fields['commission']),
+                                1,
+                                date_created,
+                                date_modified,
+                                Decimal(fields['risk']),
+                                fields['date'].year,
+                                fields['date'].month,
+                                fields['date'].day
+                            )
+                        )
+            return statement_finance
+        except Exception as ex:
+            print(ERROR_CREATE_STATEMENTS_TABLE_FINANCE, ex)
+
 
     def create_statements_TABLE_STOCK(self):
         """ Creates the records needed for TABLE_STOCK. """
-        # TODO: creaet a statement object here, with
-        # records for T_FINCANCE
+        pass
+    
+    def create_statements_TABLE_TRADE(self):
+        """ Creates the records needed for TABLE_TRADE. """
         pass
 
     def write_to_database(self, statements):

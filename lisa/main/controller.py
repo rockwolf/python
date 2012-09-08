@@ -57,27 +57,18 @@ class ControllerMain():
         window.show()
         sys.exit(app.exec_())
 
-    def generate_for_database(self, tablecontent):
-        """ Generate the appropriate records to write to the database. """
-        create_statements(self.get_input_fields, TABLE_FINANCE)
-
-    def write_to_database(self, statements):
+    def write_to_database(self, tablecontent):
         """ Write the records to write to the database. """
         try:
             dba = DatabaseAcces(self.config)
-            #session_all(sitnsitn)
-            # call function that writes all the records of a given
-            # statements object
-            dba.write_to_database(statements)
+            dba.write_to_database(dba.create_statements(self.get_input_fields, TABLE_FINANCE))
+            dba.write_to_database(dba.create_statements(self.get_input_fields, TABLE_STOCK))
+            #dba.write_to_database(dba.create_statements(self.get_input_fields, TABLE_TRADE))
             dba = None
         except  Exception as ex:
             print(ERROR_WRITE_TO_DATABASE, ex)
 
     def get_input_fields(self, tablecontent):
-        #TODO: expand this list to include the marketname etc.
-        #this way, we have it available and this saves us from
-        #having to execute functions to retrieve the name from the id
-        #???
         """ Gets input, adds extra info and puts this in a list. """
         fields_db = []
         try:

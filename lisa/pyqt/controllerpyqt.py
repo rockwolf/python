@@ -93,7 +93,7 @@ class ControllerPyqt(QtGui.QMainWindow):
     # Button Events
     def btn_execute_clicked(self):
         """ Pipe commands to clipf. """
-        self.ctl.write_commands(self.table.tablecontent)
+        self.ctl.write_to_database(self.table.tablecontent)
         self.table.clear()
         
     def btn_exit_clicked(self):
