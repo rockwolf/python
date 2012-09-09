@@ -366,3 +366,4 @@ class ControllerPyqt(QtGui.QMainWindow):
     def add_currency(self, value):
         """ Add a new item to cmb_currency. """ 
         self.gui.cmb_currency.addItem(value)
+
