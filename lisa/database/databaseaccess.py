@@ -344,6 +344,7 @@ class DatabaseAccess():
         # TODO: double check this and update the fields
         # to the new db structure
         try:
+            session = self.Session()
             date_created = current_date()
             date_modified = current_date()
 
@@ -352,13 +353,21 @@ class DatabaseAccess():
                 subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'], date_created, date_modified)
                 account_id = self.account_id_from_account(fields['account'], date_created, date_modified)
                 category_id = self.category_id_from_category(fields['category'], date_created, date_modified)
-                market_id = self.market_id_from_market(fields['market_name'])
-                stock_name_id = self.stock_name_id_from_stock_name(
-                        fields['stock_name'], market_id)
+                #TODO: from here, it's fucked up.
+                if fields['market_name'] != '':
+                    market_id = self.market_id_from_market(fields['market_name'])
+                else:
+                    market_id = 0
+                if fields['stock_name'] != '':
+                    stock_name_id = self.stock_id_from_stock_name(
+                            fields['stock_name'], market_id)
+                else:
+                    stock_name_id = 0
                 #TODO: when trading, the rate_id should be determined somehow.
                 #rate_id = ? (default 0)
                 rate_id = 0
-
+                
+                print('test: before query')
                 obj = session.query(T_FINANCE).filter_by(
                             date=fields['date'],
                             account_id=account_id,
@@ -367,15 +376,12 @@ class DatabaseAccess():
                             amount=Decimal(fields['amount']),
                             comment=fields['comment'],
                             stock_name_id=stock_name_id,
-                            stock=fields['stock_name'],
                             shares=int(fields['shares']),
                             price=Decimal(fields['price']),
                             tax=Decimal(fields['tax']),
                             commission=Decimal(fields['commission']),
-                            risk=Decimal(fields['risk'],
                             active=1
-                            )
-                        ).first()
+                            ).first()
                 if obj is None: 
                         records = records + 1
                         self.statement_finance.add(
@@ -401,6 +407,7 @@ class DatabaseAccess():
                                 date_modified
                             )
                         )
+            session = None
             return statement_finance
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_FINANCE, ex)
