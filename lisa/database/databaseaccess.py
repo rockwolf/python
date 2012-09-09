@@ -333,23 +333,32 @@ class DatabaseAccess():
     def create_statements(self, input_fields, table_name):
         """ Creates the record statements for a given table. """
         if table_name == TABLE_FINANCE:
-            return create_statements_TABLE_FINANCE(input_fields)
+            return self.create_statements_TABLE_FINANCE(input_fields)
         elif table_name == TABLE_STOCK:
-            return create_statements_TABLE_STOCK(input_fields)
+            return self.create_statements_TABLE_STOCK(input_fields)
         elif table_name == TABLE_TRADE:
-            return create_statements_TABLE_TRADE(input_fields)
+            return self.create_statements_TABLE_TRADE(input_fields)
 
     def create_statements_TABLE_FINANCE(self, input_fields):
         """ Creates the records needed for TABLE_FINANCE. """
         # TODO: double check this and update the fields
         # to the new db structure
         try:
+            date_created = current_date()
+            date_modified = current_date()
+
             statement_finance = Statement(TABLE_FINANCE)
             for fields in input_fields:
                 subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'], date_created, date_modified)
                 account_id = self.account_id_from_account(fields['account'], date_created, date_modified)
                 category_id = self.category_id_from_category(fields['category'], date_created, date_modified)
-                                                    
+                market_id = self.market_id_from_market(fields['market_name'])
+                stock_name_id = self.stock_name_id_from_stock_name(
+                        fields['stock_name'], market_id)
+                #TODO: when trading, the rate_id should be determined somehow.
+                #rate_id = ? (default 0)
+                rate_id = 0
+
                 obj = session.query(T_FINANCE).filter_by(
                             date=fields['date'],
                             account_id=account_id,
@@ -357,38 +366,39 @@ class DatabaseAccess():
                             subcategory_id=subcategory_id,
                             amount=Decimal(fields['amount']),
                             comment=fields['comment'],
-                            market=fields['market'],
-                            stock=fields['stock'],
+                            stock_name_id=stock_name_id,
+                            stock=fields['stock_name'],
                             shares=int(fields['shares']),
                             price=Decimal(fields['price']),
                             tax=Decimal(fields['tax']),
                             commission=Decimal(fields['commission']),
-                            risk=Decimal(fields['risk'])
+                            risk=Decimal(fields['risk'],
+                            active=1
+                            )
                         ).first()
                 if obj is None: 
                         records = records + 1
-                        self.statement_finance.Add(
+                        self.statement_finance.add(
                             records,
                             T_FINANCE(
                                 fields['date'],
+                                fields['date'].year,
+                                fields['date'].month,
+                                fields['date'].day,
                                 account_id,
                                 category_id,
                                 subcategory_id,
                                 Decimal(fields['amount']),
                                 fields['comment'],
-                                fields['stock'],
-                                fields['market'],
+                                stock_name_id,
                                 int(fields['shares']),
                                 Decimal(fields['price']),
                                 Decimal(fields['tax']),
                                 Decimal(fields['commission']),
                                 1,
+                                rate_id,
                                 date_created,
-                                date_modified,
-                                Decimal(fields['risk']),
-                                fields['date'].year,
-                                fields['date'].month,
-                                fields['date'].day
+                                date_modified
                             )
                         )
             return statement_finance
@@ -448,8 +458,8 @@ class DatabaseAccess():
                               subcategory_id=subcategory_id,
                               amount=Decimal(fields['amount']),
                               comment=fields['comment'],
-                              market=fields['market'],
-                              stock=fields['stock'],
+                              market=fields['market_name'],
+                              stock=fields['stock_name'],
                               shares=int(fields['shares']),
                               price=Decimal(fields['price']),
                               tax=Decimal(fields['tax']),
@@ -477,7 +487,7 @@ class DatabaseAccess():
                         # entries are stocks.
                         # NEW
                         records = records + 1
-                        self.statementFinance.Add(
+                        self.statementFinance.add(
                             records,
                             T_FINANCE(
                                 fields['date'],
@@ -581,9 +591,10 @@ class DatabaseAccess():
             date_created = current_date()
             date_modified = current_date()
             # Get stock_name_id from T_STOCK_NAME if it exists (a new entry will be made in T_STOCK_NAME if it doesn't)
-            #TODO: add descriptions to market_id_from_market and to stock_name_id_from_stockname)
-            market_id = self.market_id_from_market(fields_stock[i]['market'], date_created, date_modified)
-            stock_name_id = self.stock_name_id_from_stockname(fields_stock[i]['name'], market_id, date_created, date_modified)
+            #TODO: add descriptions to market_id_from_market and to
+            #stock_name_id_from_stock_name)
+            market_id = self.market_id_from_market(fields_stock[i]['market'])
+            stock_name_id = self.stock_name_id_from_stock_name(fields_stock[i]['name'], market_id)
             vartax = Decimal(fields_stock[i]['tax'])
             varcommission = Decimal(fields_stock[i]['commission'])
             obj = session.query(T_STOCK).filter_by(
@@ -595,7 +606,7 @@ class DatabaseAccess():
                   ).first()
             if obj is None: 
                 # NEW
-                self.statementStock.Add(
+                self.statementStock.add(
                     recordid,
                     T_STOCK(
                         finance_id,
@@ -716,22 +727,24 @@ class DatabaseAccess():
             session = None
         return result
 
-    def stock_name_id_from_stockname(self, stockname, market_id, date_created, date_modified):
+    def stock_name_id_from_stock_name(self, stock_name, market_id):
         """ Get the stock_name_id from T_STOCK_NAME. """
         result = -1
         session = self.Session()
         try:
-            # Get stock_name_id, based on stockname
+            date_created = current_date()
+            date_modified = current_date()
+            # Get stock_name_id, based on stock_name
             # but first check if the account already exists
             # in T_ACCOUNT. If not, add it to the t_account table.
-            obj = session.query(T_STOCK_NAME).filter_by(name=stockname, market_id=market_id).first() is not None
+            obj = session.query(T_STOCK_NAME).filter_by(name=stock_name, market_id=market_id).first() is not None
             if not obj: 
-                session.add(T_STOCK_NAME(stockname, market_id, '', date_created, date_modified))
+                session.add(T_STOCK_NAME(stock_name, market_id, '', date_created, date_modified))
                 session.commit()
                 for instance in session.query(func.max(T_STOCK_NAME.stock_name_id).label('stock_name_id')):
                     result = instance.stock_name_id
             else:
-                for instance in session.query(T_STOCK_NAME).filter_by(name=stockname, market_id=market_id):
+                for instance in session.query(T_STOCK_NAME).filter_by(name=stock_name, market_id=market_id):
                     result = str(instance.stock_name_id)
         except Exception as ex:
             print("Error retrieving stock_name_id: ", ex)
@@ -740,11 +753,13 @@ class DatabaseAccess():
             session = None
         return result
 
-    def market_id_from_market(self, code, date_created, date_modified):
+    def market_id_from_market(self, code):
         """ Get the market_id from T_MARKET. """
         result = -1
         session = self.Session()
         try:
+            date_created = current_date()
+            date_modified = current_date()
             obj = session.query(T_MARKET).filter_by(code=code).first() is not None
             if not obj: 
                 # NOTE: this code means that when new market records have been added

@@ -204,7 +204,9 @@ class ControllerPyqt(QtGui.QMainWindow):
         """ Initialize tbl_summary. """
         # set the table header
         # TODO: set header values in mdlconstants and use the constants
-        header = ['date', 'account', 'category', 'subcategory', 'amount', 'comment', 'stock', 'market', 'quantity', 'price', 'commission', 'tax', 'risk']
+        header = ['date', 'account', 'category', 'subcategory', 'amount',
+                'comment', 'stock', 'market', 'quantity', 'price',
+                'commission', 'tax', 'risk', 'currency', 'exchange_rate']
         self.table = TableModel(header, [], 0, len(header))
         # takeAt(0) removes the default empty table that's there and addWidget
         # adds a newly created one.

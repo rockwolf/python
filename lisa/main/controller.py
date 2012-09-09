@@ -60,10 +60,15 @@ class ControllerMain():
     def write_to_database(self, tablecontent):
         """ Write the records to write to the database. """
         try:
-            dba = DatabaseAcces(self.config)
-            dba.write_to_database(dba.create_statements(self.get_input_fields, TABLE_FINANCE))
-            dba.write_to_database(dba.create_statements(self.get_input_fields, TABLE_STOCK))
-            #dba.write_to_database(dba.create_statements(self.get_input_fields, TABLE_TRADE))
+            dba = DatabaseAccess(self.config)
+            #TODO: test code below, the write_to_database is temporarily
+            #disabled
+            test = dba.create_statements(self.get_input_fields(tablecontent), TABLE_FINANCE)
+            test.print_statements()
+
+            #dba.write_to_database(dba.create_statements(self.get_input_fields(tablecontent), TABLE_FINANCE))
+            #dba.write_to_database(dba.create_statements(self.get_input_fields(tablecontent), TABLE_STOCK))
+            #dba.write_to_database(dba.create_statements(self.get_input_fields(tablecontent), TABLE_TRADE))
             dba = None
         except  Exception as ex:
             print(ERROR_WRITE_TO_DATABASE, ex)
@@ -86,8 +91,8 @@ class ControllerMain():
                     'amount':field[4],
                     'flag':flg_income,
                     'comment':field[5],
-                    'stock':field[6],
-                    'market':field[7],
+                    'stock_name':field[6],
+                    'market_name':field[7],
                     'shares':field[8],
                     'price':field[9],
                     'commission':field[10],
@@ -161,6 +166,7 @@ class ControllerMain():
 
     def get_input_line(self, table):
         """ Get the input values. """
+        #TODO: check cat/subcat combo, instead of only subcat
         if(self.gui.get_subcategory() == 'buy' or \
                 self.gui.get_subcategory() == 'sell'):
             market = self.gui.get_marketcode()

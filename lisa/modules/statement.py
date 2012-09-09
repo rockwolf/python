@@ -27,7 +27,7 @@ class Statement():
         except Exception as ex:
             print("Error in initialisation of Statements: ", ex)
  
-    def Add(self, recordid, tablerow_object):
+    def add(self, recordid, tablerow_object):
         """ Add a statement with recordid and tablerow object. """
         try:
             # Add a statement
@@ -38,14 +38,14 @@ class Statement():
         except Exception as ex:
             print("Error adding statement for ", self.tablename, ": ", ex)
    
-    def Remove(self, index=-1):
+    def remove(self, index=-1):
         """ Remove statement added on specified index """
         try:
             self.statements.pop(index)
         except Exception as ex:
             print("Error removing statement from the list: ", ex)
     
-    def Execute(self, session):
+    def execute(self, session):
         """ Execute list of statements for given session """
         try:
             # First collect the statements, without the recordid.
@@ -57,7 +57,7 @@ class Statement():
         except Exception as ex:
             print("Error executing statements: ", ex)
 
-    def Print(self):
+    def print_statements(self):
         """ Method that actually prints the statement info and text on the screen. """
         print('Statements for ', self.tablename)
         print('_______________' + '_'*len(self.tablename), '\n')

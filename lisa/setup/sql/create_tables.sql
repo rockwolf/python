@@ -111,7 +111,6 @@ CREATE TABLE T_FINANCE
     price decimal(18,4) not null default 0.0,
     tax decimal(18,4) not null default 0.0,
     commission decimal (18,4) not null default 0.0,
-    reference int not null default 0,
     active int not null default 1, 
     rate_id int not null default 0,
     date_created timestamp not null default current_date,
