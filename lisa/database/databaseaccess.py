@@ -332,14 +332,19 @@ class DatabaseAccess():
 
     def create_statements(self, input_fields, table_name):
         """ Creates the record statements for a given table. """
+        #TODO: only retrieve these id values when needed.
+        subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'])
+        account_id = self.account_id_from_account(fields['account'])
+        category_id = self.category_id_from_category(fields['category'])
         if table_name == TABLE_FINANCE:
-            return self.create_statements_TABLE_FINANCE(input_fields)
+            return self.create_statements_TABLE_FINANCE(input_fields, account_id, category_id, subcategory_id)
         elif table_name == TABLE_STOCK:
             return self.create_statements_TABLE_STOCK(input_fields)
         elif table_name == TABLE_TRADE:
             return self.create_statements_TABLE_TRADE(input_fields)
 
-    def create_statements_TABLE_FINANCE(self, input_fields):
+    def create_statements_TABLE_FINANCE(self, input_fields, account_id,
+            category_id, subcategory_id):
         """ Creates the records needed for TABLE_FINANCE. """
         # TODO: double check this and update the fields
         # to the new db structure
@@ -350,9 +355,6 @@ class DatabaseAccess():
 
             statement_finance = Statement(TABLE_FINANCE)
             for fields in input_fields:
-                subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'], date_created, date_modified)
-                account_id = self.account_id_from_account(fields['account'], date_created, date_modified)
-                category_id = self.category_id_from_category(fields['category'], date_created, date_modified)
                 #TODO: from here, it's fucked up.
                 if fields['market_name'] != '':
                     market_id = self.market_id_from_market(fields['market_name'])
@@ -655,11 +657,13 @@ class DatabaseAccess():
         #TODO: make the Statement-classes accessible from this function?
         pass
 
-    def subcategory_id_from_subcategory(self, subcategory, date_created, date_modified):
+    def subcategory_id_from_subcategory(self, subcategory):
         """ Get the subcategory_id from a subcategory. """
         result = -1
         session = self.Session()
         try:
+            date_created = current_date()
+            date_modified = current_date()
             # Get subcategory_id, based on subcategory
             # but first check if the subcategory already exists
             # in T_SUBCATEGORY. If not, add it to the t_sub_categorytable.
@@ -679,11 +683,13 @@ class DatabaseAccess():
             session = None
         return result
 
-    def account_id_from_account(self, account, date_created, date_modified):
+    def account_id_from_account(self, account):
         """ Get the account_id from an account. """
         result = -1
         session = self.Session()
         try:
+            date_created = current_date()
+            date_modified = current_date()
             # Get account id, based on account name
             # but first check if the account already exists
             # in T_ACCOUNT. If not, add it to the t_account table.
@@ -703,11 +709,13 @@ class DatabaseAccess():
             session = None
         return result
 
-    def category_id_from_category(self, category, date_created, date_modified):
+    def category_id_from_category(self, category):
         """ Get the category_id from a category. """
         result = -1
         session = self.Session()
         try:
+            date_created = current_date()
+            date_modified = current_date()
             # Get category_id, based on category name
             # but first check if the category already exists
             # in T_CATEGORY. If not, add it to the t_category table.
