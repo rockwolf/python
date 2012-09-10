@@ -332,22 +332,40 @@ class DatabaseAccess():
 
     def create_statements(self, input_fields, table_name):
         """ Creates the record statements for a given table. """
-        #TODO: only retrieve these id values when needed.
-        subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'])
-        account_id = self.account_id_from_account(fields['account'])
-        category_id = self.category_id_from_category(fields['category'])
-        if table_name == TABLE_FINANCE:
-            return self.create_statements_TABLE_FINANCE(input_fields, account_id, category_id, subcategory_id)
+                if table_name == TABLE_FINANCE:
+            return self.create_statements_TABLE_FINANCE(input_fields,
+                    account_id, category_id, subcategory_id, stock_name_id)
         elif table_name == TABLE_STOCK:
             return self.create_statements_TABLE_STOCK(input_fields)
         elif table_name == TABLE_TRADE:
             return self.create_statements_TABLE_TRADE(input_fields)
 
     def create_statements_TABLE_FINANCE(self, input_fields, account_id,
-            category_id, subcategory_id):
+            category_id, subcategory_id, stock_name_id):
         """ Creates the records needed for TABLE_FINANCE. """
-        # TODO: double check this and update the fields
-        # to the new db structure
+        #TODO: input_fields is a dict with input fields, as retrieved from the
+        #table object.
+        #The below for loop should be executed
+        for fields in input_fields:
+            #TODO: only retrieve these id values when needed.
+            print('Test:', input_fields)
+            subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'])
+            print('Test2:', input_fields)
+            account_id = self.account_id_from_account(fields['account'])
+            category_id = self.category_id_from_category(fields['category'])
+            #TODO: from here, it's fucked up.
+            if input_fields['market_name'] != '':
+                market_id = self.market_id_from_market(fields['market_name'])
+            else:
+                market_id = 0
+            if input_fields['stock_name'] != '':
+                stock_name_id = self.stock_id_from_stock_name(
+                        fields['stock_name'], market_id)
+            else:
+                stock_name_id = 0
+
+            # TODO: double check this and update the fields
+            # to the new db structure
         try:
             session = self.Session()
             date_created = current_date()
@@ -355,21 +373,10 @@ class DatabaseAccess():
 
             statement_finance = Statement(TABLE_FINANCE)
             for fields in input_fields:
-                #TODO: from here, it's fucked up.
-                if fields['market_name'] != '':
-                    market_id = self.market_id_from_market(fields['market_name'])
-                else:
-                    market_id = 0
-                if fields['stock_name'] != '':
-                    stock_name_id = self.stock_id_from_stock_name(
-                            fields['stock_name'], market_id)
-                else:
-                    stock_name_id = 0
                 #TODO: when trading, the rate_id should be determined somehow.
                 #rate_id = ? (default 0)
                 rate_id = 0
                 
-                print('test: before query')
                 obj = session.query(T_FINANCE).filter_by(
                             date=fields['date'],
                             account_id=account_id,
@@ -430,8 +437,11 @@ class DatabaseAccess():
             session = self.Session()
             try:
                 print(MESSAGE_EXEC_ALL)
+                print('test: before add_all')
                 session.add_all(statements)
+                print('test: after add_all')
                 session.commit()
+                print('test: after commit')
                 session = None
                 print("{0} records added.".format(str(len(statements))))
             except Exception as ex:
@@ -775,6 +785,7 @@ class DatabaseAccess():
         try:
             date_created = current_date()
             date_modified = current_date()
+            print('Test: before qry')
             obj = session.query(T_MARKET).filter_by(code=code).first() is not None
             if not obj: 
                 # NOTE: this code means that when new market records have been added
@@ -782,11 +793,14 @@ class DatabaseAccess():
                 # to fill in the name and country of the market.
                 # For now, assume no new ones are added. If there are, add them to the
                 # init_tables script!
+                print('Test: before add')
                 session.add(T_MARKET(code, 'TBD', '??', date_created, date_modified))
                 session.commit()
+                print('Test: before second query')
                 for instance in session.query(func.max(T_MARKET.market_id).label('market_id')):
                     result = instance.market_id
             else:
+                print('Test: in else')
                 for instance in session.query(T_MARKET).filter_by(code=code):
                     result = str(instance.market_id)
         except Exception as ex:
