@@ -18,37 +18,35 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 class T_FINANCE(object):
     """ T_FINANCE """
 
-    def __init__(self, date, account_id, category_id, subcategory_id,
-            amount, comment, stock,
-            market, shares, price, tax, commission, active, date_created,
-            date_modified, risk, year, month, day):
+    def __init__(self, date, year, month, day, account_id, category_id,
+            subcategory_id, amount, comment, stock_name_id, shares, price, tax,
+            commission, active, rate_id, date_created, date_modified):
         self.date = date
+        self.year = year
+        self.month = month
+        self.day = day
         self.account_id = account_id
         self.category_id = category_id 
         self.subcategory_id = subcategory_id 
         self.amount = amount
         self.comment = comment
-        self.stock = stock
-        self.market = market
+        self.stock_name_id = stock_name_id
         self.shares = shares
         self.price = price
         self.tax = tax
         self.commission = commission
         self.active = active
+        self.rate_id = rate_id 
         self.date_created = date_created
         self.date_modified = date_modified
-        self.risk = risk
-        self.year = year
-        self.month = month
-        self.day = day
 
     def __repr__(self):
         return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
-            self.date, self.account_id, self.category_id, self.subcategory_id, 
-            self.amount, self.comment, self.stock, self.market, self.shares, 
-            self.price, self.tax, self.commission, self.active, self.date_created,
-            self.date_modified, self.risk, self.year, self.month, self.day)
+            self.date, self.year, self.month, self.day, self.account_id,
+            self.category_id, self.subcategory_id, self.amount, self.comment,
+            self.stock_name_id, self.shares, self.price, self.tax,
+            self.commission, self.active, self.rate_id, self.date_created, self.date_modified)
 
 class T_STOCK(object):
     """ T_STOCK """

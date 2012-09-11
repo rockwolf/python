@@ -21,6 +21,7 @@ from sqlalchemy.orm import mapper, clear_mappers
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import func
 from decimal import Decimal
+from datetime import datetime
 
 from database.mappings import *
 from database.mappings_views import *
@@ -332,51 +333,38 @@ class DatabaseAccess():
 
     def create_statements(self, input_fields, table_name):
         """ Creates the record statements for a given table. """
-                if table_name == TABLE_FINANCE:
-            return self.create_statements_TABLE_FINANCE(input_fields,
-                    account_id, category_id, subcategory_id, stock_name_id)
+        if table_name == TABLE_FINANCE:
+            return self.create_statements_TABLE_FINANCE(input_fields)
         elif table_name == TABLE_STOCK:
             return self.create_statements_TABLE_STOCK(input_fields)
         elif table_name == TABLE_TRADE:
             return self.create_statements_TABLE_TRADE(input_fields)
 
-    def create_statements_TABLE_FINANCE(self, input_fields, account_id,
-            category_id, subcategory_id, stock_name_id):
+    def create_statements_TABLE_FINANCE(self, input_fields):
         """ Creates the records needed for TABLE_FINANCE. """
-        #TODO: input_fields is a dict with input fields, as retrieved from the
-        #table object.
-        #The below for loop should be executed
-        for fields in input_fields:
-            #TODO: only retrieve these id values when needed.
-            print('Test:', input_fields)
-            subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'])
-            print('Test2:', input_fields)
-            account_id = self.account_id_from_account(fields['account'])
-            category_id = self.category_id_from_category(fields['category'])
-            #TODO: from here, it's fucked up.
-            if input_fields['market_name'] != '':
-                market_id = self.market_id_from_market(fields['market_name'])
-            else:
-                market_id = 0
-            if input_fields['stock_name'] != '':
-                stock_name_id = self.stock_id_from_stock_name(
-                        fields['stock_name'], market_id)
-            else:
-                stock_name_id = 0
-
-            # TODO: double check this and update the fields
-            # to the new db structure
         try:
             session = self.Session()
             date_created = current_date()
             date_modified = current_date()
-
             statement_finance = Statement(TABLE_FINANCE)
+            records = 0
             for fields in input_fields:
+                #TODO: only retrieve these id values when needed.
+                subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'])
+                account_id = self.account_id_from_account(fields['account'])
+                category_id = self.category_id_from_category(fields['category'])
+                if fields['market_name'] != '':
+                    market_id = self.market_id_from_market(fields['market_name'])
+                else:
+                    market_id = 0
+                if fields['stock_name'] != '':
+                    stock_name_id = self.stock_id_from_stock_name(
+                            fields['stock_name'], market_id)
+                else:
+                    stock_name_id = 0
                 #TODO: when trading, the rate_id should be determined somehow.
                 #rate_id = ? (default 0)
                 rate_id = 0
-                
                 obj = session.query(T_FINANCE).filter_by(
                             date=fields['date'],
                             account_id=account_id,
@@ -392,14 +380,16 @@ class DatabaseAccess():
                             active=1
                             ).first()
                 if obj is None: 
+                        print(fields['date'])
+                        print(string_to_date(fields['date']))
                         records = records + 1
-                        self.statement_finance.add(
+                        statement_finance.add(
                             records,
                             T_FINANCE(
                                 fields['date'],
-                                fields['date'].year,
-                                fields['date'].month,
-                                fields['date'].day,
+                                string_to_date(fields['date']).year,
+                                string_to_date(fields['date']).month,
+                                string_to_date(fields['date']).day,
                                 account_id,
                                 category_id,
                                 subcategory_id,
@@ -420,7 +410,6 @@ class DatabaseAccess():
             return statement_finance
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_FINANCE, ex)
-
 
     def create_statements_TABLE_STOCK(self):
         """ Creates the records needed for TABLE_STOCK. """
