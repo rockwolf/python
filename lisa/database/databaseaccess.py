@@ -782,6 +782,10 @@ class DatabaseAccess():
                 # to fill in the name and country of the market.
                 # For now, assume no new ones are added. If there are, add them to the
                 # init_tables script!
+                #TODO: add extra field in gui for the country code and country name
+                # + add this to the input_fields. This way, we can also add new markets.
+                # But: perhaps this makes the input too complex and a new button with a dialog window
+                # behind it is needed?
                 print('Test: before add')
                 session.add(T_MARKET(code, 'TBD', '??', date_created, date_modified))
                 session.commit()
