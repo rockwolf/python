@@ -358,7 +358,7 @@ class DatabaseAccess():
                 else:
                     market_id = 0
                 if fields['stock_name'] != '':
-                    stock_name_id = self.stock_id_from_stock_name(
+                    stock_name_id = self.stock_name_id_from_stock_name(
                             fields['stock_name'], market_id)
                 else:
                     stock_name_id = 0
@@ -380,6 +380,7 @@ class DatabaseAccess():
                             active=1
                             ).first()
                 if obj is None: 
+                        print(fields)
                         print(fields['date'])
                         print(string_to_date(fields['date']))
                         records = records + 1
@@ -426,11 +427,8 @@ class DatabaseAccess():
             session = self.Session()
             try:
                 print(MESSAGE_EXEC_ALL)
-                print('test: before add_all')
                 session.add_all(statements)
-                print('test: after add_all')
                 session.commit()
-                print('test: after commit')
                 session = None
                 print("{0} records added.".format(str(len(statements))))
             except Exception as ex:
@@ -654,6 +652,8 @@ class DatabaseAccess():
         #TODO: when trade.tx, tr... etc. (= stock), remove from both
         #classes.
         #TODO: make the Statement-classes accessible from this function?
+        #NOTE: I don't think this one is necessary, because we always make
+        #sure the information is correct before we press execute.
         pass
 
     def subcategory_id_from_subcategory(self, subcategory):
@@ -774,7 +774,6 @@ class DatabaseAccess():
         try:
             date_created = current_date()
             date_modified = current_date()
-            print('Test: before qry')
             obj = session.query(T_MARKET).filter_by(code=code).first() is not None
             if not obj: 
                 # NOTE: this code means that when new market records have been added
@@ -786,14 +785,11 @@ class DatabaseAccess():
                 # + add this to the input_fields. This way, we can also add new markets.
                 # But: perhaps this makes the input too complex and a new button with a dialog window
                 # behind it is needed?
-                print('Test: before add')
                 session.add(T_MARKET(code, 'TBD', '??', date_created, date_modified))
                 session.commit()
-                print('Test: before second query')
                 for instance in session.query(func.max(T_MARKET.market_id).label('market_id')):
                     result = instance.market_id
             else:
-                print('Test: in else')
                 for instance in session.query(T_MARKET).filter_by(code=code):
                     result = str(instance.market_id)
         except Exception as ex:

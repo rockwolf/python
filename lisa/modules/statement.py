@@ -32,11 +32,11 @@ class Statement():
         try:
             # Add a statement
             # recordid
-            self.statements[recordid-1].append(recordid)
+            self.statements.append(recordid, tablerow_object)
             # tablerow object (statement)
-            self.statements[recordid-1].append(tablerow_object)
+            #self.statements[recordid-1].append(tablerow_object)
         except Exception as ex:
-            print("Error adding statement for ", self.tablename, ": ", ex)
+            print("Error adding statement for", self.table_name, ": ", ex)
    
     def remove(self, index=-1):
         """ Remove statement added on specified index """
@@ -59,7 +59,7 @@ class Statement():
 
     def print_statements(self):
         """ Method that actually prints the statement info and text on the screen. """
-        print('Statements for ', self.tablename)
-        print('_______________' + '_'*len(self.tablename), '\n')
+        print('Statements for ', self.table_name)
+        print('_______________' + '_'*len(self.table_name), '\n')
         for s in self.statements:
             print(s)
