@@ -380,9 +380,6 @@ class DatabaseAccess():
                             active=1
                             ).first()
                 if obj is None: 
-                        print(fields)
-                        print(fields['date'])
-                        print(string_to_date(fields['date']))
                         records = records + 1
                         statement_finance.add(
                             records,
@@ -423,6 +420,7 @@ class DatabaseAccess():
     def write_to_database(self, statements):
         """ Writes the records of a given statements list to the database.
         """
+        print(statements)
         try:
             session = self.Session()
             try:

@@ -31,8 +31,8 @@ class Statement():
         """ Add a statement with recordid and tablerow object. """
         try:
             # Add a statement
-            # recordid
-            self.statements.append(recordid, tablerow_object)
+            # with recordid
+            self.statements.append([recordid, tablerow_object])
             # tablerow object (statement)
             #self.statements[recordid-1].append(tablerow_object)
         except Exception as ex:
@@ -61,5 +61,5 @@ class Statement():
         """ Method that actually prints the statement info and text on the screen. """
         print('Statements for ', self.table_name)
         print('_______________' + '_'*len(self.table_name), '\n')
-        for s in self.statements:
+        for s in (self.statements):
             print(s)

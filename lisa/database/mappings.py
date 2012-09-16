@@ -42,7 +42,7 @@ class T_FINANCE(object):
 
     def __repr__(self):
         return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
+            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
             self.date, self.year, self.month, self.day, self.account_id,
             self.category_id, self.subcategory_id, self.amount, self.comment,
             self.stock_name_id, self.shares, self.price, self.tax,
