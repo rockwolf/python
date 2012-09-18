@@ -18,6 +18,8 @@ alter table T_STOCK_NAME
     add constraint fk_market_id foreign key(market_id) references T_MARKET(market_id);
 alter table T_FORMULA
     add constraint pk_formula_id primary key(formula_id);
+alter table T_PARAMETER
+    add constraint pk_parameter_id primary key(parameter_id);
 alter table T_RATE
     add constraint pk_rate_id primary key(rate_id);
 alter table T_RATE

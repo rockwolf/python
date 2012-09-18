@@ -64,6 +64,7 @@ class DatabaseAccess():
                     TABLE_CURRENCY: Table(TABLE_CURRENCY, self.metadata, autoload=True),
                     TABLE_CURRENCY_EXCHANGE: Table(TABLE_CURRENCY_EXCHANGE, self.metadata, autoload=True),
                     TABLE_FORMULA: Table(TABLE_FORMULA, self.metadata, autoload=True),
+                    TABLE_PARAMETER: Table(TABLE_PARAMETER, self.metadata, autoload=True),
                     TABLE_TRADE: Table(TABLE_TRADE, self.metadata, autoload=True),
                     TABLE_RATE: Table(TABLE_RATE, self.metadata, autoload=True),
                     TABLE_DRAWDOWN: Table(TABLE_DRAWDOWN, self.metadata, autoload=True),
@@ -99,6 +100,9 @@ class DatabaseAccess():
                         autoload=True),
                     VIEW_FORMULA: Table(VIEW_FORMULA, self.metadata,
                         Column('formula_id', Integer, primary_key=True),
+                        autoload=True),
+                    VIEW_PARAMETER: Table(VIEW_PARAMETER, self.metadata,
+                        Column('parameter_id', Integer, primary_key=True),
                         autoload=True),
                     VIEW_TRADE: Table(VIEW_TRADE, self.metadata,
                         Column('trade_id', Integer, primary_key=True),
@@ -145,6 +149,7 @@ class DatabaseAccess():
         mapper(T_CURRENCY, self.loaded_objects[TABLE_CURRENCY])
         mapper(T_CURRENCY_EXCHANGE, self.loaded_objects[TABLE_CURRENCY_EXCHANGE])
         mapper(T_FORMULA, self.loaded_objects[TABLE_FORMULA])
+        mapper(T_PARAMETER, self.loaded_objects[TABLE_PARAMETER])
         mapper(T_DRAWDOWN, self.loaded_objects[TABLE_DRAWDOWN])
         mapper(T_MARGIN, self.loaded_objects[TABLE_MARGIN])
         mapper(T_MARGIN_TYPE, self.loaded_objects[TABLE_MARGIN_TYPE])
@@ -163,6 +168,7 @@ class DatabaseAccess():
         mapper(V_CURRENCY, self.loaded_objects[VIEW_CURRENCY])
         mapper(V_CURRENCY_EXCHANGE, self.loaded_objects[VIEW_CURRENCY_EXCHANGE])
         mapper(V_FORMULA, self.loaded_objects[VIEW_FORMULA])
+        mapper(V_PARAMETER, self.loaded_objects[VIEW_PARAMETER])
         mapper(V_DRAWDOWN, self.loaded_objects[VIEW_DRAWDOWN])
         mapper(V_MARGIN, self.loaded_objects[VIEW_MARGIN])
         mapper(V_MARGIN_TYPE, self.loaded_objects[VIEW_MARGIN_TYPE])
@@ -852,11 +858,11 @@ class DatabaseAccess():
         # fields['subcategory'] =  => 'buy' or 'sell'
         #TODO: do we need to add a dummy formula that multiplies by 1?
         formula_id = 0
-        if (fields['category'] = 'trade.tx' or \
-           fields['category'] = 'trade.rx') \
-           and (fields['subcategory'] = 'buy' or \
-           fields['subcategory'] = 'sell'):
-               if uppercase(fields['currency']) = 'USD':
+        if (fields['category'] == 'trade.tx' or \
+           fields['category'] == 'trade.rx') \
+           and (fields['subcategory'] == 'buy' or \
+           fields['subcategory'] == 'sell'):
+               if uppercase(fields['currency']) == 'USD':
                    formula_id = 2 #TODO: was it 2?      
                elif somethingsomething:
                    formula_id = 1

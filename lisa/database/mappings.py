@@ -312,3 +312,15 @@ class T_DRAWDOWN(object):
     def __repr__(self):
         return "<T_DRAWDOWN('%s', '%s', '%s', '%s')>" % (self.drawdown_id,
                 self.value, self.date_created, self.date_modified)
+
+class T_PARAMETER(object):
+    """ T_PARAMETER """
+
+    def __init__(self, name, value, description):
+        self.name = name
+        self.value = value 
+        self.description = description
+
+    def __repr__(self):
+        return "<T_DRAWDOWN('%s', '%s', '%s')>" % (self.name,
+                self.value, self.description)

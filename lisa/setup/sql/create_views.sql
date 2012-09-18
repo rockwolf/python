@@ -150,6 +150,16 @@ from
     t_formula f 
 ;
 
+/* V_PARAMETER */
+--DROP VIEW V_PARAMETER;
+CREATE VIEW V_PARAMETER
+AS
+select
+    p.*
+from
+    t_parameter p 
+;
+
 /* V_REP_TRADING_JOURNAL */
 --DROP VIEW V_REP_TRADING_JOURNAL;
 CREATE VIEW V_REP_TRADING_JOURNAL

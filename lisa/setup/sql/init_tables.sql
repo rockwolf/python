@@ -440,6 +440,16 @@ values(1, '{0}+{1}*{2}', 'WHS commission calculation for US markets: <solid amou
 INSERT INTO T_FORMULA(formula_id, value, description)
 values(2, '{0}+{1}*{2}/100', 'WHS commission calculation for non-US markets: <solid amount>+<small percentage>*<order size>.');
 
+/* t_parameter */
+INSERT INTO T_PARAMETER(parameter_id, name, value, description)
+values(1, 'p_binb00_01', 9.75, 'Commission binkbank for buying regular stocks.');
+
+INSERT INTO T_PARAMETER(parameter_id, name, value, description)
+values(2, 'p_binb00_02', 7.25, 'Commission binkbank for buying regular stocks < 2500 EUR.');
+
+INSERT INTO T_PARAMETER(parameter_id, name, value, description)
+values(3, 'p_whs00_01', 0.25, 'Solid amount for calculation of costs for commodities on US markets.');
+
 /* t_margin_types */
 INSERT INTO T_MARGIN_TYPE(margin_type)
 values('safety');

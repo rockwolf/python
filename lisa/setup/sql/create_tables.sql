@@ -63,6 +63,15 @@ CREATE TABLE T_FORMULA
     unique(formula_id)
 );
 
+CREATE TABLE T_PARAMETER
+(
+    parameter_id int not null,
+    name varchar(50) not null,
+    value varchar(512) not null,
+    description varchar(256) not null,
+    unique(parameter_id)
+);
+
 -- TODO: when creating records (both trade + finance)
 -- you create an entry here, for automatically calculating the commission.
 -- create finance record
