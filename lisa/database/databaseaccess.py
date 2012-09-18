@@ -362,8 +362,10 @@ class DatabaseAccess():
                             fields['stock_name'], market_id)
                 else:
                     stock_name_id = 0
-                #TODO: when trading, the rate_id should be determined somehow.
-                #rate_id = ? (default 0)
+                #TODO: when generating a T_RATE record, we need a
+                #formula_id
+                formula_id = self.get_formula_id_to_use(fields)
+                #TODO: generate T_RATE record and get the rate_id
                 rate_id = 0
                 obj = session.query(T_FINANCE).filter_by(
                             date=fields['date'],
@@ -838,3 +840,24 @@ class DatabaseAccess():
             session.rollback()
             session = None
         return result
+
+    def get_formula_id_to_use(self, fields):
+        """ Gets the formula_id to use for a given trading line of the input fields.
+        """
+        #TODO: determine the rate_id, based on ???
+        # Ah no, we need to create a new rate_id,
+        # but determine the formula_id to use
+        # fields['currency'] = USD => probably the formula with usd
+        # fields['category'] = 'trade.tx'
+        # fields['subcategory'] =  => 'buy' or 'sell'
+        #TODO: do we need to add a dummy formula that multiplies by 1?
+        formula_id = 0
+        if (fields['category'] = 'trade.tx' or \
+           fields['category'] = 'trade.rx') \
+           and (fields['subcategory'] = 'buy' or \
+           fields['subcategory'] = 'sell'):
+               if uppercase(fields['currency']) = 'USD':
+                   formula_id = 2 #TODO: was it 2?      
+               elif somethingsomething:
+                   formula_id = 1
+        return formula_id

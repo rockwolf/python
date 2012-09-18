@@ -432,11 +432,13 @@ INSERT INTO T_CURRENCY(currency_id, code, description)
 values(14, 'RUB', 'Russian Ruble');
 
 /* t_formula */
+--TODO: add a column where you can say what the parameters are?
+--TODO: add a table which contains the values for tax and commissions?
 INSERT INTO T_FORMULA(formula_id, value, description)
-values(1, '%d0+%d1*%d2', 'WHS commission calculation for US markets: <solid amount>+<small fraction>*<number of shares>.');
+values(1, '{0}+{1}*{2}', 'WHS commission calculation for US markets: <solid amount>+<small fraction>*<number of shares>.');
 
 INSERT INTO T_FORMULA(formula_id, value, description)
-values(2, '%d0+%d1*%d2/100', 'WHS commission calculation for non-US markets: <solid amount>+<small percentage>*<order size>.');
+values(2, '{0}+{1}*{2}/100', 'WHS commission calculation for non-US markets: <solid amount>+<small percentage>*<order size>.');
 
 /* t_margin_types */
 INSERT INTO T_MARGIN_TYPE(margin_type)
