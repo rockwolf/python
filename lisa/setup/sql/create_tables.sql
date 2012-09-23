@@ -99,7 +99,9 @@ CREATE TABLE T_RATE
     commission decimal(18, 4) not null default 0.0,
     tax decimal(18, 4) not null default 0.0,
     formula_id int not null,
-    manual_flag int not null default 0
+    manual_flag int not null default 0,
+    date_created timestamp not null default current_date,
+    date_modified timestamp not null default current_date
 );
 
 /* main finance table */

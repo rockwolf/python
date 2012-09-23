@@ -337,15 +337,6 @@ class DatabaseAccess():
             session = None
         return values
 
-    def create_statements(self, input_fields, table_name):
-        """ Creates the record statements for a given table. """
-        if table_name == TABLE_FINANCE:
-            return self.create_statements_TABLE_FINANCE(input_fields)
-        elif table_name == TABLE_STOCK:
-            return self.create_statements_TABLE_STOCK(input_fields)
-        elif table_name == TABLE_TRADE:
-            return self.create_statements_TABLE_TRADE(input_fields)
-
     def create_statements_TABLE_FINANCE(self, input_fields):
         """ Creates the records needed for TABLE_FINANCE. """
         try:
@@ -368,10 +359,7 @@ class DatabaseAccess():
                             fields['stock_name'], market_id)
                 else:
                     stock_name_id = 0
-                #TODO: when generating a T_RATE record, we need a
-                #formula_id
-                formula_id = self.get_formula_id_to_use(fields)
-                #TODO: generate T_RATE record and get the rate_id
+                
                 rate_id = 0
                 obj = session.query(T_FINANCE).filter_by(
                             date=fields['date'],
@@ -417,13 +405,52 @@ class DatabaseAccess():
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_FINANCE, ex)
 
-    def create_statements_TABLE_STOCK(self):
+    def create_statements_TABLE_RATE(self, input_fields):
+        """ Creates the records needed for TABLE_RATE. """
+        try:
+            session = self.Session()
+            date_created = current_date()
+            date_modified = current_date()
+            statement_rate = Statement(TABLE_RATE)
+            records = 0
+            for fields in input_fields:
+                if fields['market_name'] != '':
+                    market_id = self.market_id_from_market(fields['market_name'])
+                else:
+                    market_id = -1
+                #formula_id
+                formula_id = self.get_formula_id_to_use(fields)
+                #TODO: finish this function
+                #...
+                records = records + 1
+                statement_rate.add(
+                    records,
+                    T_RATE(
+                        date_created,
+                        date_modified
+                    )
+                )
+            session = None
+            return statement_rate
+        except Exception as ex:
+            print(ERROR_CREATE_STATEMENTS_TABLE_RATE, ex)
+    
+    def create_statements_TABLE_STOCK(self, input_fields):
         """ Creates the records needed for TABLE_STOCK. """
         pass
     
-    def create_statements_TABLE_TRADE(self):
+    def create_statements_TABLE_TRADE(self, input_fields):
         """ Creates the records needed for TABLE_TRADE. """
-        pass
+        try:
+            session = self.Session()
+            date_created = current_date()
+            date_modified = current_date()
+            statement_finance = Statement(TABLE_RATE)
+            records = 0
+            for fields in input_fields:
+                print('test: dummy')
+        except Exception as ex:
+            print(ERROR_CREATE_STATEMENTS_TABLE_TRADE, ex)
 
     def write_to_database(self, statements):
         """ Writes the records of a given statements list to the database.
@@ -443,96 +470,6 @@ class DatabaseAccess():
         except Exception as ex:
             print(ERROR_WRITE_TO_DATABASE_SESSION, ex)
 
-    def file_import_lines(self, fields_db):
-        """ Convert general financial information. """
-        #TODO: this will become the statements(..., TABLE_FINANCE) function.
-        # This will completely change.
-        try:
-            session = self.Session()
-            try:
-                date_created = current_date()
-                date_modified = current_date()
-                
-                print("GENERAL")
-                print("_______")
-                print(MESSAGE_PREPARING)
-                self.statementFinance = Statement(TABLE_FINANCE)
-                records = 0
-                for fields in fields_db:
-                    subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'], date_created, date_modified)
-                    account_id = self.account_id_from_account(fields['account'], date_created, date_modified)
-                    category_id = self.category_id_from_category(fields['category'], date_created, date_modified)
-                                            
-                    obj = session.query(T_FINANCE).filter_by(
-                              date=fields['date'],
-                              account_id=account_id,
-                              category_id=category_id,
-                              subcategory_id=subcategory_id,
-                              amount=Decimal(fields['amount']),
-                              comment=fields['comment'],
-                              market=fields['market_name'],
-                              stock=fields['stock_name'],
-                              shares=int(fields['shares']),
-                              price=Decimal(fields['price']),
-                              tax=Decimal(fields['tax']),
-                              commission=Decimal(fields['commission']),
-                              risk=Decimal(fields['risk'])
-                          ).first()
-                    if obj is None: 
-                        #TODO: Change the list to contain both an id and the
-                        # T_FINANCE(... object. Then also search in the
-                        # lists if the current id is already present or not
-                        # and change it? => can't work, because it's gonna
-                        # be a new id.
-                        # Updating can only be done on a count record (see
-                        # the one below, and then only when triggered from
-                        # a rowclick or something.
-                        # Aha: input field + press an update button, but
-                        # make sure that at least one row is always selected
-                        # in the table
-                        # Then the rownumber can act as the recordid to
-                        # search for in the statement-list.
-                        # e.g.: StatementsFinance.statements =
-                        # [[1,''],[2,''],[3,'']] 
-                        # and StatementsStock.statements = 
-                        # [[2,''],[3,'']]  (in this ex., only the last 2
-                        # entries are stocks.
-                        # NEW
-                        records = records + 1
-                        self.statementFinance.add(
-                            records,
-                            T_FINANCE(
-                                fields['date'],
-                                account_id,
-                                category_id,
-                                subcategory_id,
-                                Decimal(fields['amount']),
-                                fields['comment'],
-                                fields['stock'],
-                                fields['market'],
-                                int(fields['shares']),
-                                Decimal(fields['price']),
-                                Decimal(fields['tax']),
-                                Decimal(fields['commission']),
-                                1,
-                                date_created,
-                                date_modified,
-                                Decimal(fields['risk']),
-                                fields['date'].year,
-                                fields['date'].month,
-                                fields['date'].day
-                            )
-                        )
-                print(MESSAGE_EXEC_ALL)
-                session.add_all(statements)
-            finally:
-                session.commit()
-                session = None
-                print("{0} records added.".format(str(records)))
-                print("Done.")
-        except Exception as ex:
-            print(ERROR_FILE_IMPORT_LINES, ex)
-   
     def file_import_stocks(self, fields_db, fields_stock):
         """ Import stock information. """
         #TODO: this will become the statements(..., TABLE_STOCK) function
@@ -641,7 +578,6 @@ class DatabaseAccess():
 
     def export_records(self, name):
         """ Return the records from the table or view, defined by name. """
-        #TODO: use either this or the export_lines function
         records = None
         try:
             session = self.Session()
@@ -857,13 +793,26 @@ class DatabaseAccess():
         # fields['category'] = 'trade.tx'
         # fields['subcategory'] =  => 'buy' or 'sell'
         #TODO: do we need to add a dummy formula that multiplies by 1?
-        formula_id = 0
-        if (fields['category'] == 'trade.tx' or \
-           fields['category'] == 'trade.rx') \
-           and (fields['subcategory'] == 'buy' or \
-           fields['subcategory'] == 'sell'):
-               if uppercase(fields['currency']) == 'USD':
-                   formula_id = 2 #TODO: was it 2?      
-               elif somethingsomething:
-                   formula_id = 1
+        #NOTE: do it manually for now, we'll fix this later
+        formula_id = -1
+        #if is_a_trade(fields):
+        #       if uppercase(fields['currency']) == 'USD':
+        #           formula_id = 2 #TODO: was it 2?      
+        #       elif somethingsomething:
+        #           formula_id = 1
         return formula_id
+
+    def is_a_trade(self, fields):
+        """ Function to determine if a line to process, is a trade. """
+        return (fields['category'] == 'trade.tx' or \
+               fields['category'] == 'trade.rx') \
+               and (fields['subcategory'] == 'buy' or \
+               fields['subcategory'] == 'sell')
+
+    def is_an_investment(self, fields):
+        """ Function to determine if a line to process, is an investent (buy
+        or sell of stock, that's not a trade). """
+        return (fields['category'] == 'invest.tx' or \
+               fields['category'] == 'invest.rx') \
+               and (fields['subcategory'] == 'buy' or \
+               fields['subcategory'] == 'sell')

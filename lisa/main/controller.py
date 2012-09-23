@@ -62,13 +62,23 @@ class ControllerMain():
         try:
             dba = DatabaseAccess(self.config)
             #TODO: test code below, the write_to_database is temporarily
-            #disabled
-            test = dba.create_statements(self.get_input_fields(tablecontent), TABLE_FINANCE)
+            #disabled... re-enable when finished testing.
+            
+            test = 
+                dba.create_statements_TABLE_RATE(self.get_input_fields(tablecontent))
             test.print_statements()
-
-            #dba.write_to_database(dba.create_statements(self.get_input_fields(tablecontent), TABLE_FINANCE))
-            #dba.write_to_database(dba.create_statements(self.get_input_fields(tablecontent), TABLE_STOCK))
-            #dba.write_to_database(dba.create_statements(self.get_input_fields(tablecontent), TABLE_TRADE))
+            test = 
+                dba.create_statements_TABLE_FINANCE(self.get_input_fields(tablecontent))
+            test.print_statements()
+           
+            # Note: The order of execution below is important!
+            if dba.is_a_trade():
+                dba.write_to_database(dba.create_statements_TABLE_RATE(self.get_input_fields(tablecontent)))
+            dba.write_to_database(dba.create_statements_TABLE_FINANCE(self.get_input_fields(tablecontent)))
+            if dba.is_an_investment():
+                dba.write_to_database(dba.create_statements_TABLE_STOCK(self.get_input_fields(tablecontent)))
+            if dba.is_a_trade():
+                dba.write_to_database(dba.create_statements_TABLE_TRADE(self.get_input_fields(tablecontent)))
             dba = None
         except  Exception as ex:
             print(ERROR_WRITE_TO_DATABASE, ex)
@@ -99,7 +109,8 @@ class ControllerMain():
                     'tax':field[11],
                     'risk':field[12],
                     'currency':field[13],
-                    'exchange_rate':field[14]
+                    'exchange_rate':field[14],
+                    'manual_flag':field[15]
                 })
         except Exception as ex:
             print(ERROR_GET_INPUT_FIELDS, ex)
@@ -189,7 +200,8 @@ class ControllerMain():
             self.gui.get_tax(),
             self.gui.get_risk(),
             self.gui.get_currency(),
-            self.gui.get_exchange_rate()
+            self.gui.get_exchange_rate(),
+            self.gui.get_manual_flag()
             ]
         return str_list
 
