@@ -422,10 +422,31 @@ class DatabaseAccess():
                 formula_id = self.get_formula_id_to_use(fields)
                 #TODO: finish this function
                 #...
+                account_id = self.account_id_from_account(fields['account'], date_created, date_modified)
                 records = records + 1
+                if fields['manual_flag'] == 1:
+                    commission = fields['commission']
+                    tax = fields['tax']
+
+                #TODO: always calculate on_shares and on_commission etc???
+                on_shares = 0
+                on_commission = 0
+
                 statement_rate.add(
                     records,
                     T_RATE(
+                        market_id,
+                        account_id,
+                        extra,
+                        extra/100,
+                        on_shares,
+                        on_commission,
+                        on_ordersize,
+                        on_other,
+                        commission,
+                        tax,
+                        formula_id,
+                        fields['manual_flag'],
                         date_created,
                         date_modified
                     )
@@ -487,9 +508,9 @@ class DatabaseAccess():
                 i = 0
                 for fields in fields_db:
                     if (not fields['stock'] == '') :
-                        subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'], date_created, date_modified)
-                        account_id = self.account_id_from_account(fields['account'], date_created, date_modified)
-                        category_id = self.category_id_from_category(fields['category'], date_created, date_modified)
+                        subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'])
+                        account_id = self.account_id_from_account(fields['account'])
+                        category_id = self.category_id_from_category(fields['category'])
                         # Get id from T_FINANCE (to import in T_STOCK)
                         for instance in session.query(T_FINANCE).filter_by(
                             date=fields['date'],
