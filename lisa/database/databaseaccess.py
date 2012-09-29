@@ -408,7 +408,9 @@ class DatabaseAccess():
     def create_statements_TABLE_RATE(self, input_fields):
         """ Creates the records needed for TABLE_RATE. """
         try:
-            session = self.Session()
+            #TODO: session object is for querying if there is a record already,
+            # but we don't need it here I think.
+            #session = self.Session()
             date_created = current_date()
             date_modified = current_date()
             statement_rate = Statement(TABLE_RATE)
@@ -431,14 +433,17 @@ class DatabaseAccess():
                 #TODO: always calculate on_shares and on_commission etc???
                 on_shares = 0
                 on_commission = 0
+                on_ordersize = 0
+                on_other = 0
+                calculated = calculate_commission()
 
                 statement_rate.add(
                     records,
                     T_RATE(
                         market_id,
                         account_id,
-                        extra,
-                        extra/100,
+                        calculated,
+                        calculated/100,
                         on_shares,
                         on_commission,
                         on_ordersize,
@@ -451,14 +456,14 @@ class DatabaseAccess():
                         date_modified
                     )
                 )
-            session = None
+                #session = None
             return statement_rate
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_RATE, ex)
     
     def create_statements_TABLE_STOCK(self, input_fields):
         """ Creates the records needed for TABLE_STOCK. """
-        pass
+        return -1
     
     def create_statements_TABLE_TRADE(self, input_fields):
         """ Creates the records needed for TABLE_TRADE. """
@@ -473,6 +478,10 @@ class DatabaseAccess():
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_TRADE, ex)
 
+    def calculate_commission(self):
+        """ Calculation for T_RATE """
+        pass
+    
     def write_to_database(self, statements):
         """ Writes the records of a given statements list to the database.
         """

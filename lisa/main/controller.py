@@ -64,11 +64,9 @@ class ControllerMain():
             #TODO: test code below, the write_to_database is temporarily
             #disabled... re-enable when finished testing.
             
-            test = 
-                dba.create_statements_TABLE_RATE(self.get_input_fields(tablecontent))
+            test = dba.create_statements_TABLE_RATE(self.get_input_fields(tablecontent))
             test.print_statements()
-            test = 
-                dba.create_statements_TABLE_FINANCE(self.get_input_fields(tablecontent))
+            test = dba.create_statements_TABLE_FINANCE(self.get_input_fields(tablecontent))
             test.print_statements()
            
             # Note: The order of execution below is important!

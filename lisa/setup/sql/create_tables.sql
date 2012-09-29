@@ -85,13 +85,14 @@ CREATE TABLE T_PARAMETER
 -- commission and rate are 0? will be calculated here
 -- or dependend on checkbox? <= better
 -- no checkbox = use those values
+-- calculcated = the total
 CREATE TABLE T_RATE
 (
     rate_id serial not null,
     market_id int not null,
     account_id int not null,
-    extra decimal(18, 4) not null default 0.0,
-    extra_percent decimal(18, 4) not null default 0.0,
+    calculated decimal(18, 4) not null default 0.0,
+    calculated_percent decimal(18, 4) not null default 0.0,
     on_shares decimal(18, 4) not null default 0.0,
     on_commission decimal(18, 4) not null default 0.0,
     on_ordersize decimal(18, 4) not null default 0.0,
