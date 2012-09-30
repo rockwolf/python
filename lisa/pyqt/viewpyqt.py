@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'viewpyqt.ui'
 #
-# Created: Sun Aug 12 10:18:18 2012
-#      by: PyQt4 UI code generator 4.9.1
+# Created: Sun Sep 30 09:08:40 2012
+#      by: PyQt4 UI code generator 4.9.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -197,6 +197,10 @@ class Ui_MainWindow(object):
         self.spn_exchange_rate.setMaximum(1000000.0)
         self.spn_exchange_rate.setObjectName(_fromUtf8("spn_exchange_rate"))
         self.gridLayout.addWidget(self.spn_exchange_rate, 4, 1, 1, 1)
+        self.chk_manual_flag = QtGui.QCheckBox(self.centralwidget)
+        self.chk_manual_flag.setChecked(True)
+        self.chk_manual_flag.setObjectName(_fromUtf8("chk_manual_flag"))
+        self.gridLayout.addWidget(self.chk_manual_flag, 2, 9, 1, 1)
         self.verticalLayout.addLayout(self.gridLayout)
         self.gridLayout_6 = QtGui.QGridLayout()
         self.gridLayout_6.setObjectName(_fromUtf8("gridLayout_6"))
@@ -282,10 +286,11 @@ class Ui_MainWindow(object):
         self.lbl_price.setText(QtGui.QApplication.translate("MainWindow", "Price", None, QtGui.QApplication.UnicodeUTF8))
         self.lbl_commission.setText(QtGui.QApplication.translate("MainWindow", "Commission", None, QtGui.QApplication.UnicodeUTF8))
         self.lbl_tax.setText(QtGui.QApplication.translate("MainWindow", "Tax（％）", None, QtGui.QApplication.UnicodeUTF8))
-        self.lbl_risk.setText(QtGui.QApplication.translate("MainWindow", "Risk", None, QtGui.QApplication.UnicodeUTF8))
+        self.lbl_risk.setText(QtGui.QApplication.translate("MainWindow", "Risk (%)", None, QtGui.QApplication.UnicodeUTF8))
         self.dt_date.setDisplayFormat(QtGui.QApplication.translate("MainWindow", "yyyy-MM-dd", None, QtGui.QApplication.UnicodeUTF8))
         self.lbl_currency.setText(QtGui.QApplication.translate("MainWindow", "Currency", None, QtGui.QApplication.UnicodeUTF8))
         self.lbl_exchange_rate.setText(QtGui.QApplication.translate("MainWindow", "Exchange rate", None, QtGui.QApplication.UnicodeUTF8))
+        self.chk_manual_flag.setText(QtGui.QApplication.translate("MainWindow", "Automatic", None, QtGui.QApplication.UnicodeUTF8))
         self.btn_clear.setText(QtGui.QApplication.translate("MainWindow", "&Clear", None, QtGui.QApplication.UnicodeUTF8))
         self.btn_exit.setText(QtGui.QApplication.translate("MainWindow", "&Quit", None, QtGui.QApplication.UnicodeUTF8))
         self.btn_add.setText(QtGui.QApplication.translate("MainWindow", "&Add", None, QtGui.QApplication.UnicodeUTF8))

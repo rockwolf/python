@@ -346,10 +346,10 @@ class DatabaseAccess():
             statement_finance = Statement(TABLE_FINANCE)
             records = 0
             for fields in input_fields:
-                #TODO: only retrieve these id values when needed.
                 subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'])
                 account_id = self.account_id_from_account(fields['account'])
                 category_id = self.category_id_from_category(fields['category'])
+                #TODO: only retrieve these id values when needed.
                 if fields['market_name'] != '':
                     market_id = self.market_id_from_market(fields['market_name'])
                 else:
@@ -360,7 +360,7 @@ class DatabaseAccess():
                 else:
                     stock_name_id = 0
                 
-                rate_id = 0
+                rate_id = get_latest_rate_id()
                 obj = session.query(T_FINANCE).filter_by(
                             date=fields['date'],
                             account_id=account_id,
@@ -431,10 +431,10 @@ class DatabaseAccess():
                     tax = fields['tax']
 
                 #TODO: always calculate on_shares and on_commission etc???
-                on_shares = 0
-                on_commission = 0
-                on_ordersize = 0
-                on_other = 0
+                on_shares = 0.0
+                on_commission = 0.0
+                on_ordersize = 0.0
+                on_other = 0.0
                 calculated = calculate_commission()
 
                 statement_rate.add(
@@ -443,7 +443,7 @@ class DatabaseAccess():
                         market_id,
                         account_id,
                         calculated,
-                        calculated/100,
+                        calculated/100.0,
                         on_shares,
                         on_commission,
                         on_ordersize,
@@ -463,7 +463,7 @@ class DatabaseAccess():
     
     def create_statements_TABLE_STOCK(self, input_fields):
         """ Creates the records needed for TABLE_STOCK. """
-        return -1
+        return 0.0
     
     def create_statements_TABLE_TRADE(self, input_fields):
         """ Creates the records needed for TABLE_TRADE. """
@@ -500,63 +500,63 @@ class DatabaseAccess():
         except Exception as ex:
             print(ERROR_WRITE_TO_DATABASE_SESSION, ex)
 
-    def file_import_stocks(self, fields_db, fields_stock):
-        """ Import stock information. """
-        #TODO: this will become the statements(..., TABLE_STOCK) function
-        # It will completely change too.
-        try:
-            session = self.Session()
-            try:
-                date_created = current_date()
-                date_modified = current_date()
-                print("STOCKS")
-                print("______")
-                print(MESSAGE_PREPARING)
-                self.statementStock = Statement(TABLE_STOCK)
-                records = 0
-                i = 0
-                for fields in fields_db:
-                    if (not fields['stock'] == '') :
-                        subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'])
-                        account_id = self.account_id_from_account(fields['account'])
-                        category_id = self.category_id_from_category(fields['category'])
-                        # Get id from T_FINANCE (to import in T_STOCK)
-                        for instance in session.query(T_FINANCE).filter_by(
-                            date=fields['date'],
-                            account_id=account_id,
-                            category_id=category_id,
-                            subcategory_id=subcategory_id,
-                            amount=Decimal(fields['amount']),
-                            comment=fields['comment'],
-                            market=fields['market'],
-                            stock=fields['stock'],
-                            shares=int(fields['shares']),
-                            price=Decimal(fields['price']),
-                            tax=Decimal(fields['tax']),
-                            commission=Decimal(fields['commission']),
-                            risk=Decimal(fields['risk'])
-                        ):
-                            finance_id = instance.finance_id
-                        if fields_stock[i] != {}:
-                            # Add new entry if it doesn't already exist
-                            if self.update_stock(fields_stock, session, i,
-                                    finance_id, i):
-                                records = records + 1
-                    # fields_db and fields_stock are the same size,
-                    # so we use an integer in the fields_db loop as an index
-                    # to get the corresponding fields_stock value
-                    i = i + 1
-                print(MESSAGE_EXEC_ALL)
-                statements.Execute(session)
-            except Exception as ex:
-                print(ERROR_FILE_IMPORT_STOCKS, ex)
-            finally:
-                session.commit()
-                session = None
-                print("{0} records added.".format(str(records)))
-                print(DONE)
-        except Exception as ex:
-            print(ERROR_FILE_IMPORT_STOCKS_SESSION, ex)
+    #def file_import_stocks(self, fields_db, fields_stock):
+    #    """ Import stock information. """
+    #    #TODO: this will become the statements(..., TABLE_STOCK) function
+    #    # It will completely change too.
+    #    try:
+    #        session = self.Session()
+    #        try:
+    #            date_created = current_date()
+    #            date_modified = current_date()
+    #            print("STOCKS")
+    #            print("______")
+    #            print(MESSAGE_PREPARING)
+    #            self.statementStock = Statement(TABLE_STOCK)
+    #            records = 0
+    #            i = 0
+    #            for fields in fields_db:
+    #                if (not fields['stock'] == '') :
+    #                    subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'])
+    #                    account_id = self.account_id_from_account(fields['account'])
+    #                    category_id = self.category_id_from_category(fields['category'])
+    #                    # Get id from T_FINANCE (to import in T_STOCK)
+    #                    for instance in session.query(T_FINANCE).filter_by(
+    #                        date=fields['date'],
+    #                        account_id=account_id,
+    #                        category_id=category_id,
+    #                        subcategory_id=subcategory_id,
+    #                        amount=Decimal(fields['amount']),
+    #                        comment=fields['comment'],
+    #                        market=fields['market'],
+    #                        stock=fields['stock'],
+    #                        shares=int(fields['shares']),
+    #                        price=Decimal(fields['price']),
+    #                        tax=Decimal(fields['tax']),
+    #                        commission=Decimal(fields['commission']),
+    #                        risk=Decimal(fields['risk'])
+    #                    ):
+    #                        finance_id = instance.finance_id
+    #                    if fields_stock[i] != {}:
+    #                        # Add new entry if it doesn't already exist
+    #                        if self.update_stock(fields_stock, session, i,
+    #                                finance_id, i):
+    #                            records = records + 1
+    #                # fields_db and fields_stock are the same size,
+    #                # so we use an integer in the fields_db loop as an index
+    #                # to get the corresponding fields_stock value
+    #                i = i + 1
+    #            print(MESSAGE_EXEC_ALL)
+    #            statements.Execute(session)
+    #        except Exception as ex:
+    #            print(ERROR_FILE_IMPORT_STOCKS, ex)
+    #        finally:
+    #            session.commit()
+    #            session = None
+    #            print("{0} records added.".format(str(records)))
+    #            print(DONE)
+    #    except Exception as ex:
+    #        print(ERROR_FILE_IMPORT_STOCKS_SESSION, ex)
 
     def update_finance(self, fields_db, session, i, finance_id, recordid):
         """ Add a new finance entry or update an existing one. """
@@ -831,6 +831,22 @@ class DatabaseAccess():
         #       elif somethingsomething:
         #           formula_id = 1
         return formula_id
+
+    def get_latest_rate_id(self):
+        """ Gets the latest rate_id """
+        result = -1
+        try:
+            session = self.Session()
+            for instance in session.query(T_RATE).order_by(
+                    T_RATE.id.desc()).first():
+                result = instance.name
+        except Exception as ex:
+            print("Error retrieving latest rate_id from T_RATE: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
+
 
     def is_a_trade(self, fields):
         """ Function to determine if a line to process, is a trade. """

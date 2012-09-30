@@ -310,6 +310,10 @@ class ControllerPyqt(QtGui.QMainWindow):
     	return str(self.gui.spn_exchange_rate.textFromValue( \
     		self.gui.spn_exchange_rate.value()))
 
+    def get_manual_flag(self):
+        """ Returns the value of the manual commission calc. checkbox """
+        return 0 if int(self.gui.chk_manual_flag.checkStateSet()) == 1 else 1 
+
     def set_infodetails(self, value):
        """ Sets new info on the lbl_infodetails label. """
        self.gui.lbl_infodetails.setText(value)

@@ -300,3 +300,16 @@ class V_DRAWDOWN(object):
     def __repr__(self):
         return "<V_DRAWDOWN('%s', '%s', '%s', '%s')>" % (self.drawdown_id,
                 self.value, self.date_created, self.date_modified)
+
+class V_PARAMETER(object):
+    """ V_PARAMETER """
+
+    def __init__(self, parameter_id, name, value, description):
+        self.parameter_id = parameter_id
+        self.name = name
+        self.value = value 
+        self.description = description
+
+    def __repr__(self):
+        return "<V_PARAMETER('%s', '%s', '%s', '%s')>" % (self.parameter_id,
+                self.value, self.name, self.description)

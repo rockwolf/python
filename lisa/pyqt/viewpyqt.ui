@@ -153,7 +153,7 @@
         <item row="0" column="11">
          <widget class="QLabel" name="lbl_risk">
           <property name="text">
-           <string>Risk</string>
+           <string>Risk (%)</string>
           </property>
          </widget>
         </item>
@@ -428,6 +428,16 @@
           </property>
           <property name="maximum">
            <double>1000000.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="9">
+         <widget class="QCheckBox" name="chk_manual_flag">
+          <property name="text">
+           <string>Automatic</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
