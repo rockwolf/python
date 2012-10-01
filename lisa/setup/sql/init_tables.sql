@@ -442,14 +442,30 @@ values(2, '{0}+{1}*{2}/100', 'WHS commission calculation for non-US markets: <so
 
 /* t_parameter */
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(1, 'p_binb00_01', 9.75, 'Commission binkbank for buying regular stocks.');
+values(1, 'parm01', 9.75, 'Commission binkbank for buying regular stocks.');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(2, 'p_binb00_02', 7.25, 'Commission binkbank for buying regular stocks < 2500 EUR.');
+values(2, 'parm02', 7.25, 'Commission binkbank for buying regular stocks < 2500 EUR.');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(3, 'p_whs00_01', 0.25, 'Solid amount for calculation of costs for commodities on US markets.');
+values(3, 'parm03', 0.25, 'Solid amount for calculation of costs for commodities on US markets.');
 
+INSERT INTO T_PARAMETER(parameter_id, name, value, description)
+values(4, 'parm04', 0.0022, 'Tax on Belgian stock market transactions.');
+
+INSERT INTO T_PARAMETER(parameter_id, name, value, description)
+values(5, 'parm05', 0.25, 'dividend tax - BE');
+
+INSERT INTO T_PARAMETER(parameter_id, name, value, description)
+values(6, 'parm06', 0.2675, 'dividend tax - D');
+
+INSERT INTO T_PARAMETER(parameter_id, name, value, description)
+values(7, 'parm07', 0.30, 'dividend tax - FR');
+
+INSERT INTO T_PARAMETER(parameter_id, name, value, description)
+values(8, 'parm08', 0.15, 'dividend tax - NL');
+
+/* t_margin_types */
 /* t_margin_types */
 INSERT INTO T_MARGIN_TYPE(margin_type)
 values('safety');

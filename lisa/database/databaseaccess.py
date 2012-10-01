@@ -420,15 +420,14 @@ class DatabaseAccess():
                     market_id = self.market_id_from_market(fields['market_name'])
                 else:
                     market_id = -1
-                #formula_id
                 formula_id = self.get_formula_id_to_use(fields)
-                #TODO: finish this function
-                #...
                 account_id = self.account_id_from_account(fields['account'], date_created, date_modified)
                 records = records + 1
                 if fields['manual_flag'] == 1:
                     commission = fields['commission']
                     tax = fields['tax']
+                
+                #TODO: get parameter values from parameter table.
 
                 #TODO: always calculate on_shares and on_commission etc???
                 on_shares = 0.0
@@ -480,7 +479,7 @@ class DatabaseAccess():
 
     def calculate_commission(self):
         """ Calculation for T_RATE """
-        pass
+        return 0.0
     
     def write_to_database(self, statements):
         """ Writes the records of a given statements list to the database.
@@ -696,7 +695,7 @@ class DatabaseAccess():
             elif(category[-3:] == '.tx'):
                 flg_income = 0
             else:
-                raise Exception("Wrong category in input-file: {0}".format(category))
+                raise Exception("Wrong category in input: {0}".format(category))
             obj = session.query(T_CATEGORY).filter_by(name=category).first() is not None
             if not obj: 
                 session.add(T_CATEGORY(category, flg_income, date_created, date_modified))
