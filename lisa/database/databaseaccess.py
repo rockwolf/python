@@ -443,8 +443,6 @@ class DatabaseAccess():
                     commission = -1.0
                     tax = -1.0
                 
-
-                
                 statement_rate.add(
                     records,
                     T_RATE(
@@ -878,9 +876,9 @@ class DatabaseAccess():
             session = self.Session()
             for instance in session.query(T_PARAMETER).filter_by(
                     parameter_id=parameter_id):
-                result = instance.name
+                result = instance.value
         except Exception as ex:
-            print("Error retrieving category from category_id: ", ex)
+            print("Error retrieving parameter value: ", ex)
         finally:
             session.rollback()
             session = None
