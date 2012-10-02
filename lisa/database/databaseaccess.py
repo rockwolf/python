@@ -423,19 +423,28 @@ class DatabaseAccess():
                 formula_id = self.get_formula_id_to_use(fields)
                 account_id = self.account_id_from_account(fields['account'], date_created, date_modified)
                 records = records + 1
+                
+                #TODO: get parameter values from parameter table
+                #
                 if fields['manual_flag'] == 1:
                     commission = fields['commission']
                     tax = fields['tax']
+                    on_shares = -1.0
+                    on_commission = -1.0
+                    on_ordersize = -1.0
+                    on_other = -1.0
+                    calculated = -1.0
+                else:
+                    on_shares = -1.0
+                    on_commission = -1.0
+                    on_ordersize = -1.0
+                    on_other = -1.0
+                    calculated = calculate_commission()
+                    commission = -1.0
+                    tax = -1.0
                 
-                #TODO: get parameter values from parameter table.
 
-                #TODO: always calculate on_shares and on_commission etc???
-                on_shares = 0.0
-                on_commission = 0.0
-                on_ordersize = 0.0
-                on_other = 0.0
-                calculated = calculate_commission()
-
+                
                 statement_rate.add(
                     records,
                     T_RATE(
@@ -479,7 +488,7 @@ class DatabaseAccess():
 
     def calculate_commission(self):
         """ Calculation for T_RATE """
-        return 0.0
+        return -1.0
     
     def write_to_database(self, statements):
         """ Writes the records of a given statements list to the database.
@@ -861,3 +870,20 @@ class DatabaseAccess():
                fields['category'] == 'invest.rx') \
                and (fields['subcategory'] == 'buy' or \
                fields['subcategory'] == 'sell')
+
+    def get_parameter_value(self, parameter_id):
+        """ Function to get the value that belongs to the given parameter. """
+        result = ''
+        try:
+            session = self.Session()
+            for instance in session.query(T_PARAMETER).filter_by(
+                    parameter_id=parameter_id):
+                result = instance.name
+        except Exception as ex:
+            print("Error retrieving category from category_id: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
+
+
