@@ -312,7 +312,7 @@ class ControllerPyqt(QtGui.QMainWindow):
 
     def get_manual_flag(self):
         """ Returns the value of the manual commission calc. checkbox """
-        return 0 if int(self.gui.chk_manual_flag.checkStateSet()) == 1 else 1 
+        return 0 if self.gui.chk_manual_flag.isChecked() else 1 
 
     def set_infodetails(self, value):
        """ Sets new info on the lbl_infodetails label. """

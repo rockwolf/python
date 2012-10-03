@@ -421,7 +421,7 @@ class DatabaseAccess():
                 else:
                     market_id = -1
                 formula_id = self.get_formula_id_to_use(fields)
-                account_id = self.account_id_from_account(fields['account'], date_created, date_modified)
+                account_id = self.account_id_from_account(fields['account'])
                 records = records + 1
                 
                 #TODO: get parameter values from parameter table
@@ -439,7 +439,7 @@ class DatabaseAccess():
                     on_commission = -1.0
                     on_ordersize = -1.0
                     on_other = -1.0
-                    calculated = calculate_commission()
+                    calculated = self.calculate_commission()
                     commission = -1.0
                     tax = -1.0
                 
