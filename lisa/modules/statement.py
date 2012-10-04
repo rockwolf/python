@@ -61,8 +61,5 @@ class Statement():
         """ Method that actually prints the statement info and text on the screen. """
         print('Statements for', self.table_name)
         print('_______________' + '_'*len(self.table_name), '\n')
-	print('test 1 - printstatements')
-        print('test 2 - printstatements:', self.statements)
         for s in (self.statements):
             print(s)
-        print('test 3 - printstatements')

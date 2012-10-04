@@ -275,12 +275,13 @@ class T_TRADE(object):
 class T_RATE(object):
     """ T_RATE """
 
-    def __init__(self, market_id, account_id, extra, extra_percent,
+    def __init__(self, market_id, account_id, calculated, calculated_percent,
             on_shares, on_commission, on_ordersize, on_other, commission, tax,
             formula_id, manual_flag, date_created, date_modified):
         self.market_id = account_id 
-        self.extra = extra
-        self.extra_percent = extra_percent
+        self.account_id = account_id
+        self.calculated = calculated
+        self.calculated_percent = calculated_percent
         self.on_shares = on_shares
         self.on_commission = on_commission
         self.on_ordersize = on_ordersize
@@ -294,8 +295,8 @@ class T_RATE(object):
 
     def __repr__(self):
         return "<T_RATE('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-                '%s', '%s', '%s')>" % (self.market_id, self.account_id,
-                        self.extra, self.extra_percent, self.on_shares,
+                '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.market_id, self.account_id,
+                        self.calculated, self.calculated_percent, self.on_shares,
                         self.on_commission, self.on_ordersize, self.on_other,
                         self.commission, self.tax, self.formula_id,
                         self.manual_flag, self.date_created, self.date_modified)
