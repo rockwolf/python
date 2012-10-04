@@ -59,7 +59,7 @@ class Statement():
 
     def print_statements(self):
         """ Method that actually prints the statement info and text on the screen. """
-        print('Statements for ', self.table_name)
+        print('Statements for', self.table_name)
         print('_______________' + '_'*len(self.table_name), '\n')
         for s in (self.statements):
             print(s)

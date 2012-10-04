@@ -349,6 +349,7 @@ class DatabaseAccess():
                 subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'])
                 account_id = self.account_id_from_account(fields['account'])
                 category_id = self.category_id_from_category(fields['category'])
+                print('test 1:')
                 #TODO: only retrieve these id values when needed.
                 if fields['market_name'] != '':
                     market_id = self.market_id_from_market(fields['market_name'])
@@ -359,7 +360,8 @@ class DatabaseAccess():
                             fields['stock_name'], market_id)
                 else:
                     stock_name_id = 0
-                
+               
+                print('test 3:')
                 rate_id = get_latest_rate_id()
                 obj = session.query(T_FINANCE).filter_by(
                             date=fields['date'],
@@ -377,6 +379,27 @@ class DatabaseAccess():
                             ).first()
                 if obj is None: 
                         records = records + 1
+                        #test:
+                        print(fields['date'],
+                                string_to_date(fields['date']).year,
+                                string_to_date(fields['date']).month,
+                                string_to_date(fields['date']).day,
+                                account_id,
+                                category_id,
+                                subcategory_id,
+                                Decimal(fields['amount']),
+                                fields['comment'],
+                                stock_name_id,
+                                int(fields['shares']),
+                                Decimal(fields['price']),
+                                Decimal(fields['tax']),
+                                Decimal(fields['commission']),
+                                1,
+                                rate_id,
+                                date_created,
+                                date_modified
+                        )
+                        #/test:
                         statement_finance.add(
                             records,
                             T_FINANCE(
@@ -414,55 +437,78 @@ class DatabaseAccess():
             date_created = current_date()
             date_modified = current_date()
             statement_rate = Statement(TABLE_RATE)
+            print('test 1:')
             records = 0
             for fields in input_fields:
-                if fields['market_name'] != '':
-                    market_id = self.market_id_from_market(fields['market_name'])
-                else:
-                    market_id = -1
-                formula_id = self.get_formula_id_to_use(fields)
-                account_id = self.account_id_from_account(fields['account'])
-                records = records + 1
-                
-                #TODO: get parameter values from parameter table
-                #
-                if fields['manual_flag'] == 1:
-                    commission = fields['commission']
-                    tax = fields['tax']
-                    on_shares = -1.0
-                    on_commission = -1.0
-                    on_ordersize = -1.0
-                    on_other = -1.0
-                    calculated = -1.0
-                else:
-                    on_shares = -1.0
-                    on_commission = -1.0
-                    on_ordersize = -1.0
-                    on_other = -1.0
-                    calculated = self.calculate_commission()
-                    commission = -1.0
-                    tax = -1.0
-                
-                statement_rate.add(
-                    records,
-                    T_RATE(
-                        market_id,
-                        account_id,
-                        calculated,
-                        calculated/100.0,
-                        on_shares,
-                        on_commission,
-                        on_ordersize,
-                        on_other,
-                        commission,
-                        tax,
-                        formula_id,
-                        fields['manual_flag'],
-                        date_created,
-                        date_modified
+                if self.is_a_trade(fields):
+                    if fields['market_name'] != '':
+                        market_id = self.market_id_from_market(fields['market_name'])
+                    else:
+                        market_id = -1
+                    formula_id = self.get_formula_id_to_use(fields)
+                    account_id = self.account_id_from_account(fields['account'])
+                    records = records + 1
+                    
+                    print('test 2:')
+                    #TODO: get parameter values from parameter table
+                    #
+                    if fields['manual_flag'] == 1:
+                        commission = fields['commission']
+                        tax = fields['tax']
+                        on_shares = -1.0
+                        on_commission = -1.0
+                        on_ordersize = -1.0
+                        on_other = -1.0
+                        calculated = -1.0
+                    else:
+                        on_shares = -1.0
+                        on_commission = -1.0
+                        on_ordersize = -1.0
+                        on_other = -1.0
+                        calculated = self.calculate_commission()
+                        commission = -1.0
+                        tax = -1.0
+                    
+                    print('test 3:')
+                    #test:
+                    print(market_id,
+                            account_id,
+                            calculated,
+                            calculated/100.0,
+                            on_shares,
+                            on_commission,
+                            on_ordersize,
+                            on_other,
+                            commission,
+                            tax,
+                            formula_id,
+                            fields['manual_flag'],
+                            date_created,
+                            date_modified
+                            )
+
+                    statement_rate.add(
+                        records,
+                        T_RATE(
+                            market_id,
+                            account_id,
+                            calculated,
+                            calculated/100.0,
+                            on_shares,
+                            on_commission,
+                            on_ordersize,
+                            on_other,
+                            commission,
+                            tax,
+                            formula_id,
+                            fields['manual_flag'],
+                            date_created,
+                            date_modified
+                        )
                     )
-                )
-                #session = None
+                    #session = None
+                    print('test 4:', records)
+                    print('test 5:', statement_rate)
             return statement_rate
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_RATE, ex)
@@ -856,6 +902,7 @@ class DatabaseAccess():
 
     def is_a_trade(self, fields):
         """ Function to determine if a line to process, is a trade. """
+        print('test:', fields)
         return (fields['category'] == 'trade.tx' or \
                fields['category'] == 'trade.rx') \
                and (fields['subcategory'] == 'buy' or \
