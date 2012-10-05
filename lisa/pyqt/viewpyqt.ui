@@ -244,7 +244,7 @@
          </widget>
         </item>
         <item row="1" column="5">
-         <widget class="QComboBox" name="cmb_marketcode">
+         <widget class="QComboBox" name="cmb_market_code">
           <property name="inputMethodHints">
            <set>Qt::ImhLowercaseOnly</set>
           </property>
@@ -254,7 +254,7 @@
          </widget>
         </item>
         <item row="1" column="6">
-         <widget class="QComboBox" name="cmb_stockname">
+         <widget class="QComboBox" name="cmb_stock_name">
           <property name="minimumSize">
            <size>
             <width>150</width>
@@ -375,10 +375,10 @@
          </widget>
         </item>
         <item row="2" column="5">
-         <widget class="QLineEdit" name="txt_marketdescription"/>
+         <widget class="QLineEdit" name="txt_market_description"/>
         </item>
         <item row="2" column="6">
-         <widget class="QLineEdit" name="txt_stockdescription"/>
+         <widget class="QLineEdit" name="txt_stock_description"/>
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="lbl_currency">
@@ -432,12 +432,12 @@
          </widget>
         </item>
         <item row="2" column="9">
-         <widget class="QCheckBox" name="chk_manual_flag">
+         <widget class="QCheckBox" name="chk_manual_commission">
           <property name="text">
            <string>Automatic</string>
           </property>
           <property name="checked">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>

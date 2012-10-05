@@ -159,14 +159,14 @@ class ControllerMain():
             self.gui.add_subcategory(subcategory)
         # Market codes
         for mcd in dba.get_markets():
-            self.gui.add_marketcode(mcd)
+            self.gui.add_market_code(mcd)
         # Currencies
         for currency in dba.get_currencies():
             self.gui.add_currency(currency)
         # Stock names
-        self.fillcmb_stockname()
-        self.filltxt_marketdescription()
-        self.filltxt_stockdescription()
+        self.fillcmb_stock_name()
+        self.filltxt_market_description()
+        self.filltxt_stock_description()
         dba = None
 
     def get_input_line(self, table):
@@ -174,8 +174,8 @@ class ControllerMain():
         #TODO: check cat/subcat combo, instead of only subcat
         if(self.gui.get_subcategory() == 'buy' or \
                 self.gui.get_subcategory() == 'sell'):
-            market = self.gui.get_marketcode()
-            stock = self.gui.get_stockname()
+            market = self.gui.get_market_code()
+            stock = self.gui.get_stock_name()
         else:
             market = ''
             stock = ''
@@ -187,7 +187,9 @@ class ControllerMain():
             self.gui.get_amount(),
             self.gui.get_comment(),
             stock,
+            self.gui.get_stock_description(),
             market,
+            self.gui.get_market_description(),
             self.gui.get_quantity(),
             self.gui.get_price(),
             self.gui.get_commission(),
@@ -195,7 +197,7 @@ class ControllerMain():
             self.gui.get_risk(),
             self.gui.get_currency(),
             self.gui.get_exchange_rate(),
-            self.gui.get_manual_flag()
+            self.gui.get_manual_commission()
             ]
         return str_list
 
@@ -211,7 +213,7 @@ class ControllerMain():
         """ Update infolabel details. """
         dba = DatabaseAccess(self.config)
         prod = self.gui.get_category()
-        stock = self.gui.get_stockname()
+        stock = self.gui.get_stock_name()
         #TODO: make entire program dependent on cids, so there are no longer
         #hardcoded strings.
         if(
@@ -227,26 +229,26 @@ class ControllerMain():
             self.gui.set_infodetails('')
         dba = None
 
-    def fillcmb_stockname(self):
+    def fillcmb_stock_name(self):
         """ fill cmb function """
         dba = DatabaseAccess(self.config)
-        self.gui.clear_cmb_stockname()
-        for name in dba.get_stocknames(self.gui.get_marketcode()):
-            self.gui.add_stockname(name)
+        self.gui.clear_cmb_stock_name()
+        for name in dba.get_stock_names(self.gui.get_market_code()):
+            self.gui.add_stock_name(name)
         dba = None
     
-    def filltxt_marketdescription(self):
+    def filltxt_market_description(self):
         """ fill market description """
         dba = DatabaseAccess(self.config)
-        self.gui.set_marketdescription(
-                dba.get_marketdescription(self.gui.get_marketcode()))
+        self.gui.set_market_description(
+                dba.get_market_description(self.gui.get_market_code()))
         dba = None
 
-    def filltxt_stockdescription(self):
+    def filltxt_stock_description(self):
         """ fill stock description """
         dba = DatabaseAccess(self.config)
-        self.gui.set_stockdescription(
-                dba.get_stockdescription(self.gui.get_stockname()))
+        self.gui.set_stock_description(
+                dba.get_stock_description(self.gui.get_stock_name()))
         dba = None
 
     def add_tbl_summary(self, table, row):

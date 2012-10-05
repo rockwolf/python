@@ -243,7 +243,7 @@ class DatabaseAccess():
             session = None
         return values
  
-    def get_stocknames(self, code):
+    def get_stock_names(self, code):
         """ Get the stock names. """
         values = []
         try:
@@ -258,13 +258,13 @@ class DatabaseAccess():
             for instance in query: 
                 values.append(instance.name)
         except Exception as ex:
-            print("Error in get_stocknames: ", ex)
+            print("Error in get_stock_names: ", ex)
         finally:
             session.rollback()
             session = None
         return values
 
-    def get_marketdescription(self, market):
+    def get_market_description(self, market):
         """ Get the market description """
         value = ''
         try:
@@ -280,7 +280,7 @@ class DatabaseAccess():
             session = None
         return value 
 
-    def get_stockdescription(self, stock):
+    def get_stock_description(self, stock):
         """ Get the stock description """
         value = ''
         try:
@@ -290,7 +290,7 @@ class DatabaseAccess():
                 value = instance.description
                 break
         except Exception as ex:
-            print("Error in get_stockdescription: ", ex)
+            print("Error in get_stock_description: ", ex)
         finally:
             session.rollback()
             session = None
@@ -302,7 +302,7 @@ class DatabaseAccess():
         try:
             session = self.Session()
             query = session.query(
-                T_STOCK_NAME.name.label("stockname"), 
+                T_STOCK_NAME.name.label("stock_name"), 
                 T_MARKET.name.label("marketname"), 
                 T_MARKET.country
             ).join(
@@ -312,7 +312,7 @@ class DatabaseAccess():
                 T_STOCK_NAME.name == sname
             )
             for instance in query: 
-                values.append(instance.stockname)
+                values.append(instance.stock_name)
                 values.append(instance.marketname)
                 values.append(instance.country)
         except Exception as ex:
@@ -465,7 +465,8 @@ class DatabaseAccess():
                         calculated = self.calculate_commission()
                         commission = -1.0
                         tax = -1.0
-                    
+                   
+                    #TODO: market_id seems to be always 1
                     statement_rate.add(
                         records,
                         T_RATE(

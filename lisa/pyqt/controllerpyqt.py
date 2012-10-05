@@ -61,14 +61,14 @@ class ControllerPyqt(QtGui.QMainWindow):
             self.gui.btn_add, 
             QtCore.SIGNAL("clicked()"), 
             self.btn_add_clicked)
-        self.gui.cmb_marketcode.connect(
-            self.gui.cmb_marketcode, 
+        self.gui.cmb_market_code.connect(
+            self.gui.cmb_market_code, 
             QtCore.SIGNAL('currentIndexChanged(int)'), 
-            self.cmb_marketcode_changed)
-        self.gui.cmb_stockname.connect(
-            self.gui.cmb_stockname, 
+            self.cmb_market_code_changed)
+        self.gui.cmb_stock_name.connect(
+            self.gui.cmb_stock_name, 
             QtCore.SIGNAL('currentIndexChanged(int)'), 
-            self.cmb_stockname_changed)
+            self.cmb_stock_name_changed)
         self.gui.btn_exit.connect(
             self.gui.btn_execute, 
             QtCore.SIGNAL("clicked()"), 
@@ -153,10 +153,10 @@ class ControllerPyqt(QtGui.QMainWindow):
         subcategory = self.gui.cmb_subcategory.currentText()
         if((category == 'invest.tx' or category == 'invest.rx' or category == 'trade.tx' or category == 'trade.rx') and ( subcategory == 'buy' or subcategory == 'sell')):
             # enable stock inputs
-            self.gui.cmb_marketcode.setEnabled(True)
-            self.gui.txt_marketdescription.setEnabled(True)
-            self.gui.cmb_stockname.setEnabled(True)
-            self.gui.txt_stockdescription.setEnabled(True)
+            self.gui.cmb_market_code.setEnabled(True)
+            self.gui.txt_market_description.setEnabled(True)
+            self.gui.cmb_stock_name.setEnabled(True)
+            self.gui.txt_stock_description.setEnabled(True)
             self.gui.spn_quantity.setEnabled(True)
             self.gui.spn_price.setEnabled(True)
             self.gui.spn_commission.setEnabled(True)
@@ -173,10 +173,10 @@ class ControllerPyqt(QtGui.QMainWindow):
                 self.gui.spn_risk.setValue(0.0)
         else:
             # disable stock inputs
-            self.gui.cmb_marketcode.setEnabled(False)
-            self.gui.txt_marketdescription.setEnabled(False)
-            self.gui.cmb_stockname.setEnabled(False)
-            self.gui.txt_stockdescription.setEnabled(False)
+            self.gui.cmb_market_code.setEnabled(False)
+            self.gui.txt_market_description.setEnabled(False)
+            self.gui.cmb_stock_name.setEnabled(False)
+            self.gui.txt_stock_description.setEnabled(False)
             self.gui.spn_quantity.setEnabled(False)
             self.gui.spn_price.setEnabled(False)
             self.gui.spn_commission.setEnabled(False)
@@ -190,23 +190,25 @@ class ControllerPyqt(QtGui.QMainWindow):
             self.gui.spn_risk.setValue(0.0)
         self.ctl.set_infodetails()
 
-    def cmb_stockname_changed(self):
+    def cmb_stock_name_changed(self):
         """ When the stock name selection changes. """    
-        self.ctl.filltxt_stockdescription()
+        self.ctl.filltxt_stock_description()
         self.ctl.set_infodetails()        
         
-    def cmb_marketcode_changed(self):
-        """ When the marketcode combo selection changes. """
-        self.ctl.fillcmb_stockname()
-        self.ctl.filltxt_marketdescription()
+    def cmb_market_code_changed(self):
+        """ When the market_code combo selection changes. """
+        self.ctl.fillcmb_stock_name()
+        self.ctl.filltxt_market_description()
     
     def init_tbl_summary(self):
         """ Initialize tbl_summary. """
         # set the table header
         # TODO: set header values in mdlconstants and use the constants
         header = ['date', 'account', 'category', 'subcategory', 'amount',
-                'comment', 'stock', 'market', 'quantity', 'price',
-                'commission', 'tax', 'risk', 'currency', 'exchange_rate']
+                'comment', 'stock', 'stock_description', 'market',
+                'market_description', 'quantity', 'price',
+                'commission', 'tax', 'risk', 'currency', 'exchange_rate',
+                'manual_flag']
         self.table = TableModel(header, [], 0, len(header))
         # takeAt(0) removes the default empty table that's there and addWidget
         # adds a newly created one.
@@ -238,9 +240,9 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.gui.txt_comment.clear()
         self.gui.spn_amount.setValue(0)
 
-    def clear_cmb_stockname(self):
-        """ Clear the cmb_stockname combobox. """
-        self.gui.cmb_stockname.clear()
+    def clear_cmb_stock_name(self):
+        """ Clear the cmb_stock_name combobox. """
+        self.gui.cmb_stock_name.clear()
 
     # Getters and setters
     def get_date(self):
@@ -268,13 +270,21 @@ class ControllerPyqt(QtGui.QMainWindow):
         """ Returns the comment text. """
         return str(self.gui.txt_comment.text())
 
-    def get_marketcode(self):
-        """ Returns the marketcode. """
-        return str(self.gui.cmb_marketcode.currentText())
+    def get_market_code(self):
+        """ Returns the market_code. """
+        return str(self.gui.cmb_market_code.currentText())
     
-    def get_stockname(self):
-        """ Returns the stockname. """
-        return str(self.gui.cmb_stockname.currentText())
+    def get_market_description(self):
+        """ Returns the market description. """
+        return str(self.gui.txt_market_description.text())
+
+    def get_stock_name(self):
+        """ Returns the stock_name. """
+        return str(self.gui.cmb_stock_name.currentText())
+
+    def get_stock_description(self):
+        """ Returns the stock description. """
+        return str(self.gui.txt_stock_description.text())
 
     def get_quantity(self):
         """ Returns the quantity from the spn_quantity spinedit. """
@@ -310,27 +320,27 @@ class ControllerPyqt(QtGui.QMainWindow):
     	return str(self.gui.spn_exchange_rate.textFromValue( \
     		self.gui.spn_exchange_rate.value()))
 
-    def get_manual_flag(self):
+    def get_manual_commission(self):
         """ Returns the value of the manual commission calc. checkbox """
-        return 0 if self.gui.chk_manual_flag.isChecked() else 1 
+        return '0' if self.gui.chk_manual_commission.isChecked() else '1' 
 
     def set_infodetails(self, value):
        """ Sets new info on the lbl_infodetails label. """
        self.gui.lbl_infodetails.setText(value)
 
-    def set_marketdescription(self, value):
-       """ Sets new info on txt_marketdescription. """
-       self.gui.txt_marketdescription.clear()
-       self.gui.txt_marketdescription.setText(value)
+    def set_market_description(self, value):
+       """ Sets new info on txt_market_description. """
+       self.gui.txt_market_description.clear()
+       self.gui.txt_market_description.setText(value)
 
-    def set_stockdescription(self, value):
-       """ Sets new info on txt_stockdescription. """
-       self.gui.txt_stockdescription.clear()
-       self.gui.txt_stockdescription.setText(value)
+    def set_stock_description(self, value):
+       """ Sets new info on txt_stock_description. """
+       self.gui.txt_stock_description.clear()
+       self.gui.txt_stock_description.setText(value)
    
-    def add_stockname(self, value):
-       """ Add a new item to cmb_stockname. """
-       self.gui.cmb_stockname.addItem(value)
+    def add_stock_name(self, value):
+       """ Add a new item to cmb_stock_name. """
+       self.gui.cmb_stock_name.addItem(value)
 
     def add_category(self, value):
        """ Add a new item to cmb_category. """
@@ -344,9 +354,9 @@ class ControllerPyqt(QtGui.QMainWindow):
        """ Add a new item to cmb_account. """
        self.gui.cmb_account.addItem(value)
 
-    def add_marketcode(self, value):
-       """ Add a new item to cmb_marketcode. """
-       self.gui.cmb_marketcode.addItem(value)
+    def add_market_code(self, value):
+       """ Add a new item to cmb_market_code. """
+       self.gui.cmb_market_code.addItem(value)
        
     def set_default_account(self):
         """ Select the default account. """
