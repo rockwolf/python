@@ -87,7 +87,8 @@ class T_STOCK_NAME(object):
 class T_MARKET(object):
     """ T_MARKET """
 
-    def __init__(self, code, name, country, active, date_created, date_modified):
+    def __init__(self, market_id, code, name, country, active, date_created, date_modified):
+        self.market_id = market_id
         self.code = code
         self.name = name
         self.country = country
@@ -96,8 +97,7 @@ class T_MARKET(object):
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_MARKET('%s', '%s', '%s', '%s', '%s', '%s')>" % (self.code,
-                self.name, self.country, self.active, self.date_created, self.date_modified)
+        return "<T_MARKET('%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.market_id, self.code, self.name, self.country, self.active, self.date_created, self.date_modified)
 
 class T_CATEGORY(object):
     """ T_CATEGORY """
@@ -275,9 +275,10 @@ class T_TRADE(object):
 class T_RATE(object):
     """ T_RATE """
 
-    def __init__(self, market_id, account_id, calculated, calculated_percent,
+    def __init__(self, rate_id, market_id, account_id, calculated, calculated_percent,
             on_shares, on_commission, on_ordersize, on_other, commission, tax,
             formula_id, manual_flag, date_created, date_modified):
+        self.rate_id = rate_id
         self.market_id = account_id 
         self.account_id = account_id
         self.calculated = calculated
@@ -295,7 +296,7 @@ class T_RATE(object):
 
     def __repr__(self):
         return "<T_RATE('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-                '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.market_id, self.account_id,
+                '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.rate_id, self.market_id, self.account_id,
                         self.calculated, self.calculated_percent, self.on_shares,
                         self.on_commission, self.on_ordersize, self.on_other,
                         self.commission, self.tax, self.formula_id,

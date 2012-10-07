@@ -68,6 +68,8 @@ class ControllerMain():
             #dba.write_to_database(dba.create_statements_TABLE_RATE(self.get_input_fields(tablecontent)))
             test = dba.create_statements_TABLE_RATE(self.get_input_fields(tablecontent))
             test.print_statements()
+            #test = dba.create_statements_TABLE_FINANCE(self.get_input_fields(tablecontent))
+            #test.print_statements()
             #dba.write_to_database(dba.create_statements_TABLE_FINANCE(self.get_input_fields(tablecontent)))
             #if dba.is_an_investment():
             #    dba.write_to_database(dba.create_statements_TABLE_STOCK(self.get_input_fields(tablecontent)))
@@ -96,15 +98,17 @@ class ControllerMain():
                     'flag':flg_income,
                     'comment':field[5],
                     'stock_name':field[6],
-                    'market_name':field[7],
-                    'shares':field[8],
-                    'price':field[9],
-                    'commission':field[10],
-                    'tax':field[11],
-                    'risk':field[12],
-                    'currency':field[13],
-                    'exchange_rate':field[14],
-                    'manual_flag':field[15]
+                    'stock_description':field[7],
+                    'market_name':field[8],
+                    'market_description':field[9],
+                    'shares':field[10],
+                    'price':field[11],
+                    'commission':field[12],
+                    'tax':field[13],
+                    'risk':field[14],
+                    'currency':field[15],
+                    'exchange_rate':field[16],
+                    'manual_flag':field[17]
                 })
         except Exception as ex:
             print(ERROR_GET_INPUT_FIELDS, ex)

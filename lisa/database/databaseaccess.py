@@ -360,7 +360,7 @@ class DatabaseAccess():
                 else:
                     stock_name_id = 0
                
-                rate_id = get_latest_rate_id()
+                rate_id = self.get_latest_rate_id()
                 obj = session.query(T_FINANCE).filter_by(
                             date=fields['date'],
                             account_id=account_id,
@@ -470,6 +470,7 @@ class DatabaseAccess():
                     statement_rate.add(
                         records,
                         T_RATE(
+                            None,
                             int(market_id),
                             int(account_id),
                             Decimal(calculated),
@@ -787,7 +788,7 @@ class DatabaseAccess():
                 # + add this to the input_fields. This way, we can also add new markets.
                 # But: perhaps this makes the input too complex and a new button with a dialog window
                 # behind it is needed?
-                session.add(T_MARKET(code, 'TBD', '??', date_created, date_modified))
+                session.add(T_MARKET(None, code, 'TBD', '??', 1, date_created, date_modified))
                 session.commit()
                 for instance in session.query(func.max(T_MARKET.market_id).label('market_id')):
                     result = instance.market_id
@@ -868,7 +869,7 @@ class DatabaseAccess():
         try:
             session = self.Session()
             for instance in session.query(T_RATE).order_by(
-                    T_RATE.id.desc()).first():
+                    T_RATE.rate_id.desc()).first():
                 result = instance.name
         except Exception as ex:
             print("Error retrieving latest rate_id from T_RATE: ", ex)
