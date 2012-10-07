@@ -435,7 +435,6 @@ class DatabaseAccess():
             date_created = current_date()
             date_modified = current_date()
             statement_rate = Statement(TABLE_RATE)
-            print(statement_rate)
             records = 0
             for fields in input_fields:
                 if self.is_a_trade(fields):
@@ -516,7 +515,6 @@ class DatabaseAccess():
     def write_to_database(self, statements):
         """ Writes the records of a given statements list to the database.
         """
-        print(statements)
         try:
             session = self.Session()
             try:

@@ -18,9 +18,10 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 class T_FINANCE(object):
     """ T_FINANCE """
 
-    def __init__(self, date, year, month, day, account_id, category_id,
+    def __init__(self, finance_id, date, year, month, day, account_id, category_id,
             subcategory_id, amount, comment, stock_name_id, shares, price, tax,
             commission, active, rate_id, date_created, date_modified):
+        self.finance_id = finance_id
         self.date = date
         self.year = year
         self.month = month
@@ -42,8 +43,8 @@ class T_FINANCE(object):
 
     def __repr__(self):
         return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
-            self.date, self.year, self.month, self.day, self.account_id,
+            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
+            self.finance_id, self.date, self.year, self.month, self.day, self.account_id,
             self.category_id, self.subcategory_id, self.amount, self.comment,
             self.stock_name_id, self.shares, self.price, self.tax,
             self.commission, self.active, self.rate_id, self.date_created, self.date_modified)
@@ -51,8 +52,9 @@ class T_FINANCE(object):
 class T_STOCK(object):
     """ T_STOCK """
 
-    def __init__(self, finance_id, stock_name_id, action, price, shares, tax,
+    def __init__(self, stock_id, finance_id, stock_name_id, action, price, shares, tax,
             commission, historical, active, date_created, date_modified, risk):
+        self.stock_id = stock_id
         self.finance_id = finance_id
         self.stock_name_id = stock_name_id
         self.action = action
@@ -67,13 +69,13 @@ class T_STOCK(object):
         self.risk = risk
 
     def __repr__(self):
-        return "<T_STOCK('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.finance_id, 
-                self.stock_name_id, self.action, self.price, self.shares, self.tax, self.commission, self.historical, self.active, self.date_created, self.date_modified, self.risk)
+        return "<T_STOCK('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.stock_id, self.finance_id, self.stock_name_id, self.action, self.price, self.shares, self.tax, self.commission, self.historical, self.active, self.date_created, self.date_modified, self.risk)
 
 class T_STOCK_NAME(object):
     """ T_STOCK_NAME """
 
-    def __init__(self, name, market_id, description, date_created, date_modified):
+    def __init__(self, stock_name_id, name, market_id, description, date_created, date_modified):
+        self.stock_name_id = stock_name_id
         self.name = name
         self.market_id = market_id
         self.description = description
@@ -81,7 +83,7 @@ class T_STOCK_NAME(object):
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_STOCK_NAME('%s', '%s', '%s', '%s', '%s')>" % (self.name, 
+        return "<T_STOCK_NAME('%s', '%s', '%s', '%s', '%s', '%s')>" % (self.stock_name_id, self.name, 
                 self.market_id, self.description, self.date_created, self.date_modified)
 
 class T_MARKET(object):
@@ -142,49 +144,53 @@ class T_MARGIN_TYPE(object):
 class T_SUBCATEGORY(object):
     """ T_SUBCATEGORY """
 
-    def __init__(self, name, active, date_created, date_modified):
+    def __init__(self, subcategory_id, name, active, date_created, date_modified):
+        self.subcategory_id = subcategory_id
         self.name = name
         self.active = active
         self.date_created = date_created 
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_SUBCATEGORY('%s', '%s', '%s', '%s')>" % (self.name,
+        return "<T_SUBCATEGORY('%s', '%s', '%s', '%s', '%s')>" % (self.subcategory_id, self.name,
                 self.active, self.date_created, self.date_modified)
 
 class T_ACCOUNT(object):
     """ T_ACCOUNT """
 
-    def __init__(self, name, active, date_created, date_modified):
+    def __init__(self, account_id, name, active, date_created, date_modified):
+        self.account_id = account_id
         self.name = name
         self.active = active
         self.date_created = date_created 
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_ACCOUNT('%s', '%s', '%s', '%s')>" % (self.name, 
+        return "<T_ACCOUNT('%s', '%s', '%s', '%s', '%s')>" % (self.account_id, self.name, 
                 self.active, self.date_created, self.date_modified)
 
 class T_CURRENCY(object):
     """ T_CURRENCY """
 
-    def __init__(self, code, description):
+    def __init__(self, currency_id, code, description):
+        self.currency_id = currency_id
         self.code = code
         self.description = description
 
     def __repr__(self):
-        return "<T_CURRENCY('%s', '%s')>" % (self.code, self.description)
+        return "<T_CURRENCY('%s', '%s', '%s')>" % (self.currency_id, self.code, self.description)
 
 class T_CURRENCY_EXCHANGE(object):
     """ T_CURRENCY_EXCHANGE """
 
-    def __init__(self, currency_id, exchange_rate, finance_id):
+    def __init__(self, currency_exchange_id, currency_id, exchange_rate, finance_id):
+        self.currency_exchange_id = currency_exchange_id
         self.currency_id = currency_id 
         self.exchange_rate = exchange_rate
         self.finance_id = finance_id
 
     def __repr__(self):
-        return "<T_CURRENCY_EXCHANGE('%s', '%s', '%s')>" % (self.currency_id,
+        return "<T_CURRENCY_EXCHANGE('%s', '%s', '%s', '%s')>" % (self.currency_exchange_id, self.currency_id,
                 self.exchange_rate, self.finance_id)
 
 class T_FORMULA(object):
@@ -318,11 +324,12 @@ class T_DRAWDOWN(object):
 class T_PARAMETER(object):
     """ T_PARAMETER """
 
-    def __init__(self, name, value, description):
+    def __init__(self, parameter_id, name, value, description):
+        self.parameter_id = parameter_id
         self.name = name
         self.value = value 
         self.description = description
 
     def __repr__(self):
-        return "<T_DRAWDOWN('%s', '%s', '%s')>" % (self.name,
+        return "<T_DRAWDOWN('%s', '%s', '%s', '%s')>" % (self.parameter_id, self.name,
                 self.value, self.description)

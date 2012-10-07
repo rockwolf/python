@@ -77,7 +77,7 @@ class ControllerMain():
             #    dba.write_to_database(dba.create_statements_TABLE_TRADE(self.get_input_fields(tablecontent)))
             dba = None
         except  Exception as ex:
-            print("test:",ERROR_WRITE_TO_DATABASE, ex)
+            print(ERROR_WRITE_TO_DATABASE, ex)
 
     def get_input_fields(self, tablecontent):
         """ Gets input, adds extra info and puts this in a list. """
