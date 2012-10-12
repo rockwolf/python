@@ -285,7 +285,7 @@ class T_RATE(object):
             on_shares, on_commission, on_ordersize, on_other, commission, tax,
             formula_id, manual_flag, date_created, date_modified):
         self.rate_id = rate_id
-        self.market_id = account_id 
+        self.market_id = market_id
         self.account_id = account_id
         self.calculated = calculated
         self.calculated_percent = calculated_percent
