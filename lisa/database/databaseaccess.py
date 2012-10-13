@@ -401,6 +401,7 @@ class DatabaseAccess():
                         statement_finance.add(
                             records,
                             T_FINANCE(
+                                None,
                                 fields['date'],
                                 string_to_date(fields['date']).year,
                                 string_to_date(fields['date']).month,
@@ -866,8 +867,7 @@ class DatabaseAccess():
         result = -1
         try:
             session = self.Session()
-            for instance in session.query(T_RATE).order_by(
-                    T_RATE.rate_id.desc()).first():
+            for instance in session.query(T_RATE).order_by(T_RATE.rate_id.desc()).first():
                 result = instance.name
         except Exception as ex:
             print("Error retrieving latest rate_id from T_RATE: ", ex)
