@@ -349,18 +349,18 @@ class DatabaseAccess():
                 subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'])
                 account_id = self.account_id_from_account(fields['account'])
                 category_id = self.category_id_from_category(fields['category'])
-                #TODO: only retrieve these id values when needed.
-                if fields['market_name'] != '':
-                    market_id = self.market_id_from_market(fields['market_name'])
-                else:
-                    market_id = 0
-                if fields['stock_name'] != '':
-                    stock_name_id = self.stock_name_id_from_stock_name(
-                            fields['stock_name'], market_id)
-                else:
-                    stock_name_id = 0
-               
-                rate_id = self.get_latest_rate_id()
+                
+                market_id = -1
+                stock_name_id = -1
+                rate_id = -1
+                if self.deals_with_stocks(fields):
+                    if fields['market_name'] != '':
+                        market_id = self.market_id_from_market(fields['market_name'])
+                    if fields['stock_name'] != '':
+                        stock_name_id = self.stock_name_id_from_stock_name(
+                                fields['stock_name'], market_id)
+                    rate_id = self.get_latest_rate_id() + 1
+
                 obj = session.query(T_FINANCE).filter_by(
                             date=fields['date'],
                             account_id=account_id,
@@ -377,27 +377,6 @@ class DatabaseAccess():
                             ).first()
                 if obj is None: 
                         records = records + 1
-                        #test:
-                        print(fields['date'],
-                                string_to_date(fields['date']).year,
-                                string_to_date(fields['date']).month,
-                                string_to_date(fields['date']).day,
-                                account_id,
-                                category_id,
-                                subcategory_id,
-                                Decimal(fields['amount']),
-                                fields['comment'],
-                                stock_name_id,
-                                int(fields['shares']),
-                                Decimal(fields['price']),
-                                Decimal(fields['tax']),
-                                Decimal(fields['commission']),
-                                1,
-                                rate_id,
-                                date_created,
-                                date_modified
-                        )
-                        #/test:
                         statement_finance.add(
                             records,
                             T_FINANCE(
@@ -438,7 +417,7 @@ class DatabaseAccess():
             statement_rate = Statement(TABLE_RATE)
             records = 0
             for fields in input_fields:
-                if self.is_a_trade(fields):
+                if self.deals_with_stocks(fields):
                     if fields['market_name'] != '':
                         market_id = self.market_id_from_market(fields['market_name'])
                     else:
@@ -502,12 +481,47 @@ class DatabaseAccess():
             session = self.Session()
             date_created = current_date()
             date_modified = current_date()
-            statement_finance = Statement(TABLE_RATE)
+            statement_trade = Statement(TABLE_RATE)
             records = 0
             for fields in input_fields:
                 print('test: dummy')
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_TRADE, ex)
+
+    def create_statements_TABLE_CURRENCY_EXCHANGE(self, input_fields):
+        """ Creates the records needed for TABLE_CURRENCY_EXCHANGE. """
+        try:
+            session = self.Session()
+            statement_currency_exchange = Statement(TABLE_CURRENCY_EXCHANGE)
+            records = 0
+            finance_id = -1 #TODO: see below, needs to be a correct one for
+            #each fields in input_fields
+            for fields in input_fields:
+                obj = session.query(T_CURRENCY_EXCHANGE).filter_by(
+                            currency_id=self.currency_id_from_currency(fields['currency']),
+                            exchange_rate=Decimal(fields['exchange_rate']),
+                            finance_id=finance_id
+                            #TODO: need to get the
+                            #finance id's somehow, after adding the finance
+                            #statements first?
+                            ).first()
+                if obj is None: 
+                        records = records + 1
+                        statement_currency_exchange.add(
+                            records,
+                            T_CURRENCY_EXCHANGE(
+                                None,
+                                fields['currency'],
+                                Decimal(fields['exchange_rate']),
+                                finance_id #TODO: see above
+                            )
+                        )
+            session = None
+            return statement_currency_exchange
+        except Exception as ex:
+            print(ERROR_CREATE_STATEMENTS_TABLE_CURRENCY_EXCHANGE, ex)
+
+
 
     def calculate_commission(self):
         """ Calculation for T_RATE """
@@ -842,6 +856,27 @@ class DatabaseAccess():
             session.rollback()
             session = None
         return result
+    
+    def currency_id_from_currency(self, currency):
+        """ Get the currency_id from a currency string (e.g.'USD'). """
+        result = -1
+        session = self.Session()
+        try:
+            # Get account id, based on account name
+            # but first check if the account already exists
+            # in T_ACCOUNT. If not, add it to the t_account table.
+            obj = session.query(T_CURRENCY).filter_by(code=currency).first() is not None
+            if obj: 
+                for instance in session.query(T_CURRENCY).filter_by(code=currency):
+                    result = str(instance.currency_id)
+            else:
+                raise Exception("Error: currency {0} not found! -1 used as a currency_id.".format(currency))
+        except Exception as ex:
+            print(ERROR_ACCOUNT_ID_FROM_ACCOUNT, ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
 
     def get_formula_id_to_use(self, fields):
         """ Gets the formula_id to use for a given trading line of the input fields.
@@ -871,6 +906,10 @@ class DatabaseAccess():
             if obj is not None:
                 for instance in obj:
                     result = instance.name
+            else:
+                # We don't have one yet, so by making the last one 0,
+                # a get_latest_rate_id() + 1 would become 1
+                result = 0
         except Exception as ex:
             print("Error retrieving latest rate_id from T_RATE: ", ex)
         finally:
@@ -909,4 +948,7 @@ class DatabaseAccess():
             session = None
         return result
 
+    def deals_with_stocks(self, fields):
+        """ See if we need to use rate, marketid and stockid. """
+        return (self.is_a_trade(fields) or self.is_an_investment(fields))
 

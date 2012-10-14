@@ -71,6 +71,7 @@ ERROR_CREATE_STATEMENTS_TABLE_FINANCE = "Error in create_statements_TABLE_FINANC
 ERROR_CREATE_STATEMENTS_TABLE_STOCK = "Error in create_statements_TABLE_STOCK: "
 ERROR_CREATE_STATEMENTS_TABLE_TRADE = "Error in create_statements_TABLE_TRADE: "
 ERROR_CREATE_STATEMENTS_TABLE_RATE = "Error in create_statements_TABLE_RATE: "
+ERROR_CREATE_STATEMENTS_TABLE_CURRENCY_EXCHANGE = "Error in create_statements_TABLE_CURRENCY_EXCHANGE: "
 MESSAGE_EXEC_ALL = "Executing statements all at once..."
 MESSAGE_PREPARING = "Preparing statements..."
 MESSAGE_DONE = "Done."
