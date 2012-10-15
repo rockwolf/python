@@ -52,8 +52,8 @@ alter table T_CURRENCY_EXCHANGE
     add constraint pk_currency_exchange_id primary key(currency_exchange_id);
 alter table T_CURRENCY_EXCHANGE
     add constraint fk_currency_id foreign key(currency_id) references T_CURRENCY(currency_id);
-alter table T_CURRENCY_EXCHANGE
-    add constraint fk_finance_id foreign key(finance_id) references T_FINANCE(finance_id);
+alter table T_FINANCE
+    add constraint fk_currency_exchange_id foreign key(currency_exchange_id) references T_CURRENCY_EXCHANGE(currency_exchange_id);
 alter table T_MARGIN_TYPE
     add constraint pk_margin_type_id primary key(margin_type_id);
 alter table T_DRAWDOWN

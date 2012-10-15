@@ -20,7 +20,7 @@ class T_FINANCE(object):
 
     def __init__(self, finance_id, date, year, month, day, account_id, category_id,
             subcategory_id, amount, comment, stock_name_id, shares, price, tax,
-            commission, active, rate_id, date_created, date_modified):
+            commission, active, rate_id, currency_exchange_id, date_created, date_modified):
         self.finance_id = finance_id
         self.date = date
         self.year = year
@@ -38,16 +38,18 @@ class T_FINANCE(object):
         self.commission = commission
         self.active = active
         self.rate_id = rate_id 
+        self.currency_exchange_id = currency_exchange_id
         self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
         return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
+            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
             self.finance_id, self.date, self.year, self.month, self.day, self.account_id,
             self.category_id, self.subcategory_id, self.amount, self.comment,
             self.stock_name_id, self.shares, self.price, self.tax,
-            self.commission, self.active, self.rate_id, self.date_created, self.date_modified)
+            self.commission, self.active, self.rate_id,
+            self.currency_exchange_id, self.date_created, self.date_modified)
 
 class T_STOCK(object):
     """ T_STOCK """
@@ -183,15 +185,14 @@ class T_CURRENCY(object):
 class T_CURRENCY_EXCHANGE(object):
     """ T_CURRENCY_EXCHANGE """
 
-    def __init__(self, currency_exchange_id, currency_id, exchange_rate, finance_id):
+    def __init__(self, currency_exchange_id, currency_id, exchange_rate):
         self.currency_exchange_id = currency_exchange_id
         self.currency_id = currency_id 
         self.exchange_rate = exchange_rate
-        self.finance_id = finance_id
 
     def __repr__(self):
-        return "<T_CURRENCY_EXCHANGE('%s', '%s', '%s', '%s')>" % (self.currency_exchange_id, self.currency_id,
-                self.exchange_rate, self.finance_id)
+        return "<T_CURRENCY_EXCHANGE('%s', '%s', '%s')>" % (self.currency_exchange_id, self.currency_id,
+                self.exchange_rate)
 
 class T_FORMULA(object):
     """ T_FORMULA """

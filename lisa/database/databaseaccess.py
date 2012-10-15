@@ -353,6 +353,7 @@ class DatabaseAccess():
                 market_id = -1
                 stock_name_id = -1
                 rate_id = -1
+                currency_exchange_id = -1
                 if self.deals_with_stocks(fields):
                     if fields['market_name'] != '':
                         market_id = self.market_id_from_market(fields['market_name'])
@@ -375,6 +376,8 @@ class DatabaseAccess():
                             commission=Decimal(fields['commission']),
                             active=1
                             ).first()
+                #TODO: get the currency_exchange_id's that we saved in the
+                #previous step and use them here.
                 if obj is None: 
                         records = records + 1
                         statement_finance.add(
@@ -397,6 +400,7 @@ class DatabaseAccess():
                                 Decimal(fields['commission']),
                                 1,
                                 rate_id,
+                                currency_exchange_id,
                                 date_created,
                                 date_modified
                             )
@@ -491,37 +495,27 @@ class DatabaseAccess():
     def create_statements_TABLE_CURRENCY_EXCHANGE(self, input_fields):
         """ Creates the records needed for TABLE_CURRENCY_EXCHANGE. """
         try:
-            session = self.Session()
             statement_currency_exchange = Statement(TABLE_CURRENCY_EXCHANGE)
             records = 0
-            finance_id = -1 #TODO: see below, needs to be a correct one for
-            #each fields in input_fields
+            #TODO: keep/retrieve the currency_exchange_id's that are created
+            #after writing these statements in main/controller, for use 
+            # in the FINANCE table.
             for fields in input_fields:
-                obj = session.query(T_CURRENCY_EXCHANGE).filter_by(
-                            currency_id=self.currency_id_from_currency(fields['currency']),
-                            exchange_rate=Decimal(fields['exchange_rate']),
-                            finance_id=finance_id
-                            #TODO: need to get the
-                            #finance id's somehow, after adding the finance
-                            #statements first?
-                            ).first()
-                if obj is None: 
-                        records = records + 1
-                        statement_currency_exchange.add(
-                            records,
-                            T_CURRENCY_EXCHANGE(
-                                None,
-                                fields['currency'],
-                                Decimal(fields['exchange_rate']),
-                                finance_id #TODO: see above
-                            )
-                        )
-            session = None
+                records = records + 1
+                #NOTE: we don't need to query, because we always add a new
+                #currency_exchange line. The same value can be used multiple
+                #times, so it's not possible to query if one already exists.
+                statement_currency_exchange.add(
+                    records,
+                    T_CURRENCY_EXCHANGE(
+                        None,
+                        fields['currency'],
+                        Decimal(fields['exchange_rate']),
+                    )
+                )
             return statement_currency_exchange
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_CURRENCY_EXCHANGE, ex)
-
-
 
     def calculate_commission(self):
         """ Calculation for T_RATE """

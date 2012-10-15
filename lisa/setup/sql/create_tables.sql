@@ -4,7 +4,7 @@ BEGIN;
 CREATE TABLE T_SUBCATEGORY
 (
     subcategory_id int not null,
-    category_id int not null,
+    category_id int not null default -1,
     name varchar(20) not null,
     active int not null default 1,
     date_created timestamp not null default current_date,
@@ -47,7 +47,7 @@ CREATE TABLE T_STOCK_NAME
 (
     stock_name_id serial not null,
     name varchar(15) not null,
-    market_id int not null,
+    market_id int not null default -1,
     description varchar(256) not null default '',
     active int not null default 1,
     date_created timestamp not null default current_date,
@@ -89,8 +89,8 @@ CREATE TABLE T_PARAMETER
 CREATE TABLE T_RATE
 (
     rate_id serial not null,
-    market_id int not null,
-    account_id int not null,
+    market_id int not null default -1,
+    account_id int not null default -1,
     calculated decimal(18, 4) not null default 0.0,
     calculated_percent decimal(18, 4) not null default 0.0,
     on_shares decimal(18, 4) not null default 0.0,
@@ -99,7 +99,7 @@ CREATE TABLE T_RATE
     on_other decimal(18, 4) not null default 0.0,
     commission decimal(18, 4) not null default 0.0,
     tax decimal(18, 4) not null default 0.0,
-    formula_id int not null,
+    formula_id int not null default -1,
     manual_flag int not null default 0,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date
@@ -113,9 +113,9 @@ CREATE TABLE T_FINANCE
     year int not null default 0,
     month int not null default 0,
     day int not null default 0,
-    account_id int not null,
-    category_id int not null,
-    subcategory_id int not null,
+    account_id int not null default -1,
+    category_id int not null default -1,
+    subcategory_id int not null default -1,
     amount decimal(18,4) not null default 0.0,
     comment varchar(256) not null default '',
     stock_name_id int not null default 0,
@@ -124,7 +124,8 @@ CREATE TABLE T_FINANCE
     tax decimal(18,4) not null default 0.0,
     commission decimal (18,4) not null default 0.0,
     active int not null default 1, 
-    rate_id int not null default 0,
+    rate_id int not null default -1,
+    currency_exchange_id int not null default -1,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date
 );
@@ -132,8 +133,8 @@ CREATE TABLE T_FINANCE
 CREATE TABLE T_STOCK
 (
     stock_id serial not null,
-    finance_id int not null,
-    stock_name_id int not null,
+    finance_id int not null default -1,
+    stock_name_id int not null default -1,
     action varchar(50) not null,
     price decimal(18,4) not null default 0.0,
     shares int not null default 0,
@@ -156,9 +157,8 @@ CREATE TABLE T_CURRENCY
 CREATE TABLE T_CURRENCY_EXCHANGE
 (
     currency_exchange_id serial not null,
-    currency_id int not null,
-    exchange_rate decimal(18,6) not null default(1.0),
-    finance_id int not null
+    currency_id int not null default -1,
+    exchange_rate decimal(18,6) not null default(1.0)
 );
 
 /* This might belong in bi */
@@ -203,10 +203,10 @@ CREATE TABLE T_TRADE
     profit_loss_percent decimal(18,4) not null default 0.0,
     win_flag int not null default 1,
     at_work decimal(18,4) not null default 0.0,
-    id_buy int not null,
-    id_sell int not null,
-    currency_id int not null default 0,
-    drawdown_id int not null default 0,
+    id_buy int not null default -1,
+    id_sell int not null default -1,
+    currency_id int not null default -1,
+    drawdown_id int not null default -1,
     active int not null default 1,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date
@@ -215,7 +215,7 @@ CREATE TABLE T_TRADE
 CREATE TABLE T_MARGIN
 (
     margin_id serial not null,
-    margin_type_id int not null,
+    margin_type_id int not null default -1,
     description varchar(100) not null default '',
     value decimal(18,4) not null default 0.0,
     date_created timestamp not null default current_date,
