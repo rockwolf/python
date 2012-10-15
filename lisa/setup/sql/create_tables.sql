@@ -158,7 +158,9 @@ CREATE TABLE T_CURRENCY_EXCHANGE
 (
     currency_exchange_id serial not null,
     currency_id int not null default -1,
-    exchange_rate decimal(18,6) not null default(1.0)
+    exchange_rate decimal(18,6) not null default(1.0),
+    date_created timestamp not null default current_date,
+    date_modified timestamp not null default current_date
 );
 
 /* This might belong in bi */

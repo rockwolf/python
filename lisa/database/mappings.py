@@ -185,14 +185,17 @@ class T_CURRENCY(object):
 class T_CURRENCY_EXCHANGE(object):
     """ T_CURRENCY_EXCHANGE """
 
-    def __init__(self, currency_exchange_id, currency_id, exchange_rate):
+    def __init__(self, currency_exchange_id, currency_id, exchange_rate,
+            date_created, date_modified):
         self.currency_exchange_id = currency_exchange_id
         self.currency_id = currency_id 
         self.exchange_rate = exchange_rate
+        self.date_created = date_created 
+        self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_CURRENCY_EXCHANGE('%s', '%s', '%s')>" % (self.currency_exchange_id, self.currency_id,
-                self.exchange_rate)
+        return "<T_CURRENCY_EXCHANGE('%s', '%s', '%s', '%s', '%s')>" % (self.currency_exchange_id, self.currency_id,
+                self.exchange_rate, self.date_created, self.date_modified)
 
 class T_FORMULA(object):
     """ T_FORMULA """

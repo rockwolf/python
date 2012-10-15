@@ -496,6 +496,8 @@ class DatabaseAccess():
         """ Creates the records needed for TABLE_CURRENCY_EXCHANGE. """
         try:
             statement_currency_exchange = Statement(TABLE_CURRENCY_EXCHANGE)
+            date_created = current_date()
+            date_modified = current_date()
             records = 0
             #TODO: keep/retrieve the currency_exchange_id's that are created
             #after writing these statements in main/controller, for use 
@@ -505,12 +507,20 @@ class DatabaseAccess():
                 #NOTE: we don't need to query, because we always add a new
                 #currency_exchange line. The same value can be used multiple
                 #times, so it's not possible to query if one already exists.
+                #TODO: Perhaps add a datetime and use that to select the first
+                # T_CURRENCY_EXCHANGE recordid we can find in the table,
+                # based on a query containing that datetime.
+                # Fraom there, you count + 1 for each finance record.
+                # Thats how we could get the currency_exchange_id link
+                # working.
                 statement_currency_exchange.add(
                     records,
                     T_CURRENCY_EXCHANGE(
                         None,
                         fields['currency'],
                         Decimal(fields['exchange_rate']),
+                        date_created,
+                        date_modified
                     )
                 )
             return statement_currency_exchange
