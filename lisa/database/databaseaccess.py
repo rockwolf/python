@@ -345,6 +345,7 @@ class DatabaseAccess():
             date_modified = current_date()
             statement_finance = Statement(TABLE_FINANCE)
             records = 0
+            currency_exchange_id = self.first_currency_exchange_id_from_latest()
             for fields in input_fields:
                 subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'])
                 account_id = self.account_id_from_account(fields['account'])
@@ -353,7 +354,6 @@ class DatabaseAccess():
                 market_id = -1
                 stock_name_id = -1
                 rate_id = -1
-                currency_exchange_id = -1
                 if self.deals_with_stocks(fields):
                     if fields['market_name'] != '':
                         market_id = self.market_id_from_market(fields['market_name'])
@@ -376,8 +376,6 @@ class DatabaseAccess():
                             commission=Decimal(fields['commission']),
                             active=1
                             ).first()
-                #TODO: get the currency_exchange_id's that we saved in the
-                #previous step and use them here.
                 if obj is None: 
                         records = records + 1
                         statement_finance.add(
@@ -405,6 +403,7 @@ class DatabaseAccess():
                                 date_modified
                             )
                         )
+                        currency_exchange_id = currency_exchange_id + 1
             session = None
             return statement_finance
         except Exception as ex:
@@ -499,20 +498,11 @@ class DatabaseAccess():
             date_created = current_date()
             date_modified = current_date()
             records = 0
-            #TODO: keep/retrieve the currency_exchange_id's that are created
-            #after writing these statements in main/controller, for use 
-            # in the FINANCE table.
             for fields in input_fields:
                 records = records + 1
                 #NOTE: we don't need to query, because we always add a new
                 #currency_exchange line. The same value can be used multiple
                 #times, so it's not possible to query if one already exists.
-                #TODO: Perhaps add a datetime and use that to select the first
-                # T_CURRENCY_EXCHANGE recordid we can find in the table,
-                # based on a query containing that datetime.
-                # Fraom there, you count + 1 for each finance record.
-                # Thats how we could get the currency_exchange_id link
-                # working.
                 statement_currency_exchange.add(
                     records,
                     T_CURRENCY_EXCHANGE(
@@ -956,3 +946,39 @@ class DatabaseAccess():
         """ See if we need to use rate, marketid and stockid. """
         return (self.is_a_trade(fields) or self.is_an_investment(fields))
 
+    def first_currency_exchange_id_from_latest(self):
+        """ 
+            Gets the first currency_exchange_id from the latest update
+            block, which is determined by examining the date_created column.
+        """
+        result = -1
+        try:
+            currency_exchange_created = self.get_latest_currency_exchange_created()
+            session = self.Session()
+            obj = session.query(T_CURRENCY_EXCHANGE).filter_by(date_created=currency_exchange_created)
+            if obj is not None:
+                for instance in :
+                    result = instance.currency_exchange_id
+        except Exception as ex:
+            print("Error in first_currency_id_from_latest: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
+
+    def get_latest_currency_exchange_created():
+        """ Get's the latest date_created value that was added. """
+        result = current_date()
+        try:
+            session = self.Session()
+            obj =
+            session.query(T_CURRENCY_EXCHANGE).order_by(currency_exchange_id.desc())
+            if obj is not None:
+                for instance in :
+                    result = instance.date_created
+        except Exception as ex:
+            print("Error in get_latest_currency_exchange_created: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
