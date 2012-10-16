@@ -64,19 +64,20 @@ class ControllerMain():
             #TODO: test code below, the write_to_database is temporarily
             #disabled... re-enable when finished testing.
            
+            input_fields = self.get_input_fields(tablecontent)
             # Note: The order of execution below is important!
             #dba.write_to_database(dba.create_statements_TABLE_RATE(self.get_input_fields(tablecontent)))
-            test = dba.create_statements_TABLE_RATE(self.get_input_fields(tablecontent))
+            test = dba.create_statements_TABLE_RATE(input_fields)
             test.print_statements()
-            test = dba.create_statements_TABLE_CURRENCY_EXCHANGE(self.get_input_fields(tablecontent))
+            test = dba.create_statements_TABLE_CURRENCY_EXCHANGE(input_fields)
             test.print_statements()
-            test = dba.create_statements_TABLE_FINANCE(self.get_input_fields(tablecontent))
+            test = dba.create_statements_TABLE_FINANCE(input_fields)
             test.print_statements()
             #
             #dba.write_to_database(dba.create_statements_TABLE_FINANCE(self.get_input_fields(tablecontent)))
-            #if dba.is_an_investment():
+            #if self.is_an_investment():
             #    dba.write_to_database(dba.create_statements_TABLE_STOCK(self.get_input_fields(tablecontent)))
-            #if dba.is_a_trade():
+            #if self.is_a_trade():
             #    dba.write_to_database(dba.create_statements_TABLE_TRADE(self.get_input_fields(tablecontent)))
             dba = None
         except  Exception as ex:
@@ -92,6 +93,18 @@ class ControllerMain():
                     flg_income = 1
                 elif(category[-3:] == '.tx'):
                     flg_income = 0
+                if self.deals_with_stocks(category) :
+                    shares = field[10]
+                    price = field[11]
+                    commission = field[12]
+                    tax = field[13]
+                    risk = field[14]
+                else:
+                    shares = -1
+                    price = -1
+                    commission = -1
+                    tax = -1
+                    risk = -1
                 fields_db.append({
                     'date':field[0],
                     'account':field[1], #Note: Get account_id from T_ACCOUNT for final insert
@@ -104,11 +117,11 @@ class ControllerMain():
                     'stock_description':field[7],
                     'market_name':field[8],
                     'market_description':field[9],
-                    'shares':field[10],
-                    'price':field[11],
-                    'commission':field[12],
-                    'tax':field[13],
-                    'risk':field[14],
+                    'shares':shares,
+                    'price':price,
+                    'commission':commission,
+                    'tax':tax,
+                    'risk':risk,
                     'currency':field[15],
                     'exchange_rate':field[16],
                     'manual_flag':field[17]
@@ -273,3 +286,28 @@ class ControllerMain():
     def convert_to_base_currency(self, currency_base, currency_new, value):
         """ Convert a new currency to the base currency. """
         pass
+
+    #TODO: we need to be able to access these functions in databaseaccess.py
+    # perhaps move it to modules/function?
+    # We can't give it with the call to create_statements_TABLE_FINANCE,
+    # because we need to know the deals_with_stocks property for each field
+    # in input_fields. That's why we have this problem.
+    def is_a_trade(self, category, subcategory):
+        """ Function to determine if a line to process, is a trade. """
+        return (category == 'trade.tx' or \
+               category == 'trade.rx') \
+               and (subcategory == 'buy' or \
+               subcategory == 'sell')
+
+    def is_an_investment(self, category, subcategory):
+        """ Function to determine if a line to process, is an investent (buy
+        or sell of stock, that's not a trade). """
+        return (category == 'invest.tx' or \
+               category == 'invest.rx') \
+               and (subcategory == 'buy' or \
+               subcategory == 'sell')
+
+    def deals_with_stocks(self, category, subcategory):
+        """ See if we need to use rate, marketid and stockid. """
+        return (self.is_a_trade(category, subcategory) or
+                self.is_an_investment(category, subcategory))

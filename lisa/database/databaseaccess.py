@@ -337,7 +337,7 @@ class DatabaseAccess():
             session = None
         return values
 
-    def create_statements_TABLE_FINANCE(self, input_fields):
+    def create_statements_TABLE_FINANCE(self, input_fields, deals_with_stocks):
         """ Creates the records needed for TABLE_FINANCE. """
         try:
             session = self.Session()
@@ -354,7 +354,7 @@ class DatabaseAccess():
                 market_id = -1
                 stock_name_id = -1
                 rate_id = -1
-                if self.deals_with_stocks(fields):
+                if deals_with_stocks:
                     if fields['market_name'] != '':
                         market_id = self.market_id_from_market(fields['market_name'])
                     if fields['stock_name'] != '':
@@ -911,22 +911,6 @@ class DatabaseAccess():
             session = None
         return result
 
-
-    def is_a_trade(self, fields):
-        """ Function to determine if a line to process, is a trade. """
-        return (fields['category'] == 'trade.tx' or \
-               fields['category'] == 'trade.rx') \
-               and (fields['subcategory'] == 'buy' or \
-               fields['subcategory'] == 'sell')
-
-    def is_an_investment(self, fields):
-        """ Function to determine if a line to process, is an investent (buy
-        or sell of stock, that's not a trade). """
-        return (fields['category'] == 'invest.tx' or \
-               fields['category'] == 'invest.rx') \
-               and (fields['subcategory'] == 'buy' or \
-               fields['subcategory'] == 'sell')
-
     def get_parameter_value(self, parameter_id):
         """ Function to get the value that belongs to the given parameter. """
         result = ''
@@ -942,10 +926,6 @@ class DatabaseAccess():
             session = None
         return result
 
-    def deals_with_stocks(self, fields):
-        """ See if we need to use rate, marketid and stockid. """
-        return (self.is_a_trade(fields) or self.is_an_investment(fields))
-
     def first_currency_exchange_id_from_latest(self):
         """ 
             Gets the first currency_exchange_id from the latest update
@@ -953,11 +933,11 @@ class DatabaseAccess():
         """
         result = -1
         try:
-            currency_exchange_created = self.get_latest_currency_exchange_created()
             session = self.Session()
+            currency_exchange_created = self.get_latest_currency_exchange_created()
             obj = session.query(T_CURRENCY_EXCHANGE).filter_by(date_created=currency_exchange_created)
             if obj is not None:
-                for instance in :
+                for instance in obj:
                     result = instance.currency_exchange_id
         except Exception as ex:
             print("Error in first_currency_id_from_latest: ", ex)
@@ -966,15 +946,15 @@ class DatabaseAccess():
             session = None
         return result
 
-    def get_latest_currency_exchange_created():
+    def get_latest_currency_exchange_created(self):
         """ Get's the latest date_created value that was added. """
         result = current_date()
         try:
             session = self.Session()
-            obj =
-            session.query(T_CURRENCY_EXCHANGE).order_by(currency_exchange_id.desc())
+            obj = session.query(T_CURRENCY_EXCHANGE).order_by(
+                    T_CURRENCY_EXCHANGE.currency_exchange_id.desc())
             if obj is not None:
-                for instance in :
+                for instance in obj:
                     result = instance.date_created
         except Exception as ex:
             print("Error in get_latest_currency_exchange_created: ", ex)
