@@ -496,11 +496,13 @@ class DatabaseAccess():
                 #NOTE: we don't need to query, because we always add a new
                 #currency_exchange line. The same value can be used multiple
                 #times, so it's not possible to query if one already exists.
+                #TODO: fields['currency'] should have a function to retrieve
+                #the id based on the currency name
                 statement_currency_exchange.add(
                     records,
                     T_CURRENCY_EXCHANGE(
                         None,
-                        fields['currency'],
+                        self.currency_id_from_currency(fields['currency']),
                         Decimal(fields['exchange_rate']),
                         date_created,
                         date_modified
