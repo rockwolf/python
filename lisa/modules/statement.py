@@ -63,3 +63,17 @@ class Statement():
         print('_______________' + '_'*len(self.table_name), '\n')
         for s in (self.statements):
             print(s)
+
+    def get_statement_list(self):
+        """
+            Returns a list of statments from the statement object,
+            without the recordid.
+        """
+        result = []
+        if self.statements is not None:
+            print('test1')
+            for statement in self.statements:
+                print('test:', statement[1])
+                result.append(statement[1])
+        return result
+

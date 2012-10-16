@@ -67,19 +67,21 @@ class ControllerMain():
            
             input_fields = self.get_input_fields(tablecontent)
             # Note: The order of execution below is important!
-            #dba.write_to_database(dba.create_statements_TABLE_RATE(self.get_input_fields(tablecontent)))
-            test = dba.create_statements_TABLE_RATE(input_fields)
-            test.print_statements()
             test = dba.create_statements_TABLE_CURRENCY_EXCHANGE(input_fields)
+            test.print_statements()
+            test = dba.create_statements_TABLE_RATE(input_fields)
             test.print_statements()
             test = dba.create_statements_TABLE_FINANCE(input_fields)
             test.print_statements()
+            
+            dba.write_to_database(dba.create_statements_TABLE_CURRENCY_EXCHANGE(input_fields))
+            #dba.write_to_database(dba.create_statements_TABLE_RATE(input_fields))
             #
-            #dba.write_to_database(dba.create_statements_TABLE_FINANCE(self.get_input_fields(tablecontent)))
+            #dba.write_to_database(dba.create_statements_TABLE_FINANCE(input_fields))
             #if self.is_an_investment():
-            #    dba.write_to_database(dba.create_statements_TABLE_STOCK(self.get_input_fields(tablecontent)))
+            #    dba.write_to_database(dba.create_statements_TABLE_STOCK(input_fields))
             #if self.is_a_trade():
-            #    dba.write_to_database(dba.create_statements_TABLE_TRADE(self.get_input_fields(tablecontent)))
+            #    dba.write_to_database(dba.create_statements_TABLE_TRADE(input_fields))
             dba = None
         except  Exception as ex:
             print(ERROR_WRITE_TO_DATABASE, ex)

@@ -517,14 +517,17 @@ class DatabaseAccess():
     def write_to_database(self, statements):
         """ Writes the records of a given statements list to the database.
         """
+        print('test: before writing...')
         try:
+            print(statements)
             session = self.Session()
+            statement_list = statements.get_statement_list()
             try:
                 print(MESSAGE_EXEC_ALL)
-                session.add_all(statements)
+                session.add_all(statement_list)
                 session.commit()
                 session = None
-                print("{0} records added.".format(str(len(statements))))
+                print("{0} records added.".format(str(len(statement_list))))
             except Exception as ex:
                 session.rollback()
                 print(ERROR_WRITE_TO_DATABASE, ex)
