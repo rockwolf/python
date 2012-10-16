@@ -29,6 +29,7 @@ from modules_generic.function import *
 from modules_generic.messagehandler import *
 from modules.statement import Statement
 from modules.constant import *
+from modules.function import *
 
 class DatabaseAccess():
     """ Connecting to the database. """ 
@@ -121,20 +122,12 @@ class DatabaseAccess():
             }
             self.map_tables()
             self.map_views()
-            self.tables = [x for x in self.metadata.tables.keys() if
-                    self.is_a_table(x) ]
+            self.tables = [x for x in self.metadata.tables.keys() if is_a_table(x) ]
             self.statementFinance = Statement(TABLE_FINANCE)
             self.statementStock = Statement(TABLE_STOCK)
         except Exception as ex:
             print("Error in initialisation of DatabaseAccess: ", ex)
    
-    def is_a_table(self, key):
-        """ Used to ignore all dictionary entries that don't start with t_ """
-        if key.lower()[0:2] == 't_':
-            return True
-        else:
-            return False
-
     def map_tables(self):
         """ Create mappers for the tables on the db and the table classes. """
         mapper(T_FINANCE, self.loaded_objects[TABLE_FINANCE])
@@ -337,7 +330,7 @@ class DatabaseAccess():
             session = None
         return values
 
-    def create_statements_TABLE_FINANCE(self, input_fields, deals_with_stocks):
+    def create_statements_TABLE_FINANCE(self, input_fields):
         """ Creates the records needed for TABLE_FINANCE. """
         try:
             session = self.Session()
@@ -354,7 +347,7 @@ class DatabaseAccess():
                 market_id = -1
                 stock_name_id = -1
                 rate_id = -1
-                if deals_with_stocks:
+                if deals_with_stocks(fields['category'], fields['subcategory']):
                     if fields['market_name'] != '':
                         market_id = self.market_id_from_market(fields['market_name'])
                     if fields['stock_name'] != '':
@@ -420,7 +413,7 @@ class DatabaseAccess():
             statement_rate = Statement(TABLE_RATE)
             records = 0
             for fields in input_fields:
-                if self.deals_with_stocks(fields):
+                if deals_with_stocks(fields['category'], fields['subcategory']):
                     if fields['market_name'] != '':
                         market_id = self.market_id_from_market(fields['market_name'])
                     else:

@@ -31,6 +31,7 @@ from database.databaseaccess import DatabaseAccess
 from pyqt.controllerpyqt import ControllerPyqt
 from PyQt4 import QtGui
 from modules.constant import *
+from modules.function import *
 
 class ControllerMain():
     """ Contains the bussiness logic of the application. """
@@ -89,11 +90,12 @@ class ControllerMain():
         try:
             for field in tablecontent:
                 category = field[2]
+                subcategory = field[3]
                 if(category[-3:] == '.rx'):
                     flg_income = 1
                 elif(category[-3:] == '.tx'):
                     flg_income = 0
-                if self.deals_with_stocks(category) :
+                if deals_with_stocks(category, subcategory) :
                     shares = field[10]
                     price = field[11]
                     commission = field[12]
@@ -286,28 +288,3 @@ class ControllerMain():
     def convert_to_base_currency(self, currency_base, currency_new, value):
         """ Convert a new currency to the base currency. """
         pass
-
-    #TODO: we need to be able to access these functions in databaseaccess.py
-    # perhaps move it to modules/function?
-    # We can't give it with the call to create_statements_TABLE_FINANCE,
-    # because we need to know the deals_with_stocks property for each field
-    # in input_fields. That's why we have this problem.
-    def is_a_trade(self, category, subcategory):
-        """ Function to determine if a line to process, is a trade. """
-        return (category == 'trade.tx' or \
-               category == 'trade.rx') \
-               and (subcategory == 'buy' or \
-               subcategory == 'sell')
-
-    def is_an_investment(self, category, subcategory):
-        """ Function to determine if a line to process, is an investent (buy
-        or sell of stock, that's not a trade). """
-        return (category == 'invest.tx' or \
-               category == 'invest.rx') \
-               and (subcategory == 'buy' or \
-               subcategory == 'sell')
-
-    def deals_with_stocks(self, category, subcategory):
-        """ See if we need to use rate, marketid and stockid. """
-        return (self.is_a_trade(category, subcategory) or
-                self.is_an_investment(category, subcategory))
