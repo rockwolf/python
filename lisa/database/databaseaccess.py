@@ -496,8 +496,6 @@ class DatabaseAccess():
                 #NOTE: we don't need to query, because we always add a new
                 #currency_exchange line. The same value can be used multiple
                 #times, so it's not possible to query if one already exists.
-                #TODO: fields['currency'] should have a function to retrieve
-                #the id based on the currency name
                 statement_currency_exchange.add(
                     records,
                     T_CURRENCY_EXCHANGE(
@@ -854,9 +852,6 @@ class DatabaseAccess():
         result = -1
         session = self.Session()
         try:
-            # Get account id, based on account name
-            # but first check if the account already exists
-            # in T_ACCOUNT. If not, add it to the t_account table.
             obj = session.query(T_CURRENCY).filter_by(code=currency).first() is not None
             if obj: 
                 for instance in session.query(T_CURRENCY).filter_by(code=currency):
