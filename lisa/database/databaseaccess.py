@@ -469,7 +469,31 @@ class DatabaseAccess():
     
     def create_statements_TABLE_STOCK(self, input_fields):
         """ Creates the records needed for TABLE_STOCK. """
-        return 0.0
+        try:
+            session = self.Session()
+            date_created = current_date()
+            date_modified = current_date()
+            statement_stock = Statement(TABLE_STOCK)
+            records = 0
+            for fields in input_fields:
+                if deals_with_stocks(fields['category'], fields['subcategory']):
+                    record = records + 1
+                    #TODO: query to see if we need to update instead?
+                    #or is that not necessary?
+                    #TODO: Add the other fields too
+                    #And what about T_STOCK_NAME etc.??? Should maybe be checked first, to make
+                    #sure we update this first. That way, we are sure we have a link.
+                    statement_stock.add(
+                        records,
+                        T_STOCK(
+                            None,
+                            date_created,
+                            date_modified
+                         )
+                     )
+            return statement_stock
+        except Exception as ex:
+            print(ERROR_CREATE_STATEMENTS_TABLE_STOCK, ex)
     
     def create_statements_TABLE_TRADE(self, input_fields):
         """ Creates the records needed for TABLE_TRADE. """
