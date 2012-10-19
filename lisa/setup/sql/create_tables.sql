@@ -126,6 +126,7 @@ CREATE TABLE T_FINANCE
     active int not null default 1, 
     rate_id int not null default -1,
     currency_exchange_id int not null default -1,
+    stock_id int not null default -1,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date
 );
@@ -133,7 +134,6 @@ CREATE TABLE T_FINANCE
 CREATE TABLE T_STOCK
 (
     stock_id serial not null,
-    finance_id int not null default -1,
     stock_name_id int not null default -1,
     action varchar(50) not null,
     price decimal(18,4) not null default 0.0,
