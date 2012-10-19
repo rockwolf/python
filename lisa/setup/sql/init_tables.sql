@@ -1,21 +1,21 @@
 BEGIN;
 /* accounts */
-INSERT INTO T_ACCOUNT(name, date_created, date_modified)
+INSERT INTO T_ACCOUNT(name, description, date_created, date_modified)
 values('belf00', 'Checking account', current_date, current_date);
 
-INSERT INTO T_ACCOUNT(name, date_created, date_modified)
+INSERT INTO T_ACCOUNT(name, description, date_created, date_modified)
 values('belf01', 'Savings account', current_date, current_date);
 
-INSERT INTO T_ACCOUNT(name, date_created, date_modified)
+INSERT INTO T_ACCOUNT(name, description, date_created, date_modified)
 values('belf02', 'Retirement savings', current_date, current_date);
 
-INSERT INTO T_ACCOUNT(name, date_created, date_modified)
+INSERT INTO T_ACCOUNT(name, description, date_created, date_modified)
 values('binb00', 'Investing account', current_date, current_date);
 
-INSERT INTO T_ACCOUNT(name, date_created, date_modified)
+INSERT INTO T_ACCOUNT(name, description, date_created, date_modified)
 values('unib00', 'Betting account', current_date, current_date);
 
-INSERT INTO T_ACCOUNT(name, date_created, date_modified)
+INSERT INTO T_ACCOUNT(name, description, date_created, date_modified)
 values('whsi00', 'Trading account', current_date, current_date);
 
 /* markets */
