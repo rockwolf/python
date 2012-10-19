@@ -17,7 +17,7 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 """
 
 TABLE_FINANCE = 't_finance'
-TABLE_STOCK = 't_stock'
+TABLE_INVESTMENT = 't_investment'
 TABLE_MARKET = 't_market'
 TABLE_STOCK_NAME = 't_stock_name'
 TABLE_CATEGORY = 't_category'
@@ -33,7 +33,7 @@ TABLE_DRAWDOWN = 't_drawdown'
 TABLE_MARGIN = 't_margin'
 TABLE_MARGIN_TYPE = 't_margin_type'
 VIEW_FINANCE = 'v_finance'
-VIEW_STOCK = 'v_stock'
+VIEW_INVESTMENT = 'v_investment'
 VIEW_MARKET = 'v_market'
 VIEW_STOCK_NAME = 'v_stock_name'
 VIEW_CATEGORY = 'v_category'
@@ -58,8 +58,11 @@ ERROR_GET_STOCK_NAMES = "Error in get_stocknames: "
 ERROR_GET_STOCK_DESCRIPTION = "Error in get_stockdescription: "
 ERROR_GET_STOCK_INFO = "Error in get_stockinfo: "
 ERROR_GET_CURRENCIES = "Error in get_currencies: "
+#TODO: delete the file_import_stocks part and the related file
+#in modules/stock.py, because it is no longer used (I think?).
 ERROR_FILE_IMPORT_STOCKS = "Error in file_import_stocks: "
 ERROR_FILE_IMPORT_STOCKS_SESSION = "Error creating session in file_import_stocks: "
+#TODO: will be removed later, when updating investments is made.
 ERROR_UPDATE_STOCK = "Error in update_stock: "
 ERROR_EXPORT_RECORDS = "Error in export_records: "
 ERROR_SUBCATEGORY_ID_FROM_SUBCATEGORY = "Error retrieving subcategory_id: "
