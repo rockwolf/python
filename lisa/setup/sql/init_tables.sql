@@ -466,7 +466,6 @@ INSERT INTO T_PARAMETER(parameter_id, name, value, description)
 values(8, 'parm08', 0.15, 'dividend tax - NL');
 
 /* t_margin_types */
-/* t_margin_types */
 INSERT INTO T_MARGIN_TYPE(margin_type)
 values('safety');
 
