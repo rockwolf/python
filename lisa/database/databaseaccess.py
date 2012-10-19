@@ -477,10 +477,23 @@ class DatabaseAccess():
             session = self.Session()
             date_created = current_date()
             date_modified = current_date()
-            statement_trade = Statement(TABLE_RATE)
+            statement_trade = Statement(TABLE_TRADE)
             records = 0
             for fields in input_fields:
-                print('test: dummy')
+                if is_a_trade(fields):
+                    record = records + 1
+                    #TODO: query to see if we need to update instead?
+                    #or is that not necessary?
+                    #TODO: Add the other fields too
+                    statement_trade.add(
+                        records,
+                        T_TRADE(
+                            None,
+                            date_created,
+                            date_modified
+                         )
+                     )
+            return statement_trade
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_TRADE, ex)
 
