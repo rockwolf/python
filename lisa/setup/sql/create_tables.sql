@@ -25,6 +25,7 @@ CREATE TABLE T_ACCOUNT
 (
     account_id serial not null,
     name varchar(6) not null,
+    description varchar(256) not null default '',
     active int not null default 1,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date
