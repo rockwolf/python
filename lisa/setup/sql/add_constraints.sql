@@ -42,8 +42,8 @@ alter table T_FINANCE
     add constraint fk_rate_id foreign key(rate_id) references T_RATE;
 alter table T_STOCK
     add constraint pk_stock_id primary key(stock_id);
-alter table T_STOCK
-    add constraint fk_finance_id foreign key(finance_id) references T_FINANCE(finance_id);
+alter table T_FINANCE
+    add constraint fk_stock_id foreign key(stock_id) references T_STOCK(stock_id);
 alter table T_STOCK
     add constraint fk_stock_name_id foreign key(stock_name_id) references T_STOCK_NAME(stock_name_id);
 alter table T_CURRENCY
