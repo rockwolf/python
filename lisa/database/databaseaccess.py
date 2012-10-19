@@ -665,15 +665,6 @@ class DatabaseAccess():
             session.rollback()
             session = None
             return records
-        
-    def remove_line(self, rownumber):
-        """ Removes a line from the table. """
-        #TODO: when trade.tx, tr... etc. (= stock), remove from both
-        #classes.
-        #TODO: make the Statement-classes accessible from this function?
-        #NOTE: I don't think this one is necessary, because we always make
-        #sure the information is correct before we press execute.
-        pass
 
     def subcategory_id_from_subcategory(self, subcategory):
         """ Get the subcategory_id from a subcategory. """
