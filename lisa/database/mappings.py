@@ -20,7 +20,7 @@ class T_FINANCE(object):
 
     def __init__(self, finance_id, date, year, month, day, account_id, category_id,
             subcategory_id, amount, comment, stock_name_id, shares, price, tax,
-            commission, active, rate_id, currency_exchange_id, stock_id, date_created, date_modified):
+            commission, active, rate_id, currency_exchange_id, date_created, date_modified):
         self.finance_id = finance_id
         self.date = date
         self.year = year
@@ -39,26 +39,25 @@ class T_FINANCE(object):
         self.active = active
         self.rate_id = rate_id 
         self.currency_exchange_id = currency_exchange_id
-        self.stock_id = stock_id
         self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
         return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-            '%s', '%s')>" % (
+            '%s')>" % (
             self.finance_id, self.date, self.year, self.month, self.day, self.account_id,
             self.category_id, self.subcategory_id, self.amount, self.comment,
             self.stock_name_id, self.shares, self.price, self.tax,
             self.commission, self.active, self.rate_id,
-            self.currency_exchange_id, self.stock_id, self.date_created, self.date_modified)
+            self.currency_exchange_id, self.date_created, self.date_modified)
 
-class T_STOCK(object):
-    """ T_STOCK """
+class T_INVESTMENT(object):
+    """ T_INVESTMENT """
 
-    def __init__(self, stock_id, stock_name_id, action, price, shares, tax,
+    def __init__(self, investment_id, stock_name_id, action, price, shares, tax,
             commission, historical, active, date_created, date_modified, risk):
-        self.stock_id = stock_id
+        self.investment_id = investment_id
         self.stock_name_id = stock_name_id
         self.action = action
         self.price = price
@@ -72,7 +71,7 @@ class T_STOCK(object):
         self.risk = risk
 
     def __repr__(self):
-        return "<T_STOCK('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.stock_id, self.stock_name_id, self.action, self.price, self.shares, self.tax, self.commission, self.historical, self.active, self.date_created, self.date_modified, self.risk)
+        return "<T_STOCK('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.investment_id, self.stock_name_id, self.action, self.price, self.shares, self.tax, self.commission, self.historical, self.active, self.date_created, self.date_modified, self.risk)
 
 class T_STOCK_NAME(object):
     """ T_STOCK_NAME """
