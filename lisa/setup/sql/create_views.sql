@@ -60,14 +60,14 @@ from
     t_currency_exchange ce
 ;
 
-/* V_STOCK */
---DROP VIEW V_STOCK;
-CREATE VIEW V_STOCK
+/* V_INVESTMENT */
+--DROP VIEW V_INVESTMENT;
+CREATE VIEW V_INVESTMENT
 AS
 select
     s.*
 from
-    t_stock s
+    t_investment s
 ;
 
 /* V_STOCK_NAME */
