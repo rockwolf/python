@@ -339,6 +339,7 @@ class DatabaseAccess():
             statement_finance = Statement(TABLE_FINANCE)
             records = 0
             currency_exchange_id = self.first_currency_exchange_id_from_latest()
+            stock_id = self.first_stock_id_from_latest()
             for fields in input_fields:
                 subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'])
                 account_id = self.account_id_from_account(fields['account'])
@@ -392,11 +393,13 @@ class DatabaseAccess():
                                 1,
                                 rate_id,
                                 currency_exchange_id,
+                                stock_id,
                                 date_created,
                                 date_modified
                             )
                         )
                         currency_exchange_id = currency_exchange_id + 1
+                        stock_id = stock_id + 1
             session = None
             return statement_finance
         except Exception as ex:
@@ -967,6 +970,27 @@ class DatabaseAccess():
             session = None
         return result
 
+    def first_stock_id_from_latest(self):
+        """ 
+            Gets the first stock_id from the latest update
+            block, which is determined by examining the date_created column.
+        """
+        result = -1
+        try:
+            session = self.Session()
+            #TODO: make the below function and this function more generic?
+            stock_created = self.get_latest_stock_created()
+            obj = session.query(T_STOCK).filter_by(date_created=stock_created)
+            if obj is not None:
+                for instance in obj:
+                    result = instance.stock_id
+        except Exception as ex:
+            print("Error in first_stock_id_from_latest: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
+
     def get_latest_currency_exchange_created(self):
         """ Get's the latest date_created value that was added. """
         result = current_date()
@@ -979,6 +1003,23 @@ class DatabaseAccess():
                     result = instance.date_created
         except Exception as ex:
             print("Error in get_latest_currency_exchange_created: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
+    
+    def get_latest_stock_created(self):
+        """ Get's the latest date_created value that was added. """
+        result = current_date()
+        try:
+            session = self.Session()
+            obj = session.query(T_STOCK).order_by(
+                    T_STOCK.stock_id.desc())
+            if obj is not None:
+                for instance in obj:
+                    result = instance.date_created
+        except Exception as ex:
+            print("Error in get_latest_stock_created: ", ex)
         finally:
             session.rollback()
             session = None
