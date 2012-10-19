@@ -160,16 +160,17 @@ class T_SUBCATEGORY(object):
 class T_ACCOUNT(object):
     """ T_ACCOUNT """
 
-    def __init__(self, account_id, name, active, date_created, date_modified):
+    def __init__(self, account_id, name, description, active, date_created, date_modified):
         self.account_id = account_id
         self.name = name
+        self.description = description
         self.active = active
         self.date_created = date_created 
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_ACCOUNT('%s', '%s', '%s', '%s', '%s')>" % (self.account_id, self.name, 
-                self.active, self.date_created, self.date_modified)
+        return "<T_ACCOUNT('%s', '%s', '%s', '%s', '%s', '%s')>" % (self.account_id, self.name, 
+                self.description, self.active, self.date_created, self.date_modified)
 
 class T_CURRENCY(object):
     """ T_CURRENCY """
