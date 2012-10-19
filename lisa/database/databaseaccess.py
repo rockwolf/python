@@ -732,8 +732,9 @@ class DatabaseAccess():
             # but first check if the account already exists
             # in T_ACCOUNT. If not, add it to the t_account table.
             obj = session.query(T_ACCOUNT).filter_by(name=account).first() is not None
-            if not obj: 
-                session.add(T_ACCOUNT(account, date_created, date_modified))
+            if not obj:
+            	#TODO: add the ability to add a market description (Very low priority!)
+                session.add(T_ACCOUNT(account, '', date_created, date_modified))
                 session.commit()
                 for instance in session.query(func.max(T_ACCOUNT.account_id).label('account_id')):
                     result = instance.account_id
