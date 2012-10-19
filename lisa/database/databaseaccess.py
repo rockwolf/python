@@ -56,7 +56,7 @@ class DatabaseAccess():
             self.metadata = MetaData(self.db)
             self.loaded_objects = {
                     TABLE_FINANCE : Table(TABLE_FINANCE, self.metadata, autoload=True),
-                    TABLE_STOCK: Table(TABLE_STOCK, self.metadata, autoload=True),
+                    TABLE_INVESTMENT: Table(TABLE_INVESTMENT, self.metadata, autoload=True),
                     TABLE_MARKET: Table(TABLE_MARKET, self.metadata, autoload=True),
                     TABLE_STOCK_NAME: Table(TABLE_STOCK_NAME, self.metadata, autoload=True),
                     TABLE_CATEGORY: Table(TABLE_CATEGORY, self.metadata, autoload=True),
@@ -75,7 +75,7 @@ class DatabaseAccess():
                     VIEW_FINANCE: Table(VIEW_FINANCE, self.metadata,
                         Column('finance_id', Integer, primary_key=True),
                         autoload=True),
-                    VIEW_STOCK: Table(VIEW_STOCK, self.metadata,
+                    VIEW_INVESTMENT: Table(VIEW_INVESTMENT, self.metadata,
                         Column('stock_id', Integer, primary_key=True),
                         autoload=True),
                     VIEW_MARKET: Table(VIEW_MARKET, self.metadata,
@@ -123,15 +123,16 @@ class DatabaseAccess():
             self.map_tables()
             self.map_views()
             self.tables = [x for x in self.metadata.tables.keys() if is_a_table(x) ]
-            self.statementFinance = Statement(TABLE_FINANCE)
-            self.statementStock = Statement(TABLE_STOCK)
+            #TODO: I think these are not needed? Delete later after confirmation!
+            #self.statementFinance = Statement(TABLE_FINANCE)
+            #self.statementStock = Statement(TABLE_STOCK)
         except Exception as ex:
             print("Error in initialisation of DatabaseAccess: ", ex)
    
     def map_tables(self):
         """ Create mappers for the tables on the db and the table classes. """
         mapper(T_FINANCE, self.loaded_objects[TABLE_FINANCE])
-        mapper(T_STOCK, self.loaded_objects[TABLE_STOCK])
+        mapper(T_INVESTMENT, self.loaded_objects[TABLE_INVESTMENT])
         mapper(T_MARKET, self.loaded_objects[TABLE_MARKET])
         mapper(T_STOCK_NAME, self.loaded_objects[TABLE_STOCK_NAME])
         mapper(T_CATEGORY, self.loaded_objects[TABLE_CATEGORY])
@@ -150,7 +151,7 @@ class DatabaseAccess():
     def map_views(self):
         """ Create mappers for the views on the db and the view classes. """
         mapper(V_FINANCE, self.loaded_objects[VIEW_FINANCE])
-        mapper(V_STOCK, self.loaded_objects[VIEW_STOCK])
+        mapper(V_INVESTMENT, self.loaded_objects[VIEW_INVESTMENT])
         mapper(V_MARKET, self.loaded_objects[VIEW_MARKET])
         mapper(V_STOCK_NAME, self.loaded_objects[VIEW_STOCK_NAME])
         mapper(V_CATEGORY, self.loaded_objects[VIEW_CATEGORY])
@@ -339,7 +340,6 @@ class DatabaseAccess():
             statement_finance = Statement(TABLE_FINANCE)
             records = 0
             currency_exchange_id = self.first_currency_exchange_id_from_latest()
-            stock_id = self.first_stock_id_from_latest()
             for fields in input_fields:
                 subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'])
                 account_id = self.account_id_from_account(fields['account'])
@@ -393,13 +393,11 @@ class DatabaseAccess():
                                 1,
                                 rate_id,
                                 currency_exchange_id,
-                                stock_id,
                                 date_created,
                                 date_modified
                             )
                         )
                         currency_exchange_id = currency_exchange_id + 1
-                        stock_id = stock_id + 1
             session = None
             return statement_finance
         except Exception as ex:
@@ -470,33 +468,37 @@ class DatabaseAccess():
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_RATE, ex)
     
-    def create_statements_TABLE_STOCK(self, input_fields):
-        """ Creates the records needed for TABLE_STOCK. """
+    def create_statements_TABLE_INVESTING(self, input_fields):
+        """ Creates the records needed for TABLE_INVESTING. """
+        #TODO: this needs to be a portfolio module, but
+        #we don't need it at the moment. Will be finished
+        #later. T_STOCK is no longer needed, it will be T_INVESTMENT.
         try:
             session = self.Session()
             date_created = current_date()
             date_modified = current_date()
-            statement_stock = Statement(TABLE_STOCK)
+            statement_investment = Statement(TABLE_INVESTMENT)
             records = 0
             for fields in input_fields:
-                if deals_with_stocks(fields['category'], fields['subcategory']):
+                if is_an_investment(fields['category'], fields['subcategory']):
                     record = records + 1
-                    #TODO: query to see if we need to update instead?
-                    #or is that not necessary?
-                    #TODO: Add the other fields too
-                    #And what about T_STOCK_NAME etc.??? Should maybe be checked first, to make
-                    #sure we update this first. That way, we are sure we have a link.
-                    statement_stock.add(
-                        records,
-                        T_STOCK(
-                            None,
-                            date_created,
-                            date_modified
-                         )
-                     )
-            return statement_stock
+                    #statement_investment.add(
+                    #    records,
+                    #    T_INVESTMENT(
+                    #        None,
+                    #        stock_name_id?,
+                    #        action?, #do we need this? the cat. says it already
+                    #        fields['price'],
+                    #        fields['shares'],
+                    #        fields['tax'],
+                    #        fields['
+                    #        date_created,
+                    #        date_modified
+                    #     )
+                    # )
+            return statement_INVESTMENT
         except Exception as ex:
-            print(ERROR_CREATE_STATEMENTS_TABLE_STOCK, ex)
+            print(ERROR_CREATE_STATEMENTS_TABLE_INVESTMENT, ex)
     
     def create_statements_TABLE_TRADE(self, input_fields):
         """ Creates the records needed for TABLE_TRADE. """
@@ -970,27 +972,6 @@ class DatabaseAccess():
             session = None
         return result
 
-    def first_stock_id_from_latest(self):
-        """ 
-            Gets the first stock_id from the latest update
-            block, which is determined by examining the date_created column.
-        """
-        result = -1
-        try:
-            session = self.Session()
-            #TODO: make the below function and this function more generic?
-            stock_created = self.get_latest_stock_created()
-            obj = session.query(T_STOCK).filter_by(date_created=stock_created)
-            if obj is not None:
-                for instance in obj:
-                    result = instance.stock_id
-        except Exception as ex:
-            print("Error in first_stock_id_from_latest: ", ex)
-        finally:
-            session.rollback()
-            session = None
-        return result
-
     def get_latest_currency_exchange_created(self):
         """ Get's the latest date_created value that was added. """
         result = current_date()
@@ -1003,23 +984,6 @@ class DatabaseAccess():
                     result = instance.date_created
         except Exception as ex:
             print("Error in get_latest_currency_exchange_created: ", ex)
-        finally:
-            session.rollback()
-            session = None
-        return result
-    
-    def get_latest_stock_created(self):
-        """ Get's the latest date_created value that was added. """
-        result = current_date()
-        try:
-            session = self.Session()
-            obj = session.query(T_STOCK).order_by(
-                    T_STOCK.stock_id.desc())
-            if obj is not None:
-                for instance in obj:
-                    result = instance.date_created
-        except Exception as ex:
-            print("Error in get_latest_stock_created: ", ex)
         finally:
             session.rollback()
             session = None
