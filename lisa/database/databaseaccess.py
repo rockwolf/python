@@ -509,7 +509,7 @@ class DatabaseAccess():
             statement_trade = Statement(TABLE_TRADE)
             records = 0
             for fields in input_fields:
-                if is_a_trade(fields):
+                if is_a_trade(fields['category'], fields['subcategory']):
                     record = records + 1
                     #TODO: query to see if we need to update instead?
                     #or is that not necessary?
@@ -559,9 +559,7 @@ class DatabaseAccess():
     def write_to_database(self, statements):
         """ Writes the records of a given statements list to the database.
         """
-        print('test: before writing...')
         try:
-            print(statements)
             session = self.Session()
             statement_list = statements.get_statement_list()
             try:
@@ -910,7 +908,7 @@ class DatabaseAccess():
         # fields['subcategory'] =  => 'buy' or 'sell'
         #TODO: do we need to add a dummy formula that multiplies by 1?
         #NOTE: do it manually for now, we'll fix this later
-        formula_id = -1
+        formula_id = 0
         #if is_a_trade(fields):
         #       if uppercase(fields['currency']) == 'USD':
         #           formula_id = 2 #TODO: was it 2?      

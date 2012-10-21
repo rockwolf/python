@@ -71,9 +71,7 @@ class Statement():
         """
         result = []
         if self.statements is not None:
-            print('test1')
             for statement in self.statements:
-                print('test:', statement[1])
                 result.append(statement[1])
         return result
 
