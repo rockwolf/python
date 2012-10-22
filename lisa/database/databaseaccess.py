@@ -509,15 +509,66 @@ class DatabaseAccess():
             statement_trade = Statement(TABLE_TRADE)
             records = 0
             for fields in input_fields:
+                #TODO: split into insert/update statements??
+                #Or get current values and overwrite existing values with
+                #the retrieved existing values??
                 if is_a_trade(fields['category'], fields['subcategory']):
                     record = records + 1
+                    if we_are_buying(fields['subcategory']):
+                        date_buy = date_created
+                        year_buy = date_created.year
+                        month_buy = date_created.month
+                        day_buy = date_created.day
+                        #TODO: this is complex: we need to first check if it
+                        #is new. When new, we need to add it in the regular
+                        #way, but when it already exists, we need to create
+                        #update statements. SQLAlchemy?
+                        #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
+                        #date_sell = get_current_date_sell_from_db???
+                    else:
+                        date_sell = date_created
+                        year_sell = date_created.year
+                        month_sell = date_created.month
+                        day_sell = date_created.day
+                        #date_buy = get_current_date_buy_from_db???
+                    #TODO: create function that will do this:
+                    #if buy and is new: long
+                    #if sell and is new: short
+                    #if buy and not new and date_sell already filled in:
+                    #short (covering)
+                    # if sell and not new and date_buy already filled in:
+                    #long
+                    #NOTE: should also not be changed on update
+                    long_flag = get_long_flag()
                     #TODO: query to see if we need to update instead?
                     #or is that not necessary?
-                    #TODO: Add the other fields too
+                    #TODO:
                     statement_trade.add(
                         records,
                         T_TRADE(
                             None,
+                            date_buy,
+                            year_buy,
+                            month_buy,
+                            day_buy,
+                            date_sell,
+                            year_sell,
+                            month_sell,
+                            day_sell,
+                            long_flag,
+                            price_buy,
+                            price_sell,
+                            risk,
+                            initial_risk,
+                            initial_risk_percent,
+                            win_flag,
+                            at_work,
+                            id_buy, #how the fuck do I determene these 2
+                                    #refs?
+                            id_sell,
+                            currency_id,
+                            drawdown_id,
+                            1, #active
                             date_created,
                             date_modified
                          )

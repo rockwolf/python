@@ -38,7 +38,9 @@ def deals_with_stocks(category, subcategory):
 
 def is_a_table(key):
     """ Used to ignore all dictionary entries that don't start with t_ """
-    if key.lower()[0:2] == 't_':
-        return True
-    else:
-        return False
+    return key.lower()[0:2] == 't_'
+
+def we_are_buying(subcategory):
+    """ Are we buying or selling? """
+    #TODO: what if subcat is something different as buy or sell?
+    return if subcategory == 'buy': True else: False
