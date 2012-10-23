@@ -58,6 +58,10 @@ alter table T_DRAWDOWN
     add constraint pk_drawdown_id primary key(drawdown_id);
 alter table T_TRADE
     add constraint pk_trade_id primary key(trade_id);
+--alter table T_TRADE
+--    add constraint fk_trade_stock_name foreign key(stock_name) references T_STOCK_NAME(stock_name_id);
+--alter table T_TRADE
+--    add constraint fk_trade_market foreign key(market_id) references T_MARKET(market_id);
 alter table T_TRADE
     add constraint fk_id_buy foreign key(id_buy) references T_FINANCE(finance_id);
 alter table T_TRADE

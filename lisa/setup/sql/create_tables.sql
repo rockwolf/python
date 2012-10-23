@@ -186,6 +186,8 @@ CREATE TABLE T_DRAWDOWN
 CREATE TABLE T_TRADE
 (
     trade_id serial not null,
+    --market_id int not null,
+    --stock_name_id int not null,
     date_buy timestamp not null default current_date,
     year_buy int not null default 0,
     month_buy int not null default 0,

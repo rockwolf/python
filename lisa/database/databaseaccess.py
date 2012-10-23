@@ -499,7 +499,17 @@ class DatabaseAccess():
             return statement_INVESTMENT
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_INVESTMENT, ex)
-    
+   
+    #TODO:
+    #First do T_FINANCE
+    #(Use date_created later to check the recently updated block... ?)
+    #query with id_buy or id_sell
+    #not found? it's a new entry so create it.
+    #found?
+    #  if id_buy filled in, we are buying now
+    #  if id_sell filled in, we are selling now
+    #  update accordingly
+
     def create_statements_TABLE_TRADE(self, input_fields):
         """ Creates the records needed for TABLE_TRADE. """
         try:
