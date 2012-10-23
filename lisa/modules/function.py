@@ -43,4 +43,4 @@ def is_a_table(key):
 def we_are_buying(subcategory):
     """ Are we buying or selling? """
     #TODO: what if subcat is something different as buy or sell?
-    return if subcategory == 'buy': True else: False
+    return subcategory == 'buy'

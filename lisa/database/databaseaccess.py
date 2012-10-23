@@ -524,13 +524,17 @@ class DatabaseAccess():
                         #way, but when it already exists, we need to create
                         #update statements. SQLAlchemy?
                         #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
-                        #date_sell = get_current_date_sell_from_db???
+                        #date_sell = get_date_sell_from_db???
+                        price_buy = fields['amount']
+                        #price_sell = get_price_sell_from_db
                     else:
                         date_sell = date_created
                         year_sell = date_created.year
                         month_sell = date_created.month
                         day_sell = date_created.day
+                        price_sell = fields['amount']
                         #date_buy = get_current_date_buy_from_db???
+                        #price_buy = get_price_buy_from_db
                     #TODO: create function that will do this:
                     #if buy and is new: long
                     #if sell and is new: short
@@ -542,7 +546,8 @@ class DatabaseAccess():
                     long_flag = get_long_flag()
                     #TODO: query to see if we need to update instead?
                     #or is that not necessary?
-                    #TODO:
+                    #TODO: add flag to statement list that specifies U (update)
+                    #or N (new)?
                     statement_trade.add(
                         records,
                         T_TRADE(
@@ -576,6 +581,11 @@ class DatabaseAccess():
             return statement_trade
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_TRADE, ex)
+
+    def get_long_flag(category, subcategory):
+        """ Are we long or short? """
+        #if category == 'buy' and 
+        return False
 
     def create_statements_TABLE_CURRENCY_EXCHANGE(self, input_fields):
         """ Creates the records needed for TABLE_CURRENCY_EXCHANGE. """
