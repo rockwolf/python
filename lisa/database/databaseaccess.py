@@ -342,13 +342,15 @@ class DatabaseAccess():
             currency_exchange_id = self.first_currency_exchange_id_from_latest()
             for fields in input_fields:
                 subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'])
-                print('test0: ', fields['account'])
                 account_id = self.account_id_from_account(fields['account'])
                 category_id = self.category_id_from_category(fields['category'])
-                
-                market_id = -1
-                stock_name_id = -1
-                rate_id = -1
+               
+                #NOTE: in the database, the first values in the tables of the
+                #below id's, are empty/dummy values, used for when we are not
+                #dealing with stocks.
+                market_id = 1
+                stock_name_id = 1
+                rate_id = 1
                 if deals_with_stocks(fields['category'], fields['subcategory']):
                     if fields['market_name'] != '':
                         market_id = self.market_id_from_market(fields['market_name'])
@@ -356,7 +358,6 @@ class DatabaseAccess():
                         stock_name_id = self.stock_name_id_from_stock_name(
                                 fields['stock_name'], market_id)
                     rate_id = self.get_latest_rate_id() + 1
-
                 obj = session.query(T_FINANCE).filter_by(
                             date=fields['date'],
                             account_id=account_id,
@@ -409,19 +410,13 @@ class DatabaseAccess():
         try:
             #TODO: session object is for querying if there is a record already,
             # but we don't need it here I think.
-            #session = self.Session()
             date_created = current_date()
             date_modified = current_date()
             statement_rate = Statement(TABLE_RATE)
             records = 0
             for fields in input_fields:
                 if deals_with_stocks(fields['category'], fields['subcategory']):
-                    if fields['market_name'] != '':
-                        market_id = self.market_id_from_market(fields['market_name'])
-                    else:
-                        market_id = -1
                     formula_id = self.get_formula_id_to_use(fields)
-                    account_id = self.account_id_from_account(fields['account'])
                     records = records + 1
                     
                     #TODO: get parameter values from parameter table
@@ -435,6 +430,7 @@ class DatabaseAccess():
                         on_other = -1.0
                         calculated = -1.0
                     else:
+                        #TODO: calculations needed here!
                         on_shares = -1.0
                         on_commission = -1.0
                         on_ordersize = -1.0
@@ -442,14 +438,11 @@ class DatabaseAccess():
                         calculated = self.calculate_commission()
                         commission = -1.0
                         tax = -1.0
-                   
-                    #TODO: market_id seems to be always 1
+                    
                     statement_rate.add(
                         records,
                         T_RATE(
                             None,
-                            int(market_id),
-                            int(account_id),
                             Decimal(calculated),
                             Decimal(calculated)/Decimal(100.0),
                             Decimal(on_shares),
@@ -464,7 +457,6 @@ class DatabaseAccess():
                             date_modified
                         )
                     )
-                    #session = None
             return statement_rate
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_RATE, ex)
@@ -635,7 +627,7 @@ class DatabaseAccess():
             session = self.Session()
             statement_list = statements.get_statement_list()
             try:
-                print(MESSAGE_EXEC_ALL)
+                print(statements.table_name + ':', MESSAGE_EXEC_ALL)
                 session.add_all(statement_list)
                 session.commit()
                 session = None
@@ -801,9 +793,7 @@ class DatabaseAccess():
             # Get account id, based on account name
             # but first check if the account already exists
             # in T_ACCOUNT. If not, add it to the t_account table.
-            print('test: ', account)
             obj  = session.query(T_ACCOUNT).filter_by(name=account).first() is not None
-            print('test2:', obj)
             if not obj:
             	#TODO: add the ability to add a market description (Very low priority!)
                 session.add(T_ACCOUNT(account, '', date_created, date_modified))
@@ -855,7 +845,6 @@ class DatabaseAccess():
 
     def stock_name_id_from_stock_name(self, stock_name, market_id):
         """ Get the stock_name_id from T_STOCK_NAME. """
-        print('test stock_name/market_id:', stockname, market_id)
         result = -1
         session = self.Session()
         try:
@@ -983,7 +972,7 @@ class DatabaseAccess():
         # fields['subcategory'] =  => 'buy' or 'sell'
         #TODO: do we need to add a dummy formula that multiplies by 1?
         #NOTE: do it manually for now, we'll fix this later
-        formula_id = 0
+        formula_id = 1
         #if is_a_trade(fields):
         #       if uppercase(fields['currency']) == 'USD':
         #           formula_id = 2 #TODO: was it 2?      
@@ -996,10 +985,14 @@ class DatabaseAccess():
         result = -1
         try:
             session = self.Session()
+            print('test1')
             obj = session.query(T_RATE).order_by(T_RATE.rate_id.desc()).first()
             if obj is not None:
+                print('test1.5')
                 for instance in obj:
-                    result = instance.name
+                    print('test:' ,instance.rate_id)
+                    print('test1.7')
+                    result = instance.rate_id
             else:
                 # We don't have one yet, so by making the last one 0,
                 # a get_latest_rate_id() + 1 would become 1
@@ -1007,6 +1000,7 @@ class DatabaseAccess():
         except Exception as ex:
             print("Error retrieving latest rate_id from T_RATE: ", ex)
         finally:
+            print('test2')
             session.rollback()
             session = None
         return result

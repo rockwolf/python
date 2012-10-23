@@ -23,10 +23,6 @@ alter table T_PARAMETER
 alter table T_RATE
     add constraint pk_rate_id primary key(rate_id);
 alter table T_RATE
-    add constraint fk_market_id foreign key(market_id) references T_MARKET;
-alter table T_RATE
-    add constraint fk_account_id foreign key(account_id) references T_ACCOUNT(account_id);
-alter table T_RATE
     add constraint fk_formula_id foreign key(formula_id) references T_FORMULA(formula_id);
 alter table T_FINANCE
     add constraint pk_finance_id primary key(finance_id);
@@ -71,7 +67,7 @@ alter table T_TRADE
 alter table T_TRADE
     add constraint fk_drawdown_id foreign key(drawdown_id) references T_DRAWDOWN(drawdown_id);
 alter table T_MARGIN
-    add constraint pk_smarket_id primary key(margin_id);
+    add constraint pk_margin_id primary key(margin_id);
 alter table T_MARGIN
     add constraint fk_margin_type_id foreign key(margin_type_id) references T_MARGIN_TYPE(margin_type_id);
 

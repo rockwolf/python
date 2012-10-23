@@ -90,8 +90,6 @@ CREATE TABLE T_PARAMETER
 CREATE TABLE T_RATE
 (
     rate_id serial not null,
-    market_id int not null default -1,
-    account_id int not null default -1,
     calculated decimal(18, 4) not null default 0.0,
     calculated_percent decimal(18, 4) not null default 0.0,
     on_shares decimal(18, 4) not null default 0.0,

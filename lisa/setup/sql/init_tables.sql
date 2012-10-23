@@ -444,13 +444,17 @@ values(14, 'RUB', 'Russian Ruble');
 --TODO: add a column where you can say what the parameters are?
 --TODO: add a table which contains the values for tax and commissions?
 INSERT INTO T_FORMULA(formula_id, value, description)
-values(0, '{0}', 'Default: no formula needed, just use the value.');
+values(1, '{0}', 'Default: no formula needed, just use the value.');
 
 INSERT INTO T_FORMULA(formula_id, value, description)
-values(1, '{0}+{1}*{2}', 'WHS commission calculation for US markets: <solid amount>+<small fraction>*<number of shares>.');
+values(2, '{0}+{1}*{2}', 'WHS commission calculation for US markets: <solid amount>+<small fraction>*<number of shares>.');
 
 INSERT INTO T_FORMULA(formula_id, value, description)
-values(2, '{0}+{1}*{2}/100', 'WHS commission calculation for non-US markets: <solid amount>+<small percentage>*<order size>.');
+values(3, '{0}+{1}*{2}/100', 'WHS commission calculation for non-US markets: <solid amount>+<small percentage>*<order size>.');
+
+/* t_rate */
+INSERT INTO T_RATE(calculated, calculated_percent, on_shares, on_commission, on_ordersize, on_other, commission, tax, formula_id, manual_flag, date_created, date_modified)
+values(-1.0, -1.0/100, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 1, 0, current_date, current_date);
 
 /* t_parameter */
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
