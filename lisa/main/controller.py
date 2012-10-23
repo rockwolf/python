@@ -134,6 +134,7 @@ class ControllerMain():
         except Exception as ex:
             print(ERROR_GET_INPUT_FIELDS, ex)
         finally:
+            print('test:', fields_db)
             return fields_db 
 
             ## import finance info from table data
@@ -197,13 +198,18 @@ class ControllerMain():
     def get_input_line(self, table):
         """ Get the input values. """
         #TODO: check cat/subcat combo, instead of only subcat
-        if(self.gui.get_subcategory() == 'buy' or \
-                self.gui.get_subcategory() == 'sell'):
+        if(deals_with_stocks(self.gui.get_category(),
+            self.gui.get_subcategory())):
             market = self.gui.get_market_code()
             stock = self.gui.get_stock_name()
+            market_description = self.gui.get_market_description()
+            stock_description = self.gui.get_stock_descrpition()
         else:
             market = ''
             stock = ''
+            market_description = ''
+            stock_description = ''
+
         str_list = [
             self.gui.get_date(),
             self.gui.get_account(),
@@ -212,9 +218,9 @@ class ControllerMain():
             self.gui.get_amount(),
             self.gui.get_comment(),
             stock,
-            self.gui.get_stock_description(),
+            stock_description,
             market,
-            self.gui.get_market_description(),
+            market_description,
             self.gui.get_quantity(),
             self.gui.get_price(),
             self.gui.get_commission(),

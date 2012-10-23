@@ -342,6 +342,7 @@ class DatabaseAccess():
             currency_exchange_id = self.first_currency_exchange_id_from_latest()
             for fields in input_fields:
                 subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'])
+                print('test0: ', fields['account'])
                 account_id = self.account_id_from_account(fields['account'])
                 category_id = self.category_id_from_category(fields['category'])
                 
@@ -800,7 +801,9 @@ class DatabaseAccess():
             # Get account id, based on account name
             # but first check if the account already exists
             # in T_ACCOUNT. If not, add it to the t_account table.
-            obj = session.query(T_ACCOUNT).filter_by(name=account).first() is not None
+            print('test: ', account)
+            obj  = session.query(T_ACCOUNT).filter_by(name=account).first() is not None
+            print('test2:', obj)
             if not obj:
             	#TODO: add the ability to add a market description (Very low priority!)
                 session.add(T_ACCOUNT(account, '', date_created, date_modified))
@@ -852,6 +855,7 @@ class DatabaseAccess():
 
     def stock_name_id_from_stock_name(self, stock_name, market_id):
         """ Get the stock_name_id from T_STOCK_NAME. """
+        print('test stock_name/market_id:', stockname, market_id)
         result = -1
         session = self.Session()
         try:
