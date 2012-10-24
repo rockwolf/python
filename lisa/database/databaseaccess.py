@@ -337,6 +337,7 @@ class DatabaseAccess():
             statement_finance = Statement(TABLE_FINANCE)
             records = 0
             currency_exchange_id = self.first_currency_exchange_id_from_latest()
+            rate_id = self.first_rate_id_from_latest()
             for fields in input_fields:
                 subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'])
                 account_id = self.account_id_from_account(fields['account'])
@@ -354,7 +355,8 @@ class DatabaseAccess():
                     if fields['stock_name'] != '':
                         stock_name_id = self.stock_name_id_from_stock_name(
                                 fields['stock_name'], market_id)
-                    rate_id = self.get_latest_rate_id() + 1
+                    rate_id = self.get_latest_rate_id()
+                print('test: msr:', market_id, stock_name_id, rate_id)
                 obj = session.query(T_FINANCE).filter_by(
                             date=fields['date'],
                             account_id=account_id,
@@ -369,6 +371,7 @@ class DatabaseAccess():
                             commission=Decimal(fields['commission']),
                             active=1
                             ).first()
+                print('test: obj:', obj)
                 if obj is None: 
                         records = records + 1
                         statement_finance.add(
@@ -989,12 +992,8 @@ class DatabaseAccess():
         result = -1
         try:
             session = self.Session()
-            print('test1')
             first_obj = session.query(T_RATE).order_by(T_RATE.rate_id.desc()).first()
             if first_obj is not None:
-                #for instance in obj:
-                print('test1.7a')
-                print('test1.7b:' ,first_obj.rate_id)
                 result = first_obj.rate_id
             else:
                 # We don't have one yet, so by making the last one 0,
@@ -1047,13 +1046,48 @@ class DatabaseAccess():
         result = current_date()
         try:
             session = self.Session()
-            obj = session.query(T_CURRENCY_EXCHANGE).order_by(
-                    T_CURRENCY_EXCHANGE.currency_exchange_id.desc())
-            if obj is not None:
-                for instance in obj:
-                    result = instance.date_created
+            first_obj = session.query(T_CURRENCY_EXCHANGE).order_by(
+                    T_CURRENCY_EXCHANGE.currency_exchange_id.desc()).first()
+            if first_obj is not None:
+               result = first_obj.date_created
         except Exception as ex:
             print("Error in get_latest_currency_exchange_created: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
+
+    def first_rate_id_from_latest(self):
+        """ 
+            Gets the first rate_id from the latest update
+            block, which is determined by examining the date_created column.
+        """
+        result = -1
+        try:
+            session = self.Session()
+            rate_created = self.get_latest_rate_created()
+            obj = session.query(T_RATE).filter_by(date_created=rate_created)
+            if obj is not None:
+                for instance in obj:
+                    result = instance.rate_id
+        except Exception as ex:
+            print("Error in first_rate_id_from_latest: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
+
+    def get_latest_rate_created(self):
+        """ Get's the latest date_created value that was added. """
+        result = current_date()
+        try:
+            session = self.Session()
+            first_obj = session.query(T_RATE).order_by(
+                    T_RATE.rate_id.desc()).first()
+            if first_obj is not None:
+               result = first_obj.date_created
+        except Exception as ex:
+            print("Error in get_latest_rate_created: ", ex)
         finally:
             session.rollback()
             session = None

@@ -203,7 +203,7 @@ class ControllerMain():
             market = self.gui.get_market_code()
             stock = self.gui.get_stock_name()
             market_description = self.gui.get_market_description()
-            stock_description = self.gui.get_stock_descrpition()
+            stock_description = self.gui.get_stock_description()
         else:
             market = ''
             stock = ''

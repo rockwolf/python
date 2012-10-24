@@ -27,6 +27,7 @@ from decimal import Decimal
 
 from pyqt.viewpyqt import Ui_MainWindow
 from pyqt_generic.tablemodel import TableModel
+from modules.function import *
 
 class ControllerPyqt(QtGui.QMainWindow):
     """ Controller that also contains pyqt related code. """
@@ -151,7 +152,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         """ Enable/disable all inputs related to stock information """
         category = self.gui.cmb_category.currentText()
         subcategory = self.gui.cmb_subcategory.currentText()
-        if((category == 'invest.tx' or category == 'invest.rx' or category == 'trade.tx' or category == 'trade.rx') and ( subcategory == 'buy' or subcategory == 'sell')):
+        if deals_with_stocks(category, subcategory):
             # enable stock inputs
             self.gui.cmb_market_code.setEnabled(True)
             self.gui.txt_market_description.setEnabled(True)
@@ -161,16 +162,17 @@ class ControllerPyqt(QtGui.QMainWindow):
             self.gui.spn_price.setEnabled(True)
             self.gui.spn_commission.setEnabled(True)
             self.gui.spn_tax.setEnabled(True)
-            if(category == 'trade.tx' or category == 'trade.rx'):
+            if is_a_trade(category, subcategory):
                 self.gui.spn_risk.setEnabled(True)
             else:
                 self.gui.spn_risk.setEnabled(False)
             # set inputfields
             self.gui.spn_tax.setValue(Decimal(self.config.default_tax))
-            if(category == 'trade.tx' or category == 'trade.rx'):
+            if is_a_trade(category, subcategory):
                 self.gui.spn_risk.setValue(Decimal(self.config.default_risk))
             else:
                 self.gui.spn_risk.setValue(0.0)
+            self.gui.chk_manual_commission.setEnabled(True)
         else:
             # disable stock inputs
             self.gui.cmb_market_code.setEnabled(False)
@@ -188,6 +190,7 @@ class ControllerPyqt(QtGui.QMainWindow):
             self.gui.spn_tax.setValue(0.0)
             self.gui.spn_commission.setValue(0.0)
             self.gui.spn_risk.setValue(0.0)
+            self.gui.chk_manual_commission.setEnabled(False)
         self.ctl.set_infodetails()
 
     def cmb_stock_name_changed(self):
