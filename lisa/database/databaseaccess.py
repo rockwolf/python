@@ -123,9 +123,6 @@ class DatabaseAccess():
             self.map_tables()
             self.map_views()
             self.tables = [x for x in self.metadata.tables.keys() if is_a_table(x) ]
-            #TODO: I think these are not needed? Delete later after confirmation!
-            #self.statementFinance = Statement(TABLE_FINANCE)
-            #self.statementStock = Statement(TABLE_STOCK)
         except Exception as ex:
             print("Error in initialisation of DatabaseAccess: ", ex)
    
