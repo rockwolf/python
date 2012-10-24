@@ -990,7 +990,7 @@ class DatabaseAccess():
             if first_obj is not None:
                 #for instance in obj:
                 print('test1.7a')
-                print('test1.7b:' ,obj.rate_id)
+                print('test1.7b:' ,first_obj.rate_id)
                 result = first_obj.rate_id
             else:
                 # We don't have one yet, so by making the last one 0,
