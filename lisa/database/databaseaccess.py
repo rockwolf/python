@@ -986,13 +986,12 @@ class DatabaseAccess():
         try:
             session = self.Session()
             print('test1')
-            obj = session.query(T_RATE).order_by(T_RATE.rate_id.desc()).first()
-            if obj is not None:
-                print('test1.5')
-                for instance in obj:
-                    print('test:' ,instance.rate_id)
-                    print('test1.7')
-                    result = instance.rate_id
+            first_obj = session.query(T_RATE).order_by(T_RATE.rate_id.desc()).first()
+            if first_obj is not None:
+                #for instance in obj:
+                print('test1.7a')
+                print('test1.7b:' ,obj.rate_id)
+                result = first_obj.rate_id
             else:
                 # We don't have one yet, so by making the last one 0,
                 # a get_latest_rate_id() + 1 would become 1
@@ -1000,7 +999,6 @@ class DatabaseAccess():
         except Exception as ex:
             print("Error retrieving latest rate_id from T_RATE: ", ex)
         finally:
-            print('test2')
             session.rollback()
             session = None
         return result
