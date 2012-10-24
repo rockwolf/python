@@ -427,14 +427,21 @@ class DatabaseAccess():
                         on_other = -1.0
                         calculated = -1.0
                     else:
-                        #TODO: calculations needed here!
+                        #TODO: calculate something when necessary
                         on_shares = -1.0
+                        #TODO: calculate something when necessary
                         on_commission = -1.0
+                        #TODO: calculate something when necessary
                         on_ordersize = -1.0
-                        on_other = -1.0
+                        #TODO: actually calculate something when necessary
+                        on_other = 0.0
                         calculated = self.calculate_commission()
-                        commission = -1.0
-                        tax = -1.0
+                        #TODO: function to determine which commission we
+                        #need to select, at the moment 1 or 2, dependend on
+                        #the amount and/or market
+                        commission = self.get_parameter_value(1) #9.75
+                        #TODO: function to determine...
+                        tax = self.get_parameter_value(4) #BE tax
                     
                     statement_rate.add(
                         records,
