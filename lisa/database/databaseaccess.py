@@ -631,17 +631,18 @@ class DatabaseAccess():
         """ Writes the records of a given statements list to the database.
         """
         try:
-            session = self.Session()
-            statement_list = statements.get_statement_list()
-            try:
-                print(statements.table_name + ':', MESSAGE_EXEC_ALL)
-                session.add_all(statement_list)
-                session.commit()
-                session = None
-                print("{0} records added.".format(str(len(statement_list))))
-            except Exception as ex:
-                session.rollback()
-                print(ERROR_WRITE_TO_DATABASE, ex)
+            if statements != []:
+                session = self.Session()
+                statement_list = statements.get_statement_list()
+                try:
+                    print(statements.table_name + ':', end='')
+                    session.add_all(statement_list)
+                    session.commit()
+                    session = None
+                    print("{0} records added.".format(str(len(statement_list))))
+                except Exception as ex:
+                    session.rollback()
+                    print(ERROR_WRITE_TO_DATABASE, ex)
         except Exception as ex:
             print(ERROR_WRITE_TO_DATABASE_SESSION, ex)
 
