@@ -172,7 +172,8 @@ class ControllerPyqt(QtGui.QMainWindow):
                 self.gui.spn_risk.setValue(Decimal(self.config.default_risk))
             else:
                 self.gui.spn_risk.setValue(0.0)
-            self.gui.chk_manual_commission.setEnabled(True)
+            #TODO: automatic calculation of commission temporarily disabled
+            self.gui.chk_manual_commission.setEnabled(False)
         else:
             # disable stock inputs
             self.gui.cmb_market_code.setEnabled(False)
