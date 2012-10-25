@@ -519,9 +519,14 @@ class DatabaseAccess():
             statement_trade = Statement(TABLE_TRADE)
             records = 0
             for fields in input_fields:
-                #TODO: split into insert/update statements??
-                #Or get current values and overwrite existing values with
-                #the retrieved existing values??
+            	#TODO: get_latest_finance_date_created (like with the currency)
+            	# -> look for the finance_id in T_TRADE using id_buy and id_sell
+            	# -> found = update needed so skip to put in update later?
+            	# -> not found = insert needed, so put in the insert statements
+            	# Can we update or commit on the fly? date_created and date_modified make this difficult...
+            	# Nah, we need to retrieve the old values anyway to create the new statement.
+            	# So creating insert and update statements and joining them later in this function should
+            	# be sufficient.
                 if is_a_trade(fields['category'], fields['subcategory']):
                     record = records + 1
                     if we_are_buying(fields['subcategory']):
