@@ -527,6 +527,19 @@ class DatabaseAccess():
             	# Nah, we need to retrieve the old values anyway to create the new statement.
             	# So creating insert and update statements and joining them later in this function should
             	# be sufficient.
+
+                #TODO: check if value in T_TRADE exists
+                #but first need to query T_FINANCE for the finance_id in
+                #question, using get_latest_finance_created
+                #finance_id = ...
+                obj = session.query(T_TRADE).filter_by(
+                        id_buy=finance_id,
+                        active=1
+                      ).first()
+                if obj is None:
+                    print('test: no object')
+
+
                 if is_a_trade(fields['category'], fields['subcategory']):
                     record = records + 1
                     if we_are_buying(fields['subcategory']):
@@ -1094,6 +1107,22 @@ class DatabaseAccess():
                result = first_obj.date_created
         except Exception as ex:
             print("Error in get_latest_rate_created: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
+
+    def get_latest_finance_created(self):
+        """ Get's the latest date_created value that was added. """
+        result = current_date()
+        try:
+            session = self.Session()
+            first_obj = session.query(T_FINANCE).order_by(
+                    T_FINANCE.finance_id.desc()).first()
+            if first_obj is not None:
+               result = first_obj.date_created
+        except Exception as ex:
+            print("Error in get_latest_finance_created: ", ex)
         finally:
             session.rollback()
             session = None
