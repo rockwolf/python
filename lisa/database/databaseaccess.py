@@ -532,13 +532,30 @@ class DatabaseAccess():
                 #but first need to query T_FINANCE for the finance_id in
                 #question, using get_latest_finance_created
                 #finance_id = ...
-                obj = session.query(T_TRADE).filter_by(
-                        id_buy=finance_id,
-                        active=1
-                      ).first()
-                if obj is None:
-                    print('test: no object')
-
+                finance_id = -1
+                #TODO: add more fields to check on in the filter
+                #TODO2: refactor this logic by combining the two
+                obj = session.query(T_FINANCE).filter_by(
+                	active = 1
+                	).first()
+                    if obj is not None:
+                	    finance_id = obj.finance_id
+                    obj = session.query(T_TRADE).filter_by(
+                            id_buy = finance_id,
+                            active = 1
+                          ).first()
+                    if obj is None:
+                        print('test: no object')
+                        # id_buy not found, look for id_sell (can we combine this?)
+                        obj = session.query(T_TRADE).filter_by(
+                    	        id_sell = finance_id,
+                    	        active = 1
+                    	    ).first()
+                        if obj is None:
+                    	    #create a new entry with:
+                    	    #if is_long: id_buy = finance_id
+                    	    #else: id_sell = finance_id
+                    	    print('test: no object, new')
 
                 if is_a_trade(fields['category'], fields['subcategory']):
                     record = records + 1
