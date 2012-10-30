@@ -518,107 +518,114 @@ class DatabaseAccess():
     # So creating insert and update statements and joining them later in this function should
     # be sufficient.
 
-    def create_statements_TABLE_TRADE(self, input_fields):
+    def create_statements_TABLE_TRADE(self, input_fields, statements_finance):
         """ Creates the records needed for TABLE_TRADE. """
         try:
             session = self.Session()
-            date_created = current_date()
-            date_modified = current_date()
-            statement_trade = Statement(TABLE_TRADE)
-            records = 0
-            finance_id = first_finance_id_from_latest()
-            if finance_id != -1:
-                for fields in input_fields:
-                    obj = session.query(T_TRADE).filter_by(
-                            id_buy = finance_id,
-                            active = 1
-                          ).first()
-                    if obj is None:
-                        print('test: no object')
-                        # id_buy not found, look for id_sell (can we combine this?)
+            if is_a_trade(fields['category'], fields['subcategory']):            
+                date_created = current_date()
+                date_modified = current_date()
+                statement_trade = Statement(TABLE_TRADE)
+                records = 0
+            
+                finance_id = first_finance_id_from_latest()
+                #TODO: get the entire line of information from TABLE_FINANCE, because we need the date
+                #and price info too.
+                if finance_id != -1:
+                    for fields in input_fields:
                         obj = session.query(T_TRADE).filter_by(
-                    	        id_sell = finance_id, #or id_buy = finance_id + use coalesce or something
-                    	        active = 1
-                    	    ).first()
+                                id_buy = finance_id,
+                                active = 1
+                              ).first()
                         if obj is None:
-                            #TODO: now we have as possible entries:
-                            #id_buy filled in/id_sell filled in/id_buy AND id_sell filled in
-                            # and that last one needs to be filtered.
-                    	    #create a new entry with:
-                    	    #if is_long: id_buy = finance_id
-                    	    #else: id_sell = finance_id
-                    	    print('test: no object, new')
-                     finance_id = finance_id + 1
+                            print('test: no object')
+                            # id_buy not found, look for id_sell (can we combine this?)
+                            obj = session.query(T_TRADE).filter_by(
+                                        id_sell = finance_id, #or id_buy = finance_id + use coalesce or something
+                                        active = 1
+                    	        ).first()
+                            if obj is None:
+                                #TODO: now we have as possible entries:
+                                #id_buy filled in/id_sell filled in/id_buy AND id_sell filled in
+                                # and that last one needs to be filtered.
+                    	        #create a new entry with:
+                    	        #if is_long: id_buy = finance_id
+                    	        #else: id_sell = finance_id
+                    	        print('test: no object, new')
+                        finance_id = finance_id + 1
 
-                if is_a_trade(fields['category'], fields['subcategory']):
-                    record = records + 1
-                    if we_are_buying(fields['subcategory']):
-                        date_buy = date_created
-                        year_buy = date_created.year
-                        month_buy = date_created.month
-                        day_buy = date_created.day
-                        #TODO: this is complex: we need to first check if it
-                        #is new. When new, we need to add it in the regular
-                        #way, but when it already exists, we need to create
-                        #update statements. SQLAlchemy?
-                        #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
-                        #date_sell = get_date_sell_from_db???
-                        price_buy = fields['amount']
-                        #price_sell = get_price_sell_from_db
-                    else:
-                        date_sell = date_created
-                        year_sell = date_created.year
-                        month_sell = date_created.month
-                        day_sell = date_created.day
-                        price_sell = fields['amount']
-                        #date_buy = get_current_date_buy_from_db???
-                        #price_buy = get_price_buy_from_db
-                    #TODO: create function that will do this:
-                    #if buy and is new: long
-                    #if sell and is new: short
-                    #if buy and not new and date_sell already filled in:
-                    #short (covering)
-                    # if sell and not new and date_buy already filled in:
-                    #long
-                    #NOTE: should also not be changed on update
-                    long_flag = get_long_flag()
-                    #TODO: query to see if we need to update instead?
-                    #or is that not necessary?
-                    #TODO: add flag to statement list that specifies U (update)
-                    #or N (new)?
-                    statement_trade.add(
-                        records,
-                        T_TRADE(
-                            None,
-                            date_buy,
-                            year_buy,
-                            month_buy,
-                            day_buy,
-                            date_sell,
-                            year_sell,
-                            month_sell,
-                            day_sell,
-                            long_flag,
-                            price_buy,
-                            price_sell,
-                            risk,
-                            initial_risk,
-                            initial_risk_percent,
-                            win_flag,
-                            at_work,
-                            id_buy, #how the fuck do I determene these 2
-                                    #refs?
-                            id_sell,
-                            currency_id,
-                            drawdown_id,
-                            1, #active
-                            date_created,
-                            date_modified
+                        finance_record = finance_record_from_latest(finance_id)
+                        record = records + 1
+                        #NOTE: price_buy will be fields['amount']
+                        #When we buy more, it will be overwritten!
+                        #Trading without adding to positions is assumed by this code!
+                        if we_are_buying(fields['subcategory']):
+                            date_buy = date_created
+                            year_buy = date_created.year
+                            month_buy = date_created.month
+                            day_buy = date_created.day
+                            #TODO: this is complex: we need to first check if it
+                            #is new. When new, we need to add it in the regular
+                            #way, but when it already exists, we need to create
+                            #update statements. SQLAlchemy?
+                            #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
+                            date_sell = finance_record[<somenumber>]
+                            price_buy = fields['amount']
+                            price_sell = finance_record[<somenumber>]
+                        else:
+                            date_sell = date_created
+                            year_sell = date_created.year
+                            month_sell = date_created.month
+                            day_sell = date_created.day
+                            price_sell = fields['amount']
+                            date_buy = finance_record[<somenumber>]
+                            price_buy = finance_record[<somenumber>]
+                        #TODO: create function that will do this:
+                        #if buy and is new: long
+                        #if sell and is new: short
+                        #if buy and not new and date_sell already filled in:
+                        #short (covering)
+                        # if sell and not new and date_buy already filled in:
+                        #long
+                        #NOTE: should also not be changed on update
+                        long_flag = get_long_flag()
+                        #TODO: query to see if we need to update instead?
+                        #or is that not necessary?
+                        #TODO: add flag to statement list that specifies U (update)
+                        #or N (new)?
+                        statement_trade.add(
+                            records,
+                            T_TRADE(
+                                None,
+                                date_buy,
+                                year_buy,
+                                month_buy,
+                                day_buy,
+                                date_sell,
+                                year_sell,
+                                month_sell,
+                                day_sell,
+                                long_flag,
+                                price_buy,
+                                price_sell,
+                                risk,
+                                initial_risk,
+                                initial_risk_percent,
+                                win_flag,
+                                at_work,
+                                id_buy, #how the fuck do I determene these 2
+                                        #refs?
+                                id_sell,
+                                currency_id,
+                                drawdown_id,
+                                1, #active
+                                date_created,
+                                date_modified
+                             )
                          )
-                     )
-            return statement_trade
-        except Exception as ex:
-            print(ERROR_CREATE_STATEMENTS_TABLE_TRADE, ex)
+                return statement_trade
+            except Exception as ex:
+                print(ERROR_CREATE_STATEMENTS_TABLE_TRADE, ex)
 
     def get_long_flag(category, subcategory):
         """ Are we long or short? """
