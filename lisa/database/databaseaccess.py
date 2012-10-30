@@ -509,6 +509,14 @@ class DatabaseAccess():
     #  if id_buy filled in, we are buying now
     #  if id_sell filled in, we are selling now
     #  update accordingly
+    #TODO: get_latest_finance_date_created (like with the currency)
+    # -> look for the finance_id in T_TRADE using id_buy and id_sell
+    # -> found = update needed so skip to put in update later?
+    # -> not found = insert needed, so put in the insert statements
+    # Can we update or commit on the fly? date_created and date_modified make this difficult...
+    # Nah, we need to retrieve the old values anyway to create the new statement.
+    # So creating insert and update statements and joining them later in this function should
+    # be sufficient.
 
     def create_statements_TABLE_TRADE(self, input_fields):
         """ Creates the records needed for TABLE_TRADE. """
@@ -518,28 +526,9 @@ class DatabaseAccess():
             date_modified = current_date()
             statement_trade = Statement(TABLE_TRADE)
             records = 0
-            for fields in input_fields:
-            	#TODO: get_latest_finance_date_created (like with the currency)
-            	# -> look for the finance_id in T_TRADE using id_buy and id_sell
-            	# -> found = update needed so skip to put in update later?
-            	# -> not found = insert needed, so put in the insert statements
-            	# Can we update or commit on the fly? date_created and date_modified make this difficult...
-            	# Nah, we need to retrieve the old values anyway to create the new statement.
-            	# So creating insert and update statements and joining them later in this function should
-            	# be sufficient.
-
-                #TODO: check if value in T_TRADE exists
-                #but first need to query T_FINANCE for the finance_id in
-                #question, using get_latest_finance_created
-                #finance_id = ...
-                finance_id = -1
-                #TODO: add more fields to check on in the filter
-                #TODO2: refactor this logic by combining the two
-                obj = session.query(T_FINANCE).filter_by(
-                	active = 1
-                	).first()
-                    if obj is not None:
-                	    finance_id = obj.finance_id
+            finance_id = first_finance_id_from_latest()
+            if finance_id != -1:
+                for fields in input_fields:
                     obj = session.query(T_TRADE).filter_by(
                             id_buy = finance_id,
                             active = 1
@@ -548,14 +537,18 @@ class DatabaseAccess():
                         print('test: no object')
                         # id_buy not found, look for id_sell (can we combine this?)
                         obj = session.query(T_TRADE).filter_by(
-                    	        id_sell = finance_id,
+                    	        id_sell = finance_id, #or id_buy = finance_id + use coalesce or something
                     	        active = 1
                     	    ).first()
                         if obj is None:
+                            #TODO: now we have as possible entries:
+                            #id_buy filled in/id_sell filled in/id_buy AND id_sell filled in
+                            # and that last one needs to be filtered.
                     	    #create a new entry with:
                     	    #if is_long: id_buy = finance_id
                     	    #else: id_sell = finance_id
                     	    print('test: no object, new')
+                     finance_id = finance_id + 1
 
                 if is_a_trade(fields['category'], fields['subcategory']):
                     record = records + 1
@@ -1108,6 +1101,27 @@ class DatabaseAccess():
                     result = instance.rate_id
         except Exception as ex:
             print("Error in first_rate_id_from_latest: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
+
+
+    def first_finance_id_from_latest(self):
+        """ 
+            Gets the first finance_id from the latest update
+            block, which is determined by examining the date_created column.
+        """
+        result = -1
+        try:
+            session = self.Session()
+            finance_created = self.get_latest_finance_created()
+            obj = session.query(T_FINANCE).filter_by(date_created=finance_created)
+            if obj is not None:
+                for instance in obj:
+                    result = instance.finance_id
+        except Exception as ex:
+            print("Error in first_finance_id_from_latest: ", ex)
         finally:
             session.rollback()
             session = None
