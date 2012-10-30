@@ -1058,29 +1058,13 @@ class DatabaseAccess():
         result = -1
         try:
             session = self.Session()
-            currency_exchange_created = self.get_latest_currency_exchange_created()
+            currency_exchange_created = self.get_latest_date_created(TABLE_CURRENCY_EXCHANGE)
             obj = session.query(T_CURRENCY_EXCHANGE).filter_by(date_created=currency_exchange_created)
             if obj is not None:
                 for instance in obj:
                     result = instance.currency_exchange_id
         except Exception as ex:
             print("Error in first_currency_id_from_latest: ", ex)
-        finally:
-            session.rollback()
-            session = None
-        return result
-
-    def get_latest_currency_exchange_created(self):
-        """ Get's the latest date_created value that was added. """
-        result = current_date()
-        try:
-            session = self.Session()
-            first_obj = session.query(T_CURRENCY_EXCHANGE).order_by(
-                    T_CURRENCY_EXCHANGE.currency_exchange_id.desc()).first()
-            if first_obj is not None:
-               result = first_obj.date_created
-        except Exception as ex:
-            print("Error in get_latest_currency_exchange_created: ", ex)
         finally:
             session.rollback()
             session = None
@@ -1094,7 +1078,7 @@ class DatabaseAccess():
         result = -1
         try:
             session = self.Session()
-            rate_created = self.get_latest_rate_created()
+            rate_created = self.get_latest_date_created(TABLE_RATE)
             obj = session.query(T_RATE).filter_by(date_created=rate_created)
             if obj is not None:
                 for instance in obj:
@@ -1106,7 +1090,6 @@ class DatabaseAccess():
             session = None
         return result
 
-
     def first_finance_id_from_latest(self):
         """ 
             Gets the first finance_id from the latest update
@@ -1115,7 +1098,7 @@ class DatabaseAccess():
         result = -1
         try:
             session = self.Session()
-            finance_created = self.get_latest_finance_created()
+            finance_created = self.get_latest_date_created(TABLE_FINANCE)
             obj = session.query(T_FINANCE).filter_by(date_created=finance_created)
             if obj is not None:
                 for instance in obj:
@@ -1127,33 +1110,24 @@ class DatabaseAccess():
             session = None
         return result
 
-    def get_latest_rate_created(self):
+    def get_latest_date_created(self, tablename):
         """ Get's the latest date_created value that was added. """
         result = current_date()
         try:
             session = self.Session()
-            first_obj = session.query(T_RATE).order_by(
+	    if tablename == TABLE_FINANCE:
+                first_obj = session.query(T_FINANCE).order_by(
+                        T_FINANCE.finance_id.desc()).first()
+            elif tablename == TABLE_RATE:
+                first_obj = session.query(T_RATE).order_by(
                     T_RATE.rate_id.desc()).first()
+            elif TABLE_NAME == TABLE_CURRENCY_EXCHANGE:
+                first_obj = session.query(T_CURRENCY_EXCHANGE).order_by(
+                    T_CURRENCY_EXCHANGE.currency_exchange_id.desc()).first()
             if first_obj is not None:
                result = first_obj.date_created
         except Exception as ex:
-            print("Error in get_latest_rate_created: ", ex)
-        finally:
-            session.rollback()
-            session = None
-        return result
-
-    def get_latest_finance_created(self):
-        """ Get's the latest date_created value that was added. """
-        result = current_date()
-        try:
-            session = self.Session()
-            first_obj = session.query(T_FINANCE).order_by(
-                    T_FINANCE.finance_id.desc()).first()
-            if first_obj is not None:
-               result = first_obj.date_created
-        except Exception as ex:
-            print("Error in get_latest_finance_created: ", ex)
+            print('Error in get_latest_date_created for table', tablename + ':', ex)
         finally:
             session.rollback()
             session = None
