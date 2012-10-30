@@ -404,6 +404,9 @@ class DatabaseAccess():
             return statement_finance
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_FINANCE, ex)
+        finally:
+            session.rollback()
+            session = None
 
     def create_statements_TABLE_RATE(self, input_fields):
         """ Creates the records needed for TABLE_RATE. """
@@ -467,6 +470,9 @@ class DatabaseAccess():
             return statement_rate
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_RATE, ex)
+        finally:
+            session.rollback()
+            session = None
     
     def create_statements_TABLE_INVESTING(self, input_fields):
         """ Creates the records needed for TABLE_INVESTING. """
@@ -499,6 +505,9 @@ class DatabaseAccess():
             return statement_INVESTMENT
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_INVESTMENT, ex)
+        finally:
+            session.rollback()
+            session = None
    
     #TODO:
     #First do T_FINANCE
@@ -626,6 +635,9 @@ class DatabaseAccess():
                 return statement_trade
             except Exception as ex:
                 print(ERROR_CREATE_STATEMENTS_TABLE_TRADE, ex)
+            finally:
+                session.rollback()
+                session = None
 
     def get_long_flag(category, subcategory):
         """ Are we long or short? """
@@ -657,6 +669,9 @@ class DatabaseAccess():
             return statement_currency_exchange
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_CURRENCY_EXCHANGE, ex)
+        finally:
+            session.rollback()
+            session = None
 
     def calculate_commission(self):
         """ Calculation for T_RATE """
