@@ -330,8 +330,8 @@ class DatabaseAccess():
 
     def create_statements_TABLE_FINANCE(self, input_fields):
         """ Creates the records needed for TABLE_FINANCE. """
+        session = self.Session()
         try:
-            session = self.Session()
             date_created = current_date()
             date_modified = current_date()
             statement_finance = Statement(TABLE_FINANCE)
@@ -400,7 +400,6 @@ class DatabaseAccess():
                             )
                         )
                         currency_exchange_id = currency_exchange_id + 1
-            session = None
             return statement_finance
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_FINANCE, ex)
@@ -470,17 +469,14 @@ class DatabaseAccess():
             return statement_rate
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_RATE, ex)
-        finally:
-            session.rollback()
-            session = None
     
     def create_statements_TABLE_INVESTING(self, input_fields):
         """ Creates the records needed for TABLE_INVESTING. """
         #TODO: this needs to be a portfolio module, but
         #we don't need it at the moment. Will be finished
         #later. T_STOCK is no longer needed, it will be T_INVESTMENT.
+        session = self.Session()
         try:
-            session = self.Session()
             date_created = current_date()
             date_modified = current_date()
             statement_investment = Statement(TABLE_INVESTMENT)
@@ -543,7 +539,10 @@ class DatabaseAccess():
                 if finance_id != -1:
                     for fields in input_fields:
                         obj = session.query(T_TRADE).filter_by(
-                                id_buy = finance_id,
+                                or_(
+                                    id_buy = finance_id,
+                                    id_sell = finance_id
+                                ),
                                 active = 1
                               ).first()
                         if obj is None:
@@ -563,7 +562,9 @@ class DatabaseAccess():
                     	        print('test: no object, new')
                         finance_id = finance_id + 1
 
-                        finance_record = finance_record_from_latest(finance_id)
+                        finance_record = get_finance_record(finance_id)
+                        trade_record = get_trade_record(finance_id)
+                        print(finance_record)
                         record = records + 1
                         #NOTE: price_buy will be fields['amount']
                         #When we buy more, it will be overwritten!
@@ -578,17 +579,20 @@ class DatabaseAccess():
                             #way, but when it already exists, we need to create
                             #update statements. SQLAlchemy?
                             #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
-                            date_sell = finance_record[<somenumber>]
+                            date_sell = finance_record[1] #TODO: No, this needs to be
+                            #the value currently in T_TRADE if it's not a new
+                            #value
                             price_buy = fields['amount']
-                            price_sell = finance_record[<somenumber>]
+                            price_sell = finance_record[12] #TODO: should be
+                            #the one from T_TRADE
                         else:
                             date_sell = date_created
                             year_sell = date_created.year
                             month_sell = date_created.month
                             day_sell = date_created.day
+                            date_buy = finance_record[1]
+                            price_buy = finance_record[12]
                             price_sell = fields['amount']
-                            date_buy = finance_record[<somenumber>]
-                            price_buy = finance_record[<somenumber>]
                         #TODO: create function that will do this:
                         #if buy and is new: long
                         #if sell and is new: short
@@ -632,12 +636,12 @@ class DatabaseAccess():
                                 date_modified
                              )
                          )
-                return statement_trade
-            except Exception as ex:
-                print(ERROR_CREATE_STATEMENTS_TABLE_TRADE, ex)
-            finally:
-                session.rollback()
-                session = None
+            return statement_trade
+        except Exception as ex:
+            print(ERROR_CREATE_STATEMENTS_TABLE_TRADE, ex)
+        finally:
+            session.rollback()
+            session = None
 
     def get_long_flag(category, subcategory):
         """ Are we long or short? """
@@ -669,30 +673,29 @@ class DatabaseAccess():
             return statement_currency_exchange
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_CURRENCY_EXCHANGE, ex)
-        finally:
-            session.rollback()
-            session = None
 
     def calculate_commission(self):
         """ Calculation for T_RATE """
         return -1.0
     
     def write_to_database(self, statements):
-        """ Writes the records of a given statements list to the database.
+        """ 
+            Writes the records of a given statements list to the database.
         """
         try:
             if statements != []:
-                session = self.Session()
                 statement_list = statements.get_statement_list()
+                session = self.Session()
                 try:
-                    print(statements.table_name + ':', end='')
+                    print(statements.table_name, end='')
                     session.add_all(statement_list)
                     session.commit()
-                    session = None
                     print("{0} records added.".format(str(len(statement_list))))
                 except Exception as ex:
-                    session.rollback()
                     print(ERROR_WRITE_TO_DATABASE, ex)
+                finally:
+                    session.rollback()
+                    session = None
         except Exception as ex:
             print(ERROR_WRITE_TO_DATABASE_SESSION, ex)
 
@@ -805,15 +808,15 @@ class DatabaseAccess():
     def export_records(self, name):
         """ Return the records from the table or view, defined by name. """
         records = None
+        session = self.Session()
         try:
-            session = self.Session()
             records = session.query(name).all()
         except Exception as ex:
             print("Error in export_records: ", ex)
         finally:
             session.rollback()
             session = None
-            return records
+        return records
 
     def subcategory_id_from_subcategory(self, subcategory):
         """ Get the subcategory_id from a subcategory. """
@@ -962,8 +965,8 @@ class DatabaseAccess():
     def subcategory_from_subcategory_id(self, subcategory_id):
         """ Get the subcategory for a given subcategory_id from the T_SUBCATEGORY table. """
         result = ''
+        session = self.Session()
         try:
-            session = self.Session()
             for instance in session.query(T_SUBCATEGORY).filter_by(subcategory_id=subcategory_id):
                 result = instance.name
         except Exception as ex:
@@ -976,8 +979,8 @@ class DatabaseAccess():
     def accountname_from_account_id(self, account_id):
         """ Get the accountname for a given account_id from the T_ACCOUNT table. """
         result = ''
+        session = self.Session()
         try:
-            session = self.Session()
             for instance in session.query(T_ACCOUNT).filter_by(account_id=account_id):
                 result = instance.name
         except Exception as ex:
@@ -1041,8 +1044,8 @@ class DatabaseAccess():
     def get_latest_rate_id(self):
         """ Gets the latest rate_id """
         result = -1
+        session = self.Session()
         try:
-            session = self.Session()
             first_obj = session.query(T_RATE).order_by(T_RATE.rate_id.desc()).first()
             if first_obj is not None:
                 result = first_obj.rate_id
@@ -1060,8 +1063,8 @@ class DatabaseAccess():
     def get_parameter_value(self, parameter_id):
         """ Function to get the value that belongs to the given parameter. """
         result = ''
+        session = self.Session()
         try:
-            session = self.Session()
             for instance in session.query(T_PARAMETER).filter_by(
                     parameter_id=parameter_id):
                 result = instance.value
@@ -1078,8 +1081,8 @@ class DatabaseAccess():
             block, which is determined by examining the date_created column.
         """
         result = -1
+        session = self.Session()
         try:
-            session = self.Session()
             currency_exchange_created = self.get_latest_date_created(TABLE_CURRENCY_EXCHANGE)
             obj = session.query(T_CURRENCY_EXCHANGE).filter_by(date_created=currency_exchange_created)
             if obj is not None:
@@ -1098,8 +1101,8 @@ class DatabaseAccess():
             block, which is determined by examining the date_created column.
         """
         result = -1
+        session = self.Session()
         try:
-            session = self.Session()
             rate_created = self.get_latest_date_created(TABLE_RATE)
             obj = session.query(T_RATE).filter_by(date_created=rate_created)
             if obj is not None:
@@ -1118,8 +1121,8 @@ class DatabaseAccess():
             block, which is determined by examining the date_created column.
         """
         result = -1
+        session = self.Session()
         try:
-            session = self.Session()
             finance_created = self.get_latest_date_created(TABLE_FINANCE)
             obj = session.query(T_FINANCE).filter_by(date_created=finance_created)
             if obj is not None:
@@ -1135,21 +1138,61 @@ class DatabaseAccess():
     def get_latest_date_created(self, tablename):
         """ Get's the latest date_created value that was added. """
         result = current_date()
+        session = self.Session()
         try:
-            session = self.Session()
-	    if tablename == TABLE_FINANCE:
+            if tablename == TABLE_FINANCE:
                 first_obj = session.query(T_FINANCE).order_by(
-                        T_FINANCE.finance_id.desc()).first()
+                    T_FINANCE.finance_id.desc()).first()
             elif tablename == TABLE_RATE:
                 first_obj = session.query(T_RATE).order_by(
                     T_RATE.rate_id.desc()).first()
-            elif TABLE_NAME == TABLE_CURRENCY_EXCHANGE:
+            elif tablename == TABLE_CURRENCY_EXCHANGE:
                 first_obj = session.query(T_CURRENCY_EXCHANGE).order_by(
                     T_CURRENCY_EXCHANGE.currency_exchange_id.desc()).first()
             if first_obj is not None:
-               result = first_obj.date_created
+                result = first_obj.date_created
         except Exception as ex:
             print('Error in get_latest_date_created for table', tablename + ':', ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
+
+    def get_finance_record(self, finance_id):
+        """ 
+            Gets the finance_record with the given finance_id.
+        """
+        result = []
+        session = self.Session()
+        try:
+            obj = session.query(T_FINANCE).filter_by(finance_id =
+                    finance_id).first() #finance_id is unique anyway
+            if obj is not None:
+                for instance in obj:
+                    result = instance
+        except Exception as ex:
+            print("Error in get_finance_record: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
+
+    def get_trade_record(self, finance_id):
+        """ 
+            Gets the trade_record with the given finance_id set in
+            either id_buy or id_sell.
+        """
+        result = []
+        session = self.Session()
+        try:
+            finance_created = self.get_latest_date_created(TABLE_FINANCE)
+            obj = session.query(T_FINANCE).filter_by(or_(id_buy =
+                    finance_id, id_sell = finance_id)).first() #finance_id is unique anyway
+            if obj is not None:
+                for instance in obj:
+                    result = instance
+        except Exception as ex:
+            print("Error in get_finance_record: ", ex)
         finally:
             session.rollback()
             session = None
