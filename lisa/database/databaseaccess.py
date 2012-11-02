@@ -356,7 +356,6 @@ class DatabaseAccess():
                         stock_name_id = self.stock_name_id_from_stock_name(
                                 fields['stock_name'], market_id)
                     rate_id = self.get_latest_rate_id()
-                print('test: msr:', market_id, stock_name_id, rate_id)
                 obj = session.query(T_FINANCE).filter_by(
                             date=fields['date'],
                             account_id=account_id,
@@ -371,7 +370,6 @@ class DatabaseAccess():
                             commission=Decimal(fields['commission']),
                             active=1
                             ).first()
-                print('test: obj:', obj)
                 if obj is None: 
                         records = records + 1
                         statement_finance.add(
@@ -527,17 +525,20 @@ class DatabaseAccess():
         """ Creates the records needed for TABLE_TRADE. """
         try:
             session = self.Session()
-            if is_a_trade(fields['category'], fields['subcategory']):            
-                date_created = current_date()
-                date_modified = current_date()
-                statement_trade = Statement(TABLE_TRADE)
-                records = 0
-            
-                finance_id = first_finance_id_from_latest()
-                #TODO: get the entire line of information from TABLE_FINANCE, because we need the date
-                #and price info too.
-                if finance_id != -1:
-                    for fields in input_fields:
+            date_created = current_date()
+            date_modified = current_date()
+            statement_trade = Statement(TABLE_TRADE)
+            records = 0
+        
+            finance_id = self.first_finance_id_from_latest()
+            #TODO: get the entire line of information from TABLE_FINANCE, because we need the date
+            #and price info too.
+            print('test:', finance_id)
+            if finance_id != -1:
+                for fields in input_fields:
+                    print('test2:', is_a_trade(fields['category'],
+                        fields['subcategory']))
+                    if is_a_trade(fields['category'], fields['subcategory']):            
                         obj = session.query(T_TRADE).filter_by(
                                 or_(
                                     id_buy = finance_id,

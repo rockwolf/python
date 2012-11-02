@@ -69,16 +69,18 @@ class ControllerMain():
             test.print_statements()
             test = dba.create_statements_TABLE_RATE(input_fields)
             test.print_statements()
-            test = dba.create_statements_TABLE_FINANCE(input_fields)
+            statements_finance = dba.create_statements_TABLE_FINANCE(input_fields)
+            statements_finance.print_statements()
+            test = dba.create_statements_TABLE_TRADE(input_fields,
+                    statements_finance)
             test.print_statements()
-            #test = dba.create_statements_TABLE_TRADE(input_fields)
-            #test.print_statements()
             #test = dba.create_statements_TABLE_INVESTMENT(input_fields)
             #test.print_statements()
             
             dba.write_to_database(dba.create_statements_TABLE_CURRENCY_EXCHANGE(input_fields))
             dba.write_to_database(dba.create_statements_TABLE_RATE(input_fields))
-            dba.write_to_database(dba.create_statements_TABLE_FINANCE(input_fields))
+            statements_finance = dba.create_statements_TABLE_FINANCE(input_fields)
+            dba.write_to_database(statements_finance)
             #if self.is_a_trade():
             #    dba.write_to_database(dba.create_statements_TABLE_TRADE(input_fields))
             #if self.is_an_investment():
