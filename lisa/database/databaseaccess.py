@@ -533,10 +533,10 @@ class DatabaseAccess():
             finance_id = self.first_finance_id_from_latest()
             #TODO: get the entire line of information from TABLE_FINANCE, because we need the date
             #and price info too.
-            print('test:', finance_id)
+            print('test: finance_id=', finance_id)
             if finance_id != -1:
                 for fields in input_fields:
-                    print('test2:', is_a_trade(fields['category'],
+                    print('test2: is_a_trade=', is_a_trade(fields['category'],
                         fields['subcategory']))
                     if is_a_trade(fields['category'], fields['subcategory']):            
                         obj = session.query(T_TRADE).filter(
@@ -558,21 +558,23 @@ class DatabaseAccess():
 
                         finance_record = self.get_finance_record(finance_id)
                         trade_record = self.get_trade_record(finance_id)
-                        print(finance_record)
+                        print('test finance_record=', finance_record)
                         record = records + 1
                         #NOTE: price_buy will be fields['amount']
                         #When we buy more, it will be overwritten!
                         #Trading without adding to positions is assumed by this code!
                         if we_are_buying(fields['subcategory']):
                             date_buy = date_created
-                            year_buy = date_created.year
-                            month_buy = date_created.month
-                            day_buy = date_created.day
+                            year_buy = string_to_date(date_created).year
+                            month_buy = string_to_date(date_created).month
+                            day_buy = string_to_date(date_created).day
                             #TODO: this is complex: we need to first check if it
                             #is new. When new, we need to add it in the regular
                             #way, but when it already exists, we need to create
                             #update statements. SQLAlchemy?
                             #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
+                            #TODO: no finance_record = gives list index out of
+                            #range error??
                             date_sell = finance_record[1] #TODO: No, this needs to be
                             #the value currently in T_TRADE if it's not a new
                             #value
@@ -581,9 +583,9 @@ class DatabaseAccess():
                             #the one from T_TRADE
                         else:
                             date_sell = date_created
-                            year_sell = date_created.year
-                            month_sell = date_created.month
-                            day_sell = date_created.day
+                            year_sell = string_to_date(date_created).year
+                            month_sell = string_to_date(date_created).month
+                            day_sell = string_to_date(date_created).day
                             date_buy = finance_record[1]
                             price_buy = finance_record[12]
                             price_sell = fields['amount']
@@ -1143,6 +1145,8 @@ class DatabaseAccess():
             elif tablename == TABLE_CURRENCY_EXCHANGE:
                 first_obj = session.query(T_CURRENCY_EXCHANGE).order_by(
                     T_CURRENCY_EXCHANGE.currency_exchange_id.desc()).first()
+            else:
+                first_obj = None
             if first_obj is not None:
                 result = first_obj.date_created
         except Exception as ex:
