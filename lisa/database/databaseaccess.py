@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
-from sqlalchemy import create_engine, Table, MetaData, Column, Integer
+from sqlalchemy import create_engine, Table, MetaData, Column, Integer, or_
 from sqlalchemy.orm import mapper, clear_mappers
 #from sqlalchemy.sql import exists
 from sqlalchemy.orm import sessionmaker
@@ -539,32 +539,25 @@ class DatabaseAccess():
                     print('test2:', is_a_trade(fields['category'],
                         fields['subcategory']))
                     if is_a_trade(fields['category'], fields['subcategory']):            
-                        obj = session.query(T_TRADE).filter_by(
+                        obj = session.query(T_TRADE).filter(
                                 or_(
-                                    id_buy = finance_id,
-                                    id_sell = finance_id
-                                ),
+                                    T_TRADE.id_buy == finance_id,
+                                    T_TRADE.id_sell == finance_id
+                                )).filter_by(
                                 active = 1
                               ).first()
                         if obj is None:
-                            print('test: no object')
-                            # id_buy not found, look for id_sell (can we combine this?)
-                            obj = session.query(T_TRADE).filter_by(
-                                        id_sell = finance_id, #or id_buy = finance_id + use coalesce or something
-                                        active = 1
-                    	        ).first()
-                            if obj is None:
-                                #TODO: now we have as possible entries:
-                                #id_buy filled in/id_sell filled in/id_buy AND id_sell filled in
-                                # and that last one needs to be filtered.
-                    	        #create a new entry with:
-                    	        #if is_long: id_buy = finance_id
-                    	        #else: id_sell = finance_id
-                    	        print('test: no object, new')
+                            #TODO: now we have as possible entries:
+                            #id_buy filled in/id_sell filled in/id_buy AND id_sell filled in
+                            # and that last one needs to be filtered.
+                            #create a new entry with:
+                            #if is_long: id_buy = finance_id
+                            #else: id_sell = finance_id
+                            print('test: no object, new')
                         finance_id = finance_id + 1
 
-                        finance_record = get_finance_record(finance_id)
-                        trade_record = get_trade_record(finance_id)
+                        finance_record = self.get_finance_record(finance_id)
+                        trade_record = self.get_trade_record(finance_id)
                         print(finance_record)
                         record = records + 1
                         #NOTE: price_buy will be fields['amount']
@@ -1186,9 +1179,11 @@ class DatabaseAccess():
         result = []
         session = self.Session()
         try:
-            finance_created = self.get_latest_date_created(TABLE_FINANCE)
-            obj = session.query(T_FINANCE).filter_by(or_(id_buy =
-                    finance_id, id_sell = finance_id)).first() #finance_id is unique anyway
+            finance_created = self.get_latest_date_created(TABLE_TRADE)
+            obj = session.query(T_TRADE).filter(
+                    or_(
+                        T_TRADE.id_buy == finance_id,
+                        T_TRADE.id_sell == finance_id)).first() #finance_id is unique anyway
             if obj is not None:
                 for instance in obj:
                     result = instance
