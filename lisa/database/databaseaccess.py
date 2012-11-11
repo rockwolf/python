@@ -554,11 +554,11 @@ class DatabaseAccess():
                             #if is_long: id_buy = finance_id
                             #else: id_sell = finance_id
                             print('test: no object, new')
-                        finance_id = finance_id + 1
-
                         finance_record = self.get_finance_record(finance_id)
-                        trade_record = self.get_trade_record(finance_id)
                         print('test finance_record=', finance_record)
+                        finance_id = finance_id + 1
+                        trade_record = self.get_trade_record(finance_id)
+                        print('test trade_record=', trade_record)
                         record = records + 1
                         #NOTE: price_buy will be fields['amount']
                         #When we buy more, it will be overwritten!
@@ -683,7 +683,7 @@ class DatabaseAccess():
                 statement_list = statements.get_statement_list()
                 session = self.Session()
                 try:
-                    print(statements.table_name, end='')
+                    print(statements.table_name, end=': ')
                     session.add_all(statement_list)
                     session.commit()
                     print("{0} records added.".format(str(len(statement_list))))
@@ -1163,11 +1163,10 @@ class DatabaseAccess():
         result = []
         session = self.Session()
         try:
-            obj = session.query(T_FINANCE).filter_by(finance_id =
+            first_obj = session.query(T_FINANCE).filter_by(finance_id =
                     finance_id).first() #finance_id is unique anyway
-            if obj is not None:
-                for instance in obj:
-                    result = instance
+            if first_obj is not None:
+                result = first_obj
         except Exception as ex:
             print("Error in get_finance_record: ", ex)
         finally:
@@ -1184,13 +1183,12 @@ class DatabaseAccess():
         session = self.Session()
         try:
             finance_created = self.get_latest_date_created(TABLE_TRADE)
-            obj = session.query(T_TRADE).filter(
+            first_obj = session.query(T_TRADE).filter(
                     or_(
                         T_TRADE.id_buy == finance_id,
                         T_TRADE.id_sell == finance_id)).first() #finance_id is unique anyway
-            if obj is not None:
-                for instance in obj:
-                    result = instance
+            if first_obj is not None:
+                result = first_obj
         except Exception as ex:
             print("Error in get_finance_record: ", ex)
         finally:
