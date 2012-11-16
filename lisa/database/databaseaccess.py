@@ -1166,7 +1166,7 @@ class DatabaseAccess():
             first_obj = session.query(T_FINANCE).filter_by(finance_id =
                     finance_id).first() #finance_id is unique anyway
             if first_obj is not None:
-                result = first_obj
+                result = first_obj.get_record()
         except Exception as ex:
             print("Error in get_finance_record: ", ex)
         finally:
@@ -1188,7 +1188,7 @@ class DatabaseAccess():
                         T_TRADE.id_buy == finance_id,
                         T_TRADE.id_sell == finance_id)).first() #finance_id is unique anyway
             if first_obj is not None:
-                result = first_obj
+                result = first_obj.get_record()
         except Exception as ex:
             print("Error in get_finance_record: ", ex)
         finally:

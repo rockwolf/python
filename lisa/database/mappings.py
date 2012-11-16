@@ -52,6 +52,17 @@ class T_FINANCE(object):
             self.commission, self.active, self.rate_id,
             self.currency_exchange_id, self.date_created, self.date_modified)
 
+    def get_record(self):
+        """ 
+            Gets the list of values for this object, instead of the object
+            itself.
+        """
+        return [self.finance_id, self.date, self.year, self.month, self.day, self.account_id,
+            self.category_id, self.subcategory_id, self.amount, self.comment,
+            self.stock_name_id, self.shares, self.price, self.tax,
+            self.commission, self.active, self.rate_id,
+            self.currency_exchange_id, self.date_created, self.date_modified]
+
 class T_INVESTMENT(object):
     """ T_INVESTMENT """
 
@@ -282,6 +293,40 @@ class T_TRADE(object):
                         self.active,
                         self.date_created,
                         self.date_modified)
+    
+    def get_record(self):
+        """ 
+            Gets the list of values for this object, instead of the object
+            itself.
+        """
+        return [self.trade_id,
+                self.date_buy,
+                self.year_buy,
+                self.month_buy,
+                self.day_buy,
+                self.date_sell,
+                self.year_sell,
+                self.month_sell,
+                self.day_sell,
+                self.long_flag,
+                self.price_buy,
+                self.price_sell,
+                self.risk,
+                self.initial_risk,
+                self.initial_risk_percent,
+                self.stoploss,
+                self.profit_loss,
+                self.profit_loss_percent,
+                self.r_multiple,
+                self.win_flag,
+                self.at_work,
+                self.id_buy,
+                self.id_sell,
+                self.currency_id,
+                self.drawdown_id,
+                self.active,
+                self.date_created,
+                self.date_modified]
 
 class T_RATE(object):
     """ T_RATE """

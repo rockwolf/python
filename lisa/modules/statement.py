@@ -74,4 +74,3 @@ class Statement():
             for statement in self.statements:
                 result.append(statement[1])
         return result
-
