@@ -528,6 +528,7 @@ class DatabaseAccess():
             date_created = current_date()
             date_modified = current_date()
             statement_trade = Statement(TABLE_TRADE)
+            needs_update = 0
             records = 0
         
             finance_id = self.first_finance_id_from_latest()
@@ -546,13 +547,17 @@ class DatabaseAccess():
                                 )).filter_by(
                                 active = 1
                               ).first()
-                        if obj is None:
-                            #TODO: now we have as possible entries:
-                            #id_buy filled in/id_sell filled in/id_buy AND id_sell filled in
-                            # and that last one needs to be filtered.
-                            #create a new entry with:
-                            #if is_long: id_buy = finance_id
-                            #else: id_sell = finance_id
+                        if obj is not None:
+                            #NOTE: This is what we use to determine wether we
+                            #need to fill in id_buy or id_sell 
+                            if self.get_long_flag(fields['category'],
+                                fields['subcategory'], trade_record):
+                                id_buy = finance_id
+                            else:
+                                id_sell = finance_id
+                            #NOTE: When this code is executed, we know that
+                            # we'll have to update later, instead of insert.
+                            needs_update = 1
                             print('test: no object, new')
                         finance_record = self.get_finance_record(finance_id)
                         print('test finance_record=', finance_record)
@@ -576,6 +581,9 @@ class DatabaseAccess():
                             date_sell = finance_record[1] #TODO: No, this needs to be
                             #the value currently in T_TRADE if it's not a new
                             #value
+                            year_sell = string_to_date().year
+                            month_sell = string_to_date().month
+                            day_sell = string_to_date().day
                             price_buy = fields['amount']
                             price_sell = finance_record[12] #TODO: should be
                             #the one from T_TRADE
@@ -640,6 +648,7 @@ class DatabaseAccess():
     #short (covering)
     # if sell and not new and date_buy already filled in:
     #long
+    #TODO: toroughly test this
     def get_long_flag(self, category, subcategory, trade_record):
         """ Are we long or short? """
         result = False
