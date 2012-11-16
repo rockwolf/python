@@ -573,8 +573,6 @@ class DatabaseAccess():
                             #way, but when it already exists, we need to create
                             #update statements. SQLAlchemy?
                             #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
-                            #TODO: no finance_record = gives list index out of
-                            #range error??
                             date_sell = finance_record[1] #TODO: No, this needs to be
                             #the value currently in T_TRADE if it's not a new
                             #value
@@ -589,15 +587,11 @@ class DatabaseAccess():
                             date_buy = finance_record[1]
                             price_buy = finance_record[12]
                             price_sell = fields['amount']
-                        #TODO: create function that will do this:
-                        #if buy and is new: long
-                        #if sell and is new: short
-                        #if buy and not new and date_sell already filled in:
-                        #short (covering)
-                        # if sell and not new and date_buy already filled in:
-                        #long
                         #NOTE: should also not be changed on update
-                        long_flag = get_long_flag()
+                        # so perhaps use long_flag from trade record
+                        # if one is found.
+                        long_flag = self.get_long_flag(fields['category'],
+                                fields['subcategory'], trade_record)
                         #TODO: query to see if we need to update instead?
                         #or is that not necessary?
                         #TODO: add flag to statement list that specifies U (update)
@@ -639,10 +633,22 @@ class DatabaseAccess():
             session.rollback()
             session = None
 
-    def get_long_flag(category, subcategory):
+    #TODO: create function that will do this:
+    #if buy and is new: long
+    #if sell and is new: short
+    #if buy and not new and date_sell already filled in:
+    #short (covering)
+    # if sell and not new and date_buy already filled in:
+    #long
+    def get_long_flag(self, category, subcategory, trade_record):
         """ Are we long or short? """
-        #if category == 'buy' and 
-        return False
+        result = False
+        if category == 'buy' and trade_record == []:
+            result = True
+        else:
+            if category == 'sell' and trade_record[date] != '':
+                result = True
+        return result
 
     def create_statements_TABLE_CURRENCY_EXCHANGE(self, input_fields):
         """ Creates the records needed for TABLE_CURRENCY_EXCHANGE. """
