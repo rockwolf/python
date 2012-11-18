@@ -561,10 +561,8 @@ class DatabaseAccess():
                             #NOTE: When this code is executed, we know that
                             # we'll have to update later, instead of insert.
                             needs_update = 1
-                            print('test: no object, new')
                         finance_record = self.get_finance_record(finance_id)
                         print('test finance_record=', finance_record)
-                        finance_id = finance_id + 1
                         trade_record = self.get_trade_record(finance_id)
                         print('test trade_record=', trade_record)
                         record = records + 1
@@ -637,6 +635,7 @@ class DatabaseAccess():
                                 date_modified
                              )
                          )
+                finance_id = finance_id + 1
             return statement_trade
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_TRADE, ex)
