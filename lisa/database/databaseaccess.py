@@ -537,8 +537,6 @@ class DatabaseAccess():
             print('test: finance_id=', finance_id)
             if finance_id != -1:
                 for fields in input_fields:
-                    print('test2: is_a_trade=', is_a_trade(fields['category'],
-                        fields['subcategory']))
                     if is_a_trade(fields['category'], fields['subcategory']):            
                         obj = session.query(T_TRADE).filter(
                                 or_(
@@ -550,11 +548,16 @@ class DatabaseAccess():
                         if obj is not None:
                             #NOTE: This is what we use to determine wether we
                             #need to fill in id_buy or id_sell 
-                            if self.get_long_flag(fields['category'],
-                                fields['subcategory'], trade_record):
+                            if fields['subcategory'] == 'buy' and \
+                                T_TRADE.id_buy != -1:
                                 id_buy = finance_id
-                            else:
+                            elif fields['subcategory'] == 'sell' and \
+                                T_TRADE.id_sell != -1:
                                 id_sell = finance_id
+                            else:
+                                raise Exception(
+                                    "{0} already contains a sell or buy record" \
+                                    " and you are trying to add one again?".format(TABLE_TRADE))
                             #NOTE: When this code is executed, we know that
                             # we'll have to update later, instead of insert.
                             needs_update = 1
