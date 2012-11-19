@@ -601,10 +601,12 @@ class DatabaseAccess():
                         # if one is found.
                         long_flag = self.get_long_flag(fields['category'],
                                 fields['subcategory'], trade_record)
-                        #TODO: query to see if we need to update instead?
-                        #or is that not necessary?
-                        #TODO: add flag to statement list that specifies U (update)
-                        #or N (new)?
+                        #TODO: if needs_update = 1: update else: insert
+                        # How? Add update flag or something?
+                        # Create seperate statements?
+                        # Perhaps it's enough to ADD THE TRADE_ID from
+                        # trade_record to T_TRADE(..., date_buy, ...) instead
+                        # of None!!!
                         statement_trade.add(
                             records,
                             T_TRADE(
