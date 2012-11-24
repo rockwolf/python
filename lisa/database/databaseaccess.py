@@ -538,26 +538,23 @@ class DatabaseAccess():
             if finance_id != -1:
                 for fields in input_fields:
                     if is_a_trade(fields['category'], fields['subcategory']):            
-                        obj = session.query(T_TRADE).filter(
-                                or_(
-                                    T_TRADE.id_buy == finance_id,
-                                    T_TRADE.id_sell == finance_id
-                                )).filter_by(
-                                active = 1
-                              ).first()
-                        if obj is not None:
+                        #schmeck
+                        market_id = self.market_id_from_market(fields_stock[i]['market'])
+                        stock_name_id = self.stock_name_id_from_stock_name(fields_stock[i]['name'], market_id)
+                        if self.trade_already_started(market_id, stock_name_id):
+                        #/end schmeck
                             #NOTE: This is what we use to determine wether we
                             #need to fill in id_buy or id_sell 
                             if fields['subcategory'] == 'buy' and \
-                                T_TRADE.id_buy != -1:
+                                T_TRADE.id_buy == -1:
                                 id_buy = finance_id
                             elif fields['subcategory'] == 'sell' and \
-                                T_TRADE.id_sell != -1:
+                                T_TRADE.id_sell == -1:
                                 id_sell = finance_id
                             else:
                                 raise Exception(
                                     "{0} already contains a sell or buy record" \
-                                    " and you are trying to add one again?".format(TABLE_TRADE))
+                                    " and you are trying to add one like it again?".format(TABLE_TRADE))
                             #NOTE: When this code is executed, we know that
                             # we'll have to update later, instead of insert.
                             needs_update = 1
@@ -644,6 +641,36 @@ class DatabaseAccess():
         finally:
             session.rollback()
             session = None
+
+    def trade_already_started(self, market_id, stock_name_id):
+        """
+            Check if this trade has already started.
+        """
+        result = False
+        try:
+            session = self.Session()
+            #NOTE: id_buy or id_sell must be -1
+            # but both can't be filled in (= finished trade)
+            obj = session.query(T_TRADE).filter(
+                    market_id = market_id,
+                    stock_name_id = stock_name_id,
+                    active = 1,
+                    and_(
+                        or_(
+                            id_buy = -1,
+                            id_sell = -1
+                        ),
+                        and_(
+                            id_buy != -1,
+                            id_sell !=  -1
+                       )
+                    )
+                )
+            if obj is not None:
+                result = True
+        except Exception as ex:
+            print(ERROR_TRADE_ALREADY_STARTED, ex)
+        return result
 
     #TODO: create function that will do this:
     #if buy and is new: long
