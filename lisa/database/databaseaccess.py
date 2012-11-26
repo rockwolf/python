@@ -15,7 +15,8 @@ You should have received a copy of the GNU General Public License
 along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
-from sqlalchemy import create_engine, Table, MetaData, Column, Integer, or_
+from sqlalchemy import create_engine, Table, MetaData, \
+        Column, Integer, or_, and_
 from sqlalchemy.orm import mapper, clear_mappers
 #from sqlalchemy.sql import exists
 from sqlalchemy.orm import sessionmaker
@@ -539,8 +540,10 @@ class DatabaseAccess():
                 for fields in input_fields:
                     if is_a_trade(fields['category'], fields['subcategory']):            
                         #schmeck
-                        market_id = self.market_id_from_market(fields_stock[i]['market'])
-                        stock_name_id = self.stock_name_id_from_stock_name(fields_stock[i]['name'], market_id)
+                        market_id = self.market_id_from_market(
+                                fields['market_name'])
+                        stock_name_id = self.stock_name_id_from_stock_name(
+                                fields['stock_name'], market_id)
                         if self.trade_already_started(market_id, stock_name_id):
                         #/end schmeck
                             #NOTE: This is what we use to determine wether we
@@ -654,18 +657,14 @@ class DatabaseAccess():
             obj = session.query(T_TRADE).filter(
                     market_id = market_id,
                     stock_name_id = stock_name_id,
-                    active = 1,
-                    and_(
+                    active = 1).filter(
                         or_(
                             id_buy = -1,
                             id_sell = -1
-                        ),
-                        and_(
+                        )).filter(
                             id_buy != -1,
                             id_sell !=  -1
                        )
-                    )
-                )
             if obj is not None:
                 result = True
         except Exception as ex:
