@@ -569,6 +569,20 @@ class DatabaseAccess():
                         #NOTE: price_buy will be fields['amount']
                         #When we buy more, it will be overwritten!
                         #Trading without adding to positions is assumed by this code!
+                        #
+                        #TODO:
+                        #- improve Statement() to include both update and
+                        #  insert statements?
+                        #- Let this function alone return 2 statement lists,
+                        #  one for update and one for insert?
+                        #- Write seperate code in the main controller for the
+                        #  update and the insert?
+                        #- update inline, insert as normal?
+                        if needs_update == 1:
+                            print('test: update code here?')
+                        else:
+                            print('test: does not need update = insert statements here')
+
                         if we_are_buying(fields['subcategory']):
                             date_buy = date_created
                             year_buy = string_to_date(date_created).year
@@ -582,7 +596,7 @@ class DatabaseAccess():
                             date_sell = finance_record[1] #TODO: No, this needs to be
                             #the value currently in T_TRADE if it's not a new
                             #value
-                            year_sell = string_to_date().year
+                            year_sell = string_to_date(fields['']).year
                             month_sell = string_to_date().month
                             day_sell = string_to_date().day
                             price_buy = fields['amount']
