@@ -131,7 +131,8 @@ class ControllerMain():
                     'risk':risk,
                     'currency':field[15],
                     'exchange_rate':field[16],
-                    'manual_flag':field[17]
+                    'manual_flag':field[17],
+                    'date_expiration':field[18]
                 })
         except Exception as ex:
             print(ERROR_GET_INPUT_FIELDS, ex)
@@ -230,7 +231,8 @@ class ControllerMain():
             self.gui.get_risk(),
             self.gui.get_currency(),
             self.gui.get_exchange_rate(),
-            self.gui.get_manual_commission()
+            self.gui.get_manual_commission(),
+            self.gui.get_date_expiration()
             ]
         return str_list
 
