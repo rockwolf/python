@@ -164,8 +164,10 @@ class ControllerPyqt(QtGui.QMainWindow):
             self.gui.spn_tax.setEnabled(True)
             if is_a_trade(category, subcategory):
                 self.gui.spn_risk.setEnabled(True)
+                self.gui.dt_expiration.setEnabled(True)
             else:
                 self.gui.spn_risk.setEnabled(False)
+                self.gui.dt_expiration.setEnabled(False)
             # set inputfields
             self.gui.spn_tax.setValue(Decimal(self.config.default_tax))
             if is_a_trade(category, subcategory):
@@ -185,6 +187,7 @@ class ControllerPyqt(QtGui.QMainWindow):
             self.gui.spn_commission.setEnabled(False)
             self.gui.spn_tax.setEnabled(False)
             self.gui.spn_risk.setEnabled(False)
+            self.gui.dt_expiration.setEnabled(False)
             # reset input fields
             self.gui.spn_quantity.setValue(0.0)
             self.gui.spn_price.setValue(0.0)
@@ -212,7 +215,7 @@ class ControllerPyqt(QtGui.QMainWindow):
                 'comment', 'stock', 'stock_description', 'market',
                 'market_description', 'quantity', 'price',
                 'commission', 'tax', 'risk', 'currency', 'exchange_rate',
-                'manual_flag']
+                'manual_flag', 'expires_on']
         self.table = TableModel(header, [], 0, len(header))
         # takeAt(0) removes the default empty table that's there and addWidget
         # adds a newly created one.
@@ -327,6 +330,10 @@ class ControllerPyqt(QtGui.QMainWindow):
     def get_manual_commission(self):
         """ Returns the value of the manual commission calc. checkbox """
         return '0' if self.gui.chk_manual_commission.isChecked() else '1' 
+        
+    def get_date_expiration(self):
+    	""" Returns the value of the dt_expiration date picker. """
+    	return str(self.gui.dt_expiration.date().toString(QtCore.Qt.ISODate))
 
     def set_infodetails(self, value):
        """ Sets new info on the lbl_infodetails label. """
