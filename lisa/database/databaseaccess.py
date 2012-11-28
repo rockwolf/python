@@ -521,7 +521,14 @@ class DatabaseAccess():
     # Nah, we need to retrieve the old values anyway to create the new statement.
     # So creating insert and update statements and joining them later in this function should
     # be sufficient.
-
+    #TODO: rewrite all the statement creation to give back a list of insert/update and delete statements.
+    #This can later be used to do seperate insert/update and delete operations.
+    #Beware that this also requires the writing of a function in statement.py
+    #that returns the values from the statement-object (if this function doesn't already exist).
+    #convention: 0 = insert / 1 = update / 3 = delete
+    #NOTE: Correct way of updating =  Supplier.query.filter(<your stuff here, or user filter_by, or whatever is in your where clause>).update(values)
+    #e.g.: session.query(Supplier).filter_by(id=2).update({"name": u"Mayowa"})
+    #TABLE_TRADE.query.filter(market_name=...,stock_name=...).update({"date_...": date_... etc.})
     def create_statements_TABLE_TRADE(self, input_fields, statements_finance):
         """ Creates the records needed for TABLE_TRADE. """
         try:
@@ -539,14 +546,12 @@ class DatabaseAccess():
             if finance_id != -1:
                 for fields in input_fields:
                     if is_a_trade(fields['category'], fields['subcategory']):            
-                        #schmeck
                         market_id = self.market_id_from_market(
                                 fields['market_name'])
                         stock_name_id = self.stock_name_id_from_stock_name(
                                 fields['stock_name'], market_id)
                         if self.trade_already_started(market_id, stock_name_id):
-                        #/end schmeck
-                            #NOTE: This is what we use to determine wether we
+                            #NOTE: This is what we use to determine whether we
                             #need to fill in id_buy or id_sell 
                             if fields['subcategory'] == 'buy' and \
                                 T_TRADE.id_buy == -1:
