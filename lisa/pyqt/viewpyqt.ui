@@ -441,6 +441,26 @@
           </property>
          </widget>
         </item>
+        <item row="3" column="6">
+         <widget class="QLabel" name="lbl_expiration">
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="text">
+           <string>Expires on</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="6">
+         <widget class="QDateEdit" name="dt_expiration">
+          <property name="displayFormat">
+           <string>yyyy-MM-dd</string>
+          </property>
+          <property name="calendarPopup">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
       <item>
@@ -582,6 +602,34 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <tabstops>
+  <tabstop>cmb_account</tabstop>
+  <tabstop>dt_date</tabstop>
+  <tabstop>cmb_category</tabstop>
+  <tabstop>cmb_subcategory</tabstop>
+  <tabstop>spn_amount</tabstop>
+  <tabstop>txt_comment</tabstop>
+  <tabstop>cmb_market_code</tabstop>
+  <tabstop>cmb_stock_name</tabstop>
+  <tabstop>spn_quantity</tabstop>
+  <tabstop>spn_price</tabstop>
+  <tabstop>spn_commission</tabstop>
+  <tabstop>chk_manual_commission</tabstop>
+  <tabstop>spn_tax</tabstop>
+  <tabstop>spn_risk</tabstop>
+  <tabstop>txt_market_description</tabstop>
+  <tabstop>txt_stock_description</tabstop>
+  <tabstop>dt_expiration</tabstop>
+  <tabstop>cmb_currency</tabstop>
+  <tabstop>spn_exchange_rate</tabstop>
+  <tabstop>btn_add</tabstop>
+  <tabstop>btn_update</tabstop>
+  <tabstop>btn_remove</tabstop>
+  <tabstop>btn_removelast</tabstop>
+  <tabstop>btn_clear</tabstop>
+  <tabstop>btn_execute</tabstop>
+  <tabstop>btn_exit</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

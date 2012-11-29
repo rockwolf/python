@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'viewpyqt.ui'
 #
-# Created: Fri Oct  5 07:31:01 2012
+# Created: Thu Nov 29 18:06:37 2012
 #      by: PyQt4 UI code generator 4.9.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -201,6 +201,14 @@ class Ui_MainWindow(object):
         self.chk_manual_commission.setChecked(False)
         self.chk_manual_commission.setObjectName(_fromUtf8("chk_manual_commission"))
         self.gridLayout.addWidget(self.chk_manual_commission, 2, 9, 1, 1)
+        self.lbl_expiration = QtGui.QLabel(self.centralwidget)
+        self.lbl_expiration.setFrameShape(QtGui.QFrame.NoFrame)
+        self.lbl_expiration.setObjectName(_fromUtf8("lbl_expiration"))
+        self.gridLayout.addWidget(self.lbl_expiration, 3, 6, 1, 1)
+        self.dt_expiration = QtGui.QDateEdit(self.centralwidget)
+        self.dt_expiration.setCalendarPopup(True)
+        self.dt_expiration.setObjectName(_fromUtf8("dt_expiration"))
+        self.gridLayout.addWidget(self.dt_expiration, 4, 6, 1, 1)
         self.verticalLayout.addLayout(self.gridLayout)
         self.gridLayout_6 = QtGui.QGridLayout()
         self.gridLayout_6.setObjectName(_fromUtf8("gridLayout_6"))
@@ -270,6 +278,31 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        MainWindow.setTabOrder(self.cmb_account, self.dt_date)
+        MainWindow.setTabOrder(self.dt_date, self.cmb_category)
+        MainWindow.setTabOrder(self.cmb_category, self.cmb_subcategory)
+        MainWindow.setTabOrder(self.cmb_subcategory, self.spn_amount)
+        MainWindow.setTabOrder(self.spn_amount, self.txt_comment)
+        MainWindow.setTabOrder(self.txt_comment, self.cmb_market_code)
+        MainWindow.setTabOrder(self.cmb_market_code, self.cmb_stock_name)
+        MainWindow.setTabOrder(self.cmb_stock_name, self.spn_quantity)
+        MainWindow.setTabOrder(self.spn_quantity, self.spn_price)
+        MainWindow.setTabOrder(self.spn_price, self.spn_commission)
+        MainWindow.setTabOrder(self.spn_commission, self.chk_manual_commission)
+        MainWindow.setTabOrder(self.chk_manual_commission, self.spn_tax)
+        MainWindow.setTabOrder(self.spn_tax, self.spn_risk)
+        MainWindow.setTabOrder(self.spn_risk, self.txt_market_description)
+        MainWindow.setTabOrder(self.txt_market_description, self.txt_stock_description)
+        MainWindow.setTabOrder(self.txt_stock_description, self.dt_expiration)
+        MainWindow.setTabOrder(self.dt_expiration, self.cmb_currency)
+        MainWindow.setTabOrder(self.cmb_currency, self.spn_exchange_rate)
+        MainWindow.setTabOrder(self.spn_exchange_rate, self.btn_add)
+        MainWindow.setTabOrder(self.btn_add, self.btn_update)
+        MainWindow.setTabOrder(self.btn_update, self.btn_remove)
+        MainWindow.setTabOrder(self.btn_remove, self.btn_removelast)
+        MainWindow.setTabOrder(self.btn_removelast, self.btn_clear)
+        MainWindow.setTabOrder(self.btn_clear, self.btn_execute)
+        MainWindow.setTabOrder(self.btn_execute, self.btn_exit)
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
@@ -291,6 +324,8 @@ class Ui_MainWindow(object):
         self.lbl_currency.setText(QtGui.QApplication.translate("MainWindow", "Currency", None, QtGui.QApplication.UnicodeUTF8))
         self.lbl_exchange_rate.setText(QtGui.QApplication.translate("MainWindow", "Exchange rate", None, QtGui.QApplication.UnicodeUTF8))
         self.chk_manual_commission.setText(QtGui.QApplication.translate("MainWindow", "Automatic", None, QtGui.QApplication.UnicodeUTF8))
+        self.lbl_expiration.setText(QtGui.QApplication.translate("MainWindow", "Expires on", None, QtGui.QApplication.UnicodeUTF8))
+        self.dt_expiration.setDisplayFormat(QtGui.QApplication.translate("MainWindow", "yyyy-MM-dd", None, QtGui.QApplication.UnicodeUTF8))
         self.btn_clear.setText(QtGui.QApplication.translate("MainWindow", "&Clear", None, QtGui.QApplication.UnicodeUTF8))
         self.btn_exit.setText(QtGui.QApplication.translate("MainWindow", "&Quit", None, QtGui.QApplication.UnicodeUTF8))
         self.btn_add.setText(QtGui.QApplication.translate("MainWindow", "&Add", None, QtGui.QApplication.UnicodeUTF8))
