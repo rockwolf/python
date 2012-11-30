@@ -40,8 +40,6 @@ class Statement():
             	self.statements_update.append([recordid, tablerow_object])
             elif insupdel == 2:
                 self.statements_delete.append([recordid, tablerow_object])
-            # tablerow object (statement)
-            #self.statements[recordid-1].append(tablerow_object)
         except Exception as ex:
             print("Error adding statement for", self.table_name, ": ", ex)
    
