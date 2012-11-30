@@ -87,5 +87,5 @@ class Statement():
                 for statement in statements:
                     result.append(statement[1])
         except Exception as ex:
-            print("Error executing statements: ", ex)
+            print("Error retrieving statement list: ", ex)
         return result
