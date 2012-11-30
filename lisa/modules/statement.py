@@ -22,31 +22,45 @@ class Statement():
     def __init__(self, table_name):
         """ Init """
         try:
-            self.statements = []
+            self.statements_insert = []
+            self.statements_update = []
+            self.statements_delete = []
             self.table_name = table_name
         except Exception as ex:
             print("Error in initialisation of Statements: ", ex)
  
-    def add(self, recordid, tablerow_object):
+    def add(self, recordid, tablerow_object, insupdel=0):
         """ Add a statement with recordid and tablerow object. """
         try:
             # Add a statement
             # with recordid
-            self.statements.append([recordid, tablerow_object])
+            if insupdel == 0:
+                self.statements_insert.append([recordid, tablerow_object])
+            elif insupdel == 1:
+            	self.statements_update.append([recordid, tablerow_object])
+            elif insupdel == 2:
+                self.statements_delete.append([recordid, tablerow_object])
             # tablerow object (statement)
             #self.statements[recordid-1].append(tablerow_object)
         except Exception as ex:
             print("Error adding statement for", self.table_name, ": ", ex)
    
-    def remove(self, index=-1):
+    def remove(self, index=-1, insupdel=0):
         """ Remove statement added on specified index """
         try:
-            self.statements.pop(index)
+            if insupdel == 0:
+                self.statements_insert.pop(index)
+            elif insupdel == 1:
+            	self.statements_update.pop(index)
+            elif insupdel == 2:
+            	self.statements_delete.pop(index)
         except Exception as ex:
             print("Error removing statement from the list: ", ex)
     
-    def execute(self, session):
+    def execute(self, session, insupdel=0):
         """ Execute list of statements for given session """
+        #TODO: why the fuck is this here? doing db crap should and IS done in databaseaccess
+        #Delete on next commit!
         try:
             # First collect the statements, without the recordid.
             tablerow_objects = []
@@ -59,18 +73,35 @@ class Statement():
 
     def print_statements(self):
         """ Method that actually prints the statement info and text on the screen. """
-        print('Statements for', self.table_name)
-        print('_______________' + '_'*len(self.table_name), '\n')
-        for s in (self.statements):
+        print('Insert statements for', self.table_name)
+        print('_____________________' + '_'*len(self.table_name), '\n')
+        for s in (self.statements_insert):
+            print(s)
+        print('Update statements for', self.table_name)
+        print('_____________________' + '_'*len(self.table_name), '\n')
+        for s in (self.statements_update):
+            print(s)
+        print('Delete statements for', self.table_name)
+        print('_____________________' + '_'*len(self.table_name), '\n')
+        for s in (self.statements_delete):
             print(s)
 
-    def get_statement_list(self):
+    def get_statement_list(self, insupdel=0):
         """
             Returns a list of statments from the statement object,
             without the recordid.
         """
         result = []
-        if self.statements is not None:
-            for statement in self.statements:
-                result.append(statement[1])
+        try:
+            if insupdel == 0:
+            	statements = self.statements_insert
+            elif insupdel == 1:
+            	statements = self.statements_update
+            elif insupdel == 2:
+            	statements = self.statements_delete
+            if statements is not None:
+                for statement in statements:
+                    result.append(statement[1])
+        except Exception as ex:
+            print("Error executing statements: ", ex)
         return result
