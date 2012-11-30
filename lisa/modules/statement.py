@@ -56,20 +56,6 @@ class Statement():
             	self.statements_delete.pop(index)
         except Exception as ex:
             print("Error removing statement from the list: ", ex)
-    
-    def execute(self, session, insupdel=0):
-        """ Execute list of statements for given session """
-        #TODO: why the fuck is this here? doing db crap should and IS done in databaseaccess
-        #Delete on next commit!
-        try:
-            # First collect the statements, without the recordid.
-            tablerow_objects = []
-            for line in self.statements:
-                tablerow_objects.append(line[1])
-            # Now add the tablerows to the database, all at once.
-            session.add_all(self.statements)
-        except Exception as ex:
-            print("Error executing statements: ", ex)
 
     def print_statements(self):
         """ Method that actually prints the statement info and text on the screen. """
