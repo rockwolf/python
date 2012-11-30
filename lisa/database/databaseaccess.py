@@ -745,6 +745,10 @@ class DatabaseAccess():
         try:
             if statements != []:
                 statement_list = statements.get_statement_list()
+                #TODO: create statements.get_insert_list()
+                #get_update_list() => contains update statements for use in sqlalchemy
+                #get_delete_list() => dummy, we won't be needing this
+                #TODO: adjust this function to account for the update part.
                 session = self.Session()
                 try:
                     print(statements.table_name, end=': ')
