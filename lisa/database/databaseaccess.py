@@ -674,15 +674,15 @@ class DatabaseAccess():
             #NOTE: id_buy or id_sell must be -1
             # but both can't be filled in (= finished trade)
             obj = session.query(T_TRADE).filter(
-                    market_id = market_id,
-                    stock_name_id = stock_name_id,
-                    active = 1).filter(
+                    T_TRADE.market_id == market_id,
+                    T_TRADE.stock_name_id == stock_name_id,
+                    T_TRADE.active == 1).filter(
                         or_(
-                            id_buy = -1,
-                            id_sell = -1
+                            T_TRADE.id_buy == -1,
+                            T_TRADE.id_sell == -1
                         )).filter(
-                            id_buy != -1,
-                            id_sell !=  -1
+                            T_TRADE.id_buy != -1,
+                            T_TRADE.id_sell !=  -1
                        )
             if obj is not None:
                 result = True
