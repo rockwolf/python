@@ -227,13 +227,15 @@ class T_TRADE(object):
     #TODO: drawdown: needs an input... perhaps leave this out and use a max of
     #2 days always?
 
-    def __init__(self, trade_id, date_buy, year_buy, month_buy,
+    def __init__(self, trade_id, market_id, stock_name_id, date_buy, year_buy, month_buy,
             day_buy, date_sell, year_sell, month_sell, day_sell, long_flag,
             price_buy, price_sell, risk, initial_risk, initial_risk_percent,
             stoploss, profit_loss, profit_loss_percent, r_multiple,
             win_flag, at_work, id_buy, id_sell,
             currency_id, drawdown_id, active, date_created, date_modified):
         self.trade_id = trade_id 
+        self.market_id = market_id
+        self.stock_name_id = stock_name_id
         self.date_buy = date_buy
         self.year_buy = year_buy
         self.month_buy = month_buy
@@ -265,7 +267,9 @@ class T_TRADE(object):
         return "<T_TRADE('%s', '%s', '%s', '%s', '%s', '%s', \
                 '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
                 '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-                '%s', '%s', '%s', '%s', '%s')>" % (self.trade_id, 
+                '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.trade_id, 
+                        self.market_id,
+                        self.stock_name_id,
                         self.date_buy,
                         self.year_buy,
                         self.month_buy,
