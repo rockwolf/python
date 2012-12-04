@@ -338,6 +338,8 @@ class DatabaseAccess():
             statement_finance = Statement(TABLE_FINANCE)
             records = 0
             currency_exchange_id = self.first_currency_exchange_id_from_latest()
+            print('test: currency_exchange_id (first one)= ',
+                    currency_exchange_id)
             rate_id = self.first_rate_id_from_latest()
             for fields in input_fields:
                 subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'])
@@ -1155,10 +1157,10 @@ class DatabaseAccess():
         session = self.Session()
         try:
             currency_exchange_created = self.get_latest_date_created(TABLE_CURRENCY_EXCHANGE)
-            obj = session.query(T_CURRENCY_EXCHANGE).filter_by(date_created=currency_exchange_created)
-            if obj is not None:
-                for instance in obj:
-                    result = instance.currency_exchange_id
+            first_obj = session.query(T_CURRENCY_EXCHANGE).filter_by(
+                    date_created=currency_exchange_created).first()
+            if first_obj is not None:
+                result = first_obj.currency_exchange_id
         except Exception as ex:
             print("Error in first_currency_id_from_latest: ", ex)
         finally:

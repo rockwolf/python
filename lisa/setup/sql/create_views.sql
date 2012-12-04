@@ -247,7 +247,7 @@ select
     sum(f.amount) as account_total
 from
     t_finance f
-    inner join t_account a on f.aid = a.aid
+    inner join t_account a on f.account_id = a.account_id
 group by a.name
 ;
 --TODO: Integrate this output in mappings_view
