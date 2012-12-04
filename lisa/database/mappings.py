@@ -383,5 +383,5 @@ class T_PARAMETER(object):
         self.description = description
 
     def __repr__(self):
-        return "<T_DRAWDOWN('%s', '%s', '%s', '%s')>" % (self.parameter_id, self.name,
+        return "<T_PARAMETER('%s', '%s', '%s', '%s')>" % (self.parameter_id, self.name,
                 self.value, self.description)
