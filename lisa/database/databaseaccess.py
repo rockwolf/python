@@ -550,9 +550,15 @@ class DatabaseAccess():
                                 fields['market_name'])
                         stock_name_id = self.stock_name_id_from_stock_name(
                                 fields['stock_name'], market_id)
+                        print('test: market_id=', market_id)
+                        print('test: stock_name_id=', stock_name_id)
+                        print('test: trade_already_started=',
+                            self.trade_already_started(market_id, stock_name_id))
                         if self.trade_already_started(market_id, stock_name_id):
                             #NOTE: This is what we use to determine whether we
                             #need to fill in id_buy or id_sell 
+                            print('test: subcat=', fields['subcategory'])
+                            print('test: cat=', fields['category'])
                             if fields['subcategory'] == 'buy' and \
                                 T_TRADE.id_buy == -1:
                                 id_buy = finance_id
@@ -560,6 +566,7 @@ class DatabaseAccess():
                                 T_TRADE.id_sell == -1:
                                 id_sell = finance_id
                             else:
+                            	#TODO: why is this always raised?
                                 raise Exception(
                                     "{0} already contains a sell or buy record" \
                                     " and you are trying to add one like it again?".format(TABLE_TRADE))
