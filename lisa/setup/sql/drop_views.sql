@@ -1,4 +1,5 @@
 BEGIN;
+drop view V_REP_CHECK_TOTAL;
 drop view V_FINANCE;
 drop view V_SUBCATEGORY;
 drop view V_CATEGORY;
