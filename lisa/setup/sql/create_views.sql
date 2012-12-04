@@ -237,16 +237,20 @@ from
     inner join T_STOCK_NAME sn on sn.stock_name_id = f_buy.stock_name_id -- it's the same stock for buy and sell
     inner join T_MARKET m on m.market_id = sn.market_id
 ;
+
 /* V_REP_CHECK_TOTAL */
 --DROP VIEW V_REP_CHECK_TOTAL;
 CREATE VIEW V_REP_CHECK_TOTAL
 AS
 select
-    f.*
+    a.name as account_name,
+    sum(f.amount) as account_total
 from
-    t_formula f 
+    t_finance f
+    inner join t_account a on f.aid = a.aid
+group by a.name
 ;
---TODO: write an actual V_REP_CHECK_TOTAL and integrate this output in mappings_view
+--TODO: Integrate this output in mappings_view
 --and the gui! After clicking on ADD, you can call the function and update the view.
 --Problem: adding does not add it to the db, so get the values in a fuction and add it
 --programmatically to a subtotal in code/memory!
