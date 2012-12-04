@@ -2,7 +2,8 @@
 """
 Author: Andy Nagels
 Date: 2010-08-24
-Lisa: Pyqt gui for clipf, with extra functionality.
+Lisa: Application to store financial transaction information
+      in a PostGresql database.
 
 Copyright (C) 2010 Andy Nagels
 
@@ -202,6 +203,14 @@ class ControllerMain():
         self.filltxt_stock_description()
         dba = None
 
+    def get_check_info(self):
+        """ Gets the account check info. """
+        dba = DatabaseAccess(self.config)
+        info = dba.get_rep_check_total()
+        if info == '':
+            info == 'Error retrieving info...'
+        dba = None
+
     def get_input_line(self, table):
         """ Get the input values. """
         #TODO: check cat/subcat combo, instead of only subcat
@@ -216,13 +225,17 @@ class ControllerMain():
             stock = ''
             market_description = ''
             stock_description = ''
-
+        category = self.gui.get_category()
+        if category[-3:] == '.tx':
+            amount = '-' + self.gui.get_amount()
+        else:
+            amount = self.gui.get_amount()
         str_list = [
             self.gui.get_date(),
             self.gui.get_account(),
-            self.gui.get_category(),
+            category,
             self.gui.get_subcategory(),
-            self.gui.get_amount(),
+            amount,
             self.gui.get_comment(),
             stock,
             stock_description,

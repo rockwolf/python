@@ -48,6 +48,7 @@ VIEW_RATE = 'v_rate'
 VIEW_DRAWDOWN = 'v_drawdown'
 VIEW_MARGIN = 'v_margin'
 VIEW_MARGIN_TYPE = 'v_margin_type'
+VIEW_REP_CHECK_TOTAL = 'v_rep_check_total'
 ERROR_GET_MARKET_DESCRIPTION = "Error in get_marketdescription: "
 ERROR_GET_CATEGORIES = "Error in get_categories: "
 ERROR_GET_ACCOUNTS = "Error in get_accounts: "

@@ -17,6 +17,7 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 """
 from sqlalchemy import create_engine, Table, MetaData, \
         Column, Integer, or_, and_
+from sqlalchemy.types import VARCHAR
 from sqlalchemy.orm import mapper, clear_mappers
 #from sqlalchemy.sql import exists
 from sqlalchemy.orm import sessionmaker
@@ -119,7 +120,10 @@ class DatabaseAccess():
                         Column('margin_id', Integer, primary_key=True),
                         autoload=True),
                     VIEW_MARGIN_TYPE: Table(VIEW_MARGIN_TYPE, self.metadata,
-                        Column('margin_type_id', Integer, primary_key=True), autoload=True)
+                        Column('margin_type_id', Integer, primary_key=True),
+                        autoload=True),
+                    VIEW_REP_CHECK_TOTAL: Table(VIEW_REP_CHECK_TOTAL, self.metadata,
+                        Column('account_name', VARCHAR(6), primary_key=True), autoload=True)
             }
             self.map_tables()
             self.map_views()
@@ -164,6 +168,7 @@ class DatabaseAccess():
         mapper(V_DRAWDOWN, self.loaded_objects[VIEW_DRAWDOWN])
         mapper(V_MARGIN, self.loaded_objects[VIEW_MARGIN])
         mapper(V_MARGIN_TYPE, self.loaded_objects[VIEW_MARGIN_TYPE])
+        mapper(V_REP_CHECK_TOTAL, self.loaded_objects[VIEW_REP_CHECK_TOTAL])
         
     def config(self):
         """ Retrieve config file values """
@@ -556,6 +561,13 @@ class DatabaseAccess():
                         print('test: stock_name_id=', stock_name_id)
                         print('test: trade_already_started=',
                             self.trade_already_started(market_id, stock_name_id))
+                        
+                        finance_record = self.get_finance_record(finance_id)
+                        print('test finance_record=', finance_record)
+                        trade_record = self.get_trade_record(finance_id)
+                        print('test trade_record=', trade_record)
+
+                        print('test: T_TRADE.id_sell=', T_TRADE.id_sell)
                         if self.trade_already_started(market_id, stock_name_id):
                             #NOTE: This is what we use to determine whether we
                             #need to fill in id_buy or id_sell 
@@ -575,10 +587,6 @@ class DatabaseAccess():
                             #NOTE: When this code is executed, we know that
                             # we'll have to update later, instead of insert.
                             needs_update = 1
-                        finance_record = self.get_finance_record(finance_id)
-                        print('test finance_record=', finance_record)
-                        trade_record = self.get_trade_record(finance_id)
-                        print('test trade_record=', trade_record)
                         record = records + 1
                         #NOTE: price_buy will be fields['amount']
                         #When we buy more, it will be overwritten!
@@ -1268,6 +1276,24 @@ class DatabaseAccess():
                 result = first_obj.get_record()
         except Exception as ex:
             print("Error in get_finance_record: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
+
+    def get_rep_check_total(self):
+        """ Returns a string with the totals per account. """
+        result = "" 
+        session = self.Session()
+        try:
+            obj = session.query(V_REP_CHECK_TOTAL)
+            if obj is not None:
+                for instance in obj:
+                    print('test:', instance)
+                    result = result + instance.account_name + \
+                       str(instance.account_total)
+        except Exception as ex:
+            print("Error in get_rep_check_total: ", ex)
         finally:
             session.rollback()
             session = None

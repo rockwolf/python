@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'viewpyqt.ui'
 #
-# Created: Thu Nov 29 18:06:37 2012
+# Created: Tue Dec  4 21:35:42 2012
 #      by: PyQt4 UI code generator 4.9.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -31,18 +31,25 @@ class Ui_MainWindow(object):
         self.cmb_account.setInputMethodHints(QtCore.Qt.ImhLowercaseOnly)
         self.cmb_account.setEditable(True)
         self.cmb_account.setObjectName(_fromUtf8("cmb_account"))
-        self.gridLayout_10.addWidget(self.cmb_account, 0, 5, 1, 1)
+        self.gridLayout_10.addWidget(self.cmb_account, 0, 6, 1, 1)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_10.addItem(spacerItem, 0, 3, 1, 1)
+        self.gridLayout_10.addItem(spacerItem, 0, 4, 1, 1)
         self.lbl_account = QtGui.QLabel(self.centralwidget)
         self.lbl_account.setObjectName(_fromUtf8("lbl_account"))
-        self.gridLayout_10.addWidget(self.lbl_account, 0, 4, 1, 1)
+        self.gridLayout_10.addWidget(self.lbl_account, 0, 5, 1, 1)
         self.lbl_infofinance = QtGui.QLabel(self.centralwidget)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Envy Code R"))
         self.lbl_infofinance.setFont(font)
         self.lbl_infofinance.setObjectName(_fromUtf8("lbl_infofinance"))
         self.gridLayout_10.addWidget(self.lbl_infofinance, 0, 0, 1, 1)
+        self.lbl_check = QtGui.QLabel(self.centralwidget)
+        self.lbl_check.setFrameShape(QtGui.QFrame.Panel)
+        self.lbl_check.setFrameShadow(QtGui.QFrame.Raised)
+        self.lbl_check.setObjectName(_fromUtf8("lbl_check"))
+        self.gridLayout_10.addWidget(self.lbl_check, 0, 2, 1, 1)
+        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout_10.addItem(spacerItem1, 0, 1, 1, 1)
         self.verticalLayout.addLayout(self.gridLayout_10)
         self.gridLayout = QtGui.QGridLayout()
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
@@ -218,8 +225,8 @@ class Ui_MainWindow(object):
         self.btn_clear.setFont(font)
         self.btn_clear.setObjectName(_fromUtf8("btn_clear"))
         self.gridLayout_6.addWidget(self.btn_clear, 0, 4, 1, 1)
-        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_6.addItem(spacerItem1, 0, 6, 1, 1)
+        spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout_6.addItem(spacerItem2, 0, 6, 1, 1)
         self.btn_exit = QtGui.QPushButton(self.centralwidget)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Envy Code R"))
@@ -262,8 +269,8 @@ class Ui_MainWindow(object):
         self.btn_removelast.setFont(font)
         self.btn_removelast.setObjectName(_fromUtf8("btn_removelast"))
         self.gridLayout_6.addWidget(self.btn_removelast, 0, 3, 1, 1)
-        spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_6.addItem(spacerItem2, 0, 8, 1, 1)
+        spacerItem3 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout_6.addItem(spacerItem3, 0, 8, 1, 1)
         self.verticalLayout.addLayout(self.gridLayout_6)
         self.vl_table = QtGui.QVBoxLayout()
         self.vl_table.setSizeConstraint(QtGui.QLayout.SetFixedSize)
@@ -308,6 +315,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
         self.lbl_account.setText(QtGui.QApplication.translate("MainWindow", "Account", None, QtGui.QApplication.UnicodeUTF8))
         self.lbl_infofinance.setText(QtGui.QApplication.translate("MainWindow", "TextLabel", None, QtGui.QApplication.UnicodeUTF8))
+        self.lbl_check.setText(QtGui.QApplication.translate("MainWindow", "TextLabel", None, QtGui.QApplication.UnicodeUTF8))
         self.lbl_date.setText(QtGui.QApplication.translate("MainWindow", "Date", None, QtGui.QApplication.UnicodeUTF8))
         self.lbl_category.setText(QtGui.QApplication.translate("MainWindow", "Category", None, QtGui.QApplication.UnicodeUTF8))
         self.lbl_subcategory.setText(QtGui.QApplication.translate("MainWindow", "Subcategory", None, QtGui.QApplication.UnicodeUTF8))

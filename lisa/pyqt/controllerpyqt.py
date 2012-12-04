@@ -103,14 +103,16 @@ class ControllerPyqt(QtGui.QMainWindow):
         sys.exit(0)
 
     def btn_clear_clicked(self):
-        """ Clear the command buffer. """
+        """ Clear the input buffer. """
         self.clear_inputbuffer()
     
     def btn_add_clicked(self):
-        """ Create the command to send to clipf and add it to the buffer. """
+        """ Add new input to the input_fields table. """
         self.ctl.add_tbl_summary(self.table, self.ctl.get_input_line(self.table))
         self.clear_fields()
         self.gui.cmb_subcategory.setCurrentIndex(0)
+        self.set_lbl_check(self.ctl.get_check_info())
+        
 
     def btn_update_clicked(self):
         """ Update the selected record in the table. """
@@ -228,6 +230,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.gui.lbl_infofinance.clear()
         self.gui.lbl_infofinance.setText('>> ' + self.config.exportdir)
         self.gui.lbl_infodetails.clear()
+        self.set_lbl_check(self.ctl.get_check_info())
         # fill all combo boxes
         self.ctl.fillcombos()
         # default values
@@ -338,6 +341,10 @@ class ControllerPyqt(QtGui.QMainWindow):
     def set_infodetails(self, value):
        """ Sets new info on the lbl_infodetails label. """
        self.gui.lbl_infodetails.setText(value)
+
+    def set_lbl_check(self, value):
+       """ Sets new info on the lbl_infodetails label. """
+       self.gui.lbl_check.setText(value)
 
     def set_market_description(self, value):
        """ Sets new info on txt_market_description. """
