@@ -28,7 +28,8 @@ CREATE TABLE T_ACCOUNT
     description varchar(256) not null default '',
     active int not null default 1,
     date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date
+    date_modified timestamp not null default current_date,
+    unique(name)
 );
 
 CREATE TABLE T_MARKET
