@@ -334,5 +334,16 @@ class V_PARAMETER(object):
         self.description = description
 
     def __repr__(self):
-        return "<V_DRAWDOWN('%s', '%s', '%s', '%s')>" % (self.parameter_id, self.name,
+        return "<V_PARAMETER('%s', '%s', '%s', '%s')>" % (self.parameter_id, self.name,
                 self.value, self.description)
+
+class V_REP_CHECK_TOTAL(object):
+    """ V_REP_CHECK_TOTAL """
+
+    def __init__(self, account_name, account_total):
+        self.account_name = account_name
+        self.account_total = account_total
+
+    def __repr__(self):
+        return "<V_REP_CHECK_TOTAL('%s', '%s')>" % (self.account_name,
+                self.account_total)
