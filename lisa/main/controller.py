@@ -93,13 +93,17 @@ class ControllerMain():
         """ Gets input, adds extra info and puts this in a list. """
         fields_db = []
         try:
+            #TODO: remove references to flg_income?
             for field in tablecontent:
                 category = field[2]
                 subcategory = field[3]
+                amount = field[4] #default value
                 if(category[-3:] == '.rx'):
                     flg_income = 1
+                    amount = field[4]
                 elif(category[-3:] == '.tx'):
                     flg_income = 0
+                    amount = '-' + field[4]
                 if deals_with_stocks(category, subcategory) :
                     shares = field[10]
                     price = field[11]
@@ -117,7 +121,7 @@ class ControllerMain():
                     'account':field[1], #Note: Get account_id from T_ACCOUNT for final insert
                     'category':field[2], #Note: Get category_id from T_CATEGORY for final insert
                     'subcategory':field[3], #Note: Get subcategory_id from T_SUBCATEGORY for final insert
-                    'amount':field[4],
+                    'amount':amount,
                     'flag':flg_income,
                     'comment':field[5],
                     'stock_name':field[6],
