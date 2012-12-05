@@ -203,11 +203,38 @@ class ControllerMain():
     def get_check_info(self):
         """ Gets the account check info. """
         dba = DatabaseAccess(self.config)
-        info = dba.get_rep_check_total()
+        info = dba.get_rep_check_total(dba.get_rep_check_totals())
         if info == '':
             info == 'Error retrieving info...'
         dba = None
         return info
+
+    def get_account_total_from_input_fields(self,
+            account_name, input_fields):
+        """ 
+            Returns the account total for the given
+            account, only taking into consideration
+            what's in the input_fields.
+        """
+        value = 0
+        for fields in input_fields:
+            if fields['account'] == account_name:
+                value = value + fields['amount']
+        return value
+
+    def get_account_totals_from_input_fields(self, input_fields):
+        """
+            Returns a list with the account totals,
+            only taing into consideration what's in
+            the input_fields.
+        """
+        values = []
+        dba = DatabaseAccess(self.config)
+        for account in dba.get_accounts():
+            values.append(get_account_total_from_input_fields(
+                    account, input_fields))
+        dba = None
+        return values
 
     def get_input_line(self, table):
         """ Get the input values. """

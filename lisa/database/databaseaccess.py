@@ -1281,25 +1281,33 @@ class DatabaseAccess():
             session = None
         return result
 
-    def get_rep_check_total(self):
+    def get_rep_check_total(self, check_totals):
         """ Returns a string with the totals per account. """
         result = "" 
+        i = 0
+        for entry in check_totals:
+            if i == 0:
+                result = entry[0] + \
+                    '|' + str(entry[1])
+            else:
+                result = result + ' ' + entry[0] + \
+                '|' + str(entry[1])
+            i = i + 1
+        return result
+
+    def get_rep_check_totals(self):
+        """ Returns a list with the account name and totals. """
+        values = []
         session = self.Session()
         try:
             obj = session.query(V_REP_CHECK_TOTAL)
             if obj is not None:
-                i = 0
                 for instance in obj:
-                    if i == 0:
-                        result = instance.account_name + \
-                            '|' + str(instance.account_total)
-                    else:
-                    	result = result + ' ' + instance.account_name + \
-                            '|' + str(instance.account_total)
-                    i = i + 1
+                        values.append([instance.account_name,
+                            instance.account_total])
         except Exception as ex:
-            print("Error in get_rep_check_total: ", ex)
+            print("Error in get_rep_check_totals: ", ex)
         finally:
             session.rollback()
             session = None
-        return result
+        return values
