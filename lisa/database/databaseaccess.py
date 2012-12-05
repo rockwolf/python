@@ -1292,11 +1292,11 @@ class DatabaseAccess():
                 for instance in obj:
                     print('test:', instance)
                     if i == 0:
-                        result = '[' + instance.account_name + \
-                            '|' + str(instance.account_total) + ']'
+                        result = instance.account_name + \
+                            '|' + str(instance.account_total)
                     else:
-                    	result = result + ' [' + instance.account_name + \
-                            '|' + str(instance.account_total) + ']'
+                    	result = result + ' ' + instance.account_name + \
+                            '|' + str(instance.account_total)
                     i = i + 1
         except Exception as ex:
             print("Error in get_rep_check_total: ", ex)
