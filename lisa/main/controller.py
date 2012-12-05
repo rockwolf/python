@@ -33,6 +33,7 @@ from pyqt.controllerpyqt import ControllerPyqt
 from PyQt4 import QtGui
 from modules.constant import *
 from modules.function import *
+from decimal import Decimal
 
 class ControllerMain():
     """ Contains the bussiness logic of the application. """
@@ -200,10 +201,18 @@ class ControllerMain():
         self.filltxt_stock_description()
         dba = None
 
-    def get_check_info(self):
+    def get_check_info(self, tablecontent):
         """ Gets the account check info. """
         dba = DatabaseAccess(self.config)
-        info = dba.get_rep_check_total(dba.get_rep_check_totals())
+        values = []
+        for entry in dba.get_rep_check_totals():
+            values.append(entry) 
+        for entry in self.get_account_totals_from_input_fields(
+                self.get_input_fields(tablecontent)):
+            for saved_entry in values:
+                if saved_entry[0] == entry[0]: 
+                    saved_entry[1] = saved_entry[1] + entry[1]
+        info = dba.get_rep_check_total(values)
         if info == '':
             info == 'Error retrieving info...'
         dba = None
@@ -216,23 +225,23 @@ class ControllerMain():
             account, only taking into consideration
             what's in the input_fields.
         """
-        value = 0
+        value = Decimal(0.0)
         for fields in input_fields:
             if fields['account'] == account_name:
-                value = value + fields['amount']
+                value = value + Decimal(fields['amount'])
         return value
 
     def get_account_totals_from_input_fields(self, input_fields):
         """
-            Returns a list with the account totals,
-            only taing into consideration what's in
+            Returns a list with the account name / total pairs,
+            only taking into consideration what's in
             the input_fields.
         """
         values = []
         dba = DatabaseAccess(self.config)
         for account in dba.get_accounts():
-            values.append(get_account_total_from_input_fields(
-                    account, input_fields))
+            values.append([account, self.get_account_total_from_input_fields(
+                    account, input_fields)])
         dba = None
         return values
 

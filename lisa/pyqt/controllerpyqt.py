@@ -111,7 +111,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.ctl.add_tbl_summary(self.table, self.ctl.get_input_line(self.table))
         self.clear_fields()
         self.gui.cmb_subcategory.setCurrentIndex(0)
-        self.set_lbl_check(self.ctl.get_check_info())
+        self.set_lbl_check(self.ctl.get_check_info(self.table.tablecontent))
         
 
     def btn_update_clicked(self):
@@ -230,7 +230,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.gui.lbl_infofinance.clear()
         self.gui.lbl_infofinance.setText('>> ' + self.config.exportdir)
         self.gui.lbl_infodetails.clear()
-        self.set_lbl_check(self.ctl.get_check_info())
+        self.set_lbl_check(self.ctl.get_check_info([]))
         # fill all combo boxes
         self.ctl.fillcombos()
         # default values
