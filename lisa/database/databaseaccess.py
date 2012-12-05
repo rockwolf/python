@@ -1288,9 +1288,8 @@ class DatabaseAccess():
         try:
             obj = session.query(V_REP_CHECK_TOTAL)
             if obj is not None:
-            	i = 0
+                i = 0
                 for instance in obj:
-                    print('test:', instance)
                     if i == 0:
                         result = instance.account_name + \
                             '|' + str(instance.account_total)

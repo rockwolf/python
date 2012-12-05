@@ -207,6 +207,7 @@ class ControllerMain():
         if info == '':
             info == 'Error retrieving info...'
         dba = None
+        return info
 
     def get_input_line(self, table):
         """ Get the input values. """
