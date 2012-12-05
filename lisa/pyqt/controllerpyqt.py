@@ -344,7 +344,6 @@ class ControllerPyqt(QtGui.QMainWindow):
 
     def set_lbl_check(self, value):
        """ Sets new info on the lbl_infodetails label. """
-       print('test: value=', value)
        self.gui.lbl_check.setText(value)
 
     def set_market_description(self, value):
