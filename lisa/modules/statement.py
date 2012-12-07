@@ -56,19 +56,30 @@ class Statement():
             print("Error removing statement from the list: ", ex)
 
     def print_statements(self):
-        """ Method that actually prints the statement info and text on the screen. """
-        print('Insert statements for', self.table_name)
-        print('_____________________' + '_'*len(self.table_name), '\n')
-        for s in (self.statements_insert):
-            print(s)
-        print('Update statements for', self.table_name)
-        print('_____________________' + '_'*len(self.table_name), '\n')
-        for s in (self.statements_update):
-            print(s)
-        print('Delete statements for', self.table_name)
-        print('_____________________' + '_'*len(self.table_name), '\n')
-        for s in (self.statements_delete):
-            print(s)
+        """ 
+            Method that prints the statement info and text
+            on the screen (logic).
+        """
+        self.print_statements_when_needed(self.statements_insert,
+            'Insert statements for')
+        print('\n')
+        self.print_statements_when_needed(self.statements_update,
+            'Update statements for')
+        print('\n')
+        self.print_statements_when_needed(self.statements_delete,
+            'Delete statements for')
+        print('\n')
+
+    def print_statements_when_needed(self, statements, message):
+        """ 
+            Method that prints the statement info and text
+            on the screen (logic).
+        """
+        if statements != []:
+            print(message, self.table_name)
+            print('_'*len(message) + '_'*len(self.table_name), '\n')
+            for s in (statements):
+                print(s)
 
     def get_statement_list(self, insupdel=0):
         """
