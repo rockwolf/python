@@ -364,7 +364,7 @@ class DatabaseAccess():
                         stock_name_id = self.stock_name_id_from_stock_name(
                                 fields['stock_name'], market_id)
                     rate_id = self.get_latest_rate_id()
-                obj = session.query(T_FINANCE).filter_by(
+                first_obj = session.query(T_FINANCE).filter_by(
                             date=fields['date'],
                             account_id=account_id,
                             category_id=category_id,
@@ -378,7 +378,7 @@ class DatabaseAccess():
                             commission=Decimal(fields['commission']),
                             active=1
                             ).first()
-                if obj is None: 
+                if first_obj is None: 
                         records = records + 1
                         statement_finance.add(
                             records,
@@ -557,17 +557,14 @@ class DatabaseAccess():
                                 fields['market_name'])
                         stock_name_id = self.stock_name_id_from_stock_name(
                                 fields['stock_name'], market_id)
-                        print('test: market_id=', market_id)
-                        print('test: stock_name_id=', stock_name_id)
-                        print('test: trade_already_started=',
-                            self.trade_already_started(market_id, stock_name_id))
                         
                         finance_record = self.get_finance_record(finance_id)
                         print('test finance_record=', finance_record)
                         trade_record = self.get_trade_record(finance_id)
                         print('test trade_record=', trade_record)
 
-                        print('test: T_TRADE.id_sell=', T_TRADE.id_sell)
+                        print('test: trade_already_started=',
+                            self.trade_already_started(market_id, stock_name_id))
                         if self.trade_already_started(market_id, stock_name_id):
                             #NOTE: This is what we use to determine whether we
                             #need to fill in id_buy or id_sell 
@@ -685,6 +682,8 @@ class DatabaseAccess():
         """
             Check if this trade has already started.
         """
+        print('test: in trade already started: market_id=', market_id,
+        'stock_name_id=', stock_name_id)
         result = False
         try:
             session = self.Session()
@@ -701,7 +700,8 @@ class DatabaseAccess():
                             T_TRADE.id_buy != -1,
                             T_TRADE.id_sell !=  -1
                        )
-            if obj is not None:
+            for instance in obj:
+                print('test:', instance)
                 result = True
         except Exception as ex:
             print(ERROR_TRADE_ALREADY_STARTED, ex)
@@ -856,14 +856,14 @@ class DatabaseAccess():
             stock_name_id = self.stock_name_id_from_stock_name(fields_stock[i]['name'], market_id)
             vartax = Decimal(fields_stock[i]['tax'])
             varcommission = Decimal(fields_stock[i]['commission'])
-            obj = session.query(T_STOCK).filter_by(
+            first_obj = session.query(T_STOCK).filter_by(
                       finance_id=finance_id,
                       price=Decimal(fields_stock[i]['price']),
                       shares=int(fields_stock[i]['shares']),
                       tax=vartax,
                       commission=varcommission
                   ).first()
-            if obj is None: 
+            if first_obj is None: 
                 # NEW
                 self.statementStock.add(
                     recordid,
@@ -1090,10 +1090,9 @@ class DatabaseAccess():
         result = -1
         session = self.Session()
         try:
-            obj = session.query(T_CURRENCY).filter_by(code=currency).first() is not None
-            if obj: 
-                for instance in session.query(T_CURRENCY).filter_by(code=currency):
-                    result = str(instance.currency_id)
+            first_obj = session.query(T_CURRENCY).filter_by(code=currency).first()
+            if first_obj is not None:
+                result = str(first_obj.currency_id)
             else:
                 raise Exception("Error: currency {0} not found! -1 used as a currency_id.".format(currency))
         except Exception as ex:
@@ -1186,9 +1185,8 @@ class DatabaseAccess():
         try:
             rate_created = self.get_latest_date_created(TABLE_RATE)
             obj = session.query(T_RATE).filter_by(date_created=rate_created)
-            if obj is not None:
-                for instance in obj:
-                    result = instance.rate_id
+            for instance in obj:
+                result = instance.rate_id
         except Exception as ex:
             print("Error in first_rate_id_from_latest: ", ex)
         finally:
@@ -1206,9 +1204,8 @@ class DatabaseAccess():
         try:
             finance_created = self.get_latest_date_created(TABLE_FINANCE)
             obj = session.query(T_FINANCE).filter_by(date_created=finance_created)
-            if obj is not None:
-                for instance in obj:
-                    result = instance.finance_id
+            for instance in obj:
+                result = instance.finance_id
         except Exception as ex:
             print("Error in first_finance_id_from_latest: ", ex)
         finally:
@@ -1301,10 +1298,9 @@ class DatabaseAccess():
         session = self.Session()
         try:
             obj = session.query(V_REP_CHECK_TOTAL)
-            if obj is not None:
-                for instance in obj:
-                        values.append([instance.account_name,
-                            instance.account_total])
+            for instance in obj:
+                    values.append([instance.account_name,
+                        instance.account_total])
         except Exception as ex:
             print("Error in get_rep_check_totals: ", ex)
         finally:
