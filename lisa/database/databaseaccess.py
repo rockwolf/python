@@ -600,9 +600,9 @@ class DatabaseAccess():
                                     we_are_buying(fields['subcategory']))
                             if we_are_buying(fields['subcategory']):
                                 date_buy = date_created
-                                year_buy = string_to_date(date_created).year
-                                month_buy = string_to_date(date_created).month
-                                day_buy = string_to_date(date_created).day
+                                year_buy = date_created.year
+                                month_buy = date_created.month
+                                day_buy = date_created.day
                                 #TODO: this is complex: we need to first check if it
                                 #is new. When new, we need to add it in the regular
                                 #way, but when it already exists, we need to create
@@ -624,10 +624,11 @@ class DatabaseAccess():
                                 day_sell = date_created.day
                                 print('test: year_sell =', year_sell)
                                 date_buy = finance_record[1]
-                                print('test: before year_buy')
-                                year_buy = string_to_date(date_buy).year
-                                month_buy = string_to_date(month_buy).month
-                                day_buy = string_to_date(day_buy).day
+                                print('test: date_buy =', date_buy)
+                                year_buy = date_buy.year
+                                month_buy = month_buy.month
+                                day_buy = day_buy.day
+                                print('test: after day_buy')
                                 price_buy = finance_record[12]
                                 price_sell = fields['amount']
                             #NOTE: should also not be changed on update

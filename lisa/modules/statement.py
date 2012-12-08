@@ -62,13 +62,13 @@ class Statement():
         """
         self.print_statements_when_needed(self.statements_insert,
             'Insert statements for')
-        print('\n')
+        print('')
         self.print_statements_when_needed(self.statements_update,
             'Update statements for')
-        print('\n')
+        print('')
         self.print_statements_when_needed(self.statements_delete,
             'Delete statements for')
-        print('\n')
+        print('')
 
     def print_statements_when_needed(self, statements, message):
         """ 
