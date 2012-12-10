@@ -81,3 +81,5 @@ ERROR_TRADE_ALREADY_STARTED = "Error in trade_already_started: "
 MESSAGE_EXEC_ALL = "Executing statements all at once..."
 MESSAGE_PREPARING = "Preparing statements..."
 MESSAGE_DONE = "Done."
+DEFAULT_DATE = "1900-01-01"
+DEFAULT_PRICE = -1.0

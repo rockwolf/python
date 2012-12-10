@@ -608,28 +608,23 @@ class DatabaseAccess():
                                 #way, but when it already exists, we need to create
                                 #update statements. SQLAlchemy?
                                 #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
-                                date_sell = finance_record[1] #TODO: No, this needs to be
-                                #the value currently in T_TRADE if it's not a new
-                                #value
-                                year_sell = string_to_date(fields['']).year
-                                month_sell = string_to_date().month
-                                day_sell = string_to_date().day
+                                date_sell = string_to_date(DEFAULT_DATE)
+                                print('Test: It\'s a new value, so date_sell should be the default for buying')
+                                year_sell = date_sell.year
+                                month_sell = date_sell.month
+                                day_sell = date_sell.day
                                 price_buy = fields['amount']
-                                price_sell = finance_record[12] #TODO: should be
-                                #the one from T_TRADE
+                                price_sell = DEFAULT_PRICE
                             else:
                                 date_sell = date_created
                                 year_sell = date_created.year
                                 month_sell = date_created.month
                                 day_sell = date_created.day
-                                print('test: year_sell =', year_sell)
-                                date_buy = finance_record[1]
-                                print('test: date_buy =', date_buy)
+                                date_buy = string_to_date(DEFAULT_DATE)
                                 year_buy = date_buy.year
                                 month_buy = month_buy.month
                                 day_buy = day_buy.day
-                                print('test: after day_buy')
-                                price_buy = finance_record[12]
+                                price_buy = DEFAULT_PRICE
                                 price_sell = fields['amount']
                             #NOTE: should also not be changed on update
                             # so perhaps use long_flag from trade record
@@ -645,6 +640,8 @@ class DatabaseAccess():
                             # Perhaps it's enough to ADD THE TRADE_ID from
                             # trade_record to T_TRADE(..., date_buy, ...) instead
                             # of None!!!
+                            #TODO: check what we need to enter for risk,
+                            #win_flag etc.
                             statement_trade.add(
                                 records,
                                 T_TRADE(

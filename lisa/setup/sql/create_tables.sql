@@ -7,8 +7,8 @@ CREATE TABLE T_SUBCATEGORY
     category_id int not null default -1,
     name varchar(20) not null,
     active int not null default 1,
-    date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date
+    date_created timestamp not null default '1900-01-01',
+    date_modified timestamp not null default '1900-01-01'
 );
 
 CREATE TABLE T_CATEGORY
@@ -17,8 +17,8 @@ CREATE TABLE T_CATEGORY
     name varchar(30) not null,
     flg_income int not null,
     active int not null default 1,
-    date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date
+    date_created timestamp not null default '1900-01-01',
+    date_modified timestamp not null default '1900-01-01'
 );
 
 CREATE TABLE T_ACCOUNT
@@ -27,8 +27,8 @@ CREATE TABLE T_ACCOUNT
     name varchar(6) not null,
     description varchar(256) not null default '',
     active int not null default 1,
-    date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date,
+    date_created timestamp not null default '1900-01-01',
+    date_modified timestamp not null default '1900-01-01',
     unique(name)
 );
 
@@ -39,8 +39,8 @@ CREATE TABLE T_MARKET
     name varchar(30) not null,
     country char(3) not null,
     active int not null default 1,
-    date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date,
+    date_created timestamp not null default '1900-01-01',
+    date_modified timestamp not null default '1900-01-01',
     unique(market_id),
     unique(code)
 );
@@ -52,8 +52,8 @@ CREATE TABLE T_STOCK_NAME
     market_id int not null default -1,
     description varchar(256) not null default '',
     active int not null default 1,
-    date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date,
+    date_created timestamp not null default '1900-01-01',
+    date_modified timestamp not null default '1900-01-01',
     unique (name, market_id)
 );
 
@@ -91,43 +91,43 @@ CREATE TABLE T_PARAMETER
 CREATE TABLE T_RATE
 (
     rate_id serial not null,
-    calculated decimal(18, 4) not null default 0.0,
-    calculated_percent decimal(18, 4) not null default 0.0,
-    on_shares decimal(18, 4) not null default 0.0,
-    on_commission decimal(18, 4) not null default 0.0,
-    on_ordersize decimal(18, 4) not null default 0.0,
-    on_other decimal(18, 4) not null default 0.0,
-    commission decimal(18, 4) not null default 0.0,
-    tax decimal(18, 4) not null default 0.0,
+    calculated decimal(18, 4) not null default -1.0,
+    calculated_percent decimal(18, 4) not null default -1.0,
+    on_shares decimal(18, 4) not null default -1.0,
+    on_commission decimal(18, 4) not null default -1.0,
+    on_ordersize decimal(18, 4) not null default -1.0,
+    on_other decimal(18, 4) not null default -1.0,
+    commission decimal(18, 4) not null default -1.0,
+    tax decimal(18, 4) not null default -1.0,
     formula_id int not null default -1,
-    manual_flag int not null default 0,
-    date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date
+    manual_flag int not null default -1,
+    date_created timestamp not null default '1900-01-01',
+    date_modified timestamp not null default '1900-01-01'
 );
 
 /* main finance table */
 CREATE TABLE T_FINANCE
 (
     finance_id serial not null,
-    date timestamp not null default current_date,
-    year int not null default 0,
-    month int not null default 0,
-    day int not null default 0,
+    date timestamp not null default '1900-01-01',
+    year int not null default -1,
+    month int not null default -1,
+    day int not null default -1,
     account_id int not null default -1,
     category_id int not null default -1,
     subcategory_id int not null default -1,
-    amount decimal(18,4) not null default 0.0,
+    amount decimal(18,4) not null default -1.0,
     comment varchar(256) not null default '',
-    stock_name_id int not null default 0,
-    shares int not null default 0,
-    price decimal(18,4) not null default 0.0,
-    tax decimal(18,4) not null default 0.0,
-    commission decimal (18,4) not null default 0.0,
+    stock_name_id int not null default -1,
+    shares int not null default -1,
+    price decimal(18,4) not null default -1.0,
+    tax decimal(18,4) not null default -1.0,
+    commission decimal (18,4) not null default -1.0,
     active int not null default 1, 
     rate_id int not null default -1,
     currency_exchange_id int not null default -1,
-    date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date
+    date_created timestamp not null default '1900-01-01',
+    date_modified timestamp not null default '1900-01-01'
 );
 
 CREATE TABLE T_INVESTMENT
@@ -135,14 +135,14 @@ CREATE TABLE T_INVESTMENT
     investment_id serial not null,
     stock_name_id int not null default -1,
     action varchar(50) not null,
-    price decimal(18,4) not null default 0.0,
-    shares int not null default 0,
-    tax decimal(18,4) not null default 0.0,
-    commission decimal (18,4) not null default 0.0,
-    historical decimal(18,4) not null default 0.0,
+    price decimal(18,4) not null default -1.0,
+    shares int not null default -1,
+    tax decimal(18,4) not null default -1.0,
+    commission decimal (18,4) not null default -1.0,
+    historical decimal(18,4) not null default -1.0,
     active int not null default 1,
-    date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date
+    date_created timestamp not null default '1900-01-01',
+    date_modified timestamp not null default '1900-01-01'
 );
 
 CREATE TABLE T_CURRENCY
@@ -158,8 +158,8 @@ CREATE TABLE T_CURRENCY_EXCHANGE
     currency_exchange_id serial not null,
     currency_id int not null default -1,
     exchange_rate decimal(18,6) not null default(1.0),
-    date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date
+    date_created timestamp not null default '1900-01-01',
+    date_modified timestamp not null default '1900-01-01'
 );
 
 /* This might belong in bi */
@@ -175,10 +175,10 @@ CREATE TABLE T_MARGIN_TYPE
 -- Perhaps maintain this true the position sizing part of the emma app?
 CREATE TABLE T_DRAWDOWN
 (
-    drawdown_id int not null default 0,
-    value int not null default 0,
-    date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date,
+    drawdown_id int not null default -1,
+    value int not null default -1,
+    date_created timestamp not null default '1900-01-01',
+    date_modified timestamp not null default '1900-01-01',
     unique(drawdown_id)
 );
 
@@ -187,32 +187,32 @@ CREATE TABLE T_TRADE
     trade_id serial not null,
     market_id int not null,
     stock_name_id int not null,
-    date_buy timestamp not null default current_date,
-    year_buy int not null default 0,
-    month_buy int not null default 0,
-    day_buy int not null default 0,
-    date_sell timestamp not null default current_date,
-    year_sell int not null default 0,
-    month_sell int not null default 0,
-    day_sell int not null default 0,
+    date_buy timestamp not null default '1900-01-01',
+    year_buy int not null default -1,
+    month_buy int not null default -1,
+    day_buy int not null default -1,
+    date_sell timestamp not null default '1900-01-01',
+    year_sell int not null default -1,
+    month_sell int not null default -1,
+    day_sell int not null default -1,
     long_flag int not null default 1,
-    price_buy decimal(18,4) not null default 0.0,
-    price_sell decimal(18,4) not null default 0.0,
-    risk decimal(18,4) not null default 0.0,
-    initial_risk decimal(18,4) not null default 0.0,
-    initial_risk_percent decimal(18,4) not null default 0.0,
-    stoploss decimal(18,4) not null default 0.0,
-    profit_loss decimal(18,4) not null default 0.0,
-    profit_loss_percent decimal(18,4) not null default 0.0,
+    price_buy decimal(18,4) not null default -1.0,
+    price_sell decimal(18,4) not null default -1.0,
+    risk decimal(18,4) not null default -1.0,
+    initial_risk decimal(18,4) not null default -1.0,
+    initial_risk_percent decimal(18,4) not null default -1.0,
+    stoploss decimal(18,4) not null default -1.0,
+    profit_loss decimal(18,4) not null default -1.0,
+    profit_loss_percent decimal(18,4) not null default -1.0,
     win_flag int not null default 1,
-    at_work decimal(18,4) not null default 0.0,
+    at_work decimal(18,4) not null default -1.0,
     id_buy int not null default -1,
     id_sell int not null default -1,
     currency_id int not null default -1,
     drawdown_id int not null default -1,
     active int not null default 1,
-    date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date
+    date_created timestamp not null default '1900-01-01',
+    date_modified timestamp not null default '1900-01-01'
 );
 
 CREATE TABLE T_MARGIN
@@ -220,9 +220,9 @@ CREATE TABLE T_MARGIN
     margin_id serial not null,
     margin_type_id int not null default -1,
     description varchar(100) not null default '',
-    value decimal(18,4) not null default 0.0,
-    date_created timestamp not null default current_date,
-    date_modified timestamp not null default current_date
+    value decimal(18,4) not null default -1.0,
+    date_created timestamp not null default '1900-01-01',
+    date_modified timestamp not null default '1900-01-01'
 );
 
 COMMIT;
