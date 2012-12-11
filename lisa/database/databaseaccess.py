@@ -590,13 +590,24 @@ class DatabaseAccess():
                         #  update and the insert?
                         if needs_update == 1:
                             date_created = DEFAULT_DATE #TODO: get the previous date_created from the T_TRADE record.
-                            print('test: update code here?')
                             #TODO: this is complex: we need to first check if it
                             #is new. When new, we need to add it in the regular
                             #way, but when it already exists, we need to create
                             #update statements. SQLAlchemy?
                             #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
-                            win_flag = self.get_win_flag_value()
+                            if we_are_buying(fields['subcategory']):
+                                print('test: we are buying')
+                                win_flag =
+                                self.get_win_flag_value(price_buy,
+                                        trade_record[1].price_sell,
+                                        long_flag)
+                            else:
+                                print('test: we are selling')
+                                win_flag =
+                                self.get_win_flag_value(trade_record[1].price_buy,
+                                        price_sell, long_flag)
+                            win_flag =
+                                    trade_record[1])
                             at_work = -1.0 #TODO: get previously entered at_work from T_TRADE
                             currency_id = -1 #TODO: get this from the fields like we do in T_FINANCE
                             drawdown_id = -1 #TODO: get previousoly entered drawdown_id from T_TRADE
@@ -723,27 +734,27 @@ class DatabaseAccess():
     #long
     #TODO: toroughly test this
     def get_long_flag_value(self, category, subcategory, trade_record):
-        """ Are we long or short? """
+        """ Are we long? """
         result = False
-        if category == 'buy' and trade_record == []:
-            result = True
+        if trade_record == []:
+            result = (category == 'buy') 
         else:
-            if category == 'sell' and trade_record[date] != '':
-                result = True
+            result = (category == 'sell' and trade_record[date_buy] !=
+                    DEFAULT_DATE)
         return result
     
-    def get_win_flag_value(self, category, subcategory, trade_record):
+    def get_win_flag_value(self, price_buy, price_sell, long_flag):
         """ Trade finished... did we win? """
+        #TODO: refactor this logic
         result = -1
-        #TODO:
-        #if price_buy < price_sell and get_long_flag_value = True:
-        #win = 1
-        #if price_buy > price_sell and get_long_flag_value = False:
-        # win = 0
-        #if price_buy < price_sell and get_long_flag_value = False:
-        # win = 1
-        #if price_buy > price_sell and get_long_flag_value = True:
-        # win = 0
+        if price_buy < price_sell and get_long_flag_value == True:
+            win = 1
+        if price_buy > price_sell and get_long_flag_value == False:
+            win = 0
+        if price_buy < price_sell and get_long_flag_value == False:
+            win = 1
+        if price_buy > price_sell and get_long_flag_value == True:
+            win = 0
         return result
 
     def create_statements_TABLE_CURRENCY_EXCHANGE(self, input_fields):
