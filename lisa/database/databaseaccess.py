@@ -564,7 +564,7 @@ class DatabaseAccess():
 
                         if self.trade_already_started(market_id, stock_name_id):
                             #NOTE: This is what we use to determine whether we
-                            #need to fill in id_buy or id_sell 
+                            #need to fill in id_buy or id_sell
                             print('test: subcat=', fields['subcategory'])
                             print('test: cat=', fields['category'])
                             if fields['subcategory'] == 'buy' and \
@@ -586,15 +586,20 @@ class DatabaseAccess():
                         #Trading without adding to positions is assumed by this code!
                         #
                         #TODO:
-                        #- improve Statement() to include both update and
-                        #  insert statements?
-                        #- Let this function alone return 2 statement lists,
-                        #  one for update and one for insert?
                         #- Write seperate code in the main controller for the
                         #  update and the insert?
-                        #- update inline, insert as normal?
                         if needs_update == 1:
                             print('test: update code here?')
+                            #TODO: this is complex: we need to first check if it
+                            #is new. When new, we need to add it in the regular
+                            #way, but when it already exists, we need to create
+                            #update statements. SQLAlchemy?
+                            #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
+                            win_flag = self.get_win_flag_value()
+                            at_work = -1.0 #TODO: get previously entered at_work from T_TRADE
+                            drawdown_id = -1 #TODO: get previousoly entered drawdown_id from T_TRADE
+                            #TODO: create seperate application that manages T_DRAWDOWN based on selection
+                            #where win_flag = -1
                         else:
                             print('test: we are buying =',
                                     we_are_buying(fields['subcategory']))
@@ -603,13 +608,7 @@ class DatabaseAccess():
                                 year_buy = date_created.year
                                 month_buy = date_created.month
                                 day_buy = date_created.day
-                                #TODO: this is complex: we need to first check if it
-                                #is new. When new, we need to add it in the regular
-                                #way, but when it already exists, we need to create
-                                #update statements. SQLAlchemy?
-                                #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
                                 date_sell = string_to_date(DEFAULT_DATE)
-                                print('Test: It\'s a new value, so date_sell should be the default for buying')
                                 year_sell = date_sell.year
                                 month_sell = date_sell.month
                                 day_sell = date_sell.day
@@ -626,13 +625,16 @@ class DatabaseAccess():
                                 day_buy = day_buy.day
                                 price_buy = DEFAULT_PRICE
                                 price_sell = fields['amount']
+                            win_flag = -1 #not yet finished, we can not now it yet.
+                            at_work = -1 #TODO: calculate this
+                            drawdown_id = -1 #TODO: create new record in T_DRAWDOWN with default value
                             #NOTE: should also not be changed on update
                             # so perhaps use long_flag from trade record
                             # if one is found.
                             print('test: long_flag =', self.get_long_flag(fields['category'],
                                     fields['subcategory'], trade_record))
 
-                            long_flag = self.get_long_flag(fields['category'],
+                            long_flag = self.get_long_flag_value(fields['category'],
                                     fields['subcategory'], trade_record)
                             #TODO: if needs_update = 1: update else: insert
                             # How? Add update flag or something?
@@ -717,7 +719,7 @@ class DatabaseAccess():
     # if sell and not new and date_buy already filled in:
     #long
     #TODO: toroughly test this
-    def get_long_flag(self, category, subcategory, trade_record):
+    def get_long_flag_value(self, category, subcategory, trade_record):
         """ Are we long or short? """
         result = False
         if category == 'buy' and trade_record == []:
@@ -725,6 +727,11 @@ class DatabaseAccess():
         else:
             if category == 'sell' and trade_record[date] != '':
                 result = True
+        return result
+    
+    def get_win_flag_value(self, category, subcategory, trade_record):
+        """ Trade finished... did we win? """
+        result = -1
         return result
 
     def create_statements_TABLE_CURRENCY_EXCHANGE(self, input_fields):
