@@ -725,37 +725,26 @@ class DatabaseAccess():
             print(ERROR_TRADE_ALREADY_STARTED, ex)
         return result
 
-    #TODO: create function that will do this:
-    #if buy and is new: long
-    #if sell and is new: short
-    #if buy and not new and date_sell already filled in:
-    #short (covering)
-    # if sell and not new and date_buy already filled in:
-    #long
-    #TODO: toroughly test this
+    #TODO: toroughly test this, especially the faulty trade_record crap
     def get_long_flag_value(self, category, subcategory, trade_record):
         """ Are we long? """
         result = False
         if trade_record == []:
             result = (category == 'buy') 
         else:
-            result = (category == 'sell' and trade_record[date_buy] !=
+            result = (category == 'sell' and trade_record[1]['date_buy'] !=
                     DEFAULT_DATE)
-        return result
-    
+        return 1 if result else 0
+
+    #TODO: toroughly test this
     def get_win_flag_value(self, price_buy, price_sell, long_flag):
         """ Trade finished... did we win? """
-        #TODO: refactor this logic
-        result = -1
-        if price_buy < price_sell and get_long_flag_value == True:
-            win = 1
-        if price_buy > price_sell and get_long_flag_value == False:
-            win = 0
-        if price_buy < price_sell and get_long_flag_value == False:
-            win = 1
-        if price_buy > price_sell and get_long_flag_value == True:
-            win = 0
-        return result
+        result = False
+        if long_flag == 1 then:
+            result = (price_buy < price_sell)
+        else:
+            result = (price_buy > price_sell)
+        return 1 if result else 0
 
     def create_statements_TABLE_CURRENCY_EXCHANGE(self, input_fields):
         """ Creates the records needed for TABLE_CURRENCY_EXCHANGE. """
