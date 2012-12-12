@@ -609,9 +609,9 @@ class DatabaseAccess():
                                         trade_record[1].price_buy,
                                         price_sell,
                                         long_flag)
-                            at_work = trade_record[1].at_work #TODO: get previously entered at_work from T_TRADE
+                            at_work = trade_record[1].at_work
                             currency_id = trade_record[1].currency_id
-                            drawdown_id = -1 #TODO: get previousoly entered drawdown_id from T_TRADE
+                            drawdown_id = trade_record[1].drawdown_id
                             #TODO: create seperate application that manages T_DRAWDOWN based on selection
                             #where win_flag = -1
                         else:
@@ -645,10 +645,7 @@ class DatabaseAccess():
                             win_flag = -1 #not yet finished, we can not now it yet.
                             at_work = price_buy*fields['shares']
                             currency_id = self.currency_id_from_currency(fields['currency'])
-                            drawdown_id = -1 #TODO: create new record in T_DRAWDOWN with default value
-                            #NOTE: should also not be changed on update
-                            # so perhaps use long_flag from trade record
-                            # if one is found.
+                            drawdown_id = self.new_drawdown_record()
                             print('test: long_flag =', self.get_long_flag(fields['category'],
                                     fields['subcategory'], trade_record))
 
@@ -1332,3 +1329,23 @@ class DatabaseAccess():
             session.rollback()
             session = None
         return values
+    
+    def new_drawdown_record(self):
+        """ Creates a new record in T_DRAWDOWN with a default value of 0. """
+        result = -1
+        session = self.Session()
+        try:
+            date_created = current_date()
+            date_modified = current_date()
+            session.add(T_DRAWDOWN(None, 0, date_created, date_modified))
+            session.commit()
+            for instance in session.query(
+                    func.max(T_DRAWDOWN.drawdown_id).label(
+                        'drawdown_id')):
+                result = instance.drawdown_id
+        except Exception as ex:
+            print(ERROR_NEW_DRAWDOWN_RECORD, ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
