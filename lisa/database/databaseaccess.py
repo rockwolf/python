@@ -598,18 +598,19 @@ class DatabaseAccess():
                             if we_are_buying(fields['subcategory']):
                                 print('test: we are buying')
                                 win_flag =
-                                self.get_win_flag_value(price_buy,
+                                self.get_win_flag_value(
+                                        price_buy,
                                         trade_record[1].price_sell,
                                         long_flag)
                             else:
                                 print('test: we are selling')
                                 win_flag =
-                                self.get_win_flag_value(trade_record[1].price_buy,
-                                        price_sell, long_flag)
-                            win_flag =
-                                    trade_record[1])
-                            at_work = -1.0 #TODO: get previously entered at_work from T_TRADE
-                            currency_id = -1 #TODO: get this from the fields like we do in T_FINANCE
+                                self.get_win_flag_value(
+                                        trade_record[1].price_buy,
+                                        price_sell,
+                                        long_flag)
+                            at_work = trade_record[1].at_work #TODO: get previously entered at_work from T_TRADE
+                            currency_id = trade_record[1].currency_id
                             drawdown_id = -1 #TODO: get previousoly entered drawdown_id from T_TRADE
                             #TODO: create seperate application that manages T_DRAWDOWN based on selection
                             #where win_flag = -1
@@ -638,9 +639,12 @@ class DatabaseAccess():
                                 day_buy = day_buy.day
                                 price_buy = DEFAULT_PRICE
                                 price_sell = fields['amount']
+                            risk = 0.0
+                            initial_risk = 0.0
+                            initial_risk_percent = initial_risk/100.0
                             win_flag = -1 #not yet finished, we can not now it yet.
-                            at_work = -1 #TODO: calculate this
-                            currency_id = -1 #TODO: get this from the fields like we do in T_FINANCE
+                            at_work = price_buy*fields['shares']
+                            currency_id = self.currency_id_from_currency(fields['currency'])
                             drawdown_id = -1 #TODO: create new record in T_DRAWDOWN with default value
                             #NOTE: should also not be changed on update
                             # so perhaps use long_flag from trade record

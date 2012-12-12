@@ -82,4 +82,4 @@ MESSAGE_EXEC_ALL = "Executing statements all at once..."
 MESSAGE_PREPARING = "Preparing statements..."
 MESSAGE_DONE = "Done."
 DEFAULT_DATE = "1900-01-01"
-DEFAULT_PRICE = -1.0
+DEFAULT_PRICE = 0.0
