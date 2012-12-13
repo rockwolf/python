@@ -600,18 +600,18 @@ class DatabaseAccess():
                                 win_flag =
                                 self.get_win_flag_value(
                                         price_buy,
-                                        trade_record[1].price_sell,
+                                        trade_record['price_sell'],
                                         long_flag)
                             else:
                                 print('test: we are selling')
                                 win_flag =
                                 self.get_win_flag_value(
-                                        trade_record[1].price_buy,
+                                        trade_record'price_buy'],
                                         price_sell,
                                         long_flag)
-                            at_work = trade_record[1].at_work
-                            currency_id = trade_record[1].currency_id
-                            drawdown_id = trade_record[1].drawdown_id
+                            at_work = trade_record['at_work']
+                            currency_id = trade_record['currency_id']
+                            drawdown_id = trade_record['drawdown_id']
                             #TODO: create seperate application that manages T_DRAWDOWN based on selection
                             #where win_flag = -1
                         else:
@@ -733,7 +733,7 @@ class DatabaseAccess():
         if trade_record == []:
             result = (category == 'buy') 
         else:
-            result = (category == 'sell' and trade_record[1]['date_buy'] !=
+            result = (category == 'sell' and trade_record['date_buy'] !=
                     DEFAULT_DATE)
         return 1 if result else 0
 
@@ -1292,13 +1292,28 @@ class DatabaseAccess():
                         T_TRADE.id_buy == finance_id,
                         T_TRADE.id_sell == finance_id)).first() #finance_id is unique anyway
             if first_obj is not None:
-                result = first_obj.get_record()
+                result = get_record(first_obj)
         except Exception as ex:
             print("Error in get_finance_record: ", ex)
         finally:
             session.rollback()
             session = None
         return result
+
+    def get_record(self, obj):
+        """ Gets a dictionary with the fields of a return record from the
+        database. """ 
+        #TODO: figure out what's in obj, because we also need the column
+        #names and that could be difficult.
+        result = {}
+        try:
+            #TODO: look for a more pythonic and simple way to do this.
+            # we need a result = {column1:value1, column2:value2, ...}
+            #for field in obj:
+            #    ...
+        except Exception as ex:
+            print("Error in get_record: ", ex)
+
 
     def get_rep_check_total(self, check_totals):
         """ Returns a string with the totals per account. """
