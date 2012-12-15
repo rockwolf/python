@@ -597,16 +597,14 @@ class DatabaseAccess():
                             #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
                             if we_are_buying(fields['subcategory']):
                                 print('test: we are buying')
-                                win_flag =
-                                self.get_win_flag_value(
+                                win_flag = self.get_win_flag_value(
                                         price_buy,
                                         trade_record['price_sell'],
                                         long_flag)
                             else:
                                 print('test: we are selling')
-                                win_flag =
-                                self.get_win_flag_value(
-                                        trade_record'price_buy'],
+                                win_flag = self.get_win_flag_value(
+                                        trade_record['price_buy'],
                                         price_sell,
                                         long_flag)
                             at_work = trade_record['at_work']
@@ -635,8 +633,8 @@ class DatabaseAccess():
                                 day_sell = date_created.day
                                 date_buy = string_to_date(DEFAULT_DATE)
                                 year_buy = date_buy.year
-                                month_buy = month_buy.month
-                                day_buy = day_buy.day
+                                month_buy = date_buy.month
+                                day_buy = date_buy.day
                                 price_buy = DEFAULT_PRICE
                                 price_sell = fields['amount']
                             risk = 0.0
@@ -741,7 +739,7 @@ class DatabaseAccess():
     def get_win_flag_value(self, price_buy, price_sell, long_flag):
         """ Trade finished... did we win? """
         result = False
-        if long_flag == 1 then:
+        if long_flag == 1:
             result = (price_buy < price_sell)
         else:
             result = (price_buy > price_sell)
@@ -1311,6 +1309,7 @@ class DatabaseAccess():
             # we need a result = {column1:value1, column2:value2, ...}
             #for field in obj:
             #    ...
+            print('test: code in get_record not yet implemented')
         except Exception as ex:
             print("Error in get_record: ", ex)
 
