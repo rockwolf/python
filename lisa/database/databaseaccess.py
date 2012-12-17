@@ -416,8 +416,6 @@ class DatabaseAccess():
     def create_statements_TABLE_RATE(self, input_fields):
         """ Creates the records needed for TABLE_RATE. """
         try:
-            #TODO: session object is for querying if there is a record already,
-            # but we don't need it here I think.
             date_created = current_date()
             date_modified = current_date()
             statement_rate = Statement(TABLE_RATE)
@@ -511,28 +509,7 @@ class DatabaseAccess():
             session.rollback()
             session = None
    
-    #TODO:
-    #First do T_FINANCE
-    #(Use date_created later to check the recently updated block... ?)
-    #query with id_buy or id_sell
-    #not found? it's a new entry so create it.
-    #found?
-    #  if id_buy filled in, we are buying now
-    #  if id_sell filled in, we are selling now
-    #  update accordingly
-    #TODO: get_latest_finance_date_created (like with the currency)
-    # -> look for the finance_id in T_TRADE using id_buy and id_sell
-    # -> found = update needed so skip to put in update later?
-    # -> not found = insert needed, so put in the insert statements
-    # Can we update or commit on the fly? date_created and date_modified make this difficult...
-    # Nah, we need to retrieve the old values anyway to create the new statement.
-    # So creating insert and update statements and joining them later in this function should
-    # be sufficient.
-    #TODO: rewrite all the statement creation to give back a list of insert/update and delete statements.
-    #This can later be used to do seperate insert/update and delete operations.
-    #Beware that this also requires the writing of a function in statement.py
-    #that returns the values from the statement-object (if this function doesn't already exist).
-    #convention: 0 = insert / 1 = update / 3 = delete
+    #NOTE: convention: 0 = insert / 1 = update / 3 = delete
     #NOTE: Correct way of updating =  Supplier.query.filter(<your stuff here, or user filter_by, or whatever is in your where clause>).update(values)
     #e.g.: session.query(Supplier).filter_by(id=2).update({"name": u"Mayowa"})
     #TABLE_TRADE.query.filter(market_name=...,stock_name=...).update({"date_...": date_... etc.})
@@ -799,64 +776,6 @@ class DatabaseAccess():
                     session = None
         except Exception as ex:
             print(ERROR_WRITE_TO_DATABASE_SESSION, ex)
-
-    #def file_import_stocks(self, fields_db, fields_stock):
-    #    """ Import stock information. """
-    #    #TODO: this will become the statements(..., TABLE_STOCK) function
-    #    # It will completely change too.
-    #    try:
-    #        session = self.Session()
-    #        try:
-    #            date_created = current_date()
-    #            date_modified = current_date()
-    #            print("STOCKS")
-    #            print("______")
-    #            print(MESSAGE_PREPARING)
-    #            self.statementStock = Statement(TABLE_STOCK)
-    #            records = 0
-    #            i = 0
-    #            for fields in fields_db:
-    #                if (not fields['stock'] == '') :
-    #                    subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'])
-    #                    account_id = self.account_id_from_account(fields['account'])
-    #                    category_id = self.category_id_from_category(fields['category'])
-    #                    # Get id from T_FINANCE (to import in T_STOCK)
-    #                    for instance in session.query(T_FINANCE).filter_by(
-    #                        date=fields['date'],
-    #                        account_id=account_id,
-    #                        category_id=category_id,
-    #                        subcategory_id=subcategory_id,
-    #                        amount=Decimal(fields['amount']),
-    #                        comment=fields['comment'],
-    #                        market=fields['market'],
-    #                        stock=fields['stock'],
-    #                        shares=int(fields['shares']),
-    #                        price=Decimal(fields['price']),
-    #                        tax=Decimal(fields['tax']),
-    #                        commission=Decimal(fields['commission']),
-    #                        risk=Decimal(fields['risk'])
-    #                    ):
-    #                        finance_id = instance.finance_id
-    #                    if fields_stock[i] != {}:
-    #                        # Add new entry if it doesn't already exist
-    #                        if self.update_stock(fields_stock, session, i,
-    #                                finance_id, i):
-    #                            records = records + 1
-    #                # fields_db and fields_stock are the same size,
-    #                # so we use an integer in the fields_db loop as an index
-    #                # to get the corresponding fields_stock value
-    #                i = i + 1
-    #            print(MESSAGE_EXEC_ALL)
-    #            statements.Execute(session)
-    #        except Exception as ex:
-    #            print(ERROR_FILE_IMPORT_STOCKS, ex)
-    #        finally:
-    #            session.commit()
-    #            session = None
-    #            print("{0} records added.".format(str(records)))
-    #            print(DONE)
-    #    except Exception as ex:
-    #        print(ERROR_FILE_IMPORT_STOCKS_SESSION, ex)
 
     def update_finance(self, fields_db, session, i, finance_id, recordid):
         """ Add a new finance entry or update an existing one. """
