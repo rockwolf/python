@@ -1298,21 +1298,27 @@ class DatabaseAccess():
             session = None
         return result
 
-    def get_record(self, obj):
+    def get_record(self, row):
         """ Gets a dictionary with the fields of a return record from the
         database. """ 
-        #TODO: figure out what's in obj, because we also need the column
-        #names and that could be difficult.
         result = {}
         try:
-            #TODO: look for a more pythonic and simple way to do this.
-            # we need a result = {column1:value1, column2:value2, ...}
-            #for field in obj:
-            #    ...
-            print('test: code in get_record not yet implemented')
+            result = row_to_dict(row)
         except Exception as ex:
             print("Error in get_record: ", ex)
+        return result
 
+    #TODO: put this in modules_generic/function.py
+    def row_to_dict(row):
+        """
+            This function iterates over column/value pairs and returns a
+            dictionary with the results.
+        """
+        result = {}
+        for column in row.__table__.columns:
+            result[column.name] = getattr(row, column.name)
+        return result
+    
 
     def get_rep_check_total(self, check_totals):
         """ Returns a string with the totals per account. """
