@@ -28,6 +28,7 @@ from datetime import datetime
 from database.mappings import *
 from database.mappings_views import *
 from modules_generic.function import *
+from modules_generic.function_sqlalchemy import row_to_dict
 from modules_generic.messagehandler import *
 from modules.statement import Statement
 from modules.constant import *
@@ -1226,18 +1227,6 @@ class DatabaseAccess():
         except Exception as ex:
             print("Error in get_record: ", ex)
         return result
-
-    #TODO: put this in modules_generic/function.py
-    def row_to_dict(row):
-        """
-            This function iterates over column/value pairs and returns a
-            dictionary with the results.
-        """
-        result = {}
-        for column in row.__table__.columns:
-            result[column.name] = getattr(row, column.name)
-        return result
-    
 
     def get_rep_check_total(self, check_totals):
         """ Returns a string with the totals per account. """
