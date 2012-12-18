@@ -426,8 +426,6 @@ class DatabaseAccess():
                     formula_id = self.get_formula_id_to_use(fields)
                     records = records + 1
                     
-                    #TODO: get parameter values from parameter table
-                    #
                     if fields['manual_flag'] == 1:
                         commission = fields['commission']
                         tax = fields['tax']
@@ -567,11 +565,10 @@ class DatabaseAccess():
                         #- Write seperate code in the main controller for the
                         #  update and the insert?
                         if needs_update == 1:
-                            date_created = DEFAULT_DATE #TODO: get the previous date_created from the T_TRADE record.
-                            #TODO: this is complex: we need to first check if it
-                            #is new. When new, we need to add it in the regular
-                            #way, but when it already exists, we need to create
-                            #update statements. SQLAlchemy?
+                            if trade_record['date_created'] == None:
+                                date_created = DEFAULT_DATE
+                            else:
+                                date_created = trade_record['date_created']
                             #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
                             if we_are_buying(fields['subcategory']):
                                 print('test: we are buying')
@@ -627,12 +624,6 @@ class DatabaseAccess():
 
                             long_flag = self.get_long_flag_value(fields['category'],
                                     fields['subcategory'], trade_record)
-                            #TODO: if needs_update = 1: update else: insert
-                            # How? Add update flag or something?
-                            # Create seperate statements?
-                            # Perhaps it's enough to ADD THE TRADE_ID from
-                            # trade_record to T_TRADE(..., date_buy, ...) instead
-                            # of None!!!
                             #TODO: check what we need to enter for risk,
                             #win_flag etc.
                             statement_trade.add(
