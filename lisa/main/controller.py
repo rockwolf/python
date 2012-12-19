@@ -143,19 +143,6 @@ class ControllerMain():
             print('test:', fields_db)
             return fields_db 
 
-            ## import finance info from table data
-            #dba = DatabaseAccess(self.config)
-            #dba.file_import_lines(fields_db)
-            #dba = None
-            ## import stock info from table data
-            #fields_stock = []
-            #stock = Stock(self.config)
-            #for field in fields_db:
-            #    fields_stock.append(stock.parse_stocks(field))
-            #stock.process_stocks(fields_db, fields_stock)
-            #stock = None
-            ##TODO: process_trades
-
     def backup(self):
         """ Make a backup of the output file for clipf. """
         # remove old backup

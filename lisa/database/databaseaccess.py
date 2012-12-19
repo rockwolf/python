@@ -336,7 +336,10 @@ class DatabaseAccess():
         return values
 
     def create_statements_TABLE_FINANCE(self, input_fields):
-        """ Creates the records needed for TABLE_FINANCE. """
+        """
+            Creates the records needed for TABLE_FINANCE
+            and returns them as a Statement object.
+        """
         session = self.Session()
         try:
             date_created = current_date()
@@ -415,7 +418,10 @@ class DatabaseAccess():
             session = None
 
     def create_statements_TABLE_RATE(self, input_fields):
-        """ Creates the records needed for TABLE_RATE. """
+        """
+            Creates the records needed for TABLE_RATE
+            and returns them as a Statement object.
+        """
         try:
             date_created = current_date()
             date_modified = current_date()
@@ -474,7 +480,10 @@ class DatabaseAccess():
             print(ERROR_CREATE_STATEMENTS_TABLE_RATE, ex)
     
     def create_statements_TABLE_INVESTING(self, input_fields):
-        """ Creates the records needed for TABLE_INVESTING. """
+        """
+            Creates the records needed for TABLE_INVESTING
+            and returns them as a Statement object.
+        """
         #TODO: this needs to be a portfolio module, but
         #we don't need it at the moment. Will be finished
         #later. T_STOCK is no longer needed, it will be T_INVESTMENT.
@@ -513,7 +522,10 @@ class DatabaseAccess():
     #e.g.: session.query(Supplier).filter_by(id=2).update({"name": u"Mayowa"})
     #TABLE_TRADE.query.filter(market_name=...,stock_name=...).update({"date_...": date_... etc.})
     def create_statements_TABLE_TRADE(self, input_fields, statements_finance):
-        """ Creates the records needed for TABLE_TRADE. """
+        """
+            Creates the records needed for TABLE_TRADE and returns them as a
+            Statement object.
+        """
         try:
             session = self.Session()
             date_created = current_date()
@@ -541,8 +553,7 @@ class DatabaseAccess():
                         if self.trade_already_started(market_id, stock_name_id):
                             #NOTE: This is what we use to determine whether we
                             #need to fill in id_buy or id_sell
-                            print('test: subcat=', fields['subcategory'])
-                            print('test: cat=', fields['category'])
+                            needs_update = 1
                             if fields['subcategory'] == 'buy' and \
                                 T_TRADE.id_buy == -1:
                                 id_buy = finance_id
@@ -553,17 +564,10 @@ class DatabaseAccess():
                                 raise Exception(
                                     "{0} already contains a sell or buy record" \
                                     " and you are trying to add one like it again?".format(TABLE_TRADE))
-                            #NOTE: When this code is executed, we know that
-                            # we'll have to update later, instead of insert.
-                            needs_update = 1
                         record = records + 1
                         #NOTE: price_buy will be fields['amount']
                         #When we buy more, it will be overwritten!
                         #Trading without adding to positions is assumed by this code!
-                        #
-                        #TODO:
-                        #- Write seperate code in the main controller for the
-                        #  update and the insert?
                         if needs_update == 1:
                             if trade_record['date_created'] == None:
                                 date_created = DEFAULT_DATE
@@ -750,7 +754,7 @@ class DatabaseAccess():
         """
         try:
             if statements != []:
-                statement_list = statements.get_statement_list()
+                statements_insert = statements.get_statement_list(0)
                 #TODO: create statements.get_insert_list()
                 #get_update_list() => contains update statements for use in sqlalchemy
                 #get_delete_list() => dummy, we won't be needing this
@@ -758,9 +762,10 @@ class DatabaseAccess():
                 session = self.Session()
                 try:
                     print(statements.table_name, end=': ')
-                    session.add_all(statement_list)
+                    session.add_all(statement_insert)
                     session.commit()
-                    print("{0} records added.".format(str(len(statement_list))))
+                    print("{0} records
+                            added.".format(str(len(statements_insert))))
                 except Exception as ex:
                     print(ERROR_WRITE_TO_DATABASE, ex)
                 finally:
