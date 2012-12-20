@@ -28,6 +28,11 @@ class Statement():
             self.table_name = table_name
         except Exception as ex:
             print("Error in initialisation of Statements: ", ex)
+
+    def get_dict_list_from_statements(self, insupdel=0):
+        """ Returns dictionary list of the statements. """
+        #TODO: is this a good idea?
+        pass
  
     def add(self, recordid, tablerow_object, insupdel=0):
         """ Add a statement with recordid and tablerow object. """
