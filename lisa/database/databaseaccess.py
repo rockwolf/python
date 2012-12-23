@@ -570,7 +570,12 @@ class DatabaseAccess():
                             else:
                                 raise Exception(
                                     "{0} already contains a sell or buy record" \
-                                    " and you are trying to add one like it again?".format(TABLE_TRADE))
+                                    " and you are trying to add one like it" \
+                                    " again?".format(TABLE_TRADE))
+                            stoploss = trade_record['stoploss']
+                            profit_loss = trade_record['profit_loss']
+                            profit_loss_percent = \
+                                    trade_record['profit_loss_percent']
                         else:
                             if long_flag == 1:
                                 id_buy = finance_id
@@ -578,6 +583,9 @@ class DatabaseAccess():
                             else:
                                 id_buy = -1
                                 id_sell = finance_id
+                            stoploss = 0.0 #TODO: calculate this (new func?)
+                            profit_loss = 0.0 #TODO: calculate this
+                            profit_loss_percent = profit_loss/100.0 #TODO: calculate this
                         record = records + 1
                         #NOTE: price_buy will be fields['amount']
                         #When we buy more, it will be overwritten!
