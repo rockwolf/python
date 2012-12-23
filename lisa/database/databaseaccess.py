@@ -562,19 +562,36 @@ class DatabaseAccess():
                                 and T_TRADE.id_buy == -1:
                                 id_buy = finance_id
                                 id_sell = trade_record['id_sell']
+                                date_buy = date_created
+                                date_sell = trade_record['date_sell']
                             elif fields['subcategory'] == 'sell' \
                                 and T_TRADE.id_sell == -1:
                                 id_buy = trade_record['id_buy']
                                 id_sell = finance_id
+                                date_buy = trade_record['date_buy']
+                                date_sell = date_created
                             else:
                                 raise Exception(
                                     "{0} already contains a sell or buy record" \
                                     " and you are trying to add one like it" \
                                     " again?".format(TABLE_TRADE))
-                            #NOTE: only needs to be calculated at
-                            #the start of the trade.
+                            #NOTE: The belowonly needs to be calculated
+                            #at the start of the trade.
                             stoploss = trade_record['stoploss']
                             profit_loss = trade_record['profit_loss']
+                            #TODO: don't I need to get the previous dates on
+                            #update??? YES! Finish this below + refactor!
+                            #=> already moved date_buy and date_sell up,
+                            # now the prices need to move too, so I can delete
+                            # the below if else.
+                            print('test: we are buying =',
+                                        we_are_buying(fields['subcategory']))
+                            if we_are_buying(fields['subcategory']):
+                                price_buy = fields['amount']
+                                price_sell = DEFAULT_PRICE
+                            else:
+                                price_buy = DEFAULT_PRICE
+                                price_sell = fields['amount']
                         else:
                             needs_update = 0
                             if long_flag == 1:
@@ -585,7 +602,26 @@ class DatabaseAccess():
                                 id_sell = finance_id
                             stoploss = 0.0 #TODO: calculate this (new func?)
                             profit_loss = 0.0 #TODO: calculate this
-                        profit_loss_percent = profit_loss/100.0 #TODO: calculate this
+                            print('test: we are buying =',
+                                        we_are_buying(fields['subcategory']))
+                            if we_are_buying(fields['subcategory']):
+                                date_buy = date_created
+                                date_sell = string_to_date(DEFAULT_DATE)
+                                price_buy = fields['amount']
+                                price_sell = DEFAULT_PRICE
+                            else:
+                                date_sell = date_created
+                                date_buy = string_to_date(DEFAULT_DATE)
+                                price_buy = DEFAULT_PRICE
+                                price_sell = fields['amount']
+                        profit_loss_percent = profit_loss/100.0
+                        year_buy = date_buy.year
+                        month_buy = date_buy.month
+                        day_buy = date_buy.day
+                        year_sell = date_sell.year
+                        month_sell = date_sell.month
+                        day_sell = date_sell.day
+
                         if needs_update == 1:
                             if trade_record['date_created'] == None:
                                 date_created = DEFAULT_DATE
@@ -607,24 +643,7 @@ class DatabaseAccess():
                             drawdown_id = trade_record['drawdown_id']
                             #TODO: update code goes here...
                         else:
-                            print('test: we are buying =',
-                                    we_are_buying(fields['subcategory']))
-                            if we_are_buying(fields['subcategory']):
-                                date_buy = date_created
-                                date_sell = string_to_date(DEFAULT_DATE)
-                                price_buy = fields['amount']
-                                price_sell = DEFAULT_PRICE
-                            else:
-                                date_sell = date_created
-                                date_buy = string_to_date(DEFAULT_DATE)
-                                price_buy = DEFAULT_PRICE
-                                price_sell = fields['amount']
-                            year_buy = date_created.year
-                            month_buy = date_created.month
-                            day_buy = date_created.day
-                            year_sell = date_sell.year
-                            month_sell = date_sell.month
-                            day_sell = date_sell.day
+                                                        #NOTE: Here is where the insert code starts.
                             risk = 0.0
                             initial_risk = 0.0
                             initial_risk_percent = initial_risk/100.0
