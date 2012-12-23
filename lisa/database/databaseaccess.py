@@ -643,6 +643,8 @@ class DatabaseAccess():
                                 records,
                                 T_TRADE(
                                     None,
+                                    market_id,
+                                    stock_name_id,
                                     date_buy,
                                     year_buy,
                                     month_buy,
@@ -657,10 +659,12 @@ class DatabaseAccess():
                                     risk,
                                     initial_risk,
                                     initial_risk_percent,
+                                    stoploss,
+                                    profit_loss,
+                                    profit_loss_percent,
                                     win_flag,
                                     at_work,
-                                    id_buy, #how the fuck do I determene these 2
-                                            #refs?
+                                    id_buy,
                                     id_sell,
                                     currency_id,
                                     drawdown_id,
