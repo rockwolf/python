@@ -620,7 +620,7 @@ class DatabaseAccess():
                             initial_risk = 0.0
                             initial_risk_percent = initial_risk/100.0
                             win_flag = -1 #not yet finished, we can not now it yet.
-                            at_work = price_buy*fields['shares']
+                            at_work = Decimal(price_buy)*Decimal(fields['shares'])
                             currency_id = self.currency_id_from_currency(fields['currency'])
                             drawdown_id = self.new_drawdown_record()
                             print('test: long_flag =', self.get_long_flag(fields['category'],
@@ -764,8 +764,7 @@ class DatabaseAccess():
                     print(statements.table_name, end=': ')
                     session.add_all(statement_insert)
                     session.commit()
-                    print("{0} records
-                            added.".format(str(len(statements_insert))))
+                    print("{0} records added.".format(str(len(statements_insert))))
                 except Exception as ex:
                     print(ERROR_WRITE_TO_DATABASE, ex)
                 finally:
