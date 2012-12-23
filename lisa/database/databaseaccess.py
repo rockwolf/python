@@ -550,6 +550,11 @@ class DatabaseAccess():
                         trade_record = self.get_trade_record(finance_id)
                         print('test trade_record=', trade_record)
 
+                        print('test: long_flag =', self.get_long_flag_value(fields['category'],
+                                fields['subcategory'], trade_record))
+
+                        long_flag = self.get_long_flag_value(fields['category'],
+                                fields['subcategory'], trade_record)
                         if self.trade_already_started(market_id, stock_name_id):
                             #NOTE: This is what we use to determine whether we
                             #need to fill in id_buy or id_sell
@@ -557,13 +562,22 @@ class DatabaseAccess():
                             if fields['subcategory'] == 'buy' and \
                                 T_TRADE.id_buy == -1:
                                 id_buy = finance_id
+                                id_sell = trade_record['id_sell']
                             elif fields['subcategory'] == 'sell' and \
                                 T_TRADE.id_sell == -1:
+                                id_buy = trade_record['id_buy']
                                 id_sell = finance_id
                             else:
                                 raise Exception(
                                     "{0} already contains a sell or buy record" \
                                     " and you are trying to add one like it again?".format(TABLE_TRADE))
+                        else:
+                            if long_flag == 1:
+                                id_buy = finance_id
+                                id_sell = -1
+                            else:
+                                id_buy = -1
+                                id_sell = finance_id
                         record = records + 1
                         #NOTE: price_buy will be fields['amount']
                         #When we buy more, it will be overwritten!
@@ -623,11 +637,6 @@ class DatabaseAccess():
                             at_work = Decimal(price_buy)*Decimal(fields['shares'])
                             currency_id = self.currency_id_from_currency(fields['currency'])
                             drawdown_id = self.new_drawdown_record()
-                            print('test: long_flag =', self.get_long_flag(fields['category'],
-                                    fields['subcategory'], trade_record))
-
-                            long_flag = self.get_long_flag_value(fields['category'],
-                                    fields['subcategory'], trade_record)
                             #TODO: check what we need to enter for risk,
                             #win_flag etc.
                             statement_trade.add(
