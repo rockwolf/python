@@ -256,6 +256,7 @@ class T_TRADE(object):
         self.id_buy = id_buy
         self.id_sell = id_sell
         self.currency_id = currency_id
+        self.drawdown_id = drawdown_id 
         self.active = active
         self.date_created = date_created
         self.date_modified = date_modified

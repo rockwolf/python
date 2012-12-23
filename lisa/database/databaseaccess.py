@@ -450,12 +450,12 @@ class DatabaseAccess():
                         #TODO: actually calculate something when necessary
                         on_other = 0.0
                         calculated = self.calculate_commission()
-                        #TODO: function to determine which commission we
-                        #need to select, at the moment 1 or 2, dependend on
-                        #the amount and/or market
-                        commission = self.get_parameter_value(1) #9.75
-                        #TODO: function to determine...
-                        tax = self.get_parameter_value(4) #BE tax
+                        commission = self.get_parameter_value(
+                                self.get_parameter_commission(
+                                    fields['amount'], fields['market_name']))
+                        tax = self.get_parameter_value(
+                                self.get_parameter_tax(
+                                fields['amount'], fields['market_name']))
                     
                     statement_rate.add(
                         records,
@@ -621,6 +621,7 @@ class DatabaseAccess():
                         year_sell = date_sell.year
                         month_sell = date_sell.month
                         day_sell = date_sell.day
+                        r_multiple = 0.0 #TODO: calculate r_multiple
 
                         if needs_update == 1:
                             if trade_record['date_created'] == None:
@@ -676,6 +677,7 @@ class DatabaseAccess():
                                     stoploss,
                                     profit_loss,
                                     profit_loss_percent,
+                                    r_multiple,
                                     win_flag,
                                     at_work,
                                     id_buy,
@@ -789,7 +791,7 @@ class DatabaseAccess():
                 session = self.Session()
                 try:
                     print(statements.table_name, end=': ')
-                    session.add_all(statement_insert)
+                    session.add_all(statements_insert)
                     session.commit()
                     print("{0} records added.".format(str(len(statements_insert))))
                 except Exception as ex:
@@ -1298,4 +1300,42 @@ class DatabaseAccess():
         finally:
             session.rollback()
             session = None
+        return result
+
+    def get_parameter_commission(self, amount, market):
+        """
+            Function to determine what parameter to use to select
+            the correct commission.
+        """
+        result = -1
+        try:
+            #TODO: complete this, to return the correct value for
+            #all markets and conditions
+            if market == 'ebr' and amount < 4000 :
+                result = 1
+            elif market == 'ebr' and amount >= 4000:
+                result = 2
+            else:
+                result = 1
+        except Exception as ex:
+            print('Error in get_parameter_commission:', ex)
+        return result
+
+    def get_parameter_tax(self, amount, market):
+        """
+            Function to determine what parameter to use to select
+            the correct tax.
+        """
+        result = -1
+        try:
+            #TODO: complete this, to return the correct value for
+            #all markets and conditions
+            if market == 'ebr' and amount < 4000 :
+                result = 4
+            elif market == 'ebr' and amount >= 4000:
+                result = 4
+            else:
+                result = 4
+        except Exception as ex:
+            print('Error in get_parameter_tax:', ex)
         return result
