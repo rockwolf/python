@@ -521,11 +521,16 @@ class DatabaseAccess():
     #NOTE: Correct way of updating =  Supplier.query.filter(<your stuff here, or user filter_by, or whatever is in your where clause>).update(values)
     #e.g.: session.query(Supplier).filter_by(id=2).update({"name": u"Mayowa"})
     #TABLE_TRADE.query.filter(market_name=...,stock_name=...).update({"date_...": date_... etc.})
+    #TODO: create seperate application that manages T_DRAWDOWN based on selection
+    #where win_flag = -1
     def create_statements_TABLE_TRADE(self, input_fields, statements_finance):
         """
             Creates the records needed for TABLE_TRADE and returns them as a
             Statement object.
         """
+        #NOTE: price_buy will be fields['amount']
+        #When we buy more, it will be overwritten!
+        #Trading without adding to positions is assumed by this code!
         try:
             session = self.Session()
             date_created = current_date()
@@ -533,13 +538,11 @@ class DatabaseAccess():
             statement_trade = Statement(TABLE_TRADE)
             needs_update = 0
             records = 0
-        
             finance_id = self.first_finance_id_from_latest()
-            #TODO: get the entire line of information from TABLE_FINANCE, because we need the date
-            #and price info too.
             if finance_id != -1:
                 for fields in input_fields:
                     if is_a_trade(fields['category'], fields['subcategory']):            
+                        record = records + 1
                         market_id = self.market_id_from_market(
                                 fields['market_name'])
                         stock_name_id = self.stock_name_id_from_stock_name(
@@ -549,22 +552,18 @@ class DatabaseAccess():
                         print('test finance_record=', finance_record)
                         trade_record = self.get_trade_record(finance_id)
                         print('test trade_record=', trade_record)
-
-                        print('test: long_flag =', self.get_long_flag_value(fields['category'],
-                                fields['subcategory'], trade_record))
-
                         long_flag = self.get_long_flag_value(fields['category'],
                                 fields['subcategory'], trade_record)
+                        print('test: long_flag =', long_flag)
+
                         if self.trade_already_started(market_id, stock_name_id):
-                            #NOTE: This is what we use to determine whether we
-                            #need to fill in id_buy or id_sell
                             needs_update = 1
-                            if fields['subcategory'] == 'buy' and \
-                                T_TRADE.id_buy == -1:
+                            if fields['subcategory'] == 'buy' \
+                                and T_TRADE.id_buy == -1:
                                 id_buy = finance_id
                                 id_sell = trade_record['id_sell']
-                            elif fields['subcategory'] == 'sell' and \
-                                T_TRADE.id_sell == -1:
+                            elif fields['subcategory'] == 'sell' \
+                                and T_TRADE.id_sell == -1:
                                 id_buy = trade_record['id_buy']
                                 id_sell = finance_id
                             else:
@@ -572,11 +571,12 @@ class DatabaseAccess():
                                     "{0} already contains a sell or buy record" \
                                     " and you are trying to add one like it" \
                                     " again?".format(TABLE_TRADE))
+                            #NOTE: only needs to be calculated at
+                            #the start of the trade.
                             stoploss = trade_record['stoploss']
                             profit_loss = trade_record['profit_loss']
-                            profit_loss_percent = \
-                                    trade_record['profit_loss_percent']
                         else:
+                            needs_update = 0
                             if long_flag == 1:
                                 id_buy = finance_id
                                 id_sell = -1
@@ -585,11 +585,7 @@ class DatabaseAccess():
                                 id_sell = finance_id
                             stoploss = 0.0 #TODO: calculate this (new func?)
                             profit_loss = 0.0 #TODO: calculate this
-                            profit_loss_percent = profit_loss/100.0 #TODO: calculate this
-                        record = records + 1
-                        #NOTE: price_buy will be fields['amount']
-                        #When we buy more, it will be overwritten!
-                        #Trading without adding to positions is assumed by this code!
+                        profit_loss_percent = profit_loss/100.0 #TODO: calculate this
                         if needs_update == 1:
                             if trade_record['date_created'] == None:
                                 date_created = DEFAULT_DATE
@@ -597,13 +593,11 @@ class DatabaseAccess():
                                 date_created = trade_record['date_created']
                             #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
                             if we_are_buying(fields['subcategory']):
-                                print('test: we are buying')
                                 win_flag = self.get_win_flag_value(
                                         price_buy,
                                         trade_record['price_sell'],
                                         long_flag)
                             else:
-                                print('test: we are selling')
                                 win_flag = self.get_win_flag_value(
                                         trade_record['price_buy'],
                                         price_sell,
@@ -611,33 +605,26 @@ class DatabaseAccess():
                             at_work = trade_record['at_work']
                             currency_id = trade_record['currency_id']
                             drawdown_id = trade_record['drawdown_id']
-                            #TODO: create seperate application that manages T_DRAWDOWN based on selection
-                            #where win_flag = -1
+                            #TODO: update code goes here...
                         else:
                             print('test: we are buying =',
                                     we_are_buying(fields['subcategory']))
                             if we_are_buying(fields['subcategory']):
                                 date_buy = date_created
-                                year_buy = date_created.year
-                                month_buy = date_created.month
-                                day_buy = date_created.day
                                 date_sell = string_to_date(DEFAULT_DATE)
-                                year_sell = date_sell.year
-                                month_sell = date_sell.month
-                                day_sell = date_sell.day
                                 price_buy = fields['amount']
                                 price_sell = DEFAULT_PRICE
                             else:
                                 date_sell = date_created
-                                year_sell = date_created.year
-                                month_sell = date_created.month
-                                day_sell = date_created.day
                                 date_buy = string_to_date(DEFAULT_DATE)
-                                year_buy = date_buy.year
-                                month_buy = date_buy.month
-                                day_buy = date_buy.day
                                 price_buy = DEFAULT_PRICE
                                 price_sell = fields['amount']
+                            year_buy = date_created.year
+                            month_buy = date_created.month
+                            day_buy = date_created.day
+                            year_sell = date_sell.year
+                            month_sell = date_sell.month
+                            day_sell = date_sell.day
                             risk = 0.0
                             initial_risk = 0.0
                             initial_risk_percent = initial_risk/100.0
