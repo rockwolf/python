@@ -612,7 +612,7 @@ class DatabaseAccess():
                         year_sell = date_sell.year
                         month_sell = date_sell.month
                         day_sell = date_sell.day
-                        r_multiple = 0.0 #TODO: calculate r_multiple
+                        r_multiple = self.get_r_multiple_value()
 
                         if needs_update == 1:
                             if trade_record['date_created'] == None:
@@ -1329,4 +1329,16 @@ class DatabaseAccess():
                 result = 4
         except Exception as ex:
             print('Error in get_parameter_tax:', ex)
+        return result
+
+    def get_r_multiple_value(self):
+        """ 
+            Function to calculate R-multiple.
+        """
+        result = 0.0
+        try:
+            #TODO: finish this code.
+            result = 0.0
+        except Exception as ex:
+            print('Error in get_r_multiple_value:', ex)
         return result
