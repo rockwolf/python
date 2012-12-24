@@ -564,12 +564,16 @@ class DatabaseAccess():
                                 id_sell = trade_record['id_sell']
                                 date_buy = date_created
                                 date_sell = trade_record['date_sell']
+                                price_buy = fields['amount']
+                                price_sell = trade_record['price_sell']
                             elif fields['subcategory'] == 'sell' \
                                 and T_TRADE.id_sell == -1:
                                 id_buy = trade_record['id_buy']
                                 id_sell = finance_id
                                 date_buy = trade_record['date_buy']
                                 date_sell = date_created
+                                price_buy = trade_record['price_buy']
+                                price_sell = fields['amount']
                             else:
                                 raise Exception(
                                     "{0} already contains a sell or buy record" \
@@ -579,19 +583,6 @@ class DatabaseAccess():
                             #at the start of the trade.
                             stoploss = trade_record['stoploss']
                             profit_loss = trade_record['profit_loss']
-                            #TODO: don't I need to get the previous dates on
-                            #update??? YES! Finish this below + refactor!
-                            #=> already moved date_buy and date_sell up,
-                            # now the prices need to move too, so I can delete
-                            # the below if else.
-                            print('test: we are buying =',
-                                        we_are_buying(fields['subcategory']))
-                            if we_are_buying(fields['subcategory']):
-                                price_buy = fields['amount']
-                                price_sell = DEFAULT_PRICE
-                            else:
-                                price_buy = DEFAULT_PRICE
-                                price_sell = fields['amount']
                         else:
                             needs_update = 0
                             if long_flag == 1:
@@ -644,7 +635,7 @@ class DatabaseAccess():
                             drawdown_id = trade_record['drawdown_id']
                             #TODO: update code goes here...
                         else:
-                                                        #NOTE: Here is where the insert code starts.
+                            #NOTE: Here is where the insert code starts.
                             risk = 0.0
                             initial_risk = 0.0
                             initial_risk_percent = initial_risk/100.0
