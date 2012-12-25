@@ -35,10 +35,14 @@ from modules.constant import *
 from modules.function import *
 
 class DatabaseAccess():
-    """ Connecting to the database. """ 
+    """
+        Connecting to the database.
+    """ 
 
     def __init__(self, config):
-        """ Initialize object. """
+        """
+            Initialize object.
+        """
         try:
             self.config = config
             #print('postgresql://' + self.config.dbuser + ':' + self.config.dbpass + '@' + self.config.dbhost + '/' + self.config.dbname)
@@ -133,7 +137,9 @@ class DatabaseAccess():
             print("Error in initialisation of DatabaseAccess: ", ex)
    
     def map_tables(self):
-        """ Create mappers for the tables on the db and the table classes. """
+        """
+            Create mappers for the tables on the db and the table classes.
+        """
         mapper(T_FINANCE, self.loaded_objects[TABLE_FINANCE])
         mapper(T_INVESTMENT, self.loaded_objects[TABLE_INVESTMENT])
         mapper(T_MARKET, self.loaded_objects[TABLE_MARKET])
@@ -152,7 +158,9 @@ class DatabaseAccess():
         mapper(T_MARGIN_TYPE, self.loaded_objects[TABLE_MARGIN_TYPE])
  
     def map_views(self):
-        """ Create mappers for the views on the db and the view classes. """
+        """
+            Create mappers for the views on the db and the view classes.
+        """
         mapper(V_FINANCE, self.loaded_objects[VIEW_FINANCE])
         mapper(V_INVESTMENT, self.loaded_objects[VIEW_INVESTMENT])
         mapper(V_MARKET, self.loaded_objects[VIEW_MARKET])
@@ -172,7 +180,9 @@ class DatabaseAccess():
         mapper(V_REP_CHECK_TOTAL, self.loaded_objects[VIEW_REP_CHECK_TOTAL])
         
     def config(self):
-        """ Retrieve config file values """
+        """
+            Retrieve config file values.
+        """
         config = ConfigParser.RawConfigParser()
         config.read(self.myconf)
         self.dbhost = config.get('database', 'host')[1:-1]
@@ -181,7 +191,9 @@ class DatabaseAccess():
         self.dbpass = config.get('database', 'password')[1:-1]
  
     def get_categories(self):
-        """ Get the categories. """
+        """
+            Get the categories.
+        """
         values = []
         try:
             session = self.Session()
@@ -196,7 +208,9 @@ class DatabaseAccess():
         return values
     
     def get_accounts(self):
-        """ Get the accounts. """
+        """
+            Get the accounts.
+        """
         values = []
         try:
             session = self.Session()
@@ -211,7 +225,9 @@ class DatabaseAccess():
         return values
 
     def get_subcategories(self):
-        """ Get the subcategories. """
+        """
+            Get the subcategories.
+        """
         values = []
         try:
             session = self.Session()
@@ -226,7 +242,9 @@ class DatabaseAccess():
         return values
 
     def get_markets(self):
-        """ Get the market codes. """
+        """
+            Get the market codes.
+        """
         values = []
         try:
             session = self.Session()
@@ -242,7 +260,9 @@ class DatabaseAccess():
         return values
  
     def get_stock_names(self, code):
-        """ Get the stock names. """
+        """
+            Get the stock names.
+        """
         values = []
         try:
             session = self.Session()
@@ -263,7 +283,9 @@ class DatabaseAccess():
         return values
 
     def get_market_description(self, market):
-        """ Get the market description """
+        """
+            Get the market description.
+        """
         value = ''
         try:
             session = self.Session()
@@ -279,7 +301,9 @@ class DatabaseAccess():
         return value 
 
     def get_stock_description(self, stock):
-        """ Get the stock description """
+        """
+            Get the stock description.
+        """
         value = ''
         try:
             session = self.Session()
@@ -295,7 +319,9 @@ class DatabaseAccess():
         return value 
 
     def get_stockinfo(self, sname):
-        """ Get extra stock info. """
+        """
+            Get extra stock info.
+        """
         values = []
         try:
             session = self.Session()
@@ -321,7 +347,9 @@ class DatabaseAccess():
         return values
      
     def get_currencies(self):
-        """ Get the currency codes. """
+        """
+            Get the currency codes.
+        """
         values = []
         try:
             session = self.Session()
@@ -719,7 +747,9 @@ class DatabaseAccess():
 
     #TODO: toroughly test this, especially the faulty trade_record crap
     def get_long_flag_value(self, category, subcategory, trade_record):
-        """ Are we long? """
+        """
+            Are we long?
+        """
         result = False
         if trade_record == []:
             result = (category == 'buy') 
@@ -730,7 +760,9 @@ class DatabaseAccess():
 
     #TODO: toroughly test this
     def get_win_flag_value(self, price_buy, price_sell, long_flag):
-        """ Trade finished... did we win? """
+        """
+            Trade finished... did we win?
+        """
         result = False
         if long_flag == 1:
             result = (price_buy < price_sell)
@@ -739,7 +771,9 @@ class DatabaseAccess():
         return 1 if result else 0
 
     def create_statements_TABLE_CURRENCY_EXCHANGE(self, input_fields):
-        """ Creates the records needed for TABLE_CURRENCY_EXCHANGE. """
+        """
+            Creates the records needed for TABLE_CURRENCY_EXCHANGE.
+        """
         try:
             statement_currency_exchange = Statement(TABLE_CURRENCY_EXCHANGE)
             date_created = current_date()
@@ -765,7 +799,9 @@ class DatabaseAccess():
             print(ERROR_CREATE_STATEMENTS_TABLE_CURRENCY_EXCHANGE, ex)
 
     def calculate_commission(self):
-        """ Calculation for T_RATE """
+        """
+            Calculation for T_RATE.
+        """
         return -1.0
     
     def write_to_database(self, statements):
@@ -793,12 +829,10 @@ class DatabaseAccess():
         except Exception as ex:
             print(ERROR_WRITE_TO_DATABASE_SESSION, ex)
 
-    def update_finance(self, fields_db, session, i, finance_id, recordid):
-        """ Add a new finance entry or update an existing one. """
-        pass
-
     def update_stock(self, fields_stock, session, i, finance_id, recordid):
-        """ Add a new stock entry or update an existing one. """
+        """
+            Add a new stock entry or update an existing one.
+        """
         #TODO: figure out what to do with this,
         # after the statement(..., TABLE_NAME) stuff is implemented.
         try:
@@ -842,7 +876,9 @@ class DatabaseAccess():
         return False;
 
     def export_records(self, name):
-        """ Return the records from the table or view, defined by name. """
+        """
+            Return the records from the table or view, defined by name.
+        """
         records = None
         session = self.Session()
         try:
@@ -855,7 +891,9 @@ class DatabaseAccess():
         return records
 
     def subcategory_id_from_subcategory(self, subcategory):
-        """ Get the subcategory_id from a subcategory. """
+        """
+            Get the subcategory_id from a subcategory.
+        """
         result = -1
         session = self.Session()
         try:
@@ -881,7 +919,9 @@ class DatabaseAccess():
         return result
 
     def account_id_from_account(self, account):
-        """ Get the account_id from an account. """
+        """
+            Get the account_id from an account.
+        """
         result = -1
         session = self.Session()
         try:
@@ -908,7 +948,9 @@ class DatabaseAccess():
         return result
 
     def category_id_from_category(self, category):
-        """ Get the category_id from a category. """
+        """
+            Get the category_id from a category.
+        """
         result = -1
         session = self.Session()
         try:
@@ -941,7 +983,9 @@ class DatabaseAccess():
         return result
 
     def stock_name_id_from_stock_name(self, stock_name, market_id):
-        """ Get the stock_name_id from T_STOCK_NAME. """
+        """
+            Get the stock_name_id from T_STOCK_NAME.
+        """
         result = -1
         session = self.Session()
         try:
@@ -967,7 +1011,9 @@ class DatabaseAccess():
         return result
 
     def market_id_from_market(self, code):
-        """ Get the market_id from T_MARKET. """
+        """
+            Get the market_id from T_MARKET.
+        """
         result = -1
         session = self.Session()
         try:
@@ -999,7 +1045,9 @@ class DatabaseAccess():
         return result
 
     def subcategory_from_subcategory_id(self, subcategory_id):
-        """ Get the subcategory for a given subcategory_id from the T_SUBCATEGORY table. """
+        """
+            Get the subcategory for a given subcategory_id from the T_SUBCATEGORY table.
+        """
         result = ''
         session = self.Session()
         try:
@@ -1013,7 +1061,9 @@ class DatabaseAccess():
         return result
 
     def accountname_from_account_id(self, account_id):
-        """ Get the accountname for a given account_id from the T_ACCOUNT table. """
+        """
+            Get the accountname for a given account_id from the T_ACCOUNT table.
+        """
         result = ''
         session = self.Session()
         try:
@@ -1027,7 +1077,9 @@ class DatabaseAccess():
         return result
 
     def category_from_category_id(self, category_id):
-        """ Get the category for a given category_id from the T_CATEGORY table. """
+        """
+            Get the category for a given category_id from the T_CATEGORY table.
+        """
         result = ''
         try:
             session = self.Session()
@@ -1041,7 +1093,9 @@ class DatabaseAccess():
         return result
     
     def currency_id_from_currency(self, currency):
-        """ Get the currency_id from a currency string (e.g.'USD'). """
+        """
+            Get the currency_id from a currency string (e.g.'USD').
+        """
         result = -1
         session = self.Session()
         try:
@@ -1058,7 +1112,8 @@ class DatabaseAccess():
         return result
 
     def get_formula_id_to_use(self, fields):
-        """ Gets the formula_id to use for a given trading line of the input fields.
+        """
+            Gets the formula_id to use for a given trading line of the input fields.
         """
         #TODO: determine the rate_id, based on ???
         # Ah no, we need to create a new rate_id,
@@ -1077,7 +1132,9 @@ class DatabaseAccess():
         return formula_id
 
     def get_latest_rate_id(self):
-        """ Gets the latest rate_id """
+        """
+            Gets the latest rate_id.
+        """
         result = -1
         session = self.Session()
         try:
@@ -1096,7 +1153,9 @@ class DatabaseAccess():
         return result
 
     def get_parameter_value(self, parameter_id):
-        """ Function to get the value that belongs to the given parameter. """
+        """
+            Function to get the value that belongs to the given parameter.
+        """
         result = ''
         session = self.Session()
         try:
@@ -1169,7 +1228,9 @@ class DatabaseAccess():
         return result
 
     def get_latest_date_created(self, tablename):
-        """ Get's the latest date_created value that was added. """
+        """
+            Get's the latest date_created value that was added.
+        """
         result = current_date()
         session = self.Session()
         try:
@@ -1234,8 +1295,10 @@ class DatabaseAccess():
         return result
 
     def get_record(self, row):
-        """ Gets a dictionary with the fields of a return record from the
-        database. """ 
+        """
+            Gets a dictionary with the fields of a return record from the
+            database.
+        """ 
         result = {}
         try:
             result = row_to_dict(row)
@@ -1244,7 +1307,9 @@ class DatabaseAccess():
         return result
 
     def get_rep_check_total(self, check_totals):
-        """ Returns a string with the totals per account. """
+        """
+            Returns a string with the totals per account.
+        """
         result = "" 
         i = 0
         for entry in check_totals:
@@ -1258,7 +1323,9 @@ class DatabaseAccess():
         return result
 
     def get_rep_check_totals(self):
-        """ Returns a list with the account name and totals. """
+        """
+            Returns a list with the account name and totals.
+        """
         values = []
         session = self.Session()
         try:
@@ -1274,7 +1341,9 @@ class DatabaseAccess():
         return values
     
     def new_drawdown_record(self):
-        """ Creates a new record in T_DRAWDOWN with a default value of 0. """
+        """
+            Creates a new record in T_DRAWDOWN with a default value of 0.
+        """
         result = -1
         session = self.Session()
         try:
