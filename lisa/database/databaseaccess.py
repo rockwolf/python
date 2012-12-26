@@ -699,6 +699,11 @@ class DatabaseAccess():
                             print(date_created)
                             print(date_modified)
                             print('<\print>')
+                            #TODO: let these functions return dict. lists
+                            #and make T_TRADE(...) lists only at the end,
+                            #right before committing.
+                            #TODO: figure out why this code gives an error
+                            #at commit.
                             statement_trade.add(
                                 records,
                                 T_TRADE(
