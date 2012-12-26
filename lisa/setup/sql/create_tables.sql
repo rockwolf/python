@@ -175,7 +175,7 @@ CREATE TABLE T_MARGIN_TYPE
 -- Perhaps maintain this true the position sizing part of the emma app?
 CREATE TABLE T_DRAWDOWN
 (
-    drawdown_id int not null default -1,
+    drawdown_id serial not null,
     value int not null default 0,
     date_created timestamp not null default '1900-01-01',
     date_modified timestamp not null default '1900-01-01',

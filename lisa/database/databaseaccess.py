@@ -703,32 +703,32 @@ class DatabaseAccess():
                                 records,
                                 T_TRADE(
                                     None,
-                                    market_id,
-                                    stock_name_id,
+                                    int(market_id),
+                                    int(stock_name_id),
                                     date_buy,
-                                    year_buy,
-                                    month_buy,
-                                    day_buy,
+                                    int(year_buy),
+                                    int(month_buy),
+                                    int(day_buy),
                                     date_sell,
-                                    year_sell,
-                                    month_sell,
-                                    day_sell,
-                                    long_flag,
-                                    price_buy,
-                                    price_sell,
-                                    risk,
-                                    initial_risk,
-                                    initial_risk_percent,
-                                    stoploss,
-                                    profit_loss,
-                                    profit_loss_percent,
-                                    r_multiple,
-                                    win_flag,
-                                    at_work,
-                                    id_buy,
-                                    id_sell,
-                                    currency_id,
-                                    drawdown_id,
+                                    int(year_sell),
+                                    int(month_sell),
+                                    int(day_sell),
+                                    int(long_flag),
+                                    Decimal(price_buy),
+                                    Decimal(price_sell),
+                                    Decimal(risk),
+                                    Decimal(initial_risk),
+                                    Decimal(initial_risk_percent),
+                                    Decimal(stoploss),
+                                    Decimal(profit_loss),
+                                    Decimal(profit_loss_percent),
+                                    Decimal(r_multiple),
+                                    int(win_flag),
+                                    Decimal(at_work),
+                                    int(id_buy),
+                                    int(id_sell),
+                                    int(currency_id),
+                                    int(drawdown_id),
                                     1, #active
                                     date_created,
                                     date_modified
@@ -782,10 +782,6 @@ class DatabaseAccess():
         else:
             result = (category == 'trade.rx' and subcategory == 'sell'
                       and trade_record['date_buy'] != DEFAULT_DATE)
-        print('test-x: trade_record=', trade_record)
-        print('test-x: category=', category)
-        print('test-x: subcategory=', subcategory)
-        print('test-x: result = ', str(result))
         return 1 if result else 0
 
     #TODO: toroughly test this
