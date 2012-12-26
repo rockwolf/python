@@ -673,6 +673,32 @@ class DatabaseAccess():
                             drawdown_id = self.new_drawdown_record()
                             #TODO: check what we need to enter for risk,
                             #win_flag etc.
+                            print('<print>')
+                            print(market_id)
+                            print(stock_name_id)
+                            print(date_buy)
+                            print(year_buy)
+                            print(date_sell)
+                            print(year_sell)
+                            print(long_flag)
+                            print(price_buy)
+                            print(price_sell)
+                            print(risk)
+                            print(initial_risk)
+                            print(initial_risk_percent)
+                            print(stoploss)
+                            print(profit_loss)
+                            print(profit_loss_percent)
+                            print(r_multiple)
+                            print(win_flag)
+                            print(at_work)
+                            print(id_buy)
+                            print(id_sell)
+                            print(currency_id)
+                            print(drawdown_id)
+                            print(date_created)
+                            print(date_modified)
+                            print('<\print>')
                             statement_trade.add(
                                 records,
                                 T_TRADE(
@@ -1371,9 +1397,9 @@ class DatabaseAccess():
         try:
             #TODO: complete this, to return the correct value for
             #all markets and conditions
-            if market == 'ebr' and amount < 4000 :
+            if market == 'ebr' and Decimal(amount) < Decimal(4000) :
                 result = 1
-            elif market == 'ebr' and amount >= 4000:
+            elif market == 'ebr' and Decimal(amount) >= Decimal(4000):
                 result = 2
             else:
                 result = 1
@@ -1390,9 +1416,9 @@ class DatabaseAccess():
         try:
             #TODO: complete this, to return the correct value for
             #all markets and conditions
-            if market == 'ebr' and amount < 4000 :
+            if market == 'ebr' and Decimal(amount) < Decimal(4000) :
                 result = 4
-            elif market == 'ebr' and amount >= 4000:
+            elif market == 'ebr' and Decimal(amount) >= Decimal(4000):
                 result = 4
             else:
                 result = 4
