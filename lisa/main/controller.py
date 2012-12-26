@@ -34,6 +34,7 @@ from PyQt4 import QtGui
 from modules.constant import *
 from modules.function import *
 from decimal import Decimal
+from modules_generic.function import *
 
 class ControllerMain():
     """ Contains the bussiness logic of the application. """
@@ -116,26 +117,26 @@ class ControllerMain():
                     tax = -1
                     risk = -1
                 fields_db.append({
-                    'date':field[0],
+                    'date':string_to_date(field[0]),
                     'account':field[1], #Note: Get account_id from T_ACCOUNT for final insert
                     'category':field[2], #Note: Get category_id from T_CATEGORY for final insert
                     'subcategory':field[3], #Note: Get subcategory_id from T_SUBCATEGORY for final insert
-                    'amount':field[4],
-                    'flag':flg_income,
+                    'amount':Decimal(field[4]),
+                    'flag':int(flg_income),
                     'comment':field[5],
                     'stock_name':field[6],
                     'stock_description':field[7],
                     'market_name':field[8],
                     'market_description':field[9],
-                    'shares':shares,
-                    'price':price,
+                    'shares':int(shares),
+                    'price':Decimal(price),
                     'commission':commission,
-                    'tax':tax,
-                    'risk':risk,
-                    'currency':field[15],
-                    'exchange_rate':field[16],
-                    'manual_flag':field[17],
-                    'date_expiration':field[18]
+                    'tax':Decimal(tax),
+                    'risk':Decimal(risk),
+                    'currency':field[15], #Note: Get currency_id from T_CURRENCY for final insert
+                    'exchange_rate':Decimal(field[16]),
+                    'manual_flag':int(field[17]),
+                    'date_expiration':string_to_date(field[18])
                 })
         except Exception as ex:
             print(ERROR_GET_INPUT_FIELDS, ex)

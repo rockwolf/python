@@ -417,9 +417,9 @@ class DatabaseAccess():
                             T_FINANCE(
                                 None,
                                 fields['date'],
-                                string_to_date(fields['date']).year,
-                                string_to_date(fields['date']).month,
-                                string_to_date(fields['date']).day,
+                                fields['date'].year,
+                                fields['date'].month,
+                                fields['date'].day,
                                 account_id,
                                 category_id,
                                 subcategory_id,
@@ -592,16 +592,16 @@ class DatabaseAccess():
                                 id_sell = trade_record['id_sell']
                                 date_buy = date_created
                                 date_sell = trade_record['date_sell']
-                                price_buy = fields['amount']
-                                price_sell = trade_record['price_sell']
+                                price_buy = abs(fields['amount'])
+                                price_sell = abs(trade_record['price_sell'])
                             elif fields['subcategory'] == 'sell' \
                                 and T_TRADE.id_sell == -1:
                                 id_buy = trade_record['id_buy']
                                 id_sell = finance_id
                                 date_buy = trade_record['date_buy']
                                 date_sell = date_created
-                                price_buy = trade_record['price_buy']
-                                price_sell = fields['amount']
+                                price_buy = abs(trade_record['price_buy'])
+                                price_sell = abs(fields['amount'])
                             else:
                                 raise Exception(
                                     "{0} already contains a sell or buy record" \
@@ -626,13 +626,13 @@ class DatabaseAccess():
                             if we_are_buying(fields['subcategory']):
                                 date_buy = date_created
                                 date_sell = string_to_date(DEFAULT_DATE)
-                                price_buy = fields['amount']
+                                price_buy = abs(fields['amount'])
                                 price_sell = DEFAULT_PRICE
                             else:
                                 date_sell = date_created
                                 date_buy = string_to_date(DEFAULT_DATE)
                                 price_buy = DEFAULT_PRICE
-                                price_sell = fields['amount']
+                                price_sell = abs(fields['amount'])
                         profit_loss_percent = profit_loss/100.0
                         year_buy = date_buy.year
                         month_buy = date_buy.month
@@ -778,10 +778,14 @@ class DatabaseAccess():
         """
         result = False
         if trade_record == []:
-            result = (category == 'buy') 
+            result = (category == 'trade.tx' and subcategory == 'buy') 
         else:
-            result = (category == 'sell' and trade_record['date_buy'] !=
-                    DEFAULT_DATE)
+            result = (category == 'trade.rx' and subcategory == 'sell'
+                      and trade_record['date_buy'] != DEFAULT_DATE)
+        print('test-x: trade_record=', trade_record)
+        print('test-x: category=', category)
+        print('test-x: subcategory=', subcategory)
+        print('test-x: result = ', str(result))
         return 1 if result else 0
 
     #TODO: toroughly test this
