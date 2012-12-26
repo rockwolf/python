@@ -706,13 +706,13 @@ class DatabaseAccess():
                                     int(market_id),
                                     int(stock_name_id),
                                     date_buy,
-                                    int(year_buy),
-                                    int(month_buy),
-                                    int(day_buy),
+                                    year_buy,
+                                    month_buy,
+                                    day_buy,
                                     date_sell,
-                                    int(year_sell),
-                                    int(month_sell),
-                                    int(day_sell),
+                                    year_sell,
+                                    month_sell,
+                                    day_sell,
                                     int(long_flag),
                                     Decimal(price_buy),
                                     Decimal(price_sell),
@@ -734,6 +734,8 @@ class DatabaseAccess():
                                     date_modified
                                 )
                             )
+                print('test-y: ')
+                print(statement_trade)
                 finance_id = finance_id + 1
             return statement_trade
         except Exception as ex:

@@ -204,6 +204,7 @@ CREATE TABLE T_TRADE
     stoploss decimal(18,4) not null default 0.0,
     profit_loss decimal(18,4) not null default 0.0,
     profit_loss_percent decimal(18,4) not null default 0.0,
+    r_multiple decimal(18,4) not null default 0.0,
     win_flag int not null default -1,
     at_work decimal(18,4) not null default 0.0,
     id_buy int not null default -1,

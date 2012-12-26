@@ -83,12 +83,13 @@ class Statement():
         if statements != []:
             print(message, self.table_name)
             print('_'*len(message) + '_'*len(self.table_name), '\n')
-            for s in (statements):
+            for s in statements:
+                print('test-x', end='')
                 print(s)
 
     def get_statement_list(self, insupdel=0):
         """
-            Returns a list of statments from the statement object,
+            Returns a list of statements from the statement object,
             without the recordid.
         """
         result = []

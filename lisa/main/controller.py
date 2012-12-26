@@ -81,6 +81,7 @@ class ControllerMain():
             
             test = dba.create_statements_TABLE_TRADE(input_fields,
                     statements_finance)
+            print('test: before print_statements')
             test.print_statements()
             #if self.is_a_trade():
             #    dba.write_to_database(dba.create_statements_TABLE_TRADE(input_fields))
