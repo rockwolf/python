@@ -225,4 +225,13 @@ CREATE TABLE T_MARGIN
     date_modified timestamp not null default '1900-01-01'
 );
 
+CREATE TABLE T_VERSION
+(
+    version_id int not null,
+    version varchar(100) not null default '',
+    version_info varchar(100) not null default '',
+    date_created timestamp not null default '1900-01-01',
+    date_modified timestamp not null default '1900-01-01'
+);
+
 COMMIT;

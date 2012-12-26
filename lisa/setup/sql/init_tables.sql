@@ -501,4 +501,9 @@ values(1, 'Safe withdrawal rate', 0.03, current_date, current_date);
 
 INSERT INTO T_MARGIN(margin_type_id, description, value, date_created, date_modified)
 values(1, 'Bargain reserve', 100000, current_date, current_date);*/
+
+/* t_version */
+INSERT INTO T_VERSION
+values(1, '2.0', 'Lisa with trading options.', current_date, current_date);
+
 COMMIT;
