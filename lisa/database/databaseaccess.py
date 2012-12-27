@@ -862,23 +862,91 @@ class DatabaseAccess():
         """
             Creates list of TABLE_NAME(..., ..., ...) records.
         """
+        #TODO: find a way to refactor this piece of crap code.
         result = []
-        inner_part_list = statements.get_value_list(insupdel)
+        inner_part_list = statements.get_statement_list(insupdel)
         print('TEST-A:')
         print(inner_part_list)
         if statements.table_name == TABLE_CURRENCY_EXCHANGE:
             for record in inner_part_list:
-                print(T_CURRENCY_EXCHANGE(record.join(', ')))
-                result.append(T_CURRENCY_EXCHANGE(record.join(', ')))
+                result.append(T_CURRENCY_EXCHANGE(
+                    record['currency_exchange_id'],
+                    record['currency_id'],
+                    record['exchange_rate'],
+                    record['date_created'],
+                    record['date_modified']))
         elif statements.table_name == TABLE_RATE:
             for record in inner_part_list:
-                result.append(T_RATE(record.join(', ')))
+                result.append(T_RATE(
+                    record['rate_id'],
+                    record['calculated'],
+                    record['calculated_percent'],
+                    record['on_shares'],
+                    record['on_commission'],
+                    record['on_ordersize'],
+                    record['on_other'],
+                    record['commission'],
+                    record['tax'],
+                    record['formula_id'],
+                    record['manual_flag'],
+                    record['date_created'],
+                    record['date_modified']))
         elif statements.table_name == TABLE_FINANCE:
             for record in inner_part_list:
-                result.append(T_FINANCE(record.join(', ')))
+                result.append(T_FINANCE(
+                    record['finance_id'],
+                    record['date'],
+                    record['year'],
+                    record['month'],
+                    record['day'],
+                    record['account_id'],
+                    record['category_id'],
+                    record['subcategory_id'],
+                    record['amount'],
+                    record['comment'],
+                    record['stock_name_id'],
+                    record['shares'],
+                    record['price'],
+                    record['tax'],
+                    record['commission'],
+                    record['active'],
+                    record['rate_id'],
+                    record['currency_exchange_id'],
+                    record['date_created'],
+                    record['date_modified']))
         elif statements.table_name == TABLE_TRADE:
             for record in inner_part_list:
-                result.append(T_TRADE(record.join(', ')))
+                result.append(T_TRADE(
+                    record['trade_id'],
+                    record['market_id'],
+                    record['stock_name_id'],
+                    record['date_buy'],
+                    record['year_buy'],
+                    record['month_buy'],
+                    record['day_buy'],
+                    record['date_sell'],
+                    record['year_sell'],
+                    record['month_sell'],
+                    record['day_sell'],
+                    record['long_flag'],
+                    record['price_buy'],
+                    record['price_sell'],
+                    record['risk'],
+                    record['initial_risk'],
+                    record['initial_risk_percent'],
+                    record['stoploss'],
+                    record['profit_loss'],
+                    record['profit_loss_percent'],
+                    record['r_multiple'],
+                    record['win_flag'],
+                    record['at_work'],
+                    record['id_buy'],
+                    record['id_sell'],
+                    record['currency_id'],
+                    record['drawdown_id'],
+                    record['active'],
+                    record['date_created'],
+                    record['date_modified']))
         return result
 
     def update_stock(self, fields_stock, session, i, finance_id, recordid):
