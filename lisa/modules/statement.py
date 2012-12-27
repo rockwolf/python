@@ -38,9 +38,9 @@ class Statement():
         if insupdel == 0:
             statements = self.statements_insert
         elif insupdel == 1:
-            statements = statements_update
+            statements = self.statements_update
         elif insupdel == 2:
-            statements = statements_delete
+            statements = self.statements_delete
         for statement in statements:    
             result.append([key for key, val in statement[1].items()])
         return result
@@ -78,13 +78,10 @@ class Statement():
         """
         self.print_statements_when_needed(self.statements_insert,
             'Insert statements for')
-        print('')
         self.print_statements_when_needed(self.statements_update,
             'Update statements for')
-        print('')
         self.print_statements_when_needed(self.statements_delete,
             'Delete statements for')
-        print('')
 
     def print_statements_when_needed(self, statements, message):
         """ 
@@ -95,7 +92,6 @@ class Statement():
             print(message, self.table_name)
             print('_'*len(message) + '_'*len(self.table_name), '\n')
             for s in statements:
-                print('test-x', end='')
                 print(s)
 
     def get_statement_list(self, insupdel=0):

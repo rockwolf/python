@@ -375,8 +375,6 @@ class DatabaseAccess():
             statement_finance = Statement(TABLE_FINANCE)
             records = 0
             currency_exchange_id = self.first_currency_exchange_id_from_latest()
-            print('test: currency_exchange_id (first one)= ',
-                    currency_exchange_id)
             rate_id = self.first_rate_id_from_latest()
             for fields in input_fields:
                 subcategory_id = self.subcategory_id_from_subcategory(fields['subcategory'])
@@ -699,8 +697,6 @@ class DatabaseAccess():
                             print(date_created)
                             print(date_modified)
                             print('<\print>')
-                            #TODO: figure out why this code gives an error
-                            #at commit.
                             statement_trade.add(
                                 records,
                                 {
@@ -736,8 +732,6 @@ class DatabaseAccess():
                                     'date_modified':date_modified
                                 }
                             )
-                print('test-y: ')
-                print(statement_trade)
                 finance_id = finance_id + 1
             return statement_trade
         except Exception as ex:
@@ -750,14 +744,12 @@ class DatabaseAccess():
         """
             Check if this trade has already started.
         """
-        print('test: in trade already started: market_id=', market_id,
-        'stock_name_id=', stock_name_id)
         result = False
         try:
             session = self.Session()
             #NOTE: id_buy or id_sell must be -1
             # but both can't be filled in (= finished trade)
-            obj = session.query(T_TRADE).filter(
+            first_obj = session.query(T_TRADE).filter(
                     T_TRADE.market_id == market_id,
                     T_TRADE.stock_name_id == stock_name_id,
                     T_TRADE.active == 1).filter(
@@ -767,9 +759,8 @@ class DatabaseAccess():
                         )).filter(
                             T_TRADE.id_buy != -1,
                             T_TRADE.id_sell !=  -1
-                       )
-            for instance in obj:
-                print('test:', instance)
+                       ).first()
+            if first_obj is not None:
                 result = True
         except Exception as ex:
             print(ERROR_TRADE_ALREADY_STARTED, ex)
@@ -850,6 +841,7 @@ class DatabaseAccess():
                     session.add_all(statements_insert)
                     session.commit()
                     print("{0} records added.".format(str(len(statements_insert))))
+                    print('')
                 except Exception as ex:
                     print(ERROR_WRITE_TO_DATABASE, ex)
                 finally:
@@ -865,8 +857,6 @@ class DatabaseAccess():
         #TODO: find a way to refactor this piece of crap code.
         result = []
         inner_part_list = statements.get_statement_list(insupdel)
-        print('TEST-A:')
-        print(inner_part_list)
         if statements.table_name == TABLE_CURRENCY_EXCHANGE:
             for record in inner_part_list:
                 result.append(T_CURRENCY_EXCHANGE(
