@@ -830,29 +830,69 @@ class DatabaseAccess():
         """
         try:
             if statements != []:
-                statements_insert = self.assemble_statement_list(statements, 0)
-                #TODO: create statements.get_insert_list()
-                #get_update_list() => contains update statements for use in sqlalchemy
-                #get_delete_list() => dummy, we won't be needing this
-                #TODO: adjust this function to account for the update part.
-                session = self.Session()
-                try:
-                    print(statements.table_name, end=': ')
-                    session.add_all(statements_insert)
-                    session.commit()
-                    print("{0} records added.".format(str(len(statements_insert))))
-                    print('')
-                except Exception as ex:
-                    print(ERROR_WRITE_TO_DATABASE, ex)
-                finally:
-                    session.rollback()
-                    session = None
+                statements_insert = self.assemble_statement_list_insert(
+                        statements, 0)
+                self.write_statement_list_insert(
+                        statements_insert, statements.table_name)
+                statements_update = self.assemble_statement_list_update(
+                        statements, 1)
+                self.write_statement_list_delete(
+                        statements_delete, statements.table_name)
+                statements_delete = self.assemble_statement_list_delete(
+                        statements, 2)
+                self.write_statement_list_delete(
+                        statements_delete, statements.table_name)
         except Exception as ex:
             print(ERROR_WRITE_TO_DATABASE_SESSION, ex)
 
-    def assemble_statement_list(self, statements, insupdel=0):
+    def write_statement_list_insert(self, final_statements, table_name):
         """
-            Creates list of TABLE_NAME(..., ..., ...) records.
+            Commit the insert statements to database.
+        """
+        session = self.Session()
+        try:
+            print(table_name, end=': ')
+            session.add_all(final_statements)
+            session.commit()
+            print("{0} records added.".format(str(len(final_statements))))
+            print('')
+        except Exception as ex:
+            print(ERROR_INSERT_DATABASE, ex)
+        finally:
+            session.rollback()
+            session = None
+
+    def write_statement_list_update(self, final_statements, table_name):
+        """
+            Execute the update statements on the database.
+        """
+        #TODO: this code needs the update instruction I've written somewhere
+        #in databaseaccess.py
+        session = self.Session()
+        try:
+            print(table_name, end=': ')
+            session.add_all(final_statements)
+            session.commit()
+            print("{0} records updated.".format(str(len(final_statements))))
+            print('')
+        except Exception as ex:
+            print(ERROR_UPDATE_DATABASE, ex)
+        finally:
+            session.rollback()
+            session = None
+
+
+    def write_statement_list_delete(self, final_statements, table_name):
+        """
+            Write the insert statements to database.
+        """
+        #TODO: finish this later. Low priority!
+        pass
+
+    def assemble_statement_list_insert(self, statements, insupdel=0):
+        """
+            Creates list of TABLE_NAME(..., ..., ...) records
+            from new statements, that we can use to insert at once.
         """
         #TODO: find a way to refactor this piece of crap code.
         result = []
@@ -937,6 +977,24 @@ class DatabaseAccess():
                     record['active'],
                     record['date_created'],
                     record['date_modified']))
+        return result
+
+    def assemble_statement_list_update(self, statements, insupdel=0):
+        """
+            Creates list of update records from statements,
+            that we can use to update at once.
+        """
+        #TODO: finish this code
+        result = []
+        return result
+
+    def assemble_statement_list_delete(self, statements, insupdel=0):
+        """
+            Creates list of from delete statements,
+            that we can use to delete at once.
+        """
+        #TODO: finish this code (low priority!)
+        result = []
         return result
 
     def update_stock(self, fields_stock, session, i, finance_id, recordid):
