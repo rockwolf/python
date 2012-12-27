@@ -414,28 +414,28 @@ class DatabaseAccess():
                         records = records + 1
                         statement_finance.add(
                             records,
-                            T_FINANCE(
-                                None,
-                                fields['date'],
-                                fields['date'].year,
-                                fields['date'].month,
-                                fields['date'].day,
-                                account_id,
-                                category_id,
-                                subcategory_id,
-                                Decimal(fields['amount']),
-                                fields['comment'],
-                                stock_name_id,
-                                int(fields['shares']),
-                                Decimal(fields['price']),
-                                Decimal(fields['tax']),
-                                Decimal(fields['commission']),
-                                1,
-                                rate_id,
-                                currency_exchange_id,
-                                date_created,
-                                date_modified
-                            )
+                            {
+                                'finance_id':None,
+                                'date':fields['date'],
+                                'year':fields['date'].year,
+                                'month':fields['date'].month,
+                                'day':fields['date'].day,
+                                'account_id':account_id,
+                                'category_id':category_id,
+                                'subcategory_id':subcategory_id,
+                                'amount':Decimal(fields['amount']),
+                                'comment':fields['comment'],
+                                'stock_name_id':stock_name_id,
+                                'shares':int(fields['shares']),
+                                'price':Decimal(fields['price']),
+                                'tax':Decimal(fields['tax']),
+                                'commission':Decimal(fields['commission']),
+                                'active':1,
+                                'rate_id':rate_id,
+                                'currency_exchange_id':currency_exchange_id,
+                                'date_created':date_created,
+                                'date_modified':date_modified
+                            }
                         )
                         currency_exchange_id = currency_exchange_id + 1
             return statement_finance
@@ -487,21 +487,21 @@ class DatabaseAccess():
                     
                     statement_rate.add(
                         records,
-                        T_RATE(
-                            None,
-                            Decimal(calculated),
-                            Decimal(calculated)/Decimal(100.0),
-                            Decimal(on_shares),
-                            Decimal(on_commission),
-                            Decimal(on_ordersize),
-                            Decimal(on_other),
-                            Decimal(commission),
-                            Decimal(tax),
-                            int(formula_id),
-                            int(fields['manual_flag']),
-                            date_created,
-                            date_modified
-                        )
+                        {
+                            'rate_id':None,
+                            'calculated':Decimal(calculated),
+                            'calculated_percent':Decimal(calculated)/Decimal(100.0),
+                            'on_shares':Decimal(on_shares),
+                            'on_commission':Decimal(on_commission),
+                            'on_ordersize':Decimal(on_ordersize),
+                            'on_other':Decimal(on_other),
+                            'commission':Decimal(commission),
+                            'tax':Decimal(tax),
+                            'formula_id':int(formula_id),
+                            'manual_flag':int(fields['manual_flag']),
+                            'date_created':date_created,
+                            'date_modified':date_modified
+                        }
                     )
             return statement_rate
         except Exception as ex:
@@ -699,45 +699,42 @@ class DatabaseAccess():
                             print(date_created)
                             print(date_modified)
                             print('<\print>')
-                            #TODO: let these functions return dict. lists
-                            #and make T_TRADE(...) lists only at the end,
-                            #right before committing.
                             #TODO: figure out why this code gives an error
                             #at commit.
                             statement_trade.add(
                                 records,
-                                T_TRADE(
-                                    None,
-                                    int(market_id),
-                                    int(stock_name_id),
-                                    date_buy,
-                                    year_buy,
-                                    month_buy,
-                                    day_buy,
-                                    date_sell,
-                                    year_sell,
-                                    month_sell,
-                                    day_sell,
-                                    int(long_flag),
-                                    Decimal(price_buy),
-                                    Decimal(price_sell),
-                                    Decimal(risk),
-                                    Decimal(initial_risk),
-                                    Decimal(initial_risk_percent),
-                                    Decimal(stoploss),
-                                    Decimal(profit_loss),
-                                    Decimal(profit_loss_percent),
-                                    Decimal(r_multiple),
-                                    int(win_flag),
-                                    Decimal(at_work),
-                                    int(id_buy),
-                                    int(id_sell),
-                                    int(currency_id),
-                                    int(drawdown_id),
-                                    1, #active
-                                    date_created,
-                                    date_modified
-                                )
+                                {
+                                    'trade_id':None,
+                                    'market_id':int(market_id),
+                                    'stock_name_id':int(stock_name_id),
+                                    'date_buy':date_buy,
+                                    'year_buy':year_buy,
+                                    'month_buy':month_buy,
+                                    'day_buy':day_buy,
+                                    'date_sell':date_sell,
+                                    'year_sell':year_sell,
+                                    'month_sell':month_sell,
+                                    'day_sell':day_sell,
+                                    'long_flag':int(long_flag),
+                                    'price_buy':Decimal(price_buy),
+                                    'price_sell':Decimal(price_sell),
+                                    'risk':Decimal(risk),
+                                    'initial_risk':Decimal(initial_risk),
+                                    'initial_risk_percent':Decimal(initial_risk_percent),
+                                    'stoploss':Decimal(stoploss),
+                                    'profit_loss':Decimal(profit_loss),
+                                    'profit_loss_percent':Decimal(profit_loss_percent),
+                                    'r_multiple':Decimal(r_multiple),
+                                    'win_flag':int(win_flag),
+                                    'at_work':Decimal(at_work),
+                                    'id_buy':int(id_buy),
+                                    'id_sell':int(id_sell),
+                                    'currency_id':int(currency_id),
+                                    'drawdown_id':int(drawdown_id),
+                                    'active':1,
+                                    'date_created':date_created,
+                                    'date_modified':date_modified
+                                }
                             )
                 print('test-y: ')
                 print(statement_trade)
@@ -778,7 +775,6 @@ class DatabaseAccess():
             print(ERROR_TRADE_ALREADY_STARTED, ex)
         return result
 
-    #TODO: toroughly test this, especially the faulty trade_record crap
     def get_long_flag_value(self, category, subcategory, trade_record):
         """
             Are we long?
@@ -819,13 +815,13 @@ class DatabaseAccess():
                 #times, so it's not possible to query if one already exists.
                 statement_currency_exchange.add(
                     records,
-                    T_CURRENCY_EXCHANGE(
-                        None,
-                        self.currency_id_from_currency(fields['currency']),
-                        Decimal(fields['exchange_rate']),
-                        date_created,
-                        date_modified
-                    )
+                    {
+                        'currency_exchange_id':None,
+                        'currency_id':self.currency_id_from_currency(fields['currency']),
+                        'exchange_rate':Decimal(fields['exchange_rate']),
+                        'date_created':date_created,
+                        'date_modified':date_modified
+                    }
                 )
             return statement_currency_exchange
         except Exception as ex:
@@ -843,7 +839,7 @@ class DatabaseAccess():
         """
         try:
             if statements != []:
-                statements_insert = statements.get_statement_list(0)
+                statements_insert = self.assemble_statement_list(statements, 0)
                 #TODO: create statements.get_insert_list()
                 #get_update_list() => contains update statements for use in sqlalchemy
                 #get_delete_list() => dummy, we won't be needing this
@@ -861,6 +857,29 @@ class DatabaseAccess():
                     session = None
         except Exception as ex:
             print(ERROR_WRITE_TO_DATABASE_SESSION, ex)
+
+    def assemble_statement_list(self, statements, insupdel=0):
+        """
+            Creates list of TABLE_NAME(..., ..., ...) records.
+        """
+        result = []
+        inner_part_list = statements.get_value_list(insupdel)
+        print('TEST-A:')
+        print(inner_part_list)
+        if statements.table_name == TABLE_CURRENCY_EXCHANGE:
+            for record in inner_part_list:
+                print(T_CURRENCY_EXCHANGE(record.join(', ')))
+                result.append(T_CURRENCY_EXCHANGE(record.join(', ')))
+        elif statements.table_name == TABLE_RATE:
+            for record in inner_part_list:
+                result.append(T_RATE(record.join(', ')))
+        elif statements.table_name == TABLE_FINANCE:
+            for record in inner_part_list:
+                result.append(T_FINANCE(record.join(', ')))
+        elif statements.table_name == TABLE_TRADE:
+            for record in inner_part_list:
+                result.append(T_TRADE(record.join(', ')))
+        return result
 
     def update_stock(self, fields_stock, session, i, finance_id, recordid):
         """

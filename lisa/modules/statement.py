@@ -29,10 +29,21 @@ class Statement():
         except Exception as ex:
             print("Error in initialisation of Statements: ", ex)
 
-    def get_dict_list_from_statements(self, insupdel=0):
-        """ Returns dictionary list of the statements. """
-        #TODO: is this a good idea?
-        pass
+    def get_value_list(self, insupdel=0):
+        """
+            Returns value_list of the statements.
+        """
+        #NOTE: statement = [record, {...}]
+        result = []
+        if insupdel == 0:
+            statements = self.statements_insert
+        elif insupdel == 1:
+            statements = statements_update
+        elif insupdel == 2:
+            statements = statements_delete
+        for statement in statements:    
+            result.append([key for key, val in statement[1].items()])
+        return result
  
     def add(self, recordid, tablerow_object, insupdel=0):
         """ Add a statement with recordid and tablerow object. """
@@ -92,6 +103,7 @@ class Statement():
             Returns a list of statements from the statement object,
             without the recordid.
         """
+        #NOTE: statement = [record, {...}]
         result = []
         try:
             if insupdel == 0:
