@@ -223,11 +223,12 @@ class T_FORMULA(object):
 
 class T_TRADE(object):
     """ T_TRADE """
-    #TODO: accuracy? Isn't that displayed with the R_multiple? Look this up!
+
     def __init__(self, trade_id, market_id, stock_name_id, date_buy, year_buy, month_buy,
             day_buy, date_sell, year_sell, month_sell, day_sell, long_flag,
-            price_buy, price_sell, risk, initial_risk, initial_risk_percent,
-            stoploss, profit_loss, profit_loss_percent, r_multiple,
+            price_buy, price_sell, shares_buy, shares_sell, commission_buy,
+            commission_sell, tax_buy, tax_sell, risk, initial_risk,
+            initial_risk_percent, stoploss, profit_loss, profit_loss_percent, r_multiple,
             win_flag, at_work, id_buy, id_sell,
             currency_id, drawdown_id, active, date_created, date_modified):
         self.trade_id = trade_id 
@@ -244,6 +245,12 @@ class T_TRADE(object):
         self.long_flag = long_flag
         self.price_buy = price_buy
         self.price_sell = price_sell
+        self.shares_buy = shares_buy
+        self.shares_sell = shares_sell
+        self.commission_buy = commission_buy
+        self.commission_sell = commission_sell
+        self.tax_buy = tax_buy
+        self.tax_sell = tax_sell
         self.risk = risk
         self.initial_risk = initial_risk
         self.initial_risk_percent = initial_risk_percent
@@ -265,7 +272,8 @@ class T_TRADE(object):
         return "<T_TRADE('%s', '%s', '%s', '%s', '%s', '%s', \
                 '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
                 '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-                '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.trade_id, 
+                '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
+                '%s', '%s', '%s', '%s', '%s')>" % (self.trade_id, 
                         self.market_id,
                         self.stock_name_id,
                         self.date_buy,
@@ -279,6 +287,12 @@ class T_TRADE(object):
                         self.long_flag,
                         self.price_buy,
                         self.price_sell,
+                        self.shares_buy,
+                        self.shares_sell,
+                        self.commission_buy,
+                        self.commission_sell,
+                        self.tax_buy,
+                        self.tax_sell,
                         self.risk,
                         self.initial_risk,
                         self.initial_risk_percent,

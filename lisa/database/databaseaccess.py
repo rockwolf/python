@@ -590,8 +590,14 @@ class DatabaseAccess():
                                 id_sell = trade_record['id_sell']
                                 date_buy = date_created
                                 date_sell = trade_record['date_sell']
-                                price_buy = abs(fields['amount'])
+                                price_buy = abs(fields['price'])
                                 price_sell = abs(trade_record['price_sell'])
+                                shares_buy = fields['shares']
+                                shares_sell = trade_record['shares_sell']
+                                commission_buy = fields['commission']
+                                commission_sell = trade_record['commission_sell']
+                                tax_buy = fields['tax']
+                                tax_sell = trade_record['tax_sell']
                             elif fields['subcategory'] == 'sell' \
                                 and T_TRADE.id_sell == -1:
                                 id_buy = trade_record['id_buy']
@@ -599,7 +605,13 @@ class DatabaseAccess():
                                 date_buy = trade_record['date_buy']
                                 date_sell = date_created
                                 price_buy = abs(trade_record['price_buy'])
-                                price_sell = abs(fields['amount'])
+                                price_sell = abs(fields['price'])
+                                shares_buy = trade_record['shares_buy']
+                                shares_sell = fields['shares']
+                                commission_buy = trade_record['commission_buy']
+                                commission_sell = fields['commission']
+                                tax_buy = trade_record['tax_buy']
+                                tax_sell = fields['tax']
                             else:
                                 raise Exception(
                                     "{0} already contains a sell or buy record" \
@@ -608,7 +620,7 @@ class DatabaseAccess():
                             #NOTE: The belowonly needs to be calculated
                             #at the start of the trade.
                             stoploss = trade_record['stoploss']
-                            profit_loss = trade_record['profit_loss']
+                            profit_loss = self.calculate_profit_loss(fields)
                         else:
                             needs_update = 0
                             if long_flag == 1:
@@ -618,19 +630,31 @@ class DatabaseAccess():
                                 id_buy = -1
                                 id_sell = finance_id
                             stoploss = self.calculate_stoploss(fields)
-                            profit_loss = self.calculate_profit_loss(fields)
+                            profit_loss = 0.0 #Only calculated at end of trade.
                             print('test: we are buying =',
                                         we_are_buying(fields['subcategory']))
                             if we_are_buying(fields['subcategory']):
                                 date_buy = date_created
                                 date_sell = string_to_date(DEFAULT_DATE)
-                                price_buy = abs(fields['amount'])
-                                price_sell = DEFAULT_PRICE
+                                price_buy = abs(fields['price'])
+                                price_sell = DEFAULT_DECIMAL
+                                shares_buy = fields['shares']
+                                shares_sell = DEFAULT_INT
+                                commission_buy = fields['commission']
+                                commission_sell = DEFAULT_DECIMAL
+                                tax_buy = fields['tax']
+                                tax_sell = DEFAULT_DECIMAL
                             else:
                                 date_sell = date_created
                                 date_buy = string_to_date(DEFAULT_DATE)
-                                price_buy = DEFAULT_PRICE
-                                price_sell = abs(fields['amount'])
+                                price_buy = DEFAULT_DECIMAL
+                                price_sell = abs(fields['price'])
+                                shares_buy = DEFAULT_INT
+                                shares_sell = fields['shares']
+                                commission_buy = DEFAULT_DECIMAL
+                                commission_sell = fields['commission']
+                                tax_buy = DEFAULT_DECIMAL
+                                tax_sell = fields['tax']
                         profit_loss_percent = profit_loss/100.0
                         year_buy = date_buy.year
                         month_buy = date_buy.month
@@ -723,6 +747,13 @@ class DatabaseAccess():
                                     'long_flag':int(long_flag),
                                     'price_buy':Decimal(price_buy),
                                     'price_sell':Decimal(price_sell),
+                                    'shares_buy':int(shares_buy),
+                                    'shares_sell':int(shares_sell),
+                                    'commission_buy':int(commission_buy),
+                                    'commission_sell':int(commission_sell),
+                                    'tax_buy':int(tax_buy),
+                                    'tax_sell':int(tax_sell),
+                                    'risk':Decimal(risk),
                                     'risk':Decimal(risk),
                                     'initial_risk':Decimal(initial_risk),
                                     'initial_risk_percent':Decimal(initial_risk_percent),
@@ -757,11 +788,14 @@ class DatabaseAccess():
         result = 0.0 
         return result
 
-    def calculate_profit_loss(self, fields):
+    def calculate_profit_loss(self, fields, trade_record):
         """
             Calculates the profit_loss.
         """
         #TODO: finish this function
+        #NOTE: sold - bought - commission
+        #NOTE: So - Bo - C
+        So = trade_record['price_buy'] * fields['commission']
         result = 0.0 
         return result
 
@@ -773,12 +807,18 @@ class DatabaseAccess():
         result = 0.0 
         return result
 
-    def calculate_initial_risk(self, fields):
+    def calculate_initial_risk(self, fields, stoploss):
         """
             Calculates the initial risk.
         """
-        #TODO: finish this function
-        result = 0.0 
+        #TODO: first calculate stoploss and give it to this func. as a parm?
+        #NOTE: (price*shares+commission) - (stoploss*shares+commission)
+        #NOTE: (P * S + C) - (SL * S + C)
+        P = Decimal(abs(fields['amount']))
+        S = Decimal(fields['shares'])
+        SL = Decimal(stoploss)
+        C = Decimal(fields['commission'])
+        result = (P * S + C) - (SL * S + C)
         return result
 
     def trade_already_started(self, market_id, stock_name_id):

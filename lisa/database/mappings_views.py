@@ -212,17 +212,16 @@ class V_FORMULA(object):
 
 class V_TRADE(object):
     """ V_TRADE """
-    #TODO: accuracy? Isn't that displayed with the R_multiple? Look this up!
-    #TODO: drawdown: needs an input... perhaps leave this out and use a max of
-    #2 days always?
-
-    def __init__(self, trade_id, date_buy, year_buy, month_buy,
+    
+    def __init__(self, trade_id, market_id, stock_name_id, date_buy, year_buy, month_buy,
             day_buy, date_sell, year_sell, month_sell, day_sell, long_flag,
-            price_buy, price_sell, risk, initial_risk, initial_risk_percent,
-            stoploss, profit_loss, profit_loss_percent, r_multiple,
+            price_buy, price_sell, shares_buy, shares_sell, commission_buy,
+            commission_sell, tax_buy, tax_sell, risk, initial_risk,
+            initial_risk_percent, stoploss, profit_loss, profit_loss_percent, r_multiple,
             win_flag, at_work, id_buy, id_sell,
             currency_id, drawdown_id, active, date_created, date_modified):
         self.trade_id = trade_id 
+        self.market_id = market_id
         self.date_buy = date_buy
         self.year_buy = year_buy
         self.month_buy = month_buy
@@ -234,6 +233,12 @@ class V_TRADE(object):
         self.long_flag = long_flag
         self.price_buy = price_buy
         self.price_sell = price_sell
+        self.shares_buy = shares_buy
+        self.shares_sell = shares_sell
+        self.commission_buy = commission_buy
+        self.commission_sell = commission_sell
+        self.tax_buy = tax_buy
+        self.tax_sell = tax_sell
         self.risk = risk
         self.initial_risk = initial_risk
         self.initial_risk_percent = initial_risk_percent
@@ -251,10 +256,13 @@ class V_TRADE(object):
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<V_TRADE('%s', '%s', '%s', '%s', '%s', '%s', \
+        return "<T_TRADE('%s', '%s', '%s', '%s', '%s', '%s', \
+                '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
                 '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
                 '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
                 '%s', '%s', '%s', '%s', '%s')>" % (self.trade_id, 
+                        self.market_id,
+                        self.stock_name_id,
                         self.date_buy,
                         self.year_buy,
                         self.month_buy,
@@ -266,6 +274,12 @@ class V_TRADE(object):
                         self.long_flag,
                         self.price_buy,
                         self.price_sell,
+                        self.shares_buy,
+                        self.shares_sell,
+                        self.commission_buy,
+                        self.commission_sell,
+                        self.tax_buy,
+                        self.tax_sell,
                         self.risk,
                         self.initial_risk,
                         self.initial_risk_percent,
@@ -282,6 +296,7 @@ class V_TRADE(object):
                         self.active,
                         self.date_created,
                         self.date_modified)
+
 
 class V_RATE(object):
     """ V_RATE """
