@@ -617,8 +617,8 @@ class DatabaseAccess():
                             else:
                                 id_buy = -1
                                 id_sell = finance_id
-                            stoploss = 0.0 #TODO: calculate this (new func?)
-                            profit_loss = 0.0 #TODO: calculate this
+                            stoploss = self.calculate_stoploss(fields)
+                            profit_loss = self.calculate_profit_loss(fields)
                             print('test: we are buying =',
                                         we_are_buying(fields['subcategory']))
                             if we_are_buying(fields['subcategory']):
@@ -640,7 +640,16 @@ class DatabaseAccess():
                         day_sell = date_sell.day
                         r_multiple = self.get_r_multiple_value()
 
+                        #NOTE: The following general values are known at this
+                        #point (and not dependend on update or insert):
+                        # date_buy, date_sell (and parts), profit_loss,
+                        # stoploss, id_buy, id_sell, price_buy, price_sell
+                        #The code below just fills in the missing pieces.
+                        #TODO: is this splitting up needed? Perhaps we can move
+                        #the below upward for simplification?
+
                         if needs_update == 1:
+                            #NOTE: Here is where the update code starts. 
                             if trade_record['date_created'] == None:
                                 date_created = DEFAULT_DATE
                             else:
@@ -656,21 +665,21 @@ class DatabaseAccess():
                                         trade_record['price_buy'],
                                         price_sell,
                                         long_flag)
+                            risk = trade_record['risk']
+                            initial_risk = trade_record['initial_risk']
+                            initial_risk_percent = initial_risk/100.0
                             at_work = trade_record['at_work']
                             currency_id = trade_record['currency_id']
                             drawdown_id = trade_record['drawdown_id']
-                            #TODO: update code goes here...
                         else:
                             #NOTE: Here is where the insert code starts.
-                            risk = 0.0
-                            initial_risk = 0.0
+                            risk = self.calculate_risk(fields)
+                            initial_risk = self.calculate_initial_risk(fields)
                             initial_risk_percent = initial_risk/100.0
                             win_flag = -1 #not yet finished, we can not now it yet.
                             at_work = Decimal(price_buy)*Decimal(fields['shares'])
                             currency_id = self.currency_id_from_currency(fields['currency'])
                             drawdown_id = self.new_drawdown_record()
-                            #TODO: check what we need to enter for risk,
-                            #win_flag etc.
                             print('<print>')
                             print(market_id)
                             print(stock_name_id)
@@ -739,6 +748,38 @@ class DatabaseAccess():
         finally:
             session.rollback()
             session = None
+
+    def calculate_stoploss(self, fields):
+        """
+            Calculates the stoploss.
+        """
+        #TODO: finish this function
+        result = 0.0 
+        return result
+
+    def calculate_profit_loss(self, fields):
+        """
+            Calculates the profit_loss.
+        """
+        #TODO: finish this function
+        result = 0.0 
+        return result
+
+    def calculate_risk(self, fields):
+        """
+            Calculates the risk.
+        """
+        #TODO: finish this function
+        result = 0.0 
+        return result
+
+    def calculate_initial_risk(self, fields):
+        """
+            Calculates the initial risk.
+        """
+        #TODO: finish this function
+        result = 0.0 
+        return result
 
     def trade_already_started(self, market_id, stock_name_id):
         """
