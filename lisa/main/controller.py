@@ -130,7 +130,7 @@ class ControllerMain():
                     'market_description':field[9],
                     'shares':int(shares),
                     'price':Decimal(price),
-                    'commission':commission,
+                    'commission':Decimal(commission),
                     'tax':Decimal(tax),
                     'risk':Decimal(risk),
                     'currency':field[15], #Note: Get currency_id from T_CURRENCY for final insert

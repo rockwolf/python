@@ -784,19 +784,26 @@ class DatabaseAccess():
         """
             Calculates the stoploss.
         """
-        #TODO: finish this function
-        result = 0.0 
+        #NOTE: (risk/100 * pool - commission_buy)/(shares_buy * (tax/100 - 1))
+        #NOTE: (R * P - C) / (S * (T - 1))
+        R = fields['risk'] / 100.0
+        P = self.get_pool_trading()
+        S = fields['shares']
+        T = fields['tax'] / 100.0
+        result = (R * P - C) / (S * (T - 1))
         return result
 
     def calculate_profit_loss(self, fields, trade_record):
         """
             Calculates the profit_loss.
         """
-        #TODO: finish this function
-        #NOTE: sold - bought - commission
-        #NOTE: So - Bo - C
-        So = trade_record['price_buy'] * fields['commission']
-        result = 0.0 
+        #NOTE: sold - bought
+        #NOTE: So - Bo
+        Bo = trade_record['price_buy'] * trade_record['shares_buy'] \
+                + trade_record['commission_buy']
+        So = trade_record['price_sell'] * trade_record['shares_sell'] \
+                - trade_record['commission_sell']
+        result = So - Bo
         return result
 
     def calculate_risk(self, fields):
@@ -1660,3 +1667,35 @@ class DatabaseAccess():
         except Exception as ex:
             print('Error in get_r_multiple_value:', ex)
         return result
+
+    def get_pool_trading(self):
+        """
+            Gets the pool available for trading.
+        """
+        #TODO: finish this function
+        #problem: when we enter many trades, this wil get whats
+        #currently in the pool, not what's in it after the first
+        #couple of inserts.
+        #solution: enter trades 1 by 1 + commit every time.
+        #other solution: enter pool value as an input field, which
+        #usually requires you to just copy the field values shown at
+        #the top and that value could even be filled in by default.
+        result = 0.0 
+        session = self.Session()
+        try:
+            #obj = session.query(T_FINANCE).order_by(T_RATE.rate_id.desc()).first()
+            #if first_obj is not None:
+            #    result = first_obj.rate_id
+            #else:
+            #    # We don't have one yet, so by making the last one 0,
+            #    # a get_latest_rate_id() + 1 would become 1
+            #    result = 0
+            result = 0.0
+        except Exception as ex:
+            print("Error in get_pool_trading: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
+
+
