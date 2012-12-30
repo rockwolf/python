@@ -155,6 +155,14 @@ class ControllerPyqt(QtGui.QMainWindow):
         category = self.gui.cmb_category.currentText()
         subcategory = self.gui.cmb_subcategory.currentText()
         if deals_with_stocks(category, subcategory):
+            # enable stock labels
+            self.gui.lbl_marketcode.setEnabled(True)
+            self.gui.lbl_stockname.setEnabled(True)
+            self.gui.lbl_quantity.setEnabled(True)
+            self.gui.lbl_price.setEnabled(True)
+            self.gui.lbl_commission.setEnabled(True)
+            self.gui.lbl_tax.setEnabled(True)
+            self.gui.lbl_risk.setEnabled(True)
             # enable stock inputs
             self.gui.cmb_market_code.setEnabled(True)
             self.gui.txt_market_description.setEnabled(True)
@@ -164,23 +172,40 @@ class ControllerPyqt(QtGui.QMainWindow):
             self.gui.spn_price.setEnabled(True)
             self.gui.spn_commission.setEnabled(True)
             self.gui.spn_tax.setEnabled(True)
+            #TODO: automatic calculation of commission temporarily disabled
+            self.gui.chk_manual_commission.setEnabled(False)
             if is_a_trade(category, subcategory):
+                # enable trade labels
+                self.gui.lbl_risk.setEnabled(True)
+                self.gui.lbl_pool_trading.setEnabled(True)
+                self.gui.lbl_expiration.setEnabled(True)
+                # enable trade inputs
                 self.gui.spn_risk.setEnabled(True)
                 self.gui.dt_expiration.setEnabled(True)
-                self.gui.spn_pool.setEnabled(True)
+                self.gui.spn_pool_trading.setEnabled(True)
             else:
+                # disable trade labels
+                self.gui.lbl_risk.setEnabled(False)
+                self.gui.lbl_pool_trading.setEnabled(False)
+                self.gui.lbl_expiration.setEnabled(False)
+                # disable trade inputs
                 self.gui.spn_risk.setEnabled(False)
                 self.gui.dt_expiration.setEnabled(False)
-                self.gui.spn_pool.setEnabled(False)
+                self.gui.spn_pool_trading.setEnabled(False)
             # set inputfields
             self.gui.spn_tax.setValue(Decimal(self.config.default_tax))
             if is_a_trade(category, subcategory):
                 self.gui.spn_risk.setValue(Decimal(self.config.default_risk))
             else:
                 self.gui.spn_risk.setValue(0.0)
-            #TODO: automatic calculation of commission temporarily disabled
-            self.gui.chk_manual_commission.setEnabled(False)
         else:
+            # disable stock labels
+            self.gui.lbl_marketcode.setEnabled(False)
+            self.gui.lbl_stockname.setEnabled(False)
+            self.gui.lbl_quantity.setEnabled(False)
+            self.gui.lbl_price.setEnabled(False)
+            self.gui.lbl_commission.setEnabled(False)
+            self.gui.lbl_tax.setEnabled(False)
             # disable stock inputs
             self.gui.cmb_market_code.setEnabled(False)
             self.gui.txt_market_description.setEnabled(False)
@@ -190,8 +215,15 @@ class ControllerPyqt(QtGui.QMainWindow):
             self.gui.spn_price.setEnabled(False)
             self.gui.spn_commission.setEnabled(False)
             self.gui.spn_tax.setEnabled(False)
+            self.gui.chk_manual_commission.setEnabled(False)
+            # disable trade labels
+            self.gui.lbl_risk.setEnabled(False)
+            self.gui.lbl_pool_trading.setEnabled(False)
+            self.gui.lbl_expiration.setEnabled(False)
+            # disables trade inputs
             self.gui.spn_risk.setEnabled(False)
             self.gui.dt_expiration.setEnabled(False)
+            self.gui.spn_pool_trading.setEnabled(False)
             # reset input fields
             self.gui.spn_quantity.setValue(0.0)
             self.gui.spn_price.setValue(0.0)
@@ -310,7 +342,7 @@ class ControllerPyqt(QtGui.QMainWindow):
                 self.gui.spn_price.value()))
 
     def get_pool(self):
-        """ Returns the pool from the spn_pool spinedit. """
+        """ Returns the pool from the spn_pool_trading spinedit. """
         return str(self.gui.spn_price.textFromValue( \
                 self.gui.spn_price.value()))
 

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'viewpyqt.ui'
 #
-# Created: Sun Dec 30 11:49:58 2012
+# Created: Sun Dec 30 16:23:54 2012
 #      by: PyQt4 UI code generator 4.9.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -221,9 +221,9 @@ class Ui_MainWindow(object):
         self.spn_pool_trading.setMaximum(999999.99)
         self.spn_pool_trading.setObjectName(_fromUtf8("spn_pool_trading"))
         self.gridLayout.addWidget(self.spn_pool_trading, 4, 8, 1, 1)
-        self.lbl_pool = QtGui.QLabel(self.centralwidget)
-        self.lbl_pool.setObjectName(_fromUtf8("lbl_pool"))
-        self.gridLayout.addWidget(self.lbl_pool, 3, 8, 1, 1)
+        self.lbl_pool_trading = QtGui.QLabel(self.centralwidget)
+        self.lbl_pool_trading.setObjectName(_fromUtf8("lbl_pool_trading"))
+        self.gridLayout.addWidget(self.lbl_pool_trading, 3, 8, 1, 1)
         self.verticalLayout.addLayout(self.gridLayout)
         self.gridLayout_6 = QtGui.QGridLayout()
         self.gridLayout_6.setObjectName(_fromUtf8("gridLayout_6"))
@@ -342,7 +342,7 @@ class Ui_MainWindow(object):
         self.chk_manual_commission.setText(QtGui.QApplication.translate("MainWindow", "Automatic", None, QtGui.QApplication.UnicodeUTF8))
         self.lbl_expiration.setText(QtGui.QApplication.translate("MainWindow", "Expires on", None, QtGui.QApplication.UnicodeUTF8))
         self.dt_expiration.setDisplayFormat(QtGui.QApplication.translate("MainWindow", "yyyy-MM-dd", None, QtGui.QApplication.UnicodeUTF8))
-        self.lbl_pool.setText(QtGui.QApplication.translate("MainWindow", "Pool", None, QtGui.QApplication.UnicodeUTF8))
+        self.lbl_pool_trading.setText(QtGui.QApplication.translate("MainWindow", "Pool", None, QtGui.QApplication.UnicodeUTF8))
         self.btn_clear.setText(QtGui.QApplication.translate("MainWindow", "&Clear", None, QtGui.QApplication.UnicodeUTF8))
         self.btn_exit.setText(QtGui.QApplication.translate("MainWindow", "&Quit", None, QtGui.QApplication.UnicodeUTF8))
         self.btn_add.setText(QtGui.QApplication.translate("MainWindow", "&Add", None, QtGui.QApplication.UnicodeUTF8))

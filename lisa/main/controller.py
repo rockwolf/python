@@ -335,7 +335,6 @@ class ControllerMain():
     def fill_spn_pool_trading(self):
         """ fill pool value """
         dba = DatabaseAccess(self.config)
-        print('test: ', str(dba.get_pool_trading()))
         self.gui.set_pool_trading(dba.get_pool_trading())
         dba = None
 
