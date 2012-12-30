@@ -1527,7 +1527,7 @@ class DatabaseAccess():
         session = self.Session()
         try:
             first_obj = session.query(T_FINANCE).filter_by(finance_id =
-                    finance_id).first() #finance_id is unique anyway
+                    finance_id).first()
             if first_obj is not None:
                 result = self.get_record(first_obj)
         except Exception as ex:
@@ -1553,7 +1553,7 @@ class DatabaseAccess():
             if first_obj is not None:
                 result = self.get_record(first_obj)
         except Exception as ex:
-            print("Error in get_finance_record: ", ex)
+            print("Error in get_trade_record: ", ex)
         finally:
             session.rollback()
             session = None
@@ -1566,7 +1566,10 @@ class DatabaseAccess():
         """ 
         result = {}
         try:
-            result = row_to_dict(row)
+            #TODO: the call to row_to_dict still gives an error when
+            #using both row as self.loaded....
+            #TODO: try with row.__tablename__
+            result = row_to_dict(self.loaded_objects[row.__tablename__])
         except Exception as ex:
             print("Error in get_record: ", ex)
         return result
@@ -1693,7 +1696,7 @@ class DatabaseAccess():
         try:
             first_obj = session.query(func.sum(T_FINANCE.amount).label('total')
                     ).filter_by(account_id=TRADING_ACCOUNT_ID).first()
-            if first_obj.total is not None:
+            if first_obj is not None:
                 result = Decimal(first_obj.total)
             else:
                 result = DEFAULT_DECIMAL

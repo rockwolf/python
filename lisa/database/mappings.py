@@ -15,8 +15,11 @@ You should have received a copy of the GNU General Public License
 along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
+from modules.constant import *
+
 class T_FINANCE(object):
     """ T_FINANCE """
+    __tablename__ = TABLE_FINANCE
 
     def __init__(self, finance_id, date, year, month, day, account_id, category_id,
             subcategory_id, amount, comment, stock_name_id, shares, price, tax,
@@ -65,6 +68,7 @@ class T_FINANCE(object):
 
 class T_INVESTMENT(object):
     """ T_INVESTMENT """
+    __tablename__ = TABLE_INVESTMENT
 
     def __init__(self, investment_id, stock_name_id, action, price, shares, tax,
             commission, historical, active, date_created, date_modified, risk):
@@ -86,6 +90,7 @@ class T_INVESTMENT(object):
 
 class T_STOCK_NAME(object):
     """ T_STOCK_NAME """
+    __tablename__ = TABLE_STOCK_NAME
 
     def __init__(self, stock_name_id, name, market_id, description, date_created, date_modified):
         self.stock_name_id = stock_name_id
@@ -101,6 +106,7 @@ class T_STOCK_NAME(object):
 
 class T_MARKET(object):
     """ T_MARKET """
+    __tablename__ = TABLE_MARKET
 
     def __init__(self, market_id, code, name, country, active, date_created, date_modified):
         self.market_id = market_id
@@ -116,6 +122,7 @@ class T_MARKET(object):
 
 class T_CATEGORY(object):
     """ T_CATEGORY """
+    __tablename__ = TABLE_CATEGORY
 
     def __init__(self, subcategory_id, name, flg_income, active, date_created, date_modified):
         self.subcategory_id = subcategory_id
@@ -131,6 +138,7 @@ class T_CATEGORY(object):
 
 class T_MARGIN(object):
     """ T_MARGIN """
+    __tablename__ = TABLE_MARGIN
 
     def __init__(self, margin_id, margin_type_id, description, value, date_created, date_modified):
         self.margin_id = margin_id
@@ -146,6 +154,7 @@ class T_MARGIN(object):
 
 class T_MARGIN_TYPE(object):
     """ T_MARGIN_TYPE """
+    __tablename__ = TABLE_MARGIN_TYPE
 
     def __init__(self, margin_type_id, margin_type):
         self.margin_type_id = margin_type_id
@@ -156,6 +165,7 @@ class T_MARGIN_TYPE(object):
 
 class T_SUBCATEGORY(object):
     """ T_SUBCATEGORY """
+    __tablename__ = TABLE_SUBCATEGORY
 
     def __init__(self, subcategory_id, name, active, date_created, date_modified):
         self.subcategory_id = subcategory_id
@@ -170,6 +180,7 @@ class T_SUBCATEGORY(object):
 
 class T_ACCOUNT(object):
     """ T_ACCOUNT """
+    __tablename__ = TABLE_ACCOUNT
 
     def __init__(self, account_id, name, description, active, date_created, date_modified):
         self.account_id = account_id
@@ -185,6 +196,7 @@ class T_ACCOUNT(object):
 
 class T_CURRENCY(object):
     """ T_CURRENCY """
+    __tablename__ = TABLE_CURRENCY
 
     def __init__(self, currency_id, code, description):
         self.currency_id = currency_id
@@ -196,6 +208,7 @@ class T_CURRENCY(object):
 
 class T_CURRENCY_EXCHANGE(object):
     """ T_CURRENCY_EXCHANGE """
+    __tablename__ = TABLE_CURRENCY_EXCHANGE
 
     def __init__(self, currency_exchange_id, currency_id, exchange_rate,
             date_created, date_modified):
@@ -211,6 +224,7 @@ class T_CURRENCY_EXCHANGE(object):
 
 class T_FORMULA(object):
     """ T_FORMULA """
+    __tablename__ = TABLE_FORMULA
 
     def __init__(self, formula_id, value, description):
         self.formula_id = formula_id 
@@ -223,6 +237,7 @@ class T_FORMULA(object):
 
 class T_TRADE(object):
     """ T_TRADE """
+    __tablename__ = TABLE_TRADE
 
     def __init__(self, trade_id, market_id, stock_name_id, date_buy, year_buy, month_buy,
             day_buy, date_sell, year_sell, month_sell, day_sell, long_flag,
@@ -346,6 +361,7 @@ class T_TRADE(object):
 
 class T_RATE(object):
     """ T_RATE """
+    __tablename__ = TABLE_RATE
 
     def __init__(self, rate_id, calculated, calculated_percent,
             on_shares, on_commission, on_ordersize, on_other, commission, tax,
@@ -374,6 +390,7 @@ class T_RATE(object):
 
 class T_DRAWDOWN(object):
     """ T_DRAWDOWN """
+    __tablename__ = TABLE_DRAWDOWN
 
     def __init__(self, drawdown_id, value, date_created, date_modified):
         self.drawdown_id = drawdown_id 
@@ -387,6 +404,7 @@ class T_DRAWDOWN(object):
 
 class T_PARAMETER(object):
     """ T_PARAMETER """
+    __tablename__ = TABLE_PARAMETER
 
     def __init__(self, parameter_id, name, value, description):
         self.parameter_id = parameter_id
