@@ -341,10 +341,10 @@ class ControllerPyqt(QtGui.QMainWindow):
         return str(self.gui.spn_price.textFromValue( \
                 self.gui.spn_price.value()))
 
-    def get_pool(self):
+    def get_pool_trading(self):
         """ Returns the pool from the spn_pool_trading spinedit. """
-        return str(self.gui.spn_price.textFromValue( \
-                self.gui.spn_price.value()))
+        return str(self.gui.spn_pool_trading.textFromValue( \
+                self.gui.spn_pool_trading.value()))
 
     def get_commission(self):
         """ Returns the commission from the spn_commission spinedit. """

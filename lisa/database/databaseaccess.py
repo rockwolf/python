@@ -946,11 +946,12 @@ class DatabaseAccess():
         """
         session = self.Session()
         try:
-            print(table_name, end=': ')
-            session.add_all(final_statements)
-            session.commit()
-            print("{0} records added.".format(str(len(final_statements))))
-            print('')
+            if final_statements != []:
+                print(table_name, end=': ')
+                session.add_all(final_statements)
+                session.commit()
+                print("{0} records added.".format(str(len(final_statements))))
+                print('')
         except Exception as ex:
             print(ERROR_INSERT_DATABASE, ex)
         finally:
@@ -965,11 +966,12 @@ class DatabaseAccess():
         #in databaseaccess.py
         session = self.Session()
         try:
-            print(table_name, end=': ')
-            session.add_all(final_statements)
-            session.commit()
-            print("{0} records updated.".format(str(len(final_statements))))
-            print('')
+            if final_statements != []:
+                print(table_name, end=': ')
+                session.add_all(final_statements)
+                session.commit()
+                print("{0} records updated.".format(str(len(final_statements))))
+                print('')
         except Exception as ex:
             print(ERROR_UPDATE_DATABASE, ex)
         finally:
@@ -1527,7 +1529,7 @@ class DatabaseAccess():
             first_obj = session.query(T_FINANCE).filter_by(finance_id =
                     finance_id).first() #finance_id is unique anyway
             if first_obj is not None:
-                result = get_record(first_obj)
+                result = self.get_record(first_obj)
         except Exception as ex:
             print("Error in get_finance_record: ", ex)
         finally:
@@ -1549,7 +1551,7 @@ class DatabaseAccess():
                         T_TRADE.id_buy == finance_id,
                         T_TRADE.id_sell == finance_id)).first() #finance_id is unique anyway
             if first_obj is not None:
-                result = get_record(first_obj)
+                result = self.get_record(first_obj)
         except Exception as ex:
             print("Error in get_finance_record: ", ex)
         finally:
