@@ -94,6 +94,9 @@
       </item>
       <item>
        <layout class="QGridLayout" name="gridLayout">
+        <property name="horizontalSpacing">
+         <number>3</number>
+        </property>
         <item row="0" column="0">
          <widget class="QLabel" name="lbl_date">
           <property name="text">
@@ -484,6 +487,20 @@
           </property>
           <property name="calendarPopup">
            <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="8">
+         <widget class="QDoubleSpinBox" name="spn_pool_trading">
+          <property name="maximum">
+           <double>999999.989999999990687</double>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="8">
+         <widget class="QLabel" name="lbl_pool">
+          <property name="text">
+           <string>Pool</string>
           </property>
          </widget>
         </item>

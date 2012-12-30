@@ -110,12 +110,14 @@ class ControllerMain():
                     commission = field[12]
                     tax = field[13]
                     risk = field[14]
+                    pool_trading = field[19]
                 else:
-                    shares = -1
-                    price = -1
-                    commission = -1
-                    tax = -1
-                    risk = -1
+                    shares = DEFAULT_INT
+                    price = DEFAULT_DECIMAL
+                    commission = DEFAULT_DECIMAL
+                    tax = DEFAULT_DECIMAL
+                    risk = DEFAULT_DECIMAL
+                    pool_trading = DEFAULT_DECIMAL
                 fields_db.append({
                     'date':string_to_date(field[0]),
                     'account':field[1], #Note: Get account_id from T_ACCOUNT for final insert
@@ -136,7 +138,8 @@ class ControllerMain():
                     'currency':field[15], #Note: Get currency_id from T_CURRENCY for final insert
                     'exchange_rate':Decimal(field[16]),
                     'manual_flag':int(field[17]),
-                    'date_expiration':string_to_date(field[18])
+                    'date_expiration':string_to_date(field[18]),
+                    'pool_trading':Decimal(pool_trading)
                 })
         except Exception as ex:
             print(ERROR_GET_INPUT_FIELDS, ex)
@@ -164,7 +167,7 @@ class ControllerMain():
             print('Error: backup file already exists.')
 
     ## Init of gui
-    def fillcombos(self):
+    def init_display_data(self):
         """ fill in the combo boxes with values. """
         dba = DatabaseAccess(self.config)
         # Accounts
@@ -186,6 +189,8 @@ class ControllerMain():
         self.fillcmb_stock_name()
         self.filltxt_market_description()
         self.filltxt_stock_description()
+        # Pool
+        self.fill_spn_pool_trading()
         dba = None
 
     def get_check_info(self, tablecontent):
@@ -241,11 +246,13 @@ class ControllerMain():
             stock = self.gui.get_stock_name()
             market_description = self.gui.get_market_description()
             stock_description = self.gui.get_stock_description()
+            pool_trading = self.gui.get_pool_trading()
         else:
             market = ''
             stock = ''
             market_description = ''
             stock_description = ''
+            pool_trading = '0.0'
         category = self.gui.get_category()
         if category[-3:] == '.tx':
             amount = '-' + self.gui.get_amount()
@@ -270,7 +277,8 @@ class ControllerMain():
             self.gui.get_currency(),
             self.gui.get_exchange_rate(),
             self.gui.get_manual_commission(),
-            self.gui.get_date_expiration()
+            self.gui.get_date_expiration(),
+            pool_trading
             ]
         return str_list
 
@@ -322,6 +330,13 @@ class ControllerMain():
         dba = DatabaseAccess(self.config)
         self.gui.set_stock_description(
                 dba.get_stock_description(self.gui.get_stock_name()))
+        dba = None
+
+    def fill_spn_pool_trading(self):
+        """ fill pool value """
+        dba = DatabaseAccess(self.config)
+        print('test: ', str(dba.get_pool_trading()))
+        self.gui.set_pool_trading(dba.get_pool_trading())
         dba = None
 
     def add_tbl_summary(self, table, row):

@@ -167,9 +167,11 @@ class ControllerPyqt(QtGui.QMainWindow):
             if is_a_trade(category, subcategory):
                 self.gui.spn_risk.setEnabled(True)
                 self.gui.dt_expiration.setEnabled(True)
+                self.gui.spn_pool.setEnabled(True)
             else:
                 self.gui.spn_risk.setEnabled(False)
                 self.gui.dt_expiration.setEnabled(False)
+                self.gui.spn_pool.setEnabled(False)
             # set inputfields
             self.gui.spn_tax.setValue(Decimal(self.config.default_tax))
             if is_a_trade(category, subcategory):
@@ -197,6 +199,7 @@ class ControllerPyqt(QtGui.QMainWindow):
             self.gui.spn_commission.setValue(0.0)
             self.gui.spn_risk.setValue(0.0)
             self.gui.chk_manual_commission.setEnabled(False)
+            self.set_current_pool_trading() #reset pool to current value
         self.ctl.set_infodetails()
 
     def cmb_stock_name_changed(self):
@@ -232,7 +235,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.gui.lbl_infodetails.clear()
         self.set_lbl_check(self.ctl.get_check_info([]))
         # fill all combo boxes
-        self.ctl.fillcombos()
+        self.ctl.init_display_data()
         # default values
         self.set_default_account()
         self.set_default_exchange_rate()
@@ -303,6 +306,11 @@ class ControllerPyqt(QtGui.QMainWindow):
 
     def get_price(self):
         """ Returns the price from the spn_price spinedit. """
+        return str(self.gui.spn_price.textFromValue( \
+                self.gui.spn_price.value()))
+
+    def get_pool(self):
+        """ Returns the pool from the spn_pool spinedit. """
         return str(self.gui.spn_price.textFromValue( \
                 self.gui.spn_price.value()))
 
@@ -394,6 +402,15 @@ class ControllerPyqt(QtGui.QMainWindow):
         """ Sets a combobox selection. """
         if index > 0:
             combobox.setCurrentIndex(index)
+
+    def set_current_pool_trading(self):
+        """ Resets the trading pool to the most current value. """
+        self.ctl.fill_spn_pool_trading()
+
+    def set_pool_trading(self, value):
+        """ Sets the trading pool to the given value. """
+        self.gui.spn_pool_trading.setValue(value)
+
 
     def add_currency(self, value):
         """ Add a new item to cmb_currency. """ 

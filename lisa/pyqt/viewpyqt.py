@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'viewpyqt.ui'
 #
-# Created: Tue Dec  4 21:35:42 2012
-#      by: PyQt4 UI code generator 4.9.4
+# Created: Sun Dec 30 11:49:58 2012
+#      by: PyQt4 UI code generator 4.9.5
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -52,6 +52,7 @@ class Ui_MainWindow(object):
         self.gridLayout_10.addItem(spacerItem1, 0, 1, 1, 1)
         self.verticalLayout.addLayout(self.gridLayout_10)
         self.gridLayout = QtGui.QGridLayout()
+        self.gridLayout.setHorizontalSpacing(3)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.lbl_date = QtGui.QLabel(self.centralwidget)
         self.lbl_date.setObjectName(_fromUtf8("lbl_date"))
@@ -216,6 +217,13 @@ class Ui_MainWindow(object):
         self.dt_expiration.setCalendarPopup(True)
         self.dt_expiration.setObjectName(_fromUtf8("dt_expiration"))
         self.gridLayout.addWidget(self.dt_expiration, 4, 6, 1, 1)
+        self.spn_pool_trading = QtGui.QDoubleSpinBox(self.centralwidget)
+        self.spn_pool_trading.setMaximum(999999.99)
+        self.spn_pool_trading.setObjectName(_fromUtf8("spn_pool_trading"))
+        self.gridLayout.addWidget(self.spn_pool_trading, 4, 8, 1, 1)
+        self.lbl_pool = QtGui.QLabel(self.centralwidget)
+        self.lbl_pool.setObjectName(_fromUtf8("lbl_pool"))
+        self.gridLayout.addWidget(self.lbl_pool, 3, 8, 1, 1)
         self.verticalLayout.addLayout(self.gridLayout)
         self.gridLayout_6 = QtGui.QGridLayout()
         self.gridLayout_6.setObjectName(_fromUtf8("gridLayout_6"))
@@ -334,6 +342,7 @@ class Ui_MainWindow(object):
         self.chk_manual_commission.setText(QtGui.QApplication.translate("MainWindow", "Automatic", None, QtGui.QApplication.UnicodeUTF8))
         self.lbl_expiration.setText(QtGui.QApplication.translate("MainWindow", "Expires on", None, QtGui.QApplication.UnicodeUTF8))
         self.dt_expiration.setDisplayFormat(QtGui.QApplication.translate("MainWindow", "yyyy-MM-dd", None, QtGui.QApplication.UnicodeUTF8))
+        self.lbl_pool.setText(QtGui.QApplication.translate("MainWindow", "Pool", None, QtGui.QApplication.UnicodeUTF8))
         self.btn_clear.setText(QtGui.QApplication.translate("MainWindow", "&Clear", None, QtGui.QApplication.UnicodeUTF8))
         self.btn_exit.setText(QtGui.QApplication.translate("MainWindow", "&Quit", None, QtGui.QApplication.UnicodeUTF8))
         self.btn_add.setText(QtGui.QApplication.translate("MainWindow", "&Add", None, QtGui.QApplication.UnicodeUTF8))

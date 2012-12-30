@@ -621,6 +621,7 @@ class DatabaseAccess():
                             #at the start of the trade.
                             stoploss = trade_record['stoploss']
                             profit_loss = self.calculate_profit_loss(fields)
+                            pool_trading = trade_record['pool_trading']
                         else:
                             needs_update = 0
                             if long_flag == 1:
@@ -631,6 +632,7 @@ class DatabaseAccess():
                                 id_sell = finance_id
                             stoploss = self.calculate_stoploss(fields)
                             profit_loss = 0.0 #Only calculated at end of trade.
+                            pool_trading = fields['pool_trading']
                             print('test: we are buying =',
                                         we_are_buying(fields['subcategory']))
                             if we_are_buying(fields['subcategory']):
@@ -727,6 +729,7 @@ class DatabaseAccess():
                             print(id_sell)
                             print(currency_id)
                             print(drawdown_id)
+                            print(pool_trading)
                             print(date_created)
                             print(date_modified)
                             print('<\print>')
@@ -767,6 +770,7 @@ class DatabaseAccess():
                                     'id_sell':int(id_sell),
                                     'currency_id':int(currency_id),
                                     'drawdown_id':int(drawdown_id),
+                                    'pool_trading': pool_trading,
                                     'active':1,
                                     'date_created':date_created,
                                     'date_modified':date_modified
@@ -918,14 +922,17 @@ class DatabaseAccess():
         """
         try:
             if statements != []:
+                #insert
                 statements_insert = self.assemble_statement_list_insert(
                         statements, 0)
                 self.write_statement_list_insert(
                         statements_insert, statements.table_name)
+                #update
                 statements_update = self.assemble_statement_list_update(
                         statements, 1)
-                self.write_statement_list_delete(
-                        statements_delete, statements.table_name)
+                self.write_statement_list_update(
+                        statements_update, statements.table_name)
+                #delete
                 statements_delete = self.assemble_statement_list_delete(
                         statements, 2)
                 self.write_statement_list_delete(
@@ -1520,7 +1527,7 @@ class DatabaseAccess():
             first_obj = session.query(T_FINANCE).filter_by(finance_id =
                     finance_id).first() #finance_id is unique anyway
             if first_obj is not None:
-                result = first_obj.get_record()
+                result = get_record(first_obj)
         except Exception as ex:
             print("Error in get_finance_record: ", ex)
         finally:
@@ -1647,11 +1654,11 @@ class DatabaseAccess():
             #TODO: complete this, to return the correct value for
             #all markets and conditions
             if market == 'ebr' and Decimal(amount) < Decimal(4000) :
-                result = 4
+                result = PARM_TAX
             elif market == 'ebr' and Decimal(amount) >= Decimal(4000):
-                result = 4
+                result = PARM_TAX
             else:
-                result = 4
+                result = PARM_TAX
         except Exception as ex:
             print('Error in get_parameter_tax:', ex)
         return result
@@ -1660,10 +1667,10 @@ class DatabaseAccess():
         """ 
             Function to calculate R-multiple.
         """
-        result = 0.0
+        result = DEFAULT_DECIMAL
         try:
             #TODO: finish this code.
-            result = 0.0
+            result = DEFAULT_DECIMAL
         except Exception as ex:
             print('Error in get_r_multiple_value:', ex)
         return result
@@ -1672,30 +1679,26 @@ class DatabaseAccess():
         """
             Gets the pool available for trading.
         """
-        #TODO: finish this function
-        #problem: when we enter many trades, this wil get whats
+        #TODO: problem: when we enter many trades, this wil get whats
         #currently in the pool, not what's in it after the first
         #couple of inserts.
-        #solution: enter trades 1 by 1 + commit every time.
-        #other solution: enter pool value as an input field, which
+        # - solution: enter trades 1 by 1 + commit every time.
+        # - other solution: enter pool value as an input field, which
         #usually requires you to just copy the field values shown at
         #the top and that value could even be filled in by default.
-        result = 0.0 
+        result = DEFAULT_DECIMAL
         session = self.Session()
         try:
-            #obj = session.query(T_FINANCE).order_by(T_RATE.rate_id.desc()).first()
-            #if first_obj is not None:
-            #    result = first_obj.rate_id
-            #else:
-            #    # We don't have one yet, so by making the last one 0,
-            #    # a get_latest_rate_id() + 1 would become 1
-            #    result = 0
-            result = 0.0
+            first_obj = session.query(func.sum(T_FINANCE.amount).label('total')
+                    ).filter_by(account_id=TRADING_ACCOUNT_ID).first()
+            if first_obj is not None:
+                result = Decimal(first_obj.total)
+            else:
+                result = DEFAULT_DECIMAL
+            result = DEFAULT_DECIMAL
         except Exception as ex:
             print("Error in get_pool_trading: ", ex)
         finally:
             session.rollback()
             session = None
         return result
-
-
