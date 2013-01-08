@@ -15,18 +15,15 @@ You should have received a copy of the GNU General Public License
 along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
-from sqlalchemy import create_engine, Table, MetaData, \
+from sqlalchemy import Table, MetaData, \
         Column, Integer, or_, and_
 from sqlalchemy.types import VARCHAR
-from sqlalchemy.orm import mapper, clear_mappers
 #from sqlalchemy.sql import exists
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import func
 from decimal import Decimal
 from datetime import datetime
 
-from database.mappings import *
-from database.mappings_views import *
 from modules_generic.function import *
 from modules_generic.function_sqlalchemy import row_to_dict
 from modules_generic.messagehandler import *
@@ -45,140 +42,17 @@ class DatabaseAccess():
         """
         try:
             self.config = config
-            #print('postgresql://' + self.config.dbuser + ':' + self.config.dbpass + '@' + self.config.dbhost + '/' + self.config.dbname)
-            self.db = create_engine(
-                'postgresql://' 
-                + self.config.dbuser
-                + ':' 
-                + self.config.dbpass 
-                + '@' 
-                + self.config.dbhost 
-                + '/' 
-                + self.config.dbname
-                ,echo=False
-            )
+            #TODO: import the mappings in the main __init__
+            # and put the Base and create_engine at the top so
+            # it's known before the import of the mappings!
             self.Session = sessionmaker(bind=self.db) 
-            # When recreating this object, the previous mappers where remembered by sqlalchemy. We need to clear them first.
-            clear_mappers()
-            self.metadata = MetaData(self.db)
-            self.loaded_objects = {
-                    TABLE_FINANCE : Table(TABLE_FINANCE, self.metadata, autoload=True),
-                    TABLE_INVESTMENT: Table(TABLE_INVESTMENT, self.metadata, autoload=True),
-                    TABLE_MARKET: Table(TABLE_MARKET, self.metadata, autoload=True),
-                    TABLE_STOCK_NAME: Table(TABLE_STOCK_NAME, self.metadata, autoload=True),
-                    TABLE_CATEGORY: Table(TABLE_CATEGORY, self.metadata, autoload=True),
-                    TABLE_SUBCATEGORY: Table(TABLE_SUBCATEGORY, self.metadata, autoload=True),
-                    TABLE_ACCOUNT: Table(TABLE_ACCOUNT, self.metadata, autoload=True),
-                    TABLE_CURRENCY: Table(TABLE_CURRENCY, self.metadata, autoload=True),
-                    TABLE_CURRENCY_EXCHANGE: Table(TABLE_CURRENCY_EXCHANGE, self.metadata, autoload=True),
-                    TABLE_FORMULA: Table(TABLE_FORMULA, self.metadata, autoload=True),
-                    TABLE_PARAMETER: Table(TABLE_PARAMETER, self.metadata, autoload=True),
-                    TABLE_TRADE: Table(TABLE_TRADE, self.metadata, autoload=True),
-                    TABLE_RATE: Table(TABLE_RATE, self.metadata, autoload=True),
-                    TABLE_DRAWDOWN: Table(TABLE_DRAWDOWN, self.metadata, autoload=True),
-                    TABLE_MARGIN: Table(TABLE_MARGIN, self.metadata, autoload=True),
-                    TABLE_MARGIN_TYPE: Table(TABLE_MARGIN_TYPE, self.metadata,
-                        autoload=True),
-                    VIEW_FINANCE: Table(VIEW_FINANCE, self.metadata,
-                        Column('finance_id', Integer, primary_key=True),
-                        autoload=True),
-                    VIEW_INVESTMENT: Table(VIEW_INVESTMENT, self.metadata,
-                        Column('stock_id', Integer, primary_key=True),
-                        autoload=True),
-                    VIEW_MARKET: Table(VIEW_MARKET, self.metadata,
-                        Column('market_id', Integer, primary_key=True),
-                        autoload=True),
-                    VIEW_STOCK_NAME: Table(VIEW_STOCK_NAME, self.metadata,
-                        Column('stock_name_id', Integer, primary_key=True),
-                        autoload=True),
-                    VIEW_CATEGORY: Table(VIEW_CATEGORY, self.metadata,
-                        Column('category_id', Integer, primary_key=True),
-                        autoload=True),
-                    VIEW_SUBCATEGORY: Table(VIEW_SUBCATEGORY, self.metadata,
-                        Column('subcategory_id', Integer, primary_key=True),
-                        autoload=True),
-                    VIEW_ACCOUNT: Table(VIEW_ACCOUNT, self.metadata,
-                        Column('account_id', Integer, primary_key=True),
-                        autoload=True),
-                    VIEW_CURRENCY: Table(VIEW_CURRENCY, self.metadata,
-                        Column('currency_id', Integer, primary_key=True),
-                        autoload=True),
-                    VIEW_CURRENCY_EXCHANGE: Table(VIEW_CURRENCY_EXCHANGE, self.metadata,
-                        Column('currency_exchange_id', Integer, primary_key=True),
-                        autoload=True),
-                    VIEW_FORMULA: Table(VIEW_FORMULA, self.metadata,
-                        Column('formula_id', Integer, primary_key=True),
-                        autoload=True),
-                    VIEW_PARAMETER: Table(VIEW_PARAMETER, self.metadata,
-                        Column('parameter_id', Integer, primary_key=True),
-                        autoload=True),
-                    VIEW_TRADE: Table(VIEW_TRADE, self.metadata,
-                        Column('trade_id', Integer, primary_key=True),
-                        autoload=True),
-                    VIEW_RATE: Table(VIEW_RATE, self.metadata,
-                        Column('rate_id', Integer, primary_key=True),
-                        autoload=True),
-                    VIEW_DRAWDOWN: Table(VIEW_DRAWDOWN, self.metadata,
-                        Column('drawdown_id', Integer, primary_key=True),
-                        autoload=True),
-                    VIEW_MARGIN: Table(VIEW_MARGIN, self.metadata,
-                        Column('margin_id', Integer, primary_key=True),
-                        autoload=True),
-                    VIEW_MARGIN_TYPE: Table(VIEW_MARGIN_TYPE, self.metadata,
-                        Column('margin_type_id', Integer, primary_key=True),
-                        autoload=True),
-                    VIEW_REP_CHECK_TOTAL: Table(VIEW_REP_CHECK_TOTAL, self.metadata,
-                        Column('account_name', VARCHAR(6), primary_key=True), autoload=True)
-            }
-            self.map_tables()
-            self.map_views()
+            self.metadata = Base.metadata
+            #self.map_tables()
+            #self.map_views()
             self.tables = [x for x in self.metadata.tables.keys() if is_a_table(x) ]
         except Exception as ex:
             print("Error in initialisation of DatabaseAccess: ", ex)
    
-    def map_tables(self):
-        """
-            Create mappers for the tables on the db and the table classes.
-        """
-        mapper(T_FINANCE, self.loaded_objects[TABLE_FINANCE])
-        mapper(T_INVESTMENT, self.loaded_objects[TABLE_INVESTMENT])
-        mapper(T_MARKET, self.loaded_objects[TABLE_MARKET])
-        mapper(T_STOCK_NAME, self.loaded_objects[TABLE_STOCK_NAME])
-        mapper(T_CATEGORY, self.loaded_objects[TABLE_CATEGORY])
-        mapper(T_SUBCATEGORY, self.loaded_objects[TABLE_SUBCATEGORY])
-        mapper(T_ACCOUNT, self.loaded_objects[TABLE_ACCOUNT])
-        mapper(T_TRADE, self.loaded_objects[TABLE_TRADE])
-        mapper(T_RATE, self.loaded_objects[TABLE_RATE])
-        mapper(T_CURRENCY, self.loaded_objects[TABLE_CURRENCY])
-        mapper(T_CURRENCY_EXCHANGE, self.loaded_objects[TABLE_CURRENCY_EXCHANGE])
-        mapper(T_FORMULA, self.loaded_objects[TABLE_FORMULA])
-        mapper(T_PARAMETER, self.loaded_objects[TABLE_PARAMETER])
-        mapper(T_DRAWDOWN, self.loaded_objects[TABLE_DRAWDOWN])
-        mapper(T_MARGIN, self.loaded_objects[TABLE_MARGIN])
-        mapper(T_MARGIN_TYPE, self.loaded_objects[TABLE_MARGIN_TYPE])
- 
-    def map_views(self):
-        """
-            Create mappers for the views on the db and the view classes.
-        """
-        mapper(V_FINANCE, self.loaded_objects[VIEW_FINANCE])
-        mapper(V_INVESTMENT, self.loaded_objects[VIEW_INVESTMENT])
-        mapper(V_MARKET, self.loaded_objects[VIEW_MARKET])
-        mapper(V_STOCK_NAME, self.loaded_objects[VIEW_STOCK_NAME])
-        mapper(V_CATEGORY, self.loaded_objects[VIEW_CATEGORY])
-        mapper(V_SUBCATEGORY, self.loaded_objects[VIEW_SUBCATEGORY])
-        mapper(V_ACCOUNT, self.loaded_objects[VIEW_ACCOUNT])
-        mapper(V_TRADE, self.loaded_objects[VIEW_TRADE])
-        mapper(V_RATE, self.loaded_objects[VIEW_RATE])
-        mapper(V_CURRENCY, self.loaded_objects[VIEW_CURRENCY])
-        mapper(V_CURRENCY_EXCHANGE, self.loaded_objects[VIEW_CURRENCY_EXCHANGE])
-        mapper(V_FORMULA, self.loaded_objects[VIEW_FORMULA])
-        mapper(V_PARAMETER, self.loaded_objects[VIEW_PARAMETER])
-        mapper(V_DRAWDOWN, self.loaded_objects[VIEW_DRAWDOWN])
-        mapper(V_MARGIN, self.loaded_objects[VIEW_MARGIN])
-        mapper(V_MARGIN_TYPE, self.loaded_objects[VIEW_MARGIN_TYPE])
-        mapper(V_REP_CHECK_TOTAL, self.loaded_objects[VIEW_REP_CHECK_TOTAL])
-        
     def config(self):
         """
             Retrieve config file values.
@@ -1569,7 +1443,7 @@ class DatabaseAccess():
             #TODO: the call to row_to_dict still gives an error when
             #using both row as self.loaded....
             #TODO: try with row.__tablename__
-            result = row_to_dict(self.loaded_objects[row.__tablename__])
+            result = row_to_dict(row)
         except Exception as ex:
             print("Error in get_record: ", ex)
         return result

@@ -30,6 +30,27 @@ from modules.config import ConfigParser
 from setup.setup import Setup
 from modules.fileimport import FileImport
 from modules.fileexport import FileExport
+
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+
+config = ConfigParser()
+engine = create_engine(
+                'postgresql://' 
+                + config.dbuser
+                + ':' 
+                + config.dbpass 
+                + '@' 
+                + config.dbhost 
+                + '/' 
+                + config.dbname
+                ,echo=False
+            )
+config = None
+Base = declarative_base(engine)
+
+from database.mappings import *
+#from database.mappings_views import *
         
 class MainWrapper():
     """ Main logic 
@@ -53,8 +74,6 @@ class MainWrapper():
         self.adjust_syspath()
 
         self.msghandler = __import__('messagehandler')
-        # config
-        self.config = ConfigParser()
     
     def adjust_syspath(self):
         """ Adjust the system path, so we can search in custom dirs for modules. """
@@ -88,7 +107,7 @@ All arguments are optional.'''.format(self.pprog))
             sys.exit(0)
         else:
             #run the controller
-            ctl = ControllerMain(self.config)
+            ctl = ControllerMain(config)
             ctl.run()
             ctl = None
 
@@ -97,7 +116,7 @@ All arguments are optional.'''.format(self.pprog))
         setup = Setup()
         setup.clear_tables()
         setup.drop_constraints()
-        imp = FileImport(self.config)
+        imp = FileImport(config)
         imp.file_import()
         setup.add_constraints()
         setup = None
@@ -105,7 +124,7 @@ All arguments are optional.'''.format(self.pprog))
 
     def file_export(self):
         """ export """
-        exp = FileExport(self.config)
+        exp = FileExport(config)
         exp.file_export()
         exp = None
 
