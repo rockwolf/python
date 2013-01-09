@@ -22,33 +22,16 @@ You should have received a copy of the GNU General Public License
 along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
-import getopt
 import sys
+### adjust system path
+
+import getopt
 
 from main.controller import ControllerMain
-from modules.config import ConfigParser
 from setup.setup import Setup
 from modules.fileimport import FileImport
 from modules.fileexport import FileExport
-
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-
-config = ConfigParser()
-engine = create_engine(
-                'postgresql://' 
-                + config.dbuser
-                + ':' 
-                + config.dbpass 
-                + '@' 
-                + config.dbhost 
-                + '/' 
-                + config.dbname
-                ,echo=False
-            )
-config = None
-Base = declarative_base(engine)
-
+from modules.config import ConfigParser
 from database.mappings import *
 #from database.mappings_views import *
         
@@ -68,15 +51,20 @@ class MainWrapper():
         self.prelease = 'Mass Convenience'
         self.pdate = '2012-04-10'
         self.exitstate = 0   
-        
+
         # Adjust system path so we can import from our
         # own module directories
-        self.adjust_syspath()
+        self.adjust_system_path()
 
         self.msghandler = __import__('messagehandler')
-    
-    def adjust_syspath(self):
-        """ Adjust the system path, so we can search in custom dirs for modules. """
+
+        # config
+        self.config = ConfigParser()
+
+    def adjust_system_path(self):
+        """
+        Adjust the system path, so we can search in custom dirs for modules.
+        """
         sys.path.append('main')
         sys.path.append('pyqt')
         sys.path.append('pyqt_generic')
@@ -85,7 +73,7 @@ class MainWrapper():
         sys.path.append('modules')
         sys.path.append('modules_generic')
         sys.path.append('setup')
-
+    
     def usage(self):
         """ Print usage info and exit """
         print('''{0} : Less Interaction Saves Action
@@ -107,7 +95,7 @@ All arguments are optional.'''.format(self.pprog))
             sys.exit(0)
         else:
             #run the controller
-            ctl = ControllerMain(config)
+            ctl = ControllerMain(self.config)
             ctl.run()
             ctl = None
 
@@ -116,7 +104,7 @@ All arguments are optional.'''.format(self.pprog))
         setup = Setup()
         setup.clear_tables()
         setup.drop_constraints()
-        imp = FileImport(config)
+        imp = FileImport(self.config)
         imp.file_import()
         setup.add_constraints()
         setup = None
@@ -124,7 +112,7 @@ All arguments are optional.'''.format(self.pprog))
 
     def file_export(self):
         """ export """
-        exp = FileExport(config)
+        exp = FileExport(self.config)
         exp.file_export()
         exp = None
 

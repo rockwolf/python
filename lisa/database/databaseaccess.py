@@ -30,6 +30,8 @@ from modules_generic.messagehandler import *
 from modules.statement import Statement
 from modules.constant import *
 from modules.function import *
+from meta import engine, Base
+from database.mappings import *
 
 class DatabaseAccess():
     """
@@ -42,10 +44,7 @@ class DatabaseAccess():
         """
         try:
             self.config = config
-            #TODO: import the mappings in the main __init__
-            # and put the Base and create_engine at the top so
-            # it's known before the import of the mappings!
-            self.Session = sessionmaker(bind=self.db) 
+            self.Session = sessionmaker(bind=engine) 
             self.metadata = Base.metadata
             #self.map_tables()
             #self.map_views()
