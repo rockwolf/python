@@ -32,6 +32,7 @@ from modules.constant import *
 from modules.function import *
 from meta import engine, Base
 from database.mappings import *
+from database.mappings_views import *
 
 class DatabaseAccess():
     """
