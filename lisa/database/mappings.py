@@ -85,6 +85,19 @@ class T_INVESTMENT(Base):
     """ T_INVESTMENT """
     __tablename__ = TABLE_INVESTMENT
     #__table_args__ = {'autoload':True}
+    investment_id = Column(Integer)
+    stock_name_id = Column(Integer)
+    action = Column(String(50))
+    price = Column(Numeric(18,6))
+    shares = Column(Integer)
+    tax = Column(Numeric(18,6))
+    commission = Column(Numeric(18,6))
+    historical = Column(Numeric(18,6))
+    active = Column(Integer)
+    date_created = Column(Datetime)
+    date_modified = Column(Datetime)
+    risk = Column(Numeric(18,6))
+
     def __init__(self, investment_id, stock_name_id, action, price, shares, tax,
             commission, historical, active, date_created, date_modified, risk):
         self.investment_id = investment_id
@@ -107,6 +120,13 @@ class T_STOCK_NAME(Base):
     """ T_STOCK_NAME """
     __tablename__ = TABLE_STOCK_NAME
     #__table_args__ = {'autoload':True}
+    stock_name_id = Column(Integer)
+    name = Column(String(15))
+    market_id = Column(Integer)
+    description = Column(String(256))
+    date_created = Column(Datetime)
+    date_modified = Column(Datetime)
+
     def __init__(self, stock_name_id, name, market_id, description, date_created, date_modified):
         self.stock_name_id = stock_name_id
         self.name = name
@@ -123,6 +143,14 @@ class T_MARKET(Base):
     """ T_MARKET """
     __tablename__ = TABLE_MARKET
     #__table_args__ = {'autoload':True}
+    market_id = Column(Integer)
+    code = Column(String(5))
+    name = Column(String(30))
+    country = Column(String(3))
+    active = Column(Integer)
+    date_created = Column(Datetime)
+    date_modified = Column(Datetime)
+
     def __init__(self, market_id, code, name, country, active, date_created, date_modified):
         self.market_id = market_id
         self.code = code
@@ -139,6 +167,13 @@ class T_CATEGORY(Base):
     """ T_CATEGORY """
     __tablename__ = TABLE_CATEGORY
     #__table_args__ = {'autoload':True}
+    subcategory_id = Column(Integer)
+    name = Column(String(30))
+    flg_income = Column(Integer)
+    active = Column(Integer)
+    date_created = Column(Datetime)
+    date_modified = Column(Datetime)
+
      def __init__(self, subcategory_id, name, flg_income, active, date_created, date_modified):
         self.subcategory_id = subcategory_id
         self.name = name
@@ -155,6 +190,13 @@ class T_MARGIN(Base):
     """ T_MARGIN """
     __tablename__ = TABLE_MARGIN
     #__table_args__ = {'autoload':True}
+    margin_id = Column(Integer)
+    margin_type_id = Column(Integer)
+    description = Column(String(256))
+    value = Column(Numeric(18,6))
+    date_created = Column(Datetime)
+    date_modified = Column(Datetime)
+
     def __init__(self, margin_id, margin_type_id, description, value, date_created, date_modified):
         self.margin_id = margin_id
         self.margin_type_id = margin_type_id
@@ -171,6 +213,9 @@ class T_MARGIN_TYPE(Base):
     """ T_MARGIN_TYPE """
     __tablename__ = TABLE_MARGIN_TYPE
     #__table_args__ = {'autoload':True}
+    margin_type_id = Column(Integer)
+    margin_type = Column(String(50))
+
     def __init__(self, margin_type_id, margin_type):
         self.margin_type_id = margin_type_id
         self.margin_type = margin_type
