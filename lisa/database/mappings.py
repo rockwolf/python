@@ -85,7 +85,7 @@ class T_INVESTMENT(Base):
     """ T_INVESTMENT """
     __tablename__ = TABLE_INVESTMENT
     #__table_args__ = {'autoload':True}
-    investment_id = Column(Integer)
+    investment_id = Column(Integer, primary_key=True)
     stock_name_id = Column(Integer)
     action = Column(String(50))
     price = Column(Numeric(18,6))
@@ -120,7 +120,7 @@ class T_STOCK_NAME(Base):
     """ T_STOCK_NAME """
     __tablename__ = TABLE_STOCK_NAME
     #__table_args__ = {'autoload':True}
-    stock_name_id = Column(Integer)
+    stock_name_id = Column(Integer, primary_key=True)
     name = Column(String(15))
     market_id = Column(Integer)
     description = Column(String(256))
@@ -143,7 +143,7 @@ class T_MARKET(Base):
     """ T_MARKET """
     __tablename__ = TABLE_MARKET
     #__table_args__ = {'autoload':True}
-    market_id = Column(Integer)
+    market_id = Column(Integer, primary_key=True)
     code = Column(String(5))
     name = Column(String(30))
     country = Column(String(3))
@@ -167,7 +167,7 @@ class T_CATEGORY(Base):
     """ T_CATEGORY """
     __tablename__ = TABLE_CATEGORY
     #__table_args__ = {'autoload':True}
-    subcategory_id = Column(Integer)
+    subcategory_id = Column(Integer, primary_key=True)
     name = Column(String(30))
     flg_income = Column(Integer)
     active = Column(Integer)
@@ -190,7 +190,7 @@ class T_MARGIN(Base):
     """ T_MARGIN """
     __tablename__ = TABLE_MARGIN
     #__table_args__ = {'autoload':True}
-    margin_id = Column(Integer)
+    margin_id = Column(Integer, primary_key=True)
     margin_type_id = Column(Integer)
     description = Column(String(256))
     value = Column(Numeric(18,6))
@@ -213,7 +213,7 @@ class T_MARGIN_TYPE(Base):
     """ T_MARGIN_TYPE """
     __tablename__ = TABLE_MARGIN_TYPE
     #__table_args__ = {'autoload':True}
-    margin_type_id = Column(Integer)
+    margin_type_id = Column(Integer, primary_key=True)
     margin_type = Column(String(50))
 
     def __init__(self, margin_type_id, margin_type):
@@ -227,6 +227,12 @@ class T_SUBCATEGORY(Base):
     """ T_SUBCATEGORY """
     __tablename__ = TABLE_SUBCATEGORY
     #__table_args__ = {'autoload':True}
+    subcategory_id = Column(Integer, primary_key=True)
+    name = Column(String(20))
+    active = Column(Integer)
+    date_created = Column(Datetime)
+    date_modified = Column(Datetime)
+
     def __init__(self, subcategory_id, name, active, date_created, date_modified):
         self.subcategory_id = subcategory_id
         self.name = name
@@ -242,6 +248,13 @@ class T_ACCOUNT(Base):
     """ T_ACCOUNT """
     __tablename__ = TABLE_ACCOUNT
     #__table_args__ = {'autoload':True}
+    account_id = Column(Integer, primary_key=True)
+    name = Column(String(6))
+    description = Column(String(256))
+    active = Column(Integer)
+    date_created = Column(Datetime)
+    date_modified = Column(Datetime)
+
     def __init__(self, account_id, name, description, active, date_created, date_modified):
         self.account_id = account_id
         self.name = name
@@ -258,6 +271,10 @@ class T_CURRENCY(Base):
     """ T_CURRENCY """
     __tablename__ = TABLE_CURRENCY
     #__table_args__ = {'autoload':True}
+    currency_id = Column(Integer, primary_key=True)
+    code = Column(String(3))
+    description = Column(String(256))
+
     def __init__(self, currency_id, code, description):
         self.currency_id = currency_id
         self.code = code
@@ -270,6 +287,12 @@ class T_CURRENCY_EXCHANGE(Base):
     """ T_CURRENCY_EXCHANGE """
     __tablename__ = TABLE_CURRENCY_EXCHANGE
     #__table_args__ = {'autoload':True}
+    currency_exchange_id = Column(Integer, primary_key=True)
+    currency_id = Column(Integer)
+    exchange_rate = Column(Numeric(18,6))
+    date_created = Column(Datetime)
+    date_modified = Column(Datetime)
+
     def __init__(self, currency_exchange_id, currency_id, exchange_rate,
             date_created, date_modified):
         self.currency_exchange_id = currency_exchange_id
@@ -286,6 +309,10 @@ class T_FORMULA(Base):
     """ T_FORMULA """
     __tablename__ = TABLE_FORMULA
     #__table_args__ = {'autoload':True}
+    formula_id = Column(Integer, primary_key=True)
+    value = Column(String(512))
+    description = Column(String(256))
+
     def __init__(self, formula_id, value, description):
         self.formula_id = formula_id
         self.value = value
@@ -299,6 +326,43 @@ class T_TRADE(Base):
     """ T_TRADE """
     __tablename__ = TABLE_TRADE
     #__table_args__ = {'autoload':True}
+    trade_id = Column(Integer, primary_key=True)
+    market_id = Column(Integer)
+    stock_name_id = Column(Integer)
+    date_buy = Column(Datetime)
+    year_buy = Column(Integer)
+    month_buy = Column(Integer)
+    day_buy = Column(Integer)
+    date_sell = Column(Datetime)
+    year_sell = Column(Integer)
+    month_sell = Column(Integer)
+    day_sell = Column(Integer)
+    long_flag = Column(Integer)
+    price_buy = Column(Numeric(18,6))
+    price_sell = Column(Numeric(18,6((
+    shares_buy = Column(Integer)
+    shares_sell = Column(Integer)
+    commission_buy = Column(Numeric(18,6))
+    commission_sell = Column(Numeric(18,6))
+    tax_buy = Column(Numeric(18,6)))
+    tax_sell = Column(Numeric(18,6))
+    risk = Column(Numeric(18,6))
+    initial_risk = Column(Numeric(18,6))
+    initial_risk_percent = Column(Numeric(18,6))
+    stoploss = Column(Numeric(18,6))
+    profit_loss = Column(Numeric(18,6))
+    profit_loss_percent = Column(Numeric(18,6))
+    r_multiple = Column(Numeric(18,6))
+    win_flag = Column(Integer)
+    at_work = Column(Numeric(18,6))
+    id_buy = Column(Integer)
+    id_sell = Column(Integer)
+    currency_id = Column(Integer)
+    drawdown_id = Column(Integer)
+    active = Column(Integer)
+    date_created = Column(Datetime)
+    date_modified = Column(Datetime)   
+
     def __init__(self, trade_id, market_id, stock_name_id, date_buy, year_buy, month_buy,
             day_buy, date_sell, year_sell, month_sell, day_sell, long_flag,
             price_buy, price_sell, shares_buy, shares_sell, commission_buy,
