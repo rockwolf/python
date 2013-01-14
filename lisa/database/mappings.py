@@ -16,7 +16,7 @@ along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
 from modules.constant import *
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, DateTime, Numeric
 from meta import Base
 
 class T_FINANCE(Base):
@@ -28,14 +28,25 @@ class T_FINANCE(Base):
     #how to make session.add_all() to work with it.
     finance_id = Column(Integer, primary_key=True)
     date = Column(Date)
-    title = Column(String)
-    rev_host = Column(String)
-    visit_count = Column(Integer)
-    hidden = Column(Integer)
-    typed = Column(Integer)
-    favicon_id = Column(Integer)
-    frecency = Column(Integer)
-    last_visit_date = Column(Integer)
+    year = Column(Integer)
+    month = Column(Integer)
+    day = Column(Integer)
+    account_id = Column(Iteger)
+    category_id = Column(Integer)
+    subcategory_id = Column(Integer)
+    amount = Column(Numeric(18,6))
+    comment = Column(String(256))
+    stock_name_id = Column(Integer)
+    shares = Column(Integer)
+    price = Column(Numeric(18,6))
+    tax = Column(Numeric(18,6))
+    commission = Column(Numeric(18,6))
+    active = Column(Integer)
+    rate_id = Column(Integer)
+    currency_exchange_id = Column(Integer)
+    date_created = Column(Datetime)
+    date_modified = Column(Datetime) 
+
     def __init__(self, finance_id, date, year, month, day, account_id, category_id,
             subcategory_id, amount, comment, stock_name_id, shares, price, tax,
             commission, active, rate_id, currency_exchange_id, date_created, date_modified):
