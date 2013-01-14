@@ -453,6 +453,20 @@ class T_RATE(Base):
     """ T_RATE """
     __tablename__ = TABLE_RATE
     #__table_args__ = {'autoload':True}
+    rate_id = Column(Integer, primary_key=True)
+    calculated = Column(Numeric(18,6))
+    calculated_percent = Column(Numeric(18,6))
+    on_shares = Column(Numeric(18,6))
+    on_commission = Column(Numeric(18,6))
+    on_ordersizes = Column(Numeric(18,6))
+    on_other = Column(Numeric(18,6))
+    commission = Column(Numeric(18,6))
+    tax = Column(Numeric(18,6))
+    formula_id = Column(Integer)
+    manual_flag = Column(Integer)
+    date_created = Column(Datetime)
+    date_modified = Column(Datetime)
+
     def __init__(self, rate_id, calculated, calculated_percent,
             on_shares, on_commission, on_ordersize, on_other, commission, tax,
             formula_id, manual_flag, date_created, date_modified):
@@ -482,6 +496,11 @@ class T_DRAWDOWN(Base):
     """ T_DRAWDOWN """
     __tablename__ = TABLE_DRAWDOWN
     #__table_args__ = {'autoload':True}
+    drawdown_id = Column(Integer, primary_key=True)
+    value = Column(Integer)
+    date_created = Column(Datetime)
+    date_modified = Column(Datetime)
+
     def __init__(self, drawdown_id, value, date_created, date_modified):
         self.drawdown_id = drawdown_id
         self.value = value
@@ -496,6 +515,11 @@ class T_PARAMETER(Base):
     """ T_PARAMETER """
     __tablename__ = TABLE_PARAMETER
     #__table_args__ = {'autoload':True}
+    parameter_id = Column(Integer, primary_key=True)
+    name = Column(String(50))
+    value = Column(String(512))
+    description = Column(String(256))
+
     def __init__(self, parameter_id, name, value, description):
         self.parameter_id = parameter_id
         self.name = name
