@@ -27,11 +27,11 @@ class T_FINANCE(Base):
     #NOTE: autoload gives less control and I don't know
     #how to make session.add_all() to work with it.
     finance_id = Column(Integer, primary_key=True)
-    date = Column(Date)
+    date = Column(DateTime)
     year = Column(Integer)
     month = Column(Integer)
     day = Column(Integer)
-    account_id = Column(Iteger)
+    account_id = Column(Integer)
     category_id = Column(Integer)
     subcategory_id = Column(Integer)
     amount = Column(Numeric(18,6))
@@ -44,8 +44,8 @@ class T_FINANCE(Base):
     active = Column(Integer)
     rate_id = Column(Integer)
     currency_exchange_id = Column(Integer)
-    date_created = Column(Datetime)
-    date_modified = Column(Datetime) 
+    date_created = Column(DateTime)
+    date_modified = Column(DateTime) 
 
     def __init__(self, finance_id, date, year, month, day, account_id, category_id,
             subcategory_id, amount, comment, stock_name_id, shares, price, tax,
@@ -94,8 +94,8 @@ class T_INVESTMENT(Base):
     commission = Column(Numeric(18,6))
     historical = Column(Numeric(18,6))
     active = Column(Integer)
-    date_created = Column(Datetime)
-    date_modified = Column(Datetime)
+    date_created = Column(DateTime)
+    date_modified = Column(DateTime)
     risk = Column(Numeric(18,6))
 
     def __init__(self, investment_id, stock_name_id, action, price, shares, tax,
@@ -124,20 +124,22 @@ class T_STOCK_NAME(Base):
     name = Column(String(15))
     market_id = Column(Integer)
     description = Column(String(256))
-    date_created = Column(Datetime)
-    date_modified = Column(Datetime)
+    active = Column(Integer)
+    date_created = Column(DateTime)
+    date_modified = Column(DateTime)
 
-    def __init__(self, stock_name_id, name, market_id, description, date_created, date_modified):
+    def __init__(self, stock_name_id, name, market_id, description, active, date_created, date_modified):
         self.stock_name_id = stock_name_id
         self.name = name
         self.market_id = market_id
         self.description = description
+        self.active = active
         self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_STOCK_NAME('%s', '%s', '%s', '%s', '%s', '%s')>" % (self.stock_name_id, self.name,
-                self.market_id, self.description, self.date_created, self.date_modified)
+        return "<T_STOCK_NAME('%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.stock_name_id, self.name,
+                self.market_id, self.description, active, self.date_created, self.date_modified)
 
 class T_MARKET(Base):
     """ T_MARKET """
@@ -148,8 +150,8 @@ class T_MARKET(Base):
     name = Column(String(30))
     country = Column(String(3))
     active = Column(Integer)
-    date_created = Column(Datetime)
-    date_modified = Column(Datetime)
+    date_created = Column(DateTime)
+    date_modified = Column(DateTime)
 
     def __init__(self, market_id, code, name, country, active, date_created, date_modified):
         self.market_id = market_id
@@ -167,15 +169,15 @@ class T_CATEGORY(Base):
     """ T_CATEGORY """
     __tablename__ = TABLE_CATEGORY
     #__table_args__ = {'autoload':True}
-    subcategory_id = Column(Integer, primary_key=True)
+    category_id = Column(Integer, primary_key=True)
     name = Column(String(30))
     flg_income = Column(Integer)
     active = Column(Integer)
-    date_created = Column(Datetime)
-    date_modified = Column(Datetime)
+    date_created = Column(DateTime)
+    date_modified = Column(DateTime)
 
-     def __init__(self, subcategory_id, name, flg_income, active, date_created, date_modified):
-        self.subcategory_id = subcategory_id
+    def __init__(self, category_id, name, flg_income, active, date_created, date_modified):
+        self.category_id = category_id
         self.name = name
         self.flg_income = flg_income
         self.active = active
@@ -183,7 +185,7 @@ class T_CATEGORY(Base):
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_CATEGORY('%s', '%s', '%s', '%s', '%s', '%s')>" % (self.subcategory_id,
+        return "<T_CATEGORY('%s', '%s', '%s', '%s', '%s', '%s')>" % (self.category_id,
                 self.name, self.flg_income, self.active, self.date_created, self.date_modified)
 
 class T_MARGIN(Base):
@@ -194,8 +196,8 @@ class T_MARGIN(Base):
     margin_type_id = Column(Integer)
     description = Column(String(256))
     value = Column(Numeric(18,6))
-    date_created = Column(Datetime)
-    date_modified = Column(Datetime)
+    date_created = Column(DateTime)
+    date_modified = Column(DateTime)
 
     def __init__(self, margin_id, margin_type_id, description, value, date_created, date_modified):
         self.margin_id = margin_id
@@ -230,8 +232,8 @@ class T_SUBCATEGORY(Base):
     subcategory_id = Column(Integer, primary_key=True)
     name = Column(String(20))
     active = Column(Integer)
-    date_created = Column(Datetime)
-    date_modified = Column(Datetime)
+    date_created = Column(DateTime)
+    date_modified = Column(DateTime)
 
     def __init__(self, subcategory_id, name, active, date_created, date_modified):
         self.subcategory_id = subcategory_id
@@ -252,8 +254,8 @@ class T_ACCOUNT(Base):
     name = Column(String(6))
     description = Column(String(256))
     active = Column(Integer)
-    date_created = Column(Datetime)
-    date_modified = Column(Datetime)
+    date_created = Column(DateTime)
+    date_modified = Column(DateTime)
 
     def __init__(self, account_id, name, description, active, date_created, date_modified):
         self.account_id = account_id
@@ -290,8 +292,8 @@ class T_CURRENCY_EXCHANGE(Base):
     currency_exchange_id = Column(Integer, primary_key=True)
     currency_id = Column(Integer)
     exchange_rate = Column(Numeric(18,6))
-    date_created = Column(Datetime)
-    date_modified = Column(Datetime)
+    date_created = Column(DateTime)
+    date_modified = Column(DateTime)
 
     def __init__(self, currency_exchange_id, currency_id, exchange_rate,
             date_created, date_modified):
@@ -329,22 +331,22 @@ class T_TRADE(Base):
     trade_id = Column(Integer, primary_key=True)
     market_id = Column(Integer)
     stock_name_id = Column(Integer)
-    date_buy = Column(Datetime)
+    date_buy = Column(DateTime)
     year_buy = Column(Integer)
     month_buy = Column(Integer)
     day_buy = Column(Integer)
-    date_sell = Column(Datetime)
+    date_sell = Column(DateTime)
     year_sell = Column(Integer)
     month_sell = Column(Integer)
     day_sell = Column(Integer)
     long_flag = Column(Integer)
     price_buy = Column(Numeric(18,6))
-    price_sell = Column(Numeric(18,6((
+    price_sell = Column(Numeric(18,6))
     shares_buy = Column(Integer)
     shares_sell = Column(Integer)
     commission_buy = Column(Numeric(18,6))
     commission_sell = Column(Numeric(18,6))
-    tax_buy = Column(Numeric(18,6)))
+    tax_buy = Column(Numeric(18,6))
     tax_sell = Column(Numeric(18,6))
     risk = Column(Numeric(18,6))
     initial_risk = Column(Numeric(18,6))
@@ -360,8 +362,8 @@ class T_TRADE(Base):
     currency_id = Column(Integer)
     drawdown_id = Column(Integer)
     active = Column(Integer)
-    date_created = Column(Datetime)
-    date_modified = Column(Datetime)   
+    date_created = Column(DateTime)
+    date_modified = Column(DateTime)   
 
     def __init__(self, trade_id, market_id, stock_name_id, date_buy, year_buy, month_buy,
             day_buy, date_sell, year_sell, month_sell, day_sell, long_flag,
@@ -464,8 +466,8 @@ class T_RATE(Base):
     tax = Column(Numeric(18,6))
     formula_id = Column(Integer)
     manual_flag = Column(Integer)
-    date_created = Column(Datetime)
-    date_modified = Column(Datetime)
+    date_created = Column(DateTime)
+    date_modified = Column(DateTime)
 
     def __init__(self, rate_id, calculated, calculated_percent,
             on_shares, on_commission, on_ordersize, on_other, commission, tax,
@@ -498,8 +500,8 @@ class T_DRAWDOWN(Base):
     #__table_args__ = {'autoload':True}
     drawdown_id = Column(Integer, primary_key=True)
     value = Column(Integer)
-    date_created = Column(Datetime)
-    date_modified = Column(Datetime)
+    date_created = Column(DateTime)
+    date_modified = Column(DateTime)
 
     def __init__(self, drawdown_id, value, date_created, date_modified):
         self.drawdown_id = drawdown_id
