@@ -460,7 +460,7 @@ class T_RATE(Base):
     calculated_percent = Column(Numeric(18,6))
     on_shares = Column(Numeric(18,6))
     on_commission = Column(Numeric(18,6))
-    on_ordersizes = Column(Numeric(18,6))
+    on_ordersize = Column(Numeric(18,6))
     on_other = Column(Numeric(18,6))
     commission = Column(Numeric(18,6))
     tax = Column(Numeric(18,6))

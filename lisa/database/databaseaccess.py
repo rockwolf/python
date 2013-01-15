@@ -531,7 +531,7 @@ class DatabaseAccess():
                                 commission_sell = fields['commission']
                                 tax_buy = DEFAULT_DECIMAL
                                 tax_sell = fields['tax']
-                        profit_loss_percent = profit_loss/100.0
+                        profit_loss_percent = profit_loss/Decimal(100.0)
                         year_buy = date_buy.year
                         month_buy = date_buy.month
                         day_buy = date_buy.day
@@ -567,7 +567,7 @@ class DatabaseAccess():
                                         long_flag)
                             risk = trade_record['risk']
                             initial_risk = trade_record['initial_risk']
-                            initial_risk_percent = initial_risk/100.0
+                            initial_risk_percent = initial_risk/Decimal(100.0)
                             at_work = trade_record['at_work']
                             currency_id = trade_record['currency_id']
                             drawdown_id = trade_record['drawdown_id']
@@ -575,7 +575,7 @@ class DatabaseAccess():
                             #NOTE: Here is where the insert code starts.
                             risk = self.calculate_risk(fields)
                             initial_risk = self.calculate_initial_risk(fields)
-                            initial_risk_percent = initial_risk/100.0
+                            initial_risk_percent = initial_risk/Decimal(100.0)
                             win_flag = -1 #not yet finished, we can not now it yet.
                             at_work = Decimal(price_buy)*Decimal(fields['shares'])
                             currency_id = self.currency_id_from_currency(fields['currency'])
@@ -664,10 +664,11 @@ class DatabaseAccess():
         """
         #NOTE: (risk/100 * pool - commission_buy)/(shares_buy * (tax/100 - 1))
         #NOTE: (R * P - C) / (S * (T - 1))
-        R = fields['risk'] / 100.0
+        R = fields['risk'] / Decimal(100.0)
         P = self.get_pool_trading()
         S = fields['shares']
-        T = fields['tax'] / 100.0
+        T = fields['tax'] / Decimal(100.0)
+        C = Decimal(fields['commission'])
         result = (R * P - C) / (S * (T - 1))
         return result
 
