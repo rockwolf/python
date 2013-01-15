@@ -505,7 +505,7 @@ class DatabaseAccess():
                                 id_buy = -1
                                 id_sell = finance_id
                             stoploss = self.calculate_stoploss(fields)
-                            profit_loss = 0.0 #Only calculated at end of trade.
+                            profit_loss = Decimal(0.0) #Only calculated at end of trade.
                             pool_trading = fields['pool_trading']
                             print('test: we are buying =',
                                         we_are_buying(fields['subcategory']))
@@ -574,7 +574,8 @@ class DatabaseAccess():
                         else:
                             #NOTE: Here is where the insert code starts.
                             risk = self.calculate_risk(fields)
-                            initial_risk = self.calculate_initial_risk(fields)
+                            initial_risk = self.calculate_initial_risk(fields,
+                                    stoploss)
                             initial_risk_percent = initial_risk/Decimal(100.0)
                             win_flag = -1 #not yet finished, we can not now it yet.
                             at_work = Decimal(price_buy)*Decimal(fields['shares'])
