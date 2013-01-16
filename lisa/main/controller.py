@@ -27,7 +27,6 @@ import shutil
 import os, sys
 from decimal import getcontext
 
-from modules.stock import Stock
 from database.databaseaccess import DatabaseAccess
 from pyqt.controllerpyqt import ControllerPyqt
 from PyQt4 import QtGui

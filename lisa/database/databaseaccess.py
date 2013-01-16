@@ -1572,7 +1572,7 @@ class DatabaseAccess():
         try:
             first_obj = session.query(func.sum(T_FINANCE.amount).label('total')
                     ).filter_by(account_id=TRADING_ACCOUNT_ID).first()
-            if first_obj is not None:
+            if first_obj.total is not None:
                 result = Decimal(first_obj.total)
             else:
                 result = DEFAULT_DECIMAL
