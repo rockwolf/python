@@ -361,6 +361,7 @@ class T_TRADE(Base):
     id_sell = Column(Integer)
     currency_id = Column(Integer)
     drawdown_id = Column(Integer)
+    pool_trading_at_start = Column(Numeric(18,6))
     active = Column(Integer)
     date_created = Column(DateTime)
     date_modified = Column(DateTime)   
@@ -371,7 +372,7 @@ class T_TRADE(Base):
             commission_sell, tax_buy, tax_sell, risk, initial_risk,
             initial_risk_percent, stoploss, profit_loss, profit_loss_percent, r_multiple,
             win_flag, at_work, id_buy, id_sell,
-            currency_id, drawdown_id, active, date_created, date_modified):
+            currency_id, drawdown_id, pool_trading_at_start, active, date_created, date_modified):
         self.trade_id = trade_id
         self.market_id = market_id
         self.stock_name_id = stock_name_id
@@ -405,6 +406,7 @@ class T_TRADE(Base):
         self.id_sell = id_sell
         self.currency_id = currency_id
         self.drawdown_id = drawdown_id
+        self.pool_trading_at_start = pool_trading_at_start
         self.active = active
         self.date_created = date_created
         self.date_modified = date_modified
@@ -414,7 +416,7 @@ class T_TRADE(Base):
 '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
 '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
 '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-'%s', '%s', '%s', '%s', '%s')>" % (self.trade_id,
+'%s', '%s', '%s', '%s', '%s', '%s')>" % (self.trade_id,
                         self.market_id,
                         self.stock_name_id,
                         self.date_buy,
@@ -447,6 +449,7 @@ class T_TRADE(Base):
                         self.id_sell,
                         self.currency_id,
                         self.drawdown_id,
+                        self.pool_trading_at_start,
                         self.active,
                         self.date_created,
                         self.date_modified)

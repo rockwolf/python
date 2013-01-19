@@ -495,7 +495,8 @@ class DatabaseAccess():
                             #at the start of the trade.
                             stoploss = trade_record['stoploss']
                             profit_loss = self.calculate_profit_loss(fields)
-                            pool_trading = trade_record['pool_trading']
+                            pool_trading_at_start = \
+                                trade_record['pool_trading_at_start']
                         else:
                             needs_update = 0
                             if long_flag == 1:
@@ -506,7 +507,8 @@ class DatabaseAccess():
                                 id_sell = finance_id
                             stoploss = self.calculate_stoploss(fields)
                             profit_loss = Decimal(0.0) #Only calculated at end of trade.
-                            pool_trading = fields['pool_trading']
+                            pool_trading_at_start = \
+                                fields['pool_trading_at_start']
                             print('test: we are buying =',
                                         we_are_buying(fields['subcategory']))
                             if we_are_buying(fields['subcategory']):
@@ -632,7 +634,6 @@ class DatabaseAccess():
                                     'tax_buy':int(tax_buy),
                                     'tax_sell':int(tax_sell),
                                     'risk':Decimal(risk),
-                                    'risk':Decimal(risk),
                                     'initial_risk':Decimal(initial_risk),
                                     'initial_risk_percent':Decimal(initial_risk_percent),
                                     'stoploss':Decimal(stoploss),
@@ -645,7 +646,8 @@ class DatabaseAccess():
                                     'id_sell':int(id_sell),
                                     'currency_id':int(currency_id),
                                     'drawdown_id':int(drawdown_id),
-                                    'pool_trading': pool_trading,
+                                    'pool_trading_at_start':
+                                        Decimal(pool_trading_at_start),
                                     'active':1,
                                     'date_created':date_created,
                                     'date_modified':date_modified
@@ -934,6 +936,12 @@ class DatabaseAccess():
                     record['long_flag'],
                     record['price_buy'],
                     record['price_sell'],
+                    record['shares_buy'],
+                    record['shares_sell'],
+                    record['commission_buy'],
+                    record['commission_sell'],
+                    record['tax_buy'],
+                    record['tax_sell'],
                     record['risk'],
                     record['initial_risk'],
                     record['initial_risk_percent'],
@@ -947,6 +955,7 @@ class DatabaseAccess():
                     record['id_sell'],
                     record['currency_id'],
                     record['drawdown_id'],
+                    record['pool_trading_at_start'],
                     record['active'],
                     record['date_created'],
                     record['date_modified']))
