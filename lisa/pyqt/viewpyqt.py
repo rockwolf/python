@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'viewpyqt.ui'
 #
-# Created: Sun Dec 30 16:23:54 2012
+# Created: Sun Jan 20 10:43:17 2013
 #      by: PyQt4 UI code generator 4.9.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,29 +27,29 @@ class Ui_MainWindow(object):
         self.gridLayout_10 = QtGui.QGridLayout()
         self.gridLayout_10.setSizeConstraint(QtGui.QLayout.SetFixedSize)
         self.gridLayout_10.setObjectName(_fromUtf8("gridLayout_10"))
+        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout_10.addItem(spacerItem, 0, 7, 1, 1)
+        self.lbl_check = QtGui.QLabel(self.centralwidget)
+        self.lbl_check.setFrameShape(QtGui.QFrame.Panel)
+        self.lbl_check.setFrameShadow(QtGui.QFrame.Raised)
+        self.lbl_check.setObjectName(_fromUtf8("lbl_check"))
+        self.gridLayout_10.addWidget(self.lbl_check, 0, 5, 1, 1)
         self.cmb_account = QtGui.QComboBox(self.centralwidget)
         self.cmb_account.setInputMethodHints(QtCore.Qt.ImhLowercaseOnly)
         self.cmb_account.setEditable(True)
         self.cmb_account.setObjectName(_fromUtf8("cmb_account"))
-        self.gridLayout_10.addWidget(self.cmb_account, 0, 6, 1, 1)
-        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_10.addItem(spacerItem, 0, 4, 1, 1)
-        self.lbl_account = QtGui.QLabel(self.centralwidget)
-        self.lbl_account.setObjectName(_fromUtf8("lbl_account"))
-        self.gridLayout_10.addWidget(self.lbl_account, 0, 5, 1, 1)
+        self.gridLayout_10.addWidget(self.cmb_account, 0, 3, 1, 1)
         self.lbl_infofinance = QtGui.QLabel(self.centralwidget)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Envy Code R"))
         self.lbl_infofinance.setFont(font)
         self.lbl_infofinance.setObjectName(_fromUtf8("lbl_infofinance"))
-        self.gridLayout_10.addWidget(self.lbl_infofinance, 0, 0, 1, 1)
-        self.lbl_check = QtGui.QLabel(self.centralwidget)
-        self.lbl_check.setFrameShape(QtGui.QFrame.Panel)
-        self.lbl_check.setFrameShadow(QtGui.QFrame.Raised)
-        self.lbl_check.setObjectName(_fromUtf8("lbl_check"))
-        self.gridLayout_10.addWidget(self.lbl_check, 0, 2, 1, 1)
+        self.gridLayout_10.addWidget(self.lbl_infofinance, 0, 8, 1, 1)
+        self.lbl_account = QtGui.QLabel(self.centralwidget)
+        self.lbl_account.setObjectName(_fromUtf8("lbl_account"))
+        self.gridLayout_10.addWidget(self.lbl_account, 0, 2, 1, 1)
         spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_10.addItem(spacerItem1, 0, 1, 1, 1)
+        self.gridLayout_10.addItem(spacerItem1, 0, 4, 1, 1)
         self.verticalLayout.addLayout(self.gridLayout_10)
         self.gridLayout = QtGui.QGridLayout()
         self.gridLayout.setHorizontalSpacing(3)
@@ -95,6 +95,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.lbl_risk, 0, 11, 1, 1)
         self.dt_date = QtGui.QDateEdit(self.centralwidget)
         self.dt_date.setMinimumSize(QtCore.QSize(90, 0))
+        self.dt_date.setDate(QtCore.QDate(1900, 1, 1))
         self.dt_date.setCalendarPopup(True)
         self.dt_date.setObjectName(_fromUtf8("dt_date"))
         self.gridLayout.addWidget(self.dt_date, 1, 0, 1, 1)
@@ -214,6 +215,8 @@ class Ui_MainWindow(object):
         self.lbl_expiration.setObjectName(_fromUtf8("lbl_expiration"))
         self.gridLayout.addWidget(self.lbl_expiration, 3, 6, 1, 1)
         self.dt_expiration = QtGui.QDateEdit(self.centralwidget)
+        self.dt_expiration.setDateTime(QtCore.QDateTime(QtCore.QDate(1900, 1, 1), QtCore.QTime(0, 0, 0)))
+        self.dt_expiration.setDate(QtCore.QDate(1900, 1, 1))
         self.dt_expiration.setCalendarPopup(True)
         self.dt_expiration.setObjectName(_fromUtf8("dt_expiration"))
         self.gridLayout.addWidget(self.dt_expiration, 4, 6, 1, 1)
@@ -293,7 +296,6 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        MainWindow.setTabOrder(self.cmb_account, self.dt_date)
         MainWindow.setTabOrder(self.dt_date, self.cmb_category)
         MainWindow.setTabOrder(self.cmb_category, self.cmb_subcategory)
         MainWindow.setTabOrder(self.cmb_subcategory, self.spn_amount)
@@ -321,9 +323,9 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
-        self.lbl_account.setText(QtGui.QApplication.translate("MainWindow", "Account", None, QtGui.QApplication.UnicodeUTF8))
-        self.lbl_infofinance.setText(QtGui.QApplication.translate("MainWindow", "TextLabel", None, QtGui.QApplication.UnicodeUTF8))
         self.lbl_check.setText(QtGui.QApplication.translate("MainWindow", "TextLabel", None, QtGui.QApplication.UnicodeUTF8))
+        self.lbl_infofinance.setText(QtGui.QApplication.translate("MainWindow", "TextLabel", None, QtGui.QApplication.UnicodeUTF8))
+        self.lbl_account.setText(QtGui.QApplication.translate("MainWindow", "Account", None, QtGui.QApplication.UnicodeUTF8))
         self.lbl_date.setText(QtGui.QApplication.translate("MainWindow", "Date", None, QtGui.QApplication.UnicodeUTF8))
         self.lbl_category.setText(QtGui.QApplication.translate("MainWindow", "Category", None, QtGui.QApplication.UnicodeUTF8))
         self.lbl_subcategory.setText(QtGui.QApplication.translate("MainWindow", "Subcategory", None, QtGui.QApplication.UnicodeUTF8))

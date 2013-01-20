@@ -22,17 +22,7 @@
         <property name="sizeConstraint">
          <enum>QLayout::SetFixedSize</enum>
         </property>
-        <item row="0" column="6">
-         <widget class="QComboBox" name="cmb_account">
-          <property name="inputMethodHints">
-           <set>Qt::ImhLowercaseOnly</set>
-          </property>
-          <property name="editable">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="4">
+        <item row="0" column="7">
          <spacer name="horizontalSpacer_6">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -46,25 +36,6 @@
          </spacer>
         </item>
         <item row="0" column="5">
-         <widget class="QLabel" name="lbl_account">
-          <property name="text">
-           <string>Account</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="lbl_infofinance">
-          <property name="font">
-           <font>
-            <family>Envy Code R</family>
-           </font>
-          </property>
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
          <widget class="QLabel" name="lbl_check">
           <property name="frameShape">
            <enum>QFrame::Panel</enum>
@@ -77,7 +48,36 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
+        <item row="0" column="3">
+         <widget class="QComboBox" name="cmb_account">
+          <property name="inputMethodHints">
+           <set>Qt::ImhLowercaseOnly</set>
+          </property>
+          <property name="editable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="8">
+         <widget class="QLabel" name="lbl_infofinance">
+          <property name="font">
+           <font>
+            <family>Envy Code R</family>
+           </font>
+          </property>
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="lbl_account">
+          <property name="text">
+           <string>Account</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="4">
          <spacer name="horizontalSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -193,6 +193,13 @@
             <width>90</width>
             <height>0</height>
            </size>
+          </property>
+          <property name="date">
+           <date>
+            <year>1900</year>
+            <month>1</month>
+            <day>1</day>
+           </date>
           </property>
           <property name="displayFormat">
            <string>yyyy-MM-dd</string>
@@ -482,6 +489,23 @@
         </item>
         <item row="4" column="6">
          <widget class="QDateEdit" name="dt_expiration">
+          <property name="dateTime">
+           <datetime>
+            <hour>0</hour>
+            <minute>0</minute>
+            <second>0</second>
+            <year>1900</year>
+            <month>1</month>
+            <day>1</day>
+           </datetime>
+          </property>
+          <property name="date">
+           <date>
+            <year>1900</year>
+            <month>1</month>
+            <day>1</day>
+           </date>
+          </property>
           <property name="displayFormat">
            <string>yyyy-MM-dd</string>
           </property>
@@ -646,7 +670,6 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <tabstops>
-  <tabstop>cmb_account</tabstop>
   <tabstop>dt_date</tabstop>
   <tabstop>cmb_category</tabstop>
   <tabstop>cmb_subcategory</tabstop>
