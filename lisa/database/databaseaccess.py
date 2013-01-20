@@ -584,31 +584,27 @@ class DatabaseAccess():
                             currency_id = self.currency_id_from_currency(fields['currency'])
                             drawdown_id = self.new_drawdown_record()
                             print('<print>')
-                            print(market_id)
-                            print(stock_name_id)
-                            print(date_buy)
-                            print(year_buy)
-                            print(date_sell)
-                            print(year_sell)
-                            print(long_flag)
-                            print(price_buy)
-                            print(price_sell)
-                            print(risk)
-                            print(initial_risk)
-                            print(initial_risk_percent)
-                            print(stoploss)
-                            print(profit_loss)
-                            print(profit_loss_percent)
-                            print(r_multiple)
-                            print(win_flag)
-                            print(at_work)
-                            print(id_buy)
-                            print(id_sell)
-                            print(currency_id)
-                            print(drawdown_id)
-                            print(pool_trading_at_start)
-                            print(date_created)
-                            print(date_modified)
+                            print('market_id =', market_id)
+                            print('stock_name_id =', stock_name_id)
+                            print('date_buy =', date_buy)
+                            print('date_sell =', date_sell)
+                            print('long_flag =', long_flag)
+                            print('price_buy =', price_buy)
+                            print('price_sell =', price_sell)
+                            print('risk =', risk)
+                            print('initial_risk =', initial_risk)
+                            print('initial_risk_percent =', initial_risk_percent)
+                            print('stoploss =', stoploss)
+                            print('profit_loss =', profit_loss)
+                            print('profit_loss_percent =', profit_loss_percent)
+                            print('r_multiple =', r_multiple)
+                            print('win_flag =', win_flag)
+                            print('at_work =', at_work)
+                            print('id_buy =', id_buy)
+                            print('id_sell =', id_sell)
+                            print('currency_id =', currency_id)
+                            print('drawdown_id =', drawdown_id)
+                            print('pool_trading_at_start =', pool_trading_at_start)
                             print('<\print>')
                             statement_trade.add(
                                 records,
@@ -665,14 +661,18 @@ class DatabaseAccess():
         """
             Calculates the stoploss.
         """
-        #NOTE: (risk/100 * pool - commission_buy)/(shares_buy * (tax/100 - 1))
-        #NOTE: (R * P - C) / (S * (T - 1))
+        #NOTE: The pool for calculations on a single trade uses
+        # amount. Think of it as a 'pool to use'. Do not confuse
+        # this with the total pool available from get_trading_pool.
+        # fields['risk']/100*fields['amount'] 
+        #NOTE: (risk/100 * pool_to_use - commission_buy)/(shares_buy * (tax/100 - 1))
+        #NOTE: (R * Pu - C) / (S * (T - 1))
         R = Decimal(fields['risk']) / Decimal(100.0)
-        P = self.get_pool_trading()
+        Pu = abs(Decimal(fields['amount']))
         S = Decimal(fields['shares'])
         T = Decimal(fields['tax']) / Decimal(100.0)
         C = Decimal(fields['commission'])
-        result = (R * P - C) / (S * (T - 1))
+        result = (R * Pu - C) / (S * (T - 1))
         return result
 
     def calculate_profit_loss(self, fields, trade_record):
@@ -693,18 +693,26 @@ class DatabaseAccess():
         """
             Calculates the risk.
         """
-        #TODO: finish this function
-        result = Decimal(0.0) 
+        #NOTE: The pool for calculations on a single trade uses
+        # amount. Think of it as a 'pool to use'. Do not confuse
+        # this with the total pool available from get_trading_pool.
+        # fields['risk']*fields['amount'] 
+        #NOTE: Attention: the risk already gets divided by 100 in the
+        #beginning, right after the field retrieval!
+        #NOTE: (risk) * pool_to_use
+        #NOTE: R * Pu
+        R = Decimal(fields['risk'])
+        Pu = abs(Decimal(fields['amount']))
+        result = R * Pu
         return result
 
     def calculate_initial_risk(self, fields, stoploss):
         """
             Calculates the initial risk.
         """
-        #TODO: first calculate stoploss and give it to this func. as a parm?
         #NOTE: (price*shares+commission) - (stoploss*shares+commission)
         #NOTE: (P * S + C) - (SL * S + C)
-        P = Decimal(abs(fields['amount']))
+        P = Decimal(abs(fields['price']))
         S = Decimal(fields['shares'])
         SL = Decimal(stoploss)
         C = Decimal(fields['commission'])

@@ -95,6 +95,7 @@ class ControllerPyqt(QtGui.QMainWindow):
     def btn_execute_clicked(self):
         """ Write given input lines from table to database. """
         self.ctl.write_to_database(self.table.tablecontent)
+        self.set_lbl_check(self.ctl.get_check_info([]))
         self.table.clear()
         
     def btn_exit_clicked(self):
