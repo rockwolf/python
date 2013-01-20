@@ -508,7 +508,7 @@ class DatabaseAccess():
                             stoploss = self.calculate_stoploss(fields)
                             profit_loss = Decimal(0.0) #Only calculated at end of trade.
                             pool_trading_at_start = \
-                                fields['pool_trading_at_start']
+                                fields['pool_trading']
                             print('test: we are buying =',
                                         we_are_buying(fields['subcategory']))
                             if we_are_buying(fields['subcategory']):
@@ -606,7 +606,7 @@ class DatabaseAccess():
                             print(id_sell)
                             print(currency_id)
                             print(drawdown_id)
-                            print(pool_trading)
+                            print(pool_trading_at_start)
                             print(date_created)
                             print(date_modified)
                             print('<\print>')
