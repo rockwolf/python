@@ -667,10 +667,10 @@ class DatabaseAccess():
         """
         #NOTE: (risk/100 * pool - commission_buy)/(shares_buy * (tax/100 - 1))
         #NOTE: (R * P - C) / (S * (T - 1))
-        R = fields['risk'] / Decimal(100.0)
+        R = Decimal(fields['risk']) / Decimal(100.0)
         P = self.get_pool_trading()
-        S = fields['shares']
-        T = fields['tax'] / Decimal(100.0)
+        S = Decimal(fields['shares'])
+        T = Decimal(fields['tax']) / Decimal(100.0)
         C = Decimal(fields['commission'])
         result = (R * P - C) / (S * (T - 1))
         return result
@@ -681,10 +681,11 @@ class DatabaseAccess():
         """
         #NOTE: sold - bought
         #NOTE: So - Bo
-        Bo = trade_record['price_buy'] * trade_record['shares_buy'] \
-                + trade_record['commission_buy']
-        So = trade_record['price_sell'] * trade_record['shares_sell'] \
-                - trade_record['commission_sell']
+        Bo = Decimal(trade_record['price_buy']) * Decimal(trade_record['shares_buy']) \
+                + Decimal(trade_record['commission_buy'])
+        So = Decimal(trade_record['price_sell']) * \
+                Decimal(trade_record['shares_sell']) \
+                - Decimal(trade_record['commission_sell'])
         result = So - Bo
         return result
 
@@ -693,7 +694,7 @@ class DatabaseAccess():
             Calculates the risk.
         """
         #TODO: finish this function
-        result = 0.0 
+        result = Decimal(0.0) 
         return result
 
     def calculate_initial_risk(self, fields, stoploss):

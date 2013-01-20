@@ -396,7 +396,7 @@ class T_TRADE(Base):
         self.risk = risk
         self.initial_risk = initial_risk
         self.initial_risk_percent = initial_risk_percent
-        self.stop_loss = stoploss
+        self.stoploss = stoploss
         self.profit_loss = profit_loss
         self.profit_loss_percent = profit_loss_percent
         self.r_multiple = r_multiple

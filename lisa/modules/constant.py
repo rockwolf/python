@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with Lisa. If not, see <http://www.gnu.org/licenses/>.
 					
 """
+from decimal import Decimal
 
 TABLE_FINANCE = 't_finance'
 TABLE_INVESTMENT = 't_investment'
@@ -86,7 +87,7 @@ MESSAGE_EXEC_ALL = "Executing statements all at once..."
 MESSAGE_PREPARING = "Preparing statements..."
 MESSAGE_DONE = "Done."
 DEFAULT_DATE = "1900-01-01"
-DEFAULT_DECIMAL = 0.0
+DEFAULT_DECIMAL = Decimal(0.0)
 DEFAULT_INT = 0
 TRADING_ACCOUNT_ID = 6
 PARM_TAX = 4
