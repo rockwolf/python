@@ -571,7 +571,7 @@ class DatabaseAccess():
                             initial_risk = trade_record['initial_risk']
                             initial_risk_percent = initial_risk/Decimal(100.0)
                             at_work = trade_record['at_work']
-                            currency_id = trade_record['currency_id']
+                            from_currency_id = trade_record['from_currency_id']
                             drawdown_id = trade_record['drawdown_id']
                         else:
                             #NOTE: Here is where the insert code starts.
@@ -581,7 +581,7 @@ class DatabaseAccess():
                             initial_risk_percent = initial_risk/Decimal(100.0)
                             win_flag = -1 #not yet finished, we can not now it yet.
                             at_work = Decimal(price_buy)*Decimal(fields['shares'])
-                            currency_id = self.currency_id_from_currency(fields['currency'])
+                            from_currency_id = self.currency_id_from_currency(fields['currency'])
                             drawdown_id = self.new_drawdown_record()
                             print('<print>')
                             print('market_id =', market_id)
@@ -602,7 +602,7 @@ class DatabaseAccess():
                             print('at_work =', at_work)
                             print('id_buy =', id_buy)
                             print('id_sell =', id_sell)
-                            print('currency_id =', currency_id)
+                            print('from_currency_id =', from_currency_id)
                             print('drawdown_id =', drawdown_id)
                             print('pool_trading_at_start =', pool_trading_at_start)
                             print('<\print>')
@@ -640,7 +640,7 @@ class DatabaseAccess():
                                     'at_work':Decimal(at_work),
                                     'id_buy':int(id_buy),
                                     'id_sell':int(id_sell),
-                                    'currency_id':int(currency_id),
+                                    'from_currency_id':int(from_currency_id),
                                     'drawdown_id':int(drawdown_id),
                                     'pool_trading_at_start':
                                         Decimal(pool_trading_at_start),
@@ -787,7 +787,8 @@ class DatabaseAccess():
                     records,
                     {
                         'currency_exchange_id':None,
-                        'currency_id':self.currency_id_from_currency(fields['currency']),
+                        'from_currency_id':self.currency_id_from_currency(fields['from_currency']),
+                        'to_currency_id':int(self.config.default_currency),
                         'exchange_rate':Decimal(fields['exchange_rate']),
                         'date_created':date_created,
                         'date_modified':date_modified
@@ -885,7 +886,8 @@ class DatabaseAccess():
             for record in inner_part_list:
                 result.append(T_CURRENCY_EXCHANGE(
                     record['currency_exchange_id'],
-                    record['currency_id'],
+                    record['from_currency_id'],
+                    record['to_currency_id'],
                     record['exchange_rate'],
                     record['date_created'],
                     record['date_modified']))
@@ -962,7 +964,7 @@ class DatabaseAccess():
                     record['at_work'],
                     record['id_buy'],
                     record['id_sell'],
-                    record['currency_id'],
+                    record['from_currency_id'],
                     record['drawdown_id'],
                     record['pool_trading_at_start'],
                     record['active'],
