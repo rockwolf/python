@@ -216,7 +216,7 @@ CREATE TABLE T_TRADE
     at_work decimal(18,4) not null default 0.0,
     id_buy int not null default -1,
     id_sell int not null default -1,
-    currency_id int not null default -1,
+    currency_exchange_id int not null default -1,
     drawdown_id int not null default -1,
     pool_trading_at_start decimal(18,4) not null default 0.0,
     active int not null default 1,
