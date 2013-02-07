@@ -39,7 +39,7 @@ def main(option):
     #NOTE: the import statement loads the views and tables,
     #but when doing an install, they are not created yet.
     #So we skip loading this until we are sure we can start.
-    from modules.main import MainWrapper
+    from main.main import MainWrapper
     wrapper = MainWrapper()
     if (option == 'import'):
         wrapper.file_import()

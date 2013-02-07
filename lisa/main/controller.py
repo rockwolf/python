@@ -134,7 +134,9 @@ class ControllerMain():
                     'commission':Decimal(commission),
                     'tax':Decimal(tax),
                     'risk':Decimal(risk),
-                    'currency':field[15], #Note: Get currency_id from T_CURRENCY for final insert
+                    #TODO: LOW priority: add a second box to choose the to_currency
+                    #NOTE: Conversion to EUR expected for now.
+                    'from_currency':field[15], #Note: Get currency_id from T_CURRENCY for final insert
                     'exchange_rate':Decimal(field[16]),
                     'manual_flag':int(field[17]),
                     'date_expiration':string_to_date(field[18]),

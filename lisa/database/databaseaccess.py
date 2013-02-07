@@ -490,6 +490,8 @@ class DatabaseAccess():
                             else:
                                 raise Exception(
                                     "{0} already contains a sell or buy record" \
+                                    " and you are trying to add one like it" \
+                                    " again?".format(TABLE_TRADE))
                             stoploss = trade_record['stoploss']
                             profit_loss = self.calculate_profit_loss(fields)
                             pool_trading_at_start = \
@@ -520,7 +522,7 @@ class DatabaseAccess():
                             # INSERT
                             ## buy/sell related fields
                             if we_are_buying(fields['subcategory']):
-                            	id_buy = finance_id
+                                id_buy = finance_id
                                 id_sell = -1
                                 date_buy = date_created
                                 date_sell = string_to_date(DEFAULT_DATE)
@@ -533,7 +535,7 @@ class DatabaseAccess():
                                 tax_buy = fields['tax']
                                 tax_sell = DEFAULT_DECIMAL
                             else:
-                            	id_buy = -1
+                                id_buy = -1
                                 id_sell = finance_id
                                 date_sell = date_created
                                 date_buy = string_to_date(DEFAULT_DATE)
@@ -566,7 +568,7 @@ class DatabaseAccess():
                         initial_risk_percent = initial_risk/Decimal(100.0)
                         win_flag = -1 #not yet finished, we can not now it yet.
                         at_work = Decimal(price_buy)*Decimal(fields['shares'])
-                        from_currency_id = self.currency_id_from_currency(fields['currency'])
+                        from_currency_id = self.currency_id_from_currency(fields['from_currency'])
                         drawdown_id = self.new_drawdown_record()
                         
                         # TEST INFO

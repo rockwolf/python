@@ -290,22 +290,29 @@ class T_CURRENCY_EXCHANGE(Base):
     __tablename__ = TABLE_CURRENCY_EXCHANGE
     #__table_args__ = {'autoload':True}
     currency_exchange_id = Column(Integer, primary_key=True)
-    currency_id = Column(Integer)
+    from_currency_id = Column(Integer)
+    to_currency_id = Column(Integer)
     exchange_rate = Column(Numeric(18,6))
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
 
-    def __init__(self, currency_exchange_id, currency_id, exchange_rate,
-            date_created, date_modified):
+    def __init__(self, currency_exchange_id, from_currency_id,
+            to_currency_id, exchange_rate, date_created, date_modified):
         self.currency_exchange_id = currency_exchange_id
-        self.currency_id = currency_id
+        self.from_currency_id = from_currency_id
+        self.to_currency_id = to_currency_id
         self.exchange_rate = exchange_rate
         self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_CURRENCY_EXCHANGE('%s', '%s', '%s', '%s', '%s')>" % (self.currency_exchange_id, self.currency_id,
-                self.exchange_rate, self.date_created, self.date_modified)
+        return "<T_CURRENCY_EXCHANGE('%s', '%s', '%s', '%s', '%s')>" % (
+                self.currency_exchange_id,
+                self.from_currency_id,
+                self.to_currency_id,
+                self.exchange_rate,
+                self.date_created,
+                self.date_modified)
 
 class T_FORMULA(Base):
     """ T_FORMULA """
@@ -359,7 +366,7 @@ class T_TRADE(Base):
     at_work = Column(Numeric(18,6))
     id_buy = Column(Integer)
     id_sell = Column(Integer)
-    currency_id = Column(Integer)
+    currency_exchange_id = Column(Integer)
     drawdown_id = Column(Integer)
     pool_trading_at_start = Column(Numeric(18,6))
     active = Column(Integer)
@@ -372,7 +379,7 @@ class T_TRADE(Base):
             commission_sell, tax_buy, tax_sell, risk, initial_risk,
             initial_risk_percent, stoploss, profit_loss, profit_loss_percent, r_multiple,
             win_flag, at_work, id_buy, id_sell,
-            currency_id, drawdown_id, pool_trading_at_start, active, date_created, date_modified):
+            currency_exchange_id, drawdown_id, pool_trading_at_start, active, date_created, date_modified):
         self.trade_id = trade_id
         self.market_id = market_id
         self.stock_name_id = stock_name_id
@@ -404,7 +411,7 @@ class T_TRADE(Base):
         self.at_work = at_work
         self.id_buy = id_buy
         self.id_sell = id_sell
-        self.currency_id = currency_id
+        self.currency_exchange_id = currency_exchange_id
         self.drawdown_id = drawdown_id
         self.pool_trading_at_start = pool_trading_at_start
         self.active = active
@@ -447,7 +454,7 @@ class T_TRADE(Base):
                         self.at_work,
                         self.id_buy,
                         self.id_sell,
-                        self.currency_id,
+                        self.currency_exchange_id,
                         self.drawdown_id,
                         self.pool_trading_at_start,
                         self.active,
