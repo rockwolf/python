@@ -457,7 +457,6 @@ class DatabaseAccess():
                         print('test: long_flag =', long_flag)
 
                         if self.trade_already_started(market_id, stock_name_id):
-                            needs_update = 1
                             if fields['subcategory'] == 'buy' \
                                 and T_TRADE.id_buy == -1:
                                 id_buy = finance_id
@@ -489,16 +488,35 @@ class DatabaseAccess():
                             else:
                                 raise Exception(
                                     "{0} already contains a sell or buy record" \
-                                    " and you are trying to add one like it" \
-                                    " again?".format(TABLE_TRADE))
-                            #NOTE: The belowonly needs to be calculated
-                            #at the start of the trade.
                             stoploss = trade_record['stoploss']
                             profit_loss = self.calculate_profit_loss(fields)
                             pool_trading_at_start = \
                                 trade_record['pool_trading_at_start']
+                            #TODO: check if everything goes ok after adding this update code here
+                            #NOTE: Here is where the update code starts. 
+                            if trade_record['date_created'] == None:
+                                date_created = DEFAULT_DATE
+                            else:
+                                date_created = trade_record['date_created']
+                            #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
+                            if we_are_buying(fields['subcategory']):
+                                win_flag = self.get_win_flag_value(
+                                        price_buy,
+                                        trade_record['price_sell'],
+                                        long_flag)
+                            else:
+                                win_flag = self.get_win_flag_value(
+                                        trade_record['price_buy'],
+                                        price_sell,
+                                        long_flag)
+                            risk = trade_record['risk']
+                            initial_risk = trade_record['initial_risk']
+                            initial_risk_percent = initial_risk/Decimal(100.0)
+                            at_work = trade_record['at_work']
+                            from_currency_id = trade_record['from_currency_id']
+                            drawdown_id = trade_record['drawdown_id']
                         else:
-                            needs_update = 0
+                            # UPDATE
                             if long_flag == 1:
                                 id_buy = finance_id
                                 id_sell = -1
@@ -541,114 +559,81 @@ class DatabaseAccess():
                         month_sell = date_sell.month
                         day_sell = date_sell.day
                         r_multiple = self.get_r_multiple_value()
-
-                        #NOTE: The following general values are known at this
-                        #point (and not dependend on update or insert):
-                        # date_buy, date_sell (and parts), profit_loss,
-                        # stoploss, id_buy, id_sell, price_buy, price_sell
-                        #The code below just fills in the missing pieces.
-                        #TODO: is this splitting up needed? Perhaps we can move
-                        #the below upward for simplification?
-
-                        if needs_update == 1:
-                            #NOTE: Here is where the update code starts. 
-                            if trade_record['date_created'] == None:
-                                date_created = DEFAULT_DATE
-                            else:
-                                date_created = trade_record['date_created']
-                            #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
-                            if we_are_buying(fields['subcategory']):
-                                win_flag = self.get_win_flag_value(
-                                        price_buy,
-                                        trade_record['price_sell'],
-                                        long_flag)
-                            else:
-                                win_flag = self.get_win_flag_value(
-                                        trade_record['price_buy'],
-                                        price_sell,
-                                        long_flag)
-                            risk = trade_record['risk']
-                            initial_risk = trade_record['initial_risk']
-                            initial_risk_percent = initial_risk/Decimal(100.0)
-                            at_work = trade_record['at_work']
-                            from_currency_id = trade_record['from_currency_id']
-                            drawdown_id = trade_record['drawdown_id']
-                        else:
-                            #NOTE: Here is where the insert code starts.
-                            risk = self.calculate_risk(fields)
-                            initial_risk = self.calculate_initial_risk(fields,
-                                    stoploss)
-                            initial_risk_percent = initial_risk/Decimal(100.0)
-                            win_flag = -1 #not yet finished, we can not now it yet.
-                            at_work = Decimal(price_buy)*Decimal(fields['shares'])
-                            from_currency_id = self.currency_id_from_currency(fields['currency'])
-                            drawdown_id = self.new_drawdown_record()
-                            print('<print>')
-                            print('market_id =', market_id)
-                            print('stock_name_id =', stock_name_id)
-                            print('date_buy =', date_buy)
-                            print('date_sell =', date_sell)
-                            print('long_flag =', long_flag)
-                            print('price_buy =', price_buy)
-                            print('price_sell =', price_sell)
-                            print('risk =', risk)
-                            print('initial_risk =', initial_risk)
-                            print('initial_risk_percent =', initial_risk_percent)
-                            print('stoploss =', stoploss)
-                            print('profit_loss =', profit_loss)
-                            print('profit_loss_percent =', profit_loss_percent)
-                            print('r_multiple =', r_multiple)
-                            print('win_flag =', win_flag)
-                            print('at_work =', at_work)
-                            print('id_buy =', id_buy)
-                            print('id_sell =', id_sell)
-                            print('from_currency_id =', from_currency_id)
-                            print('drawdown_id =', drawdown_id)
-                            print('pool_trading_at_start =', pool_trading_at_start)
-                            print('<\print>')
-                            statement_trade.add(
-                                records,
-                                {
-                                    'trade_id':None,
-                                    'market_id':int(market_id),
-                                    'stock_name_id':int(stock_name_id),
-                                    'date_buy':date_buy,
-                                    'year_buy':year_buy,
-                                    'month_buy':month_buy,
-                                    'day_buy':day_buy,
-                                    'date_sell':date_sell,
-                                    'year_sell':year_sell,
-                                    'month_sell':month_sell,
-                                    'day_sell':day_sell,
-                                    'long_flag':int(long_flag),
-                                    'price_buy':Decimal(price_buy),
-                                    'price_sell':Decimal(price_sell),
-                                    'shares_buy':int(shares_buy),
-                                    'shares_sell':int(shares_sell),
-                                    'commission_buy':int(commission_buy),
-                                    'commission_sell':int(commission_sell),
-                                    'tax_buy':Decimal(tax_buy),
-                                    'tax_sell':Decimal(tax_sell),
-                                    'risk':Decimal(risk),
-                                    'initial_risk':Decimal(initial_risk),
-                                    'initial_risk_percent':Decimal(initial_risk_percent),
-                                    'stoploss':Decimal(stoploss),
-                                    'profit_loss':Decimal(profit_loss),
-                                    'profit_loss_percent':Decimal(profit_loss_percent),
-                                    'r_multiple':Decimal(r_multiple),
-                                    'win_flag':int(win_flag),
-                                    'at_work':Decimal(at_work),
-                                    'id_buy':int(id_buy),
-                                    'id_sell':int(id_sell),
-                                    'from_currency_id':int(from_currency_id),
-                                    'drawdown_id':int(drawdown_id),
-                                    'pool_trading_at_start':
-                                        Decimal(pool_trading_at_start),
-                                    'active':1,
-                                    'date_created':date_created,
-                                    'date_modified':date_modified
-                                }
-                            )
+                        #NOTE: Here is where the insert code starts.
+                        risk = self.calculate_risk(fields)
+                        initial_risk = self.calculate_initial_risk(fields,
+                                stoploss)
+                        initial_risk_percent = initial_risk/Decimal(100.0)
+                        win_flag = -1 #not yet finished, we can not now it yet.
+                        at_work = Decimal(price_buy)*Decimal(fields['shares'])
+                        from_currency_id = self.currency_id_from_currency(fields['currency'])
+                        drawdown_id = self.new_drawdown_record()
+                        print('<print>')
+                        print('market_id =', market_id)
+                        print('stock_name_id =', stock_name_id)
+                        print('date_buy =', date_buy)
+                        print('date_sell =', date_sell)
+                        print('long_flag =', long_flag)
+                        print('price_buy =', price_buy)
+                        print('price_sell =', price_sell)
+                        print('risk =', risk)
+                        print('initial_risk =', initial_risk)
+                        print('initial_risk_percent =', initial_risk_percent)
+                        print('stoploss =', stoploss)
+                        print('profit_loss =', profit_loss)
+                        print('profit_loss_percent =', profit_loss_percent)
+                        print('r_multiple =', r_multiple)
+                        print('win_flag =', win_flag)
+                        print('at_work =', at_work)
+                        print('id_buy =', id_buy)
+                        print('id_sell =', id_sell)
+                        print('from_currency_id =', from_currency_id)
+                        print('drawdown_id =', drawdown_id)
+                        print('pool_trading_at_start =', pool_trading_at_start)
+                        print('<\print>')
+                        statement_trade.add(
+                            records,
+                            {
+                                'trade_id':None,
+                                'market_id':int(market_id),
+                                'stock_name_id':int(stock_name_id),
+                                'date_buy':date_buy,
+                                'year_buy':year_buy,
+                                'month_buy':month_buy,
+                                'day_buy':day_buy,
+                                'date_sell':date_sell,
+                                'year_sell':year_sell,
+                                'month_sell':month_sell,
+                                'day_sell':day_sell,
+                                'long_flag':int(long_flag),
+                                'price_buy':Decimal(price_buy),
+                                'price_sell':Decimal(price_sell),
+                                'shares_buy':int(shares_buy),
+                                'shares_sell':int(shares_sell),
+                                'commission_buy':int(commission_buy),
+                                'commission_sell':int(commission_sell),
+                                'tax_buy':Decimal(tax_buy),
+                                'tax_sell':Decimal(tax_sell),
+                                'risk':Decimal(risk),
+                                'initial_risk':Decimal(initial_risk),
+                                'initial_risk_percent':Decimal(initial_risk_percent),
+                                'stoploss':Decimal(stoploss),
+                                'profit_loss':Decimal(profit_loss),
+                                'profit_loss_percent':Decimal(profit_loss_percent),
+                                'r_multiple':Decimal(r_multiple),
+                                'win_flag':int(win_flag),
+                                'at_work':Decimal(at_work),
+                                'id_buy':int(id_buy),
+                                'id_sell':int(id_sell),
+                                'from_currency_id':int(from_currency_id),
+                                'drawdown_id':int(drawdown_id),
+                                'pool_trading_at_start':
+                                    Decimal(pool_trading_at_start),
+                                'active':1,
+                                'date_created':date_created,
+                                'date_modified':date_modified
+                            }
+                        )    
                 finance_id = finance_id + 1
             return statement_trade
         except Exception as ex:
