@@ -436,27 +436,29 @@ class DatabaseAccess():
             date_created = current_date()
             date_modified = current_date()
             statement_trade = Statement(TABLE_TRADE)
-            needs_update = 0
             records = 0
             finance_id = self.first_finance_id_from_latest()
             if finance_id != -1:
                 for fields in input_fields:
                     if is_a_trade(fields['category'], fields['subcategory']):            
                         record = records + 1
+                        # GENERAL INFO
                         market_id = self.market_id_from_market(
                                 fields['market_name'])
                         stock_name_id = self.stock_name_id_from_stock_name(
                                 fields['stock_name'], market_id)
-                        
                         finance_record = self.get_finance_record(finance_id)
-                        print('test finance_record=', finance_record)
                         trade_record = self.get_trade_record(finance_id)
-                        print('test trade_record=', trade_record)
                         long_flag = self.get_long_flag_value(fields['category'],
                                 fields['subcategory'], trade_record)
+                        # TEST INFO
+                        print('test finance_record=', finance_record)
+                        print('test trade_record=', trade_record)
                         print('test: long_flag =', long_flag)
 
                         if self.trade_already_started(market_id, stock_name_id):
+                            # UPDATE
+                            ## buy/sell related fields
                             if fields['subcategory'] == 'buy' \
                                 and T_TRADE.id_buy == -1:
                                 id_buy = finance_id
@@ -493,7 +495,6 @@ class DatabaseAccess():
                             pool_trading_at_start = \
                                 trade_record['pool_trading_at_start']
                             #TODO: check if everything goes ok after adding this update code here
-                            #NOTE: Here is where the update code starts. 
                             if trade_record['date_created'] == None:
                                 date_created = DEFAULT_DATE
                             else:
@@ -516,20 +517,11 @@ class DatabaseAccess():
                             from_currency_id = trade_record['from_currency_id']
                             drawdown_id = trade_record['drawdown_id']
                         else:
-                            # UPDATE
-                            if long_flag == 1:
-                                id_buy = finance_id
-                                id_sell = -1
-                            else:
-                                id_buy = -1
-                                id_sell = finance_id
-                            stoploss = self.calculate_stoploss(fields)
-                            profit_loss = Decimal(0.0) #Only calculated at end of trade.
-                            pool_trading_at_start = \
-                                fields['pool_trading']
-                            print('test: we are buying =',
-                                        we_are_buying(fields['subcategory']))
+                            # INSERT
+                            ## buy/sell related fields
                             if we_are_buying(fields['subcategory']):
+                            	id_buy = finance_id
+                                id_sell = -1
                                 date_buy = date_created
                                 date_sell = string_to_date(DEFAULT_DATE)
                                 price_buy = abs(fields['price'])
@@ -541,6 +533,8 @@ class DatabaseAccess():
                                 tax_buy = fields['tax']
                                 tax_sell = DEFAULT_DECIMAL
                             else:
+                            	id_buy = -1
+                                id_sell = finance_id
                                 date_sell = date_created
                                 date_buy = string_to_date(DEFAULT_DATE)
                                 price_buy = DEFAULT_DECIMAL
@@ -551,6 +545,13 @@ class DatabaseAccess():
                                 commission_sell = fields['commission']
                                 tax_buy = DEFAULT_DECIMAL
                                 tax_sell = fields['tax']
+                            stoploss = self.calculate_stoploss(fields)
+                            profit_loss = Decimal(0.0) #Only calculated at end of trade.
+                            pool_trading_at_start = \
+                                fields['pool_trading']
+                            print('test: we are buying =',
+                                        we_are_buying(fields['subcategory']))
+                            
                         profit_loss_percent = profit_loss/Decimal(100.0)
                         year_buy = date_buy.year
                         month_buy = date_buy.month
