@@ -549,9 +549,8 @@ class DatabaseAccess():
                             profit_loss = Decimal(0.0) #Only calculated at end of trade.
                             pool_trading_at_start = \
                                 fields['pool_trading']
-                            print('test: we are buying =',
-                                        we_are_buying(fields['subcategory']))
-                            
+                                
+                        # GENERAL VARIABLES THAT CAN BE CALCULATED ON THE DATA WE HAVE
                         profit_loss_percent = profit_loss/Decimal(100.0)
                         year_buy = date_buy.year
                         month_buy = date_buy.month
@@ -569,6 +568,8 @@ class DatabaseAccess():
                         at_work = Decimal(price_buy)*Decimal(fields['shares'])
                         from_currency_id = self.currency_id_from_currency(fields['currency'])
                         drawdown_id = self.new_drawdown_record()
+                        
+                        # TEST INFO
                         print('<print>')
                         print('market_id =', market_id)
                         print('stock_name_id =', stock_name_id)
@@ -592,6 +593,9 @@ class DatabaseAccess():
                         print('drawdown_id =', drawdown_id)
                         print('pool_trading_at_start =', pool_trading_at_start)
                         print('<\print>')
+                        
+                        # ADDING THE STATEMENTS FOR INSERT
+                        #TODO: is it different for update?
                         statement_trade.add(
                             records,
                             {
