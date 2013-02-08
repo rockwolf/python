@@ -561,7 +561,6 @@ class DatabaseAccess():
                         month_sell = date_sell.month
                         day_sell = date_sell.day
                         r_multiple = self.get_r_multiple_value()
-                        #NOTE: Here is where the insert code starts.
                         risk = self.calculate_risk(fields)
                         initial_risk = self.calculate_initial_risk(fields,
                                 stoploss)
@@ -596,8 +595,9 @@ class DatabaseAccess():
                         print('pool_trading_at_start =', pool_trading_at_start)
                         print('<\print>')
                         
-                        # ADDING THE STATEMENTS FOR INSERT
-                        #TODO: is it different for update?
+                        # ADDING THE STATEMENTS
+                        #TODO: How do we determine the difference between update statements?
+                        # Add another flag to the statement list?
                         statement_trade.add(
                             records,
                             {
