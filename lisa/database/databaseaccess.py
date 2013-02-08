@@ -458,6 +458,7 @@ class DatabaseAccess():
 
                         if self.trade_already_started(market_id, stock_name_id):
                             # UPDATE
+                            flag_insupdel = STATEMENT_UPDATE
                             ## buy/sell related fields
                             if fields['subcategory'] == 'buy' \
                                 and T_TRADE.id_buy == -1:
@@ -520,6 +521,7 @@ class DatabaseAccess():
                             drawdown_id = trade_record['drawdown_id']
                         else:
                             # INSERT
+                            flag_insupdel = STATEMENT_INSERT
                             ## buy/sell related fields
                             if we_are_buying(fields['subcategory']):
                                 id_buy = finance_id
@@ -596,8 +598,6 @@ class DatabaseAccess():
                         print('<\print>')
                         
                         # ADDING THE STATEMENTS
-                        #TODO: How do we determine the difference between update statements?
-                        # Add another flag to the statement list?
                         statement_trade.add(
                             records,
                             {
@@ -639,7 +639,8 @@ class DatabaseAccess():
                                 'active':1,
                                 'date_created':date_created,
                                 'date_modified':date_modified
-                            }
+                            },
+                            flag_insupdel
                         )    
                 finance_id = finance_id + 1
             return statement_trade
