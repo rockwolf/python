@@ -49,10 +49,6 @@ class ControllerMain():
     ## General
     def run(self):
         """ Start the gui. """
-        #TODO: fix error about must start a QApplication in the init of this
-        #class. Perhaps the run function should be executed before this init?
-        #Possible solution implemented by putting this code
-        #here in the controller.
         app = QtGui.QApplication(sys.argv)
         window = ControllerPyqt(self.config, self)
         self.gui = window
