@@ -467,7 +467,7 @@ INSERT INTO T_PARAMETER(parameter_id, name, value, description)
 values(3, 'parm03', 0.25, 'Solid amount for calculation of costs for commodities on US markets.');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(4, 'parm04', 0.0022, 'Tax on Belgian stock market transactions.');
+values(4, 'parm04', 0.0025, 'Tax on Belgian stock market transactions.');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
 values(5, 'parm05', 0.25, 'dividend tax - BE');
