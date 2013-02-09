@@ -335,18 +335,18 @@ class DatabaseAccess():
                     if fields['manual_flag'] == 1:
                         commission = fields['commission']
                         tax = fields['tax']
-                        on_shares = -1.0
-                        on_commission = -1.0
-                        on_ordersize = -1.0
-                        on_other = -1.0
-                        calculated = -1.0
+                        on_shares = 0.0
+                        on_commission = 0.0
+                        on_ordersize = 0.0
+                        on_other = 0.0
+                        calculated = 0.0
                     else:
                         #TODO: calculate something when necessary
-                        on_shares = -1.0
+                        on_shares = 0.0
                         #TODO: calculate something when necessary
-                        on_commission = -1.0
+                        on_commission = 0.0
                         #TODO: calculate something when necessary
-                        on_ordersize = -1.0
+                        on_ordersize = 0.0
                         #TODO: actually calculate something when necessary
                         on_other = 0.0
                         calculated = self.calculate_commission()
@@ -567,7 +567,7 @@ class DatabaseAccess():
                         initial_risk = self.calculate_initial_risk(fields,
                                 stoploss)
                         initial_risk_percent = initial_risk/Decimal(100.0)
-                        win_flag = -1 #not yet finished, we can not now it yet.
+                        win_flag = -1 #not yet finished, we can not know it yet.
                         at_work = Decimal(price_buy)*Decimal(fields['shares'])
                         from_currency_id = self.currency_id_from_currency(fields['from_currency'])
                         drawdown_id = self.new_drawdown_record()
@@ -795,7 +795,7 @@ class DatabaseAccess():
         """
             Calculation for T_RATE.
         """
-        return -1.0
+        return 0.0
     
     def write_to_database(self, statements):
         """ 
