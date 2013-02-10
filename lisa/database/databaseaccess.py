@@ -335,20 +335,20 @@ class DatabaseAccess():
                     if fields['manual_flag'] == 1:
                         commission = fields['commission']
                         tax = fields['tax']
-                        on_shares = 0.0
-                        on_commission = 0.0
-                        on_ordersize = 0.0
-                        on_other = 0.0
-                        calculated = 0.0
+                        on_shares = DEFAULT_DECIMAL
+                        on_commission = DEFAULT_DECIMAL 
+                        on_ordersize = DEFAULT_DECIMAL
+                        on_other = DEFAULT_DECIMAL
+                        calculated = DEFAULT_DECIMAL
                     else:
                         #TODO: calculate something when necessary
-                        on_shares = 0.0
+                        on_shares = DEFAULT_DECIMAL
                         #TODO: calculate something when necessary
-                        on_commission = 0.0
+                        on_commission = DEFAULT_DECIMAL
                         #TODO: calculate something when necessary
-                        on_ordersize = 0.0
+                        on_ordersize = DEFAULT_DECIMAL
                         #TODO: actually calculate something when necessary
-                        on_other = 0.0
+                        on_other = DEFAULT_DECIMAL
                         calculated = self.calculate_commission()
                         commission = self.get_parameter_value(
                                 self.get_parameter_commission(
@@ -497,11 +497,11 @@ class DatabaseAccess():
                             profit_loss = self.calculate_profit_loss(fields)
                             pool_trading_at_start = \
                                 trade_record['pool_trading_at_start']
-                            #TODO: check if everything goes ok after adding this update code here
-                            if trade_record['date_created'] == None:
-                                date_created = DEFAULT_DATE
-                            else:
-                                date_created = trade_record['date_created']
+                            date_created = trade_record['date_created']
+                            risk = trade_record['risk']
+                            at_work = trade_record['at_work']
+                            initial_risk = trade_record['initial_risk']
+                            initial_risk_percent = initial_risk/at_work
                             #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
                             if we_are_buying(fields['subcategory']):
                                 win_flag = self.get_win_flag_value(
@@ -513,12 +513,9 @@ class DatabaseAccess():
                                         trade_record['price_buy'],
                                         price_sell,
                                         long_flag)
-                            risk = trade_record['risk']
-                            initial_risk = trade_record['initial_risk']
-                            initial_risk_percent = initial_risk/Decimal(100.0)
-                            at_work = trade_record['at_work']
                             from_currency_id = trade_record['from_currency_id']
                             drawdown_id = trade_record['drawdown_id']
+                            r_multiple = self.get_r_multiple_value()
                         else:
                             # INSERT
                             flag_insupdel = STATEMENT_INSERT
@@ -550,9 +547,18 @@ class DatabaseAccess():
                                 tax_buy = DEFAULT_DECIMAL
                                 tax_sell = fields['tax']
                             stoploss = self.calculate_stoploss(fields)
-                            profit_loss = Decimal(0.0) #Only calculated at end of trade.
+                            profit_loss = Decimal(DEFAULT_DECIMAl) #Only calculated at end of trade.
                             pool_trading_at_start = \
                                 fields['pool_trading']
+                            risk = self.calculate_risk(fields)
+                            at_work = Decimal(price_buy)*Decimal(fields['shares'])
+                            initial_risk = self.calculate_initial_risk(fields,
+                                    stoploss)
+                            initial_risk_percent = initial_risk/at_work
+                            win_flag = -1 #not yet finished, we can not know it yet.
+                            from_currency_id = self.currency_id_from_currency(fields['from_currency'])
+                            drawdown_id = self.new_drawdown_record()
+                            r_multiple = DEFAULT_DECIMAL
                                 
                         # GENERAL VARIABLES THAT CAN BE CALCULATED ON THE DATA WE HAVE
                         profit_loss_percent = profit_loss/Decimal(100.0)
@@ -562,15 +568,6 @@ class DatabaseAccess():
                         year_sell = date_sell.year
                         month_sell = date_sell.month
                         day_sell = date_sell.day
-                        r_multiple = self.get_r_multiple_value()
-                        risk = self.calculate_risk(fields)
-                        initial_risk = self.calculate_initial_risk(fields,
-                                stoploss)
-                        initial_risk_percent = initial_risk/Decimal(100.0)
-                        win_flag = -1 #not yet finished, we can not know it yet.
-                        at_work = Decimal(price_buy)*Decimal(fields['shares'])
-                        from_currency_id = self.currency_id_from_currency(fields['from_currency'])
-                        drawdown_id = self.new_drawdown_record()
                         
                         # TEST INFO
                         print('<print>')
@@ -654,18 +651,16 @@ class DatabaseAccess():
         """
             Calculates the stoploss.
         """
-        #NOTE: The pool for calculations on a single trade uses
-        # amount. Think of it as a 'pool to use'. Do not confuse
-        # this with the total pool available from get_trading_pool.
-        # fields['risk']/100*fields['amount'] 
-        #NOTE: (risk/100 * pool_to_use - commission_buy)/(shares_buy * (tax/100 - 1))
-        #NOTE: (R * Pu - C) / (S * (T - 1))
+        #NOTE: ((risk/100 * pool - amount) - commission_buy)/(shares_buy * (tax/100 - 1))
+        #NOTE: ((R * P - A) - C) / (S * (T - 1))
+        #TODO: Get the correct tax amount here, when automatic is checked.
         R = Decimal(fields['risk']) / Decimal(100.0)
-        Pu = abs(Decimal(fields['amount']))
+        P = abs(Decimal(fields['pool_trading']))
+        A = abs(Decimal(fields['amount']))
         S = Decimal(fields['shares'])
         T = Decimal(fields['tax']) / Decimal(100.0)
         C = Decimal(fields['commission'])
-        result = (R * Pu - C) / (S * (T - 1))
+        result = ((R * P - A) - C) / (S * (T - 1))
         return result
 
     def calculate_profit_loss(self, fields, trade_record):
@@ -795,7 +790,7 @@ class DatabaseAccess():
         """
             Calculation for T_RATE.
         """
-        return 0.0
+        return DEFAULT_DECIMAL
     
     def write_to_database(self, statements):
         """ 
