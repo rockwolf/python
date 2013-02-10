@@ -360,7 +360,7 @@ class ControllerPyqt(QtGui.QMainWindow):
     def get_risk(self):
         """ Returns the risk from the spn_risk spinedit. """
         return str(Decimal(self.gui.spn_risk.textFromValue( \
-                self.gui.spn_risk.value()))/100)
+                self.gui.spn_risk.value())))
                 
     def get_currency(self):
     	""" Returns the currency used. """

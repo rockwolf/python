@@ -547,7 +547,7 @@ class DatabaseAccess():
                                 tax_buy = DEFAULT_DECIMAL
                                 tax_sell = fields['tax']
                             stoploss = self.calculate_stoploss(fields)
-                            profit_loss = Decimal(DEFAULT_DECIMAl) #Only calculated at end of trade.
+                            profit_loss = Decimal(DEFAULT_DECIMAL) #Only calculated at end of trade.
                             pool_trading_at_start = \
                                 fields['pool_trading']
                             risk = self.calculate_risk(fields)
@@ -689,7 +689,7 @@ class DatabaseAccess():
         #beginning, right after the field retrieval!
         #NOTE: (risk) * pool_to_use
         #NOTE: R * Pu
-        R = Decimal(fields['risk'])
+        R = Decimal(fields['risk'])/Decimal(100.0)
         Pu = abs(Decimal(fields['amount']))
         result = R * Pu
         return result
@@ -700,7 +700,7 @@ class DatabaseAccess():
         """
         #NOTE: (price*shares+commission) - (stoploss*shares+commission)
         #NOTE: (P * S + C) - (SL * S + C)
-        P = Decimal(abs(fields['price']))
+        P = Decimal(fields['price'])
         S = Decimal(fields['shares'])
         SL = Decimal(stoploss)
         C = Decimal(fields['commission'])
