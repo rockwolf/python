@@ -595,6 +595,7 @@ class DatabaseAccess():
                         print('<\print>')
                         
                         # ADDING THE STATEMENTS
+                        #TODO: add a trade_id (retrieved above?) for the update statements.
                         statement_trade.add(
                             records,
                             {
