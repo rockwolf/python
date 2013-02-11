@@ -355,9 +355,11 @@ class T_TRADE(Base):
     commission_sell = Column(Numeric(18,6))
     tax_buy = Column(Numeric(18,6))
     tax_sell = Column(Numeric(18,6))
-    risk = Column(Numeric(18,6))
-    initial_risk = Column(Numeric(18,6))
-    initial_risk_percent = Column(Numeric(18,6))
+    risk_input = Column(Numeric(18,6))
+    risk_initial = Column(Numeric(18,6))
+    risk_initial_percent = Column(Numeric(18,6))
+    risk_actual = Column(Numeric(18,6))
+    risk_actual_percent = Column(Numeric(18,6))
     stoploss = Column(Numeric(18,6))
     profit_loss = Column(Numeric(18,6))
     profit_loss_percent = Column(Numeric(18,6))
@@ -376,8 +378,9 @@ class T_TRADE(Base):
     def __init__(self, trade_id, market_id, stock_name_id, date_buy, year_buy, month_buy,
             day_buy, date_sell, year_sell, month_sell, day_sell, long_flag,
             price_buy, price_sell, shares_buy, shares_sell, commission_buy,
-            commission_sell, tax_buy, tax_sell, risk, initial_risk,
-            initial_risk_percent, stoploss, profit_loss, profit_loss_percent, r_multiple,
+            commission_sell, tax_buy, tax_sell, risk_input, risk_input_percent, risk_initial,
+            risk_initial_percent, risk_actual, risk_actual_percent, stoploss,
+            profit_loss, profit_loss_percent, r_multiple,
             win_flag, at_work, id_buy, id_sell,
             currency_exchange_id, drawdown_id, pool_trading_at_start, active, date_created, date_modified):
         self.trade_id = trade_id
@@ -400,9 +403,12 @@ class T_TRADE(Base):
         self.commission_sell = commission_sell
         self.tax_buy = tax_buy
         self.tax_sell = tax_sell
-        self.risk = risk
-        self.initial_risk = initial_risk
-        self.initial_risk_percent = initial_risk_percent
+        self.risk_input = risk_input
+        self.risk_input_percent = risk_input_percent
+        self.risk_initial = risk_initial 
+        self.risk_initial_percent = risk_initial_percent 
+        self.risk_actual = risk_actual 
+        self.risk_actual_percent = risk_actual_percent
         self.stoploss = stoploss
         self.profit_loss = profit_loss
         self.profit_loss_percent = profit_loss_percent
@@ -423,7 +429,7 @@ class T_TRADE(Base):
 '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
 '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
 '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-'%s', '%s', '%s', '%s', '%s', '%s')>" % (self.trade_id,
+'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.trade_id,
                         self.market_id,
                         self.stock_name_id,
                         self.date_buy,
@@ -443,9 +449,12 @@ class T_TRADE(Base):
                         self.commission_sell,
                         self.tax_buy,
                         self.tax_sell,
-                        self.risk,
-                        self.initial_risk,
-                        self.initial_risk_percent,
+                        self.risk_input,
+                        self.risk_input_percent,
+                        self.risk_initial,
+                        self.risk_initial_percent,
+                        self.risk_actual,
+                        self.risk_actual_percent,
                         self.stoploss,
                         self.profit_loss,
                         self.profit_loss_percent,

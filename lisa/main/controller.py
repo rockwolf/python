@@ -129,7 +129,7 @@ class ControllerMain():
                     'price':Decimal(price),
                     'commission':Decimal(commission),
                     'tax':Decimal(tax),
-                    'risk':Decimal(risk),
+                    'risk_input':Decimal(risk),
                     #TODO: LOW priority: add a second box to choose the to_currency
                     #NOTE: Conversion to EUR expected for now.
                     'from_currency':field[15], #Note: Get currency_id from T_CURRENCY for final insert

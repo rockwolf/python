@@ -498,10 +498,13 @@ class DatabaseAccess():
                             pool_trading_at_start = \
                                 trade_record['pool_trading_at_start']
                             date_created = trade_record['date_created']
-                            risk = trade_record['risk']
                             at_work = trade_record['at_work']
-                            initial_risk = trade_record['initial_risk']
-                            initial_risk_percent = initial_risk/at_work
+                            risk_input = trade_record['risk_input']
+                            risk_input_percent = trade_record['risk_input_percent']
+                            risk_initial = trade_record['risk_initial']
+                            risk_initial_percent = (risk_initial/at_work)*100.0
+                            risk_actual = self.calculate_risk_actual(trade_record)
+                            risk_actual_percent = (risk_actual/at_work)*100.0
                             #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
                             if we_are_buying(fields['subcategory']):
                                 win_flag = self.get_win_flag_value(
@@ -547,14 +550,17 @@ class DatabaseAccess():
                                 tax_buy = DEFAULT_DECIMAL
                                 tax_sell = fields['tax']
                             stoploss = self.calculate_stoploss(fields)
-                            profit_loss = Decimal(DEFAULT_DECIMAL) #Only calculated at end of trade.
+                            profit_loss = DEFAULT_DECIMAL #Only calculated at end of trade.
                             pool_trading_at_start = \
                                 fields['pool_trading']
-                            risk = self.calculate_risk(fields)
                             at_work = Decimal(price_buy)*Decimal(fields['shares'])
-                            initial_risk = self.calculate_initial_risk(fields,
+                            risk_input = self.calculate_risk_input(fields)
+                            risk_input_percent = fields['risk_input']
+                            risk_initial = self.calculate_risk_initial(fields,
                                     stoploss)
-                            initial_risk_percent = initial_risk/at_work
+                            risk_initial_percent = risk_initial/at_work
+                            risk_actual = DEFAULT_DECIMAL
+                            risk_actual_percent = DEFAULT_DECIMAL
                             win_flag = -1 #not yet finished, we can not know it yet.
                             from_currency_id = self.currency_id_from_currency(fields['from_currency'])
                             drawdown_id = self.new_drawdown_record()
@@ -578,9 +584,12 @@ class DatabaseAccess():
                         print('long_flag =', long_flag)
                         print('price_buy =', price_buy)
                         print('price_sell =', price_sell)
-                        print('risk =', risk)
-                        print('initial_risk =', initial_risk)
-                        print('initial_risk_percent =', initial_risk_percent)
+                        print('risk_input =', risk_input)
+                        print('risk_input_percent =', risk_input_percent)
+                        print('risk_initial =', risk_initial)
+                        print('risk_initial_percent =', risk_initial_percent)
+                        print('risk_actual =', risk_actual)
+                        print('risk_actual_percent =', risk_actual_percent)
                         print('stoploss =', stoploss)
                         print('profit_loss =', profit_loss)
                         print('profit_loss_percent =', profit_loss_percent)
@@ -619,9 +628,12 @@ class DatabaseAccess():
                                 'commission_sell':Decimal(commission_sell),
                                 'tax_buy':Decimal(tax_buy),
                                 'tax_sell':Decimal(tax_sell),
-                                'risk':Decimal(risk),
-                                'initial_risk':Decimal(initial_risk),
-                                'initial_risk_percent':Decimal(initial_risk_percent),
+                                'risk_input':Decimal(risk_input),
+                                'risk_input_percent':Decimal(risk_input_percent),
+                                'risk_initial':Decimal(risk_initial),
+                                'risk_initial_percent':Decimal(risk_initial_percent),
+                                'risk_actual':Decimal(risk_actual),
+                                'risk_actual_percent':Decimal(risk_actual_percent),
                                 'stoploss':Decimal(stoploss),
                                 'profit_loss':Decimal(profit_loss),
                                 'profit_loss_percent':Decimal(profit_loss_percent),
@@ -655,7 +667,7 @@ class DatabaseAccess():
         #NOTE: ((risk/100 * pool - amount) - commission_buy)/(shares_buy * (tax/100 - 1))
         #NOTE: ((R * P - A) - C) / (S * (T - 1))
         #TODO: Get the correct tax amount here, when automatic is checked.
-        R = Decimal(fields['risk']) / Decimal(100.0)
+        R = Decimal(fields['risk_input']) / Decimal(100.0)
         P = abs(Decimal(fields['pool_trading']))
         A = abs(Decimal(fields['amount']))
         S = Decimal(fields['shares'])
@@ -678,24 +690,24 @@ class DatabaseAccess():
         result = So - Bo
         return result
 
-    def calculate_risk(self, fields):
+    def calculate_risk_input(self, fields):
         """
             Calculates the risk.
         """
         #NOTE: The pool for calculations on a single trade uses
         # amount. Think of it as a 'pool to use'. Do not confuse
         # this with the total pool available from get_trading_pool.
-        # fields['risk']*fields['amount'] 
+        # fields['risk_input']*fields['amount'] 
         #NOTE: Attention: the risk already gets divided by 100 in the
         #beginning, right after the field retrieval!
-        #NOTE: (risk) * pool_to_use
+        #NOTE: (risk_input) * pool_to_use
         #NOTE: R * Pu
-        R = Decimal(fields['risk'])/Decimal(100.0)
+        R = Decimal(fields['risk_input'])/Decimal(100.0)
         Pu = abs(Decimal(fields['amount']))
         result = R * Pu
         return result
 
-    def calculate_initial_risk(self, fields, stoploss):
+    def calculate_risk_initial(self, fields, stoploss):
         """
             Calculates the initial risk.
         """
@@ -706,6 +718,17 @@ class DatabaseAccess():
         SL = Decimal(stoploss)
         C = Decimal(fields['commission'])
         result = (P * S + C) - (SL * S + C)
+        return result
+
+    def calculate_risk_actual(self, trade_record):
+        """
+            Calculates the risk we actually took,
+            based on the data in TABLE_TRADE.
+        """
+        #NOTE:
+        #NOTE:
+        #TODO: finish this function
+        result = DEFAULT_DECIMAL
         return result
 
     def trade_already_started(self, market_id, stock_name_id):
@@ -942,9 +965,12 @@ class DatabaseAccess():
                     record['commission_sell'],
                     record['tax_buy'],
                     record['tax_sell'],
-                    record['risk'],
-                    record['initial_risk'],
-                    record['initial_risk_percent'],
+                    record['risk_input'],
+                    record['risk_input_percent'],
+                    record['risk_initial'],
+                    record['risk_initial_percent'],
+                    record['risk_actual'],
+                    record['risk_actual_percent'],
                     record['stoploss'],
                     record['profit_loss'],
                     record['profit_loss_percent'],
