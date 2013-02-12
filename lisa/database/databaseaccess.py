@@ -725,10 +725,15 @@ class DatabaseAccess():
             Calculates the risk we actually took,
             based on the data in TABLE_TRADE.
         """
-        #NOTE:
-        #NOTE:
-        #TODO: finish this function
-        result = DEFAULT_DECIMAL
+        #NOTE: (price*shares+commission) - (price_sell*shares+commission)
+        #NOTE: (P * S + C) - (Ps * S + C)
+        #NOTE: Only needs to be calculated when price_sell < stoploss
+        #TODO: implement the above note
+        P = Decimal(fields['price'])
+        S = Decimal(fields['shares'])
+        Ps = Decimal(fields['price_sell'])
+        C = Decimal(fields['commission'])
+        result = (P * S + C) - (Ps * S + C)
         return result
 
     def trade_already_started(self, market_id, stock_name_id):
