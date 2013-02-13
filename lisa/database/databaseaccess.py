@@ -692,7 +692,8 @@ class DatabaseAccess():
 
     def calculate_risk_input(self, fields):
         """
-            Calculates the risk.
+            Calculates the risk based on total pool and input.
+            Consider this the theoretical risk we want to take.
         """
         #NOTE: The pool for calculations on a single trade uses
         # amount. Think of it as a 'pool to use'. Do not confuse
@@ -710,6 +711,9 @@ class DatabaseAccess():
     def calculate_risk_initial(self, fields, stoploss):
         """
             Calculates the initial risk.
+            This is the risk we will take if our stoploss is reached.
+            This should be equal to the risk_input if everything was
+            correctly calculated.
         """
         #NOTE: (price*shares+commission) - (stoploss*shares+commission)
         #NOTE: (P * S + C) - (SL * S + C)
