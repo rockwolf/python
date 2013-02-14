@@ -996,23 +996,24 @@ class DatabaseAccess():
                     record['date_modified']))
         return result
 
-    def assemble_statement_list_update(self, statements, insupdel=0):
+    def assemble_statement_list_update(self, statements, insupdel=1):
         """
             Creates list of update records from statements,
             that we can use to update at once.
         """
-        #TODO: finish this code
-        result = []
-        return result
+        #NOTE: updating needs more code in the write_to_database function
+        return statements.get_statement_list(insupdel) 
 
-    def assemble_statement_list_delete(self, statements, insupdel=0):
+    def assemble_statement_list_delete(self, statements, insupdel=2):
         """
             Creates list of from delete statements,
             that we can use to delete at once.
         """
-        #TODO: finish this code (low priority!)
-        result = []
-        return result
+        #NOTE: deleting is not used, because we don't need it.
+        # Deleting is done on the table object rows, before pressing execute.
+        # When using the app, you need to make sure everything is ok before
+        # you press execute.
+        return statements.get_statement_list(insupdel)
 
     def update_stock(self, fields_stock, session, i, finance_id, recordid):
         """
