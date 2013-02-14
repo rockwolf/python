@@ -448,4 +448,10 @@ class ControllerPyqt(QtGui.QMainWindow):
     def add_currency(self, value):
         """ Add a new item to cmb_currency. """ 
         self.gui.cmb_currency.addItem(value)
+        
+    #TODO: reactivate the checkbox manual flag
+    #TODO: add event so that when clicked, the commission and tax are
+    #automatically calculated.
+    #TODO: when automatic is checked, the commission and tax fields
+    #should no longer be editable, and vice versa.
 
