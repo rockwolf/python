@@ -460,6 +460,9 @@ values(-1.0, -1.0/100, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 1, 0, current_date, c
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
 values(1, 'parm01', 9.75, 'Commission binkbank for buying regular stocks.');
 
+--TODO: add another parameter for the 2500 EUR!
+--We need to check for this in the code that determines
+--which formula/parameter to use.
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
 values(2, 'parm02', 7.25, 'Commission binkbank for buying regular stocks < 2500 EUR.');
 
