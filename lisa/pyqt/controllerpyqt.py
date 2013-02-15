@@ -124,6 +124,7 @@ class ControllerPyqt(QtGui.QMainWindow):
     def btn_remove_clicked(self):
         """ Remove the selected record in the table. """
         #TODO: get the table row to get the index
+        #This currently gets the last row.
         selected_index = -1
         self.ctl.remove_selected(self.table, selected_index) 
     
@@ -454,4 +455,6 @@ class ControllerPyqt(QtGui.QMainWindow):
     #automatically calculated.
     #TODO: when automatic is checked, the commission and tax fields
     #should no longer be editable, and vice versa.
+    #TODO: when the market or amount or category or subcategory (<> buy or sell) is changed, this also should be refreshed!
+    #The goal is to make tax and commission dependent on the values in t_parameter
 
