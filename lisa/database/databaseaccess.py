@@ -682,6 +682,7 @@ class DatabaseAccess():
         """
         #NOTE: sold - bought
         #NOTE: So - Bo
+        #TODO: this does not seem correct, doesn't it need the tax part too?
         Bo = Decimal(trade_record['price_buy']) * Decimal(trade_record['shares_buy']) \
                 + Decimal(trade_record['commission_buy'])
         So = Decimal(trade_record['price_sell']) * \
