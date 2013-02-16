@@ -503,7 +503,7 @@ class DatabaseAccess():
                             risk_input_percent = trade_record['risk_input_percent']
                             risk_initial = trade_record['risk_initial']
                             risk_initial_percent = (risk_initial/at_work)*100.0
-                            risk_actual = self.calculate_risk_actual(trade_record)
+                            risk_actual = self.calculate_risk_actual(trade_record, stoploss)
                             risk_actual_percent = (risk_actual/at_work)*100.0
                             #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
                             if we_are_buying(fields['subcategory']):
@@ -725,20 +725,23 @@ class DatabaseAccess():
         result = (P * S + C) - (SL * S + C)
         return result
 
-    def calculate_risk_actual(self, trade_record):
+    def calculate_risk_actual(self, trade_record, stoploss):
         """
             Calculates the risk we actually took,
             based on the data in TABLE_TRADE.
         """
         #NOTE: (price*shares+commission) - (price_sell*shares+commission)
         #NOTE: (P * S + C) - (Ps * S + C)
-        #NOTE: Only needs to be calculated when price_sell < stoploss
-        #TODO: implement the above note
+        #NOTE: price_sell > stoploss = max risk was the initial risk
+        #TODO: doesn't this need the tax calculation too?
         P = Decimal(fields['price'])
         S = Decimal(fields['shares'])
         Ps = Decimal(fields['price_sell'])
         C = Decimal(fields['commission'])
-        result = (P * S + C) - (Ps * S + C)
+        if Ps < stoploss:
+            result = (P * S + C) - (Ps * S + C)
+        else:
+            result = trade_record['risk_initial']
         return result
 
     def trade_already_started(self, market_id, stock_name_id):
