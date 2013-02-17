@@ -177,7 +177,8 @@ CREATE TABLE T_MARGIN_TYPE
 CREATE TABLE T_DRAWDOWN
 (
     drawdown_id serial not null,
-    value int not null default 0,
+    drawdown_current int not null default 0,
+    drawdown_max int not null default 0,
     date_created timestamp not null default '1900-01-01',
     date_modified timestamp not null default '1900-01-01',
     unique(drawdown_id)
