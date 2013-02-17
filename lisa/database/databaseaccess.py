@@ -716,13 +716,13 @@ class DatabaseAccess():
             This should be equal to the risk_input if everything was
             correctly calculated.
         """
-        #NOTE: (price*shares+commission) - (stoploss*shares+commission)
-        #NOTE: (P * S + C) - (SL * S + C)
-        P = Decimal(fields['price'])
-        S = Decimal(fields['shares'])
+        #NOTE: commission + tax = seperate = costs
+        #NOTE: (price*shares) - (stoploss*shares)
+        #NOTE: (P * S) - (SL * S)
+        Pb = Decimal(fields['price'])
+        Sb = Decimal(fields['shares'])
         SL = Decimal(stoploss)
-        C = Decimal(fields['commission'])
-        result = (P * S + C) - (SL * S + C)
+        result = (P * Sb) - (SL * Sb)
         return result
 
     def calculate_risk_actual(self, trade_record, stoploss):
@@ -730,16 +730,15 @@ class DatabaseAccess():
             Calculates the risk we actually took,
             based on the data in TABLE_TRADE.
         """
-        #NOTE: (price*shares+commission) - (price_sell*shares+commission)
-        #NOTE: (P * S + C) - (Ps * S + C)
+        #NOTE: (price*shares) - (price_sell*shares)
+        #NOTE: (Pb * Sb) - (Ps * Ss)
         #NOTE: price_sell > stoploss = max risk was the initial risk
-        #TODO: doesn't this need the tax calculation too?
-        P = Decimal(fields['price'])
-        S = Decimal(fields['shares'])
+        Pb = Decimal(fields['price_buy'])
+        Sb = Decimal(fields['shares_buy'])
         Ps = Decimal(fields['price_sell'])
-        C = Decimal(fields['commission'])
+        Ss = Decimal(fields['shares_sell'])
         if Ps < stoploss:
-            result = (P * S + C) - (Ps * S + C)
+            result = (Pb * Sb) - (Ps * Ss)
         else:
             result = trade_record['risk_initial']
         return result
