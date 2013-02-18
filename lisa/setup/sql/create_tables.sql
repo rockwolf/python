@@ -183,7 +183,7 @@ CREATE TABLE T_DRAWDOWN
     date_modified timestamp not null default '1900-01-01',
     unique(drawdown_id)
 );
-
+    
 CREATE TABLE T_TRADE
 (
     trade_id serial not null,
@@ -212,6 +212,8 @@ CREATE TABLE T_TRADE
     risk_initial_percent decimal(18,4) not null default 0.0,
     risk_actual decimal(18,4) not null default 0.0,
     risk_actual_percent decimal(18,4) not null default 0.0,
+    cost_total decimal(18,6) not null default 0.0,
+    #TODO: set all decimal fields to 18.6
     stoploss decimal(18,4) not null default 0.0,
     profit_loss decimal(18,4) not null default 0.0,
     profit_loss_percent decimal(18,4) not null default 0.0,
