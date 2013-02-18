@@ -505,6 +505,7 @@ class DatabaseAccess():
                             risk_initial_percent = (risk_initial/at_work)*100.0
                             risk_actual = self.calculate_risk_actual(trade_record, stoploss)
                             risk_actual_percent = (risk_actual/at_work)*100.0
+                            cost_total = self.calculate_cost_total(trade_record)
                             #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
                             if we_are_buying(fields['subcategory']):
                                 win_flag = self.get_win_flag_value(
@@ -561,6 +562,7 @@ class DatabaseAccess():
                             risk_initial_percent = risk_initial/at_work
                             risk_actual = DEFAULT_DECIMAL
                             risk_actual_percent = DEFAULT_DECIMAL
+                            cost_total = DEFAULT_DECIMAL
                             win_flag = -1 #not yet finished, we can not know it yet.
                             from_currency_id = self.currency_id_from_currency(fields['from_currency'])
                             drawdown_id = self.new_drawdown_record()
@@ -743,6 +745,17 @@ class DatabaseAccess():
             result = trade_record['risk_initial']
         return result
 
+    def calculate_cost_total(self, trade_record):
+    	"""
+    	    Returns the total costs associated with the given trade.
+    	""""
+    	return (
+    	    trade_record['tax_buy'] +
+    	    trade_record['commission_buy'] +
+    	    trade_record['tax_sell'] +
+    	    trade_record['commission_sell']
+    	)
+    	
     def trade_already_started(self, market_id, stock_name_id):
         """
             Check if this trade has already started.
