@@ -360,6 +360,7 @@ class T_TRADE(Base):
     risk_initial_percent = Column(Numeric(18,6))
     risk_actual = Column(Numeric(18,6))
     risk_actual_percent = Column(Numeric(18,6))
+    cost_total = Column(Numebir(18,6))
     stoploss = Column(Numeric(18,6))
     profit_loss = Column(Numeric(18,6))
     profit_loss_percent = Column(Numeric(18,6))
@@ -379,7 +380,7 @@ class T_TRADE(Base):
             day_buy, date_sell, year_sell, month_sell, day_sell, long_flag,
             price_buy, price_sell, shares_buy, shares_sell, commission_buy,
             commission_sell, tax_buy, tax_sell, risk_input, risk_input_percent, risk_initial,
-            risk_initial_percent, risk_actual, risk_actual_percent, stoploss,
+            risk_initial_percent, risk_actual, risk_actual_percent, cost_total, stoploss,
             profit_loss, profit_loss_percent, r_multiple,
             win_flag, at_work, id_buy, id_sell,
             currency_exchange_id, drawdown_id, pool_trading_at_start, active, date_created, date_modified):
@@ -409,6 +410,7 @@ class T_TRADE(Base):
         self.risk_initial_percent = risk_initial_percent 
         self.risk_actual = risk_actual 
         self.risk_actual_percent = risk_actual_percent
+        self.cost_total = cost_total
         self.stoploss = stoploss
         self.profit_loss = profit_loss
         self.profit_loss_percent = profit_loss_percent
@@ -426,10 +428,11 @@ class T_TRADE(Base):
 
     def __repr__(self):
         return "<T_TRADE('%s', '%s', '%s', '%s', '%s', '%s', \
-'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.trade_id,
+            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
+            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
+            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
+            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s',
+            '%s', '%s')>" % (self.trade_id,
                         self.market_id,
                         self.stock_name_id,
                         self.date_buy,
@@ -455,6 +458,7 @@ class T_TRADE(Base):
                         self.risk_initial_percent,
                         self.risk_actual,
                         self.risk_actual_percent,
+                        self.cost_total,
                         self.stoploss,
                         self.profit_loss,
                         self.profit_loss_percent,
