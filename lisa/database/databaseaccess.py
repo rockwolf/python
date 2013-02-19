@@ -897,8 +897,11 @@ class DatabaseAccess():
         try:
             if final_statements != []:
                 print(table_name, end=': ')
-                session.add_all(final_statements)
-                session.commit()
+                #session.add_all(final_statements)
+                #session.commit()
+                for statement in final_statements:
+                	print('test:', statement)
+                #TODO: set the values here and commit for each record in final_statements
                 print("{0} records updated.".format(str(len(final_statements))))
                 print('')
         except Exception as ex:
