@@ -345,7 +345,8 @@ class DatabaseAccess():
                         on_shares = DEFAULT_DECIMAL
                         #TODO: calculate something when necessary
                         on_commission = DEFAULT_DECIMAL
-                        #TODO: calculate something when necessary
+                        trade_id = trade_record['trade_id']#TODO: calculat
+                        e something when necessary
                         on_ordersize = DEFAULT_DECIMAL
                         #TODO: actually calculate something when necessary
                         on_other = DEFAULT_DECIMAL
@@ -409,6 +410,7 @@ class DatabaseAccess():
                     #        date_created,
                     #        date_modified
                     #     )
+                    trade_id = None # insert: new one created automatically
                     # )
             return statement_INVESTMENT
         except Exception as ex:
@@ -459,6 +461,7 @@ class DatabaseAccess():
                         if self.trade_already_started(market_id, stock_name_id):
                             # UPDATE
                             flag_insupdel = STATEMENT_UPDATE
+                            trade_id = trade_record['trade_id']
                             ## buy/sell related fields
                             if fields['subcategory'] == 'buy' \
                                 and T_TRADE.id_buy == -1:
@@ -495,7 +498,7 @@ class DatabaseAccess():
                                     " again?".format(TABLE_TRADE))
                             stoploss = trade_record['stoploss']
                             profit_loss = self.calculate_profit_loss(fields)
-                            pool_trading_at_start = \
+                            pool_trtrade_idg_at_start = \
                                 trade_record['pool_trading_at_start']
                             date_created = trade_record['date_created']
                             at_work = trade_record['at_work']
@@ -523,6 +526,7 @@ class DatabaseAccess():
                         else:
                             # INSERT
                             flag_insupdel = STATEMENT_INSERT
+                            trade_id = None # insert: new one created automatically
                             ## buy/sell related fields
                             if we_are_buying(fields['subcategory']):
                                 id_buy = finance_id
@@ -610,7 +614,7 @@ class DatabaseAccess():
                         statement_trade.add(
                             records,
                             {
-                                'trade_id':None,
+                                'trade_id':trade_id,
                                 'market_id':int(market_id),
                                 'stock_name_id':int(stock_name_id),
                                 'date_buy':date_buy,
