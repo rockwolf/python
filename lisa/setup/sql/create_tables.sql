@@ -132,6 +132,8 @@ CREATE TABLE T_FINANCE
 
 CREATE TABLE T_INVESTMENT
 (
+    --TODO: make something with more info, like T_TRADE
+    --TODO: create an extra view, that shows a summary of your current portfolio
     investment_id serial not null,
     stock_name_id int not null default -1,
     action varchar(50) not null,
