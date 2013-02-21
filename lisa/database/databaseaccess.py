@@ -528,7 +528,7 @@ class DatabaseAccess():
                                         long_flag)
                             from_currency_id = trade_record['from_currency_id']
                             drawdown_id = trade_record['drawdown_id']
-                            r_multiple = self.get_r_multiple_value()
+                            r_multiple = self.calculate_r_multiple()
                         else:
                             # INSERT
                             flag_insupdel = STATEMENT_INSERT
@@ -1618,16 +1618,22 @@ class DatabaseAccess():
             print('Error in get_parameter_tax:', ex)
         return result
 
-    def get_r_multiple_value(self):
+    def calculate_r_multiple(self, trade_record):
         """ 
             Function to calculate R-multiple.
         """
+        #TODO: can be reused for T_INVESTING, so rename trade_record
+        # as a parm in all functions that can be reused by T_INVESTING
+        # to something more general, like final_record or find another
+        # way to reuse this.
+        #TODO: make the investment functions the same, also the tables should be the same
+        #so we can reuse everything!
         result = DEFAULT_DECIMAL
         try:
-            #TODO: finish this code.
-            result = DEFAULT_DECIMAL
+            RMunit = trade_record['price_buy'] - trade_record['stoploss']
+            result = (trade_record['price_sell'] - trade_record['price_buy'])/RMunit
         except Exception as ex:
-            print('Error in get_r_multiple_value:', ex)
+            print('Error in calculate_r_multiple:', ex)
         return result
 
     def get_pool_trading(self):
