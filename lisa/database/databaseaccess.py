@@ -529,6 +529,15 @@ class DatabaseAccess():
                             from_currency_id = trade_record['from_currency_id']
                             drawdown_id = trade_record['drawdown_id']
                             r_multiple = self.calculate_r_multiple()
+                            date_expiration = trade_record['date_expiration']
+                            #TODO: for investing, id_buy/sell is id_firstbuy and id_firstsell
+                            # and expiration flag should only be set at the end of the trade, when
+                            # the trade is closed. This means that date_buy and date_sell is not
+                            # enough to determine if a trade is closed or not. The total shares
+                            # should also be 0 when added up OR shares_buy = shares_sell.
+                            # So add:
+                            #if trade_closed: (or something like that)
+                            expired_flag = if date_sell > date_expiration : 1 else 0
                         else:
                             # INSERT
                             flag_insupdel = STATEMENT_INSERT
@@ -577,6 +586,10 @@ class DatabaseAccess():
                             from_currency_id = self.currency_id_from_currency(fields['from_currency'])
                             drawdown_id = self.new_drawdown_record()
                             r_multiple = DEFAULT_DECIMAL
+                            date_expiration = fields['date_expiration']
+                            #TODO: should this be added to the input_fields?
+                            #I think its only in the gui right now.
+                            expired_flag = DEFAULT_INTEGER
                                 
                         # GENERAL VARIABLES THAT CAN BE CALCULATED ON THE DATA WE HAVE
                         profit_loss_percent = profit_loss/Decimal(100.0)
@@ -613,6 +626,8 @@ class DatabaseAccess():
                         print('from_currency_id =', from_currency_id)
                         print('drawdown_id =', drawdown_id)
                         print('pool_trading_at_start =', pool_trading_at_start)
+                        print('date_expiration =', date_expiration)
+                        print('expired_flag =', expired_flag)
                         print('<\print>')
                         
                         # ADDING THE STATEMENTS
@@ -658,6 +673,8 @@ class DatabaseAccess():
                                 'drawdown_id':int(drawdown_id),
                                 'pool_trading_at_start':
                                     Decimal(pool_trading_at_start),
+                                'date_expiration': date_expiration,
+                                'expired_flag': expired_flag,
                                 'active':1,
                                 'date_created':date_created,
                                 'date_modified':date_modified
