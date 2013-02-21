@@ -396,6 +396,12 @@ class DatabaseAccess():
             records = 0
             for fields in input_fields:
                 if is_an_investment(fields['category'], fields['subcategory']):
+                    #TODO: do something similar as TABLE_TRADE
+                    #Attention: we can also update meanwhile (position sizing), so
+                    # some values (e.g. date_buy) should only be updated if it's not
+                    # an update.
+                    #TODO: add function INVESTMENT_ALREADY_STARTED
+                    #TODO: in what way can the trading code be comined with the investment code?
                     record = records + 1
                     #statement_investment.add(
                     #    records,
