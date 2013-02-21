@@ -83,7 +83,7 @@ class T_FINANCE(Base):
 
 class T_INVESTMENT(Base):
     """ T_INVESTMENT """
-    __tablename__ = TABLE_TRADE
+    __tablename__ = TABLE_INVESTMENT
     #__table_args__ = {'autoload':True}
     trade_id = Column(Integer, primary_key=True)
     market_id = Column(Integer)
@@ -110,7 +110,7 @@ class T_INVESTMENT(Base):
     risk_initial_percent = Column(Numeric(18,6))
     risk_actual = Column(Numeric(18,6))
     risk_actual_percent = Column(Numeric(18,6))
-    cost_total = Column(Numebir(18,6))
+    cost_total = Column(Numeric(18,6))
     stoploss = Column(Numeric(18,6))
     profit_loss = Column(Numeric(18,6))
     profit_loss_percent = Column(Numeric(18,6))
@@ -186,8 +186,8 @@ class T_INVESTMENT(Base):
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s',
-            '%s', '%s', '%s', '%s')>" % (self.trade_id,
+            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
+            '%s', '%s', '%s', '%s', '%s')>" % (self.trade_id,
                         self.market_id,
                         self.stock_name_id,
                         self.date_buy,
@@ -475,7 +475,7 @@ class T_TRADE(Base):
     risk_initial_percent = Column(Numeric(18,6))
     risk_actual = Column(Numeric(18,6))
     risk_actual_percent = Column(Numeric(18,6))
-    cost_total = Column(Numebir(18,6))
+    cost_total = Column(Numeric(18,6))
     stoploss = Column(Numeric(18,6))
     profit_loss = Column(Numeric(18,6))
     profit_loss_percent = Column(Numeric(18,6))
@@ -551,8 +551,8 @@ class T_TRADE(Base):
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s',
-            '%s', '%s', '%s', '%s')>" % (self.trade_id,
+            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
+            '%s', '%s', '%s', '%s', '%s')>" % (self.trade_id,
                         self.market_id,
                         self.stock_name_id,
                         self.date_buy,

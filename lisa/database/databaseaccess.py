@@ -345,8 +345,8 @@ class DatabaseAccess():
                         on_shares = DEFAULT_DECIMAL
                         #TODO: calculate something when necessary
                         on_commission = DEFAULT_DECIMAL
-                        trade_id = trade_record['trade_id']#TODO: calculat
-                        e something when necessary
+                        trade_id = trade_record['trade_id']
+                        #TODO: calculate something when necessary
                         on_ordersize = DEFAULT_DECIMAL
                         #TODO: actually calculate something when necessary
                         on_other = DEFAULT_DECIMAL
@@ -537,7 +537,7 @@ class DatabaseAccess():
                             # should also be 0 when added up OR shares_buy = shares_sell.
                             # So add:
                             #if trade_closed: (or something like that)
-                            expired_flag = if date_sell > date_expiration : 1 else 0
+                            expired_flag = (1 if date_sell > date_expiration else 0)
                         else:
                             # INSERT
                             flag_insupdel = STATEMENT_INSERT
@@ -587,8 +587,6 @@ class DatabaseAccess():
                             drawdown_id = self.new_drawdown_record()
                             r_multiple = DEFAULT_DECIMAL
                             date_expiration = fields['date_expiration']
-                            #TODO: should this be added to the input_fields?
-                            #I think its only in the gui right now.
                             expired_flag = DEFAULT_INTEGER
                                 
                         # GENERAL VARIABLES THAT CAN BE CALCULATED ON THE DATA WE HAVE
@@ -775,7 +773,7 @@ class DatabaseAccess():
     def calculate_cost_total(self, trade_record):
     	"""
     	    Returns the total costs associated with the given trade.
-    	""""
+    	"""
     	return (
     	    trade_record['tax_buy'] +
     	    trade_record['commission_buy'] +
@@ -812,12 +810,12 @@ class DatabaseAccess():
     def trade_closed(self, invade_record):
     	"""
     	    Checks if a trade/investment is closed.
-    	""""
+    	"""
     	#NOTE: invade = can be INVestment or trADE
     	return (
-            invade_record['date_buy'] <> DEFAULT_DATE
-    	    and invade_record['date_sell'] <> DEFAULT_DATE
-    	    and (invade_record['shares_buy'] = invade_record['shares_sell'])
+            (invade_record['date_buy'] != DEFAULT_DATE)
+    	    and (invade_record['date_sell'] != DEFAULT_DATE)
+    	    and (invade_record['shares_buy'] == invade_record['shares_sell']))
     	
     def get_long_flag_value(self, category, subcategory, trade_record):
         """
