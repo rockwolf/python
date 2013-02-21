@@ -133,6 +133,7 @@ CREATE TABLE T_FINANCE
 CREATE TABLE T_INVESTMENT
 (
     --TODO: create an extra view, that shows a summary of your current portfolio
+    -- NOTE: drawdown does not matter for investing
     investment_id serial not null,
     market_id int not null,
     stock_name_id int not null,
@@ -166,7 +167,10 @@ CREATE TABLE T_INVESTMENT
     r_multiple decimal(18,6) not null default 0.0,
     win_flag int not null default -1,
     at_work decimal(18,6) not null default 0.0,
+    id_buy int not null default -1,
+    id_sell int not null default -1,
     currency_exchange_id int not null default -1,
+    drawdown_id int not null default -1,
     pool_investing_at_start decimal(18,6) not null default 0.0,
     active int not null default 1,
     date_created timestamp not null default '1900-01-01',
