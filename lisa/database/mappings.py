@@ -83,38 +83,146 @@ class T_FINANCE(Base):
 
 class T_INVESTMENT(Base):
     """ T_INVESTMENT """
-    __tablename__ = TABLE_INVESTMENT
+    __tablename__ = TABLE_TRADE
     #__table_args__ = {'autoload':True}
-    investment_id = Column(Integer, primary_key=True)
+    trade_id = Column(Integer, primary_key=True)
+    market_id = Column(Integer)
     stock_name_id = Column(Integer)
-    action = Column(String(50))
-    price = Column(Numeric(18,6))
-    shares = Column(Integer)
-    tax = Column(Numeric(18,6))
-    commission = Column(Numeric(18,6))
-    historical = Column(Numeric(18,6))
+    date_buy = Column(DateTime)
+    year_buy = Column(Integer)
+    month_buy = Column(Integer)
+    day_buy = Column(Integer)
+    date_sell = Column(DateTime)
+    year_sell = Column(Integer)
+    month_sell = Column(Integer)
+    day_sell = Column(Integer)
+    long_flag = Column(Integer)
+    price_buy = Column(Numeric(18,6))
+    price_sell = Column(Numeric(18,6))
+    shares_buy = Column(Integer)
+    shares_sell = Column(Integer)
+    commission_buy = Column(Numeric(18,6))
+    commission_sell = Column(Numeric(18,6))
+    tax_buy = Column(Numeric(18,6))
+    tax_sell = Column(Numeric(18,6))
+    risk_input = Column(Numeric(18,6))
+    risk_initial = Column(Numeric(18,6))
+    risk_initial_percent = Column(Numeric(18,6))
+    risk_actual = Column(Numeric(18,6))
+    risk_actual_percent = Column(Numeric(18,6))
+    cost_total = Column(Numebir(18,6))
+    stoploss = Column(Numeric(18,6))
+    profit_loss = Column(Numeric(18,6))
+    profit_loss_percent = Column(Numeric(18,6))
+    r_multiple = Column(Numeric(18,6))
+    win_flag = Column(Integer)
+    at_work = Column(Numeric(18,6))
+    id_buy = Column(Integer)
+    id_sell = Column(Integer)
+    currency_exchange_id = Column(Integer)
+    drawdown_id = Column(Integer)
+    pool_trading_at_start = Column(Numeric(18,6))
     active = Column(Integer)
     date_created = Column(DateTime)
-    date_modified = Column(DateTime)
-    risk = Column(Numeric(18,6))
+    date_modified = Column(DateTime)   
 
-    def __init__(self, investment_id, stock_name_id, action, price, shares, tax,
-            commission, historical, active, date_created, date_modified, risk):
-        self.investment_id = investment_id
+    def __init__(self, trade_id, market_id, stock_name_id, date_buy, year_buy, month_buy,
+            day_buy, date_sell, year_sell, month_sell, day_sell, long_flag,
+            price_buy, price_sell, shares_buy, shares_sell, commission_buy,
+            commission_sell, tax_buy, tax_sell, risk_input, risk_input_percent, risk_initial,
+            risk_initial_percent, risk_actual, risk_actual_percent, cost_total, stoploss,
+            profit_loss, profit_loss_percent, r_multiple,
+            win_flag, at_work, id_buy, id_sell,
+            currency_exchange_id, drawdown_id, pool_trading_at_start, active, date_created, date_modified):
+        self.trade_id = trade_id
+        self.market_id = market_id
         self.stock_name_id = stock_name_id
-        self.action = action
-        self.price = price
-        self.shares = shares
-        self.tax = tax
-        self.commission = commission
-        self.historical = historical
+        self.date_buy = date_buy
+        self.year_buy = year_buy
+        self.month_buy = month_buy
+        self.day_buy = day_buy
+        self.date_sell = date_sell
+        self.year_sell = year_sell
+        self.month_sell = month_sell
+        self.day_sell = day_sell
+        self.long_flag = long_flag
+        self.price_buy = price_buy
+        self.price_sell = price_sell
+        self.shares_buy = shares_buy
+        self.shares_sell = shares_sell
+        self.commission_buy = commission_buy
+        self.commission_sell = commission_sell
+        self.tax_buy = tax_buy
+        self.tax_sell = tax_sell
+        self.risk_input = risk_input
+        self.risk_input_percent = risk_input_percent
+        self.risk_initial = risk_initial 
+        self.risk_initial_percent = risk_initial_percent 
+        self.risk_actual = risk_actual 
+        self.risk_actual_percent = risk_actual_percent
+        self.cost_total = cost_total
+        self.stoploss = stoploss
+        self.profit_loss = profit_loss
+        self.profit_loss_percent = profit_loss_percent
+        self.r_multiple = r_multiple
+        self.win_flag = win_flag
+        self.at_work = at_work
+        self.id_buy = id_buy
+        self.id_sell = id_sell
+        self.currency_exchange_id = currency_exchange_id
+        self.drawdown_id = drawdown_id
+        self.pool_trading_at_start = pool_trading_at_start
         self.active = active
         self.date_created = date_created
         self.date_modified = date_modified
-        self.risk = risk
 
     def __repr__(self):
-        return "<T_STOCK('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.investment_id, self.stock_name_id, self.action, self.price, self.shares, self.tax, self.commission, self.historical, self.active, self.date_created, self.date_modified, self.risk)
+        return "<T_TRADE('%s', '%s', '%s', '%s', '%s', '%s', \
+            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
+            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
+            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
+            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s',
+            '%s', '%s')>" % (self.trade_id,
+                        self.market_id,
+                        self.stock_name_id,
+                        self.date_buy,
+                        self.year_buy,
+                        self.month_buy,
+                        self.day_buy,
+                        self.date_sell,
+                        self.year_sell,
+                        self.month_sell,
+                        self.day_sell,
+                        self.long_flag,
+                        self.price_buy,
+                        self.price_sell,
+                        self.shares_buy,
+                        self.shares_sell,
+                        self.commission_buy,
+                        self.commission_sell,
+                        self.tax_buy,
+                        self.tax_sell,
+                        self.risk_input,
+                        self.risk_input_percent,
+                        self.risk_initial,
+                        self.risk_initial_percent,
+                        self.risk_actual,
+                        self.risk_actual_percent,
+                        self.cost_total,
+                        self.stoploss,
+                        self.profit_loss,
+                        self.profit_loss_percent,
+                        self.r_multiple,
+                        self.win_flag,
+                        self.at_work,
+                        self.id_buy,
+                        self.id_sell,
+                        self.currency_exchange_id,
+                        self.drawdown_id,
+                        self.pool_trading_at_start,
+                        self.active,
+                        self.date_created,
+                        self.date_modified)
 
 class T_STOCK_NAME(Base):
     """ T_STOCK_NAME """
