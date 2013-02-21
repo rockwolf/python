@@ -172,6 +172,8 @@ CREATE TABLE T_INVESTMENT
     currency_exchange_id int not null default -1,
     drawdown_id int not null default -1,
     pool_investing_at_start decimal(18,6) not null default 0.0,
+    date_expiration datetime not null default '1900-01-01',
+    expired_flag int not null default -1,
     active int not null default 1,
     date_created timestamp not null default '1900-01-01',
     date_modified timestamp not null default '1900-01-01'
@@ -256,6 +258,8 @@ CREATE TABLE T_TRADE
     currency_exchange_id int not null default -1,
     drawdown_id int not null default -1,
     pool_trading_at_start decimal(18,6) not null default 0.0,
+    date_expiration datetime not null default '1900-01-01',
+    expired_flag int not null default -1,
     active int not null default 1,
     date_created timestamp not null default '1900-01-01',
     date_modified timestamp not null default '1900-01-01'
