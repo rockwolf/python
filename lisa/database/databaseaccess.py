@@ -809,6 +809,16 @@ class DatabaseAccess():
             print(ERROR_TRADE_ALREADY_STARTED, ex)
         return result
 
+    def trade_closed(self, invade_record):
+    	"""
+    	    Checks if a trade/investment is closed.
+    	""""
+    	#NOTE: invade = can be INVestment or trADE
+    	return (
+            invade_record['date_buy'] <> DEFAULT_DATE
+    	    and invade_record['date_sell'] <> DEFAULT_DATE
+    	    and (invade_record['shares_buy'] = invade_record['shares_sell'])
+    	
     def get_long_flag_value(self, category, subcategory, trade_record):
         """
             Are we long?
