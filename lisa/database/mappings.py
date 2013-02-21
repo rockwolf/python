@@ -122,6 +122,8 @@ class T_INVESTMENT(Base):
     currency_exchange_id = Column(Integer)
     drawdown_id = Column(Integer)
     pool_trading_at_start = Column(Numeric(18,6))
+    date_expiration = Column(DateTime)
+    expired_flag = Column(Integer)
     active = Column(Integer)
     date_created = Column(DateTime)
     date_modified = Column(DateTime)   
@@ -133,7 +135,8 @@ class T_INVESTMENT(Base):
             risk_initial_percent, risk_actual, risk_actual_percent, cost_total, stoploss,
             profit_loss, profit_loss_percent, r_multiple,
             win_flag, at_work, id_buy, id_sell,
-            currency_exchange_id, drawdown_id, pool_trading_at_start, active, date_created, date_modified):
+            currency_exchange_id, drawdown_id, pool_trading_at_start, date_expiration,
+            expired_flag, active, date_created, date_modified):
         self.trade_id = trade_id
         self.market_id = market_id
         self.stock_name_id = stock_name_id
@@ -172,6 +175,8 @@ class T_INVESTMENT(Base):
         self.currency_exchange_id = currency_exchange_id
         self.drawdown_id = drawdown_id
         self.pool_trading_at_start = pool_trading_at_start
+        self.date_expiration = date_expiration
+        self.expired_flag = expired_flag
         self.active = active
         self.date_created = date_created
         self.date_modified = date_modified
@@ -182,7 +187,7 @@ class T_INVESTMENT(Base):
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s',
-            '%s', '%s')>" % (self.trade_id,
+            '%s', '%s', '%s', '%s')>" % (self.trade_id,
                         self.market_id,
                         self.stock_name_id,
                         self.date_buy,
@@ -220,6 +225,8 @@ class T_INVESTMENT(Base):
                         self.currency_exchange_id,
                         self.drawdown_id,
                         self.pool_trading_at_start,
+                        self.expiration_date,
+                        self.expired_flag,
                         self.active,
                         self.date_created,
                         self.date_modified)
@@ -480,6 +487,8 @@ class T_TRADE(Base):
     currency_exchange_id = Column(Integer)
     drawdown_id = Column(Integer)
     pool_trading_at_start = Column(Numeric(18,6))
+    date_expiration = Column(DateTime)
+    expired_flag = Column(Integer)
     active = Column(Integer)
     date_created = Column(DateTime)
     date_modified = Column(DateTime)   
@@ -491,7 +500,8 @@ class T_TRADE(Base):
             risk_initial_percent, risk_actual, risk_actual_percent, cost_total, stoploss,
             profit_loss, profit_loss_percent, r_multiple,
             win_flag, at_work, id_buy, id_sell,
-            currency_exchange_id, drawdown_id, pool_trading_at_start, active, date_created, date_modified):
+            currency_exchange_id, drawdown_id, pool_trading_at_start, date_expiration,
+            expired_flag, active, date_created, date_modified):
         self.trade_id = trade_id
         self.market_id = market_id
         self.stock_name_id = stock_name_id
@@ -530,6 +540,8 @@ class T_TRADE(Base):
         self.currency_exchange_id = currency_exchange_id
         self.drawdown_id = drawdown_id
         self.pool_trading_at_start = pool_trading_at_start
+        self.date_expiration = date_expiration
+        self.expired_flag = expired_flag
         self.active = active
         self.date_created = date_created
         self.date_modified = date_modified
@@ -540,7 +552,7 @@ class T_TRADE(Base):
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s',
-            '%s', '%s')>" % (self.trade_id,
+            '%s', '%s', '%s', '%s')>" % (self.trade_id,
                         self.market_id,
                         self.stock_name_id,
                         self.date_buy,
@@ -578,6 +590,8 @@ class T_TRADE(Base):
                         self.currency_exchange_id,
                         self.drawdown_id,
                         self.pool_trading_at_start,
+                        self.date_expiration,
+                        self.expired_flag,
                         self.active,
                         self.date_created,
                         self.date_modified)
