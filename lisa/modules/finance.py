@@ -7,16 +7,10 @@ from datetime import datetime
 from database.databaseaccess import DatabaseAccess
 from modules.function import *
 
-class Finance():
+class Finance(CoreModule):
     """
         Finance class.
     """
-    
-    def __init(self, config):
-        """
-            Initializes the class.
-        """"
-        self.config = config
         
     def create_statements_TABLE_FINANCE(self, input_fields):
         """
