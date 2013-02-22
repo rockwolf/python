@@ -1,10 +1,5 @@
 #!/usr/env/python
 """
-    Author: Andy Nagels
-    Date: 2010-08-24
-    Lisa: Less Interaction Saves Action
-    A frontend for a database to store financial transactions in a convenient way.
-
     See LICENSE file for copyright and license details.
 """
 
