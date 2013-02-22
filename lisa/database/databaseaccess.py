@@ -230,6 +230,8 @@ class DatabaseAccess():
             Creates the records needed for TABLE_FINANCE
             and returns them as a Statement object.
         """
+        #TODO: move all create statements tot their own module?
+        #This code here is already way to big to my liking.
         session = self.Session()
         try:
             date_created = current_date()
@@ -375,7 +377,13 @@ class DatabaseAccess():
         """
         #TODO: this needs to be a portfolio module, but
         #we don't need it at the moment. Will be finished
-        #later. T_STOCK is no longer needed, it will be T_INVESTMENT.
+        #later. T_STOCK is no longer needed, it will be T_INVEST.
+        #TODO: finishing just happens! Try to figure out how to
+        #skip the investing part so we can figure out a way to
+        #finish it later. Perhaps keep the records in a spreadsheet
+        #and manually insert them later?
+        #unless offcourse it's easier to just implement it. It's identical
+        #to T_TRADE anyway, except for a few fields.
         session = self.Session()
         try:
             date_created = current_date()
@@ -436,6 +444,12 @@ class DatabaseAccess():
             finance_id = self.first_finance_id_from_latest()
             if finance_id != -1:
                 for fields in input_fields:
+                    #TODO: is_an_investment?
+                    #TODO: check which parts are actually different from
+                    #updating T_INVEST (the less difference, the better)
+                    #TODO: try to separate the differences
+                    #TODO: make an Invade class, where Trade and Invest
+                    # inherit from.
                     if is_a_trade(fields['category'], fields['subcategory']):            
                         record = records + 1
                         # GENERAL INFO
