@@ -1,4 +1,6 @@
 #!/usr/env/python
+"""
+    See LICENSE file for copyright and license details.
+"""
 
-#TBD
 print('Sorry, there is nothing here yet...')
