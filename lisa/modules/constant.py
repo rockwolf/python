@@ -71,6 +71,7 @@ ERROR_CREATE_STATEMENTS_TABLE_INVESTMENT = "Error in create_statements_TABLE_INV
 ERROR_CREATE_STATEMENTS_TABLE_RATE = "Error in create_statements_TABLE_RATE: "
 ERROR_CREATE_STATEMENTS_TABLE_CURRENCY_EXCHANGE = "Error in create_statements_TABLE_CURRENCY_EXCHANGE: "
 ERROR_TRADE_ALREADY_STARTED = "Error in trade_already_started: "
+ERROR_INVESTMENT_ALREADY_STARTED = "Error in investment_already_started: "
 ERROR_NEW_DRAWDOWN_RECORD = "Error in new_drawdown_record: "
 MESSAGE_EXEC_ALL = "Executing statements all at once..."
 MESSAGE_PREPARING = "Preparing statements..."
