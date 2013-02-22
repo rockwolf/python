@@ -15,6 +15,11 @@ from modules.constant import *
 from modules.function import *
 from decimal import Decimal
 from modules_generic.function import *
+from modules.currency_exchange import CurrencyExchange
+from modules.rate import Rate
+from modules.finance import Finance
+from modules.investment import Investment
+from modules.trade import Trade
 
 class ControllerMain():
     """ Contains the bussiness logic of the application. """
@@ -40,31 +45,42 @@ class ControllerMain():
     def write_to_database(self, tablecontent):
         """ Write the records to write to the database. """
         try:
-            dba = DatabaseAccess(self.config)
+            currency_exchange = CurrencyExchange(self.config)
+            rate = Rate(self.config)
+            finance = Finance(self.config)
+            trade = Trade(self.config)
+            investment = Investment(self.config)
             
             input_fields = self.get_input_fields(tablecontent)
             # Note: The order of execution below is important!
-            test = dba.create_statements_TABLE_CURRENCY_EXCHANGE(input_fields)
+            #TODO: rename the create_statements functions to just that,
+            #they are preceded by their class name now anyway.
+            test = currency_exchange.create_statements(input_fields)
             test.print_statements()
-            dba.write_to_database(dba.create_statements_TABLE_CURRENCY_EXCHANGE(input_fields))
-            test = dba.create_statements_TABLE_RATE(input_fields)
+            #TODO: write_to_database is still in dba, should we make a wrapper in the classes that calls it?
+            dba.write_to_database(currency_exchange.create_statements(input_fields))
+            test = rate.create_statements(input_fields)
             test.print_statements()
-            dba.write_to_database(dba.create_statements_TABLE_RATE(input_fields))
-            statements_finance = dba.create_statements_TABLE_FINANCE(input_fields)
+            dba.write_to_database(rate.create_statements(input_fields))
+            statements_finance = finance.create_statements(input_fields)
             statements_finance.print_statements()
-            statements_finance = dba.create_statements_TABLE_FINANCE(input_fields)
+            statements_finance = finance.create_statements(input_fields)
             dba.write_to_database(statements_finance)
             
-            test = dba.create_statements_TABLE_TRADE(input_fields,
+            test = trade.create_statements(input_fields,
                     statements_finance)
             test.print_statements()
-            dba.write_to_database(dba.create_statements_TABLE_TRADE(input_fields,
+            dba.write_to_database(trade.create_statements(input_fields,
                 statements_finance))
             #test = dba.create_statements_TABLE_INVESTMENT(input_fields)
             #test.print_statements()
             #if self.is_an_investment():
             #    dba.write_to_database(dba.create_statements_TABLE_INVESTMENT(input_fields))
-            dba = None
+            currency_exchange = None
+            rate = None
+            finance = None
+            trade = None
+            investment = None
         except  Exception as ex:
             print(ERROR_WRITE_TO_DATABASE_MAIN, ex)
 
