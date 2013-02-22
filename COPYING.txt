@@ -1,3 +1,8 @@
+Author: Andy Nagels
+Date: 2010-08-24
+Lisa: Less Interaction Saves Action
+A frontend for a database to store financial transactions in a convenient way.
+
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
