@@ -782,32 +782,6 @@ class DatabaseAccess():
     	    trade_record['tax_sell'] +
     	    trade_record['commission_sell']
     	)
-    	
-    def trade_already_started(self, market_id, stock_name_id):
-        """
-            Check if this trade has already started.
-        """
-        result = False
-        try:
-            session = self.Session()
-            #NOTE: id_buy or id_sell must be -1
-            # but both can't be filled in (= finished trade)
-            first_obj = session.query(T_TRADE).filter(
-                    T_TRADE.market_id == market_id,
-                    T_TRADE.stock_name_id == stock_name_id,
-                    T_TRADE.active == 1).filter(
-                        or_(
-                            T_TRADE.id_buy == -1,
-                            T_TRADE.id_sell == -1
-                        )).filter(
-                            T_TRADE.id_buy != -1,
-                            T_TRADE.id_sell !=  -1
-                       ).first()
-            if first_obj is not None:
-                result = True
-        except Exception as ex:
-            print(ERROR_TRADE_ALREADY_STARTED, ex)
-        return result
 
     def trade_closed(self, invade_record):
     	"""
