@@ -2,47 +2,45 @@
 """
     See LICENSE file for copyright and license details.
 """
-
 from datetime import datetime
 
 from database.databaseaccess import DatabaseAccess
 from modules.function import *
 
-class Trade(CoreModule):
+class Investment(CoreModule):
     """
-        Trade class.
+        Investment class.
     """
 
+    #TODO: this needs to be a portfolio module, but
+    #we don't need it at the moment. Will be finished
+    #later. T_STOCK is no longer needed, it will be T_INVEST.
+    #TODO: finishing just happens! Try to figure out how to
+    #skip the investing part so we can figure out a way to
+    #finish it later. Perhaps keep the records in a spreadsheet
+    #and manually insert them later?
+    #unless offcourse it's easier to just implement it. It's identical
+    #to T_TRADE anyway, except for a few fields.
     #NOTE: convention: 0 = insert / 1 = update / 3 = delete
-    #NOTE: Correct way of updating =  Supplier.query.filter(<your stuff here, or user filter_by, or whatever is in your where clause>).update(values)
-    #e.g.: session.query(Supplier).filter_by(id=2).update({"name": u"Mayowa"})
-    #TABLE_TRADE.query.filter(market_name=...,stock_name=...).update({"date_...": date_... etc.})
-    #TODO: create seperate application that manages T_DRAWDOWN based on selection
-    #where win_flag = -1
     def create_statements(self, input_fields, statements_finance):
         """
-            Creates the records needed for TABLE_TRADE and returns them as a
+            Creates the records needed for TABLE_INVESTMENT and returns them as a
             Statement object.
         """
         #NOTE: price_buy will be fields['amount']
         #When we buy more, it will be overwritten!
         #Trading without adding to positions is assumed by this code!
+        #But this is investing, so we need to deal with that shit!
         try:
             session = self.Session()
             date_created = current_date()
             date_modified = current_date()
-            statement_trade = Statement(TABLE_TRADE)
+            statement_invest = Statement(TABLE_INVESTMENT)
             records = 0
             finance_id = self.first_finance_id_from_latest()
             if finance_id != -1:
                 for fields in input_fields:
-                    #TODO: is_an_investment?
-                    #TODO: check which parts are actually different from
-                    #updating T_INVEST (the less difference, the better)
-                    #TODO: try to separate the differences
-                    #TODO: make an Invade class, where Trade and Invest
-                    # inherit from.
-                    if is_a_trade(fields['category'], fields['subcategory']):            
+                    if is_an_investment(fields['category'], fields['subcategory']):            
                         record = records + 1
                         # GENERAL INFO
                         market_id = self.market_id_from_market(
@@ -50,7 +48,13 @@ class Trade(CoreModule):
                         stock_name_id = self.stock_name_id_from_stock_name(
                                 fields['stock_name'], market_id)
                         finance_record = self.get_finance_record(finance_id)
-                        trade_record = self.get_trade_record(finance_id)
+                        #TODO: this is WRONG!
+                        #it's based on the link between id_buy and id_sell,
+                        #but for investing, this is id_buy for the first buy
+                        #and not the next ones!
+                        #This is really becoming more complex than necessary,
+                        #split the code and focus on T_TRADE instead.
+                        investment_record = self.get_investment_record(finance_id)
                         long_flag = self.get_long_flag_value(fields['category'],
                                 fields['subcategory'], trade_record)
                         # TEST INFO
@@ -58,7 +62,7 @@ class Trade(CoreModule):
                         print('test trade_record=', trade_record)
                         print('test: long_flag =', long_flag)
 
-                        if self.trade_already_started(market_id, stock_name_id):
+                        if self.investment_already_started(market_id, stock_name_id):
                             # UPDATE
                             flag_insupdel = STATEMENT_UPDATE
                             trade_id = trade_record['trade_id']
@@ -276,54 +280,54 @@ class Trade(CoreModule):
                 finance_id = finance_id + 1
             return statement_trade
         except Exception as ex:
-            print(ERROR_CREATE_STATEMENTS_TABLE_TRADE, ex)
+            print(ERROR_CREATE_STATEMENTS_TABLE_INVESTMENT, ex)
         finally:
             session.rollback()
             session = None
-
-    def trade_already_started(self, market_id, stock_name_id):
+    
+    def investment_already_started(self, market_id, stock_name_id):
         """
-            Check if this trade has already started.
+            Check if this investment has already started.
         """
         result = False
         try:
             session = self.Session()
             #NOTE: id_buy or id_sell must be -1
             # but both can't be filled in (= finished trade)
-            first_obj = session.query(T_TRADE).filter(
-                    T_TRADE.market_id == market_id,
-                    T_TRADE.stock_name_id == stock_name_id,
-                    T_TRADE.active == 1).filter(
+            first_obj = session.query(T_INVESTMENT).filter(
+                    T_INVESTMENT.market_id == market_id,
+                    T_INVESTMENT.stock_name_id == stock_name_id,
+                    T_INVESTMENT.active == 1).filter(
                         or_(
-                            T_TRADE.id_buy == -1,
-                            T_TRADE.id_sell == -1
+                            T_INVESTMENT.id_buy == -1,
+                            T_INVESTMENT.id_sell == -1
                         )).filter(
-                            T_TRADE.id_buy != -1,
-                            T_TRADE.id_sell !=  -1
+                            T_INVESTMENT.id_buy != -1,
+                            T_INVESTMENT.id_sell !=  -1
                        ).first()
             if first_obj is not None:
                 result = True
         except Exception as ex:
-            print(ERROR_TRADE_ALREADY_STARTED, ex)
+            print(ERROR_INVESTMENT_ALREADY_STARTED, ex)
         return result
 
-    def get_trade_record(self, finance_id):
+    def get_investment_record(self, finance_id):
         """
-            Gets the trade_record with the given finance_id set in
+            Gets the investment_record with the given finance_id set in
             either id_buy or id_sell.
         """
         result = []
         session = self.Session()
         try:
-            finance_created = self.get_latest_date_created(TABLE_TRADE)
-            first_obj = session.query(T_TRADE).filter(
+            finance_created = self.get_latest_date_created(TABLE_INVESTMENT)
+            first_obj = session.query(T_INVESTMENT).filter(
                     or_(
-                        T_TRADE.id_buy == finance_id,
-                        T_TRADE.id_sell == finance_id)).first() #finance_id is unique anyway
+                        T_INVESTMENT.id_buy == finance_id,
+                        T_INVESTMENT.id_sell == finance_id)).first() #finance_id is unique anyway
             if first_obj is not None:
                 result = self.get_record(first_obj)
         except Exception as ex:
-            print("Error in get_trade_record: ", ex)
+            print("Error in get_investment_record: ", ex)
         finally:
             session.rollback()
             session = None
