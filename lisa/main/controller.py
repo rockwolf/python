@@ -57,20 +57,19 @@ class ControllerMain():
             #they are preceded by their class name now anyway.
             test = currency_exchange.create_statements(input_fields)
             test.print_statements()
-            #TODO: write_to_database is still in dba, should we make a wrapper in the classes that calls it?
-            dba.write_to_database(currency_exchange.create_statements(input_fields))
+            currency_exchange.write_to_database(currency_exchange.create_statements(input_fields))
             test = rate.create_statements(input_fields)
             test.print_statements()
-            dba.write_to_database(rate.create_statements(input_fields))
+            rate.write_to_database(rate.create_statements(input_fields))
             statements_finance = finance.create_statements(input_fields)
             statements_finance.print_statements()
             statements_finance = finance.create_statements(input_fields)
-            dba.write_to_database(statements_finance)
+            finance.write_to_database(statements_finance)
             
             test = trade.create_statements(input_fields,
                     statements_finance)
             test.print_statements()
-            dba.write_to_database(trade.create_statements(input_fields,
+            trade.write_to_database(trade.create_statements(input_fields,
                 statements_finance))
             #test = dba.create_statements_TABLE_INVESTMENT(input_fields)
             #test.print_statements()
