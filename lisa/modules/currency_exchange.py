@@ -5,18 +5,23 @@
 from datetime import datetime
 
 from database.databaseaccess import DatabaseAccess
+from modules.core_module import CoreModule
+from modules.statement import Statement
 from modules.function import *
+from modules.constant import *
+from modules_generic.function import *
 
 class CurrencyExchange(CoreModule):
     """
         CurrencyExchange class.
     """
 
-   def create_statements(self, input_fields):
+    def create_statements(self, input_fields):
         """
             Creates the records needed for TABLE_CURRENCY_EXCHANGE.
         """
         try:
+            dba = DatabaseAccess(self.config)
             statement_currency_exchange = Statement(TABLE_CURRENCY_EXCHANGE)
             date_created = current_date()
             date_modified = current_date()
@@ -30,7 +35,7 @@ class CurrencyExchange(CoreModule):
                     records,
                     {
                         'currency_exchange_id':None,
-                        'from_currency_id':self.currency_id_from_currency(fields['from_currency']),
+                        'from_currency_id':dba.currency_id_from_currency(fields['from_currency']),
                         'to_currency_id':int(self.config.default_currency),
                         'exchange_rate':Decimal(fields['exchange_rate']),
                         'date_created':date_created,
@@ -40,3 +45,5 @@ class CurrencyExchange(CoreModule):
             return statement_currency_exchange
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_CURRENCY_EXCHANGE, ex)
+        finally:
+            dba = None

@@ -257,7 +257,7 @@ CREATE TABLE T_TRADE
     id_sell int not null default -1,
     currency_exchange_id int not null default -1,
     drawdown_id int not null default -1,
-    pool_trading_at_start decimal(18,6) not null default 0.0,
+    pool_at_start decimal(18,6) not null default 0.0,
     date_expiration timestamp not null default '1900-01-01',
     expired_flag int not null default -1,
     active int not null default 1,

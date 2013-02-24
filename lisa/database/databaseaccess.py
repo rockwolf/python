@@ -15,7 +15,6 @@ from datetime import datetime
 from modules_generic.function import *
 from modules_generic.function_sqlalchemy import row_to_dict
 from modules_generic.messagehandler import *
-from modules.statement import Statement
 from modules.constant import *
 from modules.function import *
 from meta import engine, Base

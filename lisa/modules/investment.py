@@ -5,7 +5,11 @@
 from datetime import datetime
 
 from database.databaseaccess import DatabaseAccess
+from modules.core_module import CoreModule
+from modules.statement import Statement
+from modules.constant import *
 from modules.function import *
+from modules_generic.function import *
 
 class Investment(CoreModule):
     """
@@ -33,101 +37,102 @@ class Investment(CoreModule):
         #But this is investing, so we need to deal with that shit!
         try:
             session = self.Session()
+            dba = DatabaseAcces(self.config)
             date_created = current_date()
             date_modified = current_date()
             statement_invest = Statement(TABLE_INVESTMENT)
             records = 0
-            finance_id = self.first_finance_id_from_latest()
+            finance_id = dba.first_finance_id_from_latest()
             if finance_id != -1:
                 for fields in input_fields:
                     if is_an_investment(fields['category'], fields['subcategory']):            
                         record = records + 1
                         # GENERAL INFO
-                        market_id = self.market_id_from_market(
+                        market_id = dba.market_id_from_market(
                                 fields['market_name'])
-                        stock_name_id = self.stock_name_id_from_stock_name(
+                        stock_name_id = dba.stock_name_id_from_stock_name(
                                 fields['stock_name'], market_id)
-                        finance_record = self.get_finance_record(finance_id)
+                        finance_record = dba.get_finance_record(finance_id)
                         #TODO: this is WRONG!
                         #it's based on the link between id_buy and id_sell,
                         #but for investing, this is id_buy for the first buy
                         #and not the next ones!
                         #This is really becoming more complex than necessary,
                         #split the code and focus on T_TRADE instead.
-                        investment_record = self.get_investment_record(finance_id)
-                        long_flag = self.get_long_flag_value(fields['category'],
-                                fields['subcategory'], trade_record)
+                        investment_record = dba.get_investment_record(finance_id)
+                        long_flag = dba.get_long_flag_value(fields['category'],
+                                fields['subcategory'], investment_record)
                         # TEST INFO
                         print('test finance_record=', finance_record)
-                        print('test trade_record=', trade_record)
+                        print('test investment_record=', investment_record)
                         print('test: long_flag =', long_flag)
 
                         if self.investment_already_started(market_id, stock_name_id):
                             # UPDATE
                             flag_insupdel = STATEMENT_UPDATE
-                            trade_id = trade_record['trade_id']
+                            trade_id = investment_record['trade_id']
                             ## buy/sell related fields
                             if fields['subcategory'] == 'buy' \
                                 and T_TRADE.id_buy == -1:
                                 id_buy = finance_id
-                                id_sell = trade_record['id_sell']
+                                id_sell = investment_record['id_sell']
                                 date_buy = date_created
-                                date_sell = trade_record['date_sell']
+                                date_sell = investment_record['date_sell']
                                 price_buy = abs(fields['price'])
-                                price_sell = abs(trade_record['price_sell'])
+                                price_sell = abs(investment_record['price_sell'])
                                 shares_buy = fields['shares']
-                                shares_sell = trade_record['shares_sell']
+                                shares_sell = investment_record['shares_sell']
                                 commission_buy = fields['commission']
-                                commission_sell = trade_record['commission_sell']
+                                commission_sell = investment_record['commission_sell']
                                 tax_buy = fields['tax']
-                                tax_sell = trade_record['tax_sell']
+                                tax_sell = investment_record['tax_sell']
                             elif fields['subcategory'] == 'sell' \
                                 and T_TRADE.id_sell == -1:
-                                id_buy = trade_record['id_buy']
+                                id_buy = investment_record['id_buy']
                                 id_sell = finance_id
-                                date_buy = trade_record['date_buy']
+                                date_buy = investment_record['date_buy']
                                 date_sell = date_created
-                                price_buy = abs(trade_record['price_buy'])
+                                price_buy = abs(investment_record['price_buy'])
                                 price_sell = abs(fields['price'])
-                                shares_buy = trade_record['shares_buy']
+                                shares_buy = investment_record['shares_buy']
                                 shares_sell = fields['shares']
-                                commission_buy = trade_record['commission_buy']
+                                commission_buy = investment_record['commission_buy']
                                 commission_sell = fields['commission']
-                                tax_buy = trade_record['tax_buy']
+                                tax_buy = investment_record['tax_buy']
                                 tax_sell = fields['tax']
                             else:
                                 raise Exception(
                                     "{0} already contains a sell or buy record" \
                                     " and you are trying to add one like it" \
                                     " again?".format(TABLE_TRADE))
-                            stoploss = trade_record['stoploss']
-                            profit_loss = self.calculate_profit_loss(fields)
-                            pool_trtrade_idg_at_start = \
-                                trade_record['pool_trading_at_start']
-                            date_created = trade_record['date_created']
-                            at_work = trade_record['at_work']
-                            risk_input = trade_record['risk_input']
-                            risk_input_percent = trade_record['risk_input_percent']
-                            risk_initial = trade_record['risk_initial']
+                            stoploss = investment_record['stoploss']
+                            profit_loss = dba.calculate_profit_loss(fields)
+                            pool_at_start = \
+                                investment_record['pool_at_start']
+                            date_created = investment_record['date_created']
+                            at_work = investment_record['at_work']
+                            risk_input = investment_record['risk_input']
+                            risk_input_percent = investment_record['risk_input_percent']
+                            risk_initial = investment_record['risk_initial']
                             risk_initial_percent = (risk_initial/at_work)*100.0
-                            risk_actual = self.calculate_risk_actual(trade_record, stoploss)
+                            risk_actual = dba.calculate_risk_actual(investment_record, stoploss)
                             risk_actual_percent = (risk_actual/at_work)*100.0
-                            cost_total = self.calculate_cost_total(trade_record)
+                            cost_total = dba.calculate_cost_total(investment_record)
                             #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
                             if we_are_buying(fields['subcategory']):
-                                win_flag = self.get_win_flag_value(
+                                win_flag = dba.get_win_flag_value(
                                         price_buy,
-                                        trade_record['price_sell'],
+                                        investment_record['price_sell'],
                                         long_flag)
                             else:
-                                win_flag = self.get_win_flag_value(
-                                        trade_record['price_buy'],
+                                win_flag = dba.get_win_flag_value(
+                                        investment_record['price_buy'],
                                         price_sell,
                                         long_flag)
-                            from_currency_id = trade_record['from_currency_id']
-                            drawdown_id = trade_record['drawdown_id']
-                            r_multiple = self.calculate_r_multiple()
-                            date_expiration = trade_record['date_expiration']
+                            from_currency_id = investment_record['from_currency_id']
+                            drawdown_id = investment_record['drawdown_id']
+                            r_multiple = dba.calculate_r_multiple()
+                            date_expiration = investment_record['date_expiration']
                             #TODO: for investing, id_buy/sell is id_firstbuy and id_firstsell
                             # and expiration flag should only be set at the end of the trade, when
                             # the trade is closed. This means that date_buy and date_sell is not
@@ -167,22 +172,22 @@ class Investment(CoreModule):
                                 commission_sell = fields['commission']
                                 tax_buy = DEFAULT_DECIMAL
                                 tax_sell = fields['tax']
-                            stoploss = self.calculate_stoploss(fields)
+                            stoploss = dba.calculate_stoploss(fields)
                             profit_loss = DEFAULT_DECIMAL #Only calculated at end of trade.
-                            pool_trading_at_start = \
+                            pool_at_start = \
                                 fields['pool_trading']
                             at_work = Decimal(price_buy)*Decimal(fields['shares'])
-                            risk_input = self.calculate_risk_input(fields)
+                            risk_input = dba.calculate_risk_input(fields)
                             risk_input_percent = fields['risk_input']
-                            risk_initial = self.calculate_risk_initial(fields,
+                            risk_initial = dba.calculate_risk_initial(fields,
                                     stoploss)
                             risk_initial_percent = risk_initial/at_work
                             risk_actual = DEFAULT_DECIMAL
                             risk_actual_percent = DEFAULT_DECIMAL
                             cost_total = DEFAULT_DECIMAL
                             win_flag = -1 #not yet finished, we can not know it yet.
-                            from_currency_id = self.currency_id_from_currency(fields['from_currency'])
-                            drawdown_id = self.new_drawdown_record()
+                            from_currency_id = dba.currency_id_from_currency(fields['from_currency'])
+                            drawdown_id = dba.new_drawdown_record()
                             r_multiple = DEFAULT_DECIMAL
                             date_expiration = fields['date_expiration']
                             expired_flag = DEFAULT_INTEGER
@@ -221,7 +226,7 @@ class Investment(CoreModule):
                         print('id_sell =', id_sell)
                         print('from_currency_id =', from_currency_id)
                         print('drawdown_id =', drawdown_id)
-                        print('pool_trading_at_start =', pool_trading_at_start)
+                        print('pool_at_start =', pool_at_start)
                         print('date_expiration =', date_expiration)
                         print('expired_flag =', expired_flag)
                         print('<\print>')
@@ -267,8 +272,8 @@ class Investment(CoreModule):
                                 'id_sell':int(id_sell),
                                 'from_currency_id':int(from_currency_id),
                                 'drawdown_id':int(drawdown_id),
-                                'pool_trading_at_start':
-                                    Decimal(pool_trading_at_start),
+                                'pool_at_start':
+                                    Decimal(pool_at_start),
                                 'date_expiration': date_expiration,
                                 'expired_flag': expired_flag,
                                 'active':1,
@@ -281,8 +286,9 @@ class Investment(CoreModule):
             return statement_trade
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_INVESTMENT, ex)
-        finally:
             session.rollback()
+        finally:
+            dba = None
             session = None
     
     def investment_already_started(self, market_id, stock_name_id):
@@ -319,6 +325,7 @@ class Investment(CoreModule):
         result = []
         session = self.Session()
         try:
+            #TODO: finance_created is not used?????
             finance_created = self.get_latest_date_created(TABLE_INVESTMENT)
             first_obj = session.query(T_INVESTMENT).filter(
                     or_(
