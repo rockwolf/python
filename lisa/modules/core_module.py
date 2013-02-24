@@ -3,6 +3,9 @@
     See LICENSE file for copyright and license details.
 """
 
+from database.databaseaccess import DatabaseAccess
+from modules.constant import *
+
 class CoreModule():
     """
         All core modules used in Lisa, will inherit from this one.
@@ -19,6 +22,10 @@ class CoreModule():
         """
             Call to write the statements to the database.
         """
-        dba = DatabaseAccess(self.config)
-        dba.write_to_database(statements)
-        dba = None
+        try:
+            dba = DatabaseAccess(self.config)
+            dba.write_to_database(statements)
+        except Exception as ex:
+            print(ERROR_WRITE_TO_DATABASE_CORE, ex)
+        finally:
+            dba = None

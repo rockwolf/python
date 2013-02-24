@@ -1146,3 +1146,33 @@ class DatabaseAccess():
             session.rollback()
             session = None
         return result
+    
+    def get_specific_finance_record(self, date, account_id, category_id,
+            subcategory_id, amount, comment, stock_name_id, shares, price,
+            tax, commission):
+        """
+           Looks for a finance record with the given parameters. 
+        """
+        try:
+            session = self.Session()
+            result = session.query(T_FINANCE).filter_by(
+                            date=date,
+                            account_id=account_id,
+                            category_id=category_id,
+                            subcategory_id=subcategory_id,
+                            amount=amount,
+                            comment=comment,
+                            stock_name_id=stock_name_id,
+                            shares=shares,
+                            price=price,
+                            tax=tax,
+                            commission=commission,
+                            active=1
+                            ).first()
+        except Exception as ex:
+            print(ERROR_GET_SPECIFIC_FINANCE_RECORD, ex)
+            session.rollback()
+            result = None
+        finally:
+            session = None
+            return result

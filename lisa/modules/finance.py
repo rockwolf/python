@@ -16,14 +16,13 @@ class Finance(CoreModule):
         Finance class.
     """
         
-    def create_statements_TABLE_FINANCE(self, input_fields):
+    def create_statements(self, input_fields):
         """
             Creates the records needed for TABLE_FINANCE
             and returns them as a Statement object.
         """
         #TODO: move all create statements tot their own module?
         #This code here is already way to big to my liking.
-        session = self.Session()
         try:
             dba = DatabaseAccess(self.config)
             date_created = current_date()
@@ -50,21 +49,19 @@ class Finance(CoreModule):
                         stock_name_id = dba.stock_name_id_from_stock_name(
                                 fields['stock_name'], market_id)
                     rate_id = dba.get_latest_rate_id()
-                first_obj = session.query(T_FINANCE).filter_by(
-                            date=fields['date'],
-                            account_id=account_id,
-                            category_id=category_id,
-                            subcategory_id=subcategory_id,
-                            amount=Decimal(fields['amount']),
-                            comment=fields['comment'],
-                            stock_name_id=stock_name_id,
-                            shares=int(fields['shares']),
-                            price=Decimal(fields['price']),
-                            tax=Decimal(fields['tax']),
-                            commission=Decimal(fields['commission']),
-                            active=1
-                            ).first()
-                if first_obj is None:
+                finance_record = dba.get_specific_finance_record(
+                    fields['date'],
+                    account_id,
+                    category_id,
+                    subcategory_id,
+                    Decimal(fields['amount']),
+                    fields['comment'],
+                    stock_name_id,
+                    int(fields['shares']),
+                    Decimal(fields['shares']),
+                    Decimal(fields['tax']),
+                    Decimal(fields['commission']))
+                if finance_record is None:
                         records = records + 1
                         statement_finance.add(
                             records,
@@ -97,5 +94,3 @@ class Finance(CoreModule):
             print(ERROR_CREATE_STATEMENTS_TABLE_FINANCE, ex)
         finally:
             dba = None
-            session.rollback()
-            session = None

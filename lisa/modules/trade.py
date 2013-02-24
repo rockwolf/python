@@ -32,7 +32,6 @@ class Trade(CoreModule):
         #When we buy more, it will be overwritten!
         #Trading without adding to positions is assumed by this code!
         try:
-            session = self.Session()
             dba = DatabaseAccess(self.config)
             date_created = current_date()
             date_modified = current_date()
@@ -284,10 +283,11 @@ class Trade(CoreModule):
             return statement_trade
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_TRADE, ex)
-            session.rollback()
         finally:
             dba = None
-            session = None
+
+    #TODO: this can not use the session param.
+    #Perhaps move this code back to dba?
     def trade_already_started(self, market_id, stock_name_id):
         """
             Check if this trade has already started.
