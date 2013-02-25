@@ -1202,3 +1202,30 @@ class DatabaseAccess():
         except Exception as ex:
             print(ERROR_INVADE_ALREADY_STARTED, ex)
         return result
+
+    def get_invade_record(self, finance_id, table_class):
+        """
+            Gets the investment/trade_record with the given finance_id set in
+            either id_buy or id_sell.
+        """
+        #TODO: this code can only deal with buying all and selling all for now!
+        result = []
+        session = self.Session()
+        try:
+            #TODO: finance_created is not used?????
+            if table_class == T_INVESTMENT:
+                finance_created = self.get_latest_date_created(TABLE_INVESTMENT)
+            else:
+                finance_created = self.get_latest_date_created(TABLE_TRADE)
+            first_obj = session.query(table_class).filter(
+                    or_(
+                        table_class.id_buy == finance_id,
+                        table_class.id_sell == finance_id)).first() #finance_id is unique anyway
+            if first_obj is not None:
+                result = self.get_record(first_obj)
+        except Exception as ex:
+            print("Error in get_invade_record: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
