@@ -67,7 +67,8 @@ class Investment(CoreModule):
                         print('test investment_record=', investment_record)
                         print('test: long_flag =', long_flag)
 
-                        if self.investment_already_started(market_id, stock_name_id):
+                        if dba.invade_already_started(market_id,
+                                stock_name_id, T_INVESTMENT):
                             # UPDATE
                             flag_insupdel = STATEMENT_UPDATE
                             trade_id = investment_record['trade_id']
@@ -291,32 +292,6 @@ class Investment(CoreModule):
             dba = None
             session = None
     
-    def investment_already_started(self, market_id, stock_name_id):
-        """
-            Check if this investment has already started.
-        """
-        result = False
-        try:
-            session = self.Session()
-            #NOTE: id_buy or id_sell must be -1
-            # but both can't be filled in (= finished trade)
-            first_obj = session.query(T_INVESTMENT).filter(
-                    T_INVESTMENT.market_id == market_id,
-                    T_INVESTMENT.stock_name_id == stock_name_id,
-                    T_INVESTMENT.active == 1).filter(
-                        or_(
-                            T_INVESTMENT.id_buy == -1,
-                            T_INVESTMENT.id_sell == -1
-                        )).filter(
-                            T_INVESTMENT.id_buy != -1,
-                            T_INVESTMENT.id_sell !=  -1
-                       ).first()
-            if first_obj is not None:
-                result = True
-        except Exception as ex:
-            print(ERROR_INVESTMENT_ALREADY_STARTED, ex)
-        return result
-
     def get_investment_record(self, finance_id):
         """
             Gets the investment_record with the given finance_id set in

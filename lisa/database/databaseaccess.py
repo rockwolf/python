@@ -1176,3 +1176,29 @@ class DatabaseAccess():
         finally:
             session = None
             return result
+
+    def invade_already_started(self, market_id, stock_name_id, table_class):
+        """
+            Check if this trade or investment has already started.
+        """
+        result = False
+        try:
+            session = self.Session()
+            #NOTE: id_buy or id_sell must be -1
+            # but both can't be filled in (= finished trade)
+            first_obj = session.query(table_class).filter(
+                    table_class.market_id == market_id,
+                    table_class.stock_name_id == stock_name_id,
+                    table_class.active == 1).filter(
+                        or_(
+                            table_class.id_buy == -1,
+                            table_class.id_sell == -1
+                        )).filter(
+                            table_class.id_buy != -1,
+                            table_class.id_sell !=  -1
+                       ).first()
+            if first_obj is not None:
+                result = True
+        except Exception as ex:
+            print(ERROR_INVADE_ALREADY_STARTED, ex)
+        return result
