@@ -82,6 +82,40 @@ Important note
 The spread is not a cost that goes off your account. It's an extra course
 action you need to undergo in order to be profitable.
 
+This can however affect the total cost!
+
+Conclusion
+---------
+Add an extra field to t_trade and also t_investment with extra_costs, where
+a potential difference is added. This should be 0 for all invades without
+extra costs, but covers all extra expenses for trading and investing.
+
+Lisa structure for trading/investing
+======================================
+Notes
+-----
+General information regarding lisa and it's structure needs to be
+documented, to ensure that the inner workings are well defined.
+
+It's important tot know that as a trader, you can not make the calculations
+too complex. Tax, commission, that should be known. Extra expenses are extra
+costs.
+
+Currency
+==========
+Notes
+-------
+All fields with currencies, should be in the currency from finance. If that
+is USD, all will be in USD.
+Next to all fields, a converted value will be added, which will be in the
+base currency.
+
+Base currency
+--------------
+What is the base currency?
+Add a field in T_PARAMETER that defines this.
+It will be euro in this case.
+
 Interesting links
 ==================
 Margin per country/market, http://www.whselfinvest.com/nl/CFD_Market_Information_Sheets.php?sheet=1
