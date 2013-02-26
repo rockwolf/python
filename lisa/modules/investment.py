@@ -36,7 +36,6 @@ class Investment(CoreModule):
         #Trading without adding to positions is assumed by this code!
         #But this is investing, so we need to deal with that shit!
         try:
-            session = self.Session()
             dba = DatabaseAcces(self.config)
             date_created = current_date()
             date_modified = current_date()
@@ -59,7 +58,7 @@ class Investment(CoreModule):
                         #and not the next ones!
                         #This is really becoming more complex than necessary,
                         #split the code and focus on T_TRADE instead.
-                        investment_record = dba.get_investment_record(finance_id)
+                        investment_record = dba.get_invade_record(finance_id, T_INVESTMENT)
                         long_flag = dba.get_long_flag_value(fields['category'],
                                 fields['subcategory'], investment_record)
                         # TEST INFO
@@ -287,30 +286,5 @@ class Investment(CoreModule):
             return statement_trade
         except Exception as ex:
             print(ERROR_CREATE_STATEMENTS_TABLE_INVESTMENT, ex)
-            session.rollback()
         finally:
             dba = None
-            session = None
-    
-    def get_investment_record(self, finance_id):
-        """
-            Gets the investment_record with the given finance_id set in
-            either id_buy or id_sell.
-        """
-        result = []
-        session = self.Session()
-        try:
-            #TODO: finance_created is not used?????
-            finance_created = self.get_latest_date_created(TABLE_INVESTMENT)
-            first_obj = session.query(T_INVESTMENT).filter(
-                    or_(
-                        T_INVESTMENT.id_buy == finance_id,
-                        T_INVESTMENT.id_sell == finance_id)).first() #finance_id is unique anyway
-            if first_obj is not None:
-                result = self.get_record(first_obj)
-        except Exception as ex:
-            print("Error in get_investment_record: ", ex)
-        finally:
-            session.rollback()
-            session = None
-        return result

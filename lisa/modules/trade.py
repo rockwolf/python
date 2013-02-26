@@ -54,7 +54,7 @@ class Trade(CoreModule):
                         stock_name_id = dba.stock_name_id_from_stock_name(
                                 fields['stock_name'], market_id)
                         finance_record = dba.get_finance_record(finance_id)
-                        trade_record = dba.get_trade_record(finance_id)
+                        trade_record = dba.get_invade_record(finance_id, T_TRADE)
                         long_flag = dba.get_long_flag_value(fields['category'],
                                 fields['subcategory'], trade_record)
                         # TEST INFO
@@ -286,25 +286,3 @@ class Trade(CoreModule):
             print(ERROR_CREATE_STATEMENTS_TABLE_TRADE, ex)
         finally:
             dba = None
-
-    def get_trade_record(self, finance_id):
-        """
-            Gets the trade_record with the given finance_id set in
-            either id_buy or id_sell.
-        """
-        result = []
-        session = self.Session()
-        try:
-            finance_created = self.get_latest_date_created(TABLE_TRADE)
-            first_obj = session.query(T_TRADE).filter(
-                    or_(
-                        T_TRADE.id_buy == finance_id,
-                        T_TRADE.id_sell == finance_id)).first() #finance_id is unique anyway
-            if first_obj is not None:
-                result = self.get_record(first_obj)
-        except Exception as ex:
-            print("Error in get_trade_record: ", ex)
-        finally:
-            session.rollback()
-            session = None
-        return result
