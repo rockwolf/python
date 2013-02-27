@@ -115,6 +115,36 @@ What is the base currency?
 Add a field in T_PARAMETER that defines this.
 It will be euro in this case.
 
+## Lisa ##
+
+### General flow for trading ###
+
+#### Input - basic ####
+
+What you know, the easy values you just need to fill in:  
+- date_buy  
+- amount_buy  
+- shares_buy  
+- price_buy
+- market (note: when not available, the app should creat it as a new record in the db)
+- stock_name (note: idem)
+
+#### Input - non-basic ####
+
+Tax and commission are calculatable or retrieveable.  
+When automatic is not checked:  
+- Fill in a commission value, this will be used. (Note: will have to be used in ALL calculations)  
+- Fill in a tax value, this will be used.  
+
+Do not retrieve values from parameters in this case. Only the given input values should be used!  
+TODO: This has a consequence: the code should skip retrievel from parameters in this case.  
+
+When automatic is checked:  
+- On change of market, a calculation should be made for tax and commission  
+- That calculation is dependent of the market (+ get_country_from_market)
+- A function will get the correct parameter value
+- That parameter value will be put into TAX and COMMISSION in the gui.
+
 ## Interesting links ##
 
 Margin per country/market, http://www.whselfinvest.com/nl/CFD_Market_Information_Sheets.php?sheet=1
