@@ -452,6 +452,14 @@ values(2, '{0}+{1}*{2}', 'WHS commission calculation for US markets: <solid amou
 INSERT INTO T_FORMULA(formula_id, value, description)
 values(3, '{0}+{1}*{2}/100', 'WHS commission calculation for non-US markets: <solid amount>+<small percentage>*<order size>.');
 
+--TODO: this system is under review.
+--Might be too complex to implement.
+INSERT INTO T_FORMULA(formula_id, value, description)
+values(4, 'if {0} >= {1} : {2} else {3}', 'commission be stocks');
+
+INSERT INTO T_FORMULA(formula_id, value, description)
+values(5, '','commission us stocks');
+
 /* t_rate */
 INSERT INTO T_RATE(calculated, calculated_percent, on_shares, on_commission, on_ordersize, on_other, commission, tax, formula_id, manual_flag, date_created, date_modified)
 values(-1.0, -1.0/100, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 1, 0, current_date, current_date);
