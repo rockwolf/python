@@ -16,4 +16,5 @@ drop table T_FORMULA cascade;
 drop table T_PARAMETER cascade;
 drop table T_DRAWDOWN cascade;
 drop table T_VERSION cascade;
+drop table T_POOL cascade;
 COMMIT;

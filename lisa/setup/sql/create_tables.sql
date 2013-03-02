@@ -32,6 +32,18 @@ CREATE TABLE T_ACCOUNT
     unique(name)
 );
 
+CREATE TABLE T_POOL
+(
+    pool_id serial not null,
+    account_id int not null,
+    total decimal(18,6) not null default 0.0,
+    invested decimal(18,6) not null default 0.0,
+    cash decimal(18,6) not null default 0.0,
+    active int not null default 1,
+    date_created timestamp not null default '1900-01-01',
+    date_modified timestamp not null default '1900-01-01'
+);
+
 CREATE TABLE T_MARKET
 (
     market_id int not null,
@@ -156,6 +168,8 @@ CREATE TABLE T_INVESTMENT
     commission_sell decimal(18,6) not null default 0.0,
     tax_buy decimal(18,6) not null default 0.0,
     tax_sell decimal(18,6) not null default 0.0,
+    bought decimal(18,6) not null default 0.0,
+    sold decimal(18,6) not null default 0.0,
     risk_input decimal(18,6) not null default 0.0,
     risk_input_percent decimal(18,6) not null default 0.0,
     risk_initial decimal(18,6) not null default 0.0,
@@ -164,8 +178,6 @@ CREATE TABLE T_INVESTMENT
     risk_actual_percent decimal(18,6) not null default 0.0,
     cost_total decimal(18,6) not null default 0.0,
     cost_other decimal(18,6) not null default 0.0,
-    bought decimal(18,6) not null default 0.0,
-    sold decimal(18,6) not null default 0.0,
     stoploss decimal(18,6) not null default 0.0,
     profit_loss decimal(18,6) not null default 0.0,
     profit_loss_percent decimal(18,6) not null default 0.0,
@@ -175,9 +187,10 @@ CREATE TABLE T_INVESTMENT
     id_sell int not null default -1,
     currency_exchange_id int not null default -1,
     drawdown_id int not null default -1,
-    pool_investing_at_start decimal(18,6) not null default 0.0,
+    pool_at_start decimal(18,6) not null default 0.0,
     date_expiration timestamp not null default '1900-01-01',
     expired_flag int not null default -1,
+    spread decimal(18,6) not null default 0.0,
     active int not null default 1,
     date_created timestamp not null default '1900-01-01',
     date_modified timestamp not null default '1900-01-01'
@@ -244,6 +257,8 @@ CREATE TABLE T_TRADE
     commission_sell decimal(18,6) not null default 0.0,
     tax_buy decimal(18,6) not null default 0.0,
     tax_sell decimal(18,6) not null default 0.0,
+    bought decimal(18,6) not null default 0.0,
+    sold decimal(18,6) not null default 0.0,
     risk_input decimal(18,6) not null default 0.0,
     risk_input_percent decimal(18,6) not null default 0.0,
     risk_initial decimal(18,6) not null default 0.0,
@@ -251,12 +266,12 @@ CREATE TABLE T_TRADE
     risk_actual decimal(18,6) not null default 0.0,
     risk_actual_percent decimal(18,6) not null default 0.0,
     cost_total decimal(18,6) not null default 0.0,
+    cost_other decimal(18,6) not null default 0.0,
     stoploss decimal(18,6) not null default 0.0,
     profit_loss decimal(18,6) not null default 0.0,
     profit_loss_percent decimal(18,6) not null default 0.0,
     r_multiple decimal(18,6) not null default 0.0,
     win_flag int not null default -1,
-    at_work decimal(18,6) not null default 0.0,
     id_buy int not null default -1,
     id_sell int not null default -1,
     currency_exchange_id int not null default -1,
@@ -264,6 +279,7 @@ CREATE TABLE T_TRADE
     pool_at_start decimal(18,6) not null default 0.0,
     date_expiration timestamp not null default '1900-01-01',
     expired_flag int not null default -1,
+    spread decimal(18,6) not null default 0.0,
     active int not null default 1,
     date_created timestamp not null default '1900-01-01',
     date_modified timestamp not null default '1900-01-01'

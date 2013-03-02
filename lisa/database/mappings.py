@@ -11,7 +11,6 @@ class T_FINANCE(Base):
     """ T_FINANCE """
     __tablename__ = TABLE_FINANCE
     #__table_args__ = {'autoload':True}
-    #TODO: finish this code for all classes...
     #NOTE: autoload gives less control and I don't know
     #how to make session.add_all() to work with it.
     finance_id = Column(Integer, primary_key=True)
@@ -99,6 +98,9 @@ class T_INVESTMENT(Base):
     risk_actual = Column(Numeric(18,6))
     risk_actual_percent = Column(Numeric(18,6))
     cost_total = Column(Numeric(18,6))
+    cost_other = Column(Numeric(18,6))
+    bought = Column(Numeric(18,6))
+    sold = Column(Numeric(18,6))
     stoploss = Column(Numeric(18,6))
     profit_loss = Column(Numeric(18,6))
     profit_loss_percent = Column(Numeric(18,6))
@@ -112,6 +114,7 @@ class T_INVESTMENT(Base):
     pool_at_start = Column(Numeric(18,6))
     date_expiration = Column(DateTime)
     expired_flag = Column(Integer)
+    spread = Column(Numeric(18,6))
     active = Column(Integer)
     date_created = Column(DateTime)
     date_modified = Column(DateTime)   
@@ -120,11 +123,11 @@ class T_INVESTMENT(Base):
             day_buy, date_sell, year_sell, month_sell, day_sell, long_flag,
             price_buy, price_sell, shares_buy, shares_sell, commission_buy,
             commission_sell, tax_buy, tax_sell, risk_input, risk_input_percent, risk_initial,
-            risk_initial_percent, risk_actual, risk_actual_percent, cost_total, stoploss,
-            profit_loss, profit_loss_percent, r_multiple,
+            risk_initial_percent, risk_actual, risk_actual_percent, cost_total, cost_other, 
+            bought, sold, stoploss, profit_loss, profit_loss_percent, r_multiple,
             win_flag, at_work, id_buy, id_sell,
             currency_exchange_id, drawdown_id, pool_at_start, date_expiration,
-            expired_flag, active, date_created, date_modified):
+            expired_flag, spread, active, date_created, date_modified):
         self.trade_id = trade_id
         self.market_id = market_id
         self.stock_name_id = stock_name_id
@@ -152,6 +155,9 @@ class T_INVESTMENT(Base):
         self.risk_actual = risk_actual 
         self.risk_actual_percent = risk_actual_percent
         self.cost_total = cost_total
+        self.cost_other = cost_other
+        self.bought = bought
+        self.sold = sold
         self.stoploss = stoploss
         self.profit_loss = profit_loss
         self.profit_loss_percent = profit_loss_percent
@@ -165,17 +171,18 @@ class T_INVESTMENT(Base):
         self.pool_at_start = pool_at_start
         self.date_expiration = date_expiration
         self.expired_flag = expired_flag
+        self.spread = spread
         self.active = active
         self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_TRADE('%s', '%s', '%s', '%s', '%s', '%s', \
+        return "<T_INVESTMENT('%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-            '%s', '%s', '%s', '%s', '%s')>" % (self.trade_id,
+            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.trade_id,
                         self.market_id,
                         self.stock_name_id,
                         self.date_buy,
@@ -202,6 +209,9 @@ class T_INVESTMENT(Base):
                         self.risk_actual,
                         self.risk_actual_percent,
                         self.cost_total,
+                        self.cost_other,
+                        self.bought,
+                        self.sold,
                         self.stoploss,
                         self.profit_loss,
                         self.profit_loss_percent,
@@ -215,6 +225,7 @@ class T_INVESTMENT(Base):
                         self.pool_at_start,
                         self.expiration_date,
                         self.expired_flag,
+                        self.spread,
                         self.active,
                         self.date_created,
                         self.date_modified)
@@ -464,6 +475,9 @@ class T_TRADE(Base):
     risk_actual = Column(Numeric(18,6))
     risk_actual_percent = Column(Numeric(18,6))
     cost_total = Column(Numeric(18,6))
+    cost_other = Column(Numeric(18,6))
+    bought = Column(Numeric(18,6))
+    sold = Column(Numeric(18,6))
     stoploss = Column(Numeric(18,6))
     profit_loss = Column(Numeric(18,6))
     profit_loss_percent = Column(Numeric(18,6))
@@ -477,6 +491,7 @@ class T_TRADE(Base):
     pool_at_start = Column(Numeric(18,6))
     date_expiration = Column(DateTime)
     expired_flag = Column(Integer)
+    spread = Column(Numeric(18,6))
     active = Column(Integer)
     date_created = Column(DateTime)
     date_modified = Column(DateTime)   
@@ -485,11 +500,11 @@ class T_TRADE(Base):
             day_buy, date_sell, year_sell, month_sell, day_sell, long_flag,
             price_buy, price_sell, shares_buy, shares_sell, commission_buy,
             commission_sell, tax_buy, tax_sell, risk_input, risk_input_percent, risk_initial,
-            risk_initial_percent, risk_actual, risk_actual_percent, cost_total, stoploss,
-            profit_loss, profit_loss_percent, r_multiple,
+            risk_initial_percent, risk_actual, risk_actual_percent, cost_total, cost_other,
+            bought, sold, stoploss, profit_loss, profit_loss_percent, r_multiple,
             win_flag, at_work, id_buy, id_sell,
             currency_exchange_id, drawdown_id, pool_at_start, date_expiration,
-            expired_flag, active, date_created, date_modified):
+            expired_flag, spread, active, date_created, date_modified):
         self.trade_id = trade_id
         self.market_id = market_id
         self.stock_name_id = stock_name_id
@@ -517,6 +532,9 @@ class T_TRADE(Base):
         self.risk_actual = risk_actual 
         self.risk_actual_percent = risk_actual_percent
         self.cost_total = cost_total
+        self.cost_other = cost_other
+        self.bought = bought
+        self.sold = sold
         self.stoploss = stoploss
         self.profit_loss = profit_loss
         self.profit_loss_percent = profit_loss_percent
@@ -530,6 +548,7 @@ class T_TRADE(Base):
         self.pool_at_start = pool_at_start
         self.date_expiration = date_expiration
         self.expired_flag = expired_flag
+        self.spread = spread
         self.active = active
         self.date_created = date_created
         self.date_modified = date_modified
@@ -540,7 +559,7 @@ class T_TRADE(Base):
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-            '%s', '%s', '%s', '%s', '%s')>" % (self.trade_id,
+            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.trade_id,
                         self.market_id,
                         self.stock_name_id,
                         self.date_buy,
@@ -567,6 +586,9 @@ class T_TRADE(Base):
                         self.risk_actual,
                         self.risk_actual_percent,
                         self.cost_total,
+                        self.cost_other,
+                        self.bought,
+                        self.sold,
                         self.stoploss,
                         self.profit_loss,
                         self.profit_loss_percent,
@@ -580,6 +602,7 @@ class T_TRADE(Base):
                         self.pool_at_start,
                         self.date_expiration,
                         self.expired_flag,
+                        self.spread,
                         self.active,
                         self.date_created,
                         self.date_modified)
@@ -671,3 +694,37 @@ class T_PARAMETER(Base):
     def __repr__(self):
         return "<T_PARAMETER('%s', '%s', '%s', '%s')>" % (self.parameter_id, self.name,
                 self.value, self.description)
+
+class T_POOL(Base):
+    """ T_POOL """
+    __tablename__ = TABLE_POOL
+    #__table_args__ = {'autoload':True}
+    pool_id = Column(Integer, primary_key=True)
+    account_id = Column(Integer)
+    total = Column(Numeric(18,6))
+    invested = Column(Numeric(18,6))
+    cash = Column(Numeric(18,6))
+    active = Column(Integer)
+    date_created = Column(DateTime)
+    date_modified = Column(DateTime)
+
+    def __init__(self, pool_id, account_id, total, invested, cash, active, date_created, date_modified):
+        self.pool_id = pool_id
+        self.account_id = account_id
+        self.total = total
+        self.invested = invested
+        self.cash = cash
+        self.active = active
+        self.date_created = date_created
+        self.date_modified = date_modified
+
+    def __repr__(self):
+        return "<T_POOL('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
+                self.pool_id ,
+                self.account_id,
+                self.total,
+                self.invested,
+                self.cash,
+                self.active,
+                self.date_created,
+                self.date_modified)

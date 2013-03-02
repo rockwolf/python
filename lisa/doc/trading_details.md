@@ -1,9 +1,9 @@
 # Lisa and cfd trading #
 
-:Info: See <https://github.com/rockwolf/lisa> for the lisa code.
-:Author: Andy Nagels <no@email.given>
-:Date: $Date: 2013-02-26$
-:Revision: $Revision: 0001 $
+:Info: See <https://github.com/rockwolf/lisa> for the lisa code.  
+:Author: Andy Nagels <no@email.given>  
+:Date: $Date: 2013-02-26$  
+:Revision: $Revision: 0001 $  
 :Description: Extra documentation on cfd's for lisa.
 
 ## Notes ##
