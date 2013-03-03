@@ -15,4 +15,5 @@ drop view V_CURRENCY_EXCHANGE;
 drop view V_CURRENCY;
 drop view V_FORMULA;
 drop view V_PARAMETER;
+drop view V_POOL;
 COMMIT;

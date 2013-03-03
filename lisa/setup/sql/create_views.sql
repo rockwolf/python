@@ -173,8 +173,15 @@ from
 group by
     a.name
 ;
---TODO: Integrate this output in mappings_view
---and the gui! After clicking on ADD, you can call the function and update the view.
---Problem: adding does not add it to the db, so get the values in a fuction and add it
---programmatically to a subtotal in code/memory!
+
+/* V_POOL */
+--DROP VIEW V_POOL;
+CREATE VIEW V_POOL
+AS
+select
+    p.*
+from
+    t_pool p 
+;
+
 COMMIT;

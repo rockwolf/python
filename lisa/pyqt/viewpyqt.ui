@@ -213,7 +213,7 @@
          <widget class="QComboBox" name="cmb_category">
           <property name="minimumSize">
            <size>
-            <width>150</width>
+            <width>120</width>
             <height>0</height>
            </size>
           </property>
@@ -251,12 +251,15 @@
          <widget class="QDoubleSpinBox" name="spn_amount">
           <property name="minimumSize">
            <size>
-            <width>10</width>
+            <width>70</width>
             <height>0</height>
            </size>
           </property>
           <property name="locale">
            <locale language="C" country="AnyCountry"/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
           </property>
           <property name="maximum">
            <double>999999.989999999990687</double>
@@ -273,7 +276,7 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>200</width>
+            <width>150</width>
             <height>0</height>
            </size>
           </property>
@@ -293,7 +296,7 @@
          <widget class="QComboBox" name="cmb_stock_name">
           <property name="minimumSize">
            <size>
-            <width>150</width>
+            <width>120</width>
             <height>0</height>
            </size>
           </property>
@@ -342,6 +345,9 @@
           <property name="locale">
            <locale language="C" country="AnyCountry"/>
           </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
           <property name="maximum">
            <double>999999.989999999990687</double>
           </property>
@@ -362,6 +368,9 @@
           </property>
           <property name="locale">
            <locale language="C" country="AnyCountry"/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
           </property>
           <property name="maximum">
            <double>999999.989999999990687</double>
@@ -384,6 +393,9 @@
           <property name="locale">
            <locale language="C" country="AnyCountry"/>
           </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
           <property name="maximum">
            <double>999999.989999999990687</double>
           </property>
@@ -404,6 +416,9 @@
           </property>
           <property name="locale">
            <locale language="C" country="AnyCountry"/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
           </property>
           <property name="maximum">
            <double>999999.989999999990687</double>
@@ -462,6 +477,9 @@
           <property name="locale">
            <locale language="C" country="AnyCountry"/>
           </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
           <property name="maximum">
            <double>1000000.000000000000000</double>
           </property>
@@ -516,6 +534,9 @@
         </item>
         <item row="4" column="8">
          <widget class="QDoubleSpinBox" name="spn_pool_trading">
+          <property name="decimals">
+           <number>6</number>
+          </property>
           <property name="maximum">
            <double>999999.989999999990687</double>
           </property>
@@ -525,6 +546,23 @@
          <widget class="QLabel" name="lbl_pool_trading">
           <property name="text">
            <string>Pool</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="5">
+         <widget class="QLabel" name="lblSpread">
+          <property name="text">
+           <string>Spread</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="5">
+         <widget class="QDoubleSpinBox" name="spnSpread">
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="maximum">
+           <double>999999.989999999990687</double>
           </property>
          </widget>
         </item>

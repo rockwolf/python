@@ -108,3 +108,9 @@ class V_REP_CHECK_TOTAL(Base):
     __tablename__ = VIEW_REP_CHECK_TOTAL
     __table_args__ = {'autoload':True}
     account_name = Column('account_name', String(6) , primary_key=True)
+
+class V_POOL(Base):
+    """ V_POOL """
+    __tablename__ = VIEW_POOL
+    __table_args__ = {'autoload':True}
+    pool_id = Column('pool_id', Integer, primary_key=True)
