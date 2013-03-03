@@ -404,17 +404,17 @@ class T_CURRENCY_EXCHANGE(Base):
     __tablename__ = TABLE_CURRENCY_EXCHANGE
     #__table_args__ = {'autoload':True}
     currency_exchange_id = Column(Integer, primary_key=True)
-    from_currency_id = Column(Integer)
-    to_currency_id = Column(Integer)
+    currency_from_id = Column(Integer)
+    currency_to_id = Column(Integer)
     exchange_rate = Column(Numeric(18,6))
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
 
-    def __init__(self, currency_exchange_id, from_currency_id,
-            to_currency_id, exchange_rate, date_created, date_modified):
+    def __init__(self, currency_exchange_id, currency_from_id,
+            currency_to_id, exchange_rate, date_created, date_modified):
         self.currency_exchange_id = currency_exchange_id
-        self.from_currency_id = from_currency_id
-        self.to_currency_id = to_currency_id
+        self.currency_from_id = currency_from_id
+        self.currency_to_id = currency_to_id
         self.exchange_rate = exchange_rate
         self.date_created = date_created
         self.date_modified = date_modified
@@ -422,8 +422,8 @@ class T_CURRENCY_EXCHANGE(Base):
     def __repr__(self):
         return "<T_CURRENCY_EXCHANGE('%s', '%s', '%s', '%s', '%s')>" % (
                 self.currency_exchange_id,
-                self.from_currency_id,
-                self.to_currency_id,
+                self.currency_from_id,
+                self.currency_to_id,
                 self.exchange_rate,
                 self.date_created,
                 self.date_modified)

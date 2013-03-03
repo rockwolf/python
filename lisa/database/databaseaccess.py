@@ -443,8 +443,8 @@ class DatabaseAccess():
             for record in inner_part_list:
                 result.append(T_CURRENCY_EXCHANGE(
                     record['currency_exchange_id'],
-                    record['from_currency_id'],
-                    record['to_currency_id'],
+                    record['currency_from_id'],
+                    record['currency_to_id'],
                     record['exchange_rate'],
                     record['date_created'],
                     record['date_modified']))
@@ -524,9 +524,9 @@ class DatabaseAccess():
                     record['at_work'],
                     record['id_buy'],
                     record['id_sell'],
-                    record['from_currency_id'],
+                    record['currency_exchange_id'],
                     record['drawdown_id'],
-                    record['pool_trading_at_start'],
+                    record['pool_at_start'],
                     record['active'],
                     record['date_created'],
                     record['date_modified']))

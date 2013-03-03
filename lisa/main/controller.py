@@ -276,7 +276,7 @@ class ControllerMain():
             self.gui.get_manual_commission(),
             self.gui.get_date_expiration(),
             pool,
-            self.gui.get_spn_spread()
+            self.gui.get_spread()
             ]
         return str_list
 
