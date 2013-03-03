@@ -207,8 +207,8 @@ CREATE TABLE T_CURRENCY
 CREATE TABLE T_CURRENCY_EXCHANGE
 (
     currency_exchange_id serial not null,
-    from_currency_id int not null default -1,
-    to_currency_id int not null default -1,
+    currency_from_id int not null default -1,
+    currency_to_id int not null default -1,
     exchange_rate decimal(18,6) not null default 0.0,
     date_created timestamp not null default '1900-01-01',
     date_modified timestamp not null default '1900-01-01'

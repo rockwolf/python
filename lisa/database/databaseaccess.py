@@ -1120,7 +1120,7 @@ class DatabaseAccess():
             print('Error in calculate_r_multiple:', ex)
         return result
 
-    def get_pool_trading(self):
+    def get_pool(self):
         """
             Gets the pool available for trading.
         """
@@ -1141,7 +1141,7 @@ class DatabaseAccess():
             else:
                 result = DEFAULT_DECIMAL
         except Exception as ex:
-            print("Error in get_pool_trading: ", ex)
+            print("Error in get_pool: ", ex)
         finally:
             session.rollback()
             session = None

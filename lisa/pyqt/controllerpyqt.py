@@ -138,84 +138,51 @@ class ControllerPyqt(QtGui.QMainWindow):
         """ Enable/disable all inputs related to stock information """
         category = self.gui.cmb_category.currentText()
         subcategory = self.gui.cmb_subcategory.currentText()
-        if deals_with_stocks(category, subcategory):
-            # enable stock labels
-            self.gui.lbl_marketcode.setEnabled(True)
-            self.gui.lbl_stockname.setEnabled(True)
-            self.gui.lbl_quantity.setEnabled(True)
-            self.gui.lbl_price.setEnabled(True)
-            self.gui.lbl_commission.setEnabled(True)
-            self.gui.lbl_tax.setEnabled(True)
-            self.gui.lbl_risk.setEnabled(True)
-            # enable stock inputs
-            self.gui.cmb_market_code.setEnabled(True)
-            self.gui.txt_market_description.setEnabled(True)
-            self.gui.cmb_stock_name.setEnabled(True)
-            self.gui.txt_stock_description.setEnabled(True)
-            self.gui.spn_quantity.setEnabled(True)
-            self.gui.spn_price.setEnabled(True)
-            self.gui.spn_commission.setEnabled(True)
-            self.gui.spn_tax.setEnabled(True)
-            #TODO: automatic calculation of commission temporarily disabled
-            self.gui.chk_manual_commission.setEnabled(False)
-            if is_a_trade(category, subcategory):
-                # enable trade labels
-                self.gui.lbl_risk.setEnabled(True)
-                self.gui.lbl_pool_trading.setEnabled(True)
-                self.gui.lbl_expiration.setEnabled(True)
-                # enable trade inputs
-                self.gui.spn_risk.setEnabled(True)
-                self.gui.dt_expiration.setEnabled(True)
-                self.gui.spn_pool_trading.setEnabled(True)
-            else:
-                # disable trade labels
-                self.gui.lbl_risk.setEnabled(False)
-                self.gui.lbl_pool_trading.setEnabled(False)
-                self.gui.lbl_expiration.setEnabled(False)
-                # disable trade inputs
-                self.gui.spn_risk.setEnabled(False)
-                self.gui.dt_expiration.setEnabled(False)
-                self.gui.spn_pool_trading.setEnabled(False)
-            # set inputfields
-            self.gui.spn_tax.setValue(Decimal(self.config.default_tax))
-            if is_a_trade(category, subcategory):
-                self.gui.spn_risk.setValue(Decimal(self.config.default_risk))
-            else:
-                self.gui.spn_risk.setValue(0.0)
+        is_stock = deals_with_stocks(category, subcategory)
+        is_trade = is_a_trade(category, subcategory)
+        # enable stock labels
+        self.gui.lbl_marketcode.setEnabled(is_stock)
+        self.gui.lbl_stockname.setEnabled(is_stock)
+        self.gui.lbl_quantity.setEnabled(is_stock)
+        self.gui.lbl_price.setEnabled(is_stock)
+        self.gui.lbl_commission.setEnabled(is_stock)
+        self.gui.lbl_tax.setEnabled(is_stock)
+        self.gui.lbl_risk.setEnabled(is_stock)
+        self.gui.lbl_pool.setEnabled(is_stock)
+        # enable stock inputs
+        self.gui.cmb_market_code.setEnabled(is_stock)
+        self.gui.txt_market_description.setEnabled(is_stock)
+        self.gui.cmb_stock_name.setEnabled(is_stock)
+        self.gui.txt_stock_description.setEnabled(is_stock)
+        self.gui.spn_quantity.setEnabled(is_stock)
+        self.gui.spn_price.setEnabled(is_stock)
+        self.gui.spn_commission.setEnabled(is_stock)
+        self.gui.spn_tax.setEnabled(is_stock)
+        self.gui.spn_pool.setEnabled(is_stock)
+        #TODO: automatic calculation of commission temporarily disabled
+        self.gui.chk_manual_commission.setEnabled(is_stock)
+        # enable trade labels
+        self.gui.lbl_risk.setEnabled(is_stock and is_trade)
+        self.gui.lbl_expiration.setEnabled(is_stock and is_trade)
+        self.gui.lbl_spread.setEnabled(is_stock and is_trade)
+        # enable trade inputs
+        self.gui.spn_risk.setEnabled(is_stock and is_trade)
+        self.gui.dt_expiration.setEnabled(is_stock and is_trade)
+        self.gui.spn_spread.setEnabled(is_stock and is_trade)
+        # set inputfields
+        self.gui.spn_tax.setValue(Decimal(self.config.default_tax))
+        if is_trade:
+            self.gui.spn_risk.setValue(Decimal(self.config.default_risk))
         else:
-            # disable stock labels
-            self.gui.lbl_marketcode.setEnabled(False)
-            self.gui.lbl_stockname.setEnabled(False)
-            self.gui.lbl_quantity.setEnabled(False)
-            self.gui.lbl_price.setEnabled(False)
-            self.gui.lbl_commission.setEnabled(False)
-            self.gui.lbl_tax.setEnabled(False)
-            # disable stock inputs
-            self.gui.cmb_market_code.setEnabled(False)
-            self.gui.txt_market_description.setEnabled(False)
-            self.gui.cmb_stock_name.setEnabled(False)
-            self.gui.txt_stock_description.setEnabled(False)
-            self.gui.spn_quantity.setEnabled(False)
-            self.gui.spn_price.setEnabled(False)
-            self.gui.spn_commission.setEnabled(False)
-            self.gui.spn_tax.setEnabled(False)
-            self.gui.chk_manual_commission.setEnabled(False)
-            # disable trade labels
-            self.gui.lbl_risk.setEnabled(False)
-            self.gui.lbl_pool_trading.setEnabled(False)
-            self.gui.lbl_expiration.setEnabled(False)
-            # disables trade inputs
-            self.gui.spn_risk.setEnabled(False)
-            self.gui.dt_expiration.setEnabled(False)
-            self.gui.spn_pool_trading.setEnabled(False)
-            # reset input fields
-            self.gui.spn_quantity.setValue(0.0)
-            self.gui.spn_price.setValue(0.0)
-            self.gui.spn_tax.setValue(0.0)
-            self.gui.spn_commission.setValue(0.0)
             self.gui.spn_risk.setValue(0.0)
-            self.gui.chk_manual_commission.setEnabled(False)
-            self.set_current_pool_trading() #reset pool to current value
+        # reset input fields
+        self.gui.spn_quantity.setValue(0.0)
+        self.gui.spn_price.setValue(0.0)
+        self.gui.spn_tax.setValue(0.0)
+        self.gui.spn_commission.setValue(0.0)
+        self.gui.spn_risk.setValue(0.0)
+        self.gui.chk_manual_commission.setEnabled(False)
+        self.set_current_pool() #reset pool to current value
         self.ctl.set_infodetails()
 
     def cmb_stock_name_changed(self):
@@ -235,7 +202,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         header = ['date', 'account', 'category', 'subcategory', 'amount',
                 'comment', 'stock', 'stock_description', 'market',
                 'market_description', 'quantity', 'price',
-                'commission', 'tax', 'risk', 'currency', 'exchange_rate',
+                'commission', 'tax', 'risk', 'currency_from', 'currency_to', 'exchange_rate',
                 'manual_flag', 'expires_on', 'spread']
         self.table = TableModel(header, [], 0, len(header))
         # takeAt(0) removes the default empty table that's there and addWidget
@@ -255,7 +222,8 @@ class ControllerPyqt(QtGui.QMainWindow):
         # default values
         self.set_default_account()
         self.set_default_exchange_rate()
-        self.set_default_currency()
+        self.set_default_currency_from()
+        self.set_default_currency_to()
         # Init tbl_summary
         self.init_tbl_summary()
 
@@ -325,10 +293,10 @@ class ControllerPyqt(QtGui.QMainWindow):
         return str(self.gui.spn_price.textFromValue( \
                 self.gui.spn_price.value()))
 
-    def get_pool_trading(self):
-        """ Returns the pool from the spn_pool_trading spinedit. """
-        return str(self.gui.spn_pool_trading.textFromValue( \
-                self.gui.spn_pool_trading.value()))
+    def get_pool(self):
+        """ Returns the pool from the spn_pool spinedit. """
+        return str(self.gui.spn_pool.textFromValue( \
+                self.gui.spn_pool.value()))
 
     def get_commission(self):
         """ Returns the commission from the spn_commission spinedit. """
@@ -345,9 +313,13 @@ class ControllerPyqt(QtGui.QMainWindow):
         return str(Decimal(self.gui.spn_risk.textFromValue( \
                 self.gui.spn_risk.value())))
                 
-    def get_currency(self):
-    	""" Returns the currency used. """
-    	return str(self.gui.cmb_currency.currentText())
+    def get_currency_from(self):
+    	""" Returns the from currency used. """
+    	return str(self.gui.cmb_currency_from.currentText())
+ 
+    def get_currency_to(self):
+    	""" Returns the to currency used. """
+    	return str(self.gui.cmb_currency_to.currentText())
     	
     def get_exchange_rate(self):
     	""" Returns the exchange rate used. """
@@ -361,6 +333,11 @@ class ControllerPyqt(QtGui.QMainWindow):
     def get_date_expiration(self):
     	""" Returns the value of the dt_expiration date picker. """
     	return str(self.gui.dt_expiration.date().toString(QtCore.Qt.ISODate))
+
+    def get_spread(self):
+    	""" Returns the spread used. """
+    	return str(self.gui.spn_spread.textFromValue( \
+    		self.gui.spn_spread.value()))
 
     def set_infodetails(self, value):
        """ Sets new info on the lbl_infodetails label. """
@@ -405,11 +382,16 @@ class ControllerPyqt(QtGui.QMainWindow):
         index = int(self.config.default_account)-1
         self.set_combo_selection(index, self.gui.cmb_account)
 
-    def set_default_currency(self):
-        """ Set the default currency value at startup. """
-        index = int(self.config.default_currency)-1
-        self.set_combo_selection(index, self.gui.cmb_currency)
+    def set_default_currency_from(self):
+        """ Set the default from currency value at startup. """
+        index = int(self.config.default_currency_from)-1
+        self.set_combo_selection(index, self.gui.cmb_currency_from)
 
+    def set_default_currency_to(self):
+        """ Set the default to currency value at startup. """
+        index = int(self.config.default_currency_to)-1
+        self.set_combo_selection(index, self.gui.cmb_currency_to)
+ 
     def set_default_exchange_rate(self):
         """ Set the default exchange rate value at startup. """
         self.gui.spn_exchange_rate.setValue(Decimal(self.config.default_exchange_rate))
@@ -419,18 +401,25 @@ class ControllerPyqt(QtGui.QMainWindow):
         if index > 0:
             combobox.setCurrentIndex(index)
 
-    def set_current_pool_trading(self):
+    def set_current_pool(self):
         """ Resets the trading pool to the most current value. """
-        self.ctl.fill_spn_pool_trading()
+        self.ctl.fill_spn_pool()
 
-    def set_pool_trading(self, value):
+    def set_pool(self, value):
         """ Sets the trading pool to the given value. """
-        self.gui.spn_pool_trading.setValue(value)
+        self.gui.spn_pool.setValue(value)
 
+    def set_spread(self, value):
+        """ Sets the spread to the given value. """
+        self.gui.spn_spread.setValue(value)
 
-    def add_currency(self, value):
-        """ Add a new item to cmb_currency. """ 
-        self.gui.cmb_currency.addItem(value)
+    def add_currency_from(self, value):
+        """ Add a new item to cmb_currency_from. """ 
+        self.gui.cmb_currency_from.addItem(value)
+ 
+    def add_currency_to(self, value):
+        """ Add a new item to cmb_currency_to. """ 
+        self.gui.cmb_currency_to.addItem(value)
         
     #TODO: reactivate the checkbox manual flag
     #TODO: add event so that when clicked, the commission and tax are

@@ -20,7 +20,8 @@ class ConfigParser():
         self.logfile = ''
         self.default_tax = ''
         self.default_risk = ''
-        self.default_currency = ''
+        self.default_currency_from = ''
+        self.default_currency_to = ''
         self.default_exchange_rate = ''
         self.default_account = ''
         self.config()
@@ -38,7 +39,8 @@ class ConfigParser():
         self.exportdir = config.get('data', 'exportdir')[1:-1]
         self.default_tax = config.get('data', 'default_tax')[1:-1]
         self.default_risk = config.get('data', 'default_risk')[1:-1]
-        self.default_currency = config.get('data', 'default_currency')[1:-1]
+        self.default_currency_from = config.get('data', 'default_currency_from')[1:-1]
+        self.default_currency_to = config.get('data', 'default_currency_to')[1:-1]
         self.default_exchange_rate = config.get('data', 'default_exchange_rate')[1:-1]
         self.default_account = config.get('data', 'default_account')[1:-1]
         self.logfile = config.get('logging', 'logfile')[1:-1]

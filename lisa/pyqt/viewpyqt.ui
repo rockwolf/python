@@ -262,7 +262,7 @@
            <number>6</number>
           </property>
           <property name="maximum">
-           <double>999999.989999999990687</double>
+           <double>999999.999998999992386</double>
           </property>
           <property name="value">
            <double>0.000000000000000</double>
@@ -349,7 +349,7 @@
            <number>6</number>
           </property>
           <property name="maximum">
-           <double>999999.989999999990687</double>
+           <double>999999.999998999992386</double>
           </property>
          </widget>
         </item>
@@ -373,7 +373,7 @@
            <number>6</number>
           </property>
           <property name="maximum">
-           <double>999999.989999999990687</double>
+           <double>999999.999998999992386</double>
           </property>
          </widget>
         </item>
@@ -397,7 +397,7 @@
            <number>6</number>
           </property>
           <property name="maximum">
-           <double>999999.989999999990687</double>
+           <double>999999.999998999992386</double>
           </property>
          </widget>
         </item>
@@ -421,7 +421,7 @@
            <number>6</number>
           </property>
           <property name="maximum">
-           <double>999999.989999999990687</double>
+           <double>999999.999998999992386</double>
           </property>
          </widget>
         </item>
@@ -432,21 +432,14 @@
          <widget class="QLineEdit" name="txt_stock_description"/>
         </item>
         <item row="3" column="0">
-         <widget class="QLabel" name="lbl_currency">
+         <widget class="QLabel" name="lbl_currency_from">
           <property name="text">
-           <string>Currency</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLabel" name="lbl_exchange_rate">
-          <property name="text">
-           <string>Exchange rate</string>
+           <string>Currency from</string>
           </property>
          </widget>
         </item>
         <item row="4" column="0">
-         <widget class="QComboBox" name="cmb_currency">
+         <widget class="QComboBox" name="cmb_currency_from">
           <property name="minimumSize">
            <size>
             <width>90</width>
@@ -458,30 +451,6 @@
             <width>16777215</width>
             <height>16777215</height>
            </size>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="QDoubleSpinBox" name="spn_exchange_rate">
-          <property name="minimumSize">
-           <size>
-            <width>10</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Liberation Mono</family>
-           </font>
-          </property>
-          <property name="locale">
-           <locale language="C" country="AnyCountry"/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="maximum">
-           <double>1000000.000000000000000</double>
           </property>
          </widget>
         </item>
@@ -533,38 +502,79 @@
          </widget>
         </item>
         <item row="4" column="8">
-         <widget class="QDoubleSpinBox" name="spn_pool_trading">
+         <widget class="QDoubleSpinBox" name="spn_pool">
           <property name="decimals">
            <number>6</number>
           </property>
           <property name="maximum">
-           <double>999999.989999999990687</double>
+           <double>999999.999998999992386</double>
           </property>
          </widget>
         </item>
         <item row="3" column="8">
-         <widget class="QLabel" name="lbl_pool_trading">
+         <widget class="QLabel" name="lbl_pool">
           <property name="text">
            <string>Pool</string>
           </property>
          </widget>
         </item>
         <item row="3" column="5">
-         <widget class="QLabel" name="lblSpread">
+         <widget class="QLabel" name="lbl_spread">
           <property name="text">
            <string>Spread</string>
           </property>
          </widget>
         </item>
         <item row="4" column="5">
-         <widget class="QDoubleSpinBox" name="spnSpread">
+         <widget class="QDoubleSpinBox" name="spn_spread">
           <property name="decimals">
            <number>6</number>
           </property>
           <property name="maximum">
-           <double>999999.989999999990687</double>
+           <double>999999.999998999992386</double>
           </property>
          </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QLabel" name="lbl_exchange_rate">
+          <property name="text">
+           <string>Exchange rate</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QDoubleSpinBox" name="spn_exchange_rate">
+          <property name="minimumSize">
+           <size>
+            <width>10</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Liberation Mono</family>
+           </font>
+          </property>
+          <property name="locale">
+           <locale language="C" country="AnyCountry"/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="maximum">
+           <double>999999.999998999992386</double>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLabel" name="lbl_currency_to">
+          <property name="text">
+           <string>Currency to</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QComboBox" name="cmb_currency_to"/>
         </item>
        </layout>
       </item>
@@ -724,8 +734,7 @@
   <tabstop>txt_market_description</tabstop>
   <tabstop>txt_stock_description</tabstop>
   <tabstop>dt_expiration</tabstop>
-  <tabstop>cmb_currency</tabstop>
-  <tabstop>spn_exchange_rate</tabstop>
+  <tabstop>cmb_currency_from</tabstop>
   <tabstop>btn_add</tabstop>
   <tabstop>btn_update</tabstop>
   <tabstop>btn_remove</tabstop>
