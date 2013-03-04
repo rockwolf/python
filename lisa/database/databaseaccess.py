@@ -259,12 +259,6 @@ class DatabaseAccess():
             result = (price_buy > price_sell)
         return 1 if result else 0
 
-    def calculate_commission(self):
-        """
-            Calculation for T_RATE.
-        """
-        return DEFAULT_DECIMAL
-    
     def write_to_database(self, statements):
         """ 
             Writes the records of a given statements list to the database.
@@ -1007,24 +1001,6 @@ class DatabaseAccess():
                 result = PARM_TAX
         except Exception as ex:
             print('Error in get_parameter_tax:', ex)
-        return result
-
-    def calculate_r_multiple(self, trade_record):
-        """ 
-            Function to calculate R-multiple.
-        """
-        #TODO: can be reused for T_INVESTING, so rename trade_record
-        # as a parm in all functions that can be reused by T_INVESTING
-        # to something more general, like final_record or find another
-        # way to reuse this.
-        #TODO: make the investment functions the same, also the tables should be the same
-        #so we can reuse everything!
-        result = DEFAULT_DECIMAL
-        try:
-            RMunit = trade_record['price_buy'] - trade_record['stoploss']
-            result = (trade_record['price_sell'] - trade_record['price_buy'])/RMunit
-        except Exception as ex:
-            print('Error in calculate_r_multiple:', ex)
         return result
 
     def get_pool(self):
