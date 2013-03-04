@@ -172,7 +172,14 @@ class Investment(CoreModule):
                                 commission_sell = fields['commission']
                                 tax_buy = DEFAULT_DECIMAL
                                 tax_sell = fields['tax']
-                            stoploss = dba.calculate_stoploss(fields)
+                            stoploss = dba.calculate_stoploss(
+                                fields['amount'],
+                                fields['shares'],
+                                fields['tax'],
+                                fields['commission'],
+                                fields['risk_input'], #TODO: not known at this point!
+                                fields['pool_at_start'] #TODO: also now known, is in TRADE_RECORD, so we should also make an INVESTMENT_RECORD
+                                )
                             profit_loss = DEFAULT_DECIMAL #Only calculated at end of trade.
                             pool_at_start = \
                                 fields['pool_trading']
