@@ -230,7 +230,6 @@ class DatabaseAccess():
         """
         #NOTE: ((risk/100 * pool - amount) - commission_buy)/(shares_buy * (tax/100 - 1))
         #NOTE: ((R * P - A) - C) / (S * (T - 1))
-        #TODO: Get the correct tax amount here, when automatic is checked.
         R = Decimal(risk_input) / Decimal(100.0)
         P = Decimal(pool_at_start)
         A = abs(Decimal(amount_buy))
@@ -286,7 +285,7 @@ class DatabaseAccess():
             Calculates the risk we actually took,
             based on the data in TABLE_TRADE.
         """
-        #NOTE: (price*shares) - (price_sell*shares)
+        #NOTE: (price_sell*shares_sell) - (price_buy*shares_buy)
         #NOTE: (Pb * Sb) - (Ps * Ss)
         #NOTE: price_sell > stoploss = max risk was the initial risk
         Pb = Decimal(price_buy)
@@ -299,15 +298,12 @@ class DatabaseAccess():
             result = risk_initial
         return result
 
-    def calculate_cost_total(self, trade_record):
+    def calculate_cost_total(self, tax_buy, commission_buy, tax_sell, commission_sell):
     	"""
     	    Returns the total costs associated with the given trade.
     	"""
     	return (
-    	    trade_record['tax_buy'] +
-    	    trade_record['commission_buy'] +
-    	    trade_record['tax_sell'] +
-    	    trade_record['commission_sell']
+    	    tax_buy + commission_buy + tax_sell + commission_sell
     	)
 
     def trade_closed(self, invade_record):
