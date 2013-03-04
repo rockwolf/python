@@ -224,19 +224,20 @@ class DatabaseAccess():
             session = None
         return values
    
-    def calculate_stoploss(self, fields):
+    def calculate_stoploss(self, amount_buy, shares_buy, tax_buy, commission_buy, risk_input, pool_at_start):
         """
             Calculates the stoploss.
         """
+        #TODO: func parms should be the fields, not the list. Also change in caller.
         #NOTE: ((risk/100 * pool - amount) - commission_buy)/(shares_buy * (tax/100 - 1))
         #NOTE: ((R * P - A) - C) / (S * (T - 1))
         #TODO: Get the correct tax amount here, when automatic is checked.
-        R = Decimal(fields['risk_input']) / Decimal(100.0)
-        P = abs(Decimal(fields['pool_trading']))
-        A = abs(Decimal(fields['amount']))
-        S = Decimal(fields['shares'])
-        T = Decimal(fields['tax']) / Decimal(100.0)
-        C = Decimal(fields['commission'])
+        R = Decimal(risk_input) / Decimal(100.0)
+        P = Decimal(pool_at_start)
+        A = abs(Decimal(amount_buy))
+        S = Decimal(shares_buy)
+        T = Decimal(tax_buy) / Decimal(100.0)
+        C = Decimal(commission_buy)
         result = ((R * P - A) - C) / (S * (T - 1))
         return result
 
