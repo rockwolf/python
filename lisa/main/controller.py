@@ -85,7 +85,7 @@ class ControllerMain():
 
     def get_input_fields(self, tablecontent):
         """ Gets input, adds extra info and puts this in a list. """
-        fields_db = []
+        input = []
         try:
             #TODO: remove references to flg_income?
             for field in tablecontent:
@@ -109,37 +109,37 @@ class ControllerMain():
                     tax = DEFAULT_DECIMAL
                     risk = DEFAULT_DECIMAL
                     pool = DEFAULT_DECIMAL
-                fields_db.append({
-                    'date':string_to_date(field[0]),
-                    'account':field[1], #Note: Get account_id from T_ACCOUNT for final insert
-                    'category':field[2], #Note: Get category_id from T_CATEGORY for final insert
-                    'subcategory':field[3], #Note: Get subcategory_id from T_SUBCATEGORY for final insert
-                    'amount':Decimal(field[4]),
-                    'flag':int(flg_income),
-                    'comment':field[5],
-                    'stock_name':field[6],
-                    'stock_description':field[7],
-                    'market_name':field[8],
-                    'market_description':field[9],
-                    'shares':int(shares),
-                    'price':Decimal(price),
-                    'commission':Decimal(commission),
-                    'tax':Decimal(tax),
-                    'risk_input':Decimal(risk),
+                input.append({
+                    'i_date':string_to_date(field[0]),
+                    'i_account':field[1], #Note: Get account_id from T_ACCOUNT for final insert
+                    'i_category':field[2], #Note: Get category_id from T_CATEGORY for final insert
+                    'i_subcategory':field[3], #Note: Get subcategory_id from T_SUBCATEGORY for final insert
+                    'i_amount':Decimal(field[4]),
+                    'i_flag':int(flg_income),
+                    'i_comment':field[5],
+                    'i_stock_name':field[6],
+                    'i_stock_description':field[7],
+                    'i_market_name':field[8],
+                    'i_market_description':field[9],
+                    'i_shares':int(shares),
+                    'i_price':Decimal(price),
+                    'i_commission':Decimal(commission),
+                    'i_tax':Decimal(tax),
+                    'i_risk_input':Decimal(risk),
                     #TODO: LOW priority: add a second box to choose the currency_to
                     #NOTE: Conversion to EUR expected for now.
-                    'currency_from':field[15], #Note: Get currency_id from T_CURRENCY for final insert
-                    'currency_to':field[16], #Note: Get currency_id from T_CURRENCY for final insert
-                    'exchange_rate':Decimal(field[17]),
-                    'manual_flag':int(field[18]),
-                    'date_expiration':string_to_date(field[19]),
-                    'pool':Decimal(pool),
-                    'spread':Decimal(field[21])
+                    'i_currency_from':field[15], #Note: Get currency_id from T_CURRENCY for final insert
+                    'i_currency_to':field[16], #Note: Get currency_id from T_CURRENCY for final insert
+                    'i_exchange_rate':Decimal(field[17]),
+                    'i_manual_flag':int(field[18]),
+                    'i_date_expiration':string_to_date(field[19]),
+                    'i_pool':Decimal(pool),
+                    'i_spread':Decimal(field[21])
                 })
         except Exception as ex:
             print(ERROR_GET_INPUT_FIELDS, ex)
         finally:
-            return fields_db 
+            return input 
 
     def backup(self):
         """ Make a backup of the output file for clipf. """
