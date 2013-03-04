@@ -224,15 +224,16 @@ class DatabaseAccess():
             session = None
         return values
    
-    def calculate_stoploss(self, amount_buy, shares_buy, tax_buy, commission_buy, risk_input, pool_at_start):
+    def calculate_stoploss(self, amount_buy_simple, shares_buy, tax_buy, commission_buy, i_risk, pool_at_start):
         """
             Calculates the stoploss.
         """
-        #NOTE: ((risk/100 * pool - amount) - commission_buy)/(shares_buy * (tax/100 - 1))
+        #NOTE: amount_buy = with tax and everything included, amount_buy_simple = without tax and commission!
+        #NOTE: ((risk/100 * pool_at_start - amount_buy_simple) - commission_buy)/(shares_buy * (tax_buy/100 - 1))
         #NOTE: ((R * P - A) - C) / (S * (T - 1))
-        R = Decimal(risk_input) / Decimal(100.0)
+        R = Decimal(i_risk) / Decimal(100.0)
         P = Decimal(pool_at_start)
-        A = abs(Decimal(amount_buy))
+        A = abs(Decimal(amount_buy_simple))
         S = Decimal(shares_buy)
         T = Decimal(tax_buy) / Decimal(100.0)
         C = Decimal(commission_buy)
@@ -243,7 +244,7 @@ class DatabaseAccess():
         """
             Calculates the profit_loss.
         """
-        #NOTE: sold - bought€
+        #NOTE: amount_sell_simple - amount_buy_simple
         #NOTE: So - Bo
         Bo = Decimal(price_buy) * Decimal(shares_buy)
         So = Decimal(price_sell) * Decimal(shares_sell)
@@ -255,9 +256,7 @@ class DatabaseAccess():
             Calculates the risk based on total pool and input.
             Consider this the theoretical risk we want to take.
         """
-        #NOTE: Attention: the risk already gets divided by 100 in the
-        #beginning, right after the field retrieval from the UI!
-        #NOTE: (i_risk) * pool_at_start
+        #NOTE: (i_risk/100.0) * pool_at_start
         #NOTE: R * Po
         R = Decimal(i_risk)/Decimal(100.0)
         Po = abs(Decimal(i_pool))
@@ -302,9 +301,7 @@ class DatabaseAccess():
     	"""
     	    Returns the total costs associated with the given trade.
     	"""
-    	return (
-    	    tax_buy + commission_buy + tax_sell + commission_sell
-    	)
+    	return (tax_buy + commission_buy + tax_sell + commission_sell)
 
     def trade_closed(self, invade_record):
     	"""
@@ -1052,7 +1049,7 @@ class DatabaseAccess():
             session = None
         return result
 
-    def get_parameter_commission(self, amount, market):
+    def get_parameter_commission(self, amount_simple, market):
         """
             Function to determine what parameter to use to select
             the correct commission.
@@ -1061,9 +1058,9 @@ class DatabaseAccess():
         try:
             #TODO: complete this, to return the correct value for
             #all markets and conditions
-            if market == 'ebr' and Decimal(amount) < Decimal(4000) :
+            if market == 'ebr' and Decimal(amount_simple) < Decimal(4000) :
                 result = 1
-            elif market == 'ebr' and Decimal(amount) >= Decimal(4000):
+            elif market == 'ebr' and Decimal(amount_simple) >= Decimal(4000):
                 result = 2
             else:
                 result = 1
@@ -1071,7 +1068,7 @@ class DatabaseAccess():
             print('Error in get_parameter_commission:', ex)
         return result
 
-    def get_parameter_tax(self, amount, market):
+    def get_parameter_tax(self, amount_simple, market):
         """
             Function to determine what parameter to use to select
             the correct tax.
@@ -1080,9 +1077,9 @@ class DatabaseAccess():
         try:
             #TODO: complete this, to return the correct value for
             #all markets and conditions
-            if market == 'ebr' and Decimal(amount) < Decimal(4000) :
+            if market == 'ebr' and Decimal(amount_simple) < Decimal(4000) :
                 result = PARM_TAX
-            elif market == 'ebr' and Decimal(amount) >= Decimal(4000):
+            elif market == 'ebr' and Decimal(amount_simple) >= Decimal(4000):
                 result = PARM_TAX
             else:
                 result = PARM_TAX
