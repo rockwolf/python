@@ -99,8 +99,8 @@ class T_INVESTMENT(Base):
     risk_actual_percent = Column(Numeric(18,6))
     cost_total = Column(Numeric(18,6))
     cost_other = Column(Numeric(18,6))
-    bought = Column(Numeric(18,6))
-    sold = Column(Numeric(18,6))
+    amount_buy_simple = Column(Numeric(18,6))
+    amount_sell_simple = Column(Numeric(18,6))
     stoploss = Column(Numeric(18,6))
     profit_loss = Column(Numeric(18,6))
     profit_loss_percent = Column(Numeric(18,6))
@@ -124,7 +124,7 @@ class T_INVESTMENT(Base):
             price_buy, price_sell, shares_buy, shares_sell, commission_buy,
             commission_sell, tax_buy, tax_sell, risk_input, risk_input_percent, risk_initial,
             risk_initial_percent, risk_actual, risk_actual_percent, cost_total, cost_other, 
-            bought, sold, stoploss, profit_loss, profit_loss_percent, r_multiple,
+            amount_buy_simple, amount_sell_simple, stoploss, profit_loss, profit_loss_percent, r_multiple,
             win_flag, at_work, id_buy, id_sell,
             currency_exchange_id, drawdown_id, pool_at_start, date_expiration,
             expired_flag, spread, active, date_created, date_modified):
@@ -156,8 +156,8 @@ class T_INVESTMENT(Base):
         self.risk_actual_percent = risk_actual_percent
         self.cost_total = cost_total
         self.cost_other = cost_other
-        self.bought = bought
-        self.sold = sold
+        self.amount_buy_simple = amount_buy_simple
+        self.amount_sell_simple = amount_sell_simple
         self.stoploss = stoploss
         self.profit_loss = profit_loss
         self.profit_loss_percent = profit_loss_percent
@@ -210,8 +210,8 @@ class T_INVESTMENT(Base):
                         self.risk_actual_percent,
                         self.cost_total,
                         self.cost_other,
-                        self.bought,
-                        self.sold,
+                        self.amount_buy_simple,
+                        self.amount_sell_simple,
                         self.stoploss,
                         self.profit_loss,
                         self.profit_loss_percent,
@@ -476,8 +476,8 @@ class T_TRADE(Base):
     risk_actual_percent = Column(Numeric(18,6))
     cost_total = Column(Numeric(18,6))
     cost_other = Column(Numeric(18,6))
-    bought = Column(Numeric(18,6))
-    sold = Column(Numeric(18,6))
+    amount_buy_simple = Column(Numeric(18,6))
+    amount_sell_simple = Column(Numeric(18,6))
     stoploss = Column(Numeric(18,6))
     profit_loss = Column(Numeric(18,6))
     profit_loss_percent = Column(Numeric(18,6))
@@ -501,7 +501,7 @@ class T_TRADE(Base):
             price_buy, price_sell, shares_buy, shares_sell, commission_buy,
             commission_sell, tax_buy, tax_sell, risk_input, risk_input_percent, risk_initial,
             risk_initial_percent, risk_actual, risk_actual_percent, cost_total, cost_other,
-            bought, sold, stoploss, profit_loss, profit_loss_percent, r_multiple,
+            amount_buy_simple, amount_sell_simple, stoploss, profit_loss, profit_loss_percent, r_multiple,
             win_flag, at_work, id_buy, id_sell,
             currency_exchange_id, drawdown_id, pool_at_start, date_expiration,
             expired_flag, spread, active, date_created, date_modified):
@@ -533,8 +533,8 @@ class T_TRADE(Base):
         self.risk_actual_percent = risk_actual_percent
         self.cost_total = cost_total
         self.cost_other = cost_other
-        self.bought = bought
-        self.sold = sold
+        self.amount_buy_simple = amount_buy_simple
+        self.amount_sell_simple = amount_sell_simple
         self.stoploss = stoploss
         self.profit_loss = profit_loss
         self.profit_loss_percent = profit_loss_percent
@@ -587,8 +587,8 @@ class T_TRADE(Base):
                         self.risk_actual_percent,
                         self.cost_total,
                         self.cost_other,
-                        self.bought,
-                        self.sold,
+                        self.amount_buy_simple,
+                        self.amount_sell_simple,
                         self.stoploss,
                         self.profit_loss,
                         self.profit_loss_percent,
