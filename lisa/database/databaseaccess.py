@@ -265,7 +265,7 @@ class DatabaseAccess():
         result = R * Po
         return result
 
-    def calculate_risk_initial(self, fields, stoploss):
+    def calculate_risk_initial(self, price_buy, shares_buy, stoploss):
         """
             Calculates the initial risk.
             This is the risk we will take if our stoploss is reached.
@@ -275,13 +275,13 @@ class DatabaseAccess():
         #NOTE: commission + tax = seperate = costs
         #NOTE: (price*shares) - (stoploss*shares)
         #NOTE: (P * S) - (SL * S)
-        Pb = Decimal(fields['price'])
-        Sb = Decimal(fields['shares'])
+        Pb = Decimal(price_buy)
+        Sb = Decimal(shares_buy)
         SL = Decimal(stoploss)
         result = (P * Sb) - (SL * Sb)
         return result
 
-    def calculate_risk_actual(self, trade_record, stoploss):
+    def calculate_risk_actual(self, price_buy, shares_buy, price_sell, shares_sell, stoploss, risk_initial):
         """
             Calculates the risk we actually took,
             based on the data in TABLE_TRADE.
@@ -289,14 +289,14 @@ class DatabaseAccess():
         #NOTE: (price*shares) - (price_sell*shares)
         #NOTE: (Pb * Sb) - (Ps * Ss)
         #NOTE: price_sell > stoploss = max risk was the initial risk
-        Pb = Decimal(fields['price_buy'])
-        Sb = Decimal(fields['shares_buy'])
-        Ps = Decimal(fields['price_sell'])
-        Ss = Decimal(fields['shares_sell'])
+        Pb = Decimal(price_buy)
+        Sb = Decimal(shares_buy)
+        Ps = Decimal(price_sell)
+        Ss = Decimal(shares_sell)
         if Ps < stoploss:
             result = (Pb * Sb) - (Ps * Ss)
         else:
-            result = trade_record['risk_initial']
+            result = risk_initial
         return result
 
     def calculate_cost_total(self, trade_record):
