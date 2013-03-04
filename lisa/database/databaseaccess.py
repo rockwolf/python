@@ -901,9 +901,6 @@ class DatabaseAccess():
         """ 
         result = {}
         try:
-            #TODO: the call to row_to_dict still gives an error when
-            #using both row as self.loaded....
-            #TODO: try with row.__tablename__
             result = row_to_dict(row)
         except Exception as ex:
             print("Error in get_record: ", ex)
