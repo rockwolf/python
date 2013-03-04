@@ -17,6 +17,7 @@ from modules_generic.function_sqlalchemy import row_to_dict
 from modules_generic.messagehandler import *
 from modules.constant import *
 from modules.function import *
+from modules.calculator_finance import *
 from meta import engine, Base
 from database.mappings import *
 from database.mappings_views import *
@@ -223,95 +224,16 @@ class DatabaseAccess():
             session.rollback()
             session = None
         return values
-   
-    def calculate_stoploss(self, amount_buy_simple, shares_buy, tax_buy, commission_buy, i_risk, pool_at_start):
-        """
-            Calculates the stoploss.
-        """
-        #NOTE: amount_buy = with tax and everything included, amount_buy_simple = without tax and commission!
-        #NOTE: ((risk/100 * pool_at_start - amount_buy_simple) - commission_buy)/(shares_buy * (tax_buy/100 - 1))
-        #NOTE: ((R * P - A) - C) / (S * (T - 1))
-        R = Decimal(i_risk) / Decimal(100.0)
-        P = Decimal(pool_at_start)
-        A = abs(Decimal(amount_buy_simple))
-        S = Decimal(shares_buy)
-        T = Decimal(tax_buy) / Decimal(100.0)
-        C = Decimal(commission_buy)
-        result = ((R * P - A) - C) / (S * (T - 1))
-        return result
-
-    def calculate_profit_loss(self, price_buy, shares_buy, price_sell, shares_sell):
-        """
-            Calculates the profit_loss.
-        """
-        #NOTE: amount_sell_simple - amount_buy_simple
-        #NOTE: So - Bo
-        Bo = Decimal(price_buy) * Decimal(shares_buy)
-        So = Decimal(price_sell) * Decimal(shares_sell)
-        result = So - Bo
-        return result
-
-    def calculate_risk_input(self, i_pool, i_risk):
-        """
-            Calculates the risk based on total pool and input.
-            Consider this the theoretical risk we want to take.
-        """
-        #NOTE: (i_risk/100.0) * pool_at_start
-        #NOTE: R * Po
-        R = Decimal(i_risk)/Decimal(100.0)
-        Po = abs(Decimal(i_pool))
-        result = R * Po
-        return result
-
-    def calculate_risk_initial(self, price_buy, shares_buy, stoploss):
-        """
-            Calculates the initial risk.
-            This is the risk we will take if our stoploss is reached.
-            This should be equal to the risk_input if everything was
-            correctly calculated.
-        """
-        #NOTE: commission + tax = seperate = costs
-        #NOTE: (price*shares) - (stoploss*shares)
-        #NOTE: (P * S) - (SL * S)
-        Pb = Decimal(price_buy)
-        Sb = Decimal(shares_buy)
-        SL = Decimal(stoploss)
-        result = (P * Sb) - (SL * Sb)
-        return result
-
-    def calculate_risk_actual(self, price_buy, shares_buy, price_sell, shares_sell, stoploss, risk_initial):
-        """
-            Calculates the risk we actually took,
-            based on the data in TABLE_TRADE.
-        """
-        #NOTE: (price_sell*shares_sell) - (price_buy*shares_buy)
-        #NOTE: (Pb * Sb) - (Ps * Ss)
-        #NOTE: price_sell > stoploss = max risk was the initial risk
-        Pb = Decimal(price_buy)
-        Sb = Decimal(shares_buy)
-        Ps = Decimal(price_sell)
-        Ss = Decimal(shares_sell)
-        if Ps < stoploss:
-            result = (Pb * Sb) - (Ps * Ss)
-        else:
-            result = risk_initial
-        return result
-
-    def calculate_cost_total(self, tax_buy, commission_buy, tax_sell, commission_sell):
-    	"""
-    	    Returns the total costs associated with the given trade.
-    	"""
-    	return (tax_buy + commission_buy + tax_sell + commission_sell)
-
+    
     def trade_closed(self, invade_record):
-    	"""
-    	    Checks if a trade/investment is closed.
-    	"""
-    	#NOTE: invade = can be INVestment or trADE
-    	return (
+        """
+            Checks if a trade/investment is closed.
+        """
+        #NOTE: invade = can be INVestment or trADE
+        return (
             (invade_record['date_buy'] != DEFAULT_DATE)
-    	    and (invade_record['date_sell'] != DEFAULT_DATE)
-    	    and (invade_record['shares_buy'] == invade_record['shares_sell']))
+            and (invade_record['date_sell'] != DEFAULT_DATE)
+            and (invade_record['shares_buy'] == invade_record['shares_sell']))
     	
     def get_long_flag_value(self, category, subcategory, trade_record):
         """
