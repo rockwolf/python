@@ -228,7 +228,6 @@ class DatabaseAccess():
         """
             Calculates the stoploss.
         """
-        #TODO: func parms should be the fields, not the list. Also change in caller.
         #NOTE: ((risk/100 * pool - amount) - commission_buy)/(shares_buy * (tax/100 - 1))
         #NOTE: ((R * P - A) - C) / (S * (T - 1))
         #TODO: Get the correct tax amount here, when automatic is checked.
@@ -241,37 +240,29 @@ class DatabaseAccess():
         result = ((R * P - A) - C) / (S * (T - 1))
         return result
 
-    def calculate_profit_loss(self, fields, trade_record):
+    def calculate_profit_loss(self, price_buy, shares_buy, price_sell, shares_sell):
         """
             Calculates the profit_loss.
         """
-        #NOTE: sold - bought
+        #NOTE: sold - bought€
         #NOTE: So - Bo
-        #TODO: this does not seem correct, doesn't it need the tax part too?
-        Bo = Decimal(trade_record['price_buy']) * Decimal(trade_record['shares_buy']) \
-                + Decimal(trade_record['commission_buy'])
-        So = Decimal(trade_record['price_sell']) * \
-                Decimal(trade_record['shares_sell']) \
-                - Decimal(trade_record['commission_sell'])
+        Bo = Decimal(price_buy) * Decimal(shares_buy)
+        So = Decimal(price_sell) * Decimal(shares_sell)
         result = So - Bo
         return result
 
-    def calculate_risk_input(self, fields):
+    def calculate_risk_input(self, i_pool, i_risk):
         """
             Calculates the risk based on total pool and input.
             Consider this the theoretical risk we want to take.
         """
-        #NOTE: The pool for calculations on a single trade uses
-        # amount. Think of it as a 'pool to use'. Do not confuse
-        # this with the total pool available from get_trading_pool.
-        # fields['risk_input']*fields['amount'] 
         #NOTE: Attention: the risk already gets divided by 100 in the
-        #beginning, right after the field retrieval!
-        #NOTE: (risk_input) * pool_to_use
-        #NOTE: R * Pu
-        R = Decimal(fields['risk_input'])/Decimal(100.0)
-        Pu = abs(Decimal(fields['amount']))
-        result = R * Pu
+        #beginning, right after the field retrieval from the UI!
+        #NOTE: (i_risk) * pool_at_start
+        #NOTE: R * Po
+        R = Decimal(i_risk)/Decimal(100.0)
+        Po = abs(Decimal(i_pool))
+        result = R * Po
         return result
 
     def calculate_risk_initial(self, fields, stoploss):
