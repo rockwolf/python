@@ -106,18 +106,31 @@ class Investment(CoreModule):
                                     " and you are trying to add one like it" \
                                     " again?".format(TABLE_TRADE))
                             stoploss = investment_record['stoploss']
-                            profit_loss = dba.calculate_profit_loss(fields)
+                            profit_loss = dba.calculate_profit_loss(
+                                investment_record['amount_sell'],
+                                investment_record['amount_buy'])
                             pool_at_start = \
                                 investment_record['pool_at_start']
                             date_created = investment_record['date_created']
-                            at_work = investment_record['at_work']
+                            amount_buy_simple = investment_record['amount_buy_simple']
+                            amount_sell_simple = Decimal(fields['i_shares'])*Decimal(fields['i_shares'])
                             risk_input = investment_record['risk_input']
                             risk_input_percent = investment_record['risk_input_percent']
                             risk_initial = investment_record['risk_initial']
                             risk_initial_percent = (risk_initial/at_work)*100.0
-                            risk_actual = dba.calculate_risk_actual(investment_record, stoploss)
+                            risk_actual = dba.calculate_risk_actual(
+                                investment_record['price_buy'],
+                                investment_record['shares_buy'],
+                                investment_record['price_sell'],
+                                investment_record['shares_sell'],
+                                investment_record['stoploss'],
+                                investment_record['risk_initial'])
                             risk_actual_percent = (risk_actual/at_work)*100.0
-                            cost_total = dba.calculate_cost_total(investment_record)
+                            cost_total = dba.calculate_cost_total(
+                                investment_record['tax_buy'],
+                                investment_record['commission_buy'],
+                                investment_record['tax_sell'],
+                                investment_record['commission_sell'])
                             #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
                             if we_are_buying(fields['subcategory']):
                                 win_flag = dba.get_win_flag_value(
@@ -184,13 +197,20 @@ class Investment(CoreModule):
                             profit_loss = DEFAULT_DECIMAL #Only calculated at end of trade.
                             pool_at_start = \
                                 fields['i_pool']
-                            at_work = Decimal(price_buy)*Decimal(fields['i_shares'])
-                            risk_input = dba.calculate_risk_input(fields)
+                            #TODO: put this in calculator_finance
+                            #TODO: also insert amount_sell_simple
+                            amount_buy_simple = Decimal(fields['i_price'])*Decimal(fields['i_shares'])
+                            amount_sell_simple = DEFAULT_DECIMAL
+                            risk_input = dba.calculate_risk_input(
+                                fields['i_pool'],
+                                fields['i_risk'])
                             risk_input_percent = fields['i_risk']
                             #TODO: add correct parameters in calc_risk_init
-                            risk_initial = dba.calculate_risk_initial(fields,
-                                    stoploss)
-                            risk_initial_percent = risk_initial/at_work
+                            risk_initial = dba.calculate_risk_initial(
+                                fields['i_price'],
+                                fields['i_shares'],
+                                stoploss)
+                            risk_initial_percent = risk_initial/amount_buy_simple
                             risk_actual = DEFAULT_DECIMAL
                             risk_actual_percent = DEFAULT_DECIMAL
                             cost_total = DEFAULT_DECIMAL
@@ -231,7 +251,8 @@ class Investment(CoreModule):
                         print('profit_loss_percent =', profit_loss_percent)
                         print('r_multiple =', r_multiple)
                         print('win_flag =', win_flag)
-                        print('at_work =', at_work)
+                        print('amount_buy_simple =', amount_buy_simple)
+                        print('amount_sell_simple =', amount_sell_simple)
                         print('id_buy =', id_buy)
                         print('id_sell =', id_sell)
                         print('from_currency_id =', from_currency_id)
@@ -278,7 +299,8 @@ class Investment(CoreModule):
                                 'profit_loss_percent':Decimal(profit_loss_percent),
                                 'r_multiple':Decimal(r_multiple),
                                 'win_flag':int(win_flag),
-                                'at_work':Decimal(at_work),
+                                'amount_buy_simple':Decimal(amount_buy_simple),
+                                'amount_sell_simple':Decimal(amount_sell_simple),
                                 'id_buy':int(id_buy),
                                 'id_sell':int(id_sell),
                                 'from_currency_id':int(from_currency_id),
