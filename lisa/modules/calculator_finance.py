@@ -21,15 +21,11 @@ def calculate_stoploss(self, amount_buy_simple, shares_buy, tax_buy, commission_
     C = Decimal(commission_buy)
     return ((R * P - A) - C) / (S * (T - 1))
 
-def calculate_profit_loss(self, price_buy, shares_buy, price_sell, shares_sell):
+def calculate_profit_loss(self, amount_buy, amount_sell):
     """
         Calculates the profit_loss.
     """
-    #NOTE: amount_sell_simple - amount_buy_simple
-    #NOTE: So - Bo
-    Bo = Decimal(price_buy) * Decimal(shares_buy)
-    So = Decimal(price_sell) * Decimal(shares_sell)
-    return = So - Bo
+    return = amount_sell - amount_buy
 
 def calculate_risk_input(self, i_pool, i_risk):
     """
