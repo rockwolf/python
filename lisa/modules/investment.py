@@ -144,7 +144,10 @@ class Investment(CoreModule):
                                         long_flag)
                             from_currency_id = investment_record['from_currency_id']
                             drawdown_id = investment_record['drawdown_id']
-                            r_multiple = dba.calculate_r_multiple()
+                            r_multiple = dba.calculate_r_multiple(
+                                investment_record['price_buy'],
+                                investment_record['price_sell'],
+                                investment_record['price_stoploss'])
                             date_expiration = investment_record['date_expiration']
                             #TODO: for investing, id_buy/sell is id_firstbuy and id_firstsell
                             # and expiration flag should only be set at the end of the trade, when
