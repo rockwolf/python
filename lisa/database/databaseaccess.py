@@ -307,6 +307,7 @@ class DatabaseAccess():
         """
         #TODO: this code needs the update instruction I've written somewhere
         #in databaseaccess.py
+        #=> session.query(Supplier).filter_by(id=2).update({"name": u"Mayowa"})
         session = self.Session()
         try:
             if final_statements != []:
@@ -315,6 +316,13 @@ class DatabaseAccess():
                 #session.commit()
                 for statement in final_statements:
                 	print('test:', statement)
+                    #TODO: can't this be prepared in assemble_statements_update
+                    #TODO: only trade_id/investment_id is different, so perhaps only put that in
+                    # an if statement?
+                    #TODO: look up how to update multiple fields in 1 go.
+                    if statement.table_name == TABLE_TRADE:
+                        session.query(statements.table_name).filter_by(id=statement.trade_id).update(
+                            {"...": u"..."})
                 #TODO: set the values here and commit for each record in final_statements
                 print("{0} records updated.".format(str(len(final_statements))))
                 print('')
