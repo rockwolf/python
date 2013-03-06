@@ -316,14 +316,9 @@ class DatabaseAccess():
                 #session.commit()
                 for statement in final_statements:
                 	print('test:', statement)
-                    #TODO: can't this be prepared in assemble_statements_update
-                    #TODO: only trade_id/investment_id is different, so perhaps only put that in
-                    # an if statement?
-                    #TODO: look up how to update multiple fields in 1 go.
-                    if statement.table_name == TABLE_TRADE:
-                        session.query(statements.table_name).filter_by(id=statement.trade_id).update(
-                            {"...": u"..."})
-                #TODO: set the values here and commit for each record in final_statements
+                    session.query(table_name).filter_by(id=statement[0]).update(
+                        statement[1])
+                #TODO: commit/flush code
                 print("{0} records updated.".format(str(len(final_statements))))
                 print('')
         except Exception as ex:
@@ -447,7 +442,22 @@ class DatabaseAccess():
             that we can use to update at once.
         """
         #NOTE: updating needs more code in the write_to_database function
-        return statements.get_statement_list(insupdel) 
+        result = []
+        inner_part_list = statements.get_statement_list(insupdel)
+        for record in inner_part_list:
+            if statements.table_name == TABLE_TRADE:
+                result[0] = record['trade_id']
+            else if statemnets.table_name == TABLE_INVESTMENT:
+                result[0] = record['investment']
+            else:
+                result[0] = -1
+            #TODO: look up how to update 2 fields at once
+            #TODO: refactor this also piece of crap code
+            #TODO: add all the other fields
+            result[1].append(
+                {"date_buy": record["date_buy"]}
+                )
+        return result 
 
     def assemble_statement_list_delete(self, statements, insupdel=2):
         """
