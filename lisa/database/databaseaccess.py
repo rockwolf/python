@@ -318,7 +318,8 @@ class DatabaseAccess():
                 	print('test:', statement)
                     session.query(table_name).filter_by(id=statement[0]).update(
                         statement[1])
-                #TODO: commit/flush code
+                #TODO: commit/flush code in for or outside?
+                session.commit()
                 print("{0} records updated.".format(str(len(final_statements))))
                 print('')
         except Exception as ex:
@@ -448,16 +449,38 @@ class DatabaseAccess():
             if statements.table_name == TABLE_TRADE:
                 #TODO: instead of table_id being the id, make it
                 #the first field in the update string {...}: {..}
-                table_id = record['trade_id']
+                result[0].append(record['trade_id'])
             else if statemnets.table_name == TABLE_INVESTMENT:
-                table_id = record['investment']
+                result[0].append(record['investment_id'])
             else:
-                table_id = -1
-            #TODO: look up how to update 2 fields at once
-            #TODO: refactor this also piece of crap code
+                record[0].append(-1)
             #TODO: add all the other fields
-            result.append(
-                {"date_buy": record["date_buy"]}
+            result[1].append(
+                {"market_id": record["market_id"]
+                 ,"": record[""]
+                 ,"date_buy": record["date_buy"]
+                 ,"": record[""]
+                 ,"": record[""]
+                 ,"": record[""]
+                 ,"": record[""]
+                 ,"": record[""]
+                 ,"": record[""]
+                 ,"": record[""]
+                 ,"": record[""]
+                 ,"": record[""]
+                 ,"": record[""]
+                 ,"": record[""]
+                 ,"": record[""]
+                 ,"": record[""]
+                 ,"": record[""]
+                 ,"": record[""]
+                 ,"": record[""]
+                 ,"": record[""]
+                 ,"": record[""]
+                 ,"": record[""]
+                 ,"date_sell": record["date_sell"]
+                 ,"date_created": record["date_created"]
+                 ,"date_modified": record["date_modified"]}
                 )
         return result 
 
