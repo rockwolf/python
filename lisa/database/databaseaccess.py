@@ -446,15 +446,17 @@ class DatabaseAccess():
         inner_part_list = statements.get_statement_list(insupdel)
         for record in inner_part_list:
             if statements.table_name == TABLE_TRADE:
-                result[0] = record['trade_id']
+                #TODO: instead of table_id being the id, make it
+                #the first field in the update string {...}: {..}
+                table_id = record['trade_id']
             else if statemnets.table_name == TABLE_INVESTMENT:
-                result[0] = record['investment']
+                table_id = record['investment']
             else:
-                result[0] = -1
+                table_id = -1
             #TODO: look up how to update 2 fields at once
             #TODO: refactor this also piece of crap code
             #TODO: add all the other fields
-            result[1].append(
+            result.append(
                 {"date_buy": record["date_buy"]}
                 )
         return result 
