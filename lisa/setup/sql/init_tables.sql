@@ -25,19 +25,37 @@ INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_
 values(1, '', '', '', 1, current_date, current_date);
 
 INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
-values(2, 'ams', 'Amsterdam', 'NL', 1, current_date, current_date);
+values(2, 'ams', 'Amsterdam stock exchange AEX25', 'NL', 1, current_date, current_date);
 
 INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
-values(3, 'ebr', 'Brussels', 'BE', 1, current_date, current_date);
+values(3, 'ebr', 'Brussels stock exchange BEL20', 'BE', 1, current_date, current_date);
 
 INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
-values(4, 'etr', 'Xetra', 'DE', 1, current_date, current_date);
+values(4, 'etr', 'Frankfurt Xetra DAX30', 'DE', 1, current_date, current_date);
 
 INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
-values(5, 'epa', 'Paris', 'FR', 1, current_date, current_date);
+values(5, 'epa', 'Paris Stock Exchange CAC40', 'FR', 1, current_date, current_date);
 
 INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
 values(6, 'other', 'Other', '', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(7, 'eli', 'Lisbon Stock Exchange', 'P', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(8, 'lse', 'London Stock Exchange', 'GB', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(9, 'ise', 'Irish Stock Exchange (Dublin)', 'IRL', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(10, 'mil', 'Milan Stock Exchange', 'I', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(11, 'bma', 'Bolsa de Madrid', 'ES', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(12, 'vse', 'Vienna Stock Exchange', 'CH', 1, current_date, current_date);
 
 --TODO: enter market names for commodities here
 INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
