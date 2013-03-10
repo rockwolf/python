@@ -57,10 +57,11 @@ values(11, 'bma', 'Bolsa de Madrid', 'ES', 1, current_date, current_date);
 INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
 values(12, 'vse', 'Vienna Stock Exchange', 'CH', 1, current_date, current_date);
 
---TODO: enter market names for commodities here
 INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
-values(7, 'gbp', 'London', '', 1, current_date, current_date);
+values(13, '.gold', 'World Spot Gold', 'US', 1, current_date, current_date);
 
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(14, '.silver', 'World Spot Silver', 'US', 1, current_date, current_date);
 
 /* stock names */
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
