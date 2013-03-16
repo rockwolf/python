@@ -19,6 +19,8 @@ INSERT INTO T_ACCOUNT(name, description, date_created, date_modified)
 values('whsi00', 'Trading account', current_date, current_date);
 
 /* markets */
+-- NOTE: see list of country codes at:
+-- http://www.iso.org/iso/country_codes/iso_3166_code_lists/country_names_and_code_elements.htm
 --TODO: check if this still maps to the current market id's in production
 --and check this when using KETTLE
 INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
@@ -40,16 +42,16 @@ INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_
 values(6, 'other', 'Other', '', 1, current_date, current_date);
 
 INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
-values(7, 'eli', 'Lisbon Stock Exchange', 'P', 1, current_date, current_date);
+values(7, 'eli', 'Lisbon Stock Exchange', 'PT', 1, current_date, current_date);
 
 INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
-values(8, 'lse', 'London Stock Exchange', 'GB', 1, current_date, current_date);
+values(8, 'lse', 'London Stock Exchange', 'UK', 1, current_date, current_date);
 
 INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
-values(9, 'ise', 'Irish Stock Exchange (Dublin)', 'IRL', 1, current_date, current_date);
+values(9, 'ise', 'Irish Stock Exchange (Dublin)', 'IE', 1, current_date, current_date);
 
 INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
-values(10, 'mil', 'Milan Stock Exchange', 'I', 1, current_date, current_date);
+values(10, 'mil', 'Milan Stock Exchange', 'IT', 1, current_date, current_date);
 
 INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
 values(11, 'bma', 'Bolsa de Madrid', 'ES', 1, current_date, current_date);
@@ -58,10 +60,73 @@ INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_
 values(12, 'vse', 'Vienna Stock Exchange', 'CH', 1, current_date, current_date);
 
 INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
-values(13, '.gold', 'World Spot Gold', 'US', 1, current_date, current_date);
+values(13, 'cfd .gold', 'CFD - World Spot Gold', 'US', 1, current_date, current_date);
 
 INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
-values(14, '.silver', 'World Spot Silver', 'US', 1, current_date, current_date);
+values(14, 'cfd .silver', 'CFD - World Spot Silver', 'US', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(15, 'cfd oil', 'CFD - Brent and WTI oil', 'US', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(16, 'cfd other non-share', 'CFD - other non-share', '', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(17, 'cfd BE', 'CFD - Belgium', 'BE', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(18, 'cfd FR', 'CFD - France', 'FR', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(19, 'cfd DE', 'CFD - Germany', 'DE', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(20, 'cfd UK', 'CFD - United Kingdom', 'UK', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(21, 'cfd DK', 'CFD - Denmark', 'DK', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(22, 'cfd FI', 'CFD - Finland', 'FI', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(23, 'cfd IT', 'CFD - Italy', 'IT', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(24, 'cfd NL', 'CFD - Netherlands', 'NL', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(25, 'cfd NO', 'CFD - Norway', 'NO', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(26, 'cfd PT', 'CFD - Portugal', 'PT', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(27, 'cfd SE', 'CFD - Sweden', 'SE', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(28, 'cfd CH', 'CFD - Switzerland', 'CH', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(29, 'cfd ES', 'CFD - Spain', 'ES', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(30, 'cfd other share', 'CFD - other share', '', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(31, 'cfd AU', 'CFD - Australia', 'AU', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(32, 'cfd AT', 'CFD - Austria', 'AT', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(33, 'cfd CN', 'CFD - China', 'CN', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(34, 'cfd PL', 'CFD - Poland', 'PL', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
+values(35, 'cfd SG', 'CFD - Singapore', 'SG', 1, current_date, current_date);
 
 /* stock names */
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
