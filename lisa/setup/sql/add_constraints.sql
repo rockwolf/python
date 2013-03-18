@@ -12,6 +12,8 @@ alter table T_ACCOUNT
     add constraint pk_account_id primary key(account_id);
 alter table T_MARKET
     add constraint pk_market_id primary key(market_id);
+alter table T_MARKET
+    add constraint fk_account_id foreign key(account_id) references T_ACCOUNT(account_id);
 alter table T_STOCK_NAME
     add constraint pk_stock_name_id primary key(stock_name_id);
 alter table T_STOCK_NAME
