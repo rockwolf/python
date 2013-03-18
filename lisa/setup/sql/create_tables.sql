@@ -47,6 +47,7 @@ CREATE TABLE T_POOL
 CREATE TABLE T_MARKET
 (
     market_id int not null,
+    account_id int not null,
     code varchar(5) not null,
     name varchar(30) not null,
     country char(3) not null,
