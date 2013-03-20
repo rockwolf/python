@@ -128,6 +128,20 @@ values(34, 6, 'cfd PL', 'CFD - Poland', 'PL', 1, current_date, current_date);
 INSERT INTO T_MARKET(market_id, account_id, code, name, country, active, date_created, date_modified)
 values(35, 6, 'cfd SG', 'CFD - Singapore', 'SG', 1, current_date, current_date);
 
+INSERT INTO T_MARKET(market_id, account_id, code, name, country, active, date_created, date_modified)
+values(36, 4, 'nyse', 'Ney York Stock Exchange', 'US', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, account_id, code, name, country, active, date_created, date_modified)
+values(37, 4, 'nasdaq', 'Nasdaq', 'US', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, account_id, code, name, country, active, date_created, date_modified)
+values(38, 4, 'otc bb & pinksheets', 'OTC BB & pinksheets', 'US', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, account_id, code, name, country, active, date_created, date_modified)
+values(39, 4, 'amex', 'American Exchange', 'US', 1, current_date, current_date);
+
+INSERT INTO T_MARKET(market_id, account_id, code, name, country, active, date_created, date_modified)
+values(40, 4, 'other us', 'Other US markets', 'US', 1, current_date, current_date);
 
 /* stock names */
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
