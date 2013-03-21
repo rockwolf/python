@@ -495,52 +495,6 @@ class DatabaseAccess():
         # you press execute.
         return statements.get_statement_list(insupdel)
 
-    def update_stock(self, fields_stock, session, i, finance_id, recordid):
-        """
-            Add a new stock entry or update an existing one.
-        """
-        #TODO: figure out what to do with this,
-        # after the statement(..., TABLE_NAME) stuff is implemented.
-        try:
-            date_created = current_date()
-            date_modified = current_date()
-            # Get stock_name_id from T_STOCK_NAME if it exists (a new entry will be made in T_STOCK_NAME if it doesn't)
-            #TODO: add descriptions to market_id_from_market and to
-            #stock_name_id_from_stock_name)
-            market_id = self.market_id_from_market(fields_stock[i]['market'])
-            stock_name_id = self.stock_name_id_from_stock_name(fields_stock[i]['name'], market_id)
-            vartax = Decimal(fields_stock[i]['tax'])
-            varcommission = Decimal(fields_stock[i]['commission'])
-            first_obj = session.query(T_STOCK).filter_by(
-                      finance_id=finance_id,
-                      price=Decimal(fields_stock[i]['price']),
-                      shares=int(fields_stock[i]['shares']),
-                      tax=vartax,
-                      commission=varcommission
-                  ).first()
-            if first_obj is None: 
-                # NEW
-                self.statementStock.add(
-                    recordid,
-                    T_STOCK(
-                        finance_id,
-                        stock_name_id,
-                        fields_stock[i]['action'],
-                        Decimal(fields_stock[i]['price']),
-                        int(fields_stock[i]['shares']),
-                        vartax,
-                        varcommission,
-                        0,
-                        date_created,
-                        date_modified,
-                        Decimal(fields_stock[i]['risk'])
-                    )
-                )
-                return True;
-        except Exception as ex:
-           print(ERROR_UPDATE_STOCK, ex)
-        return False;
-
     def export_records(self, name):
         """
             Return the records from the table or view, defined by name.
