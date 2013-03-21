@@ -53,8 +53,6 @@ class ControllerMain():
             
             input_fields = self.get_input_fields(tablecontent)
             # Note: The order of execution below is important!
-            #TODO: rename the create_statements functions to just that,
-            #they are preceded by their class name now anyway.
             test = currency_exchange.create_statements(input_fields)
             test.print_statements()
             currency_exchange.write_to_database(currency_exchange.create_statements(input_fields))
@@ -87,7 +85,6 @@ class ControllerMain():
         """ Gets input, adds extra info and puts this in a list. """
         input = []
         try:
-            #TODO: remove references to flg_income?
             for field in tablecontent:
                 category = field[2]
                 subcategory = field[3]
@@ -126,8 +123,6 @@ class ControllerMain():
                     'i_commission':Decimal(commission),
                     'i_tax':Decimal(tax),
                     'i_risk_input':Decimal(risk),
-                    #TODO: LOW priority: add a second box to choose the currency_to
-                    #NOTE: Conversion to EUR expected for now.
                     'i_currency_from':field[15], #Note: Get currency_id from T_CURRENCY for final insert
                     'i_currency_to':field[16], #Note: Get currency_id from T_CURRENCY for final insert
                     'i_exchange_rate':Decimal(field[17]),
@@ -140,26 +135,6 @@ class ControllerMain():
             print(ERROR_GET_INPUT_FIELDS, ex)
         finally:
             return input 
-
-    def backup(self):
-        """ Make a backup of the output file for clipf. """
-        # remove old backup
-        if isfile(self.config.backupfile):
-            try:
-                os.remove(self.config.backupfile)
-                print(self.config.backupfile + ' removed.')
-            #except IOError as strerror:
-            except Exception as ex:
-                print("Error: ", ex)
-        # copy current to .bak
-        if isfile(self.config.exportfile) and not isfile(self.config.backupfile):
-            try:
-                shutil.copy(self.config.exportfile, self.config.backupfile)
-                print(self.config.backupfile + ' created.')
-            except Exception as ex:
-                print('Error: application fucked up while creating backup: ', ex)
-        else:
-            print('Error: backup file already exists.')
 
     ## Init of gui
     def init_display_data(self):
@@ -342,7 +317,6 @@ class ControllerMain():
 
     def parse_formula(self, formula_id, value_list):
         """ Parse formula for trading, to calculate the commission. """
-        #TODO: create the get_formula function in databaseaccess.
         dba = DatabaseAccess(self.config)
         formula = dba.get_formula(formula_id)
         #TODO: loop over elements in formula and substitute the values.
