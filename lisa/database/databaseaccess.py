@@ -1047,13 +1047,6 @@ class DatabaseAccess():
         """
             Gets the pool available for trading.
         """
-        #TODO: problem: when we enter many trades, this wil get whats
-        #currently in the pool, not what's in it after the first
-        #couple of inserts.
-        # - solution: enter trades 1 by 1 + commit every time.
-        # - other solution: enter pool value as an input field, which
-        #usually requires you to just copy the field values shown at
-        #the top and that value could even be filled in by default.
         result = DEFAULT_DECIMAL
         session = self.Session()
         try:
