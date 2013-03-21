@@ -50,12 +50,6 @@ ERROR_GET_STOCK_NAMES = "Error in get_stocknames: "
 ERROR_GET_STOCK_DESCRIPTION = "Error in get_stockdescription: "
 ERROR_GET_STOCK_INFO = "Error in get_stockinfo: "
 ERROR_GET_CURRENCIES = "Error in get_currencies: "
-#TODO: delete the file_import_stocks part and the related file
-#in modules/stock.py, because it is no longer used (I think?).
-ERROR_FILE_IMPORT_STOCKS = "Error in file_import_stocks: "
-ERROR_FILE_IMPORT_STOCKS_SESSION = "Error creating session in file_import_stocks: "
-#TODO: will be removed later, when updating investments is made.
-ERROR_UPDATE_STOCK = "Error in update_stock: "
 ERROR_EXPORT_RECORDS = "Error in export_records: "
 ERROR_SUBCATEGORY_ID_FROM_SUBCATEGORY = "Error retrieving subcategory_id: "
 ERROR_ACCOUNT_ID_FROM_ACCOUNT = "Error retrieving account_id: "
