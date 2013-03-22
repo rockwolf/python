@@ -457,11 +457,11 @@ class DatabaseAccess():
             #TODO: add all the other fields
             result[1].append(
                 {"market_id": record["market_id"]
-                 ,"": record[""]
+                 ,"stock_name_id": record["stock_name_id"]
                  ,"date_buy": record["date_buy"]
-                 ,"": record[""]
-                 ,"": record[""]
-                 ,"": record[""]
+                 ,"year_buy": record["year_buy"]
+                 ,"month_buy": record["month_buy"]
+                 ,"day_buy": record["day_buy"]
                  ,"": record[""]
                  ,"": record[""]
                  ,"": record[""]
