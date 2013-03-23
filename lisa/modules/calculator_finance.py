@@ -6,6 +6,8 @@ See LICENSE file for copyright and license details.
 A file with Lisa specific financial calculations
 """
 
+from decimal import Decimal
+
 def calculate_stoploss(self, amount_buy_simple, shares_buy, tax_buy, commission_buy, i_risk, pool_at_start):
     """
         Calculates the stoploss.
@@ -25,7 +27,7 @@ def calculate_profit_loss(self, amount_buy, amount_sell):
     """
         Calculates the profit_loss.
     """
-    return = amount_sell - amount_buy
+    return amount_sell - amount_buy
 
 def calculate_risk_input(self, i_pool, i_risk):
     """

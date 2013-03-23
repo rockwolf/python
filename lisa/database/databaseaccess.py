@@ -315,9 +315,9 @@ class DatabaseAccess():
                 #session.add_all(final_statements)
                 #session.commit()
                 for statement in final_statements:
-                	print('test:', statement)
-                    session.query(table_name).filter_by(id=statement[0]).update(
-                        statement[1])
+                    print('test:', statement)
+                    session.query(table_name).filter_by(
+                            id=statement[0]).update(statement[1])
                 #TODO: commit/flush code in for or outside?
                 session.commit()
                 print("{0} records updated.".format(str(len(final_statements))))
@@ -450,7 +450,7 @@ class DatabaseAccess():
                 #TODO: instead of table_id being the id, make it
                 #the first field in the update string {...}: {..}
                 result[0].append(record['trade_id'])
-            else if statemnets.table_name == TABLE_INVESTMENT:
+            elif statements.table_name == TABLE_INVESTMENT:
                 result[0].append(record['investment_id'])
             else:
                 record[0].append(-1)

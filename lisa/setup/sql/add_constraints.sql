@@ -47,9 +47,9 @@ alter table T_CURRENCY
 alter table T_CURRENCY_EXCHANGE
     add constraint pk_currency_exchange_id primary key(currency_exchange_id);
 alter table T_CURRENCY_EXCHANGE
-    add constraint fk_from_currency_id foreign key(from_currency_id) references T_CURRENCY(currency_id);
+    add constraint fk_currency_from_id foreign key(currency_from_id) references T_CURRENCY(currency_id);
 alter table T_CURRENCY_EXCHANGE
-    add constraint fk_to_currency_id foreign key(to_currency_id) references T_CURRENCY(currency_id);
+    add constraint fk_currency_to_id foreign key(currency_to_id) references T_CURRENCY(currency_id);
 alter table T_FINANCE
     add constraint fk_currency_exchange_id foreign key(currency_exchange_id) references T_CURRENCY_EXCHANGE(currency_exchange_id);
 alter table T_MARGIN_TYPE
