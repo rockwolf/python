@@ -190,8 +190,8 @@ class ControllerMain():
         """
         value = Decimal(0.0)
         for fields in input_fields:
-            if fields['account'] == account_name:
-                value = value + Decimal(fields['amount'])
+            if fields['i_account'] == account_name:
+                value = value + Decimal(fields['i_amount'])
         return value
 
     def get_account_totals_from_input_fields(self, input_fields):

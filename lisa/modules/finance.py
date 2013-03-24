@@ -32,9 +32,9 @@ class Finance(CoreModule):
             currency_exchange_id = dba.first_currency_exchange_id_from_latest()
             rate_id = dba.first_rate_id_from_latest()
             for fields in input_fields:
-                subcategory_id = dba.subcategory_id_from_subcategory(fields['subcategory'])
-                account_id = dba.account_id_from_account(fields['account'])
-                category_id = dba.category_id_from_category(fields['category'])
+                subcategory_id = dba.subcategory_id_from_subcategory(fields['i_subcategory'])
+                account_id = dba.account_id_from_account(fields['i_account'])
+                category_id = dba.category_id_from_category(fields['i_category'])
                
                 #NOTE: in the database, the first values in the tables of the
                 #below id's, are empty/dummy values, used for when we are not
@@ -42,45 +42,45 @@ class Finance(CoreModule):
                 market_id = 1
                 stock_name_id = 1
                 rate_id = 1
-                if deals_with_stocks(fields['category'], fields['subcategory']):
-                    if fields['market_name'] != '':
-                        market_id = dba.market_id_from_market(fields['market_name'])
-                    if fields['stock_name'] != '':
+                if deals_with_stocks(fields['i_category'], fields['i_subcategory']):
+                    if fields['i_market_name'] != '':
+                        market_id = dba.market_id_from_market(fields['i_market_name'])
+                    if fields['i_stock_name'] != '':
                         stock_name_id = dba.stock_name_id_from_stock_name(
-                                fields['stock_name'], market_id)
+                                fields['i_stock_name'], market_id)
                     rate_id = dba.get_latest_rate_id()
                 finance_record = dba.get_specific_finance_record(
-                    fields['date'],
+                    fields['i_date'],
                     account_id,
                     category_id,
                     subcategory_id,
-                    Decimal(fields['amount']),
-                    fields['comment'],
+                    Decimal(fields['i_amount']),
+                    fields['i_comment'],
                     stock_name_id,
-                    int(fields['shares']),
-                    Decimal(fields['shares']),
-                    Decimal(fields['tax']),
-                    Decimal(fields['commission']))
+                    int(fields['i_shares']),
+                    Decimal(fields['i_shares']),
+                    Decimal(fields['i_tax']),
+                    Decimal(fields['i_commission']))
                 if finance_record is None:
                         records = records + 1
                         statement_finance.add(
                             records,
                             {
                                 'finance_id':None,
-                                'date':fields['date'],
-                                'year':fields['date'].year,
-                                'month':fields['date'].month,
-                                'day':fields['date'].day,
+                                'date':fields['i_date'],
+                                'year':fields['i_date'].year,
+                                'month':fields['i_date'].month,
+                                'day':fields['i_date'].day,
                                 'account_id':account_id,
                                 'category_id':category_id,
                                 'subcategory_id':subcategory_id,
-                                'amount':Decimal(fields['amount']),
-                                'comment':fields['comment'],
+                                'amount':Decimal(fields['i_amount']),
+                                'comment':fields['i_comment'],
                                 'stock_name_id':stock_name_id,
-                                'shares':int(fields['shares']),
-                                'price':Decimal(fields['price']),
-                                'tax':Decimal(fields['tax']),
-                                'commission':Decimal(fields['commission']),
+                                'shares':int(fields['i_shares']),
+                                'price':Decimal(fields['i_price']),
+                                'tax':Decimal(fields['i_tax']),
+                                'commission':Decimal(fields['i_commission']),
                                 'active':1,
                                 'rate_id':rate_id,
                                 'currency_exchange_id':currency_exchange_id,
