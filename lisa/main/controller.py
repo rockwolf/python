@@ -128,8 +128,7 @@ class ControllerMain():
                     'i_exchange_rate':Decimal(field[17]),
                     'i_manual_flag':int(field[18]),
                     'i_date_expiration':string_to_date(field[19]),
-                    'i_pool':Decimal(pool),
-                    'i_spread':Decimal(field[21])
+                    'i_pool':Decimal(pool)
                 })
         except Exception as ex:
             print(ERROR_GET_INPUT_FIELDS, ex)
@@ -250,8 +249,7 @@ class ControllerMain():
             self.gui.get_exchange_rate(),
             self.gui.get_manual_commission(),
             self.gui.get_date_expiration(),
-            pool,
-            self.gui.get_spread()
+            pool
             ]
         return str_list
 

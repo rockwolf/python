@@ -106,7 +106,6 @@ class T_INVESTMENT(Base):
     profit_loss_percent = Column(Numeric(18,6))
     r_multiple = Column(Numeric(18,6))
     win_flag = Column(Integer)
-    at_work = Column(Numeric(18,6))
     id_buy = Column(Integer)
     id_sell = Column(Integer)
     currency_exchange_id = Column(Integer)
@@ -124,7 +123,7 @@ class T_INVESTMENT(Base):
             commission_sell, tax_buy, tax_sell, risk_input, risk_input_percent, risk_initial,
             risk_initial_percent, risk_actual, risk_actual_percent, cost_total, cost_other, 
             amount_buy_simple, amount_sell_simple, stoploss, profit_loss, profit_loss_percent, r_multiple,
-            win_flag, at_work, id_buy, id_sell,
+            win_flag, id_buy, id_sell,
             currency_exchange_id, drawdown_id, pool_at_start, date_expiration,
             expired_flag, active, date_created, date_modified):
         self.trade_id = trade_id
@@ -162,7 +161,6 @@ class T_INVESTMENT(Base):
         self.profit_loss_percent = profit_loss_percent
         self.r_multiple = r_multiple
         self.win_flag = win_flag
-        self.at_work = at_work
         self.id_buy = id_buy
         self.id_sell = id_sell
         self.currency_exchange_id = currency_exchange_id
@@ -175,7 +173,7 @@ class T_INVESTMENT(Base):
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_INVESTMENT('%s', '%s', '%s', '%s', '%s', '%s', \
+        return "<T_INVESTMENT('%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
@@ -215,7 +213,6 @@ class T_INVESTMENT(Base):
                         self.profit_loss_percent,
                         self.r_multiple,
                         self.win_flag,
-                        self.at_work,
                         self.id_buy,
                         self.id_sell,
                         self.currency_exchange_id,
@@ -482,7 +479,6 @@ class T_TRADE(Base):
     profit_loss_percent = Column(Numeric(18,6))
     r_multiple = Column(Numeric(18,6))
     win_flag = Column(Integer)
-    at_work = Column(Numeric(18,6))
     id_buy = Column(Integer)
     id_sell = Column(Integer)
     currency_exchange_id = Column(Integer)
@@ -500,7 +496,7 @@ class T_TRADE(Base):
             commission_sell, tax_buy, tax_sell, risk_input, risk_input_percent, risk_initial,
             risk_initial_percent, risk_actual, risk_actual_percent, cost_total, cost_other,
             amount_buy_simple, amount_sell_simple, stoploss, profit_loss, profit_loss_percent, r_multiple,
-            win_flag, at_work, id_buy, id_sell,
+            win_flag, id_buy, id_sell,
             currency_exchange_id, drawdown_id, pool_at_start, date_expiration,
             expired_flag, active, date_created, date_modified):
         self.trade_id = trade_id
@@ -538,7 +534,6 @@ class T_TRADE(Base):
         self.profit_loss_percent = profit_loss_percent
         self.r_multiple = r_multiple
         self.win_flag = win_flag
-        self.at_work = at_work
         self.id_buy = id_buy
         self.id_sell = id_sell
         self.currency_exchange_id = currency_exchange_id
@@ -591,7 +586,6 @@ class T_TRADE(Base):
                         self.profit_loss_percent,
                         self.r_multiple,
                         self.win_flag,
-                        self.at_work,
                         self.id_buy,
                         self.id_sell,
                         self.currency_exchange_id,

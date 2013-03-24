@@ -164,11 +164,9 @@ class ControllerPyqt(QtGui.QMainWindow):
         # enable trade labels
         self.gui.lbl_risk.setEnabled(is_stock and is_trade)
         self.gui.lbl_expiration.setEnabled(is_stock and is_trade)
-        self.gui.lbl_spread.setEnabled(is_stock and is_trade)
         # enable trade inputs
         self.gui.spn_risk.setEnabled(is_stock and is_trade)
         self.gui.dt_expiration.setEnabled(is_stock and is_trade)
-        self.gui.spn_spread.setEnabled(is_stock and is_trade)
         # set inputfields
         self.gui.spn_tax.setValue(Decimal(self.config.default_tax))
         if is_trade:
@@ -203,7 +201,7 @@ class ControllerPyqt(QtGui.QMainWindow):
                 'comment', 'stock', 'stock_description', 'market',
                 'market_description', 'quantity', 'price',
                 'commission', 'tax', 'risk', 'currency_from', 'currency_to', 'exchange_rate',
-                'manual_flag', 'expires_on', 'spread']
+                'manual_flag', 'expires_on']
         self.table = TableModel(header, [], 0, len(header))
         # takeAt(0) removes the default empty table that's there and addWidget
         # adds a newly created one.
@@ -334,11 +332,6 @@ class ControllerPyqt(QtGui.QMainWindow):
     	""" Returns the value of the dt_expiration date picker. """
     	return str(self.gui.dt_expiration.date().toString(QtCore.Qt.ISODate))
 
-    def get_spread(self):
-    	""" Returns the spread used. """
-    	return str(self.gui.spn_spread.textFromValue( \
-    		self.gui.spn_spread.value()))
-
     def set_infodetails(self, value):
        """ Sets new info on the lbl_infodetails label. """
        self.gui.lbl_infodetails.setText(value)
@@ -408,10 +401,6 @@ class ControllerPyqt(QtGui.QMainWindow):
     def set_pool(self, value):
         """ Sets the trading pool to the given value. """
         self.gui.spn_pool.setValue(value)
-
-    def set_spread(self, value):
-        """ Sets the spread to the given value. """
-        self.gui.spn_spread.setValue(value)
 
     def add_currency_from(self, value):
         """ Add a new item to cmb_currency_from. """ 

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'viewpyqt.ui'
 #
-# Created: Sun Mar  3 11:56:22 2013
+# Created: Sun Mar 24 16:00:52 2013
 #      by: PyQt4 UI code generator 4.9.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -221,14 +221,6 @@ class Ui_MainWindow(object):
         self.lbl_pool = QtGui.QLabel(self.centralwidget)
         self.lbl_pool.setObjectName(_fromUtf8("lbl_pool"))
         self.gridLayout.addWidget(self.lbl_pool, 3, 8, 1, 1)
-        self.lbl_spread = QtGui.QLabel(self.centralwidget)
-        self.lbl_spread.setObjectName(_fromUtf8("lbl_spread"))
-        self.gridLayout.addWidget(self.lbl_spread, 3, 5, 1, 1)
-        self.spn_spread = QtGui.QDoubleSpinBox(self.centralwidget)
-        self.spn_spread.setDecimals(6)
-        self.spn_spread.setMaximum(999999.999999)
-        self.spn_spread.setObjectName(_fromUtf8("spn_spread"))
-        self.gridLayout.addWidget(self.spn_spread, 4, 5, 1, 1)
         self.lbl_exchange_rate = QtGui.QLabel(self.centralwidget)
         self.lbl_exchange_rate.setObjectName(_fromUtf8("lbl_exchange_rate"))
         self.gridLayout.addWidget(self.lbl_exchange_rate, 3, 2, 1, 1)
@@ -364,7 +356,6 @@ class Ui_MainWindow(object):
         self.lbl_expiration.setText(QtGui.QApplication.translate("MainWindow", "Expires on", None, QtGui.QApplication.UnicodeUTF8))
         self.dt_expiration.setDisplayFormat(QtGui.QApplication.translate("MainWindow", "yyyy-MM-dd", None, QtGui.QApplication.UnicodeUTF8))
         self.lbl_pool.setText(QtGui.QApplication.translate("MainWindow", "Pool", None, QtGui.QApplication.UnicodeUTF8))
-        self.lbl_spread.setText(QtGui.QApplication.translate("MainWindow", "Spread", None, QtGui.QApplication.UnicodeUTF8))
         self.lbl_exchange_rate.setText(QtGui.QApplication.translate("MainWindow", "Exchange rate", None, QtGui.QApplication.UnicodeUTF8))
         self.lbl_currency_to.setText(QtGui.QApplication.translate("MainWindow", "Currency to", None, QtGui.QApplication.UnicodeUTF8))
         self.btn_clear.setText(QtGui.QApplication.translate("MainWindow", "&Clear", None, QtGui.QApplication.UnicodeUTF8))

@@ -10,6 +10,8 @@ from modules.statement import Statement
 from modules.constant import *
 from modules.function import *
 from modules_generic.function import *
+from database.mappings import T_INVESTMENT
+from modules.calculator_finance import *
 
 class Investment(CoreModule):
     """
@@ -58,7 +60,7 @@ class Investment(CoreModule):
                         #and not the next ones!
                         #This is really becoming more complex than necessary,
                         #split the code and focus on T_TRADE instead.
-                        investment_record = dba.get_invade_record(finance_id, T_INVESTMENT)
+                        investment_record = dba.get_invade_record(finance_id, TABLE_INVESTMENT)
                         long_flag = dba.get_long_flag_value(fields['i_category'],
                                 fields['i_subcategory'], investment_record)
                         # TEST INFO
@@ -106,7 +108,7 @@ class Investment(CoreModule):
                                     " and you are trying to add one like it" \
                                     " again?".format(TABLE_TRADE))
                             stoploss = investment_record['stoploss']
-                            profit_loss = dba.calculate_profit_loss(
+                            profit_loss = calculate_profit_loss(
                                 investment_record['amount_sell'],
                                 investment_record['amount_buy'])
                             pool_at_start = \
@@ -118,7 +120,7 @@ class Investment(CoreModule):
                             risk_input_percent = investment_record['risk_input_percent']
                             risk_initial = investment_record['risk_initial']
                             risk_initial_percent = (risk_initial/at_work)*100.0
-                            risk_actual = dba.calculate_risk_actual(
+                            risk_actual = calculate_risk_actual(
                                 investment_record['price_buy'],
                                 investment_record['shares_buy'],
                                 investment_record['price_sell'],
@@ -126,7 +128,7 @@ class Investment(CoreModule):
                                 investment_record['stoploss'],
                                 investment_record['risk_initial'])
                             risk_actual_percent = (risk_actual/at_work)*100.0
-                            cost_total = dba.calculate_cost_total(
+                            cost_total = calculate_cost_total(
                                 investment_record['tax_buy'],
                                 investment_record['commission_buy'],
                                 investment_record['tax_sell'],
@@ -144,7 +146,7 @@ class Investment(CoreModule):
                                         long_flag)
                             from_currency_id = investment_record['from_currency_id']
                             drawdown_id = investment_record['drawdown_id']
-                            r_multiple = dba.calculate_r_multiple(
+                            r_multiple = calculate_r_multiple(
                                 investment_record['price_buy'],
                                 investment_record['price_sell'],
                                 investment_record['price_stoploss'])
@@ -189,12 +191,12 @@ class Investment(CoreModule):
                                 commission_sell = fields['i_commission']
                                 tax_buy = DEFAULT_DECIMAL
                                 tax_sell = fields['tax']
-                            stoploss = dba.calculate_stoploss(
+                            stoploss = calculate_stoploss(
                                 fields['i_amount'],
                                 fields['i_shares'],
                                 fields['i_tax'],
                                 fields['i_commission'],
-                                fields['i_risk'],
+                                fields['i_risk_input'],
                                 fields['i_pool']
                                 )
                             profit_loss = DEFAULT_DECIMAL #Only calculated at end of trade.
@@ -204,12 +206,12 @@ class Investment(CoreModule):
                             #TODO: also insert amount_sell_simple
                             amount_buy_simple = Decimal(fields['i_price'])*Decimal(fields['i_shares'])
                             amount_sell_simple = DEFAULT_DECIMAL
-                            risk_input = dba.calculate_risk_input(
+                            risk_input = calculate_risk_input(
                                 fields['i_pool'],
-                                fields['i_risk'])
-                            risk_input_percent = fields['i_risk']
+                                fields['i_risk_input'])
+                            risk_input_percent = fields['i_risk_input']
                             #TODO: add correct parameters in calc_risk_init
-                            risk_initial = dba.calculate_risk_initial(
+                            risk_initial = calculate_risk_initial(
                                 fields['i_price'],
                                 fields['i_shares'],
                                 stoploss)
