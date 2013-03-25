@@ -11,19 +11,20 @@ from ctypes import *
 
 lib = cdll.LoadLibary('./CalculatorFinance.so')
 
+api = {
+    'calcStoploss': (c_double,    [c_double, c_int, c_double, c_double, c_double, c_double])
+    }
+
 def calculate_stoploss(self, amount_buy_simple, shares_buy, tax_buy, commission_buy, i_risk, pool_at_start):
     """
         Calculates the stoploss.
     """
-    -- TODO: call the library functions
-    func = '
-    return 
-
-def calculate_profit_loss(self, amount_buy, amount_sell):
-    """
-        Calculates the profit_loss.
-    """
-    return 
+    # TODO: test if this works + see if it can be writen with less code.
+    f = getattr(lib, api['calcStoploss'])
+    f.restype, f.argtypes = api['calcStoploss']
+    input, expected = (amount_buy_simple, shares_buy, tax_buy, commission_buy, i_risk, pool_at_start)
+    assert f(input) == expected
+    return expected
 
 def calculate_risk_input(self, i_pool, i_risk):
     """
@@ -48,20 +49,45 @@ def calculate_risk_actual(self, price_buy, shares_buy, price_sell, shares_sell, 
     """
     return 
 
+def calculate_r_multiple(self, price_buy, price_sell, stoploss):
+    """ 
+        Function to calculate R-multiple.
+    """
+    return 
+
 def calculate_cost_total(self, tax_buy, commission_buy, tax_sell, commission_sell):
     """
         Returns the total costs associated with the given trade.
     """
     return 
 
+def calculate_amount_simple(self, price, shares):
+    """
+        Calculates the amount without tax and commission.
+    """"
+    return
+
+def cost_transaction(self, transaction, price, shares, tax, commission):
+    """
+        Cost of transaction (tax and commission)
+    """
+    return
+
+def calculate_profit_loss(self, amount_sell_simple, amount_buy_simple, total_cost):
+    """
+        Calculates the profit_loss.
+    """
+    return 
+
+def calculate_cost_other(self, total_cost, profit_loss):
+    """
+        Calculates others costs based on the difference that remains.
+    """
+    return
+
 def calculate_commission(self):
     """
         Calculation for T_RATE.
     """
-    return 
-
-def calculate_r_multiple(self, price_buy, price_sell, stoploss):
-    """ 
-        Function to calculate R-multiple.
-    """
+    #TODO: Put all the commission stuff in the CalculatorFinance.hs lib and link to it here.
     return 
