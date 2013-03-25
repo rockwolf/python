@@ -7,38 +7,30 @@ A file with Lisa specific financial calculations
 """
 
 from decimal import Decimal
+from ctypes import *
+
+lib = cdll.LoadLibary('./CalculatorFinance.so')
 
 def calculate_stoploss(self, amount_buy_simple, shares_buy, tax_buy, commission_buy, i_risk, pool_at_start):
     """
         Calculates the stoploss.
     """
-    #NOTE: amount_buy = with tax and everything included, amount_buy_simple = without tax and commission!
-    #NOTE: ((risk/100 * pool_at_start - amount_buy_simple) - commission_buy)/(shares_buy * (tax_buy/100 - 1))
-    #NOTE: ((R * P - A) - C) / (S * (T - 1))
-    R = Decimal(i_risk) / Decimal(100.0)
-    P = Decimal(pool_at_start)
-    A = abs(Decimal(amount_buy_simple))
-    S = Decimal(shares_buy)
-    T = Decimal(tax_buy) / Decimal(100.0)
-    C = Decimal(commission_buy)
-    return ((R * P - A) - C) / (S * (T - 1))
+    -- TODO: call the library functions
+    func = '
+    return 
 
 def calculate_profit_loss(self, amount_buy, amount_sell):
     """
         Calculates the profit_loss.
     """
-    return amount_sell - amount_buy
+    return 
 
 def calculate_risk_input(self, i_pool, i_risk):
     """
         Calculates the risk based on total pool and input.
         Consider this the theoretical risk we want to take.
     """
-    #NOTE: (i_risk/100.0) * pool_at_start
-    #NOTE: R * Po
-    R = Decimal(i_risk)/Decimal(100.0)
-    Po = abs(Decimal(i_pool))
-    return R * Po
+    return 
 
 def calculate_risk_initial(self, price_buy, shares_buy, stoploss):
     """
@@ -47,36 +39,29 @@ def calculate_risk_initial(self, price_buy, shares_buy, stoploss):
         This should be equal to the risk_input if everything was
         correctly calculated.
     """
-    #NOTE: commission + tax = seperate = costs
-    return (price_buy * shares_buy) - (stoploss * shares_buy)
+    return 
 
 def calculate_risk_actual(self, price_buy, shares_buy, price_sell, shares_sell, stoploss, risk_initial):
     """
         Calculates the risk we actually took,
         based on the data in TABLE_TRADE.
     """
-    #NOTE: price_sell > stoploss = max risk was the initial risk
-    if Ps < stoploss:
-        result = (price_buy * shares_buy) - (price_sell * shares_sell)
-    else:
-        result = risk_initial
-    return result
+    return 
 
 def calculate_cost_total(self, tax_buy, commission_buy, tax_sell, commission_sell):
     """
         Returns the total costs associated with the given trade.
     """
-    return (tax_buy + commission_buy + tax_sell + commission_sell)
+    return 
 
 def calculate_commission(self):
     """
         Calculation for T_RATE.
     """
-    #TODO: finish this function
-    return DEFAULT_DECIMAL
+    return 
 
 def calculate_r_multiple(self, price_buy, price_sell, stoploss):
     """ 
         Function to calculate R-multiple.
     """
-    return (price_sell - price_buy)/(price_buy - stoploss)
+    return 
