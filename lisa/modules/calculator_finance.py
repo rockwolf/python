@@ -12,7 +12,16 @@ from ctypes import *
 lib = cdll.LoadLibary('./CalculatorFinance.so')
 
 api = {
-    'calcStoploss': (c_double,    [c_double, c_int, c_double, c_double, c_double, c_double])
+    'calcStoploss': (c_double,    [c_double, c_int, c_double, c_double, c_double, c_double]),
+    'calcRiskInput': (c_double,   [c_double, c_double]),
+    'calcRiskInitial': (c_double, [c_double, c_int, c_double]),
+    'calcRiskActual': (c_double,  [c_double, c_int, c_double, c_int, c_double, c_double]),
+    'calcRMultiple': (c_double,   [c_double, c_double, c_double]),
+    'calcCostTotal': (c_double,   [c_double, c_double, c_double, c_double]),
+    'calcAmountSimple': (c_double,[c_double, c_int]),
+    'costTransaction': (c_double, [c_string, c_double, c_int, c_double, c_double]),
+    'calcProfitLoss': (c_double,  [c_double, c_double, c_double]),
+    'calcCostOther': (c_double,   [c_double, c_double])
     }
 
 def calculate_stoploss(self, amount_buy_simple, shares_buy, tax_buy, commission_buy, i_risk, pool_at_start):
