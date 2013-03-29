@@ -10,29 +10,12 @@ from ctypes import *
 
 lib = cdll.LoadLibrary('modules/lib-calculator_finance.so')
 
-api = {
-    'calcStoploss': (c_double,    [c_double, c_int, c_double, c_double, c_double, c_double]),
-    'calcRiskInput': (c_double,   [c_double, c_double]),
-    'calcRiskInitial': (c_double, [c_double, c_int, c_double]),
-    'calcRiskActual': (c_double,  [c_double, c_int, c_double, c_int, c_double, c_double]),
-    'calcRMultiple': (c_double,   [c_double, c_double, c_double]),
-    'calcCostTotal': (c_double,   [c_double, c_double, c_double, c_double]),
-    'calcAmountSimple': (c_double,[c_double, c_int]),
-    'costTransaction': (c_double, [c_string, c_double, c_int, c_double, c_double]),
-    'calcProfitLoss': (c_double,  [c_double, c_double, c_double]),
-    'calcCostOther': (c_double,   [c_double, c_double])
-    }
-
 def calculate_stoploss(self, amount_buy_simple, shares_buy, tax_buy, commission_buy, i_risk, pool_at_start):
     """
         Calculates the stoploss.
     """
-    # TODO: test if this works + see if it can be writen with less code.
-    f = getattr(lib, api['calcStoploss'])
-    f.restype, f.argtypes = api['calcStoploss']
-    input, expected = (amount_buy_simple, shares_buy, tax_buy, commission_buy, i_risk, pool_at_start)
-    assert f(input) == expected
-    return expected
+    #TODO: use the below for all calls
+    return lib.CalcStoploss(...)
 
 def calculate_risk_input(self, i_pool, i_risk):
     """
