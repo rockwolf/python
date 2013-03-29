@@ -30,6 +30,7 @@ def main(option):
     if (option == 'export'):
         wrapper.file_export()
         wrapper.exitstate = 1
+    #TODO: add stuff for export to ledger format?
     wrapper.run() #run the main method for the program
 
 def install():
