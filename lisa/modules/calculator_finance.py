@@ -6,10 +6,9 @@ See LICENSE file for copyright and license details.
 A file with Lisa specific financial calculations
 """
 
-from decimal import Decimal
 from ctypes import *
 
-lib = cdll.LoadLibary('./CalculatorFinance.so')
+lib = cdll.LoadLibrary('modules/lib-calculator_finance.so')
 
 api = {
     'calcStoploss': (c_double,    [c_double, c_int, c_double, c_double, c_double, c_double]),
@@ -73,7 +72,7 @@ def calculate_cost_total(self, tax_buy, commission_buy, tax_sell, commission_sel
 def calculate_amount_simple(self, price, shares):
     """
         Calculates the amount without tax and commission.
-    """"
+    """
     return
 
 def cost_transaction(self, transaction, price, shares, tax, commission):
