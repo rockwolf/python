@@ -196,7 +196,7 @@ class Trade(CoreModule):
                                 fields['i_pool'])
                             profit_loss = DEFAULT_DECIMAL #Only calculated at end of trade.
                             pool_at_start = \
-                                fields['i_pool_trading']
+                                fields['i_pool']
                             amount_buy_simple = Decimal(fields['i_price'])*Decimal(fields['i_shares'])
                             risk_input = calculate_risk_input(
                                 fields['i_pool'],
