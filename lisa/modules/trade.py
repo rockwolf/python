@@ -112,11 +112,14 @@ class Trade(CoreModule):
                             date_created = trade_record['date_created']
                             amount_buy_simple = trade_record['amount_buy_simple']
                             #TODO: put calculation in calculator_finance
-                            amount_sell_simple = Decimal(fields['i_price']) * Decimal(fields['i_shares'])
+                            amount_sell_simple = calculate_amount_simple(
+                                    Decimal(fields['i_price'])
+                                    , Decimal(fields['i_shares']))
                             risk_input = trade_record['risk_input']
                             risk_input_percent = trade_record['risk_input_percent']
                             risk_initial = trade_record['risk_initial']
-                            risk_initial_percent = (risk_initial/at_work)*100.0
+                            risk_initial_percent = (risk_initial/amount_buy_simple)*100.0
+                            print(amount_buy_simple)
                             risk_actual = calculate_risk_actual(
                                 trade_record['price_buy'],
                                 trade_record['shares_buy'],
@@ -124,12 +127,15 @@ class Trade(CoreModule):
                                 trade_record['shares_sell'],
                                 trade_record['stoploss'],
                                 trade_record['risk_initial'])
-                            risk_actual_percent = (risk_actual/at_work)*100.0
+                            risk_actual_percent = (risk_actual/amount_buy_simple)*100.0
                             cost_total = calculate_cost_total(
                                 trade_record['tax_buy'],
                                 trade_record['commission_buy'],
                                 trade_record['tax_sell'],
                                 trade_record['commission_sell'])
+                            cost_other = calculate_cost_other(
+                                    cost_total,
+                                    profit_loss)
                             #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
                             if we_are_buying(fields['i_subcategory']):
                                 win_flag = dba.get_win_flag_value(
@@ -144,9 +150,9 @@ class Trade(CoreModule):
                             from_currency_id = trade_record['from_currency_id']
                             drawdown_id = trade_record['drawdown_id']
                             r_multiple = calculate_r_multiple(
-                                investment_record['price_buy'],
-                                investment_record['price_sell'],
-                                investment_record['price_stoploss'])
+                                trade_record['price_buy'],
+                                trade_record['price_sell'],
+                                trade_record['price_stoploss'])
                             date_expiration = trade_record['date_expiration']
                             #TODO: for investing, id_buy/sell is id_firstbuy and id_firstsell
                             # and expiration flag should only be set at the end of the trade, when
@@ -197,7 +203,9 @@ class Trade(CoreModule):
                             profit_loss = DEFAULT_DECIMAL #Only calculated at end of trade.
                             pool_at_start = \
                                 fields['i_pool']
-                            amount_buy_simple = Decimal(fields['i_price'])*Decimal(fields['i_shares'])
+                            amount_buy_simple = calculate_amount_simple(
+                                    Decimal(fields['i_price'])
+                                    , Decimal(fields['i_shares']))
                             risk_input = calculate_risk_input(
                                 fields['i_pool'],
                                 fields['i_risk_input'])
@@ -206,10 +214,11 @@ class Trade(CoreModule):
                                 fields['i_price'],
                                 fields['i_shares'],
                                 stoploss)
-                            risk_initial_percent = risk_initial/at_work
+                            risk_initial_percent = 100.0*risk_initial/amount_buy_simple
                             risk_actual = DEFAULT_DECIMAL
                             risk_actual_percent = DEFAULT_DECIMAL
                             cost_total = DEFAULT_DECIMAL
+                            cost_other = DEFAULT_DECIMAL
                             win_flag = -1 #not yet finished, we can not know it yet.
                             #TODO: currency_to_id?? + rename from_currency to currency_from!
                             from_currency_id = dba.currency_id_from_currency(fields['i_currency_from'])
@@ -243,12 +252,14 @@ class Trade(CoreModule):
                         print('risk_actual =', risk_actual)
                         print('risk_actual_percent =', risk_actual_percent)
                         print('cost_total =', cost_total)
+                        print('cost_other =', cost_other)
+                        print('amount_buy_simple =', amount_buy_simple)
+                        print('amount_sell_simple =', amount_sell_simple)
                         print('stoploss =', stoploss)
                         print('profit_loss =', profit_loss)
                         print('profit_loss_percent =', profit_loss_percent)
                         print('r_multiple =', r_multiple)
                         print('win_flag =', win_flag)
-                        print('at_work =', at_work)
                         print('id_buy =', id_buy)
                         print('id_sell =', id_sell)
                         print('from_currency_id =', from_currency_id)
@@ -290,12 +301,14 @@ class Trade(CoreModule):
                                 'risk_actual':Decimal(risk_actual),
                                 'risk_actual_percent':Decimal(risk_actual_percent),
                                 'cost_total':Decimal(cost_total),
+                                'cost_other':Decimal(cost_other),
+                                'amount_buy_simple':Decimal(amount_buy_simple),
+                                'amount_sell_simple':Decimal(amount_sell_simple),
                                 'stoploss':Decimal(stoploss),
                                 'profit_loss':Decimal(profit_loss),
                                 'profit_loss_percent':Decimal(profit_loss_percent),
                                 'r_multiple':Decimal(r_multiple),
                                 'win_flag':int(win_flag),
-                                'at_work':Decimal(at_work),
                                 'id_buy':int(id_buy),
                                 'id_sell':int(id_sell),
                                 'from_currency_id':int(from_currency_id),
