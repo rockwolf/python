@@ -454,7 +454,6 @@ class DatabaseAccess():
                 result[0].append(record['investment_id'])
             else:
                 record[0].append(-1)
-            #TODO: add all the other fields
             result[1].append(
                 {"market_id": record["market_id"]
                  ,"stock_name_id": record["stock_name_id"]
