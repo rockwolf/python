@@ -53,6 +53,9 @@ Options:
  --install : creates tables and views needed
  --uninstall : deletes all relevant tables and views in the database, 
             all data will be destroyed...
+ --export : export all tables to csv files
+ --import : disable constraints, import csv files and re-enable constraints.
+ [-t <export-type>] : export type [csv|ledger] (csv = default)
  --version : displays version
  --python : displays Python version
 All arguments are optional.'''.format(self.pprog))
@@ -61,7 +64,7 @@ if __name__ == "__main__":
     # Gonna switch this to optparse later
     try:
         options, xarguments = getopt.getopt(
-            sys.argv[1:], 'h', ['import', 'export', 'install', 'uninstall', 'version', 'python'])
+            sys.argv[1:], 'h', "t:", ['import', 'export=', 'install', 'uninstall', 'version', 'python'])
     except getopt.error as err:
         print('Error: ' + str(err))
         sys.exit(1)
@@ -80,6 +83,10 @@ if __name__ == "__main__":
     for opt in options[:]:
         if opt[0] == '--export':
             option = 'export'
+            if arg = 'ledger':
+                export_type = 'ledger'
+            else:
+                export_type = 'csv'
             sys.exit(0)
             break
     for opt in options[:]:
