@@ -16,7 +16,7 @@ pversion = '01.00'
 prelease = 'Mass Convenience'
 pdate = '2012-04-10'
 
-def main(option):
+def main(option, export_type):
     """ Main driver. """
     ### Run the application ###
     #NOTE: the import statement loads the views and tables,
@@ -28,7 +28,11 @@ def main(option):
         wrapper.file_import()
         wrapper.exitstate = 1
     if (option == 'export'):
-        wrapper.file_export()
+        if export_type = EXPORT_LEDGER:
+            #TODO: rename to csv_export + create ledger_export
+            wrapper.file_export()
+        else:
+            wrapper.file_export()
         wrapper.exitstate = 1
     #TODO: add stuff for export to ledger format?
     wrapper.run() #run the main method for the program
@@ -83,10 +87,15 @@ if __name__ == "__main__":
     for opt in options[:]:
         if opt[0] == '--export':
             option = 'export'
-            if arg = 'ledger':
-                export_type = 'ledger'
+            if arg = EXPORT_LEDGER:
+                export_type = EXPORT_LEDGER
+            elif arg = EXPORT_CSV:
+                export_type = EXPORT_CSV
             else:
-                export_type = 'csv'
+                print("Error: wrong export type (",
+                    arg + "), falling back on the default (",
+                    EXPORT_CSV + ")!");
+                export_type = EXPORT_CSV
             sys.exit(0)
             break
     for opt in options[:]:
@@ -118,4 +127,4 @@ if __name__ == "__main__":
             print('Python ' + sys.version)
             sys.exit(0)
             break
-    main(option)
+    main(option, export_type)
