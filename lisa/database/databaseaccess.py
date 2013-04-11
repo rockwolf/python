@@ -6,7 +6,7 @@
 from sqlalchemy import Table, MetaData, \
         Column, Integer, or_, and_
 from sqlalchemy.types import VARCHAR
-#from sqlalchemy.sql import exists
+#from sqlalchemy.sql import exisst
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import func
 from decimal import Decimal
@@ -754,6 +754,7 @@ class DatabaseAccess():
         """
             Gets the formula_id to use for a given trading line of the input fields.
         """
+        #TODO: Is this still necessary, or is all this handled by the haskell library?
         #TODO: determine the rate_id, based on ???
         # Ah no, we need to create a new rate_id,
         # but determine the formula_id to use
