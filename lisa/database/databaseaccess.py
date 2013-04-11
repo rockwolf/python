@@ -1102,11 +1102,6 @@ class DatabaseAccess():
         result = []
         session = self.Session()
         try:
-            #TODO: finance_created is not used?????
-            if table_class == T_INVESTMENT:
-                finance_created = self.get_latest_date_created(TABLE_INVESTMENT)
-            else:
-                finance_created = self.get_latest_date_created(TABLE_TRADE)
             first_obj = session.query(table_class).filter(
                     or_(
                         table_class.id_buy == finance_id,
