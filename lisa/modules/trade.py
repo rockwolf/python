@@ -111,7 +111,6 @@ class Trade(CoreModule):
                                 trade_record['pool_at_start']
                             date_created = trade_record['date_created']
                             amount_buy_simple = trade_record['amount_buy_simple']
-                            #TODO: put calculation in calculator_finance
                             amount_sell_simple = calculate_amount_simple(
                                     Decimal(fields['i_price'])
                                     , Decimal(fields['i_shares']))
@@ -136,7 +135,6 @@ class Trade(CoreModule):
                             cost_other = calculate_cost_other(
                                     cost_total,
                                     profit_loss)
-                            #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
                             if we_are_buying(fields['i_subcategory']):
                                 win_flag = dba.get_win_flag_value(
                                         price_buy,
@@ -270,7 +268,6 @@ class Trade(CoreModule):
                         print('<\print>')
                         
                         # ADDING THE STATEMENTS
-                        #TODO: add a trade_id (retrieved above?) for the update statements.
                         statement_trade.add(
                             records,
                             {
