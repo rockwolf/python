@@ -104,6 +104,7 @@ class Trade(CoreModule):
                                     " and you are trying to add one like it" \
                                     " again?".format(T_TRADE))
                             stoploss = trade_record['stoploss']
+                            print('test A')
                             profit_loss = calculate_profit_loss(
                                 trade_record['amount_sell'],
                                 trade_record['amount_buy'])
@@ -112,6 +113,7 @@ class Trade(CoreModule):
                             date_created = trade_record['date_created']
                             amount_buy_simple = trade_record['amount_buy_simple']
                             #TODO: put calculation in calculator_finance
+                            print('test B')
                             amount_sell_simple = calculate_amount_simple(
                                     Decimal(fields['i_price'])
                                     , Decimal(fields['i_shares']))
@@ -193,6 +195,7 @@ class Trade(CoreModule):
                                 commission_sell = fields['i_commission']
                                 tax_buy = DEFAULT_DECIMAL
                                 tax_sell = fields['i_tax']
+                            print('test C')
                             stoploss = calculate_stoploss(
                                 fields['i_amount'],
                                 fields['i_shares'],
@@ -203,17 +206,23 @@ class Trade(CoreModule):
                             profit_loss = DEFAULT_DECIMAL #Only calculated at end of trade.
                             pool_at_start = \
                                 fields['i_pool']
+                            print('test D')
+                            print('test: i_price =', fields['i_price'])
+                            print('test: i_shares =', fields['i_shares'])
                             amount_buy_simple = calculate_amount_simple(
                                     Decimal(fields['i_price'])
                                     , Decimal(fields['i_shares']))
+                            print('test E')
                             risk_input = calculate_risk_input(
                                 fields['i_pool'],
                                 fields['i_risk_input'])
                             risk_input_percent = fields['i_risk_input']
+                            print('test F')
                             risk_initial = calculate_risk_initial(
                                 fields['i_price'],
                                 fields['i_shares'],
                                 stoploss)
+                            print('test amount_buy_simple = ', amount_buy_simple)
                             risk_initial_percent = 100.0*risk_initial/amount_buy_simple
                             risk_actual = DEFAULT_DECIMAL
                             risk_actual_percent = DEFAULT_DECIMAL
