@@ -112,11 +112,6 @@ class Trade(CoreModule):
                                 trade_record['pool_at_start']
                             date_created = trade_record['date_created']
                             amount_buy_simple = trade_record['amount_buy_simple']
-<<<<<<< HEAD
-                            #TODO: put calculation in calculator_finance
-                            print('test B')
-=======
->>>>>>> 4700eb2484178cffaa0c1f4f18470f3c9ced5086
                             amount_sell_simple = calculate_amount_simple(
                                     Decimal(fields['i_price'])
                                     , Decimal(fields['i_shares']))
