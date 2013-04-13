@@ -193,8 +193,14 @@ class Trade(CoreModule):
                                 tax_buy = DEFAULT_DECIMAL
                                 tax_sell = fields['i_tax']
                             print('test C')
+                            print('stoploss:', fields['i_amount']
+                                    ,fields['i_shares']
+                                    ,fields['i_tax']
+                                    ,fields['i_commission']
+                                    ,fields['i_risk_input']
+                                    ,fields['i_pool'])
                             stoploss = calculate_stoploss(
-                                fields['i_amount'],
+                                abs(fields['i_amount']),
                                 fields['i_shares'],
                                 fields['i_tax'],
                                 fields['i_commission'],
@@ -219,6 +225,7 @@ class Trade(CoreModule):
                                 fields['i_price'],
                                 fields['i_shares'],
                                 stoploss)
+                            print(fields['i_price'], fields['i_shares'], stoploss)
                             print('test amount_buy_simple = ', amount_buy_simple)
                             risk_initial_percent = 100.0*risk_initial/amount_buy_simple
                             risk_actual = DEFAULT_DECIMAL
