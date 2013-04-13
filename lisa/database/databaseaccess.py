@@ -6,7 +6,7 @@
 from sqlalchemy import Table, MetaData, \
         Column, Integer, or_, and_
 from sqlalchemy.types import VARCHAR
-#from sqlalchemy.sql import exists
+#from sqlalchemy.sql import exisst
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import func
 from decimal import Decimal
@@ -454,7 +454,6 @@ class DatabaseAccess():
                 result[0].append(record['investment_id'])
             else:
                 record[0].append(-1)
-            #TODO: add all the other fields
             result[1].append(
                 {"market_id": record["market_id"]
                  ,"stock_name_id": record["stock_name_id"]
@@ -462,23 +461,43 @@ class DatabaseAccess():
                  ,"year_buy": record["year_buy"]
                  ,"month_buy": record["month_buy"]
                  ,"day_buy": record["day_buy"]
-                 ,"": record[""]
-                 ,"": record[""]
-                 ,"": record[""]
-                 ,"": record[""]
-                 ,"": record[""]
-                 ,"": record[""]
-                 ,"": record[""]
-                 ,"": record[""]
-                 ,"": record[""]
-                 ,"": record[""]
-                 ,"": record[""]
-                 ,"": record[""]
-                 ,"": record[""]
-                 ,"": record[""]
-                 ,"": record[""]
-                 ,"": record[""]
                  ,"date_sell": record["date_sell"]
+                 ,"year_sell": record["year_sell"]
+                 ,"month_sell": record["month_sell"]
+                 ,"day_sell": record["day_sell"]
+                 ,"long_flag": record["long_flag"]
+                 ,"price_buy": record["price_buy"]
+                 ,"price_sell": record["price_sell"]
+                 ,"shares_buy": record["shares_buy"]
+                 ,"shares_sell": record["shares_sell"]
+                 ,"commission_buy": record["commission_buy"]
+                 ,"commission_sell": record["commission_sell"]
+                 ,"tax_buy": record["tax_buy"]
+                 ,"tax_sell": record["tax_sell"]
+                 ,"amount_buy_simple": record["amount_buy_simple"]
+                 ,"amount_sell_simple": record["amount_sell_simple"]
+                 ,"risk_input": record["risk_input"]
+                 ,"risk_input_percent": record["risk_input_pecent"]
+                 ,"risk_initial": record["risk_initial"]
+                 ,"risk_initial_percent": record["risk_initial_percent"]
+                 ,"risk_actual": record["risk_actual"]
+                 ,"risk_actual_percent": record["risk_actual_percent"]
+                 ,"cost_total": record["cost_total"]
+                 ,"cost_other": record["cost_other"]
+                 ,"stoploss": record["stoploss"]
+                 ,"profit_loss": record["profit_loss"]
+                 ,"profit_loss_percent": record["profit_loss_percent"]
+                 ,"r_multiple": record["r_multiple"]
+                 ,"win_flag": record["win_flag"]
+                 ,"id_buy": record["id_buy"]
+                 ,"id_sell": record["id_sell"]
+                 ,"currency_exchange_id": record["currency_exchange_id"]
+                 ,"drawdown_id": record["drawdown_id"]
+                 ,"pool_at_start": record["pool_at_start"]
+                 ,"date_expiration": record["date_expiration"]
+                 ,"expired_flag": record["expired_flag"]
+                 ,"spread": record["spread"]
+                 ,"active": record["active"]
                  ,"date_created": record["date_created"]
                  ,"date_modified": record["date_modified"]}
                 )
@@ -735,6 +754,7 @@ class DatabaseAccess():
         """
             Gets the formula_id to use for a given trading line of the input fields.
         """
+        #TODO: Is this still necessary, or is all this handled by the haskell library?
         #TODO: determine the rate_id, based on ???
         # Ah no, we need to create a new rate_id,
         # but determine the formula_id to use
@@ -1082,11 +1102,6 @@ class DatabaseAccess():
         result = []
         session = self.Session()
         try:
-            #TODO: finance_created is not used?????
-            if table_class == T_INVESTMENT:
-                finance_created = self.get_latest_date_created(TABLE_INVESTMENT)
-            else:
-                finance_created = self.get_latest_date_created(TABLE_TRADE)
             first_obj = session.query(table_class).filter(
                     or_(
                         table_class.id_buy == finance_id,

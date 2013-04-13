@@ -138,7 +138,6 @@ class Investment(CoreModule):
                             cost_other = calculate_cost_other(
                                     cost_total,
                                     profit_loss)
-                            #TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
                             if we_are_buying(fields['subcategory']):
                                 win_flag = dba.get_win_flag_value(
                                         price_buy,
@@ -205,10 +204,7 @@ class Investment(CoreModule):
                                 fields['i_pool']
                                 )
                             profit_loss = DEFAULT_DECIMAL #Only calculated at end of trade.
-                            pool_at_start = \
-                                fields['i_pool']
-                            #TODO: put this in calculator_finance
-                            #TODO: also insert amount_sell_simple
+                            pool_at_start = fields['i_pool']
                             amount_buy_simple = calculate_amount_simple(
                                     Decimal(fields['i_price'])
                                     , Decimal(fields['i_shares']))
@@ -217,7 +213,6 @@ class Investment(CoreModule):
                                 fields['i_pool'],
                                 fields['i_risk_input'])
                             risk_input_percent = fields['i_risk_input']
-                            #TODO: add correct parameters in calc_risk_init
                             risk_initial = calculate_risk_initial(
                                 fields['i_price'],
                                 fields['i_shares'],
@@ -277,7 +272,6 @@ class Investment(CoreModule):
                         print('<\print>')
                         
                         # ADDING THE STATEMENTS
-                        #TODO: add a trade_id (retrieved above?) for the update statements.
                         statement_trade.add(
                             records,
                             {
