@@ -12,7 +12,18 @@ lib = cdll.LoadLibrary('modules/lib-calculator_finance.so')
 
 # interface to the library 
 api = {
-        'test': (c_double, [c_double], ())
+        #name restype [argtypes] (input expected values)
+        'test': (c_double, [c_double], ()),
+        'calcStoploss': (c_double, [c_double, c_int, c_double, c_double, c_double, c_double], ()),
+        'calcRiskInput': (c_double, [c_double, c_double], ()),
+        'calcRiskInitial': (c_double, [c_double, c_int, c_double], ()),
+        'calcRiskActual': (c_double, [c_double, c_int, c_double, c_int, c_double, c_double], ()),
+        'calcRMultiple': (c_double, [c_double, c_double, c_double], ()),
+        'calcCostTotal': (c_double, [c_double, c_double, c_double, c_double], ()),
+        'calcAmountSimple': (c_double, [c_double, c_int], ()),
+        'costTransaction': (c_int, [c_double, c_int, c_double, c_double], ()),
+        'calcProfitLoss': (c_double, [c_double, c_double, c_double], ()),
+        'calcCostOther': (c_double, [c_double, c_double], ())
       }
 
 # initialise the interface
@@ -99,12 +110,12 @@ def calculate_amount_simple(price, shares):
             c_double(price)
             , c_int(shares))
 
-def cost_transaction(transaction, price, shares, tax, commission):
+def cost_transaction(transactionid, price, shares, tax, commission):
     """
         Cost of transaction (tax and commission)
     """
     return lib.costTransaction(
-            c_double(transaction)
+            c_int(transactionid)
             , c_double(price)
             , c_int(shares)
             , c_double(tax)
