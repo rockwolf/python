@@ -10,12 +10,28 @@ from ctypes import *
 
 lib = cdll.LoadLibrary('modules/lib-calculator_finance.so')
 
-def calculate_stoploss(amount_buy_simple, shares_buy, tax_buy, commission_buy, i_risk, pool_at_start):
+# interface to the library 
+api = {
+        'test': (c_double, [c_double], ())
+      }
+
+# initialise the interface
+for afunc in api:
+    f = getattr(lib, afunc)
+    f.restype, f.argtype, test = api[afunc]
+
+def library_test():
+    """
+        Test if the library works, should return double the given value.
+    """
+    print('TESTING THE LIBRARY: 3.0 ->', lib.test(c_double(3.0)))
+
+def calculate_stoploss(price_buy, shares_buy, tax_buy, commission_buy, i_risk, pool_at_start):
     """
         Calculates the stoploss.
     """
     return lib.calcStoploss(
-            c_double(amount_buy_simple)
+            c_double(price_buy)
             , c_int(shares_buy)
             , c_double(tax_buy)
             , c_double(commission_buy)

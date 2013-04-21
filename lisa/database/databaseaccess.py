@@ -1024,12 +1024,11 @@ class DatabaseAccess():
         result = DEFAULT_DECIMAL
         session = self.Session()
         try:
-            first_obj = session.query(func.sum(T_FINANCE.amount).label('total')
-                    ).filter_by(account_id=TRADING_ACCOUNT_ID).first()
-            if first_obj.total is not None:
-                result = Decimal(first_obj.total)
-            else:
-                result = DEFAULT_DECIMAL
+            if self.has_record():
+                first_obj = session.query(func.sum(T_FINANCE.amount).label('total')
+                        ).filter_by(account_id=TRADING_ACCOUNT_ID).first()
+                if first_obj.total is not None:
+                    result = Decimal(first_obj.total)
         except Exception as ex:
             print("Error in get_pool: ", ex)
         finally:
@@ -1037,6 +1036,23 @@ class DatabaseAccess():
             session = None
         return result
     
+    def has_record(self):
+        """
+            Checks if we have a finance record.
+        """
+        result = False
+        session = self.Session()
+        try:
+            first_obj = session.query(T_FINANCE.amount).filter_by(account_id=TRADING_ACCOUNT_ID).first()
+            if first_obj is not None:
+                result = True
+        except Exception as ex:
+            print("Error in has_record: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
+
     def get_specific_finance_record(self, date, account_id, category_id,
             subcategory_id, amount, comment, stock_name_id, shares, price,
             tax, commission):
