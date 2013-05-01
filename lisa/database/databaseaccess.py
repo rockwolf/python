@@ -328,7 +328,6 @@ class DatabaseAccess():
             session.rollback()
             session = None
 
-
     def write_statement_list_delete(self, final_statements, table_name):
         """
             Write the insert statements to database.
@@ -1028,30 +1027,12 @@ class DatabaseAccess():
         result = DEFAULT_DECIMAL
         session = self.Session()
         try:
-            if self.has_record():
-                first_obj = session.query(func.sum(T_FINANCE.amount).label('total')
-                        ).filter_by(account_id=TRADING_ACCOUNT_ID).first()
-                if first_obj.total is not None:
-                    result = Decimal(first_obj.total)
+            first_obj = session.query(func.sum(T_FINANCE.amount).label('total')
+                    ).filter_by(account_id=TRADING_ACCOUNT_ID).first()
+            if first_obj.total is not None:
+                result = Decimal(first_obj.total)
         except Exception as ex:
             print("Error in get_pool: ", ex)
-        finally:
-            session.rollback()
-            session = None
-        return result
-    
-    def has_record(self):
-        """
-            Checks if we have a finance record.
-        """
-        result = False
-        session = self.Session()
-        try:
-            first_obj = session.query(T_FINANCE.amount).filter_by(account_id=TRADING_ACCOUNT_ID).first()
-            if first_obj is not None:
-                result = True
-        except Exception as ex:
-            print("Error in has_record: ", ex)
         finally:
             session.rollback()
             session = None
