@@ -236,7 +236,7 @@ class Trade(CoreModule):
                             drawdown_id = dba.new_drawdown_record()
                             r_multiple = DEFAULT_DECIMAL
                             date_expiration = fields['i_date_expiration']
-                            expired_flag = DEFAULT_INTEGER
+                            expired_flag = DEFAULT_INT
                                 
                         # GENERAL VARIABLES THAT CAN BE CALCULATED ON THE DATA WE HAVE
                         profit_loss_percent = profit_loss/Decimal(100.0)

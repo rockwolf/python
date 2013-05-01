@@ -966,7 +966,7 @@ class DatabaseAccess():
         try:
             date_created = current_date()
             date_modified = current_date()
-            session.add(T_DRAWDOWN(None, 0, date_created, date_modified))
+            session.add(T_DRAWDOWN(None, 0, 0, date_created, date_modified))
             session.commit()
             for instance in session.query(
                     func.max(T_DRAWDOWN.drawdown_id).label(

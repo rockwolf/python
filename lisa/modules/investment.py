@@ -227,7 +227,7 @@ class Investment(CoreModule):
                             drawdown_id = dba.new_drawdown_record()
                             r_multiple = DEFAULT_DECIMAL
                             date_expiration = fields['i_date_expiration']
-                            expired_flag = DEFAULT_INTEGER
+                            expired_flag = DEFAULT_INT
                             spread = DEFAULT_DECIMAL
                                 
                         # GENERAL VARIABLES THAT CAN BE CALCULATED ON THE DATA WE HAVE
