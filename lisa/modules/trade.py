@@ -213,6 +213,7 @@ class Trade(CoreModule):
                             amount_buy_simple = calculate_amount_simple(
                                     Decimal(fields['i_price'])
                                     , Decimal(fields['i_shares']))
+                            amount_sell_simple = DEFAULT_DECIMAL
                             print('test E')
                             risk_input = calculate_risk_input(
                                 fields['i_pool'],
