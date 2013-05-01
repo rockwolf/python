@@ -145,7 +145,7 @@ class Trade(CoreModule):
                                         trade_record['price_buy'],
                                         price_sell,
                                         long_flag)
-                            from_currency_id = trade_record['from_currency_id']
+                            currency_exchange_id = trade_record['currency_exchange_id']
                             drawdown_id = trade_record['drawdown_id']
                             r_multiple = calculate_r_multiple(
                                 trade_record['price_buy'],
@@ -232,8 +232,7 @@ class Trade(CoreModule):
                             cost_total = DEFAULT_DECIMAL
                             cost_other = DEFAULT_DECIMAL
                             win_flag = -1 #not yet finished, we can not know it yet.
-                            #TODO: currency_to_id?? + rename from_currency to currency_from!
-                            from_currency_id = dba.currency_id_from_currency(fields['i_currency_from'])
+                            currency_exchange_id = dba.first_currency_exchange_id_from_latest()
                             drawdown_id = dba.new_drawdown_record()
                             r_multiple = DEFAULT_DECIMAL
                             date_expiration = fields['i_date_expiration']
@@ -274,7 +273,7 @@ class Trade(CoreModule):
                         print('win_flag =', win_flag)
                         print('id_buy =', id_buy)
                         print('id_sell =', id_sell)
-                        print('from_currency_id =', from_currency_id)
+                        print('currency_exchange_id =', currency_exchange_id)
                         print('drawdown_id =', drawdown_id)
                         print('pool_at_start =', pool_at_start)
                         print('date_expiration =', date_expiration)
@@ -322,7 +321,7 @@ class Trade(CoreModule):
                                 'win_flag':int(win_flag),
                                 'id_buy':int(id_buy),
                                 'id_sell':int(id_sell),
-                                'from_currency_id':int(from_currency_id),
+                                'currency_exchange_id':int(currency_exchange_id),
                                 'drawdown_id':int(drawdown_id),
                                 'pool_at_start':
                                     Decimal(pool_at_start),
