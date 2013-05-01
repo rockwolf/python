@@ -434,7 +434,6 @@ class DatabaseAccess():
                     record['pool_at_start'],
                     record['date_expiration'],
                     record['expired_flag'],
-                    record['spread'],
                     record['active'],
                     record['date_created'],
                     record['date_modified']))
@@ -499,7 +498,6 @@ class DatabaseAccess():
                  ,"pool_at_start": record["pool_at_start"]
                  ,"date_expiration": record["date_expiration"]
                  ,"expired_flag": record["expired_flag"]
-                 ,"spread": record["spread"]
                  ,"active": record["active"]
                  ,"date_created": record["date_created"]
                  ,"date_modified": record["date_modified"]}
