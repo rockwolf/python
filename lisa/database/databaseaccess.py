@@ -422,6 +422,8 @@ class DatabaseAccess():
                     record['risk_actual_percent'],
                     record['cost_total'],
                     record['cost_other'],
+                    record['amount_buy_simple'],
+                    record['amount_sell_simple'],
                     record['stoploss'],
                     record['profit_loss'],
                     record['profit_loss_percent'],
@@ -479,7 +481,7 @@ class DatabaseAccess():
                  ,"amount_buy_simple": record["amount_buy_simple"]
                  ,"amount_sell_simple": record["amount_sell_simple"]
                  ,"risk_input": record["risk_input"]
-                 ,"risk_input_percent": record["risk_input_pecent"]
+                 ,"risk_input_percent": record["risk_input_percent"]
                  ,"risk_initial": record["risk_initial"]
                  ,"risk_initial_percent": record["risk_initial_percent"]
                  ,"risk_actual": record["risk_actual"]

@@ -466,6 +466,7 @@ class T_TRADE(Base):
     tax_buy = Column(Numeric(18,6))
     tax_sell = Column(Numeric(18,6))
     risk_input = Column(Numeric(18,6))
+    risk_input_percent = Column(Numeric(18,6))
     risk_initial = Column(Numeric(18,6))
     risk_initial_percent = Column(Numeric(18,6))
     risk_actual = Column(Numeric(18,6))
