@@ -6,7 +6,6 @@
 from datetime import datetime
 
 import sys
-import getopt
 import argparse
 
 from setup.setup import Setup
