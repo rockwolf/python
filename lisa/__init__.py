@@ -12,12 +12,6 @@ import argparse
 from setup.setup import Setup
 from modules.constant import *
 
-# general properties of the app
-pprog = 'lisa.py'
-pversion = '01.00'
-prelease = 'Mass Convenience'
-pdate = '2012-04-10'
-
 def main(option, export_type):
     """ Main driver. """
     ### Run the application ###
@@ -51,28 +45,8 @@ def uninstall():
     setup.uninstall()
     setup = None
 
-def usage():
-        """ Print usage info and exit """
-        print('''{0} : Less Interaction Saves Action
-Options: 
- -h : displays this help message
- --install : creates tables and views needed
- --uninstall : deletes all relevant tables and views in the database, 
-            all data will be destroyed...
- --export : export all tables to csv files
- --import : disable constraints, import csv files and re-enable constraints.
- [-t <export-type>] : export type [csv|ledger] (csv = default)
- --version : displays version
- --python : displays Python version
-All arguments are optional.'''.format(self.pprog))
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Less Interaction Saves Action")
-    #parser.add_argument(
-    #    '-h',
-    #    '--help',
-    #    help='Show this help.',
-    #    action='store_false')
     parser.add_argument(
         '--import',
         help='Import csv files from import directory specified in config.',
