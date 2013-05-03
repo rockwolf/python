@@ -17,7 +17,7 @@ def main():
     wrapper.run() #run the main method for the program
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Less Interaction Saves Action")
+    parser = argparse.ArgumentParser(description="Lisa INteractive Drawdown Application")
     parser.add_argument(
         '-V',
         '--version',
