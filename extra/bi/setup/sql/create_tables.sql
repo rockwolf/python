@@ -3,30 +3,30 @@ BEGIN;
 /* T_BUDGET */
 CREATE TABLE T_BUDGET
 (
-    bid serial not null,
-    bnid int not null,
-    bcid int not null,
+    budget_id serial not null,
+    budget_name_id int not null,
+    budget_category_id int not null,
     year int not null default 0,
     month in not null default 0,
     amount decimal(18,4) not null default 0,
     active int not null default 0,
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
-    constraint pk_bid primary key(bid),
-    constraint fk_bnid foreign key(bnid) references T_BUDGET_NAME(bnid),
-    constraint fk_bcid foreign key(bcid) references T_BUDGET_CATEGORY(bcid),
-    unique(bnid, bcid, counter) -- e.g.: 'standard', 'extra', 2011
+    constraint pk_budget_id primary key(budget_id),
+    constraint fk_budget_name_id foreign key(budget_name_id) references T_BUDGET_NAME(budget_name_id),
+    constraint fk_budget_category_id foreign key(budget_category_id) references T_BUDGET_CATEGORY(budget_category_id),
+    unique(budget_name_id, budget_category_id, counter) -- e.g.: 'standard', 'extra', 2011
 );
 
 /* T_BUDGET_NAME */
 CREATE TABLE T_BUDGET_NAME
 (
-    bnid serial not null,
+    budget_name_id serial not null,
     name varchar(50) not null default '',
     name_short varchar(10) not null default '',
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
-    constraint pk_bnid primary key(bnid),
+    constraint pk_budget_name_id primary key(bnid),
     unique(name),
     unique(name_short)
 );
@@ -34,7 +34,7 @@ CREATE TABLE T_BUDGET_NAME
 /* T_BUDGET_CATEGORY */
 CREATE TABLE T_BUDGET_CATEGORY
 (
-    bcid int not null,
+    budget_caterogy_id int not null,
     name varchar(50) not null,
     name_short varchar(10) not null,
     value decimal(18,4) not null default 0,
@@ -48,14 +48,14 @@ CREATE TABLE T_BUDGET_CATEGORY
 /* T_REPORT_BUDGET */
 CREATE TABLE T_REPORT_BUDGET
 (
-    rbid serial not null,
-    bid int not null default 1,
+    report_budget_id serial not null,
+    budget_id int not null default 1,
     amount decimal(18,4) not null default 0,
     comment varchar(100) not null default '',
     date_created timestamp not null default current_date,
     date_modified timestamp not null default current_date,
-    constraint pk_report_budget_id primary key(rbid),
-    constraint fk_bid foreign key(bid) references T_BUDGET(bid)
+    constraint pk_report_budget_id primary key(report_budget_id),
+    constraint fk_budget_id foreign key(budget_id) references T_BUDGET(budget_id)
 );
 
 /* T_ALLOCATION_CAPITAL */
