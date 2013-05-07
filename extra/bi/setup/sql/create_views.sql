@@ -157,23 +157,25 @@ from
 	    sum(f.amount) as expenses
 	from 
             T_FINANCE f 
-            inner join T_ACCOUNT a on f.aid = a.aid
-            inner join T_PRODUCT p on f.pid = p.pid
-            inner join T_OBJECT o on f.oid = o.oid
+            inner join T_ACCOUNT a on f.account_id = a.account_id
+            inner join T_CATEGORY c on f.category_id = c.category_id
+            inner join T_SUBCATEGORY sc on f.subcategory_id = sc.subcategory_id
         where
-	    f.pid =  6 --'bill.tx'
-	    or f.pid = 8 --'car.tx'
-	    or f.pid = 10 --'clothes.tx'
-	    or f.pid = 12 --'extra.tx'
-	    or f.pid = 14 --'food.tx'
-	    or f.pid = 16 --'gift.tx'
-	    or f.pid = 18 --'hobby.tx'
-	    or f.pid = 20 --'house.tx'
-	    or f.pid = 26 --'salary.tx'
-	    or f.pid = 28 --'tax.tx'
-	    or f.pid = 30 --'travel.tx'
-	    or f.pid = 32 --'utilities.tx'
-	    or f.pid = 34 --'other.tx'
+	    f.category_id in (
+                6 --'bill.tx'
+	        ,8 --'car.tx'
+	        ,10 --'clothes.tx'
+	        ,12 --'extra.tx'
+	        ,14 --'food.tx'
+	        ,16 --'gift.tx'
+	        ,18 --'hobby.tx'
+	        ,20 --'house.tx'
+	        ,26 --'salary.tx'
+	        ,28 --'tax.tx'
+	        ,30 --'travel.tx'
+	        ,32 --'utilities.tx'
+	        ,34 --'other.tx'
+        )
 	group by
 	    extract(year from f.date)
 	order by
@@ -186,12 +188,12 @@ from
 			sum(f2.amount) as passive
 		from
 			T_FINANCE f2 
-                inner join T_ACCOUNT a2 on f2.aid = a2.aid
-                inner join T_PRODUCT p2 on f2.pid = p2.pid
-                inner join T_OBJECT o2 on f2.oid = o2.oid
+                inner join T_ACCOUNT a2 on f2.account_id = a2.account_id
+                inner join T_CATEGORY c2 on f2.category_id = c2.category_id
+                inner join T_SUBCATEGORY sc2 on f2.subcategory_id = sc2.subcategory_id
 		where
-			f2.pid = 21
-			and f2.oid = 6
+			f2.category_id = 21
+			and f2.subcategory_id = 6
 		group by
 			extract(year from f2.date)
 	) b
