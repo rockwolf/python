@@ -23,7 +23,7 @@ from
 				end
 		end as amount
 	from T_FINANCE f
-        inner join T_ACCOUNT a on f.aid = a.aid
+        inner join T_ACCOUNT a on f.account_id = a.account_id
         inner join T_CATEGORY c on f.category_id = c.category_id
         inner join T_SUBCATEGORY sc on f.subcategory_id = sc.subcategory_id
 	group by a.name, f.date, c.name, sc.name, c.flg_income, f.amount
