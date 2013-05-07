@@ -417,11 +417,11 @@ select
 from 
     t_finance f
 where
-    f.pid = 1
-    and f.aid = 4;*/
+    f.category_id = 1
+    and f.account_id = 4;*/
 from
     t_finance f 
-        inner join T_ACCOUNT a on f.aid = a.aid
-        inner join T_PRODUCT p on f.pid = p.pid
+        inner join T_ACCOUNT a on f.account_id = a.account_id
+        inner join T_CATEGORY c on f.category_id = c.category_id
 
 COMMIT;
