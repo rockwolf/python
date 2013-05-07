@@ -15,18 +15,18 @@ from
 		a.name as account,
 		f.date,
 		case
-			when f.aid = 4 and f.pid = 21 and f.oid = 6 then 0
+			when f.account_id = 4 and f.category_id = 21 and f.subcategory_id = 6 then 0
 			else
 				case
-					when p.flg_income = 0 then -1*f.amount
-					when p.flg_income = 1 then f.amount
+					when c.flg_income = 0 then -1*f.amount
+					when c.flg_income = 1 then f.amount
 				end
 		end as amount
 	from T_FINANCE f
         inner join T_ACCOUNT a on f.aid = a.aid
-        inner join T_PRODUCT p on f.pid = p.pid
-        inner join T_OBJECT o on f.oid = o.oid
-	group by a.name, f.date, p.name, o.name, p.flg_income, f.amount
+        inner join T_CATEGORY c on f.category_id = c.category_id
+        inner join T_SUBCATEGORY sc on f.subcategory_id = sc.subcategory_id
+	group by a.name, f.date, c.name, sc.name, c.flg_income, f.amount
 ) res
 group by res.account, date_part('year', res.date)
 order by date_part('year', res.date), res.account;
