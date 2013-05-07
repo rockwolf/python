@@ -63,6 +63,7 @@ group by date_part('year', res.date), date_part('month', res.date), res.account
 order by date_part('year', res.date), date_part('month', res.date), res.account;
 
 /* V_REP_NETWORTH */
+-- TODO: check v_rep_check???
 --DROP VIEW V_REP_NETWORTH;
 CREATE VIEW V_REP_NETWORTH
 AS
@@ -93,54 +94,54 @@ group by date_part('year', date);
 CREATE VIEW V_REP_PROGRESSCUMUL
 AS
 select
-	t1.id,
-	date_part('year', t1.date),
-	t1.amount,
-	sum(t1.amount)
+    t1.finance_id,
+    date_part('year', t1.date),
+    t1.amount,
+    sum(t1.amount)
 from
 (
-	select
-		f.id,
+    select
+		f.finance_id,
 		a.name as account,
 		f.date,
 		case
-			when f.aid = 4 and f.pid = 21 and f.oid = 6 then 0
+			when f.account_id = 4 and f.category_id = 21 and f.subcategory_id = 6 then 0
 			else
 				case
-					when p.flg_income = 0 then -1*f.amount
-					when p.flg_income = 1 then f.amount
+					when c.flg_income = 0 then -1*f.amount
+					when c.flg_income = 1 then f.amount
 				end
 		end as amount
 	from T_FINANCE f
-        inner join T_ACCOUNT a on f.aid = a.aid
-        inner join T_PRODUCT p on f.pid = p.pid
-        inner join T_OBJECT o on f.oid = o.oid
-	group by f.id, a.name, f.date, p.name, o.name, p.flg_income, f.amount
+        inner join T_ACCOUNT a on f.account_id = a.account_id
+        inner join T_CATEGORY c on f.subcategory_id = c.subcategory_id
+        inner join T_SUBCATEGORY sc on f.subcategory_id = sc.subcategory_id
+	group by f.finance_id, a.name, f.date, c.name, sc.name, c.flg_income, f.amount
 ) t1
 join
 (
 	select
-		f.id,
+		f.finance_id,
 		a.name as account,
 		f.date,
 		case
-			when f.aid = 4 and f.pid = 21 and f.oid = 6 then 0
+			when f.account_id = 4 and f.category_id = 21 and f.subcategory_id = 6 then 0
 			else
 				case
-					when p.flg_income = 0 then -1*f.amount
-					when p.flg_income = 1 then f.amount
+					when c.flg_income = 0 then -1*f.amount
+					when c.flg_income = 1 then f.amount
 				end
 		end as amount
 	from T_FINANCE f
-        inner join T_ACCOUNT a on f.aid = a.aid
-        inner join T_PRODUCT p on f.pid = p.pid
-        inner join T_OBJECT o on f.oid = o.oid
-	group by f.id, a.name, f.date, p.name, o.name, p.flg_income, f.amount
+        inner join T_ACCOUNT a on f.account_id = a.account_id
+        inner join T_CATEGORY c on f.category_id = c.category_id
+        inner join T_SUBCATEGORY_ID sc on f.subcategory_id = sc.subcategory_id
+	group by f.finance_id, a.name, f.date, c.name, sc.name, c.flg_income, f.amount
 ) t2
 on
-date_part('year', t2.date) = date_part('year', t1.date) and t2.id <= t1.id
-group by date_part('year', t1.date), t1.id, t1.amount
-order by date_part('year', t1.date), t1.id;
+date_part('year', t2.date) = date_part('year', t1.date) and t2.finance_id <= t1.finance_id
+group by date_part('year', t1.date), t1.finance_id, t1.amount
+order by date_part('year', t1.date), t1.finance_id;
 
 /* V_REP_CROSSOVER */
 --DROP VIEW V_REP_CROSSOVER;
