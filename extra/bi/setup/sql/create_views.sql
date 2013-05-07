@@ -357,47 +357,28 @@ inner join
 ) vwIncome
 on vwIncome.year = vwPassiveIncome.year;
 
-/* V_REP_CHECK */
---DROP VIEW V_REP_CHECK;
-CREATE VIEW V_REP_CHECK
-AS
-select
-    a.name as account,
-    sum(
-        case p.flg_income
-            when 1 then f.amount
-            else -1*f.amount
-        end
-    ) as total 
-from
-    t_finance f 
-        inner join T_ACCOUNT a on f.aid = a.aid
-        inner join T_PRODUCT p on f.pid = p.pid
-group by a.name
-order by a.name;
-
 /* V_REP_EXPENSESPERPRODUCT */
 --DROP VIEW V_REP_EXPENSESPERPRODUCT;
 CREATE VIEW V_REP_EXPENSESPERPRODUCT
 AS
 select 
     y.year,
-    substring(p.name, 1, char_length(p.name)-3) as product,
+    substring(c.name, 1, char_length(c.name)-3) as category, --TODO: change product in the report to category
     sum(coalesce(f.amount, 0)) as expenses 
 from
     (   
        (select distinct extract(year from f.date) as year from t_finance f) as x
-       cross join t_product
+       cross join t_category
     ) as y
     left join t_finance f on y.year = extract(year from f.date)
-        and y.pid = f.pid
-    inner join t_product p on p.pid = y.pid
+        and y.category_id = f.category_id
+    inner join t_category c on c.category_id = y.category_id
 where 
-    p.flg_income = 0
-        and f.pid <> 2
-        and f.pid <> 22
+    c.flg_income = 0
+        and f.category_id <> 2
+        and f.category_id <> 22
     group by
-        y.year, p.name
+        y.year, c.name
 
 /* TODO: put this in tj and finish the calculations. */
 /* V_REP_TRADING_JOURNAL */
