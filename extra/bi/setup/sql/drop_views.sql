@@ -6,6 +6,5 @@ drop view V_REP_NETWORTH;
 drop view V_REP_PROGRESSCUMUL;
 drop view V_REP_CROSSOVER;
 drop view V_REP_EXPVSINC;
-drop view V_REP_CHECK;
 drop view V_REP_PROFILE;
 COMMIT;
