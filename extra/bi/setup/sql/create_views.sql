@@ -6,23 +6,23 @@ BEGIN;
 CREATE VIEW V_REP_PROGRESSPERYEAR
 as
 select
-	res.account,
-	date_part('year', res.date) as year,
-	sum(res.amount)
+    res.account,
+    date_part('year', res.date) as year,
+    sum(res.amount)
 from
 (
-	select
-		a.name as account,
-		f.date,
-		case
-			when f.account_id = 4 and f.category_id = 21 and f.subcategory_id = 6 then 0
-			else
-				case
-					when c.flg_income = 0 then -1*f.amount
-					when c.flg_income = 1 then f.amount
-				end
-		end as amount
-	from T_FINANCE f
+    select
+	a.name as account,
+	f.date,
+	case
+	    when f.account_id = 4 and f.category_id = 21 and f.subcategory_id = 6 then 0
+	    else
+                case
+		    when c.flg_income = 0 then -1*f.amount
+		    when c.flg_income = 1 then f.amount
+	        end
+	end as amount
+    from T_FINANCE f
         inner join T_ACCOUNT a on f.account_id = a.account_id
         inner join T_CATEGORY c on f.category_id = c.category_id
         inner join T_SUBCATEGORY sc on f.subcategory_id = sc.subcategory_id
@@ -71,21 +71,20 @@ select
 	sum(res.amount) as "Net worth"
 from
 (
-	select
-		a.name as account,
-		f.date,
+    select
+        a.name as account,
+	f.date,
         case
-            when p.flg_income = 0 then -1*f.amount
-            when p.flg_income = 1 then f.amount
+            when c.flg_income = 0 then -1*f.amount
+            when c.flg_income = 1 then f.amount
         end as amount
-	from T_FINANCE f
-        inner join T_ACCOUNT a on f.aid = a.aid
-        inner join T_PRODUCT p on f.pid = p.pid
-        inner join T_OBJECT o on f.oid = o.oid
+    from T_FINANCE f
+        inner join T_ACCOUNT a on f.account_id = a.account_id
+        inner join T_CATEGORY c on f.category_id = c.category_id
+        inner join T_SUBCATEGORY sc on f.subcategory_id = sc.subcategory_id
     where
-        f.pid in (1,2)
-        or f.pid = 22
-	group by a.name, f.date, p.name, p.flg_income, f.amount
+        f.category_id in (1,2, 22)
+    group by a.name, f.date, c.name, c.flg_income, f.amount
 ) res
 group by date_part('year', date);
 
