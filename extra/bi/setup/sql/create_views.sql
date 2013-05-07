@@ -238,14 +238,14 @@ from
     select
         extract(year from f.date) as year,
         sum(
-            case p.flg_income 
+            case c.flg_income 
                 when 1 then f.amount
                 else -1*f.amount
             end
             ) as salary
     from 
         t_finance f 
-            inner join t_product p on f.pid = p.pid
+            inner join t_category c on f.category_id = c.category_id
     where
         f.pid in (25,26)
     group by
@@ -260,9 +260,9 @@ inner join
         sum(f.amount) as intotal
     from 
         t_finance f
-            inner join t_product p on f.pid = p.pid
+            inner join t_category c on f.category_id = c.category_id
     where
-        p.flg_income = 1
+        c.flg_income = 1
     group by
         extract(year from f.date)
     order by
@@ -276,9 +276,9 @@ inner join
         sum(f.amount) as outtotal
     from 
         t_finance f
-            inner join t_product p on f.pid = p.pid
+            inner join t_category c on f.category_id = c.category_id
     where
-        p.flg_income = 0
+        c.flg_income = 0
     group by
         extract(year from f.date)
     order by
@@ -292,21 +292,23 @@ inner join
         sum(f.amount) as expenses
     from 
         t_finance f
-            inner join t_product p on f.pid = p.pid
+            inner join t_category c on f.pid = c.category_id
     where
-        f.pid =  6 --'bill.tx'
-	or f.pid = 8 --'car.tx'
-	or f.pid = 10 --'clothes.tx'
-	or f.pid = 12 --'extra.tx'
-	or f.pid = 14 --'food.tx'
-	or f.pid = 16 --'gift.tx'
-	or f.pid = 18 --'hobby.tx'
-	or f.pid = 20 --'house.tx'
-	or f.pid = 26 --'salary.tx'
-	or f.pid = 28 --'tax.tx'
-	or f.pid = 30 --'travel.tx'
-	or f.pid = 32 --'utilities.tx'
-	or f.pid = 34 --'other.tx'
+        f.pid in (
+            6 --'bill.tx'
+	    ,8 --'car.tx'
+	    ,10 --'clothes.tx'
+	    ,12 --'extra.tx'
+	    ,14 --'food.tx'
+	    ,16 --'gift.tx'
+	    ,18 --'hobby.tx'
+	    ,20 --'house.tx'
+	    ,26 --'salary.tx'
+	    ,28 --'tax.tx'
+	    ,30 --'travel.tx'
+	    ,32 --'utilities.tx'
+	    ,34 --'other.tx'
+        )
     group by
         extract(year from f.date)
     order by
@@ -320,13 +322,13 @@ inner join
         sum(f.amount) as passive
     from
         t_finance f 
-            inner join T_ACCOUNT a on f.aid = a.aid
-            inner join T_PRODUCT p on f.pid = p.pid
-            inner join T_OBJECT o on f.oid = o.oid
+            inner join T_ACCOUNT a on f.account_id = a.account_id
+            inner join T_CATEGORY c on f.category_id = c.category_id
+            inner join T_SUBCATEGORY sc on f.subcategory_id = sc.subcategory_id
     where
-        f.pid = 21
-        and (f.oid = 5 or f.oid = 6)
-        or f.pid = 5
+        (f.category_id = 21
+        and f.subcategory_id in (5, 6))
+        or f.category_id = 5 -- TODO: doublecheck these conditions!
     group by
         extract(year from f.date)
 ) vwPassiveIncome
@@ -336,20 +338,20 @@ inner join
     select
         extract(year from f.date) as year,
         sum(
-            case p.flg_income
+            case c.flg_income
                 when 1 then f.amount
                 else -1*f.amount
             end
             ) as income
     from
         t_finance f 
-            inner join T_ACCOUNT a on f.aid = a.aid
-            inner join T_PRODUCT p on f.pid = p.pid
-            inner join T_OBJECT o on f.oid = o.oid
+            inner join T_ACCOUNT a on f.account_id = a.account_id
+            inner join T_CATEGORY c on f.category_id = c.category_id
+            inner join T_SUBCATEGORY sc on f.subcategory_id = sc.subcategory_id
     where
-        f.pid = 21
-        and (p.oid <> 5 and p.oid <> 6)
-        or f.pid in (3,4,25,26) --bet% and salary%
+        f.category_id = 21
+        and (c.subcategory_id <> 5 and c.subcategory_id <> 6)
+        or f.category_id in (3,4,25,26) --bet% and salary% -- TODO: doublecheck everything!
     group by
         extract(year from f.date)
 ) vwIncome
