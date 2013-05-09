@@ -534,7 +534,7 @@ INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_create
 values(26, 26, 'none', 1, current_date, current_date);
 
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(27, 27 'none', 1, current_date, current_date);
+values(27, 27, 'none', 1, current_date, current_date);
 
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
 values(28, 28, 'none', 1, current_date, current_date);
