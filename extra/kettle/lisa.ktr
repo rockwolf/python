@@ -363,7 +363,7 @@ FROM
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var dt = new Date(date);
+        <jsScript_script>var dt = new Date(date.getDate());
 
 var new_year = dt.getFullYear()
 var new_month = dt.getMonth() + 1
@@ -623,7 +623,7 @@ switch(old_subcat_id)
 		break;
 	case 3:
 		&#47;&#47;sellstocks
-		new_subcat_id = _
+		new_subcat_id = \
 			switch(old_cat_id)
 			{
 				case 21:
