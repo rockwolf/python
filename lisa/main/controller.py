@@ -53,22 +53,23 @@ class ControllerMain():
             
             input_fields = self.get_input_fields(tablecontent)
             # Note: The order of execution below is important!
-            test = currency_exchange.create_statements(input_fields)
-            test.print_statements()
-            currency_exchange.write_to_database(currency_exchange.create_statements(input_fields))
-            test = rate.create_statements(input_fields)
-            test.print_statements()
-            rate.write_to_database(rate.create_statements(input_fields))
-            statements_finance = finance.create_statements(input_fields)
-            statements_finance.print_statements()
-            statements_finance = finance.create_statements(input_fields)
-            finance.write_to_database(statements_finance)
-            
-            test = trade.create_statements(input_fields,
+            # t_currency_exchange
+            var_currency_exchange = currency_exchange.create_statements(input_fields)
+            var_currency_exchange.print_statements()
+            currency_exchange.write_to_database(var_currency_exchange)
+            # t_rate
+            var_rate = rate.create_statements(input_fields)
+            var_rate.print_statements()
+            rate.write_to_database(var_rate)
+            # t_finance
+            var_finance = finance.create_statements(input_fields)
+            var_finance.print_statements()
+            finance.write_to_database(var_finance)
+            # t_trade
+            var_trade = trade.create_statements(input_fields,
                     statements_finance)
-            test.print_statements()
-            trade.write_to_database(trade.create_statements(input_fields,
-                statements_finance))
+            var_trade.print_statements()
+            trade.write_to_database(var_finance)
             #test = dba.create_statements_TABLE_INVESTMENT(input_fields)
             #test.print_statements()
             #if self.is_an_investment():
