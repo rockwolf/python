@@ -365,7 +365,7 @@ class DatabaseAccess():
                     record['commission'],
                     record['tax'],
                     record['formula_id'],
-                    record['manual_flag'],
+                    record['automatic_flag'],
                     record['date_created'],
                     record['date_modified']))
         elif statements.table_name == TABLE_FINANCE:

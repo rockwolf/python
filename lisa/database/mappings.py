@@ -612,13 +612,13 @@ class T_RATE(Base):
     commission = Column(Numeric(18,6))
     tax = Column(Numeric(18,6))
     formula_id = Column(Integer)
-    manual_flag = Column(Integer)
+    automatic_flag = Column(Integer)
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
 
     def __init__(self, rate_id, calculated, calculated_percent,
             on_shares, on_commission, on_ordersize, on_other, commission, tax,
-            formula_id, manual_flag, date_created, date_modified):
+            formula_id, automatic_flag, date_created, date_modified):
         self.rate_id = rate_id
         self.calculated = calculated
         self.calculated_percent = calculated_percent
@@ -629,7 +629,7 @@ class T_RATE(Base):
         self.commission = commission
         self.tax = tax
         self.formula_id = formula_id
-        self.manual_flag = manual_flag
+        self.automatic_flag = automatic_flag
         self.date_created = date_created
         self.date_modified = date_modified
 
@@ -639,7 +639,7 @@ class T_RATE(Base):
                         self.calculated, self.calculated_percent, self.on_shares,
                         self.on_commission, self.on_ordersize, self.on_other,
                         self.commission, self.tax, self.formula_id,
-                        self.manual_flag, self.date_created, self.date_modified)
+                        self.automatic_flag, self.date_created, self.date_modified)
 
 class T_DRAWDOWN(Base):
     """ T_DRAWDOWN """

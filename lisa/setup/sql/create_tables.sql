@@ -113,7 +113,7 @@ CREATE TABLE T_RATE
     commission decimal(18, 6) not null default 0.0,
     tax decimal(18, 6) not null default 0.0,
     formula_id int not null default -1,
-    manual_flag int not null default -1,
+    automatic_flag int not null default -1,
     date_created timestamp not null default '1900-01-01',
     date_modified timestamp not null default '1900-01-01'
 );

@@ -201,7 +201,7 @@ class ControllerPyqt(QtGui.QMainWindow):
                 'comment', 'stock', 'stock_description', 'market',
                 'market_description', 'quantity', 'price',
                 'commission', 'tax', 'risk', 'currency_from', 'currency_to', 'exchange_rate',
-                'manual_flag', 'expires_on']
+                'automatic_flag', 'expires_on']
         self.table = TableModel(header, [], 0, len(header))
         # takeAt(0) removes the default empty table that's there and addWidget
         # adds a newly created one.

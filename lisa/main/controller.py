@@ -127,7 +127,7 @@ class ControllerMain():
                     'i_currency_from':field[15], #Note: Get currency_id from T_CURRENCY for final insert
                     'i_currency_to':field[16], #Note: Get currency_id from T_CURRENCY for final insert
                     'i_exchange_rate':Decimal(field[17]),
-                    'i_manual_flag':int(field[18]),
+                    'i_automatic_flag':int(field[18]),
                     'i_date_expiration':string_to_date(field[19]),
                     'i_pool':Decimal(pool)
                 })

@@ -755,7 +755,7 @@ INSERT INTO T_FORMULA(formula_id, value, description)
 values(5, '','commission us stocks');
 
 /* t_rate */
-INSERT INTO T_RATE(calculated, calculated_percent, on_shares, on_commission, on_ordersize, on_other, commission, tax, formula_id, manual_flag, date_created, date_modified)
+INSERT INTO T_RATE(calculated, calculated_percent, on_shares, on_commission, on_ordersize, on_other, commission, tax, formula_id, automatic_flag, date_created, date_modified)
 values(-1.0, -1.0/100, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 1, 0, current_date, current_date);
 
 /* t_parameter */
