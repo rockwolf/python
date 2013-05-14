@@ -16,8 +16,8 @@ class FileExport():
         """ Initialize """
         self.config = config
 
-    def file_export(self):
-        """ Export all data to text-files. """
+    def csv_export(self):
+        """ Export all data to csv-files. """
         try:
             #TODO: write to csv like this:
             #records = session.Query(MyModel).all()
@@ -69,4 +69,11 @@ class FileExport():
             finally:
                 dba = None
         except Exception as ex:
-            print("Error in file_export: ", ex)
+            print("Error in csv_export: ", ex)
+
+    def ledger_export(self):
+        """ Export all data to ledger-cli dat files. """
+        try:
+            print('Not implemented yet...')
+        except Exception as ex:
+            print("Error in ledger_export: ", ex)

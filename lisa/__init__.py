@@ -23,11 +23,7 @@ def main(option, export_type):
         wrapper.file_import()
         wrapper.exitstate = 1
     if (option == 'export'):
-        if export_type == EXPORT_LEDGER:
-            #TODO: rename to csv_export + create ledger_export
-            wrapper.file_export()
-        else:
-            wrapper.file_export()
+        wrapper.export(export_type)
         wrapper.exitstate = 1
     #TODO: add stuff for export to ledger format?
     wrapper.run() #run the main method for the program
@@ -54,7 +50,7 @@ if __name__ == "__main__":
     parser.add_argument(
         '--export',
         help='Export to the given type. [csv|ledger]',
-        default='',
+        default='csv',
         action='store')
     #action='store_true')
     parser.add_argument(
@@ -87,7 +83,6 @@ if __name__ == "__main__":
         option = 'import'
     elif args['export'] != '':
         option = 'export'
-        print(args['export'])
         if args['export'] == EXPORT_LEDGER:
             export_type = EXPORT_LEDGER
         elif args['export'] == EXPORT_CSV:

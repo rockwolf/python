@@ -9,6 +9,7 @@ from main.controller import ControllerMain
 from modules.fileimport import FileImport
 from modules.fileexport import FileExport
 from setup.setup import Setup
+from modules.constant import *
         
 class MainWrapper():
     """
@@ -56,12 +57,15 @@ class MainWrapper():
         setup = None
         imp = None
 
-    def file_export(self):
+    def export(self, export_type):
         """
             export
         """
         exp = FileExport(self.config)
-        exp.file_export()
+        if export_type == EXPORT_LEDGER:
+            exp.ledger_export()
+        else:
+            exp.csv_export()
         exp = None
 
     def run(self):
