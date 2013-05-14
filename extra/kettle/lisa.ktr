@@ -363,10 +363,10 @@ FROM
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var dt = new Date(date.getDate());
+        <jsScript_script>var dt =　date.getDate()
 
-var new_year = dt.getFullYear()
-var new_month = dt.getMonth() + 1
+var new_year = year(dt) &#47;&#47;.getFullYear()
+var new_month = month(dt) + 1&#47;&#47;dt.getMonth() + 1
 var new_day = dt.getDate()
 var currency_exchange_id = id
 
@@ -608,255 +608,238 @@ switch(old_subcat_id)
 		break;
 	case 2:
         &#47;&#47;buystocks
-		new_subcat_id = _
-			switch(old_cat_id)
-			{
-				case 22:
-					new_subcat_id = 37;
-					break;
-				case 24:
-					new_subcat_id = 38;
-					break;
-				default:
-					new_subcat_id = -1;
-			}
+		switch(old_cat_id)
+		{
+			case 22:
+				new_subcat_id = 37;
+				break;
+			case 24:
+				new_subcat_id = 38;
+				break;
+			default:
+				new_subcat_id = -1;
+		}
 		break;
 	case 3:
 		&#47;&#47;sellstocks
-		new_subcat_id = \
-			switch(old_cat_id)
-			{
-				case 21:
-					new_subcat_id = 39;
-					break;
-				case 23:
-					new_subcat_id = 40;
-					break;
-				default:
-					new_subcat_id = -1;
-			}
+		switch(old_cat_id)
+		{
+			case 21:
+				new_subcat_id = 39;
+				break;
+			case 23:
+				new_subcat_id = 40;
+				break;
+			default:
+				new_subcat_id = -1;
+		}
 		break;
 	case 4:
 		&#47;&#47;invest
-		new_subcat_id = _
-			switch(old_cat_id)
-			{
-				case 22:
-					new_subcat_id = 41;
-					break;
-				default:
-					new_subcat_id = -1;
-			}
+		switch(old_cat_id)
+		{
+			case 22:
+				new_subcat_id = 41;
+				break;
+			default:
+				new_subcat_id = -1;
+		}
 		break;
 	case 5:
 		&#47;&#47;refund
-		new_subcat_id = _
-			switch(old_cat_id)
-			{
-				case 21:
-					new_subcat_id = 42;
-					break;
-				default:
-					new_subcat_id = -1;
-			}
+		switch(old_cat_id)
+		{
+			case 21:
+				new_subcat_id = 42;
+				break;
+			default:
+				new_subcat_id = -1;
+		}
 		break;
 	case 6:
 		&#47;&#47;dividend
-		new_subcat_id = _
-			switch(old_cat_id)
-			{
-				case 21:
-					new_subcat_id = 43;
-					break;
-				case 23:
-					new_subcat_id = 44;
-					break;
-				default:
-					new_subcat_id = -1;
-			}
+		switch(old_cat_id)
+		{
+			case 21:
+				new_subcat_id = 43;
+				break;
+			case 23:
+				new_subcat_id = 44;
+				break;
+			default:
+				new_subcat_id = -1;
+		}
 		break;
 	case 7:
 		&#47;&#47;close
-		new_subcat_id = _
-			switch(old_cat_id)
-			{
-				case 21:
-					new_subcat_id = 45;
-					break;
-				default:
-					new_subcat_id = -1;
-			}
+		switch(old_cat_id)
+		{
+			case 21:
+				new_subcat_id = 45;
+				break;
+			default:
+				new_subcat_id = -1;
+		}
 		break;
 	case 8:
 		&#47;&#47;electricity
-		new_subcat_id = _
-			switch(old_cat_id)
-			{
-				case 31:
-					new_subcat_id = 46;
-					break;
-				case 32:
-					new_subcat_id = 47;
-					break;
-				default:
-					new_subcat_id = -1;
-			}
+		switch(old_cat_id)
+		{
+			case 31:
+				new_subcat_id = 46;
+				break;
+			case 32:
+				new_subcat_id = 47;
+				break;
+			default:
+				new_subcat_id = -1;
+		}
 		break;
 	case 9:
 		&#47;&#47;gas
-		new_subcat_id = _
-			switch(old_cat_id)
-			{
-				case 31:
-					new_subcat_id = 48;
-					break;
-				case 32:
-					new_subcat_id = 49;
-					break;
-				default:
-					new_subcat_id = -1;
-			}
+		switch(old_cat_id)
+		{
+			case 31:
+				new_subcat_id = 48;
+				break;
+			case 32:
+				new_subcat_id = 49;
+				break;
+			default:
+				new_subcat_id = -1;
+		}
 		break;
 	case 10:
 		&#47;&#47;water
-		new_subcat_id = _
-			switch(old_cat_id)
-			{
-				case 31:
-					new_subcat_id = 50;
-					break;
-				case 32:
-					new_subcat_id = 51;
-					break;
-				default:
-					new_subcat_id = -1;
-			}
+		switch(old_cat_id)
+		{
+			case 31:
+				new_subcat_id = 50;
+				break;
+			case 32:
+				new_subcat_id = 51;
+				break;
+			default:
+				new_subcat_id = -1;
+		}
 		break;
 	case 11:
 		&#47;&#47;mutuality
-		new_subcat_id = _
-			switch(old_cat_id)
-			{
-				case 5:
-					new_subcat_id = 52;
-					break;
-				case 6:
-					new_subcat_id = 53;
-					break;
-				default:
-					new_subcat_id = -1;
-			}
+		switch(old_cat_id)
+		{
+			case 5:
+				new_subcat_id = 52;
+				break;
+			case 6:
+				new_subcat_id = 53;
+				break;
+			default:
+				new_subcat_id = -1;
+		}
 		break;
 	case 12:
 		&#47;&#47;internet
-		new_subcat_id = _
-			switch(old_cat_id)
-			{
-				case 5:
-					new_subcat_id = 54;
-					break;
-				case 6:
-					new_subcat_id = 55;
-					break;
-				default:
-					new_subcat_id = -1;
-			}
+		switch(old_cat_id)
+		{
+			case 5:
+				new_subcat_id = 54;
+				break;
+			case 6:
+				new_subcat_id = 55;
+				break;
+			default:
+				new_subcat_id = -1;
+		}
 		break;
 	case 13:
 		&#47;&#47;dexia
-		new_subcat_id = _
-			switch(old_cat_id)
-			{
-				case 5:
-					new_subcat_id = 56;
-					break;
-				case 6:
-					new_subcat_id = 57;
-					break;
-				default:
-					new_subcat_id = -1;
-			}
+		switch(old_cat_id)
+		{
+			case 5:
+				new_subcat_id = 56;
+				break;
+			case 6:
+				new_subcat_id = 57;
+				break;
+			default:
+				new_subcat_id = -1;
+		}
 		break;
 	case 14:
 		&#47;&#47;other
-		new_subcat_id = _
-			switch(old_cat_id)
-			{
-				case 17:
-					new_subcat_id = 58;
-					break;
-				case 18:
-					new_subcat_id = 59;
-					break;
-				default:
-					new_subcat_id = -1;
-			}
+		switch(old_cat_id)
+		{
+			case 17:
+				new_subcat_id = 58;
+				break;
+			case 18:
+				new_subcat_id = 59;
+				break;
+			default:
+				new_subcat_id = -1;
+		}
 		break;
 	case 15:
 		&#47;&#47;insurance
-		new_subcat_id = _
-			switch(old_cat_id)
-			{
-				case 7:
-					new_subcat_id = 60;
-					break;
-				case 8:
-					new_subcat_id = 61;
-					break;
-				case 19:
-					new_subcat_id = 68;
-					break;
-				case 20:
-					new_subcat_id = 69;
-					break;
-				default:
-					new_subcat_id = -1;
-			}
+		switch(old_cat_id)
+		{
+			case 7:
+				new_subcat_id = 60;
+				break;
+			case 8:
+				new_subcat_id = 61;
+				break;
+			case 19:
+				new_subcat_id = 68;
+				break;
+			case 20:
+				new_subcat_id = 69;
+				break;
+			default:
+				new_subcat_id = -1;
+		}
 		break;
 	case 16:
 		&#47;&#47;police
-		new_subcat_id = _
-			switch(old_cat_id)
-			{
-				case 5:
-					new_subcat_id = 62;
-					break;
-				case 6:
-					new_subcat_id = 63;
-					break;
-				default:
-					new_subcat_id = -1;
-			}
+		switch(old_cat_id)
+		{
+			case 5:
+				new_subcat_id = 62;
+				break;
+			case 6:
+				new_subcat_id = 63;
+				break;
+			default:
+				new_subcat_id = -1;
+		}
 		break;
 	case 17:
 		&#47;&#47;vik
-		new_subcat_id = _
-			switch(old_cat_id)
-			{
-				case 5:
-					new_subcat_id = 64;
-					break;
-				case 6:
-					new_subcat_id = 65;
-					break;
-				default:
-					new_subcat_id = -1;
-			}
+		switch(old_cat_id)
+		{
+			case 5:
+				new_subcat_id = 64;
+				break;
+			case 6:
+				new_subcat_id = 65;
+				break;
+			default:
+				new_subcat_id = -1;
+		}
 		break;
 	case 18:
 		&#47;&#47;phone
-		new_subcat_id = _
-			switch(old_cat_id)
-			{
-				case 5:
-					new_subcat_id = 66;
-					break;
-				case 6:
-					new_subcat_id = 67;
-					break;
-				default:
-					new_subcat_id = -1;
-			}
+		switch(old_cat_id)
+		{
+			case 5:
+				new_subcat_id = 66;
+				break;
+			case 6:
+				new_subcat_id = 67;
+				break;
+			default:
+				new_subcat_id = -1;
+		}
 		break;
     default:
 		&#47;&#47;normally, we shouldn&apos;t get here
