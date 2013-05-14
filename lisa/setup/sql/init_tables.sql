@@ -465,6 +465,12 @@ values(35, 'health.rx', 1, 1, current_date, current_date);
 INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
 values(36, 'health.tx', 0, 1, current_date, current_date);
 
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(37, 'cash.rx', 1, 1, current_date, current_date);
+
+INSERT INTO T_CATEGORY(category_id, name, flg_income, active, date_created, date_modified)
+values(38, 'cash.tx', 0, 1, current_date, current_date);
+
 /* t_subcategory */
 -- none
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
@@ -574,6 +580,12 @@ values(35, 35, 'none', 1, current_date, current_date);
 
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
 values(36, 36, 'none', 1, current_date, current_date);
+
+INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
+values(70, 37, 'none', 1, current_date, current_date);
+
+INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
+values(71, 38, 'none', 1, current_date, current_date);
 
 -- buy
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
