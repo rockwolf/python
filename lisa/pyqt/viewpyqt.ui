@@ -97,6 +97,30 @@
         <property name="horizontalSpacing">
          <number>3</number>
         </property>
+        <item row="1" column="8">
+         <widget class="QDoubleSpinBox" name="spn_price">
+          <property name="minimumSize">
+           <size>
+            <width>10</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Liberation Mono</family>
+           </font>
+          </property>
+          <property name="locale">
+           <locale language="C" country="AnyCountry"/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="maximum">
+           <double>999999.999998999992386</double>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="0">
          <widget class="QLabel" name="lbl_date">
           <property name="text">
@@ -183,6 +207,13 @@
          <widget class="QLabel" name="lbl_risk">
           <property name="text">
            <string>Risk (%)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="8">
+         <widget class="QLabel" name="lbl_pool">
+          <property name="text">
+           <string>Pool</string>
           </property>
          </widget>
         </item>
@@ -329,30 +360,6 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="8">
-         <widget class="QDoubleSpinBox" name="spn_price">
-          <property name="minimumSize">
-           <size>
-            <width>10</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Liberation Mono</family>
-           </font>
-          </property>
-          <property name="locale">
-           <locale language="C" country="AnyCountry"/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="maximum">
-           <double>999999.999998999992386</double>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="9">
          <widget class="QDoubleSpinBox" name="spn_commission">
           <property name="minimumSize">
@@ -425,20 +432,20 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="5">
+        <item row="4" column="5">
          <widget class="QLineEdit" name="txt_market_description"/>
         </item>
-        <item row="2" column="6">
+        <item row="4" column="6">
          <widget class="QLineEdit" name="txt_stock_description"/>
         </item>
-        <item row="3" column="0">
+        <item row="5" column="0">
          <widget class="QLabel" name="lbl_currency_from">
           <property name="text">
            <string>Currency from</string>
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
+        <item row="6" column="0">
          <widget class="QComboBox" name="cmb_currency_from">
           <property name="minimumSize">
            <size>
@@ -454,7 +461,7 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="9">
+        <item row="4" column="9">
          <widget class="QCheckBox" name="chk_manual_commission">
           <property name="text">
            <string>Automatic</string>
@@ -464,7 +471,7 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="6">
+        <item row="5" column="6">
          <widget class="QLabel" name="lbl_expiration">
           <property name="frameShape">
            <enum>QFrame::NoFrame</enum>
@@ -474,7 +481,7 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="6">
+        <item row="6" column="6">
          <widget class="QDateEdit" name="dt_expiration">
           <property name="dateTime">
            <datetime>
@@ -501,7 +508,7 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="8">
+        <item row="6" column="8">
          <widget class="QDoubleSpinBox" name="spn_pool">
           <property name="decimals">
            <number>6</number>
@@ -511,21 +518,14 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="8">
-         <widget class="QLabel" name="lbl_pool">
-          <property name="text">
-           <string>Pool</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2">
+        <item row="5" column="2">
          <widget class="QLabel" name="lbl_exchange_rate">
           <property name="text">
            <string>Exchange rate</string>
           </property>
          </widget>
         </item>
-        <item row="4" column="2">
+        <item row="6" column="2">
          <widget class="QDoubleSpinBox" name="spn_exchange_rate">
           <property name="minimumSize">
            <size>
@@ -549,15 +549,29 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
+        <item row="5" column="1">
          <widget class="QLabel" name="lbl_currency_to">
           <property name="text">
            <string>Currency to</string>
           </property>
          </widget>
         </item>
-        <item row="4" column="1">
+        <item row="6" column="1">
          <widget class="QComboBox" name="cmb_currency_to"/>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="lbl_category_type">
+          <property name="text">
+           <string>Category type</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QComboBox" name="cmb_category_type">
+          <property name="editable">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>

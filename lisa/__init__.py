@@ -50,7 +50,7 @@ if __name__ == "__main__":
     parser.add_argument(
         '--export',
         help='Export to the given type. [csv|ledger]',
-        default='csv',
+        default='',
         action='store')
     #action='store_true')
     parser.add_argument(
@@ -81,7 +81,7 @@ if __name__ == "__main__":
     export_type = ''
     if args['import']:
         option = 'import'
-    elif args['export'] != '':
+    elif args['export']:
         option = 'export'
         if args['export'] == EXPORT_LEDGER:
             export_type = EXPORT_LEDGER
