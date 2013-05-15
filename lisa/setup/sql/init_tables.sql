@@ -474,178 +474,85 @@ values(18, 18, 'none', 1, current_date, current_date);
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
 values(19, 19, 'none', 1, current_date, current_date);
 
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(20, 20, 'none', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(21, 21, 'none', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(22, 22, 'none', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(23, 23, 'none', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(24, 24, 'none', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(25, 25, 'none', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(26, 26, 'none', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(27, 27, 'none', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(28, 28, 'none', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(29, 29, 'none', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(30, 30, 'none', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(31, 31, 'none', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(32, 32, 'none', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(33, 33, 'none', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(34, 34, 'none', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(35, 35, 'none', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(36, 36, 'none', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(70, 37, 'none', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(71, 38, 'none', 1, current_date, current_date);
-
 -- buy
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(37, 22, 'buy', 1, current_date, current_date);
+values(20, 11, 'buy', 1, current_date, current_date);
 
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(38, 24, 'buy', 1, current_date, current_date);
+values(21, 12, 'buy', 1, current_date, current_date);
 
 -- sell
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(39, 21, 'sell', 1, current_date, current_date);
+values(22, 11, 'sell', 1, current_date, current_date);
 
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(40, 23, 'sell', 1, current_date, current_date);
+values(23, 12, 'sell', 1, current_date, current_date);
 
 -- invest
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(41, 22, 'invest', 1, current_date, current_date);
+values(24, 11, 'invest', 1, current_date, current_date);
 
 -- refund
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(42, 21, 'refund', 1, current_date, current_date);
+values(25, 11, 'refund', 1, current_date, current_date);
 
 -- dividend
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(43, 21, 'dividend', 1, current_date, current_date);
+values(26, 11, 'dividend', 1, current_date, current_date);
 
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(44, 23, 'dividend', 1, current_date, current_date);
+values(27, 12, 'dividend', 1, current_date, current_date);
 
 -- close
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(45, 21, 'close', 1, current_date, current_date);
+values(28, 11, 'close', 1, current_date, current_date);
 
 -- electricity
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(46, 31, 'electricity', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(47, 32, 'electricity', 1, current_date, current_date);
+values(29, 16, 'electricity', 1, current_date, current_date);
 
 -- gas
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(48, 31, 'gas', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(49, 32, 'gas', 1, current_date, current_date);
+values(30, 16, 'gas', 1, current_date, current_date);
 
 -- water
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(50, 31, 'water', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(51, 32, 'water', 1, current_date, current_date);
+values(31, 16, 'water', 1, current_date, current_date);
 
 -- mutuality
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(52, 5, 'mutuality', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(53, 6, 'mutuality', 1, current_date, current_date);
+values(32, 3, 'mutuality', 1, current_date, current_date);
 
 -- internet
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(54, 5, 'internet', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(55, 6, 'internet', 1, current_date, current_date);
+values(33, 3, 'internet', 1, current_date, current_date);
 
 -- belfius
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(56, 5, 'belfius', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(57, 6, 'belfius', 1, current_date, current_date);
+values(34, 3, 'belfius', 1, current_date, current_date);
 
 -- other
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(58, 17, 'other', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(59, 18, 'other', 1, current_date, current_date);
+values(35, 9, 'other', 1, current_date, current_date);
 
 -- insurance
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(60, 7, 'insurance', 1, current_date, current_date);
+values(36, 4, 'insurance', 1, current_date, current_date);
 
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(61, 8, 'insurance', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(68, 19, 'insurance', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(69, 20, 'insurance', 1, current_date, current_date);
+values(37, 10, 'insurance', 1, current_date, current_date);
 
 -- police
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(62, 5, 'police', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(63, 6, 'police', 1, current_date, current_date);
+values(38, 3, 'police', 1, current_date, current_date);
 
 -- vik
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(64, 5, 'vik', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(65, 6, 'vik', 1, current_date, current_date);
+values(39, 3, 'vik', 1, current_date, current_date);
 
 -- phone
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(66, 5, 'phone', 1, current_date, current_date);
-
-INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
-values(67, 6, 'phone', 1, current_date, current_date);
+values(40, 3, 'phone', 1, current_date, current_date);
 
 /* currencies */
 INSERT INTO T_CURRENCY(currency_id, code, description)
