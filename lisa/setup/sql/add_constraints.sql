@@ -8,9 +8,6 @@ alter table T_CATEGORY
 alter table T_SUBCATEGORY
     add constraint fk_category_id foreign key(category_id)
     references T_CATEGORY(category_id);
-alter table T_CATEGORY_TYPE
-    add constraint fk_category_type_category_id foreign key(category_id)
-    references T_CATEGORY(category_id);
 alter table T_ACCOUNT
     add constraint pk_account_id primary key(account_id);
 alter table T_MARKET

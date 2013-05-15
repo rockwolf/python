@@ -23,7 +23,6 @@ CREATE TABLE T_CATEGORY
 CREATE TABLE T_CATEGORY_TYPE
 (
     category_type_id int not null,
-    category_id int not null default -1,
     name varchar(100) not null,
     active int not null default 1,
     date_created timestamp not null default '1900-01-01',

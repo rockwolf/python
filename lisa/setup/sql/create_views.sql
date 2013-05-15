@@ -192,10 +192,11 @@ select
     f.date --TODO: format?
     ,f.comment
     ,f.amount
-    ,c.code
+    --,c.code
     --TODO: finish
 from
     t_finance f
-    inner join t_currency c on f.currency_to_id = c.currency_to_id
+    --inner join t_currency_exchange ce on ce.currency_exchange_id = f.currency_exchange_id
+    --inner join t_currency c on f.currency_id_to = c.currency_id_to
 ;
 COMMIT;
