@@ -184,4 +184,18 @@ from
     t_pool p 
 ;
 
+/* V_EXPORT_LEDGER */
+--DROP VIEW V_EXPORT_LEDGER;
+CREATE VIEW V_EXPORT_LEDGER
+AS
+select
+    f.date --TODO: format?
+    ,f.comment
+    ,f.amount
+    ,c.code
+    --TODO: finish
+from
+    t_finance f
+    inner join t_currency c on f.currency_to_id = c.currency_to_id
+;
 COMMIT;

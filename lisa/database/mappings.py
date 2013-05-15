@@ -281,22 +281,43 @@ class T_CATEGORY(Base):
     #__table_args__ = {'autoload':True}
     category_id = Column(Integer, primary_key=True)
     name = Column(String(30))
-    flg_income = Column(Integer)
     active = Column(Integer)
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
 
-    def __init__(self, category_id, name, flg_income, active, date_created, date_modified):
+    def __init__(self, category_id, name, active, date_created, date_modified):
         self.category_id = category_id
         self.name = name
-        self.flg_income = flg_income
         self.active = active
         self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_CATEGORY('%s', '%s', '%s', '%s', '%s', '%s')>" % (self.category_id,
-                self.name, self.flg_income, self.active, self.date_created, self.date_modified)
+        return "<T_CATEGORY('%s', '%s', '%s', '%s', '%s')>" % (self.category_id,
+                self.name, self.active, self.date_created, self.date_modified)
+                
+class T_CATEGORY_TYPE(Base):
+    """ T_CATEGORY_TYPE """
+    __tablename__ = TABLE_CATEGORY_TYPE
+    #__table_args__ = {'autoload':True}
+    category_type_id = Column(Integer, primary_key=True)
+    category_id = Column(Integer)
+    name = Column(String(30))
+    active = Column(Integer)
+    date_created = Column(DateTime)
+    date_modified = Column(DateTime)
+
+    def __init__(self, category_type_id, category_id, name, active, date_created, date_modified):
+        self.category_type_id = category_type_id
+        self.category_id = category_id
+        self.name = name
+        self.active = active
+        self.date_created = date_created
+        self.date_modified = date_modified
+
+    def __repr__(self):
+        return "<T_CATEGORY('%s', '%s', '%s', '%s', '%s', '%s')>" % (self.category_type_id,
+                self.category_id, self.name, self.active, self.date_created, self.date_modified)
 
 class T_MARGIN(Base):
     """ T_MARGIN """
@@ -340,21 +361,23 @@ class T_SUBCATEGORY(Base):
     __tablename__ = TABLE_SUBCATEGORY
     #__table_args__ = {'autoload':True}
     subcategory_id = Column(Integer, primary_key=True)
+    category_id = Column(Integer)
     name = Column(String(20))
     active = Column(Integer)
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
 
-    def __init__(self, subcategory_id, name, active, date_created, date_modified):
+    def __init__(self, subcategory_id, category_id, name, active, date_created, date_modified):
         self.subcategory_id = subcategory_id
+        self.category_id = category_id
         self.name = name
         self.active = active
         self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_SUBCATEGORY('%s', '%s', '%s', '%s', '%s')>" % (self.subcategory_id, self.name,
-                self.active, self.date_created, self.date_modified)
+        return "<T_SUBCATEGORY('%s', '%s', '%s', '%s', '%s', '%s')>" % (self.subcategory_id, self.category_id, 
+            self.name, self.active, self.date_created, self.date_modified)
 
 class T_ACCOUNT(Base):
     """ T_ACCOUNT """

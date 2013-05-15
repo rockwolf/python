@@ -239,11 +239,12 @@ class DatabaseAccess():
         """
             Are we long?
         """
+        #TODO: fix this, it seems wrong!
         result = False
         if trade_record == []:
-            result = (category == 'trade.tx' and subcategory == 'buy') 
+            result = (category == 'trade' and subcategory == 'buy')
         else:
-            result = (category == 'trade.rx' and subcategory == 'sell'
+            result = (category == 'trade' and subcategory == 'sell'
                       and trade_record['date_buy'] != DEFAULT_DATE)
         return 1 if result else 0
 
@@ -601,13 +602,6 @@ class DatabaseAccess():
             # Get category_id, based on category name
             # but first check if the category already exists
             # in T_CATEGORY. If not, add it to the t_category table.
-            # if category ends with .rx: flg_income = 1, else 0
-            if(category[-3:] == '.rx'):
-                flg_income = 1
-            elif(category[-3:] == '.tx'):
-                flg_income = 0
-            else:
-                raise Exception("Wrong category in input: {0}".format(category))
             obj = session.query(T_CATEGORY).filter_by(name=category).first() is not None
             if not obj: 
                 session.add(T_CATEGORY(category, flg_income, date_created, date_modified))

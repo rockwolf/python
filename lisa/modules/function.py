@@ -8,16 +8,14 @@
 
 def is_a_trade(category, subcategory):
     """ Function to determine if a line to process, is a trade. """
-    return (category == 'trade.tx' or \
-            category == 'trade.rx') \
+    return (category == 'trade') \
             and (subcategory == 'buy' or \
             subcategory == 'sell')
 
 def is_an_investment(category, subcategory):
     """ Function to determine if a line to process, is an investent (buy
     or sell of stock, that's not a trade). """
-    return (category == 'invest.tx' or \
-            category == 'invest.rx') \
+    return (category == 'invest') \
             and (subcategory == 'buy' or \
             subcategory == 'sell')
 

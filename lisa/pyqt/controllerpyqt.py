@@ -36,6 +36,10 @@ class ControllerPyqt(QtGui.QMainWindow):
             self.gui.cmb_category, 
             QtCore.SIGNAL('currentIndexChanged(const QString&)'), 
             self.cmb_category_changed)
+        self.gui.cmb_category_type.connect(
+            self.gui.cmb_category_type, 
+            QtCore.SIGNAL('currentIndexChanged(const QString&)'), 
+            self.cmb_category_type_changed)
         self.gui.cmb_subcategory.connect(
             self.gui.cmb_subcategory, 
             QtCore.SIGNAL('currentIndexChanged(const QString&)'), 
@@ -118,6 +122,11 @@ class ControllerPyqt(QtGui.QMainWindow):
     def cmb_category_changed(self, selstr):
         """ When the category combo selection changes. """
         self.process_category_changed(selstr)
+    
+    def cmb_category_type_changed(self, selstr):
+        """ When the category_type combo selection changes. """
+        #self.process_category_type_changed(selstr)
+        pass
 
     def cmb_subcategory_changed(self, selstr):
         """ When the subcategory combo selection changes. """
@@ -197,7 +206,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         """ Initialize tbl_summary. """
         # set the table header
         # TODO: set header values in mdlconstants and use the constants
-        header = ['date', 'account', 'category', 'subcategory', 'amount',
+        header = ['date', 'account', 'category', 'category_type', 'subcategory', 'amount',
                 'comment', 'stock', 'stock_description', 'market',
                 'market_description', 'quantity', 'price',
                 'commission', 'tax', 'risk', 'currency_from', 'currency_to', 'exchange_rate',
@@ -251,6 +260,10 @@ class ControllerPyqt(QtGui.QMainWindow):
     def get_category(self):
         """ Returns the category name from the cmb_category combobox. """
         return str(self.gui.cmb_category.currentText())
+        
+    def get_category_type(self):
+        """ Returns the category_type name from the cmb_category_type combobox. """
+        return str(self.gui.cmb_category_type.currentText())
     
     def get_subcategory(self):
         """ Returns the subcategory name from the cmb_subcategory combobox. """
