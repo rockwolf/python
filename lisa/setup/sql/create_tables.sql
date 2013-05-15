@@ -15,7 +15,6 @@ CREATE TABLE T_CATEGORY
 (
     category_id int not null,
     name varchar(30) not null,
-    flg_income int not null,
     active int not null default 1,
     date_created timestamp not null default '1900-01-01',
     date_modified timestamp not null default '1900-01-01'
