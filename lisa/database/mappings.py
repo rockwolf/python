@@ -281,22 +281,20 @@ class T_CATEGORY(Base):
     #__table_args__ = {'autoload':True}
     category_id = Column(Integer, primary_key=True)
     name = Column(String(30))
-    flg_income = Column(Integer)
     active = Column(Integer)
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
 
-    def __init__(self, category_id, name, flg_income, active, date_created, date_modified):
+    def __init__(self, category_id, name, active, date_created, date_modified):
         self.category_id = category_id
         self.name = name
-        self.flg_income = flg_income
         self.active = active
         self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_CATEGORY('%s', '%s', '%s', '%s', '%s', '%s')>" % (self.category_id,
-                self.name, self.flg_income, self.active, self.date_created, self.date_modified)
+        return "<T_CATEGORY('%s', '%s', '%s', '%s', '%s')>" % (self.category_id,
+                self.name, self.active, self.date_created, self.date_modified)
 
 class T_MARGIN(Base):
     """ T_MARGIN """
