@@ -415,6 +415,19 @@ values(18, 'health', 1, current_date, current_date);
 INSERT INTO T_CATEGORY(category_id, name, active, date_created, date_modified)
 values(19, 'cash', 1, current_date, current_date);
 
+/* t_category_type */
+INSERT INTO T_CATEGORY_TYPE(category_type_id, category_id, name, active, date_created, date_modified)
+values(1, 'prepaid_expenses', 1, current_date, current_date);
+
+INSERT INTO T_CATEGORY(category_type_id, category_id, name, active, date_created, date_modified)
+values(2, 'prepaid_income', 1, current_date, current_date);
+
+INSERT INTO T_CATEGORY(category_type_id, category_id, name, active, date_created, date_modified)
+values(3, 'accounts_payable', 1, current_date, current_date);
+
+INSERT INTO T_CATEGORY(category_type_id, category_id, name, active, date_created, date_modified)
+values(4, 'accounts_receivable', 1, current_date, current_date);
+
 /* t_subcategory */
 -- none
 INSERT INTO T_SUBCATEGORY(subcategory_id, category_id, name, active, date_created, date_modified)
