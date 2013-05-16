@@ -136,6 +136,7 @@ CREATE TABLE T_FINANCE
     day int not null default 1,
     account_id int not null default -1,
     category_id int not null default -1,
+    category_type_id int not null default 1,
     subcategory_id int not null default -1,
     amount decimal(18,6) not null default 0.0,
     comment varchar(256) not null default '',
