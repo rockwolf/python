@@ -20,6 +20,7 @@ class T_FINANCE(Base):
     day = Column(Integer)
     account_id = Column(Integer)
     category_id = Column(Integer)
+    category_type_id = Column(Integer)
     subcategory_id = Column(Integer)
     amount = Column(Numeric(18,6))
     comment = Column(String(256))
@@ -35,7 +36,7 @@ class T_FINANCE(Base):
     date_modified = Column(DateTime) 
 
     def __init__(self, finance_id, date, year, month, day, account_id, category_id,
-            subcategory_id, amount, comment, stock_name_id, shares, price, tax,
+            category_type_id, subcategory_id, amount, comment, stock_name_id, shares, price, tax,
             commission, active, rate_id, currency_exchange_id, date_created, date_modified):
         self.finance_id = finance_id
         self.date = date
@@ -44,6 +45,7 @@ class T_FINANCE(Base):
         self.day = day
         self.account_id = account_id
         self.category_id = category_id
+        self.category_type_id = category_type_id
         self.subcategory_id = subcategory_id
         self.amount = amount
         self.comment = comment
@@ -61,9 +63,9 @@ class T_FINANCE(Base):
     def __repr__(self):
         return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
 '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-'%s')>" % (
+'%s', '%s')>" % (
             self.finance_id, self.date, self.year, self.month, self.day, self.account_id,
-            self.category_id, self.subcategory_id, self.amount, self.comment,
+            self.category_id, self.category_type_id, self.subcategory_id, self.amount, self.comment,
             self.stock_name_id, self.shares, self.price, self.tax,
             self.commission, self.active, self.rate_id,
             self.currency_exchange_id, self.date_created, self.date_modified)
