@@ -33,6 +33,8 @@ alter table T_FINANCE
 alter table T_FINANCE
     add constraint fk_category_id foreign key(category_id) references T_CATEGORY;
 alter table T_FINANCE
+    add constraint fk_category_type_id foreign key(category_type_id) references T_CATEGORY_TYPE;
+alter table T_FINANCE
     add constraint fk_subcategory_id foreign key(subcategory_id) references T_SUBCATEGORY;
 alter table T_FINANCE
     add constraint fk_stock_name_id foreign key(stock_name_id) references T_STOCK_NAME;
