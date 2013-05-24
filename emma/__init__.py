@@ -8,14 +8,14 @@ import argparse
 
 from setup.setup import Setup
 
-def main(use, pool, tax, commission, shares, price, automatic):
+def main(use, pool, tax, commission, shares, price, buy, automatic):
     """ Main driver. """
     ### Run the application ###
     #NOTE: the import statement loads the views and tables,
     #but when doing an install, they are not created yet.
     #So we skip loading this until we are sure we can start.
     from main.main import MainWrapper
-    wrapper = MainWrapper()
+    wrapper = MainWrapper(use, pool, tax, commission, shares, price, buy, automatic)
     wrapper.run() #run the main method for the program
       
 def install():
@@ -45,6 +45,12 @@ if __name__ == "__main__":
         default=0.0,
         action='store')
     #action='store_true')
+    parser.add_argument(
+        '-b',
+        '--buy',
+        help='Are we buying? Or selling?',
+        default=True,
+        action='store_true')
     parser.add_argument(
     	'-c',
         '--commission',
@@ -96,6 +102,8 @@ if __name__ == "__main__":
     commission = args['commission']
     shares = args['shares']
     price = args['price']
+    buy = args['buy']
+    automatic = args['automatic']
     
     if args['install']:
         install()
@@ -106,4 +114,4 @@ if __name__ == "__main__":
     elif args['python']:
         print('Python ' + sys.version)
         sys.exit(0)
-    main(use, pool, tax, commission, shares, price)
+    main(use, pool, tax, commission, shares, price, buy, automatic)
