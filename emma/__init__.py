@@ -8,7 +8,7 @@ import argparse
 
 from setup.setup import Setup
 
-def main(use, pool, tax, commission, shares, price, buy, automatic, profile):
+def main(pool, amount, tax, commission, shares, price, buy, automatic, profile):
     """ Main driver. """
     ### Run the application ###
     #NOTE: the import statement loads the views and tables,
@@ -33,9 +33,9 @@ def uninstall():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Equations for Money Management Application")
     parser.add_argument(
-    	'-u',
-        '--use',
-        help='Money used on trade: <double>',
+    	'-m',
+        '--amount',
+        help='Money used (incl. tax + comm): <double>',
         default=-1.0,
         action='store')
     parser.add_argument(
@@ -102,8 +102,8 @@ if __name__ == "__main__":
     args = vars(parser.parse_args())
    
     #TODO: add value checking here, so we don't enter wrong types etc.
-    use = args['use']
     pool = args['pool']
+    amount = args['amount']
     tax = args['tax']
     commission = args['commission']
     shares = args['shares']
@@ -121,4 +121,4 @@ if __name__ == "__main__":
     elif args['python']:
         print('Python ' + sys.version)
         sys.exit(0)
-    main(use, pool, tax, commission, shares, price, buy, automatic, profile)
+    main(pool, amount, tax, commission, shares, price, buy, automatic, profile)
