@@ -8,6 +8,7 @@ import shutil
 import os, sys
 from decimal import getcontext
 from modules.config import ConfigParser
+from modules.calculator import Calculator
 
 class ControllerMain():
     """ Contains the bussiness logic of the application. """

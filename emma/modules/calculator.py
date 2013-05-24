@@ -10,7 +10,7 @@ class Calculator():
         Calculator class
     """
    
-    def __init__(self, pool, amount, tax, commission, shares. price, buy):
+    def __init__(self, pool, amount, tax, commission, shares, price, buy):
         """
             Initialize
         """
