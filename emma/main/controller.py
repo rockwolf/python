@@ -12,30 +12,47 @@ from modules.config import ConfigParser
 class ControllerMain():
     """ Contains the bussiness logic of the application. """
     
-    def __init__(self, use, pool, tax, commission, shares, price, buy, automatic):
-        """ Construct basic QApplication, add widgets and start exec_loop """
+    def __init__(self, pool, amount, tax, commission, shares, price, buy, automatic, market, stock_name):
+        """ Initialize """
         # initialise special vars
         self.config = config #object
         # Decimal precision
         getcontext().prec = 4
         # Parameters
-        self.use = use
         self.pool = pool
+        self.amount = amount #full amount (incl. tax + comm.)
         self.tax = tax
         self.commission = commission
         self.shares = shares
         self.price = price
         self.buy = buy
         self.automatic = automatic
+        self.market = market
+        self.stock_name = stock_name
 
     # Methods
     ## General
-    def run(self):
+    def run(self, profile):
         """
             Start the app.
         """
+        #TODO: if automatic: get tax and commission from library
+        if automatic:
+            self.tax = retrieve_tax...
+            self.commission = retrieve_commission
+            print('Not implemendet yet...')
+        #TODO: needs market and stockname!
         #TODO: do the calculations + print the result
-        if show_profile:
+        calc = Calculator(
+            self.pool,
+            self.amount,
+            self.tax,
+            self.commission,
+            self.shares,
+            self.price,
+            self.buy)
+        
+        if profile:
             print('Test: profile implemented yet.')
 
     def backup(self):
