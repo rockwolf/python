@@ -36,13 +36,13 @@ if __name__ == "__main__":
     	'-u',
         '--use',
         help='Money used on trade: <double>',
-        default=0.0,
+        default=-1.0,
         action='store')
     parser.add_argument(
     	'-l',
         '--pool',
         help='Total pool available: <double>',
-        default=0.0,
+        default=-1.0,
         action='store')
     #action='store_true')
     parser.add_argument(
@@ -67,13 +67,13 @@ if __name__ == "__main__":
         '-s,
         '--shares',
         help='Tax amount to use: <double>',
-        default=1,
+        default=-1,
         action='store')
     parser.add_argument(
         '-p,
         '--price
         help='Price: <double>',
-        default=0.0
+        default=-1.0
         action='store')
     parser.add_argument(
         '-a',
