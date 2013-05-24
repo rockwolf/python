@@ -16,15 +16,7 @@ def main(use, pool, tax, commission, shares, price, automatic):
     #So we skip loading this until we are sure we can start.
     from main.main import MainWrapper
     wrapper = MainWrapper()
-    if (option == 'import'):
-        wrapper.file_import()
-        wrapper.exitstate = 1
-    if (option == 'export'):
-        wrapper.export(export_type)
-        wrapper.exitstate = 1
-    #TODO: add stuff for export to ledger format?
     wrapper.run() #run the main method for the program
-      
       
 def install():
     """ install """
