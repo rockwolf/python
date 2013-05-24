@@ -8,7 +8,7 @@ import argparse
 
 from setup.setup import Setup
 
-def main(use, pool, tax, commission, shares, price, buy, automatic):
+def main(use, pool, tax, commission, shares, price, buy, automatic, profile):
     """ Main driver. """
     ### Run the application ###
     #NOTE: the import statement loads the views and tables,
@@ -16,7 +16,7 @@ def main(use, pool, tax, commission, shares, price, buy, automatic):
     #So we skip loading this until we are sure we can start.
     from main.main import MainWrapper
     wrapper = MainWrapper(use, pool, tax, commission, shares, price, buy, automatic)
-    wrapper.run() #run the main method for the program
+    wrapper.run(profile) #run the main method for the program
       
 def install():
     """ install """
@@ -81,6 +81,12 @@ if __name__ == "__main__":
         help='Override tax/commission values with the values from the library!',
         default=False,
         action='store_true')
+    #TODO: a setting for each profile with "<double>;<double>;<double>" as values?
+    parser.add_argument(
+        '--profile',
+        help='Show profile information.',
+        default=False,
+        action='store_true')
     parser.add_argument(
         '-V',
         '--version',
@@ -104,6 +110,7 @@ if __name__ == "__main__":
     price = args['price']
     buy = args['buy']
     automatic = args['automatic']
+    profile = args['profile']
     
     if args['install']:
         install()
@@ -114,4 +121,4 @@ if __name__ == "__main__":
     elif args['python']:
         print('Python ' + sys.version)
         sys.exit(0)
-    main(use, pool, tax, commission, shares, price, buy, automatic)
+    main(use, pool, tax, commission, shares, price, buy, automatic, profile)
