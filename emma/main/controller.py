@@ -7,20 +7,30 @@ from os.path import isfile
 import shutil
 import os, sys
 from decimal import getcontext
+from modules.config import ConfigParser
 
 class ControllerMain():
     """ Contains the bussiness logic of the application. """
     
-    def __init__(self, config):
+    def __init__(self, use, pool, tax, commission, shares, price, buy, automatic):
         """ Construct basic QApplication, add widgets and start exec_loop """
         # initialise special vars
         self.config = config #object
         # Decimal precision
         getcontext().prec = 4
+        # Parameters
+        self.use = use
+        self.pool = pool
+        self.tax = tax
+        self.commission = commission
+        self.shares = shares
+        self.price = price
+        self.buy = buy
+        self.automatic = automatic
 
     # Methods
     ## General
-    def run(self, show_profile):
+    def run(self):
         """
             Start the app.
         """
