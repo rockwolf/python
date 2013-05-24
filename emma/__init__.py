@@ -8,14 +8,14 @@ import argparse
 
 from setup.setup import Setup
 
-def main(pool, amount, tax, commission, shares, price, buy, automatic, profile):
+def main(pool, amount, tax, commission, shares, price, buy, automatic, profile, market, commodity):
     """ Main driver. """
     ### Run the application ###
     #NOTE: the import statement loads the views and tables,
     #but when doing an install, they are not created yet.
     #So we skip loading this until we are sure we can start.
     from main.main import MainWrapper
-    wrapper = MainWrapper(use, pool, tax, commission, shares, price, buy, automatic)
+    wrapper = MainWrapper(pool, amount, tax, commission, shares, price, buy, automatic, market, commodity)
     wrapper.run(profile) #run the main method for the program
       
 def install():
@@ -33,7 +33,7 @@ def uninstall():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Equations for Money Management Application")
     parser.add_argument(
-    	'-m',
+    	'-a',
         '--amount',
         help='Money used (incl. tax + comm): <double>',
         default=-1.0,
@@ -64,19 +64,30 @@ if __name__ == "__main__":
         default=0.0025,
         action='store')
     parser.add_argument(
-        '-s,
+        '-s',
         '--shares',
         help='Tax amount to use: <double>',
         default=-1,
         action='store')
     parser.add_argument(
-        '-p,
-        '--price
+        '-p',
+        '--price',
         help='Price: <double>',
-        default=-1.0
+        default=-1.0,
         action='store')
     parser.add_argument(
-        '-a',
+        '-m',
+        '--market',
+        help='Market: <string>',
+        default='',
+        action='store')
+    parser.add_argument(
+        '-d',
+        '--commodity',
+        help='Commodity: <string>',
+        default='',
+        action='store')
+    parser.add_argument(
         '--automatic',
         help='Override tax/commission values with the values from the library!',
         default=False,
@@ -85,6 +96,16 @@ if __name__ == "__main__":
     parser.add_argument(
         '--profile',
         help='Show profile information.',
+        default=False,
+        action='store_true')
+    parser.add_argument(
+        '--install',
+        help='Installation.',
+        default=False,
+        action='store_true')
+    parser.add_argument(
+        '--uninstall',
+        help='Uninstall.',
         default=False,
         action='store_true')
     parser.add_argument(
@@ -111,6 +132,8 @@ if __name__ == "__main__":
     buy = args['buy']
     automatic = args['automatic']
     profile = args['profile']
+    market = args['market']
+    commodity = args['commodity']
     
     if args['install']:
         install()
@@ -121,4 +144,4 @@ if __name__ == "__main__":
     elif args['python']:
         print('Python ' + sys.version)
         sys.exit(0)
-    main(pool, amount, tax, commission, shares, price, buy, automatic, profile)
+    main(pool, amount, tax, commission, shares, price, buy, automatic, profile, market, commodity)

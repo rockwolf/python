@@ -12,7 +12,7 @@ from modules.config import ConfigParser
 class ControllerMain():
     """ Contains the bussiness logic of the application. """
     
-    def __init__(self, pool, amount, tax, commission, shares, price, buy, automatic, market, stock_name):
+    def __init__(self, config, pool, amount, tax, commission, shares, price, buy, automatic, market, commodity):
         """ Initialize """
         # initialise special vars
         self.config = config #object
@@ -28,7 +28,7 @@ class ControllerMain():
         self.buy = buy
         self.automatic = automatic
         self.market = market
-        self.stock_name = stock_name
+        self.commodity = commodity 
 
     # Methods
     ## General
@@ -37,11 +37,11 @@ class ControllerMain():
             Start the app.
         """
         #TODO: if automatic: get tax and commission from library
-        if automatic:
-            self.tax = retrieve_tax...
-            self.commission = retrieve_commission
+        if self.automatic:
+            #self.tax = retrieve_tax...
+            #self.commission = retrieve_commission
             print('Not implemendet yet...')
-        #TODO: needs market and stockname!
+        #TODO: needs market and commodity!
         #TODO: do the calculations + print the result
         calc = Calculator(
             self.pool,
