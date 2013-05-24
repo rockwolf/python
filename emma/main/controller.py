@@ -1,33 +1,12 @@
 #!/usr/env/python
 """
-Author: Andy Nagels
-Date: 2012-08-25
-Emma: Equations For Money Management
-
-Copyright (C) 2012 Andy Nagels
-
-This file is part of Emma.
-
-Lisa is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Lisa is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with Emma. If not, see <http://www.gnu.org/licenses/>.
-					
+See LICENSE file for copyright and license details.
 """
+
 from os.path import isfile
 import shutil
 import os, sys
 from decimal import getcontext
-
-from pyqt.controllerpyqt import ControllerPyqt
-from PyQt4 import QtGui
 
 class ControllerMain():
     """ Contains the bussiness logic of the application. """
@@ -41,17 +20,18 @@ class ControllerMain():
 
     # Methods
     ## General
-    def run(self):
-        """ Start the gui. """
-        app = QtGui.QApplication(sys.argv)
-        window = ControllerPyqt(self.config, self)
-        self.gui = window
-        window.init_gui()
-        window.show()
-        sys.exit(app.exec_())
+    def run(self, show_profile):
+        """
+            Start the app.
+        """
+        #TODO: do the calculations + print the result
+        if show_profile:
+            print('Test: profile implemented yet.')
 
     def backup(self):
-        """ Make a backup of the output file. """
+        """
+            Make a backup of the output file.
+        """
         #TODO: create export that will print a summary (of e.g. the profile) to txt.
         # remove old backup
         if isfile(self.config.backupfile):
@@ -70,8 +50,3 @@ class ControllerMain():
                 print('Error: application fucked up while creating backup: ', ex)
         else:
             print('Error: backup file already exists.')
-
-    ## Init of gui
-    def add_tbl_summary(self, table, row):
-        """ Add or remove a row from the table view """
-        table.add_row(row)
