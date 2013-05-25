@@ -10,7 +10,7 @@ class Calculator():
         Calculator class
     """
    
-    def __init__(self, pool, amount, tax, commission, shares, price, buy):
+    def __init__(self, pool, amount, tax, commission, shares, price, buy, market, commodity):
         """
             Initialize
         """
@@ -21,13 +21,24 @@ class Calculator():
         self.shares = shares
         self.price = price
         self.buy = buy
+        self.market = market
   
     def calculate(self):
         """
             Calculate all possible unknown values.
         """
         try:
-          pass
+           #TODO: determine what fields are given and calculate accordingly
+           sp = calculate_amount_simple(self.price, self.shares)
+        except:
+            pass
+
+    def print_pretty(self):
+        """
+            Print the results with headers etc.
+        """
+        try:
+            pass
         except:
             pass
       

@@ -38,12 +38,22 @@ class ControllerMain():
             Start the app.
         """
         #TODO: if automatic: get tax and commission from library
+        print('<test>')
+        print(self.pool)
+        print(self.amount)
+        print(self.tax)
+        print(self.commission)
+        print(self.shares)
+        print(self.price)
+        print(self.buy)
+        print(self.automatic)
+        print(self.market)
+        print(self.commodity)
+        print('</test>')
         if self.automatic:
             #self.tax = retrieve_tax...
             #self.commission = retrieve_commission
             print('Not implemendet yet...')
-        #TODO: needs market and commodity!
-        #TODO: do the calculations + print the result
         calc = Calculator(
             self.pool,
             self.amount,
@@ -51,7 +61,11 @@ class ControllerMain():
             self.commission,
             self.shares,
             self.price,
-            self.buy)
+            self.buy,
+            self.market,
+            self.commodity)
+        calc.calculate()
+        calc.print_pretty()
         
         if profile:
             print('Test: profile implemented yet.')
