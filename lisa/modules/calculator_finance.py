@@ -265,6 +265,14 @@ def calculate_shares_recommended():
     """
     return -1
 
+def calculate_price(amount, shares, tax, commission):
+    """
+        Calculates the price.
+    """
+    var_T = amount - commission
+    var_N = (1.0 + tax) * shares
+    return var_T / var_N
+
 ## Commission calculations ##
 def calculate_commission(account, market, commodity, price, shares):
     """
