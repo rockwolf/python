@@ -3,60 +3,191 @@ See LICENSE file for copyright and license details.
 """
 
 """
-A file with Lisa specific financial calculations
+A file with financial calculations
 """
 
-from ctypes import *
+from modules.constant import * 
 
-lib = cdll.LoadLibrary('modules/lib-calculator_finance.so')
+## Market definitions ##
+# binb00
+markets_euronext_brussels = [
+    "ebr"
+ ]
 
-# interface to the library 
-api = {
-        #name restype [argtypes] (input expected values)
-        'test': (c_double, [c_double], ()),
-        'calcStoploss': (c_double, [c_double, c_int, c_double, c_double, c_double, c_double], ()),
-        'calcRiskInput': (c_double, [c_double, c_double], ()),
-        'calcRiskInitial': (c_double, [c_double, c_int, c_double], ()),
-        'calcRiskActual': (c_double, [c_double, c_int, c_double, c_int, c_double, c_double], ()),
-        'calcRMultiple': (c_double, [c_double, c_double, c_double], ()),
-        'calcCostTotal': (c_double, [c_double, c_double, c_double, c_double], ()),
-        'calcAmountSimple': (c_double, [c_double, c_int], ()),
-        'costTransaction': (c_int, [c_double, c_int, c_double, c_double], ()),
-        'calcProfitLoss': (c_double, [c_double, c_double, c_double], ()),
-        'calcCostOther': (c_double, [c_double, c_double], ())
-      }
+markets_euronext_other = [
+    "ams"
+    ,"etr"
+    ,"epa"
+    ,"other"
+    ,"eli"
+    ,"lse"
+    ,"ise"
+    ,"mil"
+    ,"bma"
+    ,"vse"
+    ,"other"
+]
 
-# initialise the interface
-for afunc in api:
-    f = getattr(lib, afunc)
-    f.restype, f.argtype, test = api[afunc]
+markets_us = [
+    "nyse"
+    ,"nasdaq"
+    ,"otc bb & pinksheets"
+    ,"amex"
+    ,"other us"
+]
 
-def library_test():
+markets_options_euronext = [
+    "options ams"
+    ,"options ebr"
+]
+
+binb00_commissions = [
+      {2500.0,  [7.25, 9.75, 12.75, 12.75, 19.75, 29.75]}
+    , {5000.0,  [9.75, 9.25, 12.75, 12.75, 19.75, 29.75]}
+    , {25000.0, [13.75, 13.75, 16.75, 16.75, 24.75, 29.75]}
+    , {50000.0, [19.75, 19.75, 22.75, 22.75, 29.75, 59.75]}
+    , {50001.0, [19.75, 19.75, 19.75, 19.72, 29.75, 29.75]}
+    #TODO: expand for options?
+]
+
+# whsi00
+markets = [
+    "cfd BE"
+    ,"cfd FR"
+    ,"cfd DE"
+    ,"cfd UK"
+    ,"cfd DK"
+    ,"cfd FI"
+    ,"cfd IT"
+    ,"cfd NL"
+    ,"cfd NO"
+    ,"cfd PT"
+    ,"cfd SE"
+    ,"cfd CH"
+    ,"cfd ES"
+    ,"cfd other share"
+]
+
+markets_cfd_dev1 = [
+    "cfd AU"
+    ,"cfd AT"
+]
+
+markets_cfd_dev2 = [
+    "cfd PL"
+    ,"cfd CN"
+    ,"cfd SG"
+]
+
+markets_cfd_non_share = [
+    "cfd .gold"
+    ,"cfd .silver"
+    ,"cfd oil"
+    ,"cfd index"
+    ,"cfd other non-share"
+]
+
+markets_cfd_us = [
+    "cfd US"
+]
+
+markets = markets_euronext_brussels
++ markets_euronext_other
++ markets_us 
++ markets_options_euronext
++ markets_cfd_dev1
++ markets_cfd_dev2
++ markets_cfd_non_share
++ markets_cfd_us
+
+## Helper functions ##
+def is_euronext_brussels(market):
     """
-        Test if the library works, should return double the given value.
+        Market elem of markets_euronext_brussels?
     """
-    print('TESTING THE LIBRARY: 3.0 ->', lib.test(c_double(3.0)))
+    return market in markets_euronext_brussels
 
+def is_euronext_other(market):
+    """
+        Market elem of markets_euronext_other?
+    """
+    return market in markets_euronext_other
+
+def is_us(market):
+    """
+        Market elem of markets_us?
+    """
+    return market in markets_us
+
+def is_euro_exchange(market):
+    """
+        Market elem of <TBD>?
+    """
+    return market == "dummy"
+
+def is_canada_exchange(market):
+    """
+        Market elem of <TBD>?
+    """
+    return market == "dummy"
+
+def is_swiss_scandinavian_exchange(market):
+    """
+        Market elem of <TBD>?
+    """
+    return market == "dummy"
+
+def is_non_share_cfd(market):
+    """
+        Market elem markets_cfd_non_share?
+    """
+    return market in markets_cfd_non_share
+
+def is_share_cfd(market):
+    """
+        Market elem markets_cfd_share?
+    """
+    return market in markets_cfd_share
+
+def is_share_cfd_dev1(market):
+    """
+        Market elem markets_cfd_dev1?
+    """
+    return market in markets_cfd_dev1
+
+def is_share_cfd_us(market):
+    """
+        Market elem markets_cfd_us?
+    """
+    return market in markets_cfd_us
+
+def is_options_euronext(market):
+    """
+        Market elem markets_options_euronext?
+    """
+    return market in markets_options_euronext
+
+def calculate_percentage_of(value, from_value):
+    """
+       Calculate what percentage value is from from_value.
+    """
+    return value / from_value * 100.0
+
+## Financial calculations ##
 def calculate_stoploss(price_buy, shares_buy, tax_buy, commission_buy, i_risk, pool_at_start):
     """
         Calculates the stoploss.
     """
-    return lib.calcStoploss(
-            c_double(price_buy)
-            , c_int(shares_buy)
-            , c_double(tax_buy)
-            , c_double(commission_buy)
-            , c_double(i_risk)
-            , c_double(pool_at_start))
-
+    var_T = ((i_risk * price_buy) - calculate_amount_simple(price_buy, shares_buy)) - commission_buy
+    var_N = shares_buy * (tax_buy - 1.0)
+    return  var_T / var_N
+        
 def calculate_risk_input(i_pool, i_risk):
     """
         Calculates the risk based on total pool and input.
         Consider this the theoretical risk we want to take.
     """
-    return lib.calcRiskInput(
-            c_double(i_pool)
-            , c_double(i_risk))
+    return i_risk/100.0 * i_pool
 
 def calculate_risk_initial(price_buy, shares_buy, stoploss):
     """
@@ -65,86 +196,151 @@ def calculate_risk_initial(price_buy, shares_buy, stoploss):
         This should be equal to the risk_input if everything was
         correctly calculated.
     """
-    return lib.calcRiskInitial(
-            c_double(price_buy)
-            , c_double(shares_buy)
-            , c_double(stoploss))
+    return (price_buy * shares_buy) - (stoploss * shares_buy)
 
 def calculate_risk_actual(price_buy, shares_buy, price_sell, shares_sell, stoploss, risk_initial):
     """
         Calculates the risk we actually took,
         based on the data in TABLE_TRADE.
     """
-    return lib.calcRiskActual(
-            c_double(price_buy)
-            , c_int(shares_buy)
-            , c_double(price_sell)
-            , c_double(shares_sell)
-            , c_double(stoploss)
-            , c_double(risk_initial))
+    if price_sell < stoploss:
+        result = (price_buy * shares_buy) - (price_sell * shares_sell)
+    else:
+        result = risk_initial
+    return result
 
 def calculate_r_multiple(price_buy, price_sell, stoploss):
     """ 
         Function to calculate R-multiple.
     """
-    return lib.calcRMultiple(
-            c_double(price_buy)
-            , c_double(price_sell)
-            , c_double(stoploss))
+    var_T = price_sell - price_buy
+    var_N = price_buy - stoploss
+    return var_T / var_N
 
 def calculate_cost_total(tax_buy, commission_buy, tax_sell, commission_sell):
     """
         Returns the total costs associated with the given trade.
     """
-    return lib.calcCostTotal(
-            c_double(tax_buy)
-            , c_double(commission_buy)
-            , c_double(tax_sell)
-            , c_double(commission_sell))
+    return tax_buy + commission_buy + tax_sell + commission_sell
 
 def calculate_amount_simple(price, shares):
     """
         Calculates the amount without tax and commission.
     """
-    return lib.calcAmountSimple(
-            c_double(price)
-            , c_int(shares))
+    return price * shares
 
 def cost_transaction(transactionid, price, shares, tax, commission):
     """
         Cost of transaction (tax and commission)
     """
-    return lib.costTransaction(
-            c_int(transactionid)
-            , c_double(price)
-            , c_int(shares)
-            , c_double(tax)
-            , c_double(commission))
+    # Note: transactionid = 
+    # 0: buy
+    # 1: sell
+    if transactionid == 1:
+        result = (price * shares * (1 - tax)) - commission
+    else:
+        result = (price * shares * (1 + tax)) + commission
+    return result
 
 def calculate_profit_loss(amount_sell_simple, amount_buy_simple, total_cost):
     """
         Calculates the profit_loss.
     """
-    return lib.calcProfitLoss(
-            c_double(amount_sell_simple)
-            , c_double(amount_buy_simple)
-            , c_double(total_cost))
+    return amount_sell_simple - amount_buy_simple - total_cost
 
 def calculate_cost_other(total_cost, profit_loss):
     """
         Calculates others costs based on the difference that remains.
     """
-    return lib.calcCostOther(
-            c_double(total_cost)
-            , c_double(profit_loss))
+    diff_cost_profit = total_cost - profit_loss
+    if diff_cost_profit > DEFAULT_DECIMAL:
+        result = diff_cost_profit
+    else:
+        result = DEFAULT_DECIMAL
+    return result
 
-def calculate_commission(account, market, stockname, price, shares):
+def calculate_shares_recommended():
     """
-        Calculation for T_RATE.
+        Calculate the amount of shares you can buy.
     """
-    return lib.calcCommission(
-            c_string(account)
-            , c_string(market)
-            , c_string(stockname)
-            , c_double(price)
-            , c_int(shares))
+    return -1
+
+## Commission calculations ##
+def calculate_commission(account, market, commodity, price, shares):
+    """
+        Calculate the correct commission.
+    """
+    if tolower(account) == "binb00":
+        result = get_binb00_commission()
+    elif tolower(account) == "whsi00":
+        result = get_whsi00_commission()
+    return result
+
+def get_binb00_commission(market, commodity, amount_simple):
+    """
+        Get the correct commission for binb00.
+    """
+    if amount_simple <= 2500.0:
+        get_bin00_commission_value(2500.0, market)
+    return result
+
+def get_binb00_commission_index(market):
+    """
+        Gets the index needed to get the correct value
+        from binb00_commissions.
+    """
+    if is_euronext_brussels(market):
+        result = 0
+    elif is_euronext_other(market):
+        result = 1
+    elif is_euro_exchange(market):
+        result = 2
+    elif is_us(market):
+        result = 3
+    elif is_canada_exchange(market):
+        result = 4
+    elif is_swiss_scandinavian_exchange(market):
+        result = 5
+        #TODO: expand for options
+    else:
+        #TODO: raise exception, now it will take the last value
+        result = -1
+    return result
+
+def get_binb00_commission_value(threshhold, market):
+    """
+        Gets the binb00 commission for the given threshhold value.
+    """
+    index = get_binb00_commission_index(market)
+    if threshhold == 2500.0:
+        result = binb00_commissions[2500.0][index]
+    elif (threshhold > 2500.0) and (threshhold <= 5000.0):
+        result = binb00_commissions[5000.0][index]
+    elif (threshhold > 5000.0) and (threshhold <= 25000.0):
+        result = binb00_commissions[25000.0][index]
+    elif (threshhold > 25000.0) and (threshhold <= 50000.0):
+        result = binb00_commissions[50000.0][index]
+    elif (threshhold > 5000.0):
+        result = binb00_commissions[50001.0][index]
+        #TODO: expand for options?
+    else:
+        result = DEFAULT_DECIMAL
+    return result
+
+def get_whsi00_commission(market, commodity, price, shares):
+    """
+        Get the correct commission for whsi00.
+    """
+    if is_non_share_cfd(market):
+        result = 3.0
+    elif is_share_cfd(market):
+        result = 4.50 + calculate_percentage_of(0.054, amount_simple)
+    elif is_share_cfd_dev1(market):
+        result = 4.50 + calculate_percentage_of(0.09, amount_simple)
+    elif is_share_cfd_dev2(market):
+        result = 4.50 + calculate_percentage_of(0.19, amount_simple)
+    elif is_share_cfd_us(market):
+        result = 4.50 + 0.023 * shares
+    else:
+        result = 0.0
+    return result
