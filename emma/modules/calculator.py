@@ -28,8 +28,11 @@ class Calculator():
             Calculate all possible unknown values.
         """
         try:
+           if self.price == -1.0:
+               #price not known, calculate it
+               self.price = calculate_price(self.amount, self.tax, self.commission)
+               print(self.price)
            #TODO: determine what fields are given and calculate accordingly
-           sp = calculate_amount_simple(self.price, self.shares)
         except:
             pass
 
