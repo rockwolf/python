@@ -7,6 +7,7 @@ import sys
 import argparse
 
 from setup.setup import Setup
+from decimal import Decimal
 
 def main(pool, amount, tax, commission, shares, price, buy, automatic, profile, market, commodity):
     """ Main driver. """
@@ -36,13 +37,13 @@ if __name__ == "__main__":
     	'-a',
         '--amount',
         help='Money used (incl. tax + comm): <double>',
-        default=-1.0,
+        default=Decimal(-1.0),
         action='store')
     parser.add_argument(
     	'-l',
         '--pool',
         help='Total pool available: <double>',
-        default=-1.0,
+        default=Decimal(-1.0),
         action='store')
     #action='store_true')
     parser.add_argument(
@@ -61,19 +62,19 @@ if __name__ == "__main__":
         '-t',
         '--tax',
         help='Tax amount to use: <double>',
-        default=0.0025,
+        default=Decimal(0.0025),
         action='store')
     parser.add_argument(
         '-s',
         '--shares',
         help='Tax amount to use: <double>',
-        default=-1,
+        default=Decimal(-1.0),
         action='store')
     parser.add_argument(
         '-p',
         '--price',
         help='Price: <double>',
-        default=-1.0,
+        default=Decimal(-1.0),
         action='store')
     parser.add_argument(
         '-m',
@@ -123,15 +124,15 @@ if __name__ == "__main__":
     args = vars(parser.parse_args())
    
     #TODO: add value checking here, so we don't enter wrong types etc.
-    pool = args['pool']
-    amount = args['amount']
-    tax = args['tax']
-    commission = args['commission']
-    shares = args['shares']
-    price = args['price']
-    buy = args['buy']
-    automatic = args['automatic']
-    profile = args['profile']
+    pool = Decimal(args['pool'])
+    amount = Decimal(args['amount'])
+    tax = Decimal(args['tax'])
+    commission = Decimal(args['commission'])
+    shares = Decimal(args['shares'])
+    price = Decimal(args['price'])
+    buy = Decimal(args['buy'])
+    automatic = bool(args['automatic'])
+    profile = bool(args['profile'])
     market = args['market']
     commodity = args['commodity']
     

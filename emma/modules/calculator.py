@@ -30,11 +30,11 @@ class Calculator():
         try:
            if self.price == -1.0:
                #price not known, calculate it
-               self.price = calculate_price(self.amount, self.tax, self.commission)
-               print(self.price)
+               self.price = calculate_price(self.amount, self.shares, self.tax, self.commission)
+               print('price =', self.price)
            #TODO: determine what fields are given and calculate accordingly
-        except:
-            pass
+        except Exception as ex:
+            print('Error in calculate:', ex)
 
     def print_pretty(self):
         """
