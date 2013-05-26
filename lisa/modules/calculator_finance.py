@@ -7,6 +7,7 @@ A file with financial calculations
 """
 
 from modules.constant import * 
+from decimal import Decimal
 
 ## Market definitions ##
 # binb00
