@@ -42,16 +42,16 @@ markets_options_euronext = [
 ]
 
 binb00_commissions = [
-      {2500.0,  [7.25, 9.75, 12.75, 12.75, 19.75, 29.75]}
-    , {5000.0,  [9.75, 9.25, 12.75, 12.75, 19.75, 29.75]}
-    , {25000.0, [13.75, 13.75, 16.75, 16.75, 24.75, 29.75]}
-    , {50000.0, [19.75, 19.75, 22.75, 22.75, 29.75, 59.75]}
-    , {50001.0, [19.75, 19.75, 19.75, 19.72, 29.75, 29.75]}
+      {"2500":  [7.25, 9.75, 12.75, 12.75, 19.75, 29.75]}
+    , {"5000":  [9.75, 9.25, 12.75, 12.75, 19.75, 29.75]}
+    , {"25000": [13.75, 13.75, 16.75, 16.75, 24.75, 29.75]}
+    , {"50000": [19.75, 19.75, 22.75, 22.75, 29.75, 59.75]}
+    , {"50000+":[19.75, 19.75, 19.75, 19.72, 29.75, 29.75]}
     #TODO: expand for options?
 ]
 
 # whsi00
-markets = [
+markets_cfd_share = [
     "cfd BE"
     ,"cfd FR"
     ,"cfd DE"
@@ -91,14 +91,22 @@ markets_cfd_us = [
     "cfd US"
 ]
 
-markets = markets_euronext_brussels
-+ markets_euronext_other
-+ markets_us 
-+ markets_options_euronext
-+ markets_cfd_dev1
-+ markets_cfd_dev2
-+ markets_cfd_non_share
-+ markets_cfd_us
+#TODO: find a cleaner way to do this
+markets = markets_euronext_brussels.append(
+        markets_euronext_other.append(
+            markets_us.append(
+                markets_options_euronext.append(
+                    markets_cfd_dev1.append(
+                        markets_cfd_dev2.append(
+                            markets_cfd_non_share.append(
+                                markets_cfd_us
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    )
 
 ## Helper functions ##
 def is_euronext_brussels(market):
@@ -279,12 +287,12 @@ def calculate_commission(account, market, commodity, price, shares):
         Calculate the correct commission.
     """
     if tolower(account) == "binb00":
-        result = get_binb00_commission()
+        result = get_binb00_commission(market)
     elif tolower(account) == "whsi00":
-        result = get_whsi00_commission()
+        result = get_whsi00_commission(market)
     return result
 
-def get_binb00_commission(market, commodity, amount_simple):
+def get_binb00_commission(market):
     """
         Get the correct commission for binb00.
     """
@@ -321,15 +329,15 @@ def get_binb00_commission_value(threshhold, market):
     """
     index = get_binb00_commission_index(market)
     if threshhold == 2500.0:
-        result = binb00_commissions[2500.0][index]
+        result = binb00_commissions["2500"][index]
     elif (threshhold > 2500.0) and (threshhold <= 5000.0):
-        result = binb00_commissions[5000.0][index]
+        result = binb00_commissions["5000"][index]
     elif (threshhold > 5000.0) and (threshhold <= 25000.0):
-        result = binb00_commissions[25000.0][index]
+        result = binb00_commissions["25000"][index]
     elif (threshhold > 25000.0) and (threshhold <= 50000.0):
-        result = binb00_commissions[50000.0][index]
+        result = binb00_commissions["50000"][index]
     elif (threshhold > 5000.0):
-        result = binb00_commissions[50001.0][index]
+        result = binb00_commissions["50000+"][index]
         #TODO: expand for options?
     else:
         result = DEFAULT_DECIMAL
