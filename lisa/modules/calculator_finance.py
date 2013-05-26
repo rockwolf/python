@@ -179,7 +179,7 @@ def calculate_percentage_of(value, from_value):
     """
        Calculate what percentage value is from from_value.
     """
-    return value / from_value * 100.0
+    return value / from_value * Decimal(100.0)
 
 ## Financial calculations ##
 def calculate_stoploss(price_buy, shares_buy, tax_buy, commission_buy, i_risk, pool_at_start):
@@ -187,7 +187,7 @@ def calculate_stoploss(price_buy, shares_buy, tax_buy, commission_buy, i_risk, p
         Calculates the stoploss.
     """
     var_T = ((i_risk * price_buy) - calculate_amount_simple(price_buy, shares_buy)) - commission_buy
-    var_N = shares_buy * (tax_buy - 1.0)
+    var_N = shares_buy * (tax_buy - (1.0))
     return  var_T / var_N
         
 def calculate_risk_input(i_pool, i_risk):
@@ -195,7 +195,7 @@ def calculate_risk_input(i_pool, i_risk):
         Calculates the risk based on total pool and input.
         Consider this the theoretical risk we want to take.
     """
-    return i_risk/100.0 * i_pool
+    return i_risk/Decimal(100.0) * i_pool
 
 def calculate_risk_initial(price_buy, shares_buy, stoploss):
     """
@@ -245,7 +245,7 @@ def cost_transaction(transactionid, price, shares, tax, commission):
     # 0: buy
     # 1: sell
     if transactionid == 1:
-        result = (price * shares * (1 - tax)) - commission
+        result = (price * shares * (Decimal(1.0) - tax)) - commission
     else:
         result = (price * shares * (1 + tax)) + commission
     return result
@@ -278,7 +278,7 @@ def calculate_price(amount, shares, tax, commission):
         Calculates the price.
     """
     var_T = amount - commission
-    var_N = (1.0 + tax) * shares
+    var_N = (Decimal(1.0) + tax) * shares
     return var_T / var_N
 
 ## Commission calculations ##
@@ -296,8 +296,8 @@ def get_binb00_commission(market):
     """
         Get the correct commission for binb00.
     """
-    if amount_simple <= 2500.0:
-        get_bin00_commission_value(2500.0, market)
+    if amount_simple <= Decimal(2500.0):
+        get_bin00_commission_value(Decimal(2500.0), market)
     return result
 
 def get_binb00_commission_index(market):
@@ -328,15 +328,15 @@ def get_binb00_commission_value(threshhold, market):
         Gets the binb00 commission for the given threshhold value.
     """
     index = get_binb00_commission_index(market)
-    if threshhold == 2500.0:
+    if threshhold == Decimal(2500.0):
         result = binb00_commissions["2500"][index]
-    elif (threshhold > 2500.0) and (threshhold <= 5000.0):
+    elif (threshhold > Decimal(2500.0)) and (threshhold <= Decimal(5000.0)):
         result = binb00_commissions["5000"][index]
-    elif (threshhold > 5000.0) and (threshhold <= 25000.0):
+    elif (threshhold > Decimal(5000.0)) and (threshhold <= Decimal(25000.0)):
         result = binb00_commissions["25000"][index]
-    elif (threshhold > 25000.0) and (threshhold <= 50000.0):
+    elif (threshhold > Decimal(25000.0)) and (threshhold <= Decimal(50000.0)):
         result = binb00_commissions["50000"][index]
-    elif (threshhold > 5000.0):
+    elif (threshhold > Decimal(5000.0)):
         result = binb00_commissions["50000+"][index]
         #TODO: expand for options?
     else:
@@ -348,15 +348,15 @@ def get_whsi00_commission(market, commodity, price, shares):
         Get the correct commission for whsi00.
     """
     if is_non_share_cfd(market):
-        result = 3.0
+        result = Decimal(3.0)
     elif is_share_cfd(market):
-        result = 4.50 + calculate_percentage_of(0.054, amount_simple)
+        result = Decimal(4.50) + calculate_percentage_of(Decimal(0.054), amount_simple)
     elif is_share_cfd_dev1(market):
-        result = 4.50 + calculate_percentage_of(0.09, amount_simple)
+        result = Decimal(4.50) + calculate_percentage_of(Decimal(0.09), amount_simple)
     elif is_share_cfd_dev2(market):
-        result = 4.50 + calculate_percentage_of(0.19, amount_simple)
+        result = Decimal(4.50) + calculate_percentage_of(Decimal(0.19), amount_simple)
     elif is_share_cfd_us(market):
-        result = 4.50 + 0.023 * shares
+        result = Decimal(4.50) + Decimal(0.023) * shares
     else:
-        result = 0.0
+        result = DEFAULT_DECIMAL
     return result
