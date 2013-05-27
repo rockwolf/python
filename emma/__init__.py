@@ -56,7 +56,7 @@ if __name__ == "__main__":
     	'-c',
         '--commission',
         help='Commission',
-        default=False,
+        default=Decimal(-1.0),
         action='store')
     parser.add_argument(
         '-t',
@@ -145,4 +145,15 @@ if __name__ == "__main__":
     elif args['python']:
         print('Python ' + sys.version)
         sys.exit(0)
-    main(pool, amount, tax, commission, shares, price, buy, automatic, profile, market, commodity)
+    main(
+        pool
+        ,amount
+        , tax
+        , commission
+        , shares
+        , price
+        , buy
+        , automatic
+        , profile
+        , market
+        , commodity)
