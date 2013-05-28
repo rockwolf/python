@@ -164,6 +164,12 @@ def is_share_cfd_dev1(market):
     """
     return market in markets_cfd_dev1
 
+def is_share_cfd_dev2(market):
+    """
+        Market elem markets_cfd_dev2?
+    """
+    return market in markets_cfd_dev2
+
 def is_share_cfd_us(market):
     """
         Market elem markets_cfd_us?
@@ -278,6 +284,7 @@ def calculate_price(amount, shares, tax, commission):
     """
         Calculates the price.
     """
+    print('test:' , amount, shares, tax, commission)
     var_T = amount - commission
     var_N = (Decimal(1.0) + tax) * shares
     return var_T / var_N
@@ -287,10 +294,10 @@ def calculate_commission(account, market, commodity, price, shares):
     """
         Calculate the correct commission.
     """
-    if tolower(account) == "binb00":
+    if account.lower() == "binb00":
         result = get_binb00_commission(market)
-    elif tolower(account) == "whsi00":
-        result = get_whsi00_commission(market)
+    elif account.lower() == "whsi00":
+        result = get_whsi00_commission(market, commodity, price, shares)
     return result
 
 def get_binb00_commission(market):
