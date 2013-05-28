@@ -92,22 +92,14 @@ markets_cfd_us = [
     "cfd US"
 ]
 
-#TODO: find a cleaner way to do this
-markets = markets_euronext_brussels.append(
-        markets_euronext_other.append(
-            markets_us.append(
-                markets_options_euronext.append(
-                    markets_cfd_dev1.append(
-                        markets_cfd_dev2.append(
-                            markets_cfd_non_share.append(
-                                markets_cfd_us
-                            )
-                        )
-                    )
-                )
-            )
-        )
-    )
+markets = markets_euronext_brussels +
+    markets_euronext_other +
+    markets_us +
+    markets_options_euronext +
+    markets_cfd_dev1 +
+    markets_cfd_dev2 +
+    markets_cfd_non_share +
+    markets_cfd_us
 
 ## Helper functions ##
 def is_euronext_brussels(market):
