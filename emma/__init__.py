@@ -9,14 +9,14 @@ import argparse
 from setup.setup import Setup
 from decimal import Decimal
 
-def main(pool, amount, tax, commission, shares, price, buy, automatic, profile, market, commodity):
+def main(pool, amount, tax, commission, shares, price, buy, automatic, market, commodity, account, profile):
     """ Main driver. """
     ### Run the application ###
     #NOTE: the import statement loads the views and tables,
     #but when doing an install, they are not created yet.
     #So we skip loading this until we are sure we can start.
     from main.main import MainWrapper
-    wrapper = MainWrapper(pool, amount, tax, commission, shares, price, buy, automatic, market, commodity)
+    wrapper = MainWrapper(pool, amount, tax, commission, shares, price, buy, automatic, market, commodity, account)
     wrapper.run(profile) #run the main method for the program
       
 def install():
@@ -89,6 +89,12 @@ if __name__ == "__main__":
         default='',
         action='store')
     parser.add_argument(
+        '-u',
+        '--account',
+        help='Account: <string>',
+        default='whsi00',
+        action='store')
+    parser.add_argument(
         '--automatic',
         help='Override tax/commission values with the values from the library!',
         default=False,
@@ -135,6 +141,7 @@ if __name__ == "__main__":
     profile = bool(args['profile'])
     market = args['market']
     commodity = args['commodity']
+    account = args['account']
     
     if args['install']:
         install()
@@ -147,13 +154,14 @@ if __name__ == "__main__":
         sys.exit(0)
     main(
         pool
-        ,amount
+        , amount
         , tax
         , commission
         , shares
         , price
         , buy
         , automatic
-        , profile
         , market
-        , commodity)
+        , commodity
+        , account
+        , profile)

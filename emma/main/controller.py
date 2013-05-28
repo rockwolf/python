@@ -13,7 +13,7 @@ from modules.calculator import Calculator
 class ControllerMain():
     """ Contains the bussiness logic of the application. """
     
-    def __init__(self, config, pool, amount, tax, commission, shares, price, buy, automatic, market, commodity):
+    def __init__(self, config, pool, amount, tax, commission, shares, price, buy, automatic, market, commodity, account):
         """ Initialize """
         # initialise special vars
         self.config = config #object
@@ -30,6 +30,7 @@ class ControllerMain():
         self.automatic = automatic
         self.market = market
         self.commodity = commodity 
+        self.account = account
 
     # Methods
     ## General
@@ -49,26 +50,28 @@ class ControllerMain():
         print(self.automatic)
         print(self.market)
         print(self.commodity)
+        print('test: account =', self.account)
         print('</test>')
         if self.automatic:
             #self.tax = retrieve_tax...
             #self.commission = retrieve_commission
             print('Not implemendet yet...')
         calc = Calculator(
-            self.pool,
-            self.amount,
-            self.tax,
-            self.commission,
-            self.shares,
-            self.price,
-            self.buy,
-            self.market,
-            self.commodity)
+            self.pool
+            , self.amount
+            , self.tax
+            , self.commission
+            , self.shares
+            , self.price
+            , self.buy
+            , self.market
+            , self.commodity
+            , self.account)
         calc.calculate()
         calc.print_pretty()
         
         if profile:
-            print('Test: profile implemented yet.')
+            print('Profile not implemented yet.')
 
     def backup(self):
         """

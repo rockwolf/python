@@ -10,7 +10,7 @@ class Calculator():
         Calculator class
     """
    
-    def __init__(self, pool, amount, tax, commission, shares, price, buy, market, commodity, self.account):
+    def __init__(self, pool, amount, tax, commission, shares, price, buy, market, commodity, account):
         """
             Initialize
         """
@@ -22,13 +22,17 @@ class Calculator():
         self.price = price
         self.buy = buy
         self.market = market
+        self.commodity = commodity
         self.account = account
   
     def calculate(self):
         """
             Calculate all possible unknown values.
         """
+        print('Test: ', self.account)
         try:
+            ENUM_BUY = 0
+            ENUM_SELL = 1
             #Note: the order is important...
             # Input values
             if self.shares == Decimal(-1.0):
