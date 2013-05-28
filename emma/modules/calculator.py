@@ -28,7 +28,7 @@ class Calculator():
             Calculate all possible unknown values.
         """
         try:
-           if self.price == -1.0:
+           if self.price == Decimal(-1.0):
                #price not known, calculate it
                self.price = calculate_price(self.amount, self.shares, self.tax, self.commission)
                print('price =', self.price)
