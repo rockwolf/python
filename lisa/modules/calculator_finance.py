@@ -92,14 +92,7 @@ markets_cfd_us = [
     "cfd US"
 ]
 
-markets = markets_euronext_brussels + _
-markets_euronext_other + _
-markets_us + _
-markets_options_euronext + _
-markets_cfd_dev1 + _
-markets_cfd_dev2 + _
-markets_cfd_non_share + _
-markets_cfd_us
+markets = markets_euronext_brussels + markets_euronext_other + markets_us + markets_options_euronext + markets_cfd_dev1 + markets_cfd_dev2 + markets_cfd_non_share + markets_cfd_us
 
 ## Helper functions ##
 def is_euronext_brussels(market):
