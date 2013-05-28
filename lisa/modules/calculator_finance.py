@@ -92,22 +92,14 @@ markets_cfd_us = [
     "cfd US"
 ]
 
-#TODO: find a cleaner way to do this
-markets = markets_euronext_brussels.append(
-        markets_euronext_other.append(
-            markets_us.append(
-                markets_options_euronext.append(
-                    markets_cfd_dev1.append(
-                        markets_cfd_dev2.append(
-                            markets_cfd_non_share.append(
-                                markets_cfd_us
-                            )
-                        )
-                    )
-                )
-            )
-        )
-    )
+markets = markets_euronext_brussels + _
+markets_euronext_other + _
+markets_us + _
+markets_options_euronext + _
+markets_cfd_dev1 + _
+markets_cfd_dev2 + _
+markets_cfd_non_share + _
+markets_cfd_us
 
 ## Helper functions ##
 def is_euronext_brussels(market):
@@ -243,6 +235,15 @@ def calculate_amount_simple(price, shares):
         Calculates the amount without tax and commission.
     """
     return price * shares
+    
+def calculate_amount(price, shares, transactionid, tax, commission):
+    """
+        Calculates the amount, including tax and commission.
+    """
+    return (
+        calculate_amount_simple(price, shares) +
+        cost_transaction(transactionid, price, shares, tax, commission)
+    )
 
 def cost_transaction(transactionid, price, shares, tax, commission):
     """
@@ -284,7 +285,16 @@ def calculate_price(amount, shares, tax, commission):
     """
         Calculates the price.
     """
+<<<<<<< HEAD
     print('test:' , amount, shares, tax, commission)
+=======
+    #<testinfo>
+    print('test: amount =', amount)
+    print('test: shares =', shares)
+    print('test: tax =', tax)
+    print('test: commission =', commission)
+    #</testinfo>
+>>>>>>> d1aad2f7d9dce532d5b9c90f9b1226d4f2ad91d8
     var_T = amount - commission
     var_N = (Decimal(1.0) + tax) * shares
     return var_T / var_N
