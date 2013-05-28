@@ -229,6 +229,15 @@ def calculate_amount_simple(price, shares):
         Calculates the amount without tax and commission.
     """
     return price * shares
+    
+def calculate_amount(price, shares, transactionid, tax, commission):
+    """
+        Calculates the amount, including tax and commission.
+    """
+    return (
+        calculate_amount_simple(price, shares) +
+        cost_transaction(transactionid, price, shares, tax, commission)
+    )
 
 def cost_transaction(transactionid, price, shares, tax, commission):
     """
