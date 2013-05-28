@@ -270,6 +270,12 @@ def calculate_price(amount, shares, tax, commission):
     """
         Calculates the price.
     """
+    #<testinfo>
+    print('test: amount =', amount)
+    print('test: shares =', shares)
+    print('test: tax =', tax)
+    print('test: commission =', commission)
+    #</testinfo>
     var_T = amount - commission
     var_N = (Decimal(1.0) + tax) * shares
     return var_T / var_N
