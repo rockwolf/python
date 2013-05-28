@@ -48,7 +48,20 @@ class Calculator():
                     , self.price
                     , self.shares)
             if self.amount == decimal(-1.0):
-                self.amount = calculate_amount(...) #TODO: finish this, but I'm first going to add it to the library.
+                if self.buy:
+                    self.amount = calculate_amount(
+                        self.price
+                        , self.shares
+                        , ENUM_BUY #TODO: make this a 0
+                        , self.tax
+                        , self.commission) #TODO: finish this, but I'm first going to add it to the library.
+                else:
+                    self.amount = calculate_amount(
+                        self.price
+                        , self.shares
+                        , ENUM_SELL #TODO: make this a 1
+                        , self.tax
+                        , self.commission) #TODO: finish this, but I'm first going to add it to the library.
             # Extra calculatable fields
             #TODO: calculate stoploss etc.
         except Exception as ex:
