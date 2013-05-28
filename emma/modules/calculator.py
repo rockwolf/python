@@ -4,6 +4,7 @@ See LICENSE file for copyright and license details.
 """
 
 from modules.calculator_finance import *
+from decimal import Decimal
 
 class Calculator():
     """
@@ -51,7 +52,7 @@ class Calculator():
                     , self.commodity
                     , self.price
                     , self.shares)
-            if self.amount == decimal(-1.0):
+            if self.amount == Decimal(-1.0):
                 if self.buy:
                     self.amount = calculate_amount(
                         self.price
