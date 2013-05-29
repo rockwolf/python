@@ -32,8 +32,6 @@ class Calculator():
         """
         print('Test: ', self.account)
         try:
-            ENUM_BUY = 0
-            ENUM_SELL = 1
             #Note: the order is important...
             # Input values
             if self.shares == Decimal(-1.0):
@@ -57,14 +55,14 @@ class Calculator():
                     self.amount = calculate_amount(
                         self.price
                         , self.shares
-                        , ENUM_BUY #TODO: make this a 0
+                        , Transaction.BUY
                         , self.tax
                         , self.commission) #TODO: finish this, but I'm first going to add it to the library.
                 else:
                     self.amount = calculate_amount(
                         self.price
                         , self.shares
-                        , ENUM_SELL #TODO: make this a 1
+                        , Transaction.SELL
                         , self.tax
                         , self.commission) #TODO: finish this, but I'm first going to add it to the library.
             # Extra calculatable fields
