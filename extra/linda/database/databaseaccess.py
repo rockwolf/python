@@ -81,7 +81,7 @@ class DatabaseAccess():
             else:
                 result = 0
         except Exception as ex:
-            print("Error retrieving latest drawdown_id from T_DRAWDOWN: ", ex)
+            print(Errors.GET_LATEST_DRAWDOWN_ID, ex)
         finally:
             session.rollback()
             session = None
@@ -93,3 +93,29 @@ class DatabaseAccess():
             drawdown_id.
         """
         pass
+
+    def get_last_records(self, limit):
+        """
+            Gets the <limit> last records.
+        """
+        session = self.Session()
+        result = []
+        try:
+            #TODO: make a view?
+            obj = session.query(V_DRAWDOWN_LIST).order_by(V_DRAWDOWN_LIST.drawdown_id.desc())
+            for instance in obj:
+                result.append(
+                    {
+                        'account_name': instance.account_name
+                        ,'drawdown_id': instance.drawdown_id
+                        ,'drawdown_current': instance.drawdown_current
+                        ,'drawdown_max': instance.drawdown_max
+                        ,'date_modified': instance.date_modified
+                    }
+                )
+        except Exception as ex:
+            print(Errors.GET_LAST_RECORDS, ex)
+        finally:
+            session.rollback()
+            session = None
+            return result
