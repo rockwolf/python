@@ -1,3 +1,6 @@
 [submodule "lisa/modules_generic"]
 	path = lisa/modules_generic
 	url = https://github.com/rockwolf/modules_generic.git
+[submodule "lisa/pyqt_generic"]
+	path = lisa/pyqt_generic
+	url = https://github.com/rockwolf/pyqt_generic.git
