@@ -6,8 +6,6 @@ import sys
 
 from modules.config import ConfigParser
 from main.controller import ControllerMain
-from modules.fileimport import FileImport
-from modules.fileexport import FileExport
 from setup.setup import Setup
         
 class MainWrapper():
@@ -43,15 +41,12 @@ class MainWrapper():
         #Perhaps make dummy files that import from the lisa files?
         #Or maybe move files to a general upper directory?
     
-    def run(self):
+    def run(self, manual, limit):
         """ This is the main driver for the program. """
-        #TODO: put the QTGui crap in the view and call that from the
-        #controller. This part of the code should be used to start the
-        #controller.
         if self.exitstate == 1:
             sys.exit(0)
         else:
             #run the controller
-            ctl = ControllerMain(self.config)
-            ctl.run()
+            ctl = ControllerMain(self.config, limit)
+            ctl.run(manual)
             ctl = None
