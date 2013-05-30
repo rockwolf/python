@@ -1,0 +1,3 @@
+[submodule "lisa/modules_generic"]
+	path = lisa/modules_generic
+	url = https://github.com/rockwolf/modules_generic.git
