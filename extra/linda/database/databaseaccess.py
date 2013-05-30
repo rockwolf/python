@@ -51,14 +51,41 @@ class DatabaseAccess():
             Retrieve the drawdown value of the last record
             that was added.
         """
-        pass
+        result = -1
+        session = self.Session()
+        try:
+            first_obj = session.query(T_DRAWDOWN).order_by(T_DRAWDOWN.drawdown_current.desc()).first()
+            if first_obj is not None:
+                result = first_obj.drawdown_current
+            else:
+                result = 0
+        except Exception as ex:
+            print("Error retrieving latest drawdown_current from T_DRAWDOWN: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
     
+    # TODO: add update code for drawdown_max and date_modified
     def get_latest_drawdown_id(self):
         """
             Get the drawdown_id of the last record
             that was added.
         """
-        pass
+        result = -1
+        session = self.Session()
+        try:
+            first_obj = session.query(T_DRAWDOWN).order_by(T_DRAWDOWN.drawdown_id.desc()).first()
+            if first_obj is not None:
+                result = first_obj.drawdown_id
+            else:
+                result = 0
+        except Exception as ex:
+            print("Error retrieving latest drawdown_id from T_DRAWDOWN: ", ex)
+        finally:
+            session.rollback()
+            session = None
+        return result
         
     def get_drawdown_value(self, drawdown_id):
         """
