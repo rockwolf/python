@@ -14,27 +14,44 @@ from modules.constant import *
 class ControllerMain():
     """ Contains the bussiness logic of the application. """
     
-    def __init__(self, config, days):
+    def __init__(self, config, limit):
         """ Initialize """
         # initialise vars
         self.config = config
-        self.days = days
+        self.limit = limit
 
     # Methods
     ## General
-    def run(self, update):
+    def run(self, manual):
         """ Run the app. """
-        #TODO: show list of drawdown values and trades for <limit> latest records
-        #ask for an id
-        # when not update: ask for a number of days
-        #TODO: open dba session to call for the codes
+        # Show records with drawdown
+        self.show_records(self.limit)
+        # Determine drawdown value to use
         drawdown_id = dba.get_latest_drawdown_id()
         input_drawdown_id = input('Enter drawdown_id [' + str(drawdown_id) + ': ')
         if input_drawdown_id != '':
            drawdown_id = int(input_drawdown_id)
-        if update:
-           day = dba.get_drawdown_value(drawdown_id)
+        if manual:
+           day = input('Enter day of drawdown: ')
         else:
-            day = input('Enter day of drawdown: ')
+           day = dba.get_drawdown_value(drawdown_id) 
         print('day =', day)
+        # Save new value
         update_drawdown_value(drawdown_id, day)
+         
+    def show_records(self, limit):
+        """
+            Shows last <limit> records with drawdown.
+        """
+        dba = DatabaseAccess(self.config)
+        for record in dba.get_last_records(limit):
+            print(record)
+        dba = None
+   
+    def update_drawdown_value(drawdown_id, day):
+        """
+            Write <day> to drawdown_value for record <drawdown_id>.
+        """"
+        dba = DatabaseAccess(self.config)
+        dba.update_drawdown_value(drawdown_id, day)
+        dba = None
