@@ -13,8 +13,8 @@ def main(manual, limit):
     """ Main driver. """
     ### Run the application ###
     from main.main import MainWrapper
-    wrapper = MainWrapper(limit)
-    wrapper.run(manual) #run the main method for the program
+    wrapper = MainWrapper()
+    wrapper.run(manual, limit) #run the main method for the program
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Lisa INteractive Drawdown Application")
