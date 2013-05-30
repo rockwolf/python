@@ -51,7 +51,7 @@ class ControllerMain():
     def update_drawdown_value(drawdown_id, day):
         """
             Write <day> to drawdown_value for record <drawdown_id>.
-        """"
+        """
         dba = DatabaseAccess(self.config)
         dba.update_drawdown_value(drawdown_id, day)
         dba = None
