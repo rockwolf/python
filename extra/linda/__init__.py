@@ -9,15 +9,27 @@ import argparse
 
 #from modules.constant import *
 
-def main():
+def main(manual, limit):
     """ Main driver. """
     ### Run the application ###
     from main.main import MainWrapper
-    wrapper = MainWrapper()
-    wrapper.run() #run the main method for the program
+    wrapper = MainWrapper(limit)
+    wrapper.run(manual) #run the main method for the program
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Lisa INteractive Drawdown Application")
+    parser.add_argument(
+        '-m',
+        '--manual',
+        help='Specify a drawdown number manually.',
+        default=False,
+        action='store_true')
+    parser.add_argument(
+        '-l',
+        '--limit',
+        help='--limit <int>: limit list shown to the <int> last records.',
+        default=0,
+        action='store')
     parser.add_argument(
         '-V',
         '--version',
@@ -32,7 +44,9 @@ if __name__ == "__main__":
         action='store_true')
     args = vars(parser.parse_args())
    
+    manual = bool(args['manual'])
+    limit = int(args['limit'])
     if args['python']:
         print('Python ' + sys.version)
         sys.exit(0)
-    main()
+    main(manual, limit)
