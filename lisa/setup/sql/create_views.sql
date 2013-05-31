@@ -164,6 +164,65 @@ from
     t_pool p 
 ;
 
+/* V_ACCOUNT_NAME */
+--DROP VIEW V_ACCOUNT_NAME;
+CREATE VIEW V_ACCOUNT_NAME
+AS
+select
+    a_root.account_id as root_account_id
+    , coalesce(
+        a9.account_id,
+        coalesce(
+            a8.account_id,
+            coalesce(
+                a7.account_id,
+                coalesce(
+                    a6.account_id,
+                    coalesce(
+                        a5.account_id,
+                        coalesce(
+                            a4.account_id,
+                            coalesce(
+                                a3.account_id,
+                                coalesce(
+                                    a2.account_id,
+                                    coalesce(
+                                        a1.account_id,
+                                        a0.account_id,
+                                   )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    ) as account_id
+    , isnull(a_root.name + ':', '')
+    + isnull(a0.name + ':', '')
+    + isnull(a1.name + ':', '')
+    + isnull(a2.name + ':', '')
+    + isnull(a3.name + ':', '')
+    + isnull(a4.name + ':', '')
+    + isnull(a5.name + ':', '')
+    + isnull(a6.name + ':', '')
+    + isnull(a7.name + ':', '')
+    + isnull(a8.name + ':', '')
+    + isnull(a9.name + ':', '')
+from 
+    T_ACCOUNT a_root
+        inner join T_ACCOUNT a0 on a0.account_id = a_root.account_id 
+        inner join T_ACCOUNT a1 on a1.account_id = a0.account_id 
+        inner join T_ACCOUNT a2 on a2.account_id = a1.account_id 
+        inner join T_ACCOUNT a3 on a3.account_id = a2.account_id 
+        inner join T_ACCOUNT a4 on a4.account_id = a3.account_id 
+        inner join T_ACCOUNT a5 on a5.account_id = a4.account_id 
+        inner join T_ACCOUNT a6 on a6.account_id = a5.account_id 
+        inner join T_ACCOUNT a7 on a7.account_id = a6.account_id 
+        inner join T_ACCOUNT a8 on a8.account_id = a7.account_id 
+        inner join T_ACCOUNT a9 on a9.account_id = a8.account_id 
+;
+
 /* V_EXPORT_LEDGER */
 --DROP VIEW V_EXPORT_LEDGER;
 CREATE VIEW V_EXPORT_LEDGER

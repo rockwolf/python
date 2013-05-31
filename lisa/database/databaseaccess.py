@@ -52,23 +52,6 @@ class DatabaseAccess():
         self.dbuser = config.get('database', 'user')[1:-1]
         self.dbpass = config.get('database', 'password')[1:-1]
  
-    def get_categories(self):
-        """
-            Get the categories.
-        """
-        values = []
-        try:
-            session = self.Session()
-            query = session.query(T_CATEGORY)
-            for instance in query: 
-                values.append(instance.name)
-        except Exception as ex:
-            print(ERROR_GET_CATEGORIES, ex)
-        finally:
-            session.rollback()
-            session = None
-        return values
-    
     def get_accounts(self):
         """
             Get the accounts.
@@ -81,23 +64,6 @@ class DatabaseAccess():
                 values.append(instance.name)
         except Exception as ex:
             print(ERROR_GET_ACCOUNTS, ex)
-        finally:
-            session.rollback()
-            session = None
-        return values
-
-    def get_subcategories(self):
-        """
-            Get the subcategories.
-        """
-        values = []
-        try:
-            session = self.Session()
-            query = session.query(T_SUBCATEGORY)
-            for instance in query: 
-                values.append(instance.name)
-        except Exception as ex:
-            print(ERROR_GET_SUBCATEGORIES, ex)
         finally:
             session.rollback()
             session = None
@@ -240,6 +206,8 @@ class DatabaseAccess():
             Are we long?
         """
         #TODO: fix this, it seems wrong!
+        #TODO: replace category/subcategory with the full account name
+        #for expenses:trade:buy and income:trade:sell
         result = False
         if trade_record == []:
             result = (category == 'trade' and subcategory == 'buy')
@@ -378,8 +346,6 @@ class DatabaseAccess():
                     record['month'],
                     record['day'],
                     record['account_id'],
-                    record['category_id'],
-                    record['subcategory_id'],
                     record['amount'],
                     record['comment'],
                     record['stock_name_id'],
@@ -533,38 +499,13 @@ class DatabaseAccess():
             session = None
         return records
 
-    def subcategory_id_from_subcategory(self, subcategory):
-        """
-            Get the subcategory_id from a subcategory.
-        """
-        result = -1
-        session = self.Session()
-        try:
-            date_created = current_date()
-            date_modified = current_date()
-            # Get subcategory_id, based on subcategory
-            # but first check if the subcategory already exists
-            # in T_SUBCATEGORY. If not, add it to the t_sub_categorytable.
-            obj = session.query(T_SUBCATEGORY).filter_by(name=subcategory).first() is not None
-            if not obj: 
-                session.add(T_SUBCATEGORY(subcategory, date_created, date_modified))
-                session.commit()
-                for instance in session.query(func.max(T_SUBCATEGORY.subcategory_id).label('subcategory_id')):
-                    result = instance.subcategory_id
-            else:
-                for instance in session.query(T_SUBCATEGORY).filter_by(name=subcategory):
-                    result = str(instance.subcategory_id)
-        except Exception as ex:
-            print(ERROR_SUBCATEGORY_ID_FROM_SUBCATEGORY, ex)
-        finally:
-            session.rollback()
-            session = None
-        return result
-
-    def account_id_from_account(self, account):
+    def account_id_from_account_name(self, account_name):
         """
             Get the account_id from an account.
         """
+        #TODO: search for an account name that has the parents
+        #e.g.: expenses:car:other should look for 'other',
+        #but it will find more than 1, so also look for the parents.
         result = -1
         session = self.Session()
         try:
@@ -585,34 +526,6 @@ class DatabaseAccess():
                     result = str(instance.account_id)
         except Exception as ex:
             print(ERROR_ACCOUNT_ID_FROM_ACCOUNT, ex)
-        finally:
-            session.rollback()
-            session = None
-        return result
-
-    def category_id_from_category(self, category):
-        """
-            Get the category_id from a category.
-        """
-        result = -1
-        session = self.Session()
-        try:
-            date_created = current_date()
-            date_modified = current_date()
-            # Get category_id, based on category name
-            # but first check if the category already exists
-            # in T_CATEGORY. If not, add it to the t_category table.
-            obj = session.query(T_CATEGORY).filter_by(name=category).first() is not None
-            if not obj: 
-                session.add(T_CATEGORY(category, flg_income, date_created, date_modified))
-                session.commit()
-                for instance in session.query(func.max(T_CATEGORY.category_id).label('category_id')):
-                    result = instance.category_id
-            else:
-                for instance in session.query(T_CATEGORY).filter_by(name=category):
-                    result = str(instance.category_id)
-        except Exception as ex:
-            print("Error retrieving category_id: ", ex)
         finally:
             session.rollback()
             session = None
@@ -680,30 +593,16 @@ class DatabaseAccess():
             session = None
         return result
 
-    def subcategory_from_subcategory_id(self, subcategory_id):
+    def account_name_from_account_id(self, account_id):
         """
-            Get the subcategory for a given subcategory_id from the T_SUBCATEGORY table.
+            Get the account_name for a given account_id from the T_ACCOUNT table.
         """
-        result = ''
-        session = self.Session()
-        try:
-            for instance in session.query(T_SUBCATEGORY).filter_by(subcategory_id=subcategory_id):
-                result = instance.name
-        except Exception as ex:
-            print("Error retrieving subcategory from subcategory_id: ", ex)
-        finally:
-            session.rollback()
-            session = None
-        return result
+        #TODO: also look for the parents and add them
 
-    def accountname_from_account_id(self, account_id):
-        """
-            Get the accountname for a given account_id from the T_ACCOUNT table.
-        """
         result = ''
         session = self.Session()
         try:
-            for instance in session.query(T_ACCOUNT).filter_by(account_id=account_id):
+            for instance in session.query(V_ACCOUNT_NAME).filter_by(account_id=account_id):
                 result = instance.name
         except Exception as ex:
             print("Error retrieving accountname from account_id: ", ex)
