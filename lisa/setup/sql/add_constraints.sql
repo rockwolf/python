@@ -1,13 +1,6 @@
 BEGIN;
 
 /* add constraints */
-alter table T_SUBCATEGORY
-    add constraint pk_subcategory_id primary key(subcategory_id);
-alter table T_CATEGORY
-    add constraint pk_category_id primary key(category_id);
-alter table T_SUBCATEGORY
-    add constraint fk_category_id foreign key(category_id)
-    references T_CATEGORY(category_id);
 alter table T_ACCOUNT
     add constraint pk_account_id primary key(account_id);
 alter table T_MARKET
@@ -30,12 +23,6 @@ alter table T_FINANCE
     add constraint pk_finance_id primary key(finance_id);
 alter table T_FINANCE
     add constraint fk_account_id foreign key(account_id) references T_ACCOUNT;
-alter table T_FINANCE
-    add constraint fk_category_id foreign key(category_id) references T_CATEGORY;
-alter table T_FINANCE
-    add constraint fk_category_type_id foreign key(category_type_id) references T_CATEGORY_TYPE;
-alter table T_FINANCE
-    add constraint fk_subcategory_id foreign key(subcategory_id) references T_SUBCATEGORY;
 alter table T_FINANCE
     add constraint fk_stock_name_id foreign key(stock_name_id) references T_STOCK_NAME;
 alter table T_FINANCE
