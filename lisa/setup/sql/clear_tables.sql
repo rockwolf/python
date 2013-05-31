@@ -1,7 +1,5 @@
 BEGIN;
 truncate table T_FINANCE cascade;
-truncate table T_SUBCATEGORY cascade;
-truncate table T_CATEGORY cascade;
 truncate table T_ACCOUNT cascade;
 truncate table T_INVESTMENT cascade;
 truncate table T_STOCK_NAME cascade;

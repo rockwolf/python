@@ -1,43 +1,15 @@
 BEGIN;
 
 /* finance */
-CREATE TABLE T_SUBCATEGORY
-(
-    subcategory_id int not null,
-    category_id int not null default -1,
-    name varchar(20) not null,
-    active int not null default 1,
-    date_created timestamp not null default '1900-01-01',
-    date_modified timestamp not null default '1900-01-01'
-);
-
-CREATE TABLE T_CATEGORY
-(
-    category_id int not null,
-    name varchar(30) not null,
-    active int not null default 1,
-    date_created timestamp not null default '1900-01-01',
-    date_modified timestamp not null default '1900-01-01'
-);
-
-CREATE TABLE T_CATEGORY_TYPE
-(
-    category_type_id int not null,
-    name varchar(100) not null,
-    active int not null default 1,
-    date_created timestamp not null default '1900-01-01',
-    date_modified timestamp not null default '1900-01-01'
-);
-
 CREATE TABLE T_ACCOUNT
 (
-    account_id serial not null,
-    name varchar(6) not null,
-    description varchar(256) not null default '',
+    account_id int not null,
+    name varchar(30) not null,
+    description varchar(64) not null,
+    parent_id int not null,
     active int not null default 1,
     date_created timestamp not null default '1900-01-01',
-    date_modified timestamp not null default '1900-01-01',
-    unique(name)
+    date_modified timestamp not null default '1900-01-01'
 );
 
 CREATE TABLE T_POOL

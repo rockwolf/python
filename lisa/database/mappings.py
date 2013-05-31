@@ -277,48 +277,6 @@ class T_MARKET(Base):
     def __repr__(self):
         return "<T_MARKET('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.market_id, self.account_id, self.code, self.name, self.country, self.active, self.date_created, self.date_modified)
 
-class T_CATEGORY(Base):
-    """ T_CATEGORY """
-    __tablename__ = TABLE_CATEGORY
-    #__table_args__ = {'autoload':True}
-    category_id = Column(Integer, primary_key=True)
-    name = Column(String(30))
-    active = Column(Integer)
-    date_created = Column(DateTime)
-    date_modified = Column(DateTime)
-
-    def __init__(self, category_id, name, active, date_created, date_modified):
-        self.category_id = category_id
-        self.name = name
-        self.active = active
-        self.date_created = date_created
-        self.date_modified = date_modified
-
-    def __repr__(self):
-        return "<T_CATEGORY('%s', '%s', '%s', '%s', '%s')>" % (self.category_id,
-                self.name, self.active, self.date_created, self.date_modified)
-                
-class T_CATEGORY_TYPE(Base):
-    """ T_CATEGORY_TYPE """
-    __tablename__ = TABLE_CATEGORY_TYPE
-    #__table_args__ = {'autoload':True}
-    category_type_id = Column(Integer, primary_key=True)
-    name = Column(String(30))
-    active = Column(Integer)
-    date_created = Column(DateTime)
-    date_modified = Column(DateTime)
-
-    def __init__(self, category_type_id, name, active, date_created, date_modified):
-        self.category_type_id = category_type_id
-        self.name = name
-        self.active = active
-        self.date_created = date_created
-        self.date_modified = date_modified
-
-    def __repr__(self):
-        return "<T_CATEGORY('%s', '%s', '%s', '%s', '%s')>" % (self.category_type_id,
-                self.name, self.active, self.date_created, self.date_modified)
-
 class T_MARGIN(Base):
     """ T_MARGIN """
     __tablename__ = TABLE_MARGIN
@@ -356,51 +314,30 @@ class T_MARGIN_TYPE(Base):
     def __repr__(self):
         return "<T_MARGIN_TYPE('%s', '%s')>" % (self.margin_type_id, self.margin_type)
 
-class T_SUBCATEGORY(Base):
-    """ T_SUBCATEGORY """
-    __tablename__ = TABLE_SUBCATEGORY
-    #__table_args__ = {'autoload':True}
-    subcategory_id = Column(Integer, primary_key=True)
-    category_id = Column(Integer)
-    name = Column(String(20))
-    active = Column(Integer)
-    date_created = Column(DateTime)
-    date_modified = Column(DateTime)
-
-    def __init__(self, subcategory_id, category_id, name, active, date_created, date_modified):
-        self.subcategory_id = subcategory_id
-        self.category_id = category_id
-        self.name = name
-        self.active = active
-        self.date_created = date_created
-        self.date_modified = date_modified
-
-    def __repr__(self):
-        return "<T_SUBCATEGORY('%s', '%s', '%s', '%s', '%s', '%s')>" % (self.subcategory_id, self.category_id, 
-            self.name, self.active, self.date_created, self.date_modified)
-
 class T_ACCOUNT(Base):
     """ T_ACCOUNT """
     __tablename__ = TABLE_ACCOUNT
     #__table_args__ = {'autoload':True}
     account_id = Column(Integer, primary_key=True)
     name = Column(String(6))
-    description = Column(String(256))
+    description = Column(String(64))
+    parent_id = Column(Integer)
     active = Column(Integer)
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
 
-    def __init__(self, account_id, name, description, active, date_created, date_modified):
+    def __init__(self, account_id, name, description, parent_id, active, date_created, date_modified):
         self.account_id = account_id
         self.name = name
         self.description = description
+        self.parent_id = parent_id
         self.active = active
         self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_ACCOUNT('%s', '%s', '%s', '%s', '%s', '%s')>" % (self.account_id, self.name,
-                self.description, self.active, self.date_created, self.date_modified)
+        return "<T_ACCOUNT('%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.account_id, self.name,
+                self.description, self.parent_id, self.active, self.date_created, self.date_modified)
 
 class T_CURRENCY(Base):
     """ T_CURRENCY """

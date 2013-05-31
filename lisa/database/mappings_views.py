@@ -31,12 +31,6 @@ class V_MARKET(Base):
     __table_args__ = {'autoload':True}
     market_id = Column('market_id', Integer, primary_key=True)
 
-class V_CATEGORY(Base):
-    """ V_CATEGORY """
-    __tablename__ = VIEW_CATEGORY
-    __table_args__ = {'autoload':True}
-    category_id = Column('category_id', Integer, primary_key=True)
-
 class V_MARGIN(Base):
     """ V_MARGIN """
     __tablename__ = VIEW_MARGIN
@@ -48,12 +42,6 @@ class V_MARGIN_TYPE(Base):
     __tablename__ = VIEW_MARGIN_TYPE
     __table_args__ = {'autoload':True}
     margin_type_id = Column('margin_type_id', Integer, primary_key=True)
-
-class V_SUBCATEGORY(Base):
-    """ V_SUBCATEGORY """
-    __tablename__ = VIEW_SUBCATEGORY
-    __table_args__ = {'autoload':True}
-    subcategory_id = Column('subcategory_id', Integer, primary_key=True)
 
 class V_ACCOUNT(Base):
     """ V_ACCOUNT """

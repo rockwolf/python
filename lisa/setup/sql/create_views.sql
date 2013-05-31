@@ -90,26 +90,6 @@ from
     t_market m
 ;
 
-/* V_CATEGORY */
---DROP VIEW V_CATEGORY;
-CREATE VIEW V_CATEGORY
-AS
-select
-    c.*
-from
-    t_category c
-;
-
-/* V_SUBCATEGORY */
---DROP VIEW V_SUBCATEGORY;
-CREATE VIEW V_SUBCATEGORY
-AS
-select
-    sc.*
-from
-    t_subcategory sc
-;
-
 /* V_MARGIN */
 --DROP VIEW V_MARGIN;
 CREATE VIEW V_MARGIN

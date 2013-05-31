@@ -1,8 +1,5 @@
 BEGIN;
 drop table T_FINANCE cascade;
-drop table T_SUBCATEGORY cascade;
-drop table T_CATEGORY_TYPE cascade;
-drop table T_CATEGORY cascade;
 drop table T_ACCOUNT cascade;
 drop table T_INVESTMENT cascade;
 drop table T_STOCK_NAME cascade;
