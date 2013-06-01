@@ -248,7 +248,6 @@ class T_MARKET(Base):
     __tablename__ = TABLE_MARKET
     #__table_args__ = {'autoload':True}
     market_id = Column(Integer, primary_key=True)
-    account_id = Column(Integer)
     code = Column(String(5))
     name = Column(String(30))
     country = Column(String(3))
@@ -256,9 +255,8 @@ class T_MARKET(Base):
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
 
-    def __init__(self, market_id, account_id, code, name, country, active, date_created, date_modified):
+    def __init__(self, market_id, code, name, country, active, date_created, date_modified):
         self.market_id = market_id
-        self.account_id = account_id
         self.code = code
         self.name = name
         self.country = country
@@ -267,7 +265,7 @@ class T_MARKET(Base):
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_MARKET('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.market_id, self.account_id, self.code, self.name, self.country, self.active, self.date_created, self.date_modified)
+        return "<T_MARKET('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.market_id, self.code, self.name, self.country, self.active, self.date_created, self.date_modified)
 
 class T_MARGIN(Base):
     """ T_MARGIN """

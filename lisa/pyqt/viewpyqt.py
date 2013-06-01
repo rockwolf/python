@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'viewpyqt.ui'
 #
-# Created: Wed May 15 19:31:11 2013
+# Created: Sat Jun  1 15:48:31 2013
 #      by: PyQt4 UI code generator 4.10.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,6 +27,111 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(1198, 600)
+        MainWindow.setStyleSheet(_fromUtf8("#MainWindow\n"
+"{\n"
+"    background: #073642;\n"
+"    color: #eee8d5;\n"
+"}\n"
+"#lbl_check\n"
+"{\n"
+"    background: #073642;\n"
+"    color: #eee8d5;\n"
+"}\n"
+"#lbl_infofinance\n"
+"{\n"
+"    background: #073642;\n"
+"    color: #eee8d5;\n"
+"}\n"
+"#lbl_date\n"
+"{\n"
+"    background: #073642;\n"
+"    color: #eee8d5;\n"
+"}\n"
+"#lbl_account\n"
+"{\n"
+"    background: #073642;\n"
+"    color: #eee8d5;\n"
+"}\n"
+"#lbl_amount\n"
+"{\n"
+"    background: #073642;\n"
+"    color: #eee8d5;\n"
+"}\n"
+"#lbl_marketcode\n"
+"{\n"
+"    background: #073642;\n"
+"    color: #eee8d5;\n"
+"}\n"
+"#lbl_stockname\n"
+"{\n"
+"    background: #073642;\n"
+"    color: #eee8d5;\n"
+"}\n"
+"#lbl_quantity\n"
+"{\n"
+"    background: #073642;\n"
+"    color: #eee8d5;\n"
+"}\n"
+"#lbl_price\n"
+"{\n"
+"    background: #073642;\n"
+"    color: #eee8d5;\n"
+"}\n"
+"#lbl_commission\n"
+"{\n"
+"    background: #073642;\n"
+"    color: #eee8d5;\n"
+"}\n"
+"#lbl_tax\n"
+"{\n"
+"    background: #073642;\n"
+"    color: #eee8d5;\n"
+"}\n"
+"#lbl_comment\n"
+"{\n"
+"    background: #073642;\n"
+"    color: #eee8d5;\n"
+"}\n"
+"#lbl_currency_from\n"
+"{\n"
+"    background: #073642;\n"
+"    color: #eee8d5;\n"
+"}\n"
+"#lbl_currency_to\n"
+"{\n"
+"    background: #073642;\n"
+"    color: #eee8d5;\n"
+"}\n"
+"#lbl_exchange_rate\n"
+"{\n"
+"    background: #073642;\n"
+"    color: #eee8d5;\n"
+"}\n"
+"#lbl_expiration\n"
+"{\n"
+"    background: #073642;\n"
+"    color: #eee8d5;\n"
+"}\n"
+"#lbl_pool\n"
+"{\n"
+"    background: #073642;\n"
+"    color: #eee8d5;\n"
+"}\n"
+"#chk_manual_commission\n"
+"{\n"
+"    background: #073642;\n"
+"    color: #eee8d5;\n"
+"}\n"
+"#lbl_risk\n"
+"{\n"
+"    background: #073642;\n"
+"    color: #eee8d5;\n"
+"}\n"
+"#lbl_infodetails\n"
+"{\n"
+"    background: #073642;\n"
+"    color: #eee8d5;\n"
+"}"))
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.gridLayout_2 = QtGui.QGridLayout(self.centralwidget)
@@ -43,26 +148,26 @@ class Ui_MainWindow(object):
         self.lbl_check.setFrameShadow(QtGui.QFrame.Raised)
         self.lbl_check.setObjectName(_fromUtf8("lbl_check"))
         self.gridLayout_10.addWidget(self.lbl_check, 0, 5, 1, 1)
-        self.cmb_account = QtGui.QComboBox(self.centralwidget)
-        self.cmb_account.setInputMethodHints(QtCore.Qt.ImhLowercaseOnly)
-        self.cmb_account.setEditable(True)
-        self.cmb_account.setObjectName(_fromUtf8("cmb_account"))
-        self.gridLayout_10.addWidget(self.cmb_account, 0, 3, 1, 1)
         self.lbl_infofinance = QtGui.QLabel(self.centralwidget)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Envy Code R"))
         self.lbl_infofinance.setFont(font)
         self.lbl_infofinance.setObjectName(_fromUtf8("lbl_infofinance"))
         self.gridLayout_10.addWidget(self.lbl_infofinance, 0, 8, 1, 1)
-        self.lbl_account = QtGui.QLabel(self.centralwidget)
-        self.lbl_account.setObjectName(_fromUtf8("lbl_account"))
-        self.gridLayout_10.addWidget(self.lbl_account, 0, 2, 1, 1)
         spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.gridLayout_10.addItem(spacerItem1, 0, 4, 1, 1)
         self.verticalLayout.addLayout(self.gridLayout_10)
         self.gridLayout = QtGui.QGridLayout()
         self.gridLayout.setHorizontalSpacing(3)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
+        self.spn_amount = QtGui.QDoubleSpinBox(self.centralwidget)
+        self.spn_amount.setMinimumSize(QtCore.QSize(70, 0))
+        self.spn_amount.setLocale(QtCore.QLocale(QtCore.QLocale.C, QtCore.QLocale.AnyCountry))
+        self.spn_amount.setDecimals(6)
+        self.spn_amount.setMaximum(999999.999999)
+        self.spn_amount.setProperty("value", 0.0)
+        self.spn_amount.setObjectName(_fromUtf8("spn_amount"))
+        self.gridLayout.addWidget(self.spn_amount, 1, 2, 1, 1)
         self.spn_price = QtGui.QDoubleSpinBox(self.centralwidget)
         self.spn_price.setMinimumSize(QtCore.QSize(10, 0))
         font = QtGui.QFont()
@@ -76,21 +181,6 @@ class Ui_MainWindow(object):
         self.lbl_date = QtGui.QLabel(self.centralwidget)
         self.lbl_date.setObjectName(_fromUtf8("lbl_date"))
         self.gridLayout.addWidget(self.lbl_date, 0, 0, 1, 1)
-        self.lbl_category = QtGui.QLabel(self.centralwidget)
-        self.lbl_category.setObjectName(_fromUtf8("lbl_category"))
-        self.gridLayout.addWidget(self.lbl_category, 0, 1, 1, 1)
-        self.lbl_subcategory = QtGui.QLabel(self.centralwidget)
-        self.lbl_subcategory.setObjectName(_fromUtf8("lbl_subcategory"))
-        self.gridLayout.addWidget(self.lbl_subcategory, 0, 2, 1, 1)
-        self.lbl_amount = QtGui.QLabel(self.centralwidget)
-        self.lbl_amount.setObjectName(_fromUtf8("lbl_amount"))
-        self.gridLayout.addWidget(self.lbl_amount, 0, 3, 1, 1)
-        self.lbl_comment = QtGui.QLabel(self.centralwidget)
-        font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Envy Code R"))
-        self.lbl_comment.setFont(font)
-        self.lbl_comment.setObjectName(_fromUtf8("lbl_comment"))
-        self.gridLayout.addWidget(self.lbl_comment, 0, 4, 1, 1)
         self.lbl_marketcode = QtGui.QLabel(self.centralwidget)
         self.lbl_marketcode.setObjectName(_fromUtf8("lbl_marketcode"))
         self.gridLayout.addWidget(self.lbl_marketcode, 0, 5, 1, 1)
@@ -109,44 +199,20 @@ class Ui_MainWindow(object):
         self.lbl_tax = QtGui.QLabel(self.centralwidget)
         self.lbl_tax.setObjectName(_fromUtf8("lbl_tax"))
         self.gridLayout.addWidget(self.lbl_tax, 0, 10, 1, 1)
-        self.lbl_risk = QtGui.QLabel(self.centralwidget)
-        self.lbl_risk.setObjectName(_fromUtf8("lbl_risk"))
-        self.gridLayout.addWidget(self.lbl_risk, 0, 11, 1, 1)
+        self.spn_pool = QtGui.QDoubleSpinBox(self.centralwidget)
+        self.spn_pool.setDecimals(6)
+        self.spn_pool.setMaximum(999999.999999)
+        self.spn_pool.setObjectName(_fromUtf8("spn_pool"))
+        self.gridLayout.addWidget(self.spn_pool, 5, 8, 1, 1)
         self.lbl_pool = QtGui.QLabel(self.centralwidget)
         self.lbl_pool.setObjectName(_fromUtf8("lbl_pool"))
-        self.gridLayout.addWidget(self.lbl_pool, 5, 8, 1, 1)
+        self.gridLayout.addWidget(self.lbl_pool, 4, 8, 1, 1)
         self.dt_date = QtGui.QDateEdit(self.centralwidget)
         self.dt_date.setMinimumSize(QtCore.QSize(90, 0))
         self.dt_date.setDate(QtCore.QDate(1900, 1, 1))
         self.dt_date.setCalendarPopup(True)
         self.dt_date.setObjectName(_fromUtf8("dt_date"))
         self.gridLayout.addWidget(self.dt_date, 1, 0, 1, 1)
-        self.cmb_category = QtGui.QComboBox(self.centralwidget)
-        self.cmb_category.setMinimumSize(QtCore.QSize(120, 0))
-        self.cmb_category.setInputMethodHints(QtCore.Qt.ImhLowercaseOnly)
-        self.cmb_category.setEditable(True)
-        self.cmb_category.setObjectName(_fromUtf8("cmb_category"))
-        self.gridLayout.addWidget(self.cmb_category, 1, 1, 1, 1)
-        self.cmb_subcategory = QtGui.QComboBox(self.centralwidget)
-        self.cmb_subcategory.setMinimumSize(QtCore.QSize(100, 0))
-        self.cmb_subcategory.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.cmb_subcategory.setInputMethodHints(QtCore.Qt.ImhLowercaseOnly)
-        self.cmb_subcategory.setEditable(True)
-        self.cmb_subcategory.setObjectName(_fromUtf8("cmb_subcategory"))
-        self.gridLayout.addWidget(self.cmb_subcategory, 1, 2, 1, 1)
-        self.spn_amount = QtGui.QDoubleSpinBox(self.centralwidget)
-        self.spn_amount.setMinimumSize(QtCore.QSize(70, 0))
-        self.spn_amount.setLocale(QtCore.QLocale(QtCore.QLocale.C, QtCore.QLocale.AnyCountry))
-        self.spn_amount.setDecimals(6)
-        self.spn_amount.setMaximum(999999.999999)
-        self.spn_amount.setProperty("value", 0.0)
-        self.spn_amount.setObjectName(_fromUtf8("spn_amount"))
-        self.gridLayout.addWidget(self.spn_amount, 1, 3, 1, 1)
-        self.txt_comment = QtGui.QLineEdit(self.centralwidget)
-        self.txt_comment.setEnabled(True)
-        self.txt_comment.setMinimumSize(QtCore.QSize(150, 0))
-        self.txt_comment.setObjectName(_fromUtf8("txt_comment"))
-        self.gridLayout.addWidget(self.txt_comment, 1, 4, 1, 1)
         self.cmb_market_code = QtGui.QComboBox(self.centralwidget)
         self.cmb_market_code.setInputMethodHints(QtCore.Qt.ImhLowercaseOnly)
         self.cmb_market_code.setEditable(True)
@@ -187,6 +253,31 @@ class Ui_MainWindow(object):
         self.spn_tax.setMaximum(999999.999999)
         self.spn_tax.setObjectName(_fromUtf8("spn_tax"))
         self.gridLayout.addWidget(self.spn_tax, 1, 10, 1, 1)
+        self.txt_market_description = QtGui.QLineEdit(self.centralwidget)
+        self.txt_market_description.setObjectName(_fromUtf8("txt_market_description"))
+        self.gridLayout.addWidget(self.txt_market_description, 3, 5, 1, 1)
+        self.txt_stock_description = QtGui.QLineEdit(self.centralwidget)
+        self.txt_stock_description.setObjectName(_fromUtf8("txt_stock_description"))
+        self.gridLayout.addWidget(self.txt_stock_description, 3, 6, 1, 1)
+        self.cmb_account = QtGui.QComboBox(self.centralwidget)
+        self.cmb_account.setInputMethodHints(QtCore.Qt.ImhLowercaseOnly)
+        self.cmb_account.setEditable(True)
+        self.cmb_account.setObjectName(_fromUtf8("cmb_account"))
+        self.gridLayout.addWidget(self.cmb_account, 1, 1, 1, 1)
+        self.lbl_amount = QtGui.QLabel(self.centralwidget)
+        self.lbl_amount.setObjectName(_fromUtf8("lbl_amount"))
+        self.gridLayout.addWidget(self.lbl_amount, 0, 2, 1, 1)
+        self.lbl_account = QtGui.QLabel(self.centralwidget)
+        self.lbl_account.setObjectName(_fromUtf8("lbl_account"))
+        self.gridLayout.addWidget(self.lbl_account, 0, 1, 1, 1)
+        self.lbl_currency_from = QtGui.QLabel(self.centralwidget)
+        self.lbl_currency_from.setObjectName(_fromUtf8("lbl_currency_from"))
+        self.gridLayout.addWidget(self.lbl_currency_from, 4, 2, 1, 1)
+        self.cmb_currency_from = QtGui.QComboBox(self.centralwidget)
+        self.cmb_currency_from.setMinimumSize(QtCore.QSize(90, 0))
+        self.cmb_currency_from.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.cmb_currency_from.setObjectName(_fromUtf8("cmb_currency_from"))
+        self.gridLayout.addWidget(self.cmb_currency_from, 5, 2, 1, 1)
         self.spn_risk = QtGui.QDoubleSpinBox(self.centralwidget)
         self.spn_risk.setMinimumSize(QtCore.QSize(10, 0))
         font = QtGui.QFont()
@@ -196,43 +287,27 @@ class Ui_MainWindow(object):
         self.spn_risk.setDecimals(6)
         self.spn_risk.setMaximum(999999.999999)
         self.spn_risk.setObjectName(_fromUtf8("spn_risk"))
-        self.gridLayout.addWidget(self.spn_risk, 1, 11, 1, 1)
-        self.txt_market_description = QtGui.QLineEdit(self.centralwidget)
-        self.txt_market_description.setObjectName(_fromUtf8("txt_market_description"))
-        self.gridLayout.addWidget(self.txt_market_description, 4, 5, 1, 1)
-        self.txt_stock_description = QtGui.QLineEdit(self.centralwidget)
-        self.txt_stock_description.setObjectName(_fromUtf8("txt_stock_description"))
-        self.gridLayout.addWidget(self.txt_stock_description, 4, 6, 1, 1)
-        self.lbl_currency_from = QtGui.QLabel(self.centralwidget)
-        self.lbl_currency_from.setObjectName(_fromUtf8("lbl_currency_from"))
-        self.gridLayout.addWidget(self.lbl_currency_from, 5, 0, 1, 1)
-        self.cmb_currency_from = QtGui.QComboBox(self.centralwidget)
-        self.cmb_currency_from.setMinimumSize(QtCore.QSize(90, 0))
-        self.cmb_currency_from.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.cmb_currency_from.setObjectName(_fromUtf8("cmb_currency_from"))
-        self.gridLayout.addWidget(self.cmb_currency_from, 6, 0, 1, 1)
+        self.gridLayout.addWidget(self.spn_risk, 5, 9, 1, 1)
+        self.lbl_risk = QtGui.QLabel(self.centralwidget)
+        self.lbl_risk.setObjectName(_fromUtf8("lbl_risk"))
+        self.gridLayout.addWidget(self.lbl_risk, 4, 9, 1, 1)
         self.chk_manual_commission = QtGui.QCheckBox(self.centralwidget)
         self.chk_manual_commission.setChecked(False)
         self.chk_manual_commission.setObjectName(_fromUtf8("chk_manual_commission"))
-        self.gridLayout.addWidget(self.chk_manual_commission, 4, 9, 1, 1)
+        self.gridLayout.addWidget(self.chk_manual_commission, 3, 9, 1, 1)
         self.lbl_expiration = QtGui.QLabel(self.centralwidget)
         self.lbl_expiration.setFrameShape(QtGui.QFrame.NoFrame)
         self.lbl_expiration.setObjectName(_fromUtf8("lbl_expiration"))
-        self.gridLayout.addWidget(self.lbl_expiration, 5, 6, 1, 1)
+        self.gridLayout.addWidget(self.lbl_expiration, 4, 7, 1, 1)
         self.dt_expiration = QtGui.QDateEdit(self.centralwidget)
         self.dt_expiration.setDateTime(QtCore.QDateTime(QtCore.QDate(1900, 1, 1), QtCore.QTime(0, 0, 0)))
         self.dt_expiration.setDate(QtCore.QDate(1900, 1, 1))
         self.dt_expiration.setCalendarPopup(True)
         self.dt_expiration.setObjectName(_fromUtf8("dt_expiration"))
-        self.gridLayout.addWidget(self.dt_expiration, 6, 6, 1, 1)
-        self.spn_pool = QtGui.QDoubleSpinBox(self.centralwidget)
-        self.spn_pool.setDecimals(6)
-        self.spn_pool.setMaximum(999999.999999)
-        self.spn_pool.setObjectName(_fromUtf8("spn_pool"))
-        self.gridLayout.addWidget(self.spn_pool, 6, 8, 1, 1)
+        self.gridLayout.addWidget(self.dt_expiration, 5, 7, 1, 1)
         self.lbl_exchange_rate = QtGui.QLabel(self.centralwidget)
         self.lbl_exchange_rate.setObjectName(_fromUtf8("lbl_exchange_rate"))
-        self.gridLayout.addWidget(self.lbl_exchange_rate, 5, 2, 1, 1)
+        self.gridLayout.addWidget(self.lbl_exchange_rate, 4, 6, 1, 1)
         self.spn_exchange_rate = QtGui.QDoubleSpinBox(self.centralwidget)
         self.spn_exchange_rate.setMinimumSize(QtCore.QSize(10, 0))
         font = QtGui.QFont()
@@ -242,20 +317,25 @@ class Ui_MainWindow(object):
         self.spn_exchange_rate.setDecimals(6)
         self.spn_exchange_rate.setMaximum(999999.999999)
         self.spn_exchange_rate.setObjectName(_fromUtf8("spn_exchange_rate"))
-        self.gridLayout.addWidget(self.spn_exchange_rate, 6, 2, 1, 1)
+        self.gridLayout.addWidget(self.spn_exchange_rate, 5, 6, 1, 1)
         self.lbl_currency_to = QtGui.QLabel(self.centralwidget)
         self.lbl_currency_to.setObjectName(_fromUtf8("lbl_currency_to"))
-        self.gridLayout.addWidget(self.lbl_currency_to, 5, 1, 1, 1)
+        self.gridLayout.addWidget(self.lbl_currency_to, 4, 5, 1, 1)
         self.cmb_currency_to = QtGui.QComboBox(self.centralwidget)
         self.cmb_currency_to.setObjectName(_fromUtf8("cmb_currency_to"))
-        self.gridLayout.addWidget(self.cmb_currency_to, 6, 1, 1, 1)
-        self.lbl_category_type = QtGui.QLabel(self.centralwidget)
-        self.lbl_category_type.setObjectName(_fromUtf8("lbl_category_type"))
-        self.gridLayout.addWidget(self.lbl_category_type, 2, 1, 1, 1)
-        self.cmb_category_type = QtGui.QComboBox(self.centralwidget)
-        self.cmb_category_type.setEditable(True)
-        self.cmb_category_type.setObjectName(_fromUtf8("cmb_category_type"))
-        self.gridLayout.addWidget(self.cmb_category_type, 4, 1, 1, 1)
+        self.gridLayout.addWidget(self.cmb_currency_to, 5, 5, 1, 1)
+        self.txt_comment = QtGui.QLineEdit(self.centralwidget)
+        self.txt_comment.setEnabled(True)
+        self.txt_comment.setMinimumSize(QtCore.QSize(150, 0))
+        self.txt_comment.setObjectName(_fromUtf8("txt_comment"))
+        self.gridLayout.addWidget(self.txt_comment, 5, 1, 1, 1)
+        self.lbl_comment = QtGui.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Envy Code R"))
+        self.lbl_comment.setFont(font)
+        self.lbl_comment.setObjectName(_fromUtf8("lbl_comment"))
+        self.gridLayout.addWidget(self.lbl_comment, 4, 1, 1, 1)
+        self.gridLayout.setColumnStretch(1, 1)
         self.verticalLayout.addLayout(self.gridLayout)
         self.gridLayout_6 = QtGui.QGridLayout()
         self.gridLayout_6.setObjectName(_fromUtf8("gridLayout_6"))
@@ -325,23 +405,15 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        MainWindow.setTabOrder(self.dt_date, self.cmb_category)
-        MainWindow.setTabOrder(self.cmb_category, self.cmb_subcategory)
-        MainWindow.setTabOrder(self.cmb_subcategory, self.spn_amount)
-        MainWindow.setTabOrder(self.spn_amount, self.txt_comment)
-        MainWindow.setTabOrder(self.txt_comment, self.cmb_market_code)
+        MainWindow.setTabOrder(self.dt_date, self.cmb_market_code)
         MainWindow.setTabOrder(self.cmb_market_code, self.cmb_stock_name)
         MainWindow.setTabOrder(self.cmb_stock_name, self.spn_quantity)
         MainWindow.setTabOrder(self.spn_quantity, self.spn_price)
         MainWindow.setTabOrder(self.spn_price, self.spn_commission)
-        MainWindow.setTabOrder(self.spn_commission, self.chk_manual_commission)
-        MainWindow.setTabOrder(self.chk_manual_commission, self.spn_tax)
-        MainWindow.setTabOrder(self.spn_tax, self.spn_risk)
-        MainWindow.setTabOrder(self.spn_risk, self.txt_market_description)
+        MainWindow.setTabOrder(self.spn_commission, self.spn_tax)
+        MainWindow.setTabOrder(self.spn_tax, self.txt_market_description)
         MainWindow.setTabOrder(self.txt_market_description, self.txt_stock_description)
-        MainWindow.setTabOrder(self.txt_stock_description, self.dt_expiration)
-        MainWindow.setTabOrder(self.dt_expiration, self.cmb_currency_from)
-        MainWindow.setTabOrder(self.cmb_currency_from, self.btn_add)
+        MainWindow.setTabOrder(self.txt_stock_description, self.btn_add)
         MainWindow.setTabOrder(self.btn_add, self.btn_update)
         MainWindow.setTabOrder(self.btn_update, self.btn_remove)
         MainWindow.setTabOrder(self.btn_remove, self.btn_removelast)
@@ -353,28 +425,25 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
         self.lbl_check.setText(_translate("MainWindow", "TextLabel", None))
         self.lbl_infofinance.setText(_translate("MainWindow", "TextLabel", None))
-        self.lbl_account.setText(_translate("MainWindow", "Account", None))
         self.lbl_date.setText(_translate("MainWindow", "Date", None))
-        self.lbl_category.setText(_translate("MainWindow", "Category", None))
-        self.lbl_subcategory.setText(_translate("MainWindow", "Subcategory", None))
-        self.lbl_amount.setText(_translate("MainWindow", "Amount", None))
-        self.lbl_comment.setText(_translate("MainWindow", "Comment", None))
         self.lbl_marketcode.setText(_translate("MainWindow", "Market code", None))
         self.lbl_stockname.setText(_translate("MainWindow", "Stock name", None))
         self.lbl_quantity.setText(_translate("MainWindow", "Quantity", None))
         self.lbl_price.setText(_translate("MainWindow", "Price", None))
         self.lbl_commission.setText(_translate("MainWindow", "Commission", None))
         self.lbl_tax.setText(_translate("MainWindow", "Tax（％）", None))
-        self.lbl_risk.setText(_translate("MainWindow", "Risk (%)", None))
         self.lbl_pool.setText(_translate("MainWindow", "Pool", None))
         self.dt_date.setDisplayFormat(_translate("MainWindow", "yyyy-MM-dd", None))
+        self.lbl_amount.setText(_translate("MainWindow", "Amount", None))
+        self.lbl_account.setText(_translate("MainWindow", "Account", None))
         self.lbl_currency_from.setText(_translate("MainWindow", "Currency from", None))
+        self.lbl_risk.setText(_translate("MainWindow", "Risk (%)", None))
         self.chk_manual_commission.setText(_translate("MainWindow", "Automatic", None))
         self.lbl_expiration.setText(_translate("MainWindow", "Expires on", None))
         self.dt_expiration.setDisplayFormat(_translate("MainWindow", "yyyy-MM-dd", None))
         self.lbl_exchange_rate.setText(_translate("MainWindow", "Exchange rate", None))
         self.lbl_currency_to.setText(_translate("MainWindow", "Currency to", None))
-        self.lbl_category_type.setText(_translate("MainWindow", "Category type", None))
+        self.lbl_comment.setText(_translate("MainWindow", "Comment", None))
         self.btn_clear.setText(_translate("MainWindow", "&Clear", None))
         self.btn_exit.setText(_translate("MainWindow", "&Quit", None))
         self.btn_add.setText(_translate("MainWindow", "&Add", None))

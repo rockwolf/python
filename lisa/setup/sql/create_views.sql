@@ -188,7 +188,7 @@ select
                                     a2.account_id,
                                     coalesce(
                                         a1.account_id,
-                                        a0.account_id,
+                                        a0.account_id
                                    )
                                 )
                             )
@@ -198,17 +198,17 @@ select
             )
         )
     ) as account_id
-    , isnull(a_root.name + ':', '')
-    + isnull(a0.name + ':', '')
-    + isnull(a1.name + ':', '')
-    + isnull(a2.name + ':', '')
-    + isnull(a3.name + ':', '')
-    + isnull(a4.name + ':', '')
-    + isnull(a5.name + ':', '')
-    + isnull(a6.name + ':', '')
-    + isnull(a7.name + ':', '')
-    + isnull(a8.name + ':', '')
-    + isnull(a9.name + ':', '')
+    , coalesce(a_root.name || ':', '')
+    || coalesce(a0.name || ':', '')
+    || coalesce(a1.name || ':', '')
+    || coalesce(a2.name || ':', '')
+    || coalesce(a3.name || ':', '')
+    || coalesce(a4.name || ':', '')
+    || coalesce(a5.name || ':', '')
+    || coalesce(a6.name || ':', '')
+    || coalesce(a7.name || ':', '')
+    || coalesce(a8.name || ':', '')
+    || coalesce(a9.name || ':', '')
 from 
     T_ACCOUNT a_root
         inner join T_ACCOUNT a0 on a0.account_id = a_root.account_id 

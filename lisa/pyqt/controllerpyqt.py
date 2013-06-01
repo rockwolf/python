@@ -32,18 +32,6 @@ class ControllerPyqt(QtGui.QMainWindow):
             self.gui.btn_exit, 
             QtCore.SIGNAL('clicked()'), 
             self.btn_exit_clicked)
-        self.gui.cmb_category.connect(
-            self.gui.cmb_category, 
-            QtCore.SIGNAL('currentIndexChanged(const QString&)'), 
-            self.cmb_category_changed)
-        self.gui.cmb_category_type.connect(
-            self.gui.cmb_category_type, 
-            QtCore.SIGNAL('currentIndexChanged(const QString&)'), 
-            self.cmb_category_type_changed)
-        self.gui.cmb_subcategory.connect(
-            self.gui.cmb_subcategory, 
-            QtCore.SIGNAL('currentIndexChanged(const QString&)'), 
-            self.cmb_subcategory_changed)
         self.gui.btn_add.connect(
             self.gui.btn_add, 
             QtCore.SIGNAL("clicked()"), 
@@ -97,7 +85,6 @@ class ControllerPyqt(QtGui.QMainWindow):
         """ Add new input to the input_fields table. """
         self.ctl.add_tbl_summary(self.table, self.ctl.get_input_line(self.table))
         self.clear_fields()
-        self.gui.cmb_subcategory.setCurrentIndex(0)
         self.set_lbl_check(self.ctl.get_check_info(self.table.tablecontent))
         
 
@@ -119,36 +106,11 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.ctl.remove_last(self.table)
 
     # Events
-    def cmb_category_changed(self, selstr):
-        """ When the category combo selection changes. """
-        self.process_category_changed(selstr)
-    
-    def cmb_category_type_changed(self, selstr):
-        """ When the category_type combo selection changes. """
-        #self.process_category_type_changed(selstr)
-        pass
-
-    def cmb_subcategory_changed(self, selstr):
-        """ When the subcategory combo selection changes. """
-        self.process_subcategory_changed(selstr)
-        
-    def process_category_changed(self, selstr):
-        """ When the category combo selection changes. """
-        #TODO: limit the cominations = also need to improve the gui behaviour
-        subcategory = self.gui.cmb_subcategory.currentText()
-        self.toggle_stockinputs()
-    
-    def process_subcategory_changed(self, selstr):
-        """ When the subcategory combo selection changes. """
-        self.gui.txt_comment.setEnabled(True)
-        self.toggle_stockinputs()
-
     def toggle_stockinputs(self):
         """ Enable/disable all inputs related to stock information """
-        category = self.gui.cmb_category.currentText()
-        subcategory = self.gui.cmb_subcategory.currentText()
-        is_stock = deals_with_stocks(category, subcategory)
-        is_trade = is_a_trade(category, subcategory)
+        account_name = self.gui.cmb_account.currentText()
+        is_stock = deals_with_stocks(account)
+        is_trade = is_a_trade(account_name)
         # enable stock labels
         self.gui.lbl_marketcode.setEnabled(is_stock)
         self.gui.lbl_stockname.setEnabled(is_stock)
@@ -206,7 +168,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         """ Initialize tbl_summary. """
         # set the table header
         # TODO: set header values in mdlconstants and use the constants
-        header = ['date', 'account', 'category', 'category_type', 'subcategory', 'amount',
+        header = ['date', 'account', 'amount',
                 'comment', 'stock', 'stock_description', 'market',
                 'market_description', 'quantity', 'price',
                 'commission', 'tax', 'risk', 'currency_from', 'currency_to', 'exchange_rate',
@@ -257,18 +219,6 @@ class ControllerPyqt(QtGui.QMainWindow):
         """ Returns the account name from the cmb_account combobox. """
         return str(self.gui.cmb_account.currentText())
 
-    def get_category(self):
-        """ Returns the category name from the cmb_category combobox. """
-        return str(self.gui.cmb_category.currentText())
-        
-    def get_category_type(self):
-        """ Returns the category_type name from the cmb_category_type combobox. """
-        return str(self.gui.cmb_category_type.currentText())
-    
-    def get_subcategory(self):
-        """ Returns the subcategory name from the cmb_subcategory combobox. """
-        return str(self.gui.cmb_subcategory.currentText())
-    
     def get_amount(self):
         """ Returns the amount from the spn_amount spinedit. """
         return str(self.gui.spn_amount.textFromValue( \
@@ -366,14 +316,6 @@ class ControllerPyqt(QtGui.QMainWindow):
     def add_stock_name(self, value):
        """ Add a new item to cmb_stock_name. """
        self.gui.cmb_stock_name.addItem(value)
-
-    def add_category(self, value):
-       """ Add a new item to cmb_category. """
-       self.gui.cmb_category.addItem(value)
-
-    def add_subcategory(self, value):
-       """ Add a new item to cmb_subcategory. """
-       self.gui.cmb_subcategory.addItem(value)
 
     def add_account(self, value):
        """ Add a new item to cmb_account. """

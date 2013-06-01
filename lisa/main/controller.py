@@ -87,19 +87,14 @@ class ControllerMain():
         input = []
         try:
             for field in tablecontent:
-                category = field[2]
-                subcategory = field[3]
-                if(category[-3:] == '.rx'):
-                    flg_income = 1
-                elif(category[-3:] == '.tx'):
-                    flg_income = 0
-                if deals_with_stocks(category, subcategory) :
-                    shares = field[10]
-                    price = field[11]
-                    commission = field[12]
-                    tax = field[13]
-                    risk = field[14]
-                    pool = field[20]
+                account_name = field[2]
+                if deals_with_stocks(account_name) :
+                    shares = field[8]
+                    price = field[9]
+                    commission = field[10]
+                    tax = field[11]
+                    risk = field[12]
+                    pool = field[18]
                 else:
                     shares = DEFAULT_INT
                     price = DEFAULT_DECIMAL
@@ -110,25 +105,22 @@ class ControllerMain():
                 input.append({
                     'i_date':string_to_date(field[0]),
                     'i_account':field[1], #Note: Get account_id from T_ACCOUNT for final insert
-                    'i_category':field[2], #Note: Get category_id from T_CATEGORY for final insert
-                    'i_subcategory':field[3], #Note: Get subcategory_id from T_SUBCATEGORY for final insert
-                    'i_amount':Decimal(field[4]),
-                    'i_flag':int(flg_income),
-                    'i_comment':field[5],
-                    'i_stock_name':field[6],
-                    'i_stock_description':field[7],
-                    'i_market_name':field[8],
-                    'i_market_description':field[9],
+                    'i_amount':Decimal(field[2]),
+                    'i_comment':field[3],
+                    'i_stock_name':field[4],
+                    'i_stock_description':field[5],
+                    'i_market_name':field[6],
+                    'i_market_description':field[7],
                     'i_shares':int(shares),
                     'i_price':Decimal(price),
                     'i_commission':Decimal(commission),
                     'i_tax':Decimal(tax),
                     'i_risk_input':Decimal(risk),
-                    'i_currency_from':field[15], #Note: Get currency_id from T_CURRENCY for final insert
-                    'i_currency_to':field[16], #Note: Get currency_id from T_CURRENCY for final insert
-                    'i_exchange_rate':Decimal(field[17]),
-                    'i_automatic_flag':int(field[18]),
-                    'i_date_expiration':string_to_date(field[19]),
+                    'i_currency_from':field[13], #Note: Get currency_id from T_CURRENCY for final insert
+                    'i_currency_to':field[14], #Note: Get currency_id from T_CURRENCY for final insert
+                    'i_exchange_rate':Decimal(field[15]),
+                    'i_automatic_flag':int(field[16]),
+                    'i_date_expiration':string_to_date(field[17]),
                     'i_pool':Decimal(pool)
                 })
         except Exception as ex:
@@ -143,12 +135,6 @@ class ControllerMain():
         # Accounts
         for acc in dba.get_accounts():
             self.gui.add_account(acc)
-        # Categories 
-        for category in dba.get_categories():
-            self.gui.add_category(category)
-        # Subcategories. 
-        for subcategory in dba.get_subcategories():
-            self.gui.add_subcategory(subcategory)
         # Market codes
         for mcd in dba.get_markets():
             self.gui.add_market_code(mcd)
@@ -211,8 +197,7 @@ class ControllerMain():
     def get_input_line(self, table):
         """ Get the input values. """
         #TODO: check cat/subcat combo, instead of only subcat
-        if(deals_with_stocks(self.gui.get_category(),
-            self.gui.get_subcategory())):
+        if(deals_with_stocks(self.gui.get_account())):
             market = self.gui.get_market_code()
             stock = self.gui.get_stock_name()
             market_description = self.gui.get_market_description()
@@ -224,16 +209,14 @@ class ControllerMain():
             market_description = ''
             stock_description = ''
             pool = '0.0'
-        category = self.gui.get_category()
-        if category[-3:] == '.tx':
+        #TODO: check if it needs to be a negative amount
+        if is_negative_amount(account_name):
             amount = '-' + self.gui.get_amount()
         else:
             amount = self.gui.get_amount()
         str_list = [
             self.gui.get_date(),
             self.gui.get_account(),
-            category,
-            self.gui.get_subcategory(),
             amount,
             self.gui.get_comment(),
             stock,
@@ -265,15 +248,14 @@ class ControllerMain():
     def set_infodetails(self):
         """ Update infolabel details. """
         dba = DatabaseAccess(self.config)
-        prod = self.gui.get_category()
+        account = self.gui.get_account()
         stock = self.gui.get_stock_name()
-        #TODO: make entire program dependent on cids, so there are no longer
-        #hardcoded strings.
+        #TODO: get the correct accounts here
         if(
-            prod == 'invest.tx' or
-            prod == 'trade.tx' or
-            prod == 'invest.rx' or
-            prod == 'trade.rx'
+            account == 'invest.tx' or
+            account == 'trade.tx' or
+            account == 'invest.rx' or
+            account == 'trade.rx'
         ) and stock != '':
             info = dba.get_stockinfo(stock)
             self.gui.set_infodetails(info[1] + '(' + 
