@@ -224,18 +224,19 @@ select
     || coalesce(a9.name || ':', ''))
 from 
     T_ACCOUNT a_root
-        inner join T_ACCOUNT a0 on a0.parent_id = a_root.account_id 
-        inner join T_ACCOUNT a1 on a1.parent_id = a0.account_id 
-        inner join T_ACCOUNT a2 on a2.parent_id = a1.account_id 
-        inner join T_ACCOUNT a3 on a3.parent_id = a2.account_id 
-        inner join T_ACCOUNT a4 on a4.parent_id = a3.account_id 
-        inner join T_ACCOUNT a5 on a5.parent_id = a4.account_id 
-        inner join T_ACCOUNT a6 on a6.parent_id = a5.account_id 
-        inner join T_ACCOUNT a7 on a7.parent_id = a6.account_id 
-        inner join T_ACCOUNT a8 on a8.parent_id = a7.account_id 
-        inner join T_ACCOUNT a9 on a9.parent_id = a8.account_id 
+        inner join T_ACCOUNT a0 on a0.parent_id = a_root.account_id
+        inner join T_ACCOUNT a1 on a1.parent_id = a0.account_id
+        inner join T_ACCOUNT a2 on a2.parent_id = a1.account_id
+        inner join T_ACCOUNT a3 on a3.parent_id = a2.account_id
+        inner join T_ACCOUNT a4 on a4.parent_id = a3.account_id
+        inner join T_ACCOUNT a5 on a5.parent_id = a4.account_id
+        inner join T_ACCOUNT a6 on a6.parent_id = a5.account_id
+        inner join T_ACCOUNT a7 on a7.parent_id = a6.account_id
+        inner join T_ACCOUNT a8 on a8.parent_id = a7.account_id
+        inner join T_ACCOUNT a9 on a9.parent_id = a8.account_id
 where
     a_root.is_root = 1
+    and (a_root.account_id = a0.parent_id) --TODO: wtf should I do here
 ;
 
 /* V_EXPORT_LEDGER */
