@@ -170,6 +170,16 @@ CREATE VIEW V_ACCOUNT_NAME
 AS
 select
     a_root.account_id as root_account_id
+    , a9.account_id as a9
+    , a8.account_id as a8
+    , a7.account_id as a7
+    , a6.account_id as a6
+    , a5.account_id as a5
+    , a4.account_id as a4
+    , a3.account_id as a3
+    , a2.account_id as a2
+    , a1.account_id as a1
+    , a0.account_id as a0
     , coalesce(
         a9.account_id,
         coalesce(
@@ -188,7 +198,10 @@ select
                                     a2.account_id,
                                     coalesce(
                                         a1.account_id,
-                                        a0.account_id
+                                        coalesce(
+                                            a0.account_id,
+                                            a_root.account_id
+                                        )
                                    )
                                 )
                             )
@@ -198,7 +211,7 @@ select
             )
         )
     ) as account_id
-    , coalesce(a_root.name || ':', '')
+    , trim( trailing ':' from coalesce(a_root.name || ':', '')
     || coalesce(a0.name || ':', '')
     || coalesce(a1.name || ':', '')
     || coalesce(a2.name || ':', '')
@@ -208,19 +221,21 @@ select
     || coalesce(a6.name || ':', '')
     || coalesce(a7.name || ':', '')
     || coalesce(a8.name || ':', '')
-    || coalesce(a9.name || ':', '')
+    || coalesce(a9.name || ':', ''))
 from 
     T_ACCOUNT a_root
-        inner join T_ACCOUNT a0 on a0.account_id = a_root.account_id 
-        inner join T_ACCOUNT a1 on a1.account_id = a0.account_id 
-        inner join T_ACCOUNT a2 on a2.account_id = a1.account_id 
-        inner join T_ACCOUNT a3 on a3.account_id = a2.account_id 
-        inner join T_ACCOUNT a4 on a4.account_id = a3.account_id 
-        inner join T_ACCOUNT a5 on a5.account_id = a4.account_id 
-        inner join T_ACCOUNT a6 on a6.account_id = a5.account_id 
-        inner join T_ACCOUNT a7 on a7.account_id = a6.account_id 
-        inner join T_ACCOUNT a8 on a8.account_id = a7.account_id 
-        inner join T_ACCOUNT a9 on a9.account_id = a8.account_id 
+        inner join T_ACCOUNT a0 on a0.parent_id = a_root.account_id 
+        inner join T_ACCOUNT a1 on a1.parent_id = a0.account_id 
+        inner join T_ACCOUNT a2 on a2.parent_id = a1.account_id 
+        inner join T_ACCOUNT a3 on a3.parent_id = a2.account_id 
+        inner join T_ACCOUNT a4 on a4.parent_id = a3.account_id 
+        inner join T_ACCOUNT a5 on a5.parent_id = a4.account_id 
+        inner join T_ACCOUNT a6 on a6.parent_id = a5.account_id 
+        inner join T_ACCOUNT a7 on a7.parent_id = a6.account_id 
+        inner join T_ACCOUNT a8 on a8.parent_id = a7.account_id 
+        inner join T_ACCOUNT a9 on a9.parent_id = a8.account_id 
+where
+    a_root.is_root = 1
 ;
 
 /* V_EXPORT_LEDGER */
