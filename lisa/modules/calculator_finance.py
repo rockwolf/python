@@ -233,6 +233,15 @@ def calculate_amount(price, shares, transactionid, tax, commission):
     """
         Calculates the amount, including tax and commission.
     """
+    #<testinfo>
+    print('test: price =', price)
+    print('test: shares =', shares)
+    print('test: transaction_id=', transactionid)
+    print('test: tax =', tax)
+    print('test: commission =', commission)
+    print('test: amount_simple=', calculate_amount_simple(price, shares))
+    print('test: cost_transaction =', cost_transaction(transactionid, price, shares, tax, commission))
+    #</testinfo>
     return (
         calculate_amount_simple(price, shares) +
         cost_transaction(transactionid, price, shares, tax, commission)
