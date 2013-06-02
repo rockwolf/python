@@ -18,7 +18,7 @@ class ControllerMain():
         # initialise special vars
         self.config = config #object
         # Decimal precision
-        getcontext().prec = 4
+        getcontext().prec = 28
         # Parameters
         self.pool = pool
         self.amount = amount #full amount (incl. tax + comm.)

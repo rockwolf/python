@@ -36,7 +36,9 @@ class Calculator():
             # Input values
             if self.shares == Decimal(-1.0):
                 self.shares = calculate_shares_recommended()
+                print('test: shares =', shares)
             if self.price == Decimal(-1.0):
+                print('test: ', self.amount)
                 self.price = calculate_price(
                     self.amount
                     , self.shares
@@ -65,8 +67,13 @@ class Calculator():
                         , Transaction.SELL
                         , self.tax
                         , self.commission) #TODO: finish this, but I'm first going to add it to the library.
+
             # Extra calculatable fields
             #TODO: calculate stoploss etc.
+            cost_tax_buy = (self.amount - self.commission - self.shares * self.price)
+            print('cost tax_buy =', cost_tax_buy)
+            print('amount only_tax =', self.amount - self.commission)
+            print('amount_simple =', self.price * self.shares)
         except Exception as ex:
             print('Error in calculate:', ex)
 
