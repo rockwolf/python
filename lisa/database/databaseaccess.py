@@ -63,7 +63,7 @@ class DatabaseAccess():
             for instance in query: 
                 values.append(instance.name)
         except Exception as ex:
-            print(ERROR_GET_ACCOUNTS, ex)
+            print(Error.GET_ACCOUNTS, ex)
         finally:
             session.rollback()
             session = None
@@ -81,7 +81,7 @@ class DatabaseAccess():
             for instance in query: 
                 values.append(instance.code)
         except Exception as ex:
-            print(ERROR_GET_MARKETS, ex)
+            print(Error.GET_MARKETS, ex)
         finally:
             session.rollback()
             session = None
@@ -122,7 +122,7 @@ class DatabaseAccess():
                 value = instance.name
                 break
         except Exception as ex:
-            print(ERROR_GET_MARKET_DESCRIPTION, ex)
+            print(Error.GET_MARKET_DESCRIPTION, ex)
         finally:
             session.rollback()
             session = None
@@ -168,7 +168,7 @@ class DatabaseAccess():
                 values.append(instance.marketname)
                 values.append(instance.country)
         except Exception as ex:
-            print(ERROR_GET_STOCK_INFO, ex)
+            print(Error.GET_STOCK_INFO, ex)
         finally:
             session.rollback()
             session = None
@@ -185,7 +185,7 @@ class DatabaseAccess():
             for instance in query: 
                 values.append(instance.code)
         except Exception as ex:
-            print(ERROR_GET_CURRENCIES, ex)
+            print(Error.GET_CURRENCIES, ex)
         finally:
             session.rollback()
             session = None
@@ -250,7 +250,7 @@ class DatabaseAccess():
                 self.write_statement_list_delete(
                         statements_delete, statements.table_name)
         except Exception as ex:
-            print(ERROR_WRITE_TO_DATABASE_SESSION, ex)
+            print(Error.WRITE_TO_DATABASE_SESSION, ex)
 
     def write_statement_list_insert(self, final_statements, table_name):
         """
@@ -265,7 +265,7 @@ class DatabaseAccess():
                 print("{0} records added.".format(str(len(final_statements))))
                 print('')
         except Exception as ex:
-            print(ERROR_INSERT_DATABASE, ex)
+            print(Error.INSERT_DATABASE, ex)
         finally:
             session.rollback()
             session = None
@@ -292,7 +292,7 @@ class DatabaseAccess():
                 print("{0} records updated.".format(str(len(final_statements))))
                 print('')
         except Exception as ex:
-            print(ERROR_UPDATE_DATABASE, ex)
+            print(Error.UPDATE_DATABASE, ex)
         finally:
             session.rollback()
             session = None
@@ -312,7 +312,7 @@ class DatabaseAccess():
         #TODO: find a way to refactor this piece of crap code.
         result = []
         inner_part_list = statements.get_statement_list(insupdel)
-        if statements.table_name == TABLE_CURRENCY_EXCHANGE:
+        if statements.table_name == Table.CURRENCY_EXCHANGE:
             for record in inner_part_list:
                 result.append(T_CURRENCY_EXCHANGE(
                     record['currency_exchange_id'],
@@ -321,7 +321,7 @@ class DatabaseAccess():
                     record['exchange_rate'],
                     record['date_created'],
                     record['date_modified']))
-        elif statements.table_name == TABLE_RATE:
+        elif statements.table_name == Table.RATE:
             for record in inner_part_list:
                 result.append(T_RATE(
                     record['rate_id'],
@@ -337,7 +337,7 @@ class DatabaseAccess():
                     record['automatic_flag'],
                     record['date_created'],
                     record['date_modified']))
-        elif statements.table_name == TABLE_FINANCE:
+        elif statements.table_name == Table.FINANCE:
             for record in inner_part_list:
                 result.append(T_FINANCE(
                     record['finance_id'],
@@ -358,7 +358,7 @@ class DatabaseAccess():
                     record['currency_exchange_id'],
                     record['date_created'],
                     record['date_modified']))
-        elif statements.table_name == TABLE_TRADE:
+        elif statements.table_name == Table.TRADE:
             for record in inner_part_list:
                 result.append(T_TRADE(
                     record['trade_id'],
@@ -417,11 +417,11 @@ class DatabaseAccess():
         result = []
         inner_part_list = statements.get_statement_list(insupdel)
         for record in inner_part_list:
-            if statements.table_name == TABLE_TRADE:
+            if statements.table_name == Table.TRADE:
                 #TODO: instead of table_id being the id, make it
                 #the first field in the update string {...}: {..}
                 result[0].append(record['trade_id'])
-            elif statements.table_name == TABLE_INVESTMENT:
+            elif statements.table_name == Table.INVESTMENT:
                 result[0].append(record['investment_id'])
             else:
                 record[0].append(-1)
@@ -525,7 +525,7 @@ class DatabaseAccess():
                 for instance in session.query(T_ACCOUNT).filter_by(name=account):
                     result = str(instance.account_id)
         except Exception as ex:
-            print(ERROR_ACCOUNT_ID_FROM_ACCOUNT, ex)
+            print(Error.ACCOUNT_ID_FROM_ACCOUNT, ex)
         finally:
             session.rollback()
             session = None
@@ -640,7 +640,7 @@ class DatabaseAccess():
             else:
                 raise Exception("Error: currency {0} not found! -1 used as a currency_id.".format(currency))
         except Exception as ex:
-            print(ERROR_ACCOUNT_ID_FROM_ACCOUNT, ex)
+            print(Error.ACCOUNT_ID_FROM_ACCOUNT, ex)
         finally:
             session.rollback()
             session = None
@@ -713,7 +713,7 @@ class DatabaseAccess():
         result = -1
         session = self.Session()
         try:
-            currency_exchange_created = self.get_latest_date_created(TABLE_CURRENCY_EXCHANGE)
+            currency_exchange_created = self.get_latest_date_created(Table.CURRENCY_EXCHANGE)
             first_obj = session.query(T_CURRENCY_EXCHANGE).filter_by(
                     date_created=currency_exchange_created).first()
             if first_obj is not None:
@@ -733,7 +733,7 @@ class DatabaseAccess():
         result = -1
         session = self.Session()
         try:
-            rate_created = self.get_latest_date_created(TABLE_RATE)
+            rate_created = self.get_latest_date_created(Table.RATE)
             obj = session.query(T_RATE).filter_by(date_created=rate_created)
             for instance in obj:
                 result = instance.rate_id
@@ -752,7 +752,7 @@ class DatabaseAccess():
         result = -1
         session = self.Session()
         try:
-            finance_created = self.get_latest_date_created(TABLE_FINANCE)
+            finance_created = self.get_latest_date_created(Table.FINANCE)
             obj = session.query(T_FINANCE).filter_by(date_created=finance_created)
             for instance in obj:
                 result = instance.finance_id
@@ -770,13 +770,13 @@ class DatabaseAccess():
         result = current_date()
         session = self.Session()
         try:
-            if tablename == TABLE_FINANCE:
+            if tablename == Table.FINANCE:
                 first_obj = session.query(T_FINANCE).order_by(
                     T_FINANCE.finance_id.desc()).first()
-            elif tablename == TABLE_RATE:
+            elif tablename == Table.RATE:
                 first_obj = session.query(T_RATE).order_by(
                     T_RATE.rate_id.desc()).first()
-            elif tablename == TABLE_CURRENCY_EXCHANGE:
+            elif tablename == Table.CURRENCY_EXCHANGE:
                 first_obj = session.query(T_CURRENCY_EXCHANGE).order_by(
                     T_CURRENCY_EXCHANGE.currency_exchange_id.desc()).first()
             else:
@@ -869,7 +869,7 @@ class DatabaseAccess():
                         'drawdown_id')):
                 result = instance.drawdown_id
         except Exception as ex:
-            print(ERROR_NEW_DRAWDOWN_RECORD, ex)
+            print(Error.NEW_DRAWDOWN_RECORD, ex)
         finally:
             session.rollback()
             session = None
@@ -899,6 +899,7 @@ class DatabaseAccess():
             Function to determine what parameter to use to select
             the correct tax.
         """
+        #TODO: doesn't calculator_finance make this obsolete? Revise this.
         result = -1
         try:
             #TODO: complete this, to return the correct value for
@@ -954,7 +955,7 @@ class DatabaseAccess():
                             active=1
                             ).first()
         except Exception as ex:
-            print(ERROR_GET_SPECIFIC_FINANCE_RECORD, ex)
+            print(Error.GET_SPECIFIC_FINANCE_RECORD, ex)
             session.rollback()
             result = None
         finally:
@@ -984,7 +985,7 @@ class DatabaseAccess():
             if first_obj is not None:
                 result = True
         except Exception as ex:
-            print(ERROR_INVADE_ALREADY_STARTED, ex)
+            print(Error.INVADE_ALREADY_STARTED, ex)
         return result
 
     def get_invade_record(self, finance_id, table_class):
