@@ -30,7 +30,7 @@ class Investment(CoreModule):
     #NOTE: convention: 0 = insert / 1 = update / 3 = delete
     def create_statements(self, input_fields, statements_finance):
         """
-            Creates the records needed for TABLE_INVESTMENT and returns them as a
+            Creates the records needed for Table.INVESTMENT and returns them as a
             Statement object.
         """
         #NOTE: price_buy will be fields['amount']
@@ -41,7 +41,7 @@ class Investment(CoreModule):
             dba = DatabaseAcces(self.config)
             date_created = current_date()
             date_modified = current_date()
-            statement_invest = Statement(TABLE_INVESTMENT)
+            statement_invest = Statement(Table.INVESTMENT)
             records = 0
             finance_id = dba.first_finance_id_from_latest()
             if finance_id != -1:
@@ -60,7 +60,7 @@ class Investment(CoreModule):
                         #and not the next ones!
                         #This is really becoming more complex than necessary,
                         #split the code and focus on T_TRADE instead.
-                        investment_record = dba.get_invade_record(finance_id, TABLE_INVESTMENT)
+                        investment_record = dba.get_invade_record(finance_id, Table.INVESTMENT)
                         long_flag = dba.get_long_flag_value(fields['i_category'],
                                 fields['i_subcategory'], investment_record)
                         # TEST INFO
@@ -71,7 +71,7 @@ class Investment(CoreModule):
                         if dba.invade_already_started(market_id,
                                 stock_name_id, T_INVESTMENT):
                             # UPDATE
-                            flag_insupdel = STATEMENT_UPDATE
+                            flag_insupdel = STatement.UPDATE
                             investment_id = investment_record['investment_id']
                             ## buy/sell related fields
                             if fields['subcategory'] == 'buy' \
@@ -106,7 +106,7 @@ class Investment(CoreModule):
                                 raise Exception(
                                     "{0} already contains a sell or buy record" \
                                     " and you are trying to add one like it" \
-                                    " again?".format(TABLE_TRADE))
+                                    " again?".format(Table.TRADE))
                             stoploss = investment_record['stoploss']
                             profit_loss = calculate_profit_loss(
                                 investment_record['amount_sell'],
@@ -328,6 +328,6 @@ class Investment(CoreModule):
                 finance_id = finance_id + 1
             return statement_trade
         except Exception as ex:
-            print(ERROR_CREATE_STATEMENTS_TABLE_INVESTMENT, ex)
+            print(Error.CREATE_STATEMENTS_TABLE_INVESTMENT, ex)
         finally:
             dba = None
