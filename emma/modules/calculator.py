@@ -70,8 +70,10 @@ class Calculator():
 
             # Extra calculatable fields
             #TODO: calculate stoploss etc.
-            cost_tax_buy = (self.amount - self.commission - self.shares * self.price)
+            cost_tax_buy = cost_tax(TransactionId.BUY, self.amount, self.commission, self.shares, self.price)
+            cost_tax_sell = cost_tax(TransactionId.SELL, self.amount, self.commission, self.shares, self.price)
             print('cost tax_buy =', cost_tax_buy)
+            print('cost tax_sell =', cost_tax_sell)
             print('amount only_tax =', self.amount - self.commission)
             print('amount_simple =', self.price * self.shares)
         except Exception as ex:
