@@ -29,7 +29,7 @@ class ControllerMain():
         # initialise special vars
         self.config = config #object
         # Decimal precision
-        getcontext().prec = 4
+        getcontext().prec = 28
 
     # Methods
     ## General
