@@ -251,14 +251,20 @@ def cost_transaction(transactionid, price, shares, tax, commission):
     """
         Cost of transaction (tax and commission)
     """
-    # Note: transactionid = 
-    # 0: buy
-    # 1: sell
-    if transactionid == 1:
+    if transactionid == Transaction.SELL:
         result = (price * shares * (Decimal(1.0) - tax)) - commission
     else:
         result = (price * shares * (1 + tax)) + commission
     return result
+    
+def cost_tax(transactionid, amount, commission, shares, price):
+    """
+        shares * price * tax_percentage for buy or sell
+    """
+    if transactionid == Transaction.SELL:
+        result = amount - commission - shares * price
+    else:
+        result = shares * price - amount - commission
 
 def calculate_profit_loss(amount_sell_simple, amount_buy_simple, total_cost):
     """
