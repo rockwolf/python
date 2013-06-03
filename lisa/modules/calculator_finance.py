@@ -262,12 +262,6 @@ def calculate_amount_with_tax(transactionid, amount, commission, shares, price):
     """
         Calculates the amount (buy/sell) with tax included, but not the commission.
     """
-    print('<test amount_with_tax>')
-    print('test: amount =', amount)
-    print('test: commission =', commission)
-    print('test: shares =', shares)
-    print('test: price =', price)
-    print('</test amount_with_tax>')
     if transactionid == Transaction.SELL:
         result = amount - commission
     else:
@@ -301,13 +295,6 @@ def calculate_price(amount, shares, tax, commission):
     """
         Calculates the price.
     """
-    print('test:' , amount, shares, tax, commission)
-    #<testinfo>
-    print('test: amount =', amount)
-    print('test: shares =', shares)
-    print('test: tax =', tax)
-    print('test: commission =', commission)
-    #</testinfo>
     var_T = amount - commission
     var_N = (Decimal(1.0) + tax) * shares
     return var_T / var_N
