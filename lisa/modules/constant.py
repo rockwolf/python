@@ -40,39 +40,57 @@ VIEW_MARGIN = 'v_margin'
 VIEW_MARGIN_TYPE = 'v_margin_type'
 VIEW_POOL = 'v_pool'
 VIEW_REP_CHECK_TOTAL = 'v_rep_check_total'
-ERROR_GET_MARKET_DESCRIPTION = "Error in get_marketdescription: "
-ERROR_GET_CATEGORIES = "Error in get_categories: "
-ERROR_GET_ACCOUNTS = "Error in get_accounts: "
-ERROR_GET_CATEGORIES = "Error in get_categories: "
-ERROR_GET_SUBCATEGORIES = "Error in get_subcategories: "
-ERROR_GET_MARKETS = "Error in get_markets: "
-ERROR_GET_STOCK_NAMES = "Error in get_stocknames: "
-ERROR_GET_STOCK_DESCRIPTION = "Error in get_stockdescription: "
-ERROR_GET_STOCK_INFO = "Error in get_stockinfo: "
-ERROR_GET_CURRENCIES = "Error in get_currencies: "
-ERROR_EXPORT_RECORDS = "Error in export_records: "
-ERROR_SUBCATEGORY_ID_FROM_SUBCATEGORY = "Error retrieving subcategory_id: "
-ERROR_ACCOUNT_ID_FROM_ACCOUNT = "Error retrieving account_id: "
-ERROR_WRITE_TO_DATABASE_MAIN = "Error in write_to_database from main controller: "
-ERROR_WRITE_TO_DATABASE = "Error in write_to_database: "
-ERROR_WRITE_TO_DATABASE_SESSION = "Error creating session in write_to_database: "
-ERROR_WRITE_TO_DATABASE_CORE = "Error creating session in write_to_database from core_module: "
-ERROR_INSERT_DATABASE = "Error in write_statement_list_insert: "
-ERROR_UPDATE_DATABASE = "Error in write_statement_list_update: "
-ERROR_DELETE_DATABASE = "Error in write_statement_list_delete: "
-ERROR_GET_INPUT_FIELDS = "Error in get_input_fields: "
-ERROR_CREATE_STATEMENTS_TABLE_FINANCE = "Error in create_statements_TABLE_FINANCE: "
-ERROR_CREATE_STATEMENTS_TABLE_STOCK = "Error in create_statements_TABLE_STOCK: "
-ERROR_CREATE_STATEMENTS_TABLE_TRADE = "Error in create_statements_TABLE_TRADE: "
-ERROR_CREATE_STATEMENTS_TABLE_INVESTMENT = "Error in create_statements_TABLE_INVESTMENT: "
-ERROR_CREATE_STATEMENTS_TABLE_RATE = "Error in create_statements_TABLE_RATE: "
-ERROR_CREATE_STATEMENTS_TABLE_CURRENCY_EXCHANGE = "Error in create_statements_TABLE_CURRENCY_EXCHANGE: "
-ERROR_INVADE_ALREADY_STARTED = "Error in invade_already_started: "
-ERROR_NEW_DRAWDOWN_RECORD = "Error in new_drawdown_record: "
-ERROR_GET_SPECIFIC_FINANCE_RECORD = "Error in get_specific_finance_record: "
-MESSAGE_EXEC_ALL = "Executing statements all at once..."
-MESSAGE_PREPARING = "Preparing statements..."
-MESSAGE_DONE = "Done."
+
+class Error():
+    """
+        Error messages.
+    """
+    GET_MARKET_DESCRIPTION = "Error in get_marketdescription: "
+    GET_CATEGORIES = "Error in get_categories: "
+    GET_ACCOUNTS = "Error in get_accounts: "
+    GET_CATEGORIES = "Error in get_categories: "
+    GET_SUBCATEGORIES = "Error in get_subcategories: "
+    GET_MARKETS = "Error in get_markets: "
+    GET_STOCK_NAMES = "Error in get_stocknames: "
+    GET_STOCK_DESCRIPTION = "Error in get_stockdescription: "
+    GET_STOCK_INFO = "Error in get_stockinfo: "
+    GET_CURRENCIES = "Error in get_currencies: "
+    EXPORT_RECORDS = "Error in export_records: "
+    SUBCATEGORY_ID_FROM_SUBCATEGORY = "Error retrieving subcategory_id: "
+    ACCOUNT_ID_FROM_ACCOUNT = "Error retrieving account_id: "
+    WRITE_TO_DATABASE_MAIN = "Error in write_to_database from main controller: "
+    WRITE_TO_DATABASE = "Error in write_to_database: "
+    WRITE_TO_DATABASE_SESSION = "Error creating session in write_to_database: "
+    WRITE_TO_DATABASE_CORE = "Error creating session in write_to_database from core_module: "
+    INSERT_DATABASE = "Error in write_statement_list_insert: "
+    UPDATE_DATABASE = "Error in write_statement_list_update: "
+    DELETE_DATABASE = "Error in write_statement_list_delete: "
+    GET_INPUT_FIELDS = "Error in get_input_fields: "
+    CREATE_STATEMENTS_TABLE_FINANCE = "Error in create_statements_TABLE_FINANCE: "
+    CREATE_STATEMENTS_TABLE_STOCK = "Error in create_statements_TABLE_STOCK: "
+    CREATE_STATEMENTS_TABLE_TRADE = "Error in create_statements_TABLE_TRADE: "
+    CREATE_STATEMENTS_TABLE_INVESTMENT = "Error in create_statements_TABLE_INVESTMENT: "
+    CREATE_STATEMENTS_TABLE_RATE = "Error in create_statements_TABLE_RATE: "
+    CREATE_STATEMENTS_TABLE_CURRENCY_EXCHANGE = "Error in create_statements_TABLE_CURRENCY_EXCHANGE: "
+    INVADE_ALREADY_STARTED = "Error in invade_already_started: "
+    NEW_DRAWDOWN_RECORD = "Error in new_drawdown_record: "
+    GET_SPECIFIC_FINANCE_RECORD = "Error in get_specific_finance_record: "
+
+class Message():
+    """
+       Messages to print to stdout.
+    """
+    EXEC_ALL = "Executing statements all at once..."
+    PREPARING = "Preparing statements..."
+    DONE = "Done."
+    
+class Export():
+    """
+        Export types.
+    """
+    LEDGER = "ledger"
+    CSV = "csv"
+    
 DEFAULT_DATE = "1900-01-01"
 DEFAULT_DECIMAL = Decimal(0.0)
 DEFAULT_INT = 0
@@ -81,5 +99,3 @@ PARM_TAX = 4
 STATEMENT_INSERT = 0
 STATEMENT_UPDATE = 1
 STATEMENT_DELETE = 2
-EXPORT_LEDGER = "ledger"
-EXPORT_CSV = "csv"
