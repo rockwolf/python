@@ -18,14 +18,14 @@ class Rate(CoreModule):
 
     def create_statements(self, input_fields):
         """
-            Creates the records needed for TABLE_RATE
+            Creates the records needed for Table.RATE
             and returns them as a Statement object.
         """
         try:
             dba = DatabaseAccess(self.config)
             date_created = current_date()
             date_modified = current_date()
-            statement_rate = Statement(TABLE_RATE)
+            statement_rate = Statement(Table.RATE)
             records = 0
             for fields in input_fields:
                 if deals_with_stocks(fields['i_category'], fields['i_subcategory']):
@@ -79,6 +79,6 @@ class Rate(CoreModule):
                     )
             return statement_rate
         except Exception as ex:
-            print(ERROR_CREATE_STATEMENTS_TABLE_RATE, ex)
+            print(Error.CREATE_STATEMENTS_TABLE_RATE, ex)
         finally:
             dba = None
