@@ -233,15 +233,6 @@ def calculate_amount(price, shares, transactionid, tax, commission):
     """
         Calculates the amount, including tax and commission.
     """
-    #<testinfo>
-    print('test: price =', price)
-    print('test: shares =', shares)
-    print('test: transaction_id=', transactionid)
-    print('test: tax =', tax)
-    print('test: commission =', commission)
-    print('test: amount_simple=', calculate_amount_simple(price, shares))
-    print('test: cost_transaction =', cost_transaction(transactionid, price, shares, tax, commission))
-    #</testinfo>
     return (
         calculate_amount_simple(price, shares) +
         cost_transaction(transactionid, price, shares, tax, commission)
@@ -271,10 +262,16 @@ def calculate_amount_with_tax(transactionid, amount, commission, shares, price):
     """
         Calculates the amount (buy/sell) with tax included, but not the commission.
     """
+    print('<test amount_with_tax>')
+    print('test: amount =', amount)
+    print('test: commission =', commission)
+    print('test: shares =', shares)
+    print('test: price =', price)
+    print('</test amount_with_tax>')
     if transactionid == Transaction.SELL:
-        result = shares * price - amount - commission
-    else:
         result = amount - commission
+    else:
+        result = shares * price - amount - commission
     return result
 
 def calculate_profit_loss(amount_sell_simple, amount_buy_simple, total_cost):
