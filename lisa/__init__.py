@@ -83,17 +83,17 @@ if __name__ == "__main__":
         option = 'import'
     elif args['export']:
         option = 'export'
-        if args['export'] == EXPORT_LEDGER:
-            export_type = EXPORT_LEDGER
-        elif args['export'] == EXPORT_CSV:
-            export_type = EXPORT_CSV
+        if args['export'] == Export.LEDGER:
+            export_type = Export.LEDGER
+        elif args['export'] == Export.CSV:
+            export_type = Export.CSV
         else:
             print("Error: wrong export type (" + 
                     args['export'] +
                     "), falling back on the default (" +
-                    EXPORT_CSV +
+                    Export.CSV +
                     ")!");
-            export_type = EXPORT_CSV
+            export_type = Export.CSV
     elif args['install']:
         install()
         sys.exit(0)
