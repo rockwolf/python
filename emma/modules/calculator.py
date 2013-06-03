@@ -25,6 +25,10 @@ class Calculator():
         self.market = market
         self.commodity = commodity
         self.account = account
+        # result
+        self.result_general = {}
+        self.result_buy = {}
+        self.result_sell = {}
   
     def calculate(self):
         """
@@ -69,36 +73,93 @@ class Calculator():
                         , self.commission)
 
             # Extra calculatable fields
-            result_general = {}
-            result_buy = {}
-            result_sell = {}
             # GENERAL
-            result_general["amount"] = self.amount
-            result_general["tax"] = self.tax
-            result_general["commission"] = self.commission
+            self.result_general["amount"] = self.amount
+            self.result_general["tax"] = self.tax
+            self.result_general["commission"] = self.commission
+            self.result_general["amount_simple"] = calculate_amount_simple(self.shares, self.price)
             # BUY
-            result_buy["cost_tax"] = cost_tax(Transaction.BUY, self.amount, self.commission, self.shares, self.price)
-            result_buy["amount_tax_buy"] = calculate_amount_with_tax(Transaction.BUY, self.amount, self.commission, self.shares, self.price)
+            self.result_buy["cost_tax"] = cost_tax(Transaction.BUY, self.amount, self.commission, self.shares, self.price)
+            self.result_buy["amount_with_tax"] = calculate_amount_with_tax(Transaction.BUY, self.amount, self.commission, self.shares, self.price)
             # SELL
-            result_sell["cost_tax_sell"] = cost_tax(Transaction.SELL, self.amount, self.commission, self.shares, self.price)
-            result_sell["amount_tax_sell"] = calculate_amount_with_tax(Transaction.SELL, self.amount, self.commission, self.shares, self.price)
-            self.print_pretty(result_general, result_buy, result_sell)
+            self.result_sell["cost_tax"] = cost_tax(Transaction.SELL, self.amount, self.commission, self.shares, self.price)
+            self.result_sell["amount_with_tax"] = calculate_amount_with_tax(Transaction.SELL, self.amount, self.commission, self.shares, self.price)
         except Exception as ex:
             print('Error in calculate:', ex)
 
-    def print_pretty(self, result_general, result_buy, result_sell):
+    def print_pretty(self):
         """
             Print the results with headers etc.
         """
         try:
             print('GENERAL')
             print('-------')
-            print(result_general)
+            print(self.result_general)
             print('BUY')
             print('-------')
-            print(result_buy)
+            print(self.result_buy)
             print('SELL')
             print('-------')
-            print(result_sell)
-        except:
-            print('Could not print the values...')
+            print(self.result_sell)
+        except Exception as ex:
+            print('Error in print_pretty():', ex)
+
+    def print_gnucash(self):
+        """
+            Print statements to enter in gnucash.
+        """
+        try:
+            print('BUY')
+            print('-------')
+            print('account,shares,price,debit,credit')
+            print(
+                'assets:stock:<market>.<commodity>,' +
+                str(self.shares) +
+                ',' +
+                str(self.price) +
+                ',' +
+                str(self.result_general["amount_simple"]) +
+                ','
+            )
+            print(
+                'expenses:commission:stock:<market>.<commodity>,,' + 
+                str(self.commission) +
+                ','
+            )
+            print(
+                'expenses:tax:stock:<market>.<commodity>,,' +
+                str(self.result_buy["cost_tax"])
+            )
+            print(
+                'assets:current_assets:stock:<bank account>,,,' +
+                str(self.amount)
+            )
+            print('SELL')
+            print('-------')
+            print(
+                'account,shares,price,debit,credit'
+            )
+            print(
+                'assets:stock:<market>.<commodity>,' +
+                str(self.shares) + 
+                ',' +
+                str(self.price) +
+                ',' +
+                str(self.result_general["amount_simple"]) +
+                ','
+            )
+            print(
+                'expenses:commission:stock:<market>.<commodity>,,' +
+                str(self.commission) +
+                ','
+            )
+            print(
+                'expenses:tax:stock:<market>.<commodity>,,' +
+                str(self.result_sell["cost_tax"])
+            )
+            print(
+                'assets:current_assets:stock:<bank account>,,,' +
+                str(self.amount)
+            )
+        except Exception as ex:
+            print('Error in print_gnucash():', ex)
