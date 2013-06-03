@@ -80,7 +80,7 @@ class ControllerMain():
             trade = None
             investment = None
         except  Exception as ex:
-            print(ERROR_WRITE_TO_DATABASE_MAIN, ex)
+            print(Error.WRITE_TO_DATABASE_MAIN, ex)
 
     def get_input_fields(self, tablecontent):
         """ Gets input, adds extra info and puts this in a list. """
@@ -124,7 +124,7 @@ class ControllerMain():
                     'i_pool':Decimal(pool)
                 })
         except Exception as ex:
-            print(ERROR_GET_INPUT_FIELDS, ex)
+            print(Error.GET_INPUT_FIELDS, ex)
         finally:
             return input 
 
