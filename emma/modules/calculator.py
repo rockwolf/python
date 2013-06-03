@@ -79,7 +79,7 @@ class Calculator():
             # SELL
             result_sell["cost_tax_sell"] = cost_tax(Transaction.SELL, self.amount, self.commission, self.shares, self.price)
             result_sell["amount_tax_sell"] = calculate_amount_with_tax(Transaction.SELL, self.amount, self.commission, self.shares, self.price)
-            print_pretty(result_dict)
+            print_pretty(result_general, result_buy, result_sell)
         except Exception as ex:
             print('Error in calculate:', ex)
 
