@@ -26,6 +26,6 @@ class CoreModule():
             dba = DatabaseAccess(self.config)
             dba.write_to_database(statements)
         except Exception as ex:
-            print(ERROR_WRITE_TO_DATABASE_CORE, ex)
+            print(Error.WRITE_TO_DATABASE_CORE, ex)
         finally:
             dba = None
