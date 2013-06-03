@@ -18,11 +18,11 @@ class CurrencyExchange(CoreModule):
 
     def create_statements(self, input_fields):
         """
-            Creates the records needed for TABLE_CURRENCY_EXCHANGE.
+            Creates the records needed for Table.CURRENCY_EXCHANGE.
         """
         try:
             dba = DatabaseAccess(self.config)
-            statement_currency_exchange = Statement(TABLE_CURRENCY_EXCHANGE)
+            statement_currency_exchange = Statement(Table.CURRENCY_EXCHANGE)
             date_created = current_date()
             date_modified = current_date()
             records = 0
