@@ -44,6 +44,6 @@ class CurrencyExchange(CoreModule):
                 )
             return statement_currency_exchange
         except Exception as ex:
-            print(ERROR_CREATE_STATEMENTS_TABLE_CURRENCY_EXCHANGE, ex)
+            print(Error.CREATE_STATEMENTS_TABLE_CURRENCY_EXCHANGE, ex)
         finally:
             dba = None
