@@ -18,8 +18,6 @@ class Trade(CoreModule):
     """
         Trade class.
     """
-
-    #NOTE: convention: 0 = insert / 1 = update / 3 = delete
     #NOTE: Correct way of updating =  Supplier.query.filter(<your stuff here, or user filter_by, or whatever is in your where clause>).update(values)
     #e.g.: session.query(Supplier).filter_by(id=2).update({"name": u"Mayowa"})
     #TABLE_TRADE.query.filter(market_name=...,stock_name=...).update({"date_...": date_... etc.})
@@ -27,7 +25,7 @@ class Trade(CoreModule):
     #where win_flag = -1
     def create_statements(self, input_fields, statements_finance):
         """
-            Creates the records needed for TABLE_TRADE and returns them as a
+            Creates the records needed for Table.TRADE and returns them as a
             Statement object.
         """
         #NOTE: price_buy will be fields['i_amount']
@@ -37,7 +35,7 @@ class Trade(CoreModule):
             dba = DatabaseAccess(self.config)
             date_created = current_date()
             date_modified = current_date()
-            statement_trade = Statement(TABLE_TRADE)
+            statement_trade = Statement(Table.TRADE)
             records = 0
             finance_id = dba.first_finance_id_from_latest()
             if finance_id != -1:
@@ -67,7 +65,7 @@ class Trade(CoreModule):
                         if dba.invade_already_started(market_id,
                                 stock_name_id, T_TRADE):
                             # UPDATE
-                            flag_insupdel = STATEMENT_UPDATE
+                            flag_insupdel = Statement.UPDATE
                             trade_id = trade_record['trade_id']
                             ## buy/sell related fields
                             if fields['i_subcategory'] == 'buy' \
@@ -162,7 +160,7 @@ class Trade(CoreModule):
                             expired_flag = (1 if date_sell > date_expiration else 0)
                         else:
                             # INSERT
-                            flag_insupdel = STATEMENT_INSERT
+                            flag_insupdel = Statement.INSERT
                             trade_id = None # insert: new one created automatically
                             ## buy/sell related fields
                             if we_are_buying(fields['i_subcategory']):
@@ -336,6 +334,6 @@ class Trade(CoreModule):
                 finance_id = finance_id + 1
             return statement_trade
         except Exception as ex:
-            print(ERROR_CREATE_STATEMENTS_TABLE_TRADE, ex)
+            print(Error.CREATE_STATEMENTS_TABLE_TRADE, ex)
         finally:
             dba = None
