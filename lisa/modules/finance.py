@@ -18,7 +18,7 @@ class Finance(CoreModule):
         
     def create_statements(self, input_fields):
         """
-            Creates the records needed for TABLE_FINANCE
+            Creates the records needed for Table.FINANCE
             and returns them as a Statement object.
         """
         #TODO: move all create statements tot their own module?
@@ -27,7 +27,7 @@ class Finance(CoreModule):
             dba = DatabaseAccess(self.config)
             date_created = current_date()
             date_modified = current_date()
-            statement_finance = Statement(TABLE_FINANCE)
+            statement_finance = Statement(Table.FINANCE)
             records = 0
             currency_exchange_id = dba.first_currency_exchange_id_from_latest()
             rate_id = dba.first_rate_id_from_latest()
@@ -91,6 +91,6 @@ class Finance(CoreModule):
                         currency_exchange_id = currency_exchange_id + 1
             return statement_finance
         except Exception as ex:
-            print(ERROR_CREATE_STATEMENTS_TABLE_FINANCE, ex)
+            print(Error.CREATE_STATEMENTS_TABLE_FINANCE, ex)
         finally:
             dba = None
