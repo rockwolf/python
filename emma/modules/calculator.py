@@ -36,7 +36,7 @@ class Calculator():
             # Input values
             if self.shares == Decimal(-1.0):
                 self.shares = calculate_shares_recommended()
-                print('test: shares =', shares)
+                print('test: shares =', self.shares)
             if self.price == Decimal(-1.0):
                 print('test: ', self.amount)
                 self.price = calculate_price(
@@ -59,32 +59,46 @@ class Calculator():
                         , self.shares
                         , Transaction.BUY
                         , self.tax
-                        , self.commission) #TODO: finish this, but I'm first going to add it to the library.
+                        , self.commission)
                 else:
                     self.amount = calculate_amount(
                         self.price
                         , self.shares
                         , Transaction.SELL
                         , self.tax
-                        , self.commission) #TODO: finish this, but I'm first going to add it to the library.
+                        , self.commission)
 
             # Extra calculatable fields
-            #TODO: calculate stoploss etc.
-            cost_tax_buy = (self.amount - self.commission - self.shares * self.price)
-            cost_tax_sell = (self.amount + self.commission - self.shares * self.price)
-            print('cost tax_buy =', cost_tax_buy)
-            print('amount only_tax =', self.amount - self.commission)
-            print('amount_simple =', self.price * self.shares)
-            print('cost tax_sell =', cost_tax_sell)
+            result_general = {}
+            result_buy = {}
+            result_sell = {}
+            # GENERAL
+            result_general["amount"] = self.amount
+            result_general["tax"] = self.tax
+            result_general["commission"] = self.commission
+            # BUY
+            result_buy["cost_tax"] = cost_tax(Transaction.BUY, self.amount, self.commission, self.shares, self.price)
+            result_buy["amount_tax_buy"] = calculate_amount_with_tax(Transaction.BUY, self.amount, self.commission, self.shares, self.price)
+            # SELL
+            result_sell["cost_tax_sell"] = cost_tax(Transaction.SELL, self.amount, self.commission, self.shares, self.price)
+            result_sell["amount_tax_sell"] = calculate_amount_with_tax(Transaction.SELL, self.amount, self.commission, self.shares, self.price)
+            self.print_pretty(result_general, result_buy, result_sell)
         except Exception as ex:
             print('Error in calculate:', ex)
 
-    def print_pretty(self):
+    def print_pretty(self, result_general, result_buy, result_sell):
         """
             Print the results with headers etc.
         """
         try:
-            pass
+            print('GENERAL')
+            print('-------')
+            print(result_general)
+            print('BUY')
+            print('-------')
+            print(result_buy)
+            print('SELL')
+            print('-------')
+            print(result_sell)
         except:
-            pass
-      
+            print('Could not print the values...')

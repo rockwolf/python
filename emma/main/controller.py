@@ -68,7 +68,6 @@ class ControllerMain():
             , self.commodity
             , self.account)
         calc.calculate()
-        calc.print_pretty()
         
         if profile:
             print('Profile not implemented yet.')
