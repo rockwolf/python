@@ -22,11 +22,11 @@ class Statement():
         """
         #NOTE: statement = [record, {...}]
         result = []
-        if insupdel == 0:
+        if insupdel == Statement.INSERT:
             statements = self.statements_insert
-        elif insupdel == 1:
+        elif insupdel == Statement.UPDATE:
             statements = self.statements_update
-        elif insupdel == 2:
+        elif insupdel == Statement.DELETE:
             statements = self.statements_delete
         for statement in statements:    
             result.append([key for key, val in statement[1].items()])
@@ -49,11 +49,11 @@ class Statement():
     def remove(self, index=-1, insupdel=0):
         """ Remove statement added on specified index """
         try:
-            if insupdel == 0:
+            if insupdel == Statements.INSERT:
                 self.statements_insert.pop(index)
-            elif insupdel == 1:
+            elif insupdel == Statements.UPDATE:
             	self.statements_update.pop(index)
-            elif insupdel == 2:
+            elif insupdel == Statements.DELETE:
             	self.statements_delete.pop(index)
         except Exception as ex:
             print("Error removing statement from the list: ", ex)
@@ -89,11 +89,11 @@ class Statement():
         #NOTE: statement = [record, {...}]
         result = []
         try:
-            if insupdel == 0:
+            if insupdel == Statement.INSERT:
             	statements = self.statements_insert
-            elif insupdel == 1:
+            elif insupdel == Statement.UPDATE:
             	statements = self.statements_update
-            elif insupdel == 2:
+            elif insupdel == Statement.DELETE:
             	statements = self.statements_delete
             if statements is not None:
                 for statement in statements:
