@@ -62,7 +62,7 @@ class MainWrapper():
             export
         """
         exp = FileExport(self.config)
-        if export_type == EXPORT_LEDGER:
+        if export_type == Export.LEDGER:
             exp.ledger_export()
         else:
             exp.csv_export()
