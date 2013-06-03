@@ -69,22 +69,33 @@ class Calculator():
                         , self.commission) #TODO: finish this, but I'm first going to add it to the library.
 
             # Extra calculatable fields
-            #TODO: calculate stoploss etc.
-            cost_tax_buy = cost_tax(TransactionId.BUY, self.amount, self.commission, self.shares, self.price)
-            cost_tax_sell = cost_tax(TransactionId.SELL, self.amount, self.commission, self.shares, self.price)
-            print('cost tax_buy =', cost_tax_buy)
-            print('cost tax_sell =', cost_tax_sell)
-            print('amount only_tax =', self.amount - self.commission)
-            print('amount_simple =', self.price * self.shares)
+            # GENERAL
+            result_general["amount"] = self.amount
+            result_general["tax"] = self.tax
+            result_general["commission"] = self.commission
+            # BUY
+            result_buy["cost_tax"] = cost_tax(Transaction.BUY, self.amount, self.commission, self.shares, self.price)
+            result_buy["amount_tax_buy"] = calculate_amount_with_tax(Transaction.BUY, self.amount, self.commission, self.shares, self.price)
+            # SELL
+            result_sell["cost_tax_sell"] = cost_tax(Transaction.SELL, self.amount, self.commission, self.shares, self.price)
+            result_sell["amount_tax_sell"] = calculate_amount_with_tax(Transaction.SELL, self.amount, self.commission, self.shares, self.price)
+            print_pretty(result_dict)
         except Exception as ex:
             print('Error in calculate:', ex)
 
-    def print_pretty(self):
+    def print_pretty(self, result_general, result_buy, result_sell):
         """
             Print the results with headers etc.
         """
         try:
-            pass
+            print('GENERAL')
+            print('-------')
+            print(result_general)
+            print('BUY')
+            print('-------')
+            print(result_buy)
+            print('SELL')
+            print('-------')
+            print(result_sell)
         except:
-            pass
-      
+            print('Could not print the values...')
