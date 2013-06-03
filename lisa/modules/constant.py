@@ -100,11 +100,16 @@ class Export():
     LEDGER = "ledger"
     CSV = "csv"
     
+class Statement():
+    """
+      Statement types.
+    """
+    INSERT = 0
+    UPDATE = 1
+    DELETE = 2
+    
 DEFAULT_DATE = "1900-01-01"
 DEFAULT_DECIMAL = Decimal(0.0)
 DEFAULT_INT = 0
 TRADING_ACCOUNT_ID = 6
 PARM_TAX = 4
-STATEMENT_INSERT = 0
-STATEMENT_UPDATE = 1
-STATEMENT_DELETE = 2
