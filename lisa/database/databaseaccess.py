@@ -66,7 +66,7 @@ class DatabaseAccess():
                         "account_name":instance.name
                         , "account_id":instance.account_id
                         , "parent_id":instance.parent_id
-                        , "is_root":instance.is_root
+                        , "is_root":bool(instance.is_root)
                     })
         except Exception as ex:
             print(Error.GET_ACCOUNTS, ex)
