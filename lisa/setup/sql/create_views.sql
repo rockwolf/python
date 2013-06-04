@@ -235,7 +235,7 @@ from
 		left join T_ACCOUNT a8 on a8.parent_id = a7.account_id and (a8.account_id <> a8.parent_id)
 		left join T_ACCOUNT a9 on a9.parent_id = a8.account_id and (a9.account_id <> a9.parent_id)
 where
-    a_root.is_root = 1
+    a_root.account_id = a_root.parent_id
 ;
 
 /* V_EXPORT_LEDGER */
