@@ -170,16 +170,6 @@ CREATE VIEW V_ACCOUNT_NAME
 AS
 select
     a_root.account_id as root_account_id
-    , a9.account_id as a9
-    , a8.account_id as a8
-    , a7.account_id as a7
-    , a6.account_id as a6
-    , a5.account_id as a5
-    , a4.account_id as a4
-    , a3.account_id as a3
-    , a2.account_id as a2
-    , a1.account_id as a1
-    , a0.account_id as a0
     , coalesce(
         a9.account_id,
         coalesce(
@@ -221,7 +211,7 @@ select
     || coalesce(a6.name || ':', '')
     || coalesce(a7.name || ':', '')
     || coalesce(a8.name || ':', '')
-    || coalesce(a9.name || ':', ''))
+    || coalesce(a9.name || ':', '')) as name
 from 
     T_ACCOUNT a_root
     	left join T_ACCOUNT a0 on a0.parent_id = a_root.account_id and (a0.account_id <> a0.parent_id)
