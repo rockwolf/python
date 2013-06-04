@@ -68,6 +68,31 @@ class DatabaseAccess():
             session.rollback()
             session = None
         return values
+        
+    def get_full_accounts(self):
+        """
+            Get the full accounts in a list.
+            Note: the db returns only the longest
+            names, we need to create the full list
+            of sub-accounts ourselves.
+            Example:
+            db returns: ['test', 'test2/test3']
+            we need to make:
+            ['test', 'test2', 'test2/test3']
+        """
+        values = []
+        try:
+            session = self.Session()
+            query = session.query(V_ACCOUNT_NAMES)
+            for instance in query: 
+                values.append(
+                    build_account_tree(instance.name))
+        except Exception as ex:
+            print(Error.GET_ACCOUNTS, ex)
+        finally:
+            session.rollback()
+            session = None
+        return values
 
     def get_markets(self):
         """
