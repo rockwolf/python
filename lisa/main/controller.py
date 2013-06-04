@@ -133,7 +133,7 @@ class ControllerMain():
         """ fill in the combo boxes with values. """
         dba = DatabaseAccess(self.config)
         # Accounts
-        for acc in dba.get_accounts():
+        for acc in dba.get_full_accounts():
             self.gui.add_account(acc)
         # Market codes
         for mcd in dba.get_markets():
