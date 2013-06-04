@@ -63,7 +63,7 @@ class DatabaseAccess():
             for instance in query: 
                 values.append(
                     {
-                        "account_name":instance.name
+                        "name":instance.name
                         , "account_id":instance.account_id
                         , "parent_id":instance.parent_id
                         , "is_root":bool(instance.is_root)
