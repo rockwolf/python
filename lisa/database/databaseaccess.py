@@ -61,7 +61,13 @@ class DatabaseAccess():
             session = self.Session()
             query = session.query(T_ACCOUNT)
             for instance in query: 
-                values.append(instance.name)
+                values.append(
+                    {
+                        "account_name":instance.name
+                        , "account_id":instance.account_id
+                        , "parent_id":instance.parent_id
+                        , "is_root":instance.is_root
+                    })
         except Exception as ex:
             print(Error.GET_ACCOUNTS, ex)
         finally:
