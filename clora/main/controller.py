@@ -61,7 +61,7 @@ class ControllerMain():
                     if state <= 3:
                         low +=1
                     high = 10 - low
-                    print('  {}{}. {} {} ({}) [{}/10]'.format(' '*(len(str(id))-1), id, mark, value[0], value[2], value[1]))
+                    print('  {}{}. {} {} ({}) [{}%]'.format(' '*(4-len(str(id))), id, mark, value[0], value[2], int(value[1])*10))
             print(
                 'Total:', len(inventory)
                 , '|'
