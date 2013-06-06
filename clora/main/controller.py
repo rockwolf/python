@@ -14,7 +14,7 @@ class ControllerMain():
     
     def __init__(self):
         """ Initialize """
-        self.line_numbers = []
+        self.loaded_inventory = []
 
     # Methods
     ## General
@@ -23,7 +23,8 @@ class ControllerMain():
             Start the app.
         """
         if show_inventory:
-            self.show_inventory()
+            self.loaded_inventory = self.load_inventory()
+            self.print_inventory(self.loaded_inventory)
         if add:
             self.add_item()
         if update_id > 0:
