@@ -13,12 +13,15 @@ class DatabaseAccess():
         Connecting to the database.
     """ 
 
-    def __init__(self):
+    def __init__(self, inventory_file):
         """
             Initialize object.
         """
         try:
-            self.inventory_file = "data/inventory_example.md"
+            if inventory_file == "":
+                self.inventory_file = "data/inventory_example.md"
+            else:
+                self.inventory_file = inventory_file
             self.inventory = []
             self.categories = self.get_categories()
 

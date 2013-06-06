@@ -6,12 +6,12 @@ See LICENSE file for copyright and license details.
 import sys
 import argparse
 
-def main(add, update_id, delete_id, show_inventory):
+def main(add, update_id, delete_id, show_inventory, inventory_file):
     """ Main driver. """
     ### Run the application ###
     from main.main import MainWrapper
     wrapper = MainWrapper()
-    wrapper.run(add, update_id, delete_id, show_inventory)
+    wrapper.run(add, update_id, delete_id, show_inventory, inventory_file)
       
 def install():
     """ install """
@@ -31,7 +31,7 @@ if __name__ == "__main__":
     	'-f',
         '--file',
         help='Database file to use: <path/to/file>',
-        default='~/.config/clora',
+        default='~/.config/clora/inventory.md',
         action='store')
     parser.add_argument(
         '-l',
@@ -85,6 +85,7 @@ if __name__ == "__main__":
     update_id = int(args['update'])
     delete_id = int(args['delete'])
     show_inventory = args['list']
+    inventory_file = args['file']
     
     if args['install']:
         install()
@@ -99,4 +100,5 @@ if __name__ == "__main__":
         add
         , update_id
         , delete_id
-        , show_inventory)
+        , show_inventory
+        , inventory_file)

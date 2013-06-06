@@ -32,7 +32,7 @@ class MainWrapper():
         sys.path.append('modules_generic')
         sys.path.append('setup')
 
-    def run(self, add, update_id, delete_id, show_inventory):
+    def run(self, add, update_id, delete_id, show_inventory, inventory_file):
         """
             This is the main driver for the program.
         """
@@ -44,5 +44,6 @@ class MainWrapper():
             ctl.run(add
                     , update_id
                     , delete_id
-                    , show_inventory)
+                    , show_inventory
+                    , inventory_file)
             ctl = None

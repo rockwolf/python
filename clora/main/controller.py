@@ -6,6 +6,7 @@ See LICENSE file for copyright and license details.
 from os.path import isfile
 import shutil
 import os, sys
+from modules.constant import *
 from modules_generic.messagehandler import *
 from database.databaseaccess import *
 
@@ -15,13 +16,15 @@ class ControllerMain():
     def __init__(self):
         """ Initialize """
         self.loaded_inventory = []
+        self.inventory_file = ""
 
     # Methods
     ## General
-    def run(self, add, update_id, delete_id, show_inventory):
+    def run(self, add, update_id, delete_id, show_inventory, inventory_file):
         """
             Start the app.
         """
+        self.inventory_file = inventory_file
         if show_inventory:
             self.loaded_inventory = self.load_inventory()
             self.print_inventory(self.loaded_inventory)
@@ -37,23 +40,31 @@ class ControllerMain():
             Load current inventory.
         """
         try:
-            dba = DatabaseAccess()
+            dba = DatabaseAccess(self.inventory_file)
             result = []
             inventory = dba.get_inventory()
             current_key = ''
             to_replace = 0
             low = 0
             high = 0
-            id = 0
+            item_number = 0
             locked_header_id = 0
             second_cat = 0
             items_for_category = 1
+            warning = Warning.NONE
             for item in inventory:
-                id += 1
+                item_number += 1
                 for key, value in item.items():
                     if key != current_key:
                         current_key = key
-                        result.append([key, -1, dba.get_category_max(key)])
+                        max_items_for_category = dba.get_category_max(key)
+                        if items_for_category == max_items_for_category:
+                            warning = Warning.FULL
+                        elif items_for_category > max_items_for_category:
+                            warning = Warning.BURDENED
+                        else:
+                            warning = Warning.NONE
+                        result.append([key, -1, max_items_for_category, warning])
                         if second_cat == 0:
                             second_cat = 1
                         else:
@@ -73,8 +84,8 @@ class ControllerMain():
                         low +=1
                     high = 10 - low
                     result.append([
-                        ' '*(4-len(str(id)))
-                        , id
+                        ' '*(4-len(str(item_number)))
+                        , item_number 
                         , mark
                         , value[0]
                         , value[2]
@@ -96,6 +107,8 @@ class ControllerMain():
         """
             Print the inventory.
         """
+        print('Inventory')
+        print('---------')
         for index in range(0,len(loaded_inventory)):
             if index == len(loaded_inventory)-1:
                 # last line
@@ -106,12 +119,14 @@ class ControllerMain():
                         , loaded_inventory[-1][2]
                         , loaded_inventory[-1][3]))
             else:
-                if len(loaded_inventory[index]) == 3:
+                if len(loaded_inventory[index]) == 4:
                     # category line
-                    print('{} [{}/{}]'.format(
+                    print('test --', index, ' --', loaded_inventory[index])
+                    print('{} [{}/{}] {}'.format(
                                     loaded_inventory[index][0]
                                     , loaded_inventory[index][1]
-                                    , loaded_inventory[index][2]))
+                                    , loaded_inventory[index][2])
+                                    , loaded_inventory[index][3])
                 else:
                     # item line
                     print('  {}{}. {} {} ({}) [{}%]'.format(
@@ -128,7 +143,7 @@ class ControllerMain():
         """
         try:
             msg = MessageHandler()
-            dba = DatabaseAccess(None)
+            dba = DatabaseAccess(self.inventory_file)
             categories = dba.get_categories()
             if msg.confirmation('add a new item to the inventory?'):
                 while category not in categories: 
@@ -154,19 +169,19 @@ class ControllerMain():
             Print the available categories.
         """
         #TODO: fancy this up
-        dba = DatabaseAccess
+        dba = DatabaseAccess(self.inventory_file)
         print(dba.get_categories)
         dba = None
 
-    def update_item(self, id):
+    def update_item(self, item_number):
         """
-            If id exists: update values.
+            If item_number exists: update values.
         """
         print('Not implemented yet.')
 
-    def delete_item(self, id):
+    def delete_item(self, item_number):
         """
-            If id exists: update values.
+            If item_number exists: update values.
         """
         print('Not implemented yet.')
 
