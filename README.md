@@ -1,6 +1,6 @@
 # Clora: CLOra Rotational Application
 ## Description
-This application stores the clothes you have based on categorie, name and description
+Clora is a command line application, that stores the clothes you have in rotation (= in washing machine, in closeth and what you're wearing righ now) based on category, name and description.
 Data is stored in a text file that can easily be manipulated with either clora itself or an external editor.
 
 ## Purpose
@@ -27,3 +27,6 @@ The application itself also contains several options for updating:
 - -a or --add to add a new item  
 - -d or --delete to delete an item  
 - -u or --update to update an item
+
+# Output
+The output was made to resemble an inventory screen from roguelike games like e.g. the non-tiles version of <a href="http://crawl.develz.org/wordpress/" target="_new">Dungeon Crawl Stone Soup</a>.
