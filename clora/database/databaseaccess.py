@@ -54,7 +54,7 @@ class DatabaseAccess():
         """
         for item in self.categories:
             if item(0) == category:
-                result = int(item(1))
+                result = item(1)
                 break;
         return result
 
@@ -99,7 +99,7 @@ class DatabaseAccess():
                     else:
                         if process_categories:
                             cat = line.split(';')
-                            self.categories.append((cat[0], cat[1]))
+                            self.categories.append((cat[0], int(cat[1])))
                         else:
                             self.inventory.append({current_key:line.split(';')})
         except Exception as ex:
