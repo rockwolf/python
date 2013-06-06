@@ -85,26 +85,31 @@ class ControllerMain():
         """
             Print the inventory.
         """
-        # first line
-        print('{} [{}/{}]'.format(
-                           loaded_inventory[0][0]
-                           , loaded_inventory[0][1]
-                           , loaded_inventory[0][2]))
-        # sencond line
-        print('  {}{}. {} {} ({}) [{}%]'.format(
-            loaded_inventory[1][0]
-            , loaded_inventory[1][1]
-            , loaded_inventory[1][2]
-            , loaded_inventory[1][3]
-            , loaded_inventory[1][4]
-            , loaded_inventory[1][5]))
-        # third line
-        print(
-                'Total: {} | Replace: {} | -60%: {} + 60%: {}'.format(
-                loaded_inventory[2][0]
-                , loaded_inventory[2][1]
-                , loaded_inventory[2][2]
-                , loaded_inventory[2][3]))
+        for index in range(0,len(loaded_inventory)):
+            if index == len(loaded_inventory)-1:
+                # last line
+                print(
+                        'Total: {} | Replace: {} | -60%: {} + 60%: {}'.format(
+                        loaded_inventory[-1][0]
+                        , loaded_inventory[-1][1]
+                        , loaded_inventory[-1][2]
+                        , loaded_inventory[-1][3]))
+            else:
+                if len(loaded_inventory[index]) == 3:
+                    # category line
+                    print('{} [{}/{}]'.format(
+                                    loaded_inventory[index][0]
+                                    , loaded_inventory[index][1]
+                                    , loaded_inventory[index][2]))
+                else:
+                    # item line
+                    print('  {}{}. {} {} ({}) [{}%]'.format(
+                        loaded_inventory[index][0]
+                        , loaded_inventory[index][1]
+                        , loaded_inventory[index][2]
+                        , loaded_inventory[index][3]
+                        , loaded_inventory[index][4]
+                        , loaded_inventory[index][5]))
 
     def add_item(self):
         """
