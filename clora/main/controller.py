@@ -51,7 +51,7 @@ class ControllerMain():
                 for key, value in item.items():
                     if key != current_key:
                         current_key = key
-                        result.append([key, -1, dba.get_category_max(key)])
+                        result.append([key, len(value), dba.get_category_max(key)])
                         #print('-'*len(key))
                     state = int(value[1])
                     if state == 0:
@@ -86,19 +86,25 @@ class ControllerMain():
         """
         # first line
         print('{} [{}/{}]'.format(
-                            key
-                            , #TODO: get number of items from this subcat?
-                            , dba.get_category_max(key)))
+                           loaded_inventory[0][0]
+                           , loaded_inventory[0][1]
+                           , loaded_inventory[0][2])
         # sencond line
-        print('  {}{}. {} {} ({}) [{}%]'.format(' '*(4-len(str(id))), id, mark, value[0], value[2], int(value[1])*10))
+        print('  {}{}. {} {} ({}) [{}%]'.format(
+            loaded_inventory[1][0]
+            , loaded_inventory[1][1]
+            , loaded_inventory[1][2]
+            , loaded_inventory[1][3]
+            , loaded_inventory[1][4]
+            , loaded_inventory[1][5]))
         # third line
         print(
-                'Total:', len(inventory)
+                'Total:', loaded_inventory[2][0]
                 , '|'
-                , 'Replace:', to_replace
+                , 'Replace:', loaded_inventory[2][1]
                 , '|'
-                , '-60%:', low
-                , '+60%:', high)
+                , '-60%:', loaded_inventory[2][2]
+                , '+60%:', loaded_inventory[2][3])
 
     def add_item(self):
         """
