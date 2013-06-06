@@ -88,7 +88,7 @@ class ControllerMain():
         print('{} [{}/{}]'.format(
                            loaded_inventory[0][0]
                            , loaded_inventory[0][1]
-                           , loaded_inventory[0][2])
+                           , loaded_inventory[0][2]))
         # sencond line
         print('  {}{}. {} {} ({}) [{}%]'.format(
             loaded_inventory[1][0]
@@ -99,12 +99,11 @@ class ControllerMain():
             , loaded_inventory[1][5]))
         # third line
         print(
-                'Total:', loaded_inventory[2][0]
-                , '|'
-                , 'Replace:', loaded_inventory[2][1]
-                , '|'
-                , '-60%:', loaded_inventory[2][2]
-                , '+60%:', loaded_inventory[2][3])
+                'Total: {} | Replace: {} | -60%: {} + 60%: {}'.format(
+                , loaded_inventory[2][0]
+                , loaded_inventory[2][1]
+                , loaded_inventory[2][2]
+                , loaded_inventory[2][3]))
 
     def add_item(self):
         """
