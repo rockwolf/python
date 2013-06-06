@@ -31,14 +31,15 @@ class ControllerMain():
         if delete_id > 0:
             self.delete_item
 
-    def show_inventory(self):
+    def load_inventory(self):
         """
-            Show current inventory.
+            Load current inventory.
         """
         try:
             dba = DatabaseAccess()
             print('Inventory')
             print('---------')
+            result = []
             inventory = dba.get_inventory()
             current_key = ''
             to_replace = 0
@@ -50,10 +51,7 @@ class ControllerMain():
                 for key, value in item.items():
                     if key != current_key:
                         current_key = key
-                        print('{} [{}/{}]'.format(
-                            key
-                            , #TODO: get number of items from this subcat?
-                            , dba.get_category_max(key)))
+                        result.append([key, -1, dba.get_category_max(key)])
                         #print('-'*len(key))
                     state = int(value[1])
                     if state == 0:
@@ -64,19 +62,43 @@ class ControllerMain():
                     if state <= 3:
                         low +=1
                     high = 10 - low
-                    print('  {}{}. {} {} ({}) [{}%]'.format(' '*(4-len(str(id))), id, mark, value[0], value[2], int(value[1])*10))
-            print(
+                    result.append([
+                        ' '*(4-len(str(id)))
+                        , id
+                        , mark
+                        , value[0]
+                        , value[2]
+                        , int(value[1])*10)])
+            result.append([
+                len(inventory)
+                , to_replace
+                , low
+                , high])
+        except Exception as ex:
+            print('Error in show_inventory:', ex)
+        finally:
+            dba = None
+            return result
+            
+    def print_inventory(self, loaded_inventory):
+        """
+            Print the inventory.
+        """
+        # first line
+        print('{} [{}/{}]'.format(
+                            key
+                            , #TODO: get number of items from this subcat?
+                            , dba.get_category_max(key)))
+        # sencond line
+        print('  {}{}. {} {} ({}) [{}%]'.format(' '*(4-len(str(id))), id, mark, value[0], value[2], int(value[1])*10))
+        # third line
+        print(
                 'Total:', len(inventory)
                 , '|'
                 , 'Replace:', to_replace
                 , '|'
                 , '-60%:', low
                 , '+60%:', high)
-            #TODO: to be replaced needs the data we retrieve later!
-        except Exception as ex:
-            print('Error in show_inventory:', ex)
-        finally:
-            dba = None
 
     def add_item(self):
         """
