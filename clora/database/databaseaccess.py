@@ -55,8 +55,8 @@ class DatabaseAccess():
         result = -1
         try:
             for item in self.categories:
-                if item(0) == category:
-                    result = item(1)
+                if item[0] == category:
+                    result = item[1]
                     break;
         except Exception as ex:
             print('Error in get_category_max:', ex)
