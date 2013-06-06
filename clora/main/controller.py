@@ -38,8 +38,6 @@ class ControllerMain():
         """
         try:
             dba = DatabaseAccess()
-            print('Inventory')
-            print('---------')
             result = []
             inventory = dba.get_inventory()
             current_key = ''
@@ -47,13 +45,24 @@ class ControllerMain():
             low = 0
             high = 0
             id = 0
+            locked_header_id = 0
+            second_cat = 0
+            items_for_category = 1
             for item in inventory:
                 id += 1
                 for key, value in item.items():
                     if key != current_key:
                         current_key = key
-                        result.append([key, len(value), dba.get_category_max(key)])
-                        #print('-'*len(key))
+                        result.append([key, -1, dba.get_category_max(key)])
+                        if second_cat == 0:
+                            second_cat = 1
+                        else:
+                            if second_cat == 1:
+                                result[locked_header_id][1] = items_for_category
+                        locked_header_id = len(result)-1
+                        items_for_category = 1 # reset
+                    else:
+                        items_for_category += 1
                     state = int(value[1])
                     if state == 0:
                         to_replace += 1
@@ -70,16 +79,18 @@ class ControllerMain():
                         , value[0]
                         , value[2]
                         , int(value[1])*10])
+                result[locked_header_id][1] = items_for_category
             result.append([
                 len(inventory)
                 , to_replace
                 , low
                 , high])
         except Exception as ex:
-            print('Error in show_inventory:', ex)
+            print('Error in load_inventory:', ex)
         finally:
             dba = None
             return result
+
             
     def print_inventory(self, loaded_inventory):
         """
