@@ -47,6 +47,16 @@ class DatabaseAccess():
             print(Error.GET_CATEGORIES, ex)
         finally:
             return result
+            
+    def get_category_max(self, category):
+        """
+            Returns the max value for the given category.
+        """
+        for item in self.categories:
+            if item(0) == category:
+                result = int(item(1))
+                break;
+        return result
 
     def get_inventory(self):
         """
