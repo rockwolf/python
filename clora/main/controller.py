@@ -100,7 +100,7 @@ class ControllerMain():
         # third line
         print(
                 'Total: {} | Replace: {} | -60%: {} + 60%: {}'.format(
-                , loaded_inventory[2][0]
+                loaded_inventory[2][0]
                 , loaded_inventory[2][1]
                 , loaded_inventory[2][2]
                 , loaded_inventory[2][3]))
