@@ -52,11 +52,16 @@ class DatabaseAccess():
         """
             Returns the max value for the given category.
         """
-        for item in self.categories:
-            if item(0) == category:
-                result = item(1)
-                break;
-        return result
+        result = -1
+        try:
+            for item in self.categories:
+                if item(0) == category:
+                    result = item(1)
+                    break;
+        except Exception as ex:
+            print('Error in get_category_max:', ex)
+        finally:
+            return result
 
     def get_inventory(self):
         """
