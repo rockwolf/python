@@ -68,7 +68,7 @@ class ControllerMain():
                         , mark
                         , value[0]
                         , value[2]
-                        , int(value[1])*10)])
+                        , int(value[1])*10])
             result.append([
                 len(inventory)
                 , to_replace
