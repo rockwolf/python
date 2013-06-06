@@ -50,7 +50,10 @@ class ControllerMain():
                 for key, value in item.items():
                     if key != current_key:
                         current_key = key
-                        print('{}'.format( key))
+                        print('{} [{}/{}]'.format(
+                            key
+                            , #TODO: get number of items from this subcat?
+                            , dba.get_category_max(key)))
                         #print('-'*len(key))
                     state = int(value[1])
                     if state == 0:
