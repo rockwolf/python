@@ -15,4 +15,5 @@ class Warning():
     """
     FULL = "-- full --"
     BURDENED = "-- burdened --"
+    HUNGRY = "-- hungry --"
     NONE = ""
