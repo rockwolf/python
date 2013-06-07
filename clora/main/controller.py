@@ -56,22 +56,26 @@ class ControllerMain():
                 item_number += 1
                 for key, value in item.items():
                     if key != current_key:
+                        if current_key == '':
+                            max_items_for_category = dba.get_category_max(key)
+                        else:
+                            max_items_for_category = dba.get_category_max(current_key)
                         current_key = key
-                        max_items_for_category = dba.get_category_max(key)
                         if items_for_category == max_items_for_category:
                             warning = Warning.FULL
                         elif items_for_category > max_items_for_category:
                             warning = Warning.BURDENED
-                        elif items_for_category <= max_items_for_category / 2:
+                        elif items_for_category <= (max_items_for_category / 2):
                             warning = Warning.HUNGRY
                         else:
                             warning = Warning.NONE
-                        result.append([key, -1, max_items_for_category, warning])
+                        result.append([key, -1, max_items_for_category, ''])
                         if second_cat == 0:
                             second_cat = 1
                         else:
                             if second_cat == 1:
                                 result[locked_header_id][1] = items_for_category
+                                result[locked_header_id][3] = warning
                         locked_header_id = len(result)-1
                         items_for_category = 1 # reset
                     else:
@@ -103,6 +107,7 @@ class ControllerMain():
         finally:
             dba = None
             return result
+
 
             
     def print_inventory(self, loaded_inventory):
