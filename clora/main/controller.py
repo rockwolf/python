@@ -62,6 +62,8 @@ class ControllerMain():
                             warning = Warning.FULL
                         elif items_for_category > max_items_for_category:
                             warning = Warning.BURDENED
+                        elif items_for_category <= max_items_for_category / 2:
+                            warning = Warning.HUNGRY
                         else:
                             warning = Warning.NONE
                         result.append([key, -1, max_items_for_category, warning])
