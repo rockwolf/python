@@ -121,12 +121,11 @@ class ControllerMain():
             else:
                 if len(loaded_inventory[index]) == 4:
                     # category line
-                    print('test --', index, ' --', loaded_inventory[index])
                     print('{} [{}/{}] {}'.format(
                                     loaded_inventory[index][0]
                                     , loaded_inventory[index][1]
-                                    , loaded_inventory[index][2])
-                                    , loaded_inventory[index][3])
+                                    , loaded_inventory[index][2]
+                                    , loaded_inventory[index][3]))
                 else:
                     # item line
                     print('  {}{}. {} {} ({}) [{}%]'.format(
