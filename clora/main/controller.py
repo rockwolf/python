@@ -107,8 +107,6 @@ class ControllerMain():
         finally:
             dba = None
             return result
-
-
             
     def print_inventory(self, loaded_inventory):
         """
@@ -150,15 +148,46 @@ class ControllerMain():
         try:
             msg = MessageHandler()
             dba = DatabaseAccess(self.inventory_file)
-            categories = dba.get_categories()
-            if msg.confirmation('add a new item to the inventory?'):
-                while category not in categories: 
-                    self.print_categories()
-                    category = get_input('Category: ')
-                name = get_input('Name: ')
-                description = get_input('Description: ')
-                state = get_input('State [0 - 10]: ')
-                comment = get_input('Comment: ')
+            if msg.confirmation('Are you sure you want to add a new item to the inventory?'):
+                if msg.confirmation('Add a new category?'):
+                    # New category
+                    print(dba.get_categories())
+                    #TODO: input mask for category
+                    category = msg.get_input('New category: ')
+                    category_max = msg.get_input('Category max items [8]: ')
+                else:
+                    category = self.lookup_category()
+                # New item
+                name = msg.get_input('Name: ')
+                description = msg.get_input('Description ')
+                state = msg.get_input('State (0 - 10) [10]: ')
+                comment = msg.get_input('Comment: ')
+
+                if not is_digit(state):
+                    state = 10
+                else:
+                    state = int(state)
+                print('test: cat {} } name {} | description {} | state {} | comment {}'.format(cat, name, description, state, comment))
+        except Exception as ex:
+            print('Error in add_item:', ex)
+        finally:
+            msg = None
+            dba = None
+
+    def update_item(self):
+        """
+            Update an item in the inventory.
+        """
+        try:
+            msg = MessageHandler()
+            dba = DatabaseAccess(self.inventory_file)
+            category = ''
+            if msg.confirmation('add a new item to the inventory'):
+                category = self.lookup_category()
+                name = msg.get_input('Name: ')
+                description = msg.get_input('Description: ')
+                state = msg.get_input('State (0 - 10) [10]: ')
+                comment = msg.get_input('Comment: ')
                 if int(state) in range(11):
                     state = int(state)
                 else:
@@ -168,7 +197,27 @@ class ControllerMain():
             dba = None
             msg = None
         except Exception as ex:
-            print('Error in add_item:', ex)
+            print('Error in update_item:', ex)
+
+    def lookup_category(self):
+        """
+            Enter category,
+            but it has to exist.
+        """
+        try:
+            msg = MessageHandler()
+            dba = DatabaseAccess(self.inventory_file)
+            result = ''
+            categories = dba.get_categories()
+            while result not in categories: 
+                self.print_categories()
+                result = msg.get_input('Category: ')
+        except Exception as ex:
+            print('Error in lookup_category:', ex)
+        finally:
+            msg = None
+            dba = None
+            return result
 
     def print_categories(self):
         """
