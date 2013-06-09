@@ -52,17 +52,14 @@ class ControllerMain():
             categories = dba.get_categories()
             grand_total = 0
             for key in categories:
-                print('test --> key =', key)
                 item = inventory[key]
                 item_total = len(item)
                 grand_total += item_total
-                print('test --> ', grand_total)
                 max_items_for_category = dba.get_category_max(key)
                 warning = self.get_warning_message(item_total, max_items_for_category)
                 if key != current_key:
                     result.append([key, item_total, max_items_for_category, warning])
                     current_key = key
-                print('test -->', item)
                 for value in item:
                     item_number += 1
                     state = int(value[1])
@@ -167,7 +164,7 @@ class ControllerMain():
                     state = 10
                 else:
                     state = int(state)
-                print('test: cat {} } name {} | description {} | state {} | comment {}'.format(cat, name, description, state, comment))
+                #print('test: cat {} } name {} | description {} | state {} | comment {}'.format(cat, name, description, state, comment))
         except Exception as ex:
             print('Error in add_item:', ex)
         finally:

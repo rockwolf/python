@@ -91,7 +91,8 @@ class DatabaseAccess():
         """
         try:
             line_number = 0
-            current_key = None
+            current_key = ''
+            previous_key = ''
             with open(self.inventory_file) as var_file:
                 for line in var_file: 
                     line = line.rstrip()
@@ -99,9 +100,12 @@ class DatabaseAccess():
                     if line == '# categories;max':
                         process_categories = True
                     elif (line[0] == '#') and (line[2:] in self.categories):
+                        previous_key = current_key
                         current_key = line[2:]
                         process_categories = False
                     elif (line[0] == '#') and (line[2:] not in self.categories):
+                        previous_key = current_key
+                        current_key = line[2:]
                         #TODO: if verbose:
                         print('::: Warning: category', line[2:], 'not found!')
                         process_categories = False
@@ -110,12 +114,9 @@ class DatabaseAccess():
                             cat = line.split(';')
                             self.categories.append((cat[0], int(cat[1])))
                         else:
-                            print('test -->', line.split(';'))
-                            print('test: current_key =', current_key)
-                            print('mip:', self.inventory)
-                            if self.inventory == {}:
+                            print('test --> previous {} | current {}'.format(previous_key, current_key))
+                            if self.inventory == {} or previous_key != current_key:
                                 self.inventory[current_key] = []
                             self.inventory[current_key].append(line.split(';'))
         except Exception as ex:
-            print(self.inventory)
             print('Error in read_inventory:', ex)
