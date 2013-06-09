@@ -78,7 +78,6 @@ class ControllerMain():
                         , value[0]
                         , value[2]
                         , int(value[1])*10])
-            print('------------>', grand_total)
             result.append([
                 grand_total
                 , to_replace
@@ -119,7 +118,7 @@ class ControllerMain():
                         loaded_inventory[-1][0]
                         , loaded_inventory[-1][1]
                         , loaded_inventory[-1][2]
-                        , '?'))
+                        , loaded_inventory[-1][3]))
             else:
                 if len(loaded_inventory[index]) == 4:
                     # category line
