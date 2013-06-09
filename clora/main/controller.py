@@ -48,38 +48,23 @@ class ControllerMain():
             low = 0
             high = 0
             item_number = 0
-            locked_header_id = 0
-            second_cat = 0
-            items_for_category = 1
             warning = Warning.NONE
-            for item in inventory:
-                item_number += 1
-                for key, value in item.items():
-                    if key != current_key:
-                        if current_key == '':
-                            max_items_for_category = dba.get_category_max(key)
-                        else:
-                            max_items_for_category = dba.get_category_max(current_key)
-                        current_key = key
-                        if items_for_category == max_items_for_category:
-                            warning = Warning.FULL
-                        elif items_for_category > max_items_for_category:
-                            warning = Warning.BURDENED
-                        elif items_for_category <= (max_items_for_category / 2):
-                            warning = Warning.HUNGRY
-                        else:
-                            warning = Warning.NONE
-                        result.append([key, -1, max_items_for_category, ''])
-                        if second_cat == 0:
-                            second_cat = 1
-                        else:
-                            if second_cat == 1:
-                                result[locked_header_id][1] = items_for_category
-                                result[locked_header_id][3] = warning
-                        locked_header_id = len(result)-1
-                        items_for_category = 1 # reset
-                    else:
-                        items_for_category += 1
+            categories = dba.get_categories()
+            grand_total = 0
+            for key in categories:
+                print('test --> key =', key)
+                item = inventory[key]
+                item_total = len(item)
+                grand_total += item_total
+                print('test --> ', grand_total)
+                max_items_for_category = dba.get_category_max(key)
+                warning = self.get_warning_message(item_total, max_items_for_category)
+                if key != current_key:
+                    result.append([key, item_total, max_items_for_category, warning])
+                    current_key = key
+                print('test -->', item)
+                for value in item:
+                    item_number += 1
                     state = int(value[1])
                     if state == 0:
                         to_replace += 1
@@ -96,9 +81,9 @@ class ControllerMain():
                         , value[0]
                         , value[2]
                         , int(value[1])*10])
-                result[locked_header_id][1] = items_for_category
+            print('------------>', grand_total)
             result.append([
-                len(inventory)
+                grand_total
                 , to_replace
                 , low
                 , high])
@@ -107,6 +92,21 @@ class ControllerMain():
         finally:
             dba = None
             return result
+
+    def get_warning_message(self, item_total, max_items_for_category):
+        """
+            Returns the warning to display next to the header.
+        """
+        if item_total == max_items_for_category:
+            warning = Warning.FULL
+        elif item_total > max_items_for_category:
+            warning = Warning.BURDENED
+        elif item_total <= (max_items_for_category / 2):
+            warning = Warning.HUNGRY
+        else:
+            warning = Warning.NONE
+        return warning
+
             
     def print_inventory(self, loaded_inventory):
         """
@@ -122,7 +122,7 @@ class ControllerMain():
                         loaded_inventory[-1][0]
                         , loaded_inventory[-1][1]
                         , loaded_inventory[-1][2]
-                        , loaded_inventory[-1][3]))
+                        , '?'))
             else:
                 if len(loaded_inventory[index]) == 4:
                     # category line

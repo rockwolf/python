@@ -22,7 +22,7 @@ class DatabaseAccess():
                 self.inventory_file = "data/inventory_example.md"
             else:
                 self.inventory_file = inventory_file
-            self.inventory = []
+            self.inventory = {}
             self.categories = self.get_categories()
 
             self.read_inventory()
@@ -92,7 +92,7 @@ class DatabaseAccess():
         try:
             line_number = 0
             current_key = None
-            with open('data/inventory_example.md') as var_file:
+            with open(self.inventory_file) as var_file:
                 for line in var_file: 
                     line = line.rstrip()
                     line_number += 1
@@ -104,11 +104,18 @@ class DatabaseAccess():
                     elif (line[0] == '#') and (line[2:] not in self.categories):
                         #TODO: if verbose:
                         print('::: Warning: category', line[2:], 'not found!')
+                        process_categories = False
                     else:
                         if process_categories:
                             cat = line.split(';')
                             self.categories.append((cat[0], int(cat[1])))
                         else:
-                            self.inventory.append({current_key:line.split(';')})
+                            print('test -->', line.split(';'))
+                            print('test: current_key =', current_key)
+                            print('mip:', self.inventory)
+                            if self.inventory == {}:
+                                self.inventory[current_key] = []
+                            self.inventory[current_key].append(line.split(';'))
         except Exception as ex:
+            print(self.inventory)
             print('Error in read_inventory:', ex)
