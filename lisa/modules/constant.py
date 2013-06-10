@@ -53,8 +53,6 @@ class Error():
     GET_MARKET_DESCRIPTION = "Error in get_marketdescription: "
     GET_CATEGORIES = "Error in get_categories: "
     GET_ACCOUNTS = "Error in get_accounts: "
-    GET_CATEGORIES = "Error in get_categories: "
-    GET_SUBCATEGORIES = "Error in get_subcategories: "
     GET_MARKETS = "Error in get_markets: "
     GET_STOCK_NAMES = "Error in get_stocknames: "
     GET_STOCK_DESCRIPTION = "Error in get_stockdescription: "
@@ -108,4 +106,3 @@ DEFAULT_DATE = "1900-01-01"
 DEFAULT_DECIMAL = Decimal(0.0)
 DEFAULT_INT = 0
 TRADING_ACCOUNT_ID = 6
-PARM_TAX = 4
