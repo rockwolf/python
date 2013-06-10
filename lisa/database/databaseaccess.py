@@ -40,17 +40,6 @@ class DatabaseAccess():
             self.tables = [x for x in self.metadata.tables.keys() if is_a_table(x) ]
         except Exception as ex:
             print("Error in initialisation of DatabaseAccess: ", ex)
-   
-    def config(self):
-        """
-            Retrieve config file values.
-        """
-        config = ConfigParser.RawConfigParser()
-        config.read(self.myconf)
-        self.dbhost = config.get('database', 'host')[1:-1]
-        self.dbname = config.get('database', 'name')[1:-1]
-        self.dbuser = config.get('database', 'user')[1:-1]
-        self.dbpass = config.get('database', 'password')[1:-1]
  
     def get_accounts(self):
         """
@@ -267,17 +256,17 @@ class DatabaseAccess():
             if statements != []:
                 #insert
                 statements_insert = self.assemble_statement_list_insert(
-                        statements, 0)
+                        statements, Statement.INSERT)
                 self.write_statement_list_insert(
                         statements_insert, statements.table_name)
                 #update
                 statements_update = self.assemble_statement_list_update(
-                        statements, 1)
+                        statements, Statement.UPDATE)
                 self.write_statement_list_update(
                         statements_update, statements.table_name)
                 #delete
                 statements_delete = self.assemble_statement_list_delete(
-                        statements, 2)
+                        statements, Statement.DELETE)
                 self.write_statement_list_delete(
                         statements_delete, statements.table_name)
         except Exception as ex:
@@ -335,7 +324,7 @@ class DatabaseAccess():
         #TODO: finish this later. Low priority!
         pass
 
-    def assemble_statement_list_insert(self, statements, insupdel=0):
+    def assemble_statement_list_insert(self, statements, insupdel=Statement.INSERT):
         """
             Creates list of TABLE_NAME(..., ..., ...) records
             from new statements, that we can use to insert at once.
@@ -439,7 +428,7 @@ class DatabaseAccess():
                     record['date_modified']))
         return result
 
-    def assemble_statement_list_update(self, statements, insupdel=1):
+    def assemble_statement_list_update(self, statements, insupdel=Statement.UPDATE):
         """
             Creates list of update records from statements,
             that we can use to update at once.
@@ -504,7 +493,7 @@ class DatabaseAccess():
                 )
         return result 
 
-    def assemble_statement_list_delete(self, statements, insupdel=2):
+    def assemble_statement_list_delete(self, statements, insupdel=Statement.DELETE):
         """
             Creates list of from delete statements,
             that we can use to delete at once.
@@ -904,45 +893,6 @@ class DatabaseAccess():
         finally:
             session.rollback()
             session = None
-        return result
-
-    def get_parameter_commission(self, amount_simple, market):
-        """
-            Function to determine what parameter to use to select
-            the correct commission.
-        """
-        result = -1
-        try:
-            #TODO: complete this, to return the correct value for
-            #all markets and conditions
-            if market == 'ebr' and Decimal(amount_simple) < Decimal(4000) :
-                result = 1
-            elif market == 'ebr' and Decimal(amount_simple) >= Decimal(4000):
-                result = 2
-            else:
-                result = 1
-        except Exception as ex:
-            print('Error in get_parameter_commission:', ex)
-        return result
-
-    def get_parameter_tax(self, amount_simple, market):
-        """
-            Function to determine what parameter to use to select
-            the correct tax.
-        """
-        #TODO: doesn't calculator_finance make this obsolete? Revise this.
-        result = -1
-        try:
-            #TODO: complete this, to return the correct value for
-            #all markets and conditions
-            if market == 'ebr' and Decimal(amount_simple) < Decimal(4000) :
-                result = PARM_TAX
-            elif market == 'ebr' and Decimal(amount_simple) >= Decimal(4000):
-                result = PARM_TAX
-            else:
-                result = PARM_TAX
-        except Exception as ex:
-            print('Error in get_parameter_tax:', ex)
         return result
 
     def get_pool(self):
