@@ -7,19 +7,18 @@
 """
 
 def is_a_trade(account_name):
-    """ Function to determine if a line to process, is a trade. """
-    #TODO: fix this function with the new way of working
-    return (category == 'trade') \
-            and (subcategory == 'buy' or \
-            subcategory == 'sell')
+    """
+        Function to determine if a line to process, is a trade.
+    """
+    return 'trading' in account_name.lower()
 
 def is_an_investment(account_name):
-    """ Function to determine if a line to process, is an investent (buy
-    or sell of stock, that's not a trade). """
-    #TODO: fix this function with the new way of working
-    return (category == 'invest') \
-            and (subcategory == 'buy' or \
-            subcategory == 'sell')
+    """
+        Function to determine if a line to process, is an investent (buy
+        or sell of stock, that's not a trade).
+    """
+    #TODO: This also counts for tax and/or commission? Only buy/sell is required?
+    return 'investing' in account_name.lower()
 
 def deals_with_stocks(account_name):
     """ See if we need to use rate, marketid and stockid. """
