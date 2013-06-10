@@ -44,7 +44,7 @@ class DatabaseAccess():
                         processing_categories = False
                         break; #optimization
                     else:
-                        if processing_categories:
+                        if processing_categories and (line[0] != ';'):
                             result.append(line.split(';')[0])
         except Exception as ex:
             print(Error.GET_CATEGORIES, ex)
@@ -106,13 +106,14 @@ class DatabaseAccess():
                         current_key = line[2:]
                         process_categories = False
                     else:
-                        if process_categories:
-                            cat = line.split(';')
-                            self.categories.append((cat[0], int(cat[1])))
-                        else:
-                            if self.inventory == {} or previous_key != current_key:
-                                self.inventory[current_key] = []
-                                previous_key = current_key
-                            self.inventory[current_key].append(line.split(';'))
+                        if line[0] != ';':
+                            if process_categories:
+                                cat = line.split(';')
+                                self.categories.append((cat[0], int(cat[1])))
+                            else:
+                                if self.inventory == {} or previous_key != current_key:
+                                    self.inventory[current_key] = []
+                                    previous_key = current_key
+                                self.inventory[current_key].append(line.split(';'))
         except Exception as ex:
             print('Error in read_inventory:', ex)
