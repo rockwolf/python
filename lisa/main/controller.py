@@ -27,9 +27,7 @@ class ControllerMain():
     def __init__(self, config):
         """ Construct basic QApplication, add widgets and start exec_loop """
         # initialise special vars
-        self.config = config #object
-        # Decimal precision
-        getcontext().prec = 28
+        self.config = config
 
     # Methods
     ## General
@@ -151,7 +149,9 @@ class ControllerMain():
         dba = None
 
     def get_check_info(self, tablecontent):
-        """ Gets the account check info. """
+        """
+            Gets the account check info.
+        """
         dba = DatabaseAccess(self.config)
         values = []
         for entry in dba.get_rep_check_totals():
@@ -195,8 +195,9 @@ class ControllerMain():
         return values
 
     def get_input_line(self, table):
-        """ Get the input values. """
-        #TODO: check cat/subcat combo, instead of only subcat
+        """
+            Get the input values.
+        """
         if(deals_with_stocks(self.gui.get_account())):
             market = self.gui.get_market_code()
             stock = self.gui.get_stock_name()
@@ -238,15 +239,21 @@ class ControllerMain():
         return str_list
 
     def remove_selected(self, table, selected_index):
-        """ Removes the selected record from the input buffer. """
+        """
+            Removes the selected record from the input buffer.
+        """
         table.delete_row(selected_index)
 
     def remove_last(self, table):
-        """ Removes the most recently added record from the input buffer. """
+        """
+            Removes the most recently added record from the input buffer.
+        """
         table.delete_row()
 
     def set_infodetails(self):
-        """ Update infolabel details. """
+        """
+            Update infolabel details.
+        """
         dba = DatabaseAccess(self.config)
         account = self.gui.get_account()
         stock = self.gui.get_stock_name()
@@ -258,14 +265,19 @@ class ControllerMain():
             account == 'trade.rx'
         ) and stock != '':
             info = dba.get_stockinfo(stock)
-            self.gui.set_infodetails(info[1] + '(' + 
-                    ''.join(info[2].split()) +'): ' + info[0])
+            self.gui.set_infodetails(
+                '{} ({}): {}'.format(
+                    info[1]
+                    ,''.join(info[2].split())
+                    ,info[0])
         else:
             self.gui.set_infodetails('')
         dba = None
 
     def fillcmb_stock_name(self):
-        """ fill cmb function """
+        """
+            fill cmb function
+        """
         dba = DatabaseAccess(self.config)
         self.gui.clear_cmb_stock_name()
         for name in dba.get_stock_names(self.gui.get_market_code()):
@@ -273,36 +285,48 @@ class ControllerMain():
         dba = None
     
     def filltxt_market_description(self):
-        """ fill market description """
+        """
+            fill market description
+        """
         dba = DatabaseAccess(self.config)
         self.gui.set_market_description(
                 dba.get_market_description(self.gui.get_market_code()))
         dba = None
 
     def filltxt_stock_description(self):
-        """ fill stock description """
+        """
+            fill stock description
+        """
         dba = DatabaseAccess(self.config)
         self.gui.set_stock_description(
                 dba.get_stock_description(self.gui.get_stock_name()))
         dba = None
 
     def fill_spn_pool(self):
-        """ fill pool value """
+        """
+            fill pool value
+        """
         dba = DatabaseAccess(self.config)
         self.gui.set_pool(dba.get_pool())
         dba = None
 
     def add_tbl_summary(self, table, row):
-        """ Add or remove a row from the table view """
+        """
+            Add or remove a row from the table view
+        """
         table.add_row(row)
 
     def parse_formula(self, formula_id, value_list):
-        """ Parse formula for trading, to calculate the commission. """
+        """
+            Parse formula for trading, to calculate the commission.
+        """
         dba = DatabaseAccess(self.config)
         formula = dba.get_formula(formula_id)
         #TODO: loop over elements in formula and substitute the values.
         dba = None
 
     def convert_to_base_currency(self, currency_base, currency_new, value):
-        """ Convert a new currency to the base currency. """
+        """
+            Convert a new currency to the base currency.
+        """
         pass
