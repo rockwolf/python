@@ -9,7 +9,7 @@ from meta import Base
 
 class T_FINANCE(Base):
     """ T_FINANCE """
-    __tablename__ = TABLE_FINANCE
+    __tablename__ = Table.FINANCE
     #__table_args__ = {'autoload':True}
     #NOTE: autoload gives less control and I don't know
     #how to make session.add_all() to work with it.
@@ -64,7 +64,7 @@ class T_FINANCE(Base):
 
 class T_INVESTMENT(Base):
     """ T_INVESTMENT """
-    __tablename__ = TABLE_INVESTMENT
+    __tablename__ = Table.INVESTMENT
     #__table_args__ = {'autoload':True}
     trade_id = Column(Integer, primary_key=True)
     market_id = Column(Integer)
@@ -220,7 +220,7 @@ class T_INVESTMENT(Base):
 
 class T_STOCK_NAME(Base):
     """ T_STOCK_NAME """
-    __tablename__ = TABLE_STOCK_NAME
+    __tablename__ = Table.STOCK_NAME
     #__table_args__ = {'autoload':True}
     stock_name_id = Column(Integer, primary_key=True)
     name = Column(String(15))
@@ -245,7 +245,7 @@ class T_STOCK_NAME(Base):
 
 class T_MARKET(Base):
     """ T_MARKET """
-    __tablename__ = TABLE_MARKET
+    __tablename__ = Table.MARKET
     #__table_args__ = {'autoload':True}
     market_id = Column(Integer, primary_key=True)
     code = Column(String(5))
@@ -269,7 +269,7 @@ class T_MARKET(Base):
 
 class T_MARGIN(Base):
     """ T_MARGIN """
-    __tablename__ = TABLE_MARGIN
+    __tablename__ = Table.MARGIN
     #__table_args__ = {'autoload':True}
     margin_id = Column(Integer, primary_key=True)
     margin_type_id = Column(Integer)
@@ -292,7 +292,7 @@ class T_MARGIN(Base):
 
 class T_MARGIN_TYPE(Base):
     """ T_MARGIN_TYPE """
-    __tablename__ = TABLE_MARGIN_TYPE
+    __tablename__ = Table.MARGIN_TYPE
     #__table_args__ = {'autoload':True}
     margin_type_id = Column(Integer, primary_key=True)
     margin_type = Column(String(50))
@@ -306,7 +306,7 @@ class T_MARGIN_TYPE(Base):
 
 class T_ACCOUNT(Base):
     """ T_ACCOUNT """
-    __tablename__ = TABLE_ACCOUNT
+    __tablename__ = Table.ACCOUNT
     #__table_args__ = {'autoload':True}
     account_id = Column(Integer, primary_key=True)
     name = Column(String(6))
@@ -331,7 +331,7 @@ class T_ACCOUNT(Base):
 
 class T_CURRENCY(Base):
     """ T_CURRENCY """
-    __tablename__ = TABLE_CURRENCY
+    __tablename__ = Table.CURRENCY
     #__table_args__ = {'autoload':True}
     currency_id = Column(Integer, primary_key=True)
     code = Column(String(3))
@@ -347,7 +347,7 @@ class T_CURRENCY(Base):
 
 class T_CURRENCY_EXCHANGE(Base):
     """ T_CURRENCY_EXCHANGE """
-    __tablename__ = TABLE_CURRENCY_EXCHANGE
+    __tablename__ = Table.CURRENCY_EXCHANGE
     #__table_args__ = {'autoload':True}
     currency_exchange_id = Column(Integer, primary_key=True)
     currency_from_id = Column(Integer)
@@ -376,7 +376,7 @@ class T_CURRENCY_EXCHANGE(Base):
 
 class T_FORMULA(Base):
     """ T_FORMULA """
-    __tablename__ = TABLE_FORMULA
+    __tablename__ = Table.FORMULA
     #__table_args__ = {'autoload':True}
     formula_id = Column(Integer, primary_key=True)
     value = Column(String(512))
@@ -393,7 +393,7 @@ class T_FORMULA(Base):
 
 class T_TRADE(Base):
     """ T_TRADE """
-    __tablename__ = TABLE_TRADE
+    __tablename__ = Table.TRADE
     #__table_args__ = {'autoload':True}
     trade_id = Column(Integer, primary_key=True)
     market_id = Column(Integer)
@@ -550,7 +550,7 @@ class T_TRADE(Base):
 
 class T_RATE(Base):
     """ T_RATE """
-    __tablename__ = TABLE_RATE
+    __tablename__ = Table.RATE
     #__table_args__ = {'autoload':True}
     rate_id = Column(Integer, primary_key=True)
     calculated = Column(Numeric(18,6))
@@ -593,7 +593,7 @@ class T_RATE(Base):
 
 class T_DRAWDOWN(Base):
     """ T_DRAWDOWN """
-    __tablename__ = TABLE_DRAWDOWN
+    __tablename__ = Table.DRAWDOWN
     #__table_args__ = {'autoload':True}
     drawdown_id = Column(Integer, primary_key=True)
     drawdown_current = Column(Integer)
@@ -619,7 +619,7 @@ class T_DRAWDOWN(Base):
 
 class T_PARAMETER(Base):
     """ T_PARAMETER """
-    __tablename__ = TABLE_PARAMETER
+    __tablename__ = Table.PARAMETER
     #__table_args__ = {'autoload':True}
     parameter_id = Column(Integer, primary_key=True)
     name = Column(String(50))
@@ -638,7 +638,7 @@ class T_PARAMETER(Base):
 
 class T_POOL(Base):
     """ T_POOL """
-    __tablename__ = TABLE_POOL
+    __tablename__ = Table.POOL
     #__table_args__ = {'autoload':True}
     pool_id = Column(Integer, primary_key=True)
     account_id = Column(Integer)

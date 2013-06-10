@@ -269,7 +269,7 @@ class ControllerMain():
                 '{} ({}): {}'.format(
                     info[1]
                     ,''.join(info[2].split())
-                    ,info[0])
+                    ,info[0]))
         else:
             self.gui.set_infodetails('')
         dba = None

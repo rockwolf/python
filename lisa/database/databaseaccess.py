@@ -55,7 +55,6 @@ class DatabaseAccess():
                         "name":instance.name
                         , "account_id":instance.account_id
                         , "parent_id":instance.parent_id
-                        , "is_root":bool(instance.is_root)
                     })
         except Exception as ex:
             print(Error.GET_ACCOUNTS, ex)
@@ -78,16 +77,30 @@ class DatabaseAccess():
         values = []
         try:
             session = self.Session()
-            query = session.query(V_ACCOUNT_NAMES)
+            query = session.query(V_ACCOUNT_NAME)
             for instance in query: 
                 values.append(
-                    build_account_tree(instance.name))
+                    build_account_tree(
+                        instance.name))
+            values = self.combine_sets(values)
+            values.sort()
         except Exception as ex:
-            print(Error.GET_ACCOUNTS, ex)
+            print(Error.GET_FULL_ACCOUNTS, ex)
         finally:
             session.rollback()
             session = None
         return values
+
+    def combine_sets(self, account_set):
+        """
+            Combine sets into a list.
+            input: [{'test1', 'test2'}, {'test2'}]
+            output: ['test1', 'test2']
+        """
+        combined = set()
+        for a_set in account_set:
+            combined = combined | a_set
+        return list(combined)
 
     def get_markets(self):
         """
