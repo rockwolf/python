@@ -24,8 +24,8 @@ def is_an_investment(account_name):
 def deals_with_stocks(account_name):
     """ See if we need to use rate, marketid and stockid. """
     #TODO: fix this function with the new way of working
-    return (is_a_trade(category, subcategory) or
-            is_an_investment(category, subcategory))
+    return (is_a_trade(account_name) or
+            is_an_investment(account_name))
 
 def is_a_table(key):
     """ Used to ignore all dictionary entries that don't start with t_ """
