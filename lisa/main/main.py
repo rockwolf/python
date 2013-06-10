@@ -26,8 +26,6 @@ class MainWrapper():
         # own module directories
         self.adjust_system_path()
 
-        self.msghandler = __import__('messagehandler')
-
         # config
         self.config = ConfigParser()
 
@@ -72,9 +70,6 @@ class MainWrapper():
         """
             This is the main driver for the program.
         """
-        #TODO: put the QTGui crap in the view and call that from the
-        #controller. This part of the code should be used to start the
-        #controller.
         if self.exitstate == 1:
             sys.exit(0)
         else:
