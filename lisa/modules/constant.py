@@ -122,11 +122,13 @@ class Export():
     
 class Statement():
     """
-      Statement types.
+        Statement types.
     """
     INSERT = 0
     UPDATE = 1
     DELETE = 2
+    
+TRADING_ACCOUNTS = ['whsi00']
     
 DEFAULT_DATE = "1900-01-01"
 DEFAULT_DECIMAL = Decimal(0.0)
