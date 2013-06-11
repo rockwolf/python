@@ -14,7 +14,7 @@ def is_a_trade(account_to):
     """
     result = False
     for value in TRADING_ACCOUNTS:
-        if value in account_to:
+        if value.lower() in account_to:
             result = True
             break
     return result
@@ -27,12 +27,12 @@ def is_an_investment(account_to):
     # Check if it's an invenstment activity
     result = False
     for value in INVESTMENT:
-        if value in account_to:
+        if value.lower() in account_to:
             result = True
             break
     # That is NOT a trade
     for value in TRADING_ACCOUNTS:
-        if value in account_to:
+        if value.lower() in account_to:
             result = False
             break
     return result
