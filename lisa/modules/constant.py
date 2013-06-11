@@ -81,6 +81,30 @@ class Error():
     NEW_DRAWDOWN_RECORD = "Error in new_drawdown_record: "
     GET_SPECIFIC_FINANCE_RECORD = "Error in get_specific_finance_record: "
 
+class InputIndex():
+    """
+        Index for the input list, for easy recognition.
+    """
+    DATE = 0
+    ACCOUNT = 1
+    AMOUNT = 2
+    COMMENT = 3
+    STOCK = 4
+    STOCK_DESCRIPTION = 5
+    MARKET = 6
+    MARKET_DESCRIPTION = 7
+    QUANTITY = 8
+    PRICE = 9
+    COMMISSION = 10
+    TAX = 11
+    RISK = 12
+    CURRENCY_FROM = 13
+    CURRENCY_TO = 14
+    EXCHANGE_RATE = 15
+    MANUAL_COMMISSION = 16
+    DATE_EXPIRATION = 17
+    POOL = 18
+    
 class Message():
     """
        Messages to print to stdout.
