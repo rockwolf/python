@@ -216,6 +216,8 @@ class ControllerMain():
         else:
             amount = self.gui.get_amount()
         str_list = []
+        for i in range(1,20): # 19 inputs
+            str_list.append('')
         str_list[InputIndex.DATE] = self.gui.get_date()
         str_list[InputIndex.ACCOUNT] = self.gui.get_account()
         str_list[InputIndex.AMOUNT] = amount
