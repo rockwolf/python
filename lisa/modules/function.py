@@ -6,19 +6,34 @@
     A file with Lisa specific functions that can be used everywhere
 """
 
-def is_a_trade(account_name):
+def is_a_trade(account_to):
     """
         Function to determine if a line to process, is a trade.
     """
-    return 'trading' in account_name.lower()
+    result = False
+    for value in TRADING_ACCOUNTS:
+        if value in account_to:
+            result = True
+            break
+    return result
 
-def is_an_investment(account_name):
+def is_an_investment(account_to):
     """
         Function to determine if a line to process, is an investent (buy
         or sell of stock, that's not a trade).
     """
-    #TODO: This also counts for tax and/or commission? Only buy/sell is required?
-    return 'investing' in account_name.lower()
+    # Check if it's an invenstment activity
+    result = False
+    for value in INVESTMENT:
+        if value in account_to:
+            result = True
+            break
+    # That is NOT a trade
+    for value in TRADING_ACCOUNTS:
+        if value in account_to:
+            result = False
+            break
+    return result
 
 def deals_with_stocks(account_name):
     """
@@ -34,12 +49,12 @@ def is_a_table(key):
     """
     return key.lower()[0:2] == 't_'
 
-def we_are_buying(account_name):
+def we_are_buying(account_to):
     """
         Are we buying?
     """
-    #TODO: fix this function with the new way of working
-    return subcategory == 'buy'
+    #TODO: fix this
+    result = True
 
 #def build_account_tree(account_list, delimiter):
 #    """
