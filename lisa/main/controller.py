@@ -215,27 +215,26 @@ class ControllerMain():
             amount = '-' + self.gui.get_amount()
         else:
             amount = self.gui.get_amount()
-        str_list = [
-            self.gui.get_date(),
-            self.gui.get_account(),
-            amount,
-            self.gui.get_comment(),
-            stock,
-            stock_description,
-            market,
-            market_description,
-            self.gui.get_quantity(),
-            self.gui.get_price(),
-            self.gui.get_commission(),
-            self.gui.get_tax(),
-            self.gui.get_risk(),
-            self.gui.get_currency_from(),
-            self.gui.get_currency_to(),
-            self.gui.get_exchange_rate(),
-            self.gui.get_manual_commission(),
-            self.gui.get_date_expiration(),
-            pool
-            ]
+        str_list = []
+        str_list[InputIndex.DATE] = self.gui.get_date()
+        str_list[InputIndex.ACCOUNT] = self.gui.get_account()
+        str_list[InputIndex.AMOUNT] = amount
+        str_list[InputIndex.COMMENT] = self.gui.get_comment()
+        str_list[InputIndex.STOCK] = stock
+        str_list[InputIndex.STOCK_DESCRIPTION] = stock_description
+        str_list[InputIndex.MARKET] = market
+        str_list[InputIndex.MARKET_DESCRIPTION] = market_description
+        str_list[InputIndex.QUANTITY] = self.gui.get_quantity()
+        str_list[InputIndex.PRICE] = self.gui.get_price()
+        str_list[InputIndex.COMMISSION] = self.gui.get_commission()
+        str_list[InputIndex.TAX] = self.gui.get_tax()
+        str_list[InputIndex.RISK] = self.gui.get_risk()
+        str_list[InputIndex.CURRENCY_FROM] = self.gui.get_currency_from()
+        str_list[InputIndex.CURRENCY_TO] = self.gui.get_currency_to()
+        str_list[InputIndex.EXCHANGE_RATE] = self.gui.get_exchange_rate()
+        str_list[InputIndex.MANUAL_COMMISSION] = self.gui.get_manual_commission()
+        str_list[InputIndex.DATE_EXPIRATION] = self.gui.get_date_expiration()
+        str_list[InputIndex.POOL] = pool
         return str_list
 
     def remove_selected(self, table, selected_index):
