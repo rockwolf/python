@@ -6,6 +6,8 @@
     A file with Lisa specific functions that can be used everywhere
 """
 
+from modules.constant import INVESTMENT, TRADING_ACCOUNTS
+
 def is_a_trade(account_to):
     """
         Function to determine if a line to process, is a trade.
