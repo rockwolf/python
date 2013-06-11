@@ -83,7 +83,10 @@ class ControllerPyqt(QtGui.QMainWindow):
     
     def btn_add_clicked(self):
         """ Add new input to the input_fields table. """
-        self.ctl.add_tbl_summary(self.table, self.ctl.get_input_line(self.table))
+        input_line = self.ctl.get_input_line(self.table)
+        lines = self.ctl.generate_extra_lines(input_line)
+        lines.append(input_line)
+        self.ctl.add_tbl_summary(self.table, lines)
         self.clear_fields()
         self.set_lbl_check(self.ctl.get_check_info(self.table.tablecontent))
         
