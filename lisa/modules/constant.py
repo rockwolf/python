@@ -129,6 +129,7 @@ class Statement():
     DELETE = 2
     
 TRADING_ACCOUNTS = ['whsi00']
+INVESTMENT = ['stock', 'fund', 'bond']
     
 DEFAULT_DATE = "1900-01-01"
 DEFAULT_DECIMAL = Decimal(0.0)
