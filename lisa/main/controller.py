@@ -198,26 +198,31 @@ class ControllerMain():
         """
             Get the input values.
         """
+        # initialize
+        market = ''
+        stock = ''
+        market_description = ''
+        stock_description = ''
+        pool = '0.0'
+    
+        str_list = []
+        for i in range(1,20): # 19 inputs
+            str_list.append('')
+    
+        # get values    
         if(deals_with_stocks(self.gui.get_account())):
             market = self.gui.get_market_code()
             stock = self.gui.get_stock_name()
             market_description = self.gui.get_market_description()
             stock_description = self.gui.get_stock_description()
             pool = self.gui.get_pool()
-        else:
-            market = ''
-            stock = ''
-            market_description = ''
-            stock_description = ''
-            pool = '0.0'
+            
         #TODO: check if it needs to be a negative amount
         if is_negative_amount(account_name):
             amount = '-' + self.gui.get_amount()
         else:
             amount = self.gui.get_amount()
-        str_list = []
-        for i in range(1,20): # 19 inputs
-            str_list.append('')
+        
         str_list[InputIndex.DATE] = self.gui.get_date()
         str_list[InputIndex.ACCOUNT] = self.gui.get_account()
         str_list[InputIndex.AMOUNT] = amount
