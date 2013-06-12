@@ -338,33 +338,32 @@ INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, dat
 values('ZWZ2.cfd', 7, 'London Brent Oil', 1, current_date, current_date);
 
 /* t_account */
-INSERT INTO T_ACCOUNT(account_id, name, description, parent_id, active, date_created, date_modified)
-values(1, 'income', 'income', 1, 1, current_date, current_date);
+INSERT INTO T_ACCOUNT(account_id, name, description, active, date_created, date_modified)
+values(1, 'income', 'income', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(account_id, name, description, active, date_created, date_modified)
+values(2, 'expenses', 'expenses', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(account_id, name, description, active, date_created, date_modified)
+values(3, 'assets', 'assets', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(account_id, name, description, active, date_created, date_modified)
+values(4, 'liabilities', 'liabilities', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(account_id, name, description, active, date_created, date_modified)
+values(5, 'equity', 'equity', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(account_id, name, description, active, date_created, date_modified)
+values(6, 'assets:prepaid_expenses', 'prepaid_expenses', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(account_id, name, description, active, date_created, date_modified)
+values(7, 'liabilities:prepaid_income', 'prepaid_income', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(account_id, name, description, active, date_created, date_modified)
+values(8, 'assets:accounts_receivable', 'accounts_receivable', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(account_id, name, description, parent_id, active, date_created, date_modified)
-values(2, 'expenses', 'expenses', 2, 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(account_id, name, description, parent_id, active, date_created, date_modified)
-values(3, 'assets', 'assets', 3, 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(account_id, name, description, parent_id, active, date_created, date_modified)
-values(4, 'liabilities', 'liabilities', 4, 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(account_id, name, description, parent_id, active, date_created, date_modified)
-values(5, 'equity', 'equity', 5, 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(account_id, name, description, parent_id, active, date_created, date_modified)
-values(6, 'prepaid_expenses', 'prepaid_expenses', 3, 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(account_id, name, description, parent_id, active, date_created, date_modified)
-values(7, 'prepaid_income', 'prepaid_income', 4, 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(account_id, name, description, parent_id, active, date_created, date_modified)
-values(8, 'accounts_receivable', 'accounts_receivable', 3, 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(account_id, name, description, parent_id, active, date_created, date_modified)
-values(9, 'accounts_payable', 'accounts_payable', 4, 1, current_date, current_date);
-
+values(9, 'liabilities:accounts_payable', 'accounts_payable', 1, current_date, current_date);
 
 /* currencies */
 INSERT INTO T_CURRENCY(currency_id, code, description)
