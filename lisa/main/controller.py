@@ -176,6 +176,7 @@ class ControllerMain():
             account, only taking into consideration
             what's in the input_fields.
         """
+        #TODO: fix this, see the calling function
         value = Decimal(0.0)
         for fields in input_fields:
             if fields['i_account'] == account_name:
