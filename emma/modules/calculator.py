@@ -3,7 +3,7 @@
 See LICENSE file for copyright and license details.
 """
 
-from modules.calculator_finance import *
+from modules_generic.calculator_finance import *
 from decimal import Decimal
 
 class Calculator():
