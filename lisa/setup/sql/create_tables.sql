@@ -4,9 +4,8 @@ BEGIN;
 CREATE TABLE T_ACCOUNT
 (
     account_id int not null,
-    name varchar(30) not null,
-    description varchar(64) not null,
-    parent_id int not null,
+    name varchar(4000) not null,
+    description varchar(4000) not null,
     active int not null default 1,
     date_created timestamp not null default '1900-01-01',
     date_modified timestamp not null default '1900-01-01'
