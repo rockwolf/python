@@ -295,8 +295,8 @@ def calculate_price(amount, shares, tax, commission):
     """
         Calculates the price.
     """
-    var_T = amount - commission
-    var_N = (Decimal(1.0) + tax) * shares
+    var_T = amount + commission
+    var_N = (Decimal(1.0) - tax) * shares
     return var_T / var_N
 
 ## Commission calculations ##
