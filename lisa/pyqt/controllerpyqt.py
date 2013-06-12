@@ -112,8 +112,8 @@ class ControllerPyqt(QtGui.QMainWindow):
     def toggle_stockinputs(self):
         """ Enable/disable all inputs related to stock information """
         account_name = self.gui.cmb_account.currentText()
-        is_stock = deals_with_stocks(account)
-        is_trade = is_a_trade(account_name)
+        is_stock = deals_with_stocks(account_to)
+        is_trade = is_a_trade(account_to)
         # enable stock labels
         self.gui.lbl_marketcode.setEnabled(is_stock)
         self.gui.lbl_stockname.setEnabled(is_stock)
@@ -171,7 +171,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         """ Initialize tbl_summary. """
         # set the table header
         # TODO: set header values in mdlconstants and use the constants
-        header = ['date', 'account', 'amount',
+        header = ['date', 'account_from', 'account_to', 'amount',
                 'comment', 'stock', 'stock_description', 'market',
                 'market_description', 'quantity', 'price',
                 'commission', 'tax', 'risk', 'currency_from', 'currency_to', 'exchange_rate',
@@ -320,18 +320,27 @@ class ControllerPyqt(QtGui.QMainWindow):
        """ Add a new item to cmb_stock_name. """
        self.gui.cmb_stock_name.addItem(value)
 
-    def add_account(self, value):
-       """ Add a new item to cmb_account. """
-       self.gui.cmb_account.addItem(value)
+    def add_account_from(self, value):
+       """ Add a new item to cmb_account_from. """
+       self.gui.cmb_account_from.addItem(value)
+
+    def add_account_to(self, value):
+       """ Add a new item to cmb_account_to. """
+       self.gui.cmb_account_to.addItem(value)
 
     def add_market_code(self, value):
        """ Add a new item to cmb_market_code. """
        self.gui.cmb_market_code.addItem(value)
        
-    def set_default_account(self):
+    def set_default_account_from(self):
         """ Select the default account. """
-        index = int(self.config.default_account)-1
-        self.set_combo_selection(index, self.gui.cmb_account)
+        index = int(self.config.default_account_from)-1
+        self.set_combo_selection(index, self.gui.cmb_account_from)
+
+    def set_default_account_to(self):
+        """ Select the default account. """
+        index = int(self.config.default_account_to)-1
+        self.set_combo_selection(index, self.gui.cmb_account_to)
 
     def set_default_currency_from(self):
         """ Set the default from currency value at startup. """
