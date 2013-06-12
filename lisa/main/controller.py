@@ -132,8 +132,9 @@ class ControllerMain():
         """ fill in the combo boxes with values. """
         dba = DatabaseAccess(self.config)
         # Accounts
-        for acc in dba.get_full_accounts():
-            self.gui.add_account(acc)
+        for acc in dba.get_accounts():
+            self.gui.add_account_from(acc)
+            self.gui.add_account_to(acc)
         # Market codes
         for mcd in dba.get_markets():
             self.gui.add_market_code(mcd)
@@ -187,6 +188,7 @@ class ControllerMain():
             only taking into consideration what's in
             the input_fields.
         """
+        #TODO: this was for V_rep_cheCK I think, this needs to be fixed!
         values = []
         dba = DatabaseAccess(self.config)
         for account in dba.get_accounts():
@@ -211,7 +213,7 @@ class ControllerMain():
             str_list.append('')
     
         # get values    
-        if(deals_with_stocks(self.gui.get_account())):
+        if(deals_with_stocks(self.gui.get_account_to())):
             market = self.gui.get_market_code()
             stock = self.gui.get_stock_name()
             market_description = self.gui.get_market_description()
@@ -225,7 +227,8 @@ class ControllerMain():
             amount = self.gui.get_amount()
         
         str_list[InputIndex.DATE] = self.gui.get_date()
-        str_list[InputIndex.ACCOUNT] = self.gui.get_account()
+        str_list[InputIndex.ACCOUNT_FROM] = self.gui.get_account_from()
+        str_list[InputIndex.ACCOUNT_TO] = self.gui.get_account_to()
         str_list[InputIndex.AMOUNT] = amount
         str_list[InputIndex.COMMENT] = self.gui.get_comment()
         str_list[InputIndex.STOCK] = stock
@@ -262,15 +265,11 @@ class ControllerMain():
             Update infolabel details.
         """
         dba = DatabaseAccess(self.config)
-        account = self.gui.get_account()
+        account_from = self.gui.get_account_from()
+        account_to = self.gui.get_account_to()
         stock = self.gui.get_stock_name()
         #TODO: get the correct accounts here
-        if(
-            account == 'invest.tx' or
-            account == 'trade.tx' or
-            account == 'invest.rx' or
-            account == 'trade.rx'
-        ) and stock != '':
+        if deals_with_stocks(account_to) and not stock:
             info = dba.get_stockinfo(stock)
             self.gui.set_infodetails(
                 '{} ({}): {}'.format(
