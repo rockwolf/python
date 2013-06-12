@@ -104,7 +104,10 @@ class InputIndex():
     MANUAL_COMMISSION = 17
     DATE_EXPIRATION = 18
     POOL = 19
-    SIZE = 19 #size of the enum
+    PERIODIC_FLAG = 20
+    PERIODIC_START = 21
+    PERIODIC_END = 22
+    SIZE = 22 #size of the enum
     
 class Message():
     """
