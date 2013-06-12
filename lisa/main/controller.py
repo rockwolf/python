@@ -85,14 +85,14 @@ class ControllerMain():
         input = []
         try:
             for field in tablecontent:
-                account_name = field[2]
-                if deals_with_stocks(account_name) :
-                    shares = field[8]
-                    price = field[9]
-                    commission = field[10]
-                    tax = field[11]
-                    risk = field[12]
-                    pool = field[18]
+                account_to = field[InputIndex.ACCOUNT_TO]
+                if deals_with_stocks(account_to) :
+                    shares = field[InputIndex.SHARES]
+                    price = field[InputIndex.PRICE]
+                    commission = field[InputIndex.COMMISSION]
+                    tax = field[InputIndex.TAX]
+                    risk = field[InputIndex.RISK]
+                    pool = field[InputIndex.POOL]
                 else:
                     shares = DEFAULT_INT
                     price = DEFAULT_DECIMAL
@@ -101,24 +101,25 @@ class ControllerMain():
                     risk = DEFAULT_DECIMAL
                     pool = DEFAULT_DECIMAL
                 input.append({
-                    'i_date':string_to_date(field[0]),
-                    'i_account':field[1], #Note: Get account_id from T_ACCOUNT for final insert
-                    'i_amount':Decimal(field[2]),
-                    'i_comment':field[3],
-                    'i_stock_name':field[4],
-                    'i_stock_description':field[5],
-                    'i_market_name':field[6],
-                    'i_market_description':field[7],
+                    'i_date':string_to_date(field[InputIndex.DATE]),
+                    'i_account_from':field[InputIndex.ACCOUNT_FROM], #Note: Get account_id from T_ACCOUNT for final insert
+                    'i_account_to':field[InputIndex.ACCOUNT_TO],
+                    'i_amount':Decimal(field[InputIndex.AMOUNT]),
+                    'i_comment':field[InputIndex.COMMENT],
+                    'i_stock_name':field[InputIndex.STOCK],
+                    'i_stock_description':field[InputIndex.STOCK_DESCRIPTION],
+                    'i_market_name':field[InputIndex.MARKET],
+                    'i_market_description':field[InputIndex.MARKET_DESCRIPTION],
                     'i_shares':int(shares),
                     'i_price':Decimal(price),
                     'i_commission':Decimal(commission),
                     'i_tax':Decimal(tax),
                     'i_risk_input':Decimal(risk),
-                    'i_currency_from':field[13], #Note: Get currency_id from T_CURRENCY for final insert
-                    'i_currency_to':field[14], #Note: Get currency_id from T_CURRENCY for final insert
-                    'i_exchange_rate':Decimal(field[15]),
-                    'i_automatic_flag':int(field[16]),
-                    'i_date_expiration':string_to_date(field[17]),
+                    'i_currency_from':field[InputIndex.CURRENCY_FROM], #Note: Get currency_id from T_CURRENCY for final insert
+                    'i_currency_to':field[InputIndex.CURRENCY_TO], #Note: Get currency_id from T_CURRENCY for final insert
+                    'i_exchange_rate':Decimal(field[InputIndex.EXCHANGE_RATE]),
+                    'i_automatic_flag':int(field[InputIndex.AUTOMATIC_FLAG]),
+                    'i_date_expiration':string_to_date(field[InputIndex.DATE_EXPIRATION]),
                     'i_pool':Decimal(pool)
                 })
         except Exception as ex:
