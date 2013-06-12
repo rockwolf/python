@@ -210,7 +210,7 @@ class ControllerMain():
         pool = '0.0'
     
         str_list = []
-        for i in range(1,20): # 19 inputs
+        for i in range(0,InputIndex.SIZE):
             str_list.append('')
     
         # get values    
