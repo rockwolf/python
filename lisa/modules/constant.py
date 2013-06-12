@@ -104,6 +104,7 @@ class InputIndex():
     MANUAL_COMMISSION = 17
     DATE_EXPIRATION = 18
     POOL = 19
+    SIZE = 19 #size of the enum
     
 class Message():
     """
