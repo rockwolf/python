@@ -85,24 +85,25 @@ class InputIndex():
         Index for the input list, for easy recognition.
     """
     DATE = 0
-    ACCOUNT = 1
-    AMOUNT = 2
-    COMMENT = 3
-    STOCK = 4
-    STOCK_DESCRIPTION = 5
-    MARKET = 6
-    MARKET_DESCRIPTION = 7
-    QUANTITY = 8
-    PRICE = 9
-    COMMISSION = 10
-    TAX = 11
-    RISK = 12
-    CURRENCY_FROM = 13
-    CURRENCY_TO = 14
-    EXCHANGE_RATE = 15
-    MANUAL_COMMISSION = 16
-    DATE_EXPIRATION = 17
-    POOL = 18
+    ACCOUNT_FROM = 1
+    ACCOUNT_TO = 2
+    AMOUNT = 3
+    COMMENT = 4
+    STOCK = 5
+    STOCK_DESCRIPTION = 6
+    MARKET = 7
+    MARKET_DESCRIPTION = 8
+    QUANTITY = 9
+    PRICE = 10
+    COMMISSION = 11
+    TAX = 12
+    RISK = 13
+    CURRENCY_FROM = 14
+    CURRENCY_TO = 15
+    EXCHANGE_RATE = 16
+    MANUAL_COMMISSION = 17
+    DATE_EXPIRATION = 18
+    POOL = 19
     
 class Message():
     """
