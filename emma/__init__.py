@@ -39,9 +39,6 @@ from modules.constant import *
 def main(pool, amount, tax, commission, shares, price, buy, automatic, market, commodity, account, profile):
     """ Main driver. """
     ### Run the application ###
-    #NOTE: the import statement loads the views and tables,
-    #but when doing an install, they are not created yet.
-    #So we skip loading this until we are sure we can start.
     from main.main import MainWrapper
     wrapper = MainWrapper(pool, amount, tax, commission, shares, price, buy, automatic, market, commodity, account)
     wrapper.run(profile) #run the main method for the program
@@ -59,11 +56,8 @@ def uninstall():
     setup = None
 
 if __name__ == "__main__":
-    #parser = argparse.ArgumentParser(description="Equations for Money Management Application")
     args = docopt(__doc__, help=True, version=__version__)
-    print(args)
    
-    #TODO: add value checking here, so we don't enter wrong types etc.
     pool = Decimal(args['--pool']) if args['--pool'] else DEFAULT_DECIMAL
     amount = Decimal(args['--amount']) if args['--amount'] else DEFAULT_DECIMAL
     tax = Decimal(args['--tax']) if args['--tax'] else DEFAULT_DECIMAL
