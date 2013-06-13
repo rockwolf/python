@@ -15,9 +15,9 @@ from datetime import datetime
 from modules_generic.function import *
 from modules_generic.function_sqlalchemy import row_to_dict
 from modules_generic.messagehandler import *
+from modules_generic.calculator_finance import *
 from modules.constant import *
 from modules.function import *
-from modules.calculator_finance import *
 from meta import engine, Base
 from database.mappings import *
 from database.mappings_views import *

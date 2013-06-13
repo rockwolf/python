@@ -1,12 +1,27 @@
 #!/usr/env/python
 """
+    Lisa: Less Interaction Saves Action
+
+    Usage:
+        lisa [options]
+
+    Options:
+        --import
+        --export        [ledger|csv] [default: ledger]
+        --install
+        --uninstall
+        -V, --version 
+        --python
+"""
+"""
     See LICENSE file for copyright and license details.
 """
+from docopt import docopt
 
-from datetime import datetime
+__all__ = ['lisa']
+__version__ = 'v2.1'
 
 import sys
-import argparse
 
 from setup.setup import Setup
 from modules.constant import *
@@ -41,66 +56,32 @@ def uninstall():
     setup = None
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Less Interaction Saves Action")
-    parser.add_argument(
-        '--import',
-        help='Import csv files from import directory specified in config.',
-        default=False,
-        action='store_true')
-    parser.add_argument(
-        '--export',
-        help='Export to the given type. [csv|ledger]',
-        default='',
-        action='store')
-    #action='store_true')
-    parser.add_argument(
-        '--install',
-        help='Sets up the database, by executing the required sql scripts.',
-        default=False,
-        action='store_true')
-    parser.add_argument(
-        '--uninstall',
-        help='Removes all records and tables from the database!',
-        default=False,
-        action='store_true')
-    parser.add_argument(
-        '-V',
-        '--version',
-        help='Shows application version.',
-        default=False,
-        version='Lisa 2.00',
-        action='version')
-    parser.add_argument(
-        '--python',
-        help='Shows python version in use on the system.',
-        default=False,
-        action='store_true')
-    args = vars(parser.parse_args())
+    args = docopt(__doc__, help=True, version=__version__)
    
     option = ''
     export_type = ''
-    if args['import']:
+    if args['--import']:
         option = 'import'
-    elif args['export']:
+    elif args['--export']:
         option = 'export'
-        if args['export'] == Export.LEDGER:
+        if args['--export'] == Export.LEDGER:
             export_type = Export.LEDGER
-        elif args['export'] == Export.CSV:
+        elif args['--export'] == Export.CSV:
             export_type = Export.CSV
         else:
             print("Error: wrong export type (" + 
-                    args['export'] +
+                    args['--export'] +
                     "), falling back on the default (" +
                     Export.CSV +
                     ")!");
             export_type = Export.CSV
-    elif args['install']:
+    elif args['--install']:
         install()
         sys.exit(0)
-    elif args['uninstall']:
+    elif args['--uninstall']:
         uninstall()
         sys.exit(0)
-    elif args['python']:
+    elif args['--python']:
         print('Python ' + sys.version)
         sys.exit(0)
     main(option, export_type)
