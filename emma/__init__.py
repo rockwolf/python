@@ -1,13 +1,40 @@
 #!/usr/env/python
+"""Equations for Money Management Application
+        
+Usage:
+    emma [options]
+
+Options:
+    -a=amount, --amount=amount
+    -l=pool, --pool=pool
+    -b, --buy
+    -c=commission, --commission=commission  [default: 9.75]
+    -t=tax, --tax=tax                       [default: 0.25]
+    -s=shares, --shares=shares
+    -p=price, --price=price
+    -m=market, --market=market              [default: ebr]
+    -d=commodity, --commodity=commodity
+    -u=account, --account=account           [default: binb00]
+    --automatic
+    --profile
+    --install
+    --uninstall
+    -V, --version
+    --python
+"""
 """
 See LICENSE file for copyright and license details.
 """
+from docopt import docopt
+
+__all__ = ['Emma']
+__version__ = 'Emma 1.01'
 
 import sys
-import argparse
 
 from setup.setup import Setup
 from decimal import Decimal
+from modules.constant import *
 
 def main(pool, amount, tax, commission, shares, price, buy, automatic, market, commodity, account, profile):
     """ Main driver. """
@@ -32,124 +59,31 @@ def uninstall():
     setup = None
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Equations for Money Management Application")
-    parser.add_argument(
-    	'-a',
-        '--amount',
-        help='Money used (incl. tax + comm): <double>',
-        default=Decimal(-1.0),
-        action='store')
-    parser.add_argument(
-    	'-l',
-        '--pool',
-        help='Total pool available: <double>',
-        default=Decimal(-1.0),
-        action='store')
-    #action='store_true')
-    parser.add_argument(
-        '-b',
-        '--buy',
-        help='Are we buying? Or selling?',
-        default=True,
-        action='store_true')
-    parser.add_argument(
-    	'-c',
-        '--commission',
-        help='Commission',
-        default=Decimal(-1.0),
-        action='store')
-    parser.add_argument(
-        '-t',
-        '--tax',
-        help='Tax amount to use: <double>',
-        default=Decimal(0.0025),
-        action='store')
-    parser.add_argument(
-        '-s',
-        '--shares',
-        help='Tax amount to use: <double>',
-        default=Decimal(-1.0),
-        action='store')
-    parser.add_argument(
-        '-p',
-        '--price',
-        help='Price: <double>',
-        default=Decimal(-1.0),
-        action='store')
-    parser.add_argument(
-        '-m',
-        '--market',
-        help='Market: <string>',
-        default='',
-        action='store')
-    parser.add_argument(
-        '-d',
-        '--commodity',
-        help='Commodity: <string>',
-        default='',
-        action='store')
-    parser.add_argument(
-        '-u',
-        '--account',
-        help='Account: <string>',
-        default='whsi00',
-        action='store')
-    parser.add_argument(
-        '--automatic',
-        help='Override tax/commission values with the values from the library!',
-        default=False,
-        action='store_true')
-    #TODO: a setting for each profile with "<double>;<double>;<double>" as values?
-    parser.add_argument(
-        '--profile',
-        help='Show profile information.',
-        default=False,
-        action='store_true')
-    parser.add_argument(
-        '--install',
-        help='Installation.',
-        default=False,
-        action='store_true')
-    parser.add_argument(
-        '--uninstall',
-        help='Uninstall.',
-        default=False,
-        action='store_true')
-    parser.add_argument(
-        '-V',
-        '--version',
-        help='Shows application version and usage.',
-        default=False,
-        version='Emma 1.00',
-        action='version')
-    parser.add_argument(
-        '--python',
-        help='Shows python version in use on the system.',
-        default=False,
-        action='store_true')
-    args = vars(parser.parse_args())
+    #parser = argparse.ArgumentParser(description="Equations for Money Management Application")
+    args = docopt(__doc__, help=True, version=__version__)
+    print(args)
    
     #TODO: add value checking here, so we don't enter wrong types etc.
-    pool = Decimal(args['pool'])
-    amount = Decimal(args['amount'])
-    tax = Decimal(args['tax'])
-    commission = Decimal(args['commission'])
-    shares = Decimal(args['shares'])
-    price = Decimal(args['price'])
-    buy = Decimal(args['buy'])
-    automatic = bool(args['automatic'])
-    profile = bool(args['profile'])
-    market = args['market']
-    commodity = args['commodity']
-    account = args['account']
+    pool = Decimal(args['--pool']) if args['--pool'] else DEFAULT_DECIMAL
+    amount = Decimal(args['--amount']) if args['--amount'] else DEFAULT_DECIMAL
+    tax = Decimal(args['--tax']) if args['--tax'] else DEFAULT_DECIMAL
+    commission = Decimal(args['--commission'])
+    shares = Decimal(args['--shares']) if args['--shares'] else DEFAULT_DECIMAL
+    price = Decimal(args['--price']) if args['--price'] else DEFAULT_DECIMAL
+    buy = Decimal(args['--buy'])
+    automatic = bool(args['--automatic'])
+    profile = bool(args['--profile'])
+    market = args['--market']
+    commodity = args['--commodity']
+    account = args['--account']
     
-    if args['install']:
+    if args['--install']:
         install()
         sys.exit(0)
-    elif args['uninstall']:
+    elif args['--uninstall']:
         uninstall()
         sys.exit(0)
-    elif args['python']:
+    elif args['--python']:
         print('Python ' + sys.version)
         sys.exit(0)
     main(
