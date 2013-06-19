@@ -10,6 +10,7 @@
         --export        [ledger|csv] [default: ledger]
         --install
         --uninstall
+        --test
         -V, --version 
         --python
 """
@@ -26,7 +27,7 @@ import sys
 from setup.setup import Setup
 from modules.constant import *
 
-def main(option, export_type):
+def main(option, export_type, testmode):
     """ Main driver. """
     ### Run the application ###
     #NOTE: the import statement loads the views and tables,
@@ -34,6 +35,10 @@ def main(option, export_type):
     #So we skip loading this until we are sure we can start.
     from main.main import MainWrapper
     wrapper = MainWrapper()
+    if testmode:
+        print("test: unit_test")
+        wrapper.unit_test()
+        wrapper.exitstate = 1
     if (option == 'import'):
         wrapper.file_import()
         wrapper.exitstate = 1
@@ -60,6 +65,7 @@ if __name__ == "__main__":
    
     option = ''
     export_type = ''
+    testmode = False
     if args['--import']:
         option = 'import'
     elif args['--export']:
@@ -81,7 +87,9 @@ if __name__ == "__main__":
     elif args['--uninstall']:
         uninstall()
         sys.exit(0)
+    elif args['--test']:
+        testmode = True
     elif args['--python']:
         print('Python ' + sys.version)
         sys.exit(0)
-    main(option, export_type)
+    main(option, export_type, testmode)

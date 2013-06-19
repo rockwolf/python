@@ -66,6 +66,18 @@ class MainWrapper():
             exp.csv_export()
         exp = None
 
+    def unit_test(self):
+        """
+            unit testing
+        """
+        print("Importing TestValues class...")
+        from modules_generic.calculator_finance_test import TestValues
+        print("Initialize class...")
+        test = TestValues()
+        print("Running test...")
+        test.run()
+        print("Done.")
+
     def run(self):
         """
             This is the main driver for the program.
