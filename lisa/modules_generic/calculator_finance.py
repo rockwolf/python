@@ -291,12 +291,17 @@ def calculate_shares_recommended():
     """
     return -1
 
-def calculate_price(amount, shares, tax, commission):
+def calculate_price(transactionid, amount, shares, tax, commission):
     """
-        Calculates the price.
+        Calculates the price when buying or selling
     """
-    var_T = amount + commission
-    var_N = (Decimal(1.0) - tax) * shares
+    if transactionid == Transaction.SELL:
+        var_T = amount + commission
+        var_N = (Decimal(1.0) - tax) * shares
+    else:
+        var_T = amount - commission
+        var_N = (Decimal(1.0) + tax) * shares
+        
     return var_T / var_N
 
 ## Commission calculations ##
