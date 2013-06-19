@@ -274,11 +274,11 @@ def calculate_profit_loss(amount_sell_simple, amount_buy_simple, total_cost):
     """
     return amount_sell_simple - amount_buy_simple - total_cost
 
-def calculate_cost_other(total_cost, profit_loss):
+def calculate_cost_other(cost_total, profit_loss):
     """
         Calculates others costs based on the difference that remains.
     """
-    diff_cost_profit = total_cost - profit_loss
+    diff_cost_profit = cost_total - profit_loss
     if diff_cost_profit > DEFAULT_DECIMAL:
         result = diff_cost_profit
     else:
