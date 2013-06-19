@@ -121,8 +121,8 @@ class ControllerMain():
                     'i_automatic_flag':int(field[InputIndex.AUTOMATIC_FLAG]),
                     'i_date_expiration':string_to_date(field[InputIndex.DATE_EXPIRATION]),
                     'i_periodic':int(field[InputIndex.PERIODIC_FLAG]),
-                    'i_periodic_start':field[InputIndex.PERIODIC_START],
-                    'i_periodic_end':field[InputIndex.PERIODIC_END],
+                    'i_periodic_start':string_to_date(field[InputIndex.PERIODIC_START]),
+                    'i_periodic_end':string_to_date(field[InputIndex.PERIODIC_END]),
                     'i_pool':Decimal(pool)
                 })
         except Exception as ex:
