@@ -305,18 +305,17 @@ def calculate_commission(account, market, commodity, price, shares):
         Calculate the correct commission.
     """
     if account.lower() == "binb00":
-        result = get_binb00_commission(market)
+        result = get_binb00_commission(market, price, shares)
     elif account.lower() == "whsi00":
         result = get_whsi00_commission(market, commodity, price, shares)
     return result
 
-def get_binb00_commission(market):
+def get_binb00_commission(market, price, shares):
     """
         Get the correct commission for binb00.
     """
-    if amount_simple <= Decimal(2500.0):
-        get_bin00_commission_value(Decimal(2500.0), market)
-    return result
+    amount_simple = self.calculate_amount_simple(price, shares)
+    return get_bin00_commission_value(amount_simple, market)
 
 def get_binb00_commission_index(market):
     """
@@ -341,20 +340,20 @@ def get_binb00_commission_index(market):
         result = -1
     return result
 
-def get_binb00_commission_value(threshhold, market):
+def get_binb00_commission_value(amount_simple, market):
     """
         Gets the binb00 commission for the given threshhold value.
     """
     index = get_binb00_commission_index(market)
-    if threshhold == Decimal(2500.0):
+    if amount_simple <= Decimal(2500.0):
         result = binb00_commissions["2500"][index]
-    elif (threshhold > Decimal(2500.0)) and (threshhold <= Decimal(5000.0)):
+    elif (amount_simple > Decimal(2500.0)) and (amount_simple <= Decimal(5000.0)):
         result = binb00_commissions["5000"][index]
-    elif (threshhold > Decimal(5000.0)) and (threshhold <= Decimal(25000.0)):
+    elif (amount_simple > Decimal(5000.0)) and (amount_simple <= Decimal(25000.0)):
         result = binb00_commissions["25000"][index]
-    elif (threshhold > Decimal(25000.0)) and (threshhold <= Decimal(50000.0)):
+    elif (amount_simple > Decimal(25000.0)) and (amount_simple <= Decimal(50000.0)):
         result = binb00_commissions["50000"][index]
-    elif (threshhold > Decimal(5000.0)):
+    elif (amount_simple > Decimal(5000.0)):
         result = binb00_commissions["50000+"][index]
         #TODO: expand for options?
     else:
