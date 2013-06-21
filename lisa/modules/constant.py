@@ -132,6 +132,13 @@ class Statement():
     UPDATE = 1
     DELETE = 2
     
+class Transaction():
+    """
+        Transaction types.
+    """
+    BUY = 0
+    SELL = 1
+    
 TRADING_ACCOUNTS = ['whsi00']
 INVESTMENT = ['stock', 'fund', 'bond']
 #TODO: credit the giver? How to add to NEGATIVES?
