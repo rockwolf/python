@@ -60,7 +60,7 @@ if __name__ == "__main__":
    
     pool = Decimal(args['--pool']) if args['--pool'] else DEFAULT_DECIMAL
     amount = Decimal(args['--amount']) if args['--amount'] else DEFAULT_DECIMAL
-    tax = Decimal(args['--tax']) if args['--tax'] else DEFAULT_DECIMAL
+    tax = Decimal(args['--tax'])/Decimal(100.0) if args['--tax'] else DEFAULT_DECIMAL
     commission = Decimal(args['--commission'])
     shares = Decimal(args['--shares']) if args['--shares'] else DEFAULT_DECIMAL
     price = Decimal(args['--price']) if args['--price'] else DEFAULT_DECIMAL
@@ -70,7 +70,14 @@ if __name__ == "__main__":
     market = args['--market']
     commodity = args['--commodity']
     account = args['--account']
-    
+   
+    print('amount =', amount)
+    print('pool =', pool)
+    print('shares =', shares)
+    print('price =', price)
+    print('tax =', tax)
+    print('commission =', commission)
+    print('buy =', buy)
     if args['--install']:
         install()
         sys.exit(0)

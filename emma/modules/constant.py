@@ -5,7 +5,7 @@
 
 from decimal import Decimal
 
-DEFAULT_DECIMAL = Decimal(0.0)
+DEFAULT_DECIMAL = Decimal(-1.0)
 
 class Transaction():
     BUY = 0
