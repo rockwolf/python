@@ -7,9 +7,8 @@
         <meta charset="UTF-8">
     </head>
     <body>
-        <div class="header">
-            <!--h1 class="headerTitle"-->
-                {% if app_profile == 'zivle' %}
+        {% if app_profile == 'zivle' %}
+            <div class="header2">
                 <ul id="menu_sub2"> 
                     <li>
                         <a href="/index/zivle">zivle</a>
@@ -24,8 +23,9 @@
                         <a href="/report_finance/zivle">report_finance</a>
                     </li>
                 </ul>
-                {% endif %}
-                {% if app_profile == '' %}
+        {% endif %}
+        {% if app_profile == '' %}
+            <div class="header">
                 <ul id="menu_sub"> 
                     <li>
                         <a href="/index">home</a>
@@ -40,9 +40,15 @@
                         <a href="/report_finance">report_finance</a>
                     </li>
                 </ul>
-                {% endif %}
+        {% endif %}
+        {% if app_profile == 'zivle' %}
+                <div class="header_sub2">
+        {% endif %}
+        {% if app_profile == '' %}
+                <div class="header_sub">
+        {% endif %}
                 &nbsp;Logged in as <b>{{user.login}}</b>.
-            <!--/h1-->
+                </div>
         </div>
         <div id="main">
             {% block content %}{% endblock %}

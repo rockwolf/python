@@ -15,10 +15,35 @@ body
 .header 
 { 
 	color: #657b83;
-    background: #fdf6e3;
+    background: #2aa198;
     border: 0; 
     padding: 0;
 }
+
+.header2
+{ 
+	color: #657b83;
+    background: #dc322f;
+    border: 0; 
+    padding: 0;
+}
+
+.header_sub 
+{ 
+	color: #657b83;
+    background: #fdf6e3;
+    border-bottom: 1px dotted #2aa198; 
+    padding: 0;
+}
+
+.header_sub2
+{ 
+	color: #657b83;
+    background: #fdf6e3;
+    border-bottom: 1px dotted #dc322f; 
+    padding: 0;
+}
+
 .header a
 {
     border: 0;
