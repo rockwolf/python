@@ -3,5 +3,4 @@ See LICENSE file for copyright and license details.
 """
 
 from app import app
-app.debug = True
-app.run(port = 9876)
+app.run(debug = True, port = 9876)
