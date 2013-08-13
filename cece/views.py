@@ -2,7 +2,7 @@
 See LICENSE file for copyright and license details.
 """
 
-from app import app
+from app.__init__ import app
 from flask import render_template, flash, redirect
 #from forms import LoginForm
 from app.modules.constant import *
@@ -90,6 +90,10 @@ def login():
         title = 'Sign In',
         form = form)
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html',
+	title = '404'), 404
 
 def load_lines(text_file):
     """
