@@ -1,0 +1,51 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <title>{{title}} - Central command entity</title>
+        <link rel="icon" href="/static/favicon.png" type="image/png">
+        <link href="/static/style.css" title="compact" rel="stylesheet" type="text/css">
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div class="header">
+            <!--h1 class="headerTitle"-->
+                {% if app_profile == 'zivle' %}
+                <ul id="menu_sub2"> 
+                    <li>
+                        <a href="/index/zivle">zivle</a>
+                    </li>
+                    <li>
+                        <a href="/contact/zivle">contact</a>
+                    </li>
+                    <li>
+                        <a href="/task/zivle">task</a>
+                    </li>
+                    <li>
+                        <a href="/report_finance/zivle">report_finance</a>
+                    </li>
+                </ul>
+                {% endif %}
+                {% if app_profile == '' %}
+                <ul id="menu_sub"> 
+                    <li>
+                        <a href="/index">home</a>
+                    </li>
+                    <li>
+                        <a href="/contact">contact</a>
+                    </li>
+                    <li>
+                        <a href="/task">task</a>
+                    </li>
+                    <li>
+                        <a href="/report_finance">report_finance</a>
+                    </li>
+                </ul>
+                {% endif %}
+                &nbsp;Logged in as <b>{{user.login}}</b>.
+            <!--/h1-->
+        </div>
+        <div id="main">
+            {% block content %}{% endblock %}
+        </div>
+    </body>
+</html>
