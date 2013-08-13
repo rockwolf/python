@@ -2,10 +2,10 @@
 See LICENSE file for copyright and license details.
 """
 
-from cece import cece as app
+from app import app
 from flask import render_template, flash, redirect
-from forms import LoginForm
-from modules.constant import *
+#from forms import LoginForm
+from app.modules.constant import *
 
 @app.route("/")
 @app.route("/index")
