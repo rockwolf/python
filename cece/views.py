@@ -5,6 +5,9 @@ See LICENSE file for copyright and license details.
 from app.__init__ import app
 from flask import render_template, flash, redirect
 #from forms import LoginForm
+
+import sys
+sys.path.append('modules')
 from app.modules.constant import *
 
 @app.route("/")
