@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Bookmarks (total: {{total}})</h1>
+        {% for category in categories %}
+        <h2>{{category}}</h2>
+        <ol>
+            {% for link in links %}
+            {% if link[1] == category %}
+            <li>{{link[1]}}: <a href="{{link[0]}}">{{link[2]}}</a> ({{link[1]}})</li>
+            {% endif %}
+            {% endfor %}
+        </ol>
+        {% endfor %}
+{% endblock %}

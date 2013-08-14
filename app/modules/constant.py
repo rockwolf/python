@@ -6,7 +6,7 @@ class AppProfile():
     """
         Profile to use for the app.
     """
-    PERSONAL = ''
+    PERSONAL = 'personal'
     ZIVLE = 'zivle'
 
 class TaskFile():

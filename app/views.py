@@ -4,19 +4,15 @@ See LICENSE file for copyright and license details.
 
 from app import app
 from flask import render_template, flash, redirect
-#from forms import LoginForm
+#from app.forms import LoginForm
 
-#import sys
-#sys.path.append('modules')
-#sys.path.append('static')
-#sys.path.append('templates')
 from app.modules.constant import *
 
 @app.route("/")
 @app.route("/index")
 @app.route("/index/")
-@app.route("/index/<app_profile>")
-@app.route("/index/<app_profile>/")
+@app.route("/<app_profile>/index")
+@app.route("/<app_profile>/index/")
 @app.route("/<app_profile>")
 @app.route("/<app_profile>/")
 def index(app_profile = AppProfile.PERSONAL):
@@ -24,15 +20,17 @@ def index(app_profile = AppProfile.PERSONAL):
         Index page
     """
     user = { 'login': 'rockwolf' } # fake user
-    if app_profile == 'personal':
-        app_profile = ''
+    if app_profile == '':
+        app_profile = 'personal'
     return render_template("index.html",
         title = 'Central command entity',
         user = user,
-        app_profile = app_profile.lower().lower())
+        app_profile = app_profile.lower())
 
 @app.route("/report_finance")
-@app.route("/report_finance/<app_profile>")
+@app.route("/report_finance/")
+@app.route("/<app_profile>/report_finance")
+@app.route("/<app_profile>/report_finance/")
 def report_finance(app_profile = AppProfile.PERSONAL):
     """
         Financial reports.
@@ -41,7 +39,9 @@ def report_finance(app_profile = AppProfile.PERSONAL):
     return('TBD');
 
 @app.route("/trading_journal")
-@app.route("/trading_journal/<app_profile>")
+@app.route("/trading_journal/")
+@app.route("/<app_profile>/trading_journal")
+@app.route("/<app_profile>/trading_journal/")
 def trading_journal(app_profile = AppProfile.PERSONAL):
     """
         Trading Journal
@@ -56,7 +56,9 @@ def trading_journal(app_profile = AppProfile.PERSONAL):
                 title = '404')
 
 @app.route("/contact")
-@app.route("/contact/<app_profile>")
+@app.route("/contact/")
+@app.route("/<app_profile>/contact")
+@app.route("/<app_profile>/contact/")
 def contact(app_profile = AppProfile.PERSONAL):
     """
        Address book. 
@@ -65,7 +67,9 @@ def contact(app_profile = AppProfile.PERSONAL):
     return('TBD');
 
 @app.route("/task")
-@app.route("/task/<app_profile>")
+@app.route("/task/")
+@app.route("/<app_profile>/task")
+@app.route("/<app_profile>/task/")
 def task(app_profile = AppProfile.PERSONAL):
     """
         Task and schedule information.
@@ -95,11 +99,46 @@ def task(app_profile = AppProfile.PERSONAL):
                 title = '404')
 
 @app.route('/login', methods = ['GET', 'POST'])
+@app.route('/login/', methods = ['GET', 'POST'])
 def login():
     form = LoginForm()
     return render_template('login.html', 
         title = 'Sign In',
         form = form)
+
+@app.route("/links")
+@app.route("/links/")
+@app.route("/<app_profile>/links")
+@app.route("/<app_profile>/links/")
+def links(app_profile = AppProfile.PERSONAL):
+    """
+       Link bookmarks.
+    """
+    user = { 'login': 'rockwolf' } # fake user
+    # Try to read from text-files and build links dynamically
+    # Format: data/<profile>/links.txt
+    # Textfile format: <url>;<name>;<description>
+    #TODO: put links_file in constant.py
+    #or find a more general way to configure files?
+    #links_file = 'C:\\Users\\AN\\home\\other\\Dropbox\\cece\\app\\data\\' + app_profile + '\\links.txt'
+    links_file = '/home/rockwolf/Dropbox/cece/app/data/' + app_profile + '/links.txt'
+    links_full = load_lines(links_file)
+    links = []
+    for link_full in links_full:
+        links.append(link_full.split(';'))
+    links.sort(key=lambda k: k[1])
+    categories = []
+    for link in links:
+        if link[1] not in categories:
+            categories.append(link[1])
+    return render_template("links.html",
+        title = 'Bookmarks',
+        user = user,
+        app_profile = app_profile.lower(),
+        categories = categories,
+        total = len(links),
+        links = links
+        )
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -113,5 +152,5 @@ def load_lines(text_file):
     lines = []
     with open(text_file, encoding='utf-8') as text:
         for line in text:
-            lines.append(line)
+            lines.append(line.strip())
     return lines
