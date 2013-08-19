@@ -280,4 +280,10 @@ CREATE TABLE T_VERSION
     date_modified timestamp not null default '1900-01-01'
 );
 
+CREATE TABLE T_BET
+(
+    bet_id int not null,
+    //TODO: finish
+)
+
 COMMIT;
