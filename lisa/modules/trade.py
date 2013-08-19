@@ -12,7 +12,7 @@ from modules.constant import *
 from modules.function import *
 from modules_generic.function import *
 from database.mappings import T_TRADE
-from modules.calculator_finance import *
+from modules_generic.calculator_finance import *
 
 class Trade(CoreModule):
     """

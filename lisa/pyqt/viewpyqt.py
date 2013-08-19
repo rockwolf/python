@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'viewpyqt.ui'
 #
-# Created: Sat Jun  1 15:48:31 2013
+# Created: Mon Aug 19 21:21:00 2013
 #      by: PyQt4 UI code generator 4.10.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -259,11 +259,11 @@ class Ui_MainWindow(object):
         self.txt_stock_description = QtGui.QLineEdit(self.centralwidget)
         self.txt_stock_description.setObjectName(_fromUtf8("txt_stock_description"))
         self.gridLayout.addWidget(self.txt_stock_description, 3, 6, 1, 1)
-        self.cmb_account = QtGui.QComboBox(self.centralwidget)
-        self.cmb_account.setInputMethodHints(QtCore.Qt.ImhLowercaseOnly)
-        self.cmb_account.setEditable(True)
-        self.cmb_account.setObjectName(_fromUtf8("cmb_account"))
-        self.gridLayout.addWidget(self.cmb_account, 1, 1, 1, 1)
+        self.cmb_account_from = QtGui.QComboBox(self.centralwidget)
+        self.cmb_account_from.setInputMethodHints(QtCore.Qt.ImhLowercaseOnly)
+        self.cmb_account_from.setEditable(True)
+        self.cmb_account_from.setObjectName(_fromUtf8("cmb_account_from"))
+        self.gridLayout.addWidget(self.cmb_account_from, 1, 1, 1, 1)
         self.lbl_amount = QtGui.QLabel(self.centralwidget)
         self.lbl_amount.setObjectName(_fromUtf8("lbl_amount"))
         self.gridLayout.addWidget(self.lbl_amount, 0, 2, 1, 1)
@@ -335,6 +335,11 @@ class Ui_MainWindow(object):
         self.lbl_comment.setFont(font)
         self.lbl_comment.setObjectName(_fromUtf8("lbl_comment"))
         self.gridLayout.addWidget(self.lbl_comment, 4, 1, 1, 1)
+        self.cmb_account_to = QtGui.QComboBox(self.centralwidget)
+        self.cmb_account_to.setInputMethodHints(QtCore.Qt.ImhLowercaseOnly)
+        self.cmb_account_to.setEditable(True)
+        self.cmb_account_to.setObjectName(_fromUtf8("cmb_account_to"))
+        self.gridLayout.addWidget(self.cmb_account_to, 3, 1, 1, 1)
         self.gridLayout.setColumnStretch(1, 1)
         self.verticalLayout.addLayout(self.gridLayout)
         self.gridLayout_6 = QtGui.QGridLayout()
