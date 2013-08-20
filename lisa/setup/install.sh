@@ -29,4 +29,9 @@ FILE=$SQLDIR"init_tables.sql"
 psql -h $HOSTNAME $DATABASE < $FILE
 echo "Running $FILE [OK]"
 echo
+echo "Filling tables with extra values..."
+FILE=$SQLDIR"init_tables_extra.sql"
+psql -h $HOSTNAME $DATABASE < $FILE
+echo "Running $FILE [OK]"
+echo
 echo "Done."
