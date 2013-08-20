@@ -283,7 +283,17 @@ CREATE TABLE T_VERSION
 CREATE TABLE T_BET
 (
     bet_id int not null,
-    //TODO: finish
+    date timestamp not null default '1900-01-01',
+    pool decimal(18,6) not null default 0.0,
+    stake decimal(18,6) not null default 0.0,
+    value decimal(18,6) not null default 0.0,
+    difference decimal(18,6) not null default 0.0,
+    win int not null,
+    win_total int not null,
+    win_percent decimal(18,6) not null default 0.0,
+    average decimal(18,6) not null default 0.0,
+    average_total decimal(18,6) not null default 0.0,
+    average_percent decimal(18,6) not null default 0.0
 )
 
 COMMIT;
