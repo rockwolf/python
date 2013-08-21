@@ -108,3 +108,9 @@ class V_ACCOUNT_NAME(Base):
     __tablename__ = View.ACCOUNT_NAME
     __table_args__ = {'autoload':True}
     pool_id = Column('account_id', Integer, primary_key=True)
+    
+class V_EXPECTANCY(Base):
+    """ V_EXPECTANCY """
+    __tablename__ = View.EXPECTANCY
+    __table_args__ = {'autoload':True}
+    expectancy = Column('expectancy', Decimal(18,6), primary_key=True)
