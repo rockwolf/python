@@ -294,6 +294,6 @@ CREATE TABLE T_BET
     average decimal(18,6) not null default 0.0,
     average_total decimal(18,6) not null default 0.0,
     average_percent decimal(18,6) not null default 0.0
-)
+);
 
 COMMIT;
