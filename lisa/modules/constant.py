@@ -47,6 +47,7 @@ class View():
     POOL = 'v_pool'
     REP_CHECK_TOTAL = 'v_rep_check_total'
     ACCOUNT_NAME = 'v_account_name'
+    EXPECTANCY = 'v_expectancy'
 
 class Error():
     """

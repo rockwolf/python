@@ -4,7 +4,7 @@
 """
 
 from modules.constant import *
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Numeric
 from meta import Base
 
 class V_FINANCE(Base):
@@ -113,4 +113,4 @@ class V_EXPECTANCY(Base):
     """ V_EXPECTANCY """
     __tablename__ = View.EXPECTANCY
     __table_args__ = {'autoload':True}
-    expectancy = Column('expectancy', Decimal(18,6), primary_key=True)
+    expectancy = Column('expectancy', Numeric, primary_key=True)
