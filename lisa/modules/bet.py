@@ -25,7 +25,7 @@ class Bet(CoreModule):
             dba = DatabaseAccess(self.config)
             date_created = current_date()
             date_modified = current_date()
-            statement_rate = Statement(Table.BET)
+            statement_bet = Statement(Table.BET)
             records = 0
             for fields in input_fields:
                 if is_for_betting(fields['i_account_to']):
@@ -36,7 +36,7 @@ class Bet(CoreModule):
                     value = DEFAULT_DECIMAL
                     difference = DEFAULT_DECIMAL
                     win = DEFAULT_INTEGER
-                    win_total = DEFAULT_INTEGER
+                    win_total = DEFAULT_INT
                     win_average = DEFAULT_DECIMAL
                     average = DEFAULT_DECIMAL
                     average_total = DEFAULT_DECIMAL
