@@ -32,7 +32,7 @@ values(7, 'liabilities:prepaid_income', 'prepaid_income', 1, current_date, curre
 INSERT INTO T_ACCOUNT(account_id, name, description, active, date_created, date_modified)
 values(8, 'assets:accounts_receivable', 'accounts_receivable', 1, current_date, current_date);
 
-INSERT INTO T_ACCOUNT(account_id, name, description, parent_id, active, date_created, date_modified)
+INSERT INTO T_ACCOUNT(account_id, name, description, active, date_created, date_modified)
 values(9, 'liabilities:accounts_payable', 'accounts_payable', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(account_id, name, description, active, date_created, date_modified)
@@ -85,7 +85,8 @@ INSERT INTO T_CURRENCY(currency_id, code, description)
 values(14, 'RUB', 'Russian Ruble');
 
 /* t_formula */
--- None
+INSERT INTO T_FORMULA(formula_id, value, description)
+values(1, '{0}', 'Default: no formula needed, just use the value.');
 
 /* t_rate */
 INSERT INTO T_RATE(calculated, calculated_percent, on_shares, on_commission, on_ordersize, on_other, commission, tax, formula_id, automatic_flag, date_created, date_modified)
