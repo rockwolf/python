@@ -169,63 +169,10 @@ from
 CREATE VIEW V_ACCOUNT_NAME
 AS
 select
-    a_root.account_id as root_account_id
-    , coalesce(
-        a9.account_id,
-        coalesce(
-            a8.account_id,
-            coalesce(
-                a7.account_id,
-                coalesce(
-                    a6.account_id,
-                    coalesce(
-                        a5.account_id,
-                        coalesce(
-                            a4.account_id,
-                            coalesce(
-                                a3.account_id,
-                                coalesce(
-                                    a2.account_id,
-                                    coalesce(
-                                        a1.account_id,
-                                        coalesce(
-                                            a0.account_id,
-                                            a_root.account_id
-                                        )
-                                   )
-                                )
-                            )
-                        )
-                    )
-                )
-            )
-        )
-    ) as account_id
-    , trim( trailing ':' from coalesce(a_root.name || ':', '')
-    || coalesce(a0.name || ':', '')
-    || coalesce(a1.name || ':', '')
-    || coalesce(a2.name || ':', '')
-    || coalesce(a3.name || ':', '')
-    || coalesce(a4.name || ':', '')
-    || coalesce(a5.name || ':', '')
-    || coalesce(a6.name || ':', '')
-    || coalesce(a7.name || ':', '')
-    || coalesce(a8.name || ':', '')
-    || coalesce(a9.name || ':', '')) as name
+    account_id as account_id
+    , coalesce(name || ':', '') as name
 from 
-    T_ACCOUNT a_root
-    	left join T_ACCOUNT a0 on a0.parent_id = a_root.account_id and (a0.account_id <> a0.parent_id)
-		left join T_ACCOUNT a1 on a1.parent_id = a0.account_id and (a1.account_id <> a1.parent_id)
-		left join T_ACCOUNT a2 on a2.parent_id = a1.account_id and (a2.account_id <> a2.parent_id)
-		left join T_ACCOUNT a3 on a3.parent_id = a2.account_id and (a3.account_id <> a3.parent_id)
-		left join T_ACCOUNT a4 on a4.parent_id = a3.account_id and (a4.account_id <> a4.parent_id)
-		left join T_ACCOUNT a5 on a5.parent_id = a4.account_id and (a5.account_id <> a5.parent_id)
-		left join T_ACCOUNT a6 on a6.parent_id = a5.account_id and (a6.account_id <> a6.parent_id)
-		left join T_ACCOUNT a7 on a7.parent_id = a6.account_id and (a7.account_id <> a7.parent_id)
-		left join T_ACCOUNT a8 on a8.parent_id = a7.account_id and (a8.account_id <> a8.parent_id)
-		left join T_ACCOUNT a9 on a9.parent_id = a8.account_id and (a9.account_id <> a9.parent_id)
-where
-    a_root.account_id = a_root.parent_id
+    T_ACCOUNT
 ;
 
 /* V_EXPORT_LEDGER */
