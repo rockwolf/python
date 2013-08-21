@@ -667,3 +667,60 @@ class T_POOL(Base):
                 self.active,
                 self.date_created,
                 self.date_modified)
+
+class T_BET(Base):
+    """ T_BET """
+    __tablename__ = Table.BET
+    #__table_args__ = {'autoload':True}
+    bet_id = Column(Integer, primary_key=True)
+    date = Column(DateTime)
+    pool = Column(Numeric(18,6))
+    stake = Column(Numeric(18,6))
+    value = Column(Numeric(18,6))
+    difference = Column(Numeric(18,6))
+    win = Column(Integer)
+    win_total = Column(Integer)
+    win_percent = Column(Numeric(18,6))
+    average = Column(Numeric(18,6))
+    average_total = Column(Numeric(18,6))
+    average_percent = Column(Numeric(18,6))
+
+    def __init__(
+        self
+        , bet_id
+        , date
+        , pool
+        , stake
+        , value
+        , difference
+        , win
+        , win_total
+        , win_percent
+        , average
+        , average_total
+        , average_percent):
+        self.bet_id = bet_id
+        self.pool = pool
+        self.stake = stake
+        self.value = value
+        sel.difference = difference
+        self.win = win
+        self.win_total = win_total
+        self.win_percent = win_percent
+        self.average = average
+        self.average_total = average_total
+        self.average_percent = average_percent
+
+    def __repr__(self):
+        return "<T_FORMULA('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
+            self.bet_id
+            , self.pool
+            , self.stake
+            , self.value
+            , self.difference
+            , self.win
+            , self.win_total
+            , self.win_percent
+            , self.average
+            , self.average_total
+            , self.average_percent)
