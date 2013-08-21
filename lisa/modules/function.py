@@ -59,6 +59,12 @@ def deals_with_stocks(account_to):
     #TODO: fix this function with the new way of working
     return (is_a_trade(account_to) or
             is_an_investment(account_to))
+            
+def is_for_betting(account_to):
+    """
+        See if we are dealing with a betting transaction.
+    """
+    return ':bet' in account_to.lower()
 
 def is_a_table(key):
     """
