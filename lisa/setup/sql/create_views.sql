@@ -169,10 +169,24 @@ from
 CREATE VIEW V_ACCOUNT_NAME
 AS
 select
-    account_id as account_id
-    , coalesce(name || ':', '') as name
+    a.account_id as account_id
+    , coalesce(a.name || ':', '') as name
 from 
-    T_ACCOUNT
+    T_ACCOUNT a
+where
+    a.active = 1
+;
+
+/* V_EXPECTANCY */
+--DROP VIEW V_EXPECTANCY;
+CREATE VIEW V_EXPECTANCY
+AS
+select
+    sum(t.r_multiple)/count(1) as expectancy
+from 
+    T_TRADE t
+where
+    t.active = 1
 ;
 
 /* V_EXPORT_LEDGER */
