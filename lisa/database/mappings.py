@@ -718,7 +718,7 @@ class T_BET(Base):
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_FORMULA('%s', '%s', '%s', '%s', '%s', '%s', \
+        return "<T_BET('%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
             self.bet_id
             , self.pool
