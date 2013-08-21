@@ -24,6 +24,7 @@ class Table():
     MARGIN = 't_margin'
     MARGIN_TYPE = 't_margin_type'
     POOL = 't_pool'
+    BET = 't_bet'
     
 class View():
     """
@@ -75,6 +76,7 @@ class Error():
     CREATE_STATEMENTS_TABLE_TRADE = "Error in create_statements_TABLE_TRADE: "
     CREATE_STATEMENTS_TABLE_INVESTMENT = "Error in create_statements_TABLE_INVESTMENT: "
     CREATE_STATEMENTS_TABLE_RATE = "Error in create_statements_TABLE_RATE: "
+    CREATE_STATEMENTS_TABLE_BET = "Error in create_statements_TABLE_BET: "
     CREATE_STATEMENTS_TABLE_CURRENCY_EXCHANGE = "Error in create_statements_TABLE_CURRENCY_EXCHANGE: "
     INVADE_ALREADY_STARTED = "Error in invade_already_started: "
     NEW_DRAWDOWN_RECORD = "Error in new_drawdown_record: "
