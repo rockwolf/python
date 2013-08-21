@@ -684,6 +684,8 @@ class T_BET(Base):
     average = Column(Numeric(18,6))
     average_total = Column(Numeric(18,6))
     average_percent = Column(Numeric(18,6))
+    date_created = Column(DateTime)
+    date_modified = Column(DateTime)
 
     def __init__(
         self
@@ -698,7 +700,9 @@ class T_BET(Base):
         , win_percent
         , average
         , average_total
-        , average_percent):
+        , average_percent
+        , date_created
+        , date_modified):
         self.bet_id = bet_id
         self.pool = pool
         self.stake = stake
@@ -710,9 +714,12 @@ class T_BET(Base):
         self.average = average
         self.average_total = average_total
         self.average_percent = average_percent
+        self.date_created = date_created
+        self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_FORMULA('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
+        return "<T_FORMULA('%s', '%s', '%s', '%s', '%s', '%s', \
+            '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
             self.bet_id
             , self.pool
             , self.stake
@@ -723,4 +730,6 @@ class T_BET(Base):
             , self.win_percent
             , self.average
             , self.average_total
-            , self.average_percent)
+            , self.average_percent
+            , self.date_created
+            , self.date_modified)
