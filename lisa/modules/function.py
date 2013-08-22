@@ -8,18 +8,19 @@
 
 from modules.constant import INVESTMENT, TRADING_ACCOUNTS
 
-def is_a_trade(account_to):
+def is_a_trade(account_from, account_to):
     """
         Function to determine if a line to process, is a trade.
     """
     result = False
     for value in TRADING_ACCOUNTS:
-        if value.lower() in account_to:
+        if (value.lower() in account_from)
+            or (value.lower() in account_to):
             result = True
             break
     return result
 
-def is_an_investment(account_to):
+def is_an_investment(account_from, account_to):
     """
         Function to determine if a line to process, is an investent (buy
         or sell of stock, that's not a trade).
@@ -27,12 +28,15 @@ def is_an_investment(account_to):
     # Check if it's an invenstment activity
     result = False
     for value in INVESTMENT:
-        if value.lower() in account_to:
+        if (value.lower() in account_from)
+            or (value.lower() in account_to):
             result = True
             break
     # That is NOT a trade
+    # NOTE: this means that investing AND trading on the same account is not possible!
     for value in TRADING_ACCOUNTS:
-        if value.lower() in account_to:
+        if (value.lower() in account_from)
+            or (value.lower() in account_to):
             result = False
             break
     return result
@@ -52,19 +56,25 @@ def is_negative_amount(account_name):
             break;
     return result
 
-def deals_with_stocks(account_to):
+def deals_with_stocks(account_from, account_to):
     """
         See if we need to use rate, marketid and stockid.
     """
     #TODO: fix this function with the new way of working
-    return (is_a_trade(account_to) or
-            is_an_investment(account_to))
+    return (is_a_trade(account_from, account_to) or
+            is_an_investment(account_from, account_to))
             
-def is_for_betting(account_to):
+def is_a_bet(account_from, account_to):
     """
         See if we are dealing with a betting transaction.
     """
-    return ':bet' in account_to.lower()
+    result = False
+    for value in BETTING_ACCOUNTS:
+        if (value.lower() in account_from)
+            or (value.lower() in account_to):
+            result = True
+            break
+    return result
 
 def is_a_table(key):
     """
