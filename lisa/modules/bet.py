@@ -28,7 +28,7 @@ class Bet(CoreModule):
             statement_bet = Statement(Table.BET)
             records = 0
             for fields in input_fields:
-                if is_for_betting(fields['i_account_to']):
+                if is_a_bet(fields['i_account_from'], fields['i_account_to']):
                     records = records + 1
                     
                     pool = DEFAULT_DECIMAL
