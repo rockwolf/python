@@ -348,12 +348,8 @@ class ControllerMain():
            Create a long and short account for a new commodity.
         """
         dba = DatabaseAccess(self.config)
-        #TODO: if is_a_trading_commodity(new_commodity)
-        #TODO: add all accounts for tax, commission, assets, ...
-        dba.save_new_account('assets:current_assets:stocks:' + new_commodity.lower() + ' (long)')
-        dba.save_new_account('expenses:commission:stocks:' + new_commodity.lower() + ' (long)')
-        dba.save_new_account('expenses:tax:stocks:' + new_commodity.lower() + ' (long)')
-        dba.save_new_account('assets:current_assets:stocks:' + new_commodity.lower() + ' (short)')
-        dba.save_new_account('expenses:commission:stocks:' + new_commodity.lower() + ' (short)')
-        dba.save_new_account('expenses:tax:stocks:' + new_commodity.lower() + ' (short)')
+        #TODO: if is_a_trading_commodity(new_commodity):
+        #NOTE: commodities is used, instead of stocks, to look at trading and investing seperately.
+        dba.save_new_account('assets:current_assets:commodities:' + new_commodity.lower() + ' (long)')
+        dba.save_new_account('assets:current_assets:commodities:' + new_commodity.lower() + ' (short)')
         dba = None
