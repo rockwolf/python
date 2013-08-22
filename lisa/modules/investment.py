@@ -46,7 +46,7 @@ class Investment(CoreModule):
             finance_id = dba.first_finance_id_from_latest()
             if finance_id != -1:
                 for fields in input_fields:
-                    if is_an_investment(fields['i_category'], fields['i_subcategory']):            
+                    if is_an_investment(fields['i_account_from'], fields['i_account_to']):            
                         record = records + 1
                         # GENERAL INFO
                         market_id = dba.market_id_from_market(
@@ -169,7 +169,7 @@ class Investment(CoreModule):
                             flag_insupdel = STATEMENT_INSERT
                             investment_id = None # insert: new one created automatically
                             ## buy/sell related fields
-                            if we_are_buying(fields['i_subcategory']):
+                            if we_are_buying(fields['i_account_from'], fields['i_account_to']):
                                 id_buy = finance_id
                                 id_sell = -1
                                 date_buy = date_created
