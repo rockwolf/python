@@ -81,7 +81,7 @@ def is_a_table(key):
     """
     return key.lower().startswith('t_')
 
-def we_are_buying(account_to):
+def we_are_buying(account_from, account_to):
     """
         Are we buying?
     """
