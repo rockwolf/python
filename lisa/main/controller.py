@@ -337,15 +337,6 @@ class ControllerMain():
         """
         table.add_row(row)
 
-    def parse_formula(self, formula_id, value_list):
-        """
-            Parse formula for trading, to calculate the commission.
-        """
-        dba = DatabaseAccess(self.config)
-        formula = dba.get_formula(formula_id)
-        #TODO: loop over elements in formula and substitute the values.
-        dba = None
-
     def convert_to_base_currency(self, currency_base, currency_new, value):
         """
             Convert a new currency to the base currency.
@@ -356,5 +347,13 @@ class ControllerMain():
         """
            Create a long and short account for a new commodity.
         """
-        #TODO: call dba and add it there
-        pass
+        dba = DatabaseAccess(self.config)
+        #TODO: if is_a_trading_commodity(new_commodity)
+        #TODO: add all accounts for tax, commission, assets, ...
+        dba.save_new_account('assets:current_assets:stocks:' + new_commodity.lower() + ' (long)')
+        dba.save_new_account('expenses:commission:stocks:' + new_commodity.lower() + ' (long)')
+        dba.save_new_account('expenses:tax:stocks:' + new_commodity.lower() + ' (long)')
+        dba.save_new_account('assets:current_assets:stocks:' + new_commodity.lower() + ' (short)')
+        dba.save_new_account('expenses:commission:stocks:' + new_commodity.lower() + ' (short)')
+        dba.save_new_account('expenses:tax:stocks:' + new_commodity.lower() + ' (short)')
+        dba = None
