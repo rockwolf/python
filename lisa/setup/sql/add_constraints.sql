@@ -59,5 +59,7 @@ alter table T_MARGIN
     add constraint fk_margin_type_id foreign key(margin_type_id) references T_MARGIN_TYPE(margin_type_id);
 alter table T_POOL
     add constraint fk_account_id foreign key(account_id) references T_ACCOUNT(account_id);
+alter table T_BET
+    add constraint pk_bet_id primary key(bet_id);
 
 COMMIT;
