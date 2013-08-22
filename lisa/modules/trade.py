@@ -46,7 +46,7 @@ class Trade(CoreModule):
                     #TODO: try to separate the differences
                     #TODO: make an Invade class, where Trade and Invest
                     # inherit from.
-                    if is_a_trade(fields['i_category'], fields['i_subcategory']):            
+                    if is_a_trade(fields['i_account_from'], fields['i_account_to']):            
                         record = records + 1
                         # GENERAL INFO
                         market_id = dba.market_id_from_market(
@@ -68,6 +68,8 @@ class Trade(CoreModule):
                             flag_insupdel = Statement.UPDATE
                             trade_id = trade_record['trade_id']
                             ## buy/sell related fields
+                            # TODO: the below should now be fields['i_account_from'] in TRADING_ACCOUNTS for buying
+                            # ..._to']... for selling
                             if fields['i_subcategory'] == 'buy' \
                                 and T_TRADE.id_buy == -1:
                                 id_buy = finance_id
@@ -133,7 +135,7 @@ class Trade(CoreModule):
                             cost_other = calculate_cost_other(
                                     cost_total,
                                     profit_loss)
-                            if we_are_buying(fields['i_subcategory']):
+                            if we_are_buying(fields['i_account_from'], fields['i_account_to']):
                                 win_flag = dba.get_win_flag_value(
                                         price_buy,
                                         trade_record['price_sell'],
@@ -163,7 +165,7 @@ class Trade(CoreModule):
                             flag_insupdel = Statement.INSERT
                             trade_id = None # insert: new one created automatically
                             ## buy/sell related fields
-                            if we_are_buying(fields['i_subcategory']):
+                            if we_are_buying(fields['i_account_from'], fields['i_account_to']):
                                 id_buy = finance_id
                                 id_sell = -1
                                 date_buy = date_created
@@ -224,7 +226,7 @@ class Trade(CoreModule):
                                 stoploss)
                             print('test: price, shares, stoploss = ', fields['i_price'], fields['i_shares'], stoploss)
                             print('test amount_buy_simple = ', amount_buy_simple)
-                            risk_initial_percent = 100.0*risk_initial/amount_buy_simple
+                            risk_initial_percent = Decimal(100.0)*risk_initial/amount_buy_simple
                             risk_actual = DEFAULT_DECIMAL
                             risk_actual_percent = DEFAULT_DECIMAL
                             cost_total = DEFAULT_DECIMAL
