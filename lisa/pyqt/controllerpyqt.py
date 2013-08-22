@@ -43,7 +43,11 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.gui.cmb_stock_name.connect(
             self.gui.cmb_stock_name, 
             QtCore.SIGNAL('currentIndexChanged(int)'), 
-            self.cmb_stock_name_changed)
+            self.cmb_stock_name_changed),
+        self.gui.cmb_stock_name.connect(
+            self.gui.cmb_stock_name,
+            QtCore.SIGNAL("keyPressed()"),
+            self.cmb_stock_name_key_pressed),
         self.gui.btn_exit.connect(
             self.gui.btn_execute, 
             QtCore.SIGNAL("clicked()"), 
@@ -107,6 +111,13 @@ class ControllerPyqt(QtGui.QMainWindow):
     def btn_removelast_clicked(self):
         """ Remove the last added record from the table. """
         self.ctl.remove_last(self.table)
+        
+    def cmb_stock_name_key_pressed(self):
+        """
+            keyPressed event in combo
+        """
+        #TODO: only call the below on enter
+        self.ctl.update_accounts_for_commodities(str(self.gui.cmb_stock_name.currentText()))
 
     # Events
     def toggle_stockinputs(self):
@@ -384,4 +395,3 @@ class ControllerPyqt(QtGui.QMainWindow):
     #should no longer be editable, and vice versa.
     #TODO: when the market or amount or category or subcategory (<> buy or sell) is changed, this also should be refreshed!
     #The goal is to make tax and commission dependent on the values in t_parameter
-
