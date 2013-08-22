@@ -48,6 +48,7 @@ class ControllerMain():
             finance = Finance(self.config)
             trade = Trade(self.config)
             investment = Investment(self.config)
+            bet = Bet(self.config)
             
             input_fields = self.get_input_fields(tablecontent)
             # Note: The order of execution below is important!
@@ -64,14 +65,21 @@ class ControllerMain():
             var_finance.print_statements()
             finance.write_to_database(var_finance)
             # t_trade
-            var_trade = trade.create_statements(input_fields,
-                    statements_finance)
+            var_trade = trade.create_statements(
+                            input_fields,
+                            var_finance)
             var_trade.print_statements()
             trade.write_to_database(var_finance)
             #test = dba.create_statements_TABLE_INVESTMENT(input_fields)
             #test.print_statements()
             #if self.is_an_investment():
             #    dba.write_to_database(dba.create_statements_TABLE_INVESTMENT(input_fields))
+            # t_bet
+            var_bet = bet.create_statements(
+                        input_fields,
+                        var_finance)
+            bet.print_statements()
+            #bet.write_to_database(var_finance)
             currency_exchange = None
             rate = None
             finance = None
@@ -342,4 +350,11 @@ class ControllerMain():
         """
             Convert a new currency to the base currency.
         """
+        pass
+    
+    def update_accounts_for_commodities(self, new_commodity):
+        """
+           Create a long and short account for a new commodity.
+        """
+        #TODO: call dba and add it there
         pass
