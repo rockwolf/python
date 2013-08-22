@@ -33,7 +33,7 @@ def is_an_investment(account_from, account_to):
             result = True
             break
     # That is NOT a trade
-    # NOTE: this means that investing AND trading on the same account is not possible!
+    # NOTE: having the same trading and investing account is not allowed!
     for value in TRADING_ACCOUNTS:
         if (value.lower() in account_from)
             or (value.lower() in account_to):
@@ -60,7 +60,6 @@ def deals_with_stocks(account_from, account_to):
     """
         See if we need to use rate, marketid and stockid.
     """
-    #TODO: fix this function with the new way of working
     return (is_a_trade(account_from, account_to) or
             is_an_investment(account_from, account_to))
             
