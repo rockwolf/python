@@ -112,12 +112,13 @@ class ControllerPyqt(QtGui.QMainWindow):
         """ Remove the last added record from the table. """
         self.ctl.remove_last(self.table)
         
-    def cmb_stock_name_key_pressed(self):
+    def cmb_stock_name_key_pressed(self, qKeyEvent):
         """
             keyPressed event in combo
         """
-        #TODO: only call the below on enter
-        self.ctl.update_accounts_for_commodities(str(self.gui.cmb_stock_name.currentText()))
+        print('test:', str(qKeyEevnt))
+        if qKeyEvent.key() == QtCore.Qt.Key_Return: 
+            self.ctl.update_accounts_for_commodities(str(self.gui.cmb_stock_name.currentText()))
 
     # Events
     def toggle_stockinputs(self):
