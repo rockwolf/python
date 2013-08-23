@@ -74,7 +74,7 @@ class Investment(CoreModule):
                             flag_insupdel = STatement.UPDATE
                             investment_id = investment_record['investment_id']
                             ## buy/sell related fields
-                            if fields['subcategory'] == 'buy' \
+                            if we_are_buying(fields['i_account_from'], fields['i_account_to']) \
                                 and T_TRADE.id_buy == -1:
                                 id_buy = finance_id
                                 id_sell = investment_record['id_sell']
@@ -88,7 +88,7 @@ class Investment(CoreModule):
                                 commission_sell = investment_record['commission_sell']
                                 tax_buy = fields['i_tax']
                                 tax_sell = investment_record['tax_sell']
-                            elif fields['subcategory'] == 'sell' \
+                            elif not we_are_buying(fields['i_account_from'], fields['i_account_to']) \
                                 and T_TRADE.id_sell == -1:
                                 id_buy = investment_record['id_buy']
                                 id_sell = finance_id
@@ -138,7 +138,7 @@ class Investment(CoreModule):
                             cost_other = calculate_cost_other(
                                     cost_total,
                                     profit_loss)
-                            if we_are_buying(fields['subcategory']):
+                            if we_are_buying(fields['i_account_from'], fields['i_account_to']):
                                 win_flag = dba.get_win_flag_value(
                                         price_buy,
                                         investment_record['price_sell'],
