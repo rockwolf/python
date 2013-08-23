@@ -55,8 +55,8 @@ class Trade(CoreModule):
                                 fields['i_stock_name'], market_id)
                         finance_record = dba.get_finance_record(finance_id)
                         trade_record = dba.get_invade_record(finance_id, T_TRADE)
-                        long_flag = dba.get_long_flag_value(fields['i_category'],
-                                fields['i_subcategory'], trade_record)
+                        long_flag = dba.get_long_flag_value(fields['i_account_from'],
+                                fields['i_account_to'], trade_record)
                         # TEST INFO
                         print('test finance_record=', finance_record)
                         print('test trade_record=', trade_record)
@@ -70,7 +70,7 @@ class Trade(CoreModule):
                             ## buy/sell related fields
                             # TODO: the below should now be fields['i_account_from'] in TRADING_ACCOUNTS for buying
                             # ..._to']... for selling
-                            if fields['i_subcategory'] == 'buy' \
+                            if we_are_buying(fields['i_account_from'], fields['i_account_to']) \
                                 and T_TRADE.id_buy == -1:
                                 id_buy = finance_id
                                 id_sell = trade_record['id_sell']
@@ -84,7 +84,7 @@ class Trade(CoreModule):
                                 commission_sell = trade_record['commission_sell']
                                 tax_buy = fields['i_tax']
                                 tax_sell = trade_record['tax_sell']
-                            elif fields['i_subcategory'] == 'sell' \
+                            elif not we_are_buying(fields['i_account_from'], fields['i_account_to'])\
                                 and T_TRADE.id_sell == -1:
                                 id_buy = trade_record['id_buy']
                                 id_sell = finance_id
