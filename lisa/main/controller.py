@@ -343,13 +343,19 @@ class ControllerMain():
         """
         pass
     
-    def update_accounts_for_commodities(self, new_commodity):
+    def update_accounts_for_commodities(self, market, new_commodity):
         """
            Create a long and short account for a new commodity.
         """
         dba = DatabaseAccess(self.config)
-        #TODO: if is_a_trading_commodity(new_commodity):
-        #NOTE: commodities is used, instead of stocks, to look at trading and investing seperately.
-        dba.save_new_account('assets:current_assets:commodities:' + new_commodity.lower() + ' (long)')
-        dba.save_new_account('assets:current_assets:commodities:' + new_commodity.lower() + ' (short)')
+        # TODO: make is_a_trading_market, without having to specify all markets in
+        # constant.py
+        # Perhaps add a flag to t_market? [I|T] [invest|trade]
+        # TODO: add a button to set the flag for the currently selected market
+        if is_a_trading_market(market):
+            # NOTE: This only works when
+            # an account can not be used for trading and investing at the same time
+            # NOTE: commodities is used, instead of stocks, to look at trading and investing seperately.
+            dba.save_new_account('assets:current_assets:commodities:' + new_commodity.lower() + ' (long)')
+            dba.save_new_account('assets:current_assets:commodities:' + new_commodity.lower() + ' (short)')
         dba = None
