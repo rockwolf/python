@@ -33,9 +33,7 @@ class Finance(CoreModule):
             rate_id = dba.first_rate_id_from_latest()
             for fields in input_fields:
                 #TODO: what to do with the subcategory_id? and cat_id?
-                #subcategory_id = dba.subcategory_id_from_subcategory(fields['i_subcategory'])
                 account_id = dba.account_id_from_account(fields['i_account'])
-                #category_id = dba.category_id_from_category(fields['i_category'])
                
                 #NOTE: in the database, the first values in the tables of the
                 #below id's, are empty/dummy values, used for when we are not
@@ -73,8 +71,6 @@ class Finance(CoreModule):
                                 'month':fields['i_date'].month,
                                 'day':fields['i_date'].day,
                                 'account_id':account_id,
-                                'category_id':category_id,
-                                'subcategory_id':subcategory_id,
                                 'amount':Decimal(fields['i_amount']),
                                 'comment':fields['i_comment'],
                                 'stock_name_id':stock_name_id,
