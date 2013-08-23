@@ -86,4 +86,9 @@ def we_are_buying(account_from, account_to):
         Are we buying?
     """
     #TODO: fix this
+    #trading = TRADING_ACCOUNT in account_to => sell
+    #    TRADING_ACCOUNTS in account_from => buy
+    #investing = INVESTMENT_ACCOUNTS in account_to => sell
+    # INVESTMENT_ACCOUNTS in account_from => buy
+    
     result = True
