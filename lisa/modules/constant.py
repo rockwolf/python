@@ -142,6 +142,7 @@ class Transaction():
     BUY = 0
     SELL = 1
     
+INVESTING_ACCOUNTS = ['binb00']
 TRADING_ACCOUNTS = ['whsi00']
 BETTING_ACCOUNTS = ['unib00']
 INVESTMENT = ['stock', 'fund', 'bond']
