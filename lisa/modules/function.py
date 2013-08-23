@@ -83,12 +83,21 @@ def is_a_table(key):
 
 def we_are_buying(account_from, account_to):
     """
-        Are we buying?
+        Are we buying? (not buying == selling)
     """
-    #TODO: fix this
-    #trading = TRADING_ACCOUNT in account_to => sell
-    #    TRADING_ACCOUNTS in account_from => buy
-    #investing = INVESTMENT_ACCOUNTS in account_to => sell
-    # INVESTMENT_ACCOUNTS in account_from => buy
-    
-    result = True
+    for value in INVESTING_ACCOUNTS:
+        if (value.lower() in account_from):
+            buy = True
+            sell = False
+        elif (value.lower() in account_to):
+            buy = False
+            sell = True
+    if (not buy) and (not sell):
+        for value in TRADING_ACCOUNTS:
+            if (value.lower() in account_from):
+                buy = True
+                sell = False
+            elif (value.lower() in account_to):
+                buy = False
+                sell = True
+    return buy
