@@ -32,9 +32,10 @@ class Finance(CoreModule):
             currency_exchange_id = dba.first_currency_exchange_id_from_latest()
             rate_id = dba.first_rate_id_from_latest()
             for fields in input_fields:
-                subcategory_id = dba.subcategory_id_from_subcategory(fields['i_subcategory'])
+                #TODO: what to do with the subcategory_id? and cat_id?
+                #subcategory_id = dba.subcategory_id_from_subcategory(fields['i_subcategory'])
                 account_id = dba.account_id_from_account(fields['i_account'])
-                category_id = dba.category_id_from_category(fields['i_category'])
+                #category_id = dba.category_id_from_category(fields['i_category'])
                
                 #NOTE: in the database, the first values in the tables of the
                 #below id's, are empty/dummy values, used for when we are not
@@ -42,7 +43,7 @@ class Finance(CoreModule):
                 market_id = 1
                 stock_name_id = 1
                 rate_id = 1
-                if deals_with_stocks(fields['i_category'], fields['i_subcategory']):
+                if deals_with_stocks(fields['i_account_from'], fields['i_account_to']):
                     if fields['i_market_name'] != '':
                         market_id = dba.market_id_from_market(fields['i_market_name'])
                     if fields['i_stock_name'] != '':
