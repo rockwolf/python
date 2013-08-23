@@ -61,8 +61,8 @@ class Investment(CoreModule):
                         #This is really becoming more complex than necessary,
                         #split the code and focus on T_TRADE instead.
                         investment_record = dba.get_invade_record(finance_id, Table.INVESTMENT)
-                        long_flag = dba.get_long_flag_value(fields['i_category'],
-                                fields['i_subcategory'], investment_record)
+                        long_flag = dba.get_long_flag_value(fields['i_account_from'],
+                                fields['i_account_to'], investment_record)
                         # TEST INFO
                         print('test finance_record=', finance_record)
                         print('test investment_record=', investment_record)
