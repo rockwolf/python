@@ -94,7 +94,7 @@ class ControllerMain():
         try:
             for field in tablecontent:
                 account_to = field[InputIndex.ACCOUNT_TO]
-                if deals_with_stocks(account_to) :
+                if deals_with_stocks(account_from, account_to) :
                     shares = field[InputIndex.SHARES]
                     price = field[InputIndex.PRICE]
                     commission = field[InputIndex.COMMISSION]
@@ -143,7 +143,7 @@ class ControllerMain():
         """ fill in the combo boxes with values. """
         dba = DatabaseAccess(self.config)
         # Accounts
-        for acc in dba.get_accounts():
+        for acc in dba.get_account_list():
             self.gui.add_account_from(acc)
             self.gui.add_account_to(acc)
         # Market codes
@@ -225,7 +225,7 @@ class ControllerMain():
             str_list.append('')
     
         # get values    
-        if(deals_with_stocks(self.gui.get_account_to())):
+        if(deals_with_stocks(self.gui.get_account_from(), self.gui.get_account_to())):
             market = self.gui.get_market_code()
             stock = self.gui.get_stock_name()
             market_description = self.gui.get_market_description()
@@ -284,7 +284,7 @@ class ControllerMain():
         account_to = self.gui.get_account_to()
         stock = self.gui.get_stock_name()
         #TODO: get the correct accounts here
-        if deals_with_stocks(account_to) and not stock:
+        if deals_with_stocks(account_from, account_to) and not stock:
             info = dba.get_stockinfo(stock)
             self.gui.set_infodetails(
                 '{} ({}): {}'.format(

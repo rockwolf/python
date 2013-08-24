@@ -62,6 +62,23 @@ class DatabaseAccess():
             session = None
         return values
 
+    def get_account_list(self):
+        """
+            Get the account_names in a list.
+        """
+        values = []
+        try:
+            session = self.Session()
+            query = session.query(T_ACCOUNT)
+            for instance in query: 
+                values.append(instance.name)
+        except Exception as ex:
+            print(Error.GET_ACCOUNT_LIST, ex)
+        finally:
+            session.rollback()
+            session = None
+        return values
+
     def combine_sets(self, account_set):
         """
             Combine sets into a list.

@@ -21,8 +21,9 @@ default_currency_from = '1'
 default_currency_to = '1'
 # default exchange rate
 default_exchange_rate = '1'
-# default account
-default_account = '6'
+# default accounts
+default_account_from = '1'
+default_account_to = '2'
 
 [logging]
 # Set this to 1 if you want to use logging 

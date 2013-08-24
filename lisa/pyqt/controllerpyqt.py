@@ -204,7 +204,8 @@ class ControllerPyqt(QtGui.QMainWindow):
         # fill all combo boxes
         self.ctl.init_display_data()
         # default values
-        self.set_default_account()
+        self.set_default_account_from()
+        self.set_default_account_to()
         self.set_default_exchange_rate()
         self.set_default_currency_from()
         self.set_default_currency_to()
@@ -230,10 +231,14 @@ class ControllerPyqt(QtGui.QMainWindow):
         """ Returns the date from the date-picker. """
         return str(self.gui.dt_date.date().toString(QtCore.Qt.ISODate))
 
-    def get_account(self):
-        """ Returns the account name from the cmb_account combobox. """
-        return str(self.gui.cmb_account.currentText())
+    def get_account_from(self):
+        """ Returns the account name from the cmb_account_from combobox. """
+        return str(self.gui.cmb_account_from.currentText())
 
+    def get_account_to(self):
+        """ Returns the account name from the cmb_account_to combobox. """
+        return str(self.gui.cmb_account_to.currentText())
+    
     def get_amount(self):
         """ Returns the amount from the spn_amount spinedit. """
         return str(self.gui.spn_amount.textFromValue( \

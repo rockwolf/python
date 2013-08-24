@@ -56,6 +56,7 @@ class Error():
     GET_MARKET_DESCRIPTION = "Error in get_marketdescription: "
     GET_CATEGORIES = "Error in get_categories: "
     GET_ACCOUNTS = "Error in get_accounts: "
+    GET_ACCOUNT_LIST = "Error in get_account_list: "
     GET_MARKETS = "Error in get_markets: "
     GET_STOCK_NAMES = "Error in get_stocknames: "
     GET_STOCK_DESCRIPTION = "Error in get_stockdescription: "
