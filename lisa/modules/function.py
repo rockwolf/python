@@ -6,7 +6,7 @@
     A file with Lisa specific functions that can be used everywhere
 """
 
-from modules.constant import INVESTMENT, TRADING_ACCOUNTS
+from modules.constant import INVESTMENT, TRADING_ACCOUNTS, NEGATIVES, BETTING_ACCOUNTS, INVESTING_ACCOUNTS
 
 def is_a_trade(account_from, account_to):
     """
@@ -14,7 +14,7 @@ def is_a_trade(account_from, account_to):
     """
     result = False
     for value in TRADING_ACCOUNTS:
-        if (value.lower() in account_from)
+        if (value.lower() in account_from) \
             or (value.lower() in account_to):
             result = True
             break
@@ -28,14 +28,14 @@ def is_an_investment(account_from, account_to):
     # Check if it's an invenstment activity
     result = False
     for value in INVESTMENT:
-        if (value.lower() in account_from)
+        if (value.lower() in account_from) \
             or (value.lower() in account_to):
             result = True
             break
     # That is NOT a trade
     # NOTE: having the same trading and investing account is not allowed!
     for value in TRADING_ACCOUNTS:
-        if (value.lower() in account_from)
+        if (value.lower() in account_from) \
             or (value.lower() in account_to):
             result = False
             break
@@ -69,7 +69,7 @@ def is_a_bet(account_from, account_to):
     """
     result = False
     for value in BETTING_ACCOUNTS:
-        if (value.lower() in account_from)
+        if (value.lower() in account_from) \
             or (value.lower() in account_to):
             result = True
             break
