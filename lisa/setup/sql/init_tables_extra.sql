@@ -269,6 +269,61 @@ values('assets:stock:zsl23.90', 'zsl23.90', 1, current_date, current_date);
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
 values('assets:cfd:commodities:ojx...', 'cfd:ojx...', 1, current_date, current_date);
 
+/* list:
+-- softs - august
+CCZ3.cfd - US COCOA, US Dollar Dec13
+CTZ3.cfd - US Cotton No.2, US Dollar/100 Dec13
+KCZ3.cfd - US Coffee C, US Dollar/100 Dec13
+LCCU3.cfd - London Cocoa, Pound Sterling Sep13
+LEV3.cfd - Live Cattle (per 0.01), US Dollar/100 Oct13
+LRCU3.cfd - London Coffee, US Dollar Sep13
+LRCX3.cfd - London Coffee, US Dollar Nov13
+LSUV3.cfd - London Sugar, US Dollar Oct13
+LWBX3.cfd - London Wheat (per 0.01), Pound Sterling Nov13
+OJU3.cfd - Orange Juice, US Dollar/100 Sep13
+OJX3.cfd - Orange Juice, US Dollar/100 Nov13
+SBV3.cfd - US Sugar No11, US Dollar/100 Oct13
+ZVU3.cfd - US Corn, US Dollar/100 Sep13
+ZCZ3.cfd - US Corn, US Dollar/100 Dec13
+ZLU3.cfd - US Soybean Oil, US Dollar/100 Sep13
+ZLV3.cfd - US Soybean Oil, US Dollar/100 Oct13
+ZSU3.cfd - US Soybeans, US Dollar/100 Sep13
+ZSX3.cfd - US Soybeanr, US Dollar/100 Nov13
+ZWU3.cfd - US Wheat, US Dollar/100 Sep13
+ZWZ3.cfd - US Wheat, US Dollar/100 Dec13
+-- oil
+.BRENT.cfd - SPOT Brent Crude Oil, US Dollar/100
+.WTI.cfd - SPOT WTI Light Crude Oil, US Dollar
+CLV3.cfd - WTI Crude Oil, US Dollar Oct13
+CLX3.cfd - WTI Crude Oil, US Dollar Nov13
+HOU3.cfd - Heating Oil, US Dollar Sep13
+HOV3.cfd - Heating Oil, US Dollar Oct13
+LCOV3.cfd - Brent Crude Oil, US Dollar/100 Oct13
+LCOX3.cfd - Brent Crude Oil, US Dollar/100 Nov13
+LGOU3.cfd - London Gas Oil (per 25), US Dollar/100 Sep13
+LGOV3.cfd - London Gas Oil (per 25), US Dollar/100 Oct13
+-- metals
+.GOLD.cfd - Spot Gold, US Dollar
+.MGOLD.cfd - MINI Spot Gold, US Dollar
+.MSILVER.cfd - Spot Mini Silver, US Dollar/100
+.SILVER.cfd - Spot Silver, US Dollar/100
+GCZ3.cfd - Gold, US Dollar Dec13
+HGU3.cfd - High Grade Copper (per 0.05), US Dollar Sep13
+HGZ3.cfd - High Grade Copper (per 0.05), US Dollar Dec13
+MINISIU3.cfd - Mini Silver, US Dollar/100 Sep13
+MINISIZ3.cfd - Mini Silver, US Dollar/100 Dec13
+PAU3.cfd - Palladium, US Dollar Sep13
+PAZ3.cfd - Palladium, US Dollar Dec13
+PLV3.cfd - Platinum, US Dollar Oct13
+SIU3.cfd - Silver, US Dollar/100 Sep13
+SIZ3.cfd - Silver, US Dollar/100 Dec13
+-- indices (Note: BE not available)
+.DE30.cfd - Germany 30 cash, Euro
+.ES35 - Spain 35 cash, Euro
+.F40.cfd - France 40 cash, Euro
+.N25.cfd - Netherlands 25 cash, Euro
+*/
+
 --INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
 --values('assets:e-mini:commodities:ojx...', 'e-mini:ojx...', 1, current_date, current_date);
 
