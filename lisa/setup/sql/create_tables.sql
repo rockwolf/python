@@ -3,7 +3,7 @@ BEGIN;
 /* finance */
 CREATE TABLE T_ACCOUNT
 (
-    account_id int not null,
+    account_id serial not null,
     name varchar(4000) not null,
     description varchar(4000) not null,
     active int not null default 1,

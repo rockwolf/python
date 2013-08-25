@@ -181,6 +181,81 @@ values('sr', 2, 'SNS Reaal NV', 1, current_date, current_date);
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
 values('solb', 3, 'Solvay S.A.', 1, current_date, current_date);
 
+-- Add accounts for known commodities
+/* my accounts */
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:current_assets:belf00', 'belf00', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:current_assets:belf01', 'belf01', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:current_assets:belf02', 'belf02', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:current_assets:binb00', 'binb00', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:current_assets:cash', 'cash', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:current_assets:payp00', 'payp00', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:current_assets:unib00', 'unib00', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:current_assets:whsi00', 'whsi00', 1, current_date, current_date);
+
+/* stocks */
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:stock:ams.ahodf', 'ams.ahodf', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:stock:ams.boka', 'ams.boka', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:stock:ams.crxl', 'ams.crxl', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:stock:ams.drak', 'ams.drak', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:stock:ams.sbm', 'ams.sbm', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:stock:ams.sr', 'ams.sr', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:stock:ebr.cofb', 'ebr.cofb', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:stock:ebr.devg', 'ebr.devg', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:stock:ebr.dexb', 'ebr.dexb', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:stock:ebr.enin', 'ebr.enin', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:stock:ebr.eurn', 'ebr.eurn', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:stock:ebr.exm', 'ebr.exm', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:stock:ebr.nests', 'ebr.nests', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:stock:ebr.rhji', 'ebr.rhji', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:stock:ebr.solb', 'ebr.solb', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:stock:ebr.tess', 'ebr.tess', 1, current_date, current_date);
+
 -- Add specific parameters
 /*INSERT INTO T_PARAMETER(parameter_id, name, value, description)
 values(1, 'comm_binb_be', 9.75, 'Commission binkbank for buying regular stocks.');
