@@ -256,6 +256,22 @@ values('assets:stock:ebr.solb', 'ebr.solb', 1, current_date, current_date);
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
 values('assets:stock:ebr.tess', 'ebr.tess', 1, current_date, current_date);
 
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:stock:epa.car', 'epa.car', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:stock:epa.gsz', 'epa.gsz', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:stock:zsl23.90', 'zsl23.90', 1, current_date, current_date);
+
+/* Commodities */
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:commodities:ojx...', 'cfd:ojx...', 1, current_date, current_date);
+
+--INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+--values('assets:e-mini:commodities:ojx...', 'e-mini:ojx...', 1, current_date, current_date);
+
 -- Add specific parameters
 /*INSERT INTO T_PARAMETER(parameter_id, name, value, description)
 values(1, 'comm_binb_be', 9.75, 'Commission binkbank for buying regular stocks.');
