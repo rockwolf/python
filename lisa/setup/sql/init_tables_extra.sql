@@ -1,8 +1,11 @@
+/* MARKETS */
 -- Add market names
 -- NOTE: see list of country codes at:
 -- http://www.iso.org/iso/country_codes/iso_3166_code_lists/country_names_and_code_elements.htm
 --TODO: check if this still maps to the current market id's in production
 --and check this when using KETTLE
+
+-- GENERAL
 INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
 values(2, 'ams', 'Amsterdam stock exchange AEX25', 'NL', 1, current_date, current_date);
 
@@ -36,6 +39,7 @@ values(11, 'bma', 'Bolsa de Madrid', 'ES', 1, current_date, current_date);
 INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
 values(12, 'vse', 'Vienna Stock Exchange', 'CH', 1, current_date, current_date);
 
+-- CFD's
 INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
 values(13, 'cfd .gold', 'CFD - World Spot Gold', 'US', 1, current_date, current_date);
 
@@ -120,7 +124,8 @@ values(39, 'amex', 'American Exchange', 'US', 1, current_date, current_date);
 INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
 values(40, 'other us', 'Other US markets', 'US', 1, current_date, current_date);
 
--- Add commodity names
+/* STOCKS/COMMODITIES */
+-- Stocks
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
 values('rhji', 3, 'RHJI International', 1, current_date, current_date);
 
@@ -182,6 +187,7 @@ INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, dat
 values('solb', 3, 'Solvay S.A.', 1, current_date, current_date);
 
 -- CFD's
+--- softs
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
 values('CCZ3.cfd', 16, 'US COCOA, US Dollar DecYY', 1, current_date, current_date);
 
@@ -242,8 +248,95 @@ values('ZWU3.cfd', 16, 'US Wheat, US Dollar/100 SepYY', 1, current_date, current
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
 values('ZWZ3.cfd', 16, 'US Wheat, US Dollar/100 DecYY', 1, current_date, current_date);
 
--- Add accounts for known commodities
-/* my accounts */
+-- oil
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('.BRENT.cfd', 16, 'SPOT Brent Crude Oil, US Dollar/100', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('.WTI.cfd', 16, 'SPOT WTI Light Crude Oil, US Dollar', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('CLV3.cfd', 16, 'WTI Crude Oil, US Dollar OctYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('CLX3.cfd', 16, 'WTI Crude Oil, US Dollar NovYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('HOU3.cfd', 16, 'Heating Oil, US Dollar NovYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('HOV3.cfd', 16, 'Heating Oil, US Dollar OctYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('LCOV3.cfd', 16, 'Brent Crude Oil, US Dollar/100 OctYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('LCOX3.cfd', 16, 'Brent Crude Oil, US Dollar/100 NovYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('LGOU3.cfd', 16, 'London Gas Oil (per 25), US Dollar/100 SepYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('LGOV3.cfd', 16, 'London Gas Oil (per 25), US Dollar/100 OctYY', 1, current_date, current_date);
+
+-- metals
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('.GOLD.cfd', 16, 'Spot Gold, US Dollar', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('.MGOLD.cfd ', 16, 'MINI Spot Gold, US Dollar', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('.MSILVER.cfd', 16, 'Spot Mini Silver, US Dollar/100', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('.SILVER.cfd', 16, 'Spot Silver, US Dollar/100', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('GCZ3.cfd', 16, 'Gold, US Dollar DecYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('HGU3.cfd ', 16, 'High Grade Copper (per 0.05), US Dollar SepYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('HGZ3.cfd', 16, 'High Grade Copper (per 0.05), US Dollar DecYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('MINISIU3.cfd', 16, 'Mini Silver, US Dollar/100 SepYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('MINISIZ3.cfd ', 16, 'Mini Silver, US Dollar/100 DecYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('PAU3.cfd', 16, 'Palladium, US Dollar SepYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('PAZ3.cfd', 16, 'Palladium, US Dollar DecYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('PLV3.cfd', 16, 'Platinum, US Dollar OctYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('SIU3.cfd', 16, 'Silver, US Dollar/100 SepYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('SIZ3.cfd', 16, 'Silver, US Dollar/100 DecYY', 1, current_date, current_date);
+
+-- indices
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('.DE30.cfd', 16, 'Germany 30 cash, Euro', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('.ES35.cfd', 16, 'Spain 35 cash, Euro', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('.F40.cfd ', 16, 'France 40 cash, Euro', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('.N25.cfd', 16, 'Netherlands 25 cash, Euro', 1, current_date, current_date);
+
+/* ACCOUNTS */
+-- my accounts
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
 values('assets:current_assets:belf00', 'belf00', 1, current_date, current_date);
 
@@ -268,7 +361,7 @@ values('assets:current_assets:unib00', 'unib00', 1, current_date, current_date);
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
 values('assets:current_assets:whsi00', 'whsi00', 1, current_date, current_date);
 
-/* stocks */
+-- stocks
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
 values('assets:stock:ams.ahodf', 'ams.ahodf', 1, current_date, current_date);
 
@@ -326,79 +419,298 @@ values('assets:stock:epa.gsz', 'epa.gsz', 1, current_date, current_date);
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
 values('assets:stock:zsl23.90', 'zsl23.90', 1, current_date, current_date);
 
-/* Commodities */
+-- CFD's
+--- softs
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:softs:CCZ3.cfd', 'CCZ3.cfd', 1, current_date, current_date);
+values('assets:cfd:softs (long):CCZ3.cfd', 'CCZ3.cfd', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:softs:CCZ3.cfd', 'CCZ3.cfd', 1, current_date, current_date);
+values('assets:cfd:softs (long):CCZ3.cfd', 'CCZ3.cfd', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:softs:CTZ3.cfd', 'CTZ3.cfd', 1, current_date, current_date);
+values('assets:cfd:softs (long):CTZ3.cfd', 'CTZ3.cfd', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:softs:KCZ3.cfd', 'KCZ3.cfd', 1, current_date, current_date);
+values('assets:cfd:softs (long):KCZ3.cfd', 'KCZ3.cfd', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:softs:LCCU3.cfd', 'LCCU3.cfd', 1, current_date, current_date);
+values('assets:cfd:softs (long):LCCU3.cfd', 'LCCU3.cfd', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:softs:LEV3.cfd', 'LEV3.cfd', 1, current_date, current_date);
+values('assets:cfd:softs (long):LEV3.cfd', 'LEV3.cfd', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:softs:LRCU3.cfd', 'LRCU3.cfd', 1, current_date, current_date);
+values('assets:cfd:softs (long):LRCU3.cfd', 'LRCU3.cfd', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:softs:LRCX3.cfd', 'LRCX3.cfd', 1, current_date, current_date);
+values('assets:cfd:softs (long):LRCX3.cfd', 'LRCX3.cfd', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:softs:LSUV3.cfd', 'LSUV3.cfd', 1, current_date, current_date);
+values('assets:cfd:softs (long):LSUV3.cfd', 'LSUV3.cfd', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:softs:LWBX3.cfd', 'LWBX3.cfd', 1, current_date, current_date);
+values('assets:cfd:softs (long):LWBX3.cfd', 'LWBX3.cfd', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:softs:OJU3.cfd', 'OJU3.cfd', 1, current_date, current_date);
+values('assets:cfd:softs (long):OJU3.cfd', 'OJU3.cfd', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:softs:OJX3.cfd', 'OJX3.cfd', 1, current_date, current_date);
+values('assets:cfd:softs (long):OJX3.cfd', 'OJX3.cfd', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:softs:ZVU3.cfd', 'ZVU3.cfd', 1, current_date, current_date);
+values('assets:cfd:softs (long):ZVU3.cfd', 'ZVU3.cfd', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:softs:ZCZ3.cfd', 'ZCZ3.cfd', 1, current_date, current_date);
+values('assets:cfd:softs (long):ZCZ3.cfd', 'ZCZ3.cfd', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:softs:ZLU3.cfd', 'ZLU3.cfd', 1, current_date, current_date);
+values('assets:cfd:softs (long):ZLU3.cfd', 'ZLU3.cfd', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:softs:ZLV3.cfd', 'ZLV3.cfd', 1, current_date, current_date);
+values('assets:cfd:softs (long):ZLV3.cfd', 'ZLV3.cfd', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:softs:ZSU3.cfd', 'ZSU3.cfd', 1, current_date, current_date);
+values('assets:cfd:softs (long):ZSU3.cfd', 'ZSU3.cfd', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:softs:ZSX3.cfd', 'ZSX3.cfd', 1, current_date, current_date);
+values('assets:cfd:softs (long):ZSX3.cfd', 'ZSX3.cfd', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:softs:ZWU3.cfd', 'ZWU3.cfd', 1, current_date, current_date);
+values('assets:cfd:softs (long):ZWU3.cfd', 'ZWU3.cfd', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:softs:ZWZ3.cfd', 'ZWZ3.cfd', 1, current_date, current_date);
-
--- oil
-INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:oil:.BRENT.cfd', '.BRENT.cfd', 1, current_date, current_date);
+values('assets:cfd:softs (long):ZWZ3.cfd', 'ZWZ3.cfd', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:oil:.WTI.cfd', '.WTI.cfd', 1, current_date, current_date);
+values('assets:cfd:softs (short):CCZ3.cfd', 'CCZ3.cfd', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:oil:.CLV3.cfd', 'CLV3.cfd', 1, current_date, current_date);
+values('assets:cfd:softs (short):CCZ3.cfd', 'CCZ3.cfd', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:oil:.CLX3.cfd', 'CLX3.cfd', 1, current_date, current_date);
+values('assets:cfd:softs (short):CTZ3.cfd', 'CTZ3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs (short):KCZ3.cfd', 'KCZ3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs (short):LCCU3.cfd', 'LCCU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs (short):LEV3.cfd', 'LEV3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs (short):LRCU3.cfd', 'LRCU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs (short):LRCX3.cfd', 'LRCX3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs (short):LSUV3.cfd', 'LSUV3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs (short):LWBX3.cfd', 'LWBX3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs (short):OJU3.cfd', 'OJU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs (short):OJX3.cfd', 'OJX3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs (short):ZVU3.cfd', 'ZVU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs (short):ZCZ3.cfd', 'ZCZ3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs (short):ZLU3.cfd', 'ZLU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs (short):ZLV3.cfd', 'ZLV3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs (short):ZSU3.cfd', 'ZSU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs (short):ZSX3.cfd', 'ZSX3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs (short):ZWU3.cfd', 'ZWU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs (short):ZWZ3.cfd', 'ZWZ3.cfd', 1, current_date, current_date);
+
+--- oil
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil (long):.BRENT.cfd', '.BRENT.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil (long):.WTI.cfd', '.WTI.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil (long):CLV3.cfd', 'CLV3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil (long):CLX3.cfd', 'CLX3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil (long):HOU3.cfd', 'HOU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil (long):HOV3.cfd', 'HOV3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil (long):LCOV3.cfd', 'LCOV3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil (long):LCOX3.cfd', 'LCOX3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil (long):LGOU3.cfd', 'LGOU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil (long):LGOV3.cfd', 'LGOV3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil (short):.BRENT.cfd', '.BRENT.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil (short):.WTI.cfd', '.WTI.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil (short):CLV3.cfd', 'CLV3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil (short):CLX3.cfd', 'CLX3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil (short):HOU3.cfd', 'HOU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil (short):HOV3.cfd', 'HOV3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil (short):LCOV3.cfd', 'LCOV3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil (short):LCOX3.cfd', 'LCOX3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil (short):LGOU3.cfd', 'LGOU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil (short):LGOV3.cfd', 'LGOV3.cfd', 1, current_date, current_date);
+
+--- metals
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (long):.GOLD.cfd', '.GOLD.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (long):.MGOLD.cfd', '.MGOLD.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (long):.MSILVER.cfd', '.MSILVER.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (long):.SILVER.cfd', '.SILVER.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (long):GCZ3.cfd', 'GCZ3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (long):HGU3.cfd', 'HGU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (long):HGZ3.cfd', 'HGZ3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (long):MINISIU3.cfd', 'MINISIU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (long):MINISIZ3.cfd', 'MINISIZ3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (long):PAU3.cfd', 'PAU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (long):PAZ3.cfd', 'PAZ3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (long):PLV3.cfd', 'PLV3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (long):SIU3.cfd', 'SIU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (long):SIV3.cfd', 'SIV3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (short):.GOLD.cfd', '.GOLD.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (short):.MGOLD.cfd', '.MGOLD.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (short):.MSILVER.cfd', '.MSILVER.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (short):.SILVER.cfd', '.SILVER.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (short):GCZ3.cfd', 'GCZ3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (short):HGU3.cfd', 'HGU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (short):HGZ3.cfd', 'HGZ3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (short):MINISIU3.cfd', 'MINISIU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (short):MINISIZ3.cfd', 'MINISIZ3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (short):PAU3.cfd', 'PAU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (short):PAZ3.cfd', 'PAZ3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (short):PLV3.cfd', 'PLV3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (short):SIU3.cfd', 'SIU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:metals (short):SIV3.cfd', 'SIV3.cfd', 1, current_date, current_date);
+
+--- indices
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:indices (long):.DE30.cfd', '.DE30.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:indices (long):.ES35.cfd', '.ES35.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:indices (long):.F40.cfd', '.F40.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:indices (long):.N25.cfd', '.N25.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:indices (short):.DE30.cfd', '.DE30.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:indices (short):.ES35.cfd', '.ES35.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:indices (short):.F40.cfd', '.F40.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:indices (short):.N25.cfd', '.N25.cfd', 1, current_date, current_date);
 
 /* list:
 -- softs - august
@@ -450,7 +762,7 @@ SIU3.cfd - Silver, US Dollar/100 Sep13
 SIZ3.cfd - Silver, US Dollar/100 Dec13
 -- indices (Note: BE not available)
 .DE30.cfd - Germany 30 cash, Euro
-.ES35 - Spain 35 cash, Euro
+.ES35.cfd - Spain 35 cash, Euro
 .F40.cfd - France 40 cash, Euro
 .N25.cfd - Netherlands 25 cash, Euro
 */
