@@ -181,6 +181,67 @@ values('sr', 2, 'SNS Reaal NV', 1, current_date, current_date);
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
 values('solb', 3, 'Solvay S.A.', 1, current_date, current_date);
 
+-- CFD's
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('CCZ3.cfd', 16, 'US COCOA, US Dollar DecYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('CTZ3.cfd', 16, 'US Cotton No.2, US Dollar/100 DecYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('KCZ3.cfd', 16, 'US Coffee C, US Dollar/100 DecYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('LCCU3.cfd', 16, 'London Cocoa, Pound Sterling SepYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('LEV3.cfd', 16, 'Live Cattle (per 0.01), US Dollar/100 OctYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('LRCU3.cfd', 16, 'London Coffee, US Dollar SepYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('LRCX3.cfd', 16, 'London Coffee, US Dollar NovYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('LSUV3.cfd', 16, 'London Sugar, US Dollar OctYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('LWBX3.cfd', 16, 'London Wheat (per 0.01), Pound Sterling NovYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('OJU3.cfd', 16, 'Orange Juice, US Dollar/100 SepYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('OJX3.cfd', 16, 'Orange Juice, US Dollar/100 NovYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('SBV3.cfd', 16, 'US Sugar No11, US Dollar/100 OctYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('ZVU3.cfd', 16, 'US Corn, US Dollar/100 SepYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('ZCZ3.cfd', 16, 'US Corn, US Dollar/100 DecYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('ZLU3.cfd', 16, 'US Soybean Oil, US Dollar/100 SepYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('ZLV3.cfd', 16, 'US Soybean Oil, US Dollar/100 OctYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('ZSU3.cfd', 16, 'US Soybeans, US Dollar/100 SepYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('ZSX3.cfd', 16, 'US Soybeans, US Dollar/100 NovYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('ZWU3.cfd', 16, 'US Wheat, US Dollar/100 SepYY', 1, current_date, current_date);
+
+INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+values('ZWZ3.cfd', 16, 'US Wheat, US Dollar/100 DecYY', 1, current_date, current_date);
+
 -- Add accounts for known commodities
 /* my accounts */
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
@@ -267,7 +328,77 @@ values('assets:stock:zsl23.90', 'zsl23.90', 1, current_date, current_date);
 
 /* Commodities */
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:cfd:commodities:ojx...', 'cfd:ojx...', 1, current_date, current_date);
+values('assets:cfd:softs:CCZ3.cfd', 'CCZ3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs:CCZ3.cfd', 'CCZ3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs:CTZ3.cfd', 'CTZ3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs:KCZ3.cfd', 'KCZ3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs:LCCU3.cfd', 'LCCU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs:LEV3.cfd', 'LEV3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs:LRCU3.cfd', 'LRCU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs:LRCX3.cfd', 'LRCX3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs:LSUV3.cfd', 'LSUV3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs:LWBX3.cfd', 'LWBX3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs:OJU3.cfd', 'OJU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs:OJX3.cfd', 'OJX3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs:ZVU3.cfd', 'ZVU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs:ZCZ3.cfd', 'ZCZ3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs:ZLU3.cfd', 'ZLU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs:ZLV3.cfd', 'ZLV3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs:ZSU3.cfd', 'ZSU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs:ZSX3.cfd', 'ZSX3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs:ZWU3.cfd', 'ZWU3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:softs:ZWZ3.cfd', 'ZWZ3.cfd', 1, current_date, current_date);
+
+-- oil
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil:.BRENT.cfd', '.BRENT.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil:.WTI.cfd', '.WTI.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil:.CLV3.cfd', 'CLV3.cfd', 1, current_date, current_date);
+
+INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
+values('assets:cfd:oil:.CLX3.cfd', 'CLX3.cfd', 1, current_date, current_date);
 
 /* list:
 -- softs - august
@@ -291,7 +422,7 @@ ZSU3.cfd - US Soybeans, US Dollar/100 Sep13
 ZSX3.cfd - US Soybeanr, US Dollar/100 Nov13
 ZWU3.cfd - US Wheat, US Dollar/100 Sep13
 ZWZ3.cfd - US Wheat, US Dollar/100 Dec13
--- oil
+-- oil (market 15)
 .BRENT.cfd - SPOT Brent Crude Oil, US Dollar/100
 .WTI.cfd - SPOT WTI Light Crude Oil, US Dollar
 CLV3.cfd - WTI Crude Oil, US Dollar Oct13
