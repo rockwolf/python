@@ -509,7 +509,7 @@ class DatabaseAccess():
             session = None
         return records
 
-    def account_id_from_account_name(self, account_name):
+    def account_id_from_account_name(self, account_name, from_account = True):
         """
             Get the account_id from an account.
         """
@@ -526,8 +526,13 @@ class DatabaseAccess():
             # in T_ACCOUNT. If not, add it to the t_account table.
             obj  = session.query(T_ACCOUNT).filter_by(name=account).first() is not None
             if not obj:
-            	#TODO: add the ability to add a market description (Very low priority!)
-                session.add(T_ACCOUNT(account, '', date_created, date_modified))
+                if from_account:
+                    description_list = self.gui.get_account_from().split(':')
+                    description = description_list[len(descpription_list)-1]
+                else:
+                    description = self.gui.get_account_to().split(':')
+                    description = description_list[len(descpription_list)-1]
+                session.add(T_ACCOUNT(account, description, date_created, date_modified))
                 session.commit()
                 for instance in session.query(func.max(T_ACCOUNT.account_id).label('account_id')):
                     result = instance.account_id
@@ -551,11 +556,11 @@ class DatabaseAccess():
             date_created = current_date()
             date_modified = current_date()
             # Get stock_name_id, based on stock_name
-            # but first check if the account already exists
-            # in T_ACCOUNT. If not, add it to the t_account table.
+            # but first check if the stock_name already exists
+            # in T_STOCK_NAME. If not, add it to the table.
             obj = session.query(T_STOCK_NAME).filter_by(name=stock_name, market_id=market_id).first() is not None
             if not obj: 
-                session.add(T_STOCK_NAME(stock_name, market_id, '', date_created, date_modified))
+                session.add(T_STOCK_NAME(stock_name, market_id, self.gui.get_stock_description(), date_created, date_modified))
                 session.commit()
                 for instance in session.query(func.max(T_STOCK_NAME.stock_name_id).label('stock_name_id')):
                     result = instance.stock_name_id
