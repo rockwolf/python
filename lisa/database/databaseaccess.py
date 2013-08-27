@@ -79,17 +79,6 @@ class DatabaseAccess():
             session = None
         return values
 
-    def combine_sets(self, account_set):
-        """
-            Combine sets into a list.
-            input: [{'test1', 'test2'}, {'test2'}]
-            output: ['test1', 'test2']
-        """
-        combined = set()
-        for a_set in account_set:
-            combined = combined | a_set
-        return list(combined)
-
     def get_markets(self):
         """
             Get the market codes.
