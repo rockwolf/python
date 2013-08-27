@@ -101,3 +101,14 @@ def we_are_buying(account_from, account_to):
                 buy = False
                 sell = True
     return buy
+
+def combine_sets(self, a_set):
+    """
+        Combine sets into a list.
+        input: [{'test1', 'test2'}, {'test2'}]
+        output: ['test1', 'test2']
+    """
+    combined = set()
+    for item in a_set:
+        combined = combined | item
+    return list(combined)
