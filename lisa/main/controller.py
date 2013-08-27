@@ -69,7 +69,7 @@ class ControllerMain():
                             input_fields,
                             var_finance)
             var_trade.print_statements()
-            trade.write_to_database(var_finance)
+            trade.write_to_database(var_trade)
             #test = dba.create_statements_TABLE_INVESTMENT(input_fields)
             #test.print_statements()
             #if self.is_an_investment():
