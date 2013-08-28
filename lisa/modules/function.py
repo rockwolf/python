@@ -102,7 +102,7 @@ def we_are_buying(account_from, account_to):
                 sell = True
     return buy
 
-def combine_sets(self, a_set):
+def combine_sets(a_set):
     """
         Combine sets into a list.
         input: [{'test1', 'test2'}, {'test2'}]
@@ -112,3 +112,10 @@ def combine_sets(self, a_set):
     for item in a_set:
         combined = combined | item
     return list(combined)
+    
+def get_last_part(astring, aseparator):
+    """
+        Gets the last part of a <asaparator> seprated string.
+    """
+    partlist = astring.split(aseparator)
+    return partlist[len(partlist) - 1]
