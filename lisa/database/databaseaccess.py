@@ -211,18 +211,19 @@ class DatabaseAccess():
             and (invade_record['date_sell'] != DEFAULT_DATE)
             and (invade_record['shares_buy'] == invade_record['shares_sell']))
     	
-    def get_long_flag_value(self, category, subcategory, trade_record):
+    def get_long_flag_value(self, account_from, account_to, trade_record):
         """
             Are we long?
         """
-        #TODO: fix this, it seems wrong!
-        #TODO: replace category/subcategory with the full account name
-        #for expenses:trade:buy and income:trade:sell
         result = False
         if trade_record == []:
-            result = (category == 'trade' and subcategory == 'buy')
+            result = is_a_trade(account_from, account_to)
+                     and get_last_part(account_from) in TRADING_ACCOUNTS
+            # NOTE: if account_from = WHSI00, we know we are trading + buying
+            # and that is going long if we don't have a trading record yet.
         else:
-            result = (category == 'trade' and subcategory == 'sell'
+            result = (is_a_trade(account_from, account_to)
+                      and get_last_part(account_to) in TRADING_ACCOUNTS
                       and trade_record['date_buy'] != DEFAULT_DATE)
         return 1 if result else 0
 
