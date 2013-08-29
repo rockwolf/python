@@ -514,9 +514,6 @@ class DatabaseAccess():
         """
             Get the account_id from an account.
         """
-        #TODO: search for an account name that has the parents
-        #e.g.: expenses:car:other should look for 'other',
-        #but it will find more than 1, so also look for the parents.
         result = -1
         session = self.Session()
         try:
