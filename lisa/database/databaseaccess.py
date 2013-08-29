@@ -610,8 +610,6 @@ class DatabaseAccess():
         """
             Get the account_name for a given account_id from the T_ACCOUNT table.
         """
-        #TODO: also look for the parents and add them
-
         result = ''
         session = self.Session()
         try:
