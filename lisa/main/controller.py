@@ -201,6 +201,7 @@ class ControllerMain():
             the input_fields.
         """
         #TODO: this was for V_rep_cheCK I think, this needs to be fixed!
+        # So create a new V_REP_CHECK view!
         values = []
         dba = DatabaseAccess(self.config)
         for account in dba.get_accounts():
