@@ -217,14 +217,14 @@ class DatabaseAccess():
         """
         result = False
         if trade_record == []:
-            result = is_a_trade(account_from, account_to)
-                     and get_last_part(account_from) in TRADING_ACCOUNTS
+            result = is_a_trade(account_from, account_to) \
+                and get_last_part(account_from) in TRADING_ACCOUNTS
             # NOTE: if account_from = WHSI00, we know we are trading + buying
             # and that is going long if we don't have a trading record yet.
         else:
-            result = (is_a_trade(account_from, account_to)
-                      and get_last_part(account_to) in TRADING_ACCOUNTS
-                      and trade_record['date_buy'] != DEFAULT_DATE)
+            result = (is_a_trade(account_from, account_to) \
+                and get_last_part(account_to) in TRADING_ACCOUNTS
+                and trade_record['date_buy'] != DEFAULT_DATE)
         return 1 if result else 0
 
     #TODO: toroughly test this

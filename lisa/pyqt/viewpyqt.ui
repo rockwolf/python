@@ -10,114 +10,120 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>Inconsolata</family>
+    <pointsize>14</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
    <string notr="true">#MainWindow
 {
-	background: #073642;
-    color: #eee8d5;
+	background: #ffffd7;
+    color: #626262;
 }
 #lbl_check
 {
-	background: #073642;
-    color: #eee8d5;
+	background: #ffffd7;
+    color: #626262;
 }
 #lbl_infofinance
 {
-	background: #073642;
-    color: #eee8d5;
+	background: #ffffd7;
+    color: #626262;
 }
 #lbl_date
 {
-	background: #073642;
-    color: #eee8d5;
+	background: #ffffd7;
+    color: #626262;
 }
 #lbl_account
 {
-	background: #073642;
-    color: #eee8d5;
+	background: #ffffd7;
+    color: #626262;
 }
 #lbl_amount
 {
-	background: #073642;
-    color: #eee8d5;
+	background: #ffffd7;
+    color: #626262;
 }
 #lbl_marketcode
 {
-	background: #073642;
-    color: #eee8d5;
+	background: #ffffd7;
+    color: #626262;
 }
 #lbl_stockname
 {
-	background: #073642;
-    color: #eee8d5;
+	background: #ffffd7;
+    color: #626262;
 }
 #lbl_quantity
 {
-	background: #073642;
-    color: #eee8d5;
+	background: #ffffd7;
+    color: #626262;
 }
 #lbl_price
 {
-	background: #073642;
-    color: #eee8d5;
+	background: #ffffd7;
+    color: #626262;
 }
 #lbl_commission
 {
-	background: #073642;
-    color: #eee8d5;
+	background: #ffffd7;
+    color: #626262;
 }
 #lbl_tax
 {
-	background: #073642;
-    color: #eee8d5;
+	background: #ffffd7;
+    color: #626262;
 }
 #lbl_comment
 {
-	background: #073642;
-    color: #eee8d5;
+	background: #ffffd7;
+    color: #626262;
 }
 #lbl_currency_from
 {
-	background: #073642;
-    color: #eee8d5;
+	background: #ffffd7;
+    color: #626262;
 }
 #lbl_currency_to
 {
-	background: #073642;
-    color: #eee8d5;
+	background: #ffffd7;
+    color: #626262;
 }
 #lbl_exchange_rate
 {
-	background: #073642;
-    color: #eee8d5;
+	background: #ffffd7;
+    color: #626262;
 }
 #lbl_expiration
 {
-	background: #073642;
-    color: #eee8d5;
+	background: #ffffd7;
+    color: #626262;
 }
 #lbl_pool
 {
-	background: #073642;
-    color: #eee8d5;
+	background: #ffffd7;
+    color: #626262;
 }
 #chk_manual_commission
 {
-	background: #073642;
-    color: #eee8d5;
+	background: #ffffd7;
+    color: #626262;
 }
 #lbl_risk
 {
-	background: #073642;
-    color: #eee8d5;
+	background: #ffffd7;
+    color: #626262;
 }
 #lbl_infodetails
 {
-	background: #073642;
-    color: #eee8d5;
+	background: #ffffd7;
+    color: #626262;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -144,6 +150,12 @@
         </item>
         <item row="0" column="5">
          <widget class="QLabel" name="lbl_check">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="frameShape">
            <enum>QFrame::Panel</enum>
           </property>
@@ -159,7 +171,8 @@
          <widget class="QLabel" name="lbl_infofinance">
           <property name="font">
            <font>
-            <family>Envy Code R</family>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
            </font>
           </property>
           <property name="text">
@@ -195,6 +208,12 @@
             <height>0</height>
            </size>
           </property>
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="locale">
            <locale language="C" country="AnyCountry"/>
           </property>
@@ -219,7 +238,8 @@
           </property>
           <property name="font">
            <font>
-            <family>Liberation Mono</family>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
            </font>
           </property>
           <property name="locale">
@@ -235,6 +255,12 @@
         </item>
         <item row="0" column="0">
          <widget class="QLabel" name="lbl_date">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Date</string>
           </property>
@@ -242,6 +268,12 @@
         </item>
         <item row="0" column="5">
          <widget class="QLabel" name="lbl_marketcode">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Market code</string>
           </property>
@@ -249,6 +281,12 @@
         </item>
         <item row="0" column="6">
          <widget class="QLabel" name="lbl_stockname">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Stock name</string>
           </property>
@@ -256,6 +294,12 @@
         </item>
         <item row="0" column="7">
          <widget class="QLabel" name="lbl_quantity">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Quantity</string>
           </property>
@@ -263,6 +307,12 @@
         </item>
         <item row="0" column="8">
          <widget class="QLabel" name="lbl_price">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Price</string>
           </property>
@@ -270,6 +320,12 @@
         </item>
         <item row="0" column="9">
          <widget class="QLabel" name="lbl_commission">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Commission</string>
           </property>
@@ -277,6 +333,12 @@
         </item>
         <item row="0" column="10">
          <widget class="QLabel" name="lbl_tax">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Tax（％）</string>
           </property>
@@ -284,6 +346,12 @@
         </item>
         <item row="5" column="8">
          <widget class="QDoubleSpinBox" name="spn_pool">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="decimals">
            <number>6</number>
           </property>
@@ -294,6 +362,12 @@
         </item>
         <item row="4" column="8">
          <widget class="QLabel" name="lbl_pool">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Pool</string>
           </property>
@@ -306,6 +380,12 @@
             <width>90</width>
             <height>0</height>
            </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
           </property>
           <property name="date">
            <date>
@@ -324,6 +404,12 @@
         </item>
         <item row="1" column="5">
          <widget class="QComboBox" name="cmb_market_code">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="inputMethodHints">
            <set>Qt::ImhLowercaseOnly</set>
           </property>
@@ -339,6 +425,12 @@
             <width>120</width>
             <height>0</height>
            </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
           </property>
           <property name="inputMethodHints">
            <set>Qt::ImhLowercaseOnly</set>
@@ -358,7 +450,8 @@
           </property>
           <property name="font">
            <font>
-            <family>Liberation Mono</family>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
            </font>
           </property>
           <property name="locale">
@@ -379,7 +472,8 @@
           </property>
           <property name="font">
            <font>
-            <family>Liberation Mono</family>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
            </font>
           </property>
           <property name="locale">
@@ -403,7 +497,8 @@
           </property>
           <property name="font">
            <font>
-            <family>Liberation Mono</family>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
            </font>
           </property>
           <property name="locale">
@@ -418,13 +513,33 @@
          </widget>
         </item>
         <item row="3" column="5">
-         <widget class="QLineEdit" name="txt_market_description"/>
+         <widget class="QLineEdit" name="txt_market_description">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+         </widget>
         </item>
         <item row="3" column="6">
-         <widget class="QLineEdit" name="txt_stock_description"/>
+         <widget class="QLineEdit" name="txt_stock_description">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+         </widget>
         </item>
         <item row="1" column="1">
          <widget class="QComboBox" name="cmb_account_from">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="inputMethodHints">
            <set>Qt::ImhLowercaseOnly</set>
           </property>
@@ -435,6 +550,12 @@
         </item>
         <item row="0" column="2">
          <widget class="QLabel" name="lbl_amount">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Amount</string>
           </property>
@@ -442,6 +563,12 @@
         </item>
         <item row="0" column="1">
          <widget class="QLabel" name="lbl_account">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Account</string>
           </property>
@@ -449,6 +576,12 @@
         </item>
         <item row="4" column="2">
          <widget class="QLabel" name="lbl_currency_from">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Currency from</string>
           </property>
@@ -468,6 +601,12 @@
             <height>16777215</height>
            </size>
           </property>
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
          </widget>
         </item>
         <item row="5" column="9">
@@ -480,7 +619,8 @@
           </property>
           <property name="font">
            <font>
-            <family>Liberation Mono</family>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
            </font>
           </property>
           <property name="locale">
@@ -496,6 +636,12 @@
         </item>
         <item row="4" column="9">
          <widget class="QLabel" name="lbl_risk">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Risk (%)</string>
           </property>
@@ -503,6 +649,12 @@
         </item>
         <item row="3" column="9">
          <widget class="QCheckBox" name="chk_manual_commission">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Automatic</string>
           </property>
@@ -513,6 +665,12 @@
         </item>
         <item row="4" column="7">
          <widget class="QLabel" name="lbl_expiration">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="frameShape">
            <enum>QFrame::NoFrame</enum>
           </property>
@@ -523,6 +681,12 @@
         </item>
         <item row="5" column="7">
          <widget class="QDateEdit" name="dt_expiration">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="dateTime">
            <datetime>
             <hour>0</hour>
@@ -550,6 +714,12 @@
         </item>
         <item row="4" column="6">
          <widget class="QLabel" name="lbl_exchange_rate">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Exchange rate</string>
           </property>
@@ -565,7 +735,8 @@
           </property>
           <property name="font">
            <font>
-            <family>Liberation Mono</family>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
            </font>
           </property>
           <property name="locale">
@@ -581,13 +752,26 @@
         </item>
         <item row="4" column="5">
          <widget class="QLabel" name="lbl_currency_to">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Currency to</string>
           </property>
          </widget>
         </item>
         <item row="5" column="5">
-         <widget class="QComboBox" name="cmb_currency_to"/>
+         <widget class="QComboBox" name="cmb_currency_to">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+         </widget>
         </item>
         <item row="5" column="1">
          <widget class="QLineEdit" name="txt_comment">
@@ -600,13 +784,20 @@
             <height>0</height>
            </size>
           </property>
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
          </widget>
         </item>
         <item row="4" column="1">
          <widget class="QLabel" name="lbl_comment">
           <property name="font">
            <font>
-            <family>Envy Code R</family>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
            </font>
           </property>
           <property name="text">
@@ -616,6 +807,12 @@
         </item>
         <item row="3" column="1">
          <widget class="QComboBox" name="cmb_account_to">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="inputMethodHints">
            <set>Qt::ImhLowercaseOnly</set>
           </property>
@@ -632,7 +829,8 @@
          <widget class="QPushButton" name="btn_clear">
           <property name="font">
            <font>
-            <family>Envy Code R</family>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
            </font>
           </property>
           <property name="text">
@@ -657,7 +855,8 @@
          <widget class="QPushButton" name="btn_exit">
           <property name="font">
            <font>
-            <family>Envy Code R</family>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
            </font>
           </property>
           <property name="text">
@@ -669,7 +868,8 @@
          <widget class="QPushButton" name="btn_add">
           <property name="font">
            <font>
-            <family>Envy Code R</family>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
            </font>
           </property>
           <property name="text">
@@ -681,7 +881,8 @@
          <widget class="QPushButton" name="btn_execute">
           <property name="font">
            <font>
-            <family>Envy Code R</family>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
            </font>
           </property>
           <property name="text">
@@ -693,7 +894,8 @@
          <widget class="QLabel" name="lbl_infodetails">
           <property name="font">
            <font>
-            <family>Envy Code R</family>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
            </font>
           </property>
           <property name="text">
@@ -705,7 +907,8 @@
          <widget class="QPushButton" name="btn_update">
           <property name="font">
            <font>
-            <family>Envy Code R</family>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
            </font>
           </property>
           <property name="text">
@@ -717,7 +920,8 @@
          <widget class="QPushButton" name="btn_remove">
           <property name="font">
            <font>
-            <family>Envy Code R</family>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
            </font>
           </property>
           <property name="text">
@@ -729,7 +933,8 @@
          <widget class="QPushButton" name="btn_removelast">
           <property name="font">
            <font>
-            <family>Envy Code R</family>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
            </font>
           </property>
           <property name="text">

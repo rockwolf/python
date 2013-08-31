@@ -250,50 +250,50 @@ values('ZWZ3.cfd', 16, 'US Wheat, US Dollar/100 DecYY', 1, current_date, current
 
 -- oil
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
-values('.BRENT.cfd', 16, 'SPOT Brent Crude Oil, US Dollar/100', 1, current_date, current_date);
+values('.BRENT.cfd', 15, 'SPOT Brent Crude Oil, US Dollar/100', 1, current_date, current_date);
 
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
-values('.WTI.cfd', 16, 'SPOT WTI Light Crude Oil, US Dollar', 1, current_date, current_date);
+values('.WTI.cfd', 15, 'SPOT WTI Light Crude Oil, US Dollar', 1, current_date, current_date);
 
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
-values('CLV3.cfd', 16, 'WTI Crude Oil, US Dollar OctYY', 1, current_date, current_date);
+values('CLV3.cfd', 15, 'WTI Crude Oil, US Dollar OctYY', 1, current_date, current_date);
 
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
-values('CLX3.cfd', 16, 'WTI Crude Oil, US Dollar NovYY', 1, current_date, current_date);
+values('CLX3.cfd', 15, 'WTI Crude Oil, US Dollar NovYY', 1, current_date, current_date);
 
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
-values('HOU3.cfd', 16, 'Heating Oil, US Dollar NovYY', 1, current_date, current_date);
+values('HOU3.cfd', 15, 'Heating Oil, US Dollar NovYY', 1, current_date, current_date);
 
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
-values('HOV3.cfd', 16, 'Heating Oil, US Dollar OctYY', 1, current_date, current_date);
+values('HOV3.cfd', 15, 'Heating Oil, US Dollar OctYY', 1, current_date, current_date);
 
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
-values('LCOV3.cfd', 16, 'Brent Crude Oil, US Dollar/100 OctYY', 1, current_date, current_date);
+values('LCOV3.cfd', 15, 'Brent Crude Oil, US Dollar/100 OctYY', 1, current_date, current_date);
 
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
-values('LCOX3.cfd', 16, 'Brent Crude Oil, US Dollar/100 NovYY', 1, current_date, current_date);
+values('LCOX3.cfd', 15, 'Brent Crude Oil, US Dollar/100 NovYY', 1, current_date, current_date);
 
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
-values('LGOU3.cfd', 16, 'London Gas Oil (per 25), US Dollar/100 SepYY', 1, current_date, current_date);
+values('LGOU3.cfd', 15, 'London Gas Oil (per 25), US Dollar/100 SepYY', 1, current_date, current_date);
 
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
-values('LGOV3.cfd', 16, 'London Gas Oil (per 25), US Dollar/100 OctYY', 1, current_date, current_date);
+values('LGOV3.cfd', 15, 'London Gas Oil (per 25), US Dollar/100 OctYY', 1, current_date, current_date);
 
 -- metals
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
-values('.GOLD.cfd', 16, 'Spot Gold, US Dollar', 1, current_date, current_date);
+values('.GOLD.cfd', 13, 'Spot Gold, US Dollar', 1, current_date, current_date);
 
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
-values('.MGOLD.cfd ', 16, 'MINI Spot Gold, US Dollar', 1, current_date, current_date);
+values('.MGOLD.cfd ', 13, 'MINI Spot Gold, US Dollar', 1, current_date, current_date);
 
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
-values('.MSILVER.cfd', 16, 'Spot Mini Silver, US Dollar/100', 1, current_date, current_date);
+values('.MSILVER.cfd', 14, 'Spot Mini Silver, US Dollar/100', 1, current_date, current_date);
 
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
-values('.SILVER.cfd', 16, 'Spot Silver, US Dollar/100', 1, current_date, current_date);
+values('.SILVER.cfd', 14, 'Spot Silver, US Dollar/100', 1, current_date, current_date);
 
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
-values('GCZ3.cfd', 16, 'Gold, US Dollar DecYY', 1, current_date, current_date);
+values('GCZ3.cfd', 13, 'Gold, US Dollar DecYY', 1, current_date, current_date);
 
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
 values('HGU3.cfd ', 16, 'High Grade Copper (per 0.05), US Dollar SepYY', 1, current_date, current_date);
@@ -302,10 +302,10 @@ INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, dat
 values('HGZ3.cfd', 16, 'High Grade Copper (per 0.05), US Dollar DecYY', 1, current_date, current_date);
 
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
-values('MINISIU3.cfd', 16, 'Mini Silver, US Dollar/100 SepYY', 1, current_date, current_date);
+values('MINISIU3.cfd', 14, 'Mini Silver, US Dollar/100 SepYY', 1, current_date, current_date);
 
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
-values('MINISIZ3.cfd ', 16, 'Mini Silver, US Dollar/100 DecYY', 1, current_date, current_date);
+values('MINISIZ3.cfd ', 14, 'Mini Silver, US Dollar/100 DecYY', 1, current_date, current_date);
 
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
 values('PAU3.cfd', 16, 'Palladium, US Dollar SepYY', 1, current_date, current_date);
@@ -317,10 +317,10 @@ INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, dat
 values('PLV3.cfd', 16, 'Platinum, US Dollar OctYY', 1, current_date, current_date);
 
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
-values('SIU3.cfd', 16, 'Silver, US Dollar/100 SepYY', 1, current_date, current_date);
+values('SIU3.cfd', 14, 'Silver, US Dollar/100 SepYY', 1, current_date, current_date);
 
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
-values('SIZ3.cfd', 16, 'Silver, US Dollar/100 DecYY', 1, current_date, current_date);
+values('SIZ3.cfd', 14, 'Silver, US Dollar/100 DecYY', 1, current_date, current_date);
 
 -- indices
 INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'viewpyqt.ui'
 #
-# Created: Mon Aug 19 21:21:00 2013
+# Created: Sat Aug 31 16:40:52 2013
 #      by: PyQt4 UI code generator 4.10.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,110 +27,114 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(1198, 600)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        MainWindow.setFont(font)
         MainWindow.setStyleSheet(_fromUtf8("#MainWindow\n"
 "{\n"
-"    background: #073642;\n"
-"    color: #eee8d5;\n"
+"    background: #ffffd7;\n"
+"    color: #626262;\n"
 "}\n"
 "#lbl_check\n"
 "{\n"
-"    background: #073642;\n"
-"    color: #eee8d5;\n"
+"    background: #ffffd7;\n"
+"    color: #626262;\n"
 "}\n"
 "#lbl_infofinance\n"
 "{\n"
-"    background: #073642;\n"
-"    color: #eee8d5;\n"
+"    background: #ffffd7;\n"
+"    color: #626262;\n"
 "}\n"
 "#lbl_date\n"
 "{\n"
-"    background: #073642;\n"
-"    color: #eee8d5;\n"
+"    background: #ffffd7;\n"
+"    color: #626262;\n"
 "}\n"
 "#lbl_account\n"
 "{\n"
-"    background: #073642;\n"
-"    color: #eee8d5;\n"
+"    background: #ffffd7;\n"
+"    color: #626262;\n"
 "}\n"
 "#lbl_amount\n"
 "{\n"
-"    background: #073642;\n"
-"    color: #eee8d5;\n"
+"    background: #ffffd7;\n"
+"    color: #626262;\n"
 "}\n"
 "#lbl_marketcode\n"
 "{\n"
-"    background: #073642;\n"
-"    color: #eee8d5;\n"
+"    background: #ffffd7;\n"
+"    color: #626262;\n"
 "}\n"
 "#lbl_stockname\n"
 "{\n"
-"    background: #073642;\n"
-"    color: #eee8d5;\n"
+"    background: #ffffd7;\n"
+"    color: #626262;\n"
 "}\n"
 "#lbl_quantity\n"
 "{\n"
-"    background: #073642;\n"
-"    color: #eee8d5;\n"
+"    background: #ffffd7;\n"
+"    color: #626262;\n"
 "}\n"
 "#lbl_price\n"
 "{\n"
-"    background: #073642;\n"
-"    color: #eee8d5;\n"
+"    background: #ffffd7;\n"
+"    color: #626262;\n"
 "}\n"
 "#lbl_commission\n"
 "{\n"
-"    background: #073642;\n"
-"    color: #eee8d5;\n"
+"    background: #ffffd7;\n"
+"    color: #626262;\n"
 "}\n"
 "#lbl_tax\n"
 "{\n"
-"    background: #073642;\n"
-"    color: #eee8d5;\n"
+"    background: #ffffd7;\n"
+"    color: #626262;\n"
 "}\n"
 "#lbl_comment\n"
 "{\n"
-"    background: #073642;\n"
-"    color: #eee8d5;\n"
+"    background: #ffffd7;\n"
+"    color: #626262;\n"
 "}\n"
 "#lbl_currency_from\n"
 "{\n"
-"    background: #073642;\n"
-"    color: #eee8d5;\n"
+"    background: #ffffd7;\n"
+"    color: #626262;\n"
 "}\n"
 "#lbl_currency_to\n"
 "{\n"
-"    background: #073642;\n"
-"    color: #eee8d5;\n"
+"    background: #ffffd7;\n"
+"    color: #626262;\n"
 "}\n"
 "#lbl_exchange_rate\n"
 "{\n"
-"    background: #073642;\n"
-"    color: #eee8d5;\n"
+"    background: #ffffd7;\n"
+"    color: #626262;\n"
 "}\n"
 "#lbl_expiration\n"
 "{\n"
-"    background: #073642;\n"
-"    color: #eee8d5;\n"
+"    background: #ffffd7;\n"
+"    color: #626262;\n"
 "}\n"
 "#lbl_pool\n"
 "{\n"
-"    background: #073642;\n"
-"    color: #eee8d5;\n"
+"    background: #ffffd7;\n"
+"    color: #626262;\n"
 "}\n"
 "#chk_manual_commission\n"
 "{\n"
-"    background: #073642;\n"
-"    color: #eee8d5;\n"
+"    background: #ffffd7;\n"
+"    color: #626262;\n"
 "}\n"
 "#lbl_risk\n"
 "{\n"
-"    background: #073642;\n"
-"    color: #eee8d5;\n"
+"    background: #ffffd7;\n"
+"    color: #626262;\n"
 "}\n"
 "#lbl_infodetails\n"
 "{\n"
-"    background: #073642;\n"
-"    color: #eee8d5;\n"
+"    background: #ffffd7;\n"
+"    color: #626262;\n"
 "}"))
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
@@ -144,13 +148,18 @@ class Ui_MainWindow(object):
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.gridLayout_10.addItem(spacerItem, 0, 7, 1, 1)
         self.lbl_check = QtGui.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.lbl_check.setFont(font)
         self.lbl_check.setFrameShape(QtGui.QFrame.Panel)
         self.lbl_check.setFrameShadow(QtGui.QFrame.Raised)
         self.lbl_check.setObjectName(_fromUtf8("lbl_check"))
         self.gridLayout_10.addWidget(self.lbl_check, 0, 5, 1, 1)
         self.lbl_infofinance = QtGui.QLabel(self.centralwidget)
         font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Envy Code R"))
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
         self.lbl_infofinance.setFont(font)
         self.lbl_infofinance.setObjectName(_fromUtf8("lbl_infofinance"))
         self.gridLayout_10.addWidget(self.lbl_infofinance, 0, 8, 1, 1)
@@ -162,6 +171,10 @@ class Ui_MainWindow(object):
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.spn_amount = QtGui.QDoubleSpinBox(self.centralwidget)
         self.spn_amount.setMinimumSize(QtCore.QSize(70, 0))
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.spn_amount.setFont(font)
         self.spn_amount.setLocale(QtCore.QLocale(QtCore.QLocale.C, QtCore.QLocale.AnyCountry))
         self.spn_amount.setDecimals(6)
         self.spn_amount.setMaximum(999999.999999)
@@ -171,7 +184,8 @@ class Ui_MainWindow(object):
         self.spn_price = QtGui.QDoubleSpinBox(self.centralwidget)
         self.spn_price.setMinimumSize(QtCore.QSize(10, 0))
         font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Liberation Mono"))
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
         self.spn_price.setFont(font)
         self.spn_price.setLocale(QtCore.QLocale(QtCore.QLocale.C, QtCore.QLocale.AnyCountry))
         self.spn_price.setDecimals(6)
@@ -179,47 +193,95 @@ class Ui_MainWindow(object):
         self.spn_price.setObjectName(_fromUtf8("spn_price"))
         self.gridLayout.addWidget(self.spn_price, 1, 8, 1, 1)
         self.lbl_date = QtGui.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.lbl_date.setFont(font)
         self.lbl_date.setObjectName(_fromUtf8("lbl_date"))
         self.gridLayout.addWidget(self.lbl_date, 0, 0, 1, 1)
         self.lbl_marketcode = QtGui.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.lbl_marketcode.setFont(font)
         self.lbl_marketcode.setObjectName(_fromUtf8("lbl_marketcode"))
         self.gridLayout.addWidget(self.lbl_marketcode, 0, 5, 1, 1)
         self.lbl_stockname = QtGui.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.lbl_stockname.setFont(font)
         self.lbl_stockname.setObjectName(_fromUtf8("lbl_stockname"))
         self.gridLayout.addWidget(self.lbl_stockname, 0, 6, 1, 1)
         self.lbl_quantity = QtGui.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.lbl_quantity.setFont(font)
         self.lbl_quantity.setObjectName(_fromUtf8("lbl_quantity"))
         self.gridLayout.addWidget(self.lbl_quantity, 0, 7, 1, 1)
         self.lbl_price = QtGui.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.lbl_price.setFont(font)
         self.lbl_price.setObjectName(_fromUtf8("lbl_price"))
         self.gridLayout.addWidget(self.lbl_price, 0, 8, 1, 1)
         self.lbl_commission = QtGui.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.lbl_commission.setFont(font)
         self.lbl_commission.setObjectName(_fromUtf8("lbl_commission"))
         self.gridLayout.addWidget(self.lbl_commission, 0, 9, 1, 1)
         self.lbl_tax = QtGui.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.lbl_tax.setFont(font)
         self.lbl_tax.setObjectName(_fromUtf8("lbl_tax"))
         self.gridLayout.addWidget(self.lbl_tax, 0, 10, 1, 1)
         self.spn_pool = QtGui.QDoubleSpinBox(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.spn_pool.setFont(font)
         self.spn_pool.setDecimals(6)
         self.spn_pool.setMaximum(999999.999999)
         self.spn_pool.setObjectName(_fromUtf8("spn_pool"))
         self.gridLayout.addWidget(self.spn_pool, 5, 8, 1, 1)
         self.lbl_pool = QtGui.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.lbl_pool.setFont(font)
         self.lbl_pool.setObjectName(_fromUtf8("lbl_pool"))
         self.gridLayout.addWidget(self.lbl_pool, 4, 8, 1, 1)
         self.dt_date = QtGui.QDateEdit(self.centralwidget)
         self.dt_date.setMinimumSize(QtCore.QSize(90, 0))
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.dt_date.setFont(font)
         self.dt_date.setDate(QtCore.QDate(1900, 1, 1))
         self.dt_date.setCalendarPopup(True)
         self.dt_date.setObjectName(_fromUtf8("dt_date"))
         self.gridLayout.addWidget(self.dt_date, 1, 0, 1, 1)
         self.cmb_market_code = QtGui.QComboBox(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.cmb_market_code.setFont(font)
         self.cmb_market_code.setInputMethodHints(QtCore.Qt.ImhLowercaseOnly)
         self.cmb_market_code.setEditable(True)
         self.cmb_market_code.setObjectName(_fromUtf8("cmb_market_code"))
         self.gridLayout.addWidget(self.cmb_market_code, 1, 5, 1, 1)
         self.cmb_stock_name = QtGui.QComboBox(self.centralwidget)
         self.cmb_stock_name.setMinimumSize(QtCore.QSize(120, 0))
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.cmb_stock_name.setFont(font)
         self.cmb_stock_name.setInputMethodHints(QtCore.Qt.ImhLowercaseOnly)
         self.cmb_stock_name.setEditable(True)
         self.cmb_stock_name.setObjectName(_fromUtf8("cmb_stock_name"))
@@ -227,7 +289,8 @@ class Ui_MainWindow(object):
         self.spn_quantity = QtGui.QSpinBox(self.centralwidget)
         self.spn_quantity.setMinimumSize(QtCore.QSize(10, 0))
         font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Liberation Mono"))
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
         self.spn_quantity.setFont(font)
         self.spn_quantity.setLocale(QtCore.QLocale(QtCore.QLocale.C, QtCore.QLocale.AnyCountry))
         self.spn_quantity.setMaximum(999999)
@@ -236,7 +299,8 @@ class Ui_MainWindow(object):
         self.spn_commission = QtGui.QDoubleSpinBox(self.centralwidget)
         self.spn_commission.setMinimumSize(QtCore.QSize(10, 0))
         font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Liberation Mono"))
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
         self.spn_commission.setFont(font)
         self.spn_commission.setLocale(QtCore.QLocale(QtCore.QLocale.C, QtCore.QLocale.AnyCountry))
         self.spn_commission.setDecimals(6)
@@ -246,7 +310,8 @@ class Ui_MainWindow(object):
         self.spn_tax = QtGui.QDoubleSpinBox(self.centralwidget)
         self.spn_tax.setMinimumSize(QtCore.QSize(10, 0))
         font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Liberation Mono"))
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
         self.spn_tax.setFont(font)
         self.spn_tax.setLocale(QtCore.QLocale(QtCore.QLocale.C, QtCore.QLocale.AnyCountry))
         self.spn_tax.setDecimals(6)
@@ -254,34 +319,63 @@ class Ui_MainWindow(object):
         self.spn_tax.setObjectName(_fromUtf8("spn_tax"))
         self.gridLayout.addWidget(self.spn_tax, 1, 10, 1, 1)
         self.txt_market_description = QtGui.QLineEdit(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.txt_market_description.setFont(font)
         self.txt_market_description.setObjectName(_fromUtf8("txt_market_description"))
         self.gridLayout.addWidget(self.txt_market_description, 3, 5, 1, 1)
         self.txt_stock_description = QtGui.QLineEdit(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.txt_stock_description.setFont(font)
         self.txt_stock_description.setObjectName(_fromUtf8("txt_stock_description"))
         self.gridLayout.addWidget(self.txt_stock_description, 3, 6, 1, 1)
         self.cmb_account_from = QtGui.QComboBox(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.cmb_account_from.setFont(font)
         self.cmb_account_from.setInputMethodHints(QtCore.Qt.ImhLowercaseOnly)
         self.cmb_account_from.setEditable(True)
         self.cmb_account_from.setObjectName(_fromUtf8("cmb_account_from"))
         self.gridLayout.addWidget(self.cmb_account_from, 1, 1, 1, 1)
         self.lbl_amount = QtGui.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.lbl_amount.setFont(font)
         self.lbl_amount.setObjectName(_fromUtf8("lbl_amount"))
         self.gridLayout.addWidget(self.lbl_amount, 0, 2, 1, 1)
         self.lbl_account = QtGui.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.lbl_account.setFont(font)
         self.lbl_account.setObjectName(_fromUtf8("lbl_account"))
         self.gridLayout.addWidget(self.lbl_account, 0, 1, 1, 1)
         self.lbl_currency_from = QtGui.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.lbl_currency_from.setFont(font)
         self.lbl_currency_from.setObjectName(_fromUtf8("lbl_currency_from"))
         self.gridLayout.addWidget(self.lbl_currency_from, 4, 2, 1, 1)
         self.cmb_currency_from = QtGui.QComboBox(self.centralwidget)
         self.cmb_currency_from.setMinimumSize(QtCore.QSize(90, 0))
         self.cmb_currency_from.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.cmb_currency_from.setFont(font)
         self.cmb_currency_from.setObjectName(_fromUtf8("cmb_currency_from"))
         self.gridLayout.addWidget(self.cmb_currency_from, 5, 2, 1, 1)
         self.spn_risk = QtGui.QDoubleSpinBox(self.centralwidget)
         self.spn_risk.setMinimumSize(QtCore.QSize(10, 0))
         font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Liberation Mono"))
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
         self.spn_risk.setFont(font)
         self.spn_risk.setLocale(QtCore.QLocale(QtCore.QLocale.C, QtCore.QLocale.AnyCountry))
         self.spn_risk.setDecimals(6)
@@ -289,29 +383,50 @@ class Ui_MainWindow(object):
         self.spn_risk.setObjectName(_fromUtf8("spn_risk"))
         self.gridLayout.addWidget(self.spn_risk, 5, 9, 1, 1)
         self.lbl_risk = QtGui.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.lbl_risk.setFont(font)
         self.lbl_risk.setObjectName(_fromUtf8("lbl_risk"))
         self.gridLayout.addWidget(self.lbl_risk, 4, 9, 1, 1)
         self.chk_manual_commission = QtGui.QCheckBox(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.chk_manual_commission.setFont(font)
         self.chk_manual_commission.setChecked(False)
         self.chk_manual_commission.setObjectName(_fromUtf8("chk_manual_commission"))
         self.gridLayout.addWidget(self.chk_manual_commission, 3, 9, 1, 1)
         self.lbl_expiration = QtGui.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.lbl_expiration.setFont(font)
         self.lbl_expiration.setFrameShape(QtGui.QFrame.NoFrame)
         self.lbl_expiration.setObjectName(_fromUtf8("lbl_expiration"))
         self.gridLayout.addWidget(self.lbl_expiration, 4, 7, 1, 1)
         self.dt_expiration = QtGui.QDateEdit(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.dt_expiration.setFont(font)
         self.dt_expiration.setDateTime(QtCore.QDateTime(QtCore.QDate(1900, 1, 1), QtCore.QTime(0, 0, 0)))
         self.dt_expiration.setDate(QtCore.QDate(1900, 1, 1))
         self.dt_expiration.setCalendarPopup(True)
         self.dt_expiration.setObjectName(_fromUtf8("dt_expiration"))
         self.gridLayout.addWidget(self.dt_expiration, 5, 7, 1, 1)
         self.lbl_exchange_rate = QtGui.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.lbl_exchange_rate.setFont(font)
         self.lbl_exchange_rate.setObjectName(_fromUtf8("lbl_exchange_rate"))
         self.gridLayout.addWidget(self.lbl_exchange_rate, 4, 6, 1, 1)
         self.spn_exchange_rate = QtGui.QDoubleSpinBox(self.centralwidget)
         self.spn_exchange_rate.setMinimumSize(QtCore.QSize(10, 0))
         font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Liberation Mono"))
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
         self.spn_exchange_rate.setFont(font)
         self.spn_exchange_rate.setLocale(QtCore.QLocale(QtCore.QLocale.C, QtCore.QLocale.AnyCountry))
         self.spn_exchange_rate.setDecimals(6)
@@ -319,23 +434,40 @@ class Ui_MainWindow(object):
         self.spn_exchange_rate.setObjectName(_fromUtf8("spn_exchange_rate"))
         self.gridLayout.addWidget(self.spn_exchange_rate, 5, 6, 1, 1)
         self.lbl_currency_to = QtGui.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.lbl_currency_to.setFont(font)
         self.lbl_currency_to.setObjectName(_fromUtf8("lbl_currency_to"))
         self.gridLayout.addWidget(self.lbl_currency_to, 4, 5, 1, 1)
         self.cmb_currency_to = QtGui.QComboBox(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.cmb_currency_to.setFont(font)
         self.cmb_currency_to.setObjectName(_fromUtf8("cmb_currency_to"))
         self.gridLayout.addWidget(self.cmb_currency_to, 5, 5, 1, 1)
         self.txt_comment = QtGui.QLineEdit(self.centralwidget)
         self.txt_comment.setEnabled(True)
         self.txt_comment.setMinimumSize(QtCore.QSize(150, 0))
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.txt_comment.setFont(font)
         self.txt_comment.setObjectName(_fromUtf8("txt_comment"))
         self.gridLayout.addWidget(self.txt_comment, 5, 1, 1, 1)
         self.lbl_comment = QtGui.QLabel(self.centralwidget)
         font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Envy Code R"))
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
         self.lbl_comment.setFont(font)
         self.lbl_comment.setObjectName(_fromUtf8("lbl_comment"))
         self.gridLayout.addWidget(self.lbl_comment, 4, 1, 1, 1)
         self.cmb_account_to = QtGui.QComboBox(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.cmb_account_to.setFont(font)
         self.cmb_account_to.setInputMethodHints(QtCore.Qt.ImhLowercaseOnly)
         self.cmb_account_to.setEditable(True)
         self.cmb_account_to.setObjectName(_fromUtf8("cmb_account_to"))
@@ -346,7 +478,8 @@ class Ui_MainWindow(object):
         self.gridLayout_6.setObjectName(_fromUtf8("gridLayout_6"))
         self.btn_clear = QtGui.QPushButton(self.centralwidget)
         font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Envy Code R"))
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
         self.btn_clear.setFont(font)
         self.btn_clear.setObjectName(_fromUtf8("btn_clear"))
         self.gridLayout_6.addWidget(self.btn_clear, 0, 4, 1, 1)
@@ -354,43 +487,50 @@ class Ui_MainWindow(object):
         self.gridLayout_6.addItem(spacerItem2, 0, 6, 1, 1)
         self.btn_exit = QtGui.QPushButton(self.centralwidget)
         font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Envy Code R"))
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
         self.btn_exit.setFont(font)
         self.btn_exit.setObjectName(_fromUtf8("btn_exit"))
         self.gridLayout_6.addWidget(self.btn_exit, 0, 9, 1, 1)
         self.btn_add = QtGui.QPushButton(self.centralwidget)
         font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Envy Code R"))
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
         self.btn_add.setFont(font)
         self.btn_add.setObjectName(_fromUtf8("btn_add"))
         self.gridLayout_6.addWidget(self.btn_add, 0, 0, 1, 1)
         self.btn_execute = QtGui.QPushButton(self.centralwidget)
         font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Envy Code R"))
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
         self.btn_execute.setFont(font)
         self.btn_execute.setObjectName(_fromUtf8("btn_execute"))
         self.gridLayout_6.addWidget(self.btn_execute, 0, 5, 1, 1)
         self.lbl_infodetails = QtGui.QLabel(self.centralwidget)
         font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Envy Code R"))
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
         self.lbl_infodetails.setFont(font)
         self.lbl_infodetails.setObjectName(_fromUtf8("lbl_infodetails"))
         self.gridLayout_6.addWidget(self.lbl_infodetails, 0, 7, 1, 1)
         self.btn_update = QtGui.QPushButton(self.centralwidget)
         font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Envy Code R"))
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
         self.btn_update.setFont(font)
         self.btn_update.setObjectName(_fromUtf8("btn_update"))
         self.gridLayout_6.addWidget(self.btn_update, 0, 1, 1, 1)
         self.btn_remove = QtGui.QPushButton(self.centralwidget)
         font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Envy Code R"))
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
         self.btn_remove.setFont(font)
         self.btn_remove.setObjectName(_fromUtf8("btn_remove"))
         self.gridLayout_6.addWidget(self.btn_remove, 0, 2, 1, 1)
         self.btn_removelast = QtGui.QPushButton(self.centralwidget)
         font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Envy Code R"))
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
         self.btn_removelast.setFont(font)
         self.btn_removelast.setObjectName(_fromUtf8("btn_removelast"))
         self.gridLayout_6.addWidget(self.btn_removelast, 0, 3, 1, 1)
