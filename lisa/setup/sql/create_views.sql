@@ -196,7 +196,8 @@ AS
 select
     f.date --TODO: format?
     ,f.comment
-    ,f.amount
+    ,f.amount_debit
+    ,f.amount_credit
     --,c.code
     --TODO: finish
 from

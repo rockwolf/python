@@ -56,9 +56,9 @@ class T_FINANCE(Base):
 
     def __repr__(self):
         return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
+'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
             self.finance_id, self.date, self.year, self.month, self.day, self.account_id,
-            self.amount, self.comment, self.stock_name_id, self.shares, self.price,
+            self.amount_debit, self.comment, self.stock_name_id, self.shares, self.price,
             self.tax, self.commission, self.active, self.rate_id,
             self.currency_exchange_id, self.date_created, self.date_modified)
 

@@ -41,7 +41,7 @@ def is_an_investment(account_from, account_to):
             break
     return result
     
-def is_negative_amount(account_name):
+def is_negative_amount(account_from, account_to):
     """
         Check if the amount we enter should be positive or negative.
         Rules:
@@ -50,6 +50,7 @@ def is_negative_amount(account_name):
         Debit the receiver, credit the giver
     """
     result = False
+    #TODO: if 'expenses' in account_from ... etc.
     for name in NEGATIVES:
         if name.lower() in account_name.lower():
             result = True

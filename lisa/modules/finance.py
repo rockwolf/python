@@ -60,6 +60,11 @@ class Finance(CoreModule):
                     Decimal(fields['i_shares']),
                     Decimal(fields['i_tax']),
                     Decimal(fields['i_commission']))
+                amount_value = DEFAULT_DECIMAL
+                if is_negative_amount(fields['i_amount']):
+                    amount_value = -1.0 * Decimal(fields['i_amount'])
+                else:
+                    amount_value = Decimal(fields['i_amount'])
                 if finance_record is None:
                         records = records + 1
                         statement_finance.add(
@@ -71,7 +76,7 @@ class Finance(CoreModule):
                                 'month':fields['i_date'].month,
                                 'day':fields['i_date'].day,
                                 'account_id':account_id,
-                                'amount':Decimal(fields['i_amount']),
+                                'amount': amount_value,
                                 'comment':fields['i_comment'],
                                 'stock_name_id':stock_name_id,
                                 'shares':int(fields['i_shares']),
