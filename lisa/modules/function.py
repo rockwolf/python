@@ -51,6 +51,10 @@ def is_negative_amount(account_from, account_to):
     """
     result = False
     #TODO: if 'expenses' in account_from ... etc.
+    # Make this simple: when money moves from a bank-account, it is negative
+    # when it moves to a bank account, it is positive
+    # if account_from in bank_accounts?
+    # Perhaps add an extra field in the db T_ACCOUNT to indicate which account is a bank-account?
     for name in NEGATIVES:
         if name.lower() in account_name.lower():
             result = True
