@@ -201,7 +201,6 @@ CREATE TABLE T_MARGIN_TYPE
 -- TODO: We need to keep drawdown records... dammit!
 -- TODO: create a gui part to maintain this.
 -- TODO: when creating trade records, a record needs to be created here too
--- Perhaps maintain this true the position sizing part of the emma app?
 CREATE TABLE T_DRAWDOWN
 (
     drawdown_id serial not null,
