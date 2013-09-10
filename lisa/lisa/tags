@@ -1,0 +1,24 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ConfigParser	__init__.py	/^from modules.config import ConfigParser$/;"	i
+ControllerMain	__init__.py	/^from main.controller import ControllerMain$/;"	i
+FileExport	__init__.py	/^from modules.fileexport import FileExport$/;"	i
+FileImport	__init__.py	/^from modules.fileimport import FileImport$/;"	i
+MainWrapper	__init__.py	/^class MainWrapper():$/;"	c
+Setup	__init__.py	/^from setup.setup import Setup$/;"	i
+__init__	__init__.py	/^    def __init__(self, parent=None):$/;"	m	class:MainWrapper
+adjust_syspath	__init__.py	/^    def adjust_syspath(self):$/;"	m	class:MainWrapper
+file_export	__init__.py	/^    def file_export(self):$/;"	f
+file_import	__init__.py	/^    def file_import(self):$/;"	f
+getopt	__init__.py	/^import getopt$/;"	i
+import	__init__.py	/^from modules.fileimport import FileImport$/;"	i
+install	__init__.py	/^    def install(self):$/;"	f
+main	__init__.py	/^def main():$/;"	f
+run	__init__.py	/^    def run(self):$/;"	f
+sys	__init__.py	/^import sys$/;"	i
+uninstall	__init__.py	/^    def uninstall(self):$/;"	f
+usage	__init__.py	/^    def usage(self):$/;"	m	class:MainWrapper

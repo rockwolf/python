@@ -1,0 +1,185 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Column	databaseaccess.py	/^        Column, Integer, or_, and_$/;"	i
+DatabaseAccess	databaseaccess.py	/^class DatabaseAccess():$/;"	c
+Decimal	databaseaccess.py	/^from decimal import Decimal$/;"	i
+Integer	databaseaccess.py	/^        Column, Integer, or_, and_$/;"	i
+MetaData	databaseaccess.py	/^        Column, Integer, or_, and_$/;"	i
+Statement	databaseaccess.py	/^from modules.statement import Statement$/;"	i
+T_ACCOUNT	mappings.py	/^class T_ACCOUNT(object):$/;"	c
+T_CATEGORY	mappings.py	/^class T_CATEGORY(object):$/;"	c
+T_CURRENCY	mappings.py	/^class T_CURRENCY(object):$/;"	c
+T_CURRENCY_EXCHANGE	mappings.py	/^class T_CURRENCY_EXCHANGE(object):$/;"	c
+T_DRAWDOWN	mappings.py	/^class T_DRAWDOWN(object):$/;"	c
+T_FINANCE	mappings.py	/^class T_FINANCE(object):$/;"	c
+T_FORMULA	mappings.py	/^class T_FORMULA(object):$/;"	c
+T_INVESTMENT	mappings.py	/^class T_INVESTMENT(object):$/;"	c
+T_MARGIN	mappings.py	/^class T_MARGIN(object):$/;"	c
+T_MARGIN_TYPE	mappings.py	/^class T_MARGIN_TYPE(object):$/;"	c
+T_MARKET	mappings.py	/^class T_MARKET(object):$/;"	c
+T_PARAMETER	mappings.py	/^class T_PARAMETER(object):$/;"	c
+T_RATE	mappings.py	/^class T_RATE(object):$/;"	c
+T_STOCK_NAME	mappings.py	/^class T_STOCK_NAME(object):$/;"	c
+T_SUBCATEGORY	mappings.py	/^class T_SUBCATEGORY(object):$/;"	c
+T_TRADE	mappings.py	/^class T_TRADE(object):$/;"	c
+Table	databaseaccess.py	/^        Column, Integer, or_, and_$/;"	i
+VARCHAR	databaseaccess.py	/^from sqlalchemy.types import VARCHAR$/;"	i
+V_ACCOUNT	mappings_views.py	/^class V_ACCOUNT(object):$/;"	c
+V_CATEGORY	mappings_views.py	/^class V_CATEGORY(object):$/;"	c
+V_CURRENCY	mappings_views.py	/^class V_CURRENCY(object):$/;"	c
+V_CURRENCY_EXCHANGE	mappings_views.py	/^class V_CURRENCY_EXCHANGE(object):$/;"	c
+V_DRAWDOWN	mappings_views.py	/^class V_DRAWDOWN(object):$/;"	c
+V_FINANCE	mappings_views.py	/^class V_FINANCE(object):$/;"	c
+V_FORMULA	mappings_views.py	/^class V_FORMULA(object):$/;"	c
+V_INVESTMENT	mappings_views.py	/^class V_INVESTMENT(object):$/;"	c
+V_MARGIN	mappings_views.py	/^class V_MARGIN(object):$/;"	c
+V_MARGIN_TYPE	mappings_views.py	/^class V_MARGIN_TYPE(object):$/;"	c
+V_MARKET	mappings_views.py	/^class V_MARKET(object):$/;"	c
+V_PARAMETER	mappings_views.py	/^class V_PARAMETER(object):$/;"	c
+V_RATE	mappings_views.py	/^class V_RATE(object):$/;"	c
+V_REP_CHECK_TOTAL	mappings_views.py	/^class V_REP_CHECK_TOTAL(object):$/;"	c
+V_STOCK_NAME	mappings_views.py	/^class V_STOCK_NAME(object):$/;"	c
+V_SUBCATEGORY	mappings_views.py	/^class V_SUBCATEGORY(object):$/;"	c
+V_TRADE	mappings_views.py	/^class V_TRADE(object):$/;"	c
+__init__	databaseaccess.py	/^    def __init__(self, config):$/;"	m	class:DatabaseAccess
+__init__	mappings.py	/^    def __init__(self, account_id, name, description, active, date_created, date_modified):$/;"	m	class:T_ACCOUNT
+__init__	mappings.py	/^    def __init__(self, currency_exchange_id, currency_id, exchange_rate,$/;"	m	class:T_CURRENCY_EXCHANGE
+__init__	mappings.py	/^    def __init__(self, currency_id, code, description):$/;"	m	class:T_CURRENCY
+__init__	mappings.py	/^    def __init__(self, drawdown_id, value, date_created, date_modified):$/;"	m	class:T_DRAWDOWN
+__init__	mappings.py	/^    def __init__(self, finance_id, date, year, month, day, account_id, category_id,$/;"	m	class:T_FINANCE
+__init__	mappings.py	/^    def __init__(self, formula_id, value, description):$/;"	m	class:T_FORMULA
+__init__	mappings.py	/^    def __init__(self, investment_id, stock_name_id, action, price, shares, tax,$/;"	m	class:T_INVESTMENT
+__init__	mappings.py	/^    def __init__(self, margin_id, margin_type_id, description, value, date_created, date_modified):$/;"	m	class:T_MARGIN
+__init__	mappings.py	/^    def __init__(self, margin_type_id, margin_type):$/;"	m	class:T_MARGIN_TYPE
+__init__	mappings.py	/^    def __init__(self, market_id, code, name, country, active, date_created, date_modified):$/;"	m	class:T_MARKET
+__init__	mappings.py	/^    def __init__(self, parameter_id, name, value, description):$/;"	m	class:T_PARAMETER
+__init__	mappings.py	/^    def __init__(self, rate_id, calculated, calculated_percent,$/;"	m	class:T_RATE
+__init__	mappings.py	/^    def __init__(self, stock_name_id, name, market_id, description, date_created, date_modified):$/;"	m	class:T_STOCK_NAME
+__init__	mappings.py	/^    def __init__(self, subcategory_id, name, active, date_created, date_modified):$/;"	m	class:T_SUBCATEGORY
+__init__	mappings.py	/^    def __init__(self, subcategory_id, name, flg_income, active, date_created, date_modified):$/;"	m	class:T_CATEGORY
+__init__	mappings.py	/^    def __init__(self, trade_id, market_id, stock_name_id, date_buy, year_buy, month_buy,$/;"	m	class:T_TRADE
+__init__	mappings_views.py	/^    def __init__(self, account_id, name, description, active, date_created, date_modified):$/;"	m	class:V_ACCOUNT
+__init__	mappings_views.py	/^    def __init__(self, account_name, account_total):$/;"	m	class:V_REP_CHECK_TOTAL
+__init__	mappings_views.py	/^    def __init__(self, currency_exchange_id, currency_id, exchange_rate,$/;"	m	class:V_CURRENCY_EXCHANGE
+__init__	mappings_views.py	/^    def __init__(self, currency_id, code, description):$/;"	m	class:V_CURRENCY
+__init__	mappings_views.py	/^    def __init__(self, drawdown_id, value, date_created, date_modified):$/;"	m	class:V_DRAWDOWN
+__init__	mappings_views.py	/^    def __init__(self, finance_id, date, year, month, day, account_id, category_id,$/;"	m	class:V_FINANCE
+__init__	mappings_views.py	/^    def __init__(self, formula_id, value, description):$/;"	m	class:V_FORMULA
+__init__	mappings_views.py	/^    def __init__(self, investment_id, stock_name_id, action, price, shares, tax,$/;"	m	class:V_INVESTMENT
+__init__	mappings_views.py	/^    def __init__(self, margin_id, margin_type_id, description, value, date_created, date_modified):$/;"	m	class:V_MARGIN
+__init__	mappings_views.py	/^    def __init__(self, margin_type_id, margin_type):$/;"	m	class:V_MARGIN_TYPE
+__init__	mappings_views.py	/^    def __init__(self, market_id, code, name, country, active, date_created, date_modified):$/;"	m	class:V_MARKET
+__init__	mappings_views.py	/^    def __init__(self, parameter_id, name, value, description):$/;"	m	class:V_PARAMETER
+__init__	mappings_views.py	/^    def __init__(self, rate_id, calculated, calculated_percent,$/;"	m	class:V_RATE
+__init__	mappings_views.py	/^    def __init__(self, stock_name_id, name, market_id, description, date_created, date_modified):$/;"	m	class:V_STOCK_NAME
+__init__	mappings_views.py	/^    def __init__(self, subcategory_id, name, active, date_created, date_modified):$/;"	m	class:V_SUBCATEGORY
+__init__	mappings_views.py	/^    def __init__(self, subcategory_id, name, flg_income, active, date_created, date_modified):$/;"	m	class:V_CATEGORY
+__init__	mappings_views.py	/^    def __init__(self, trade_id, market_id, stock_name_id, date_buy, year_buy, month_buy,$/;"	m	class:V_TRADE
+__repr__	mappings.py	/^    def __repr__(self):$/;"	m	class:T_ACCOUNT	file:
+__repr__	mappings.py	/^    def __repr__(self):$/;"	m	class:T_CATEGORY	file:
+__repr__	mappings.py	/^    def __repr__(self):$/;"	m	class:T_CURRENCY	file:
+__repr__	mappings.py	/^    def __repr__(self):$/;"	m	class:T_CURRENCY_EXCHANGE	file:
+__repr__	mappings.py	/^    def __repr__(self):$/;"	m	class:T_DRAWDOWN	file:
+__repr__	mappings.py	/^    def __repr__(self):$/;"	m	class:T_FINANCE	file:
+__repr__	mappings.py	/^    def __repr__(self):$/;"	m	class:T_FORMULA	file:
+__repr__	mappings.py	/^    def __repr__(self):$/;"	m	class:T_INVESTMENT	file:
+__repr__	mappings.py	/^    def __repr__(self):$/;"	m	class:T_MARGIN	file:
+__repr__	mappings.py	/^    def __repr__(self):$/;"	m	class:T_MARGIN_TYPE	file:
+__repr__	mappings.py	/^    def __repr__(self):$/;"	m	class:T_MARKET	file:
+__repr__	mappings.py	/^    def __repr__(self):$/;"	m	class:T_PARAMETER	file:
+__repr__	mappings.py	/^    def __repr__(self):$/;"	m	class:T_RATE	file:
+__repr__	mappings.py	/^    def __repr__(self):$/;"	m	class:T_STOCK_NAME	file:
+__repr__	mappings.py	/^    def __repr__(self):$/;"	m	class:T_SUBCATEGORY	file:
+__repr__	mappings.py	/^    def __repr__(self):$/;"	m	class:T_TRADE	file:
+__repr__	mappings_views.py	/^    def __repr__(self):$/;"	m	class:V_ACCOUNT	file:
+__repr__	mappings_views.py	/^    def __repr__(self):$/;"	m	class:V_CATEGORY	file:
+__repr__	mappings_views.py	/^    def __repr__(self):$/;"	m	class:V_CURRENCY	file:
+__repr__	mappings_views.py	/^    def __repr__(self):$/;"	m	class:V_CURRENCY_EXCHANGE	file:
+__repr__	mappings_views.py	/^    def __repr__(self):$/;"	m	class:V_DRAWDOWN	file:
+__repr__	mappings_views.py	/^    def __repr__(self):$/;"	m	class:V_FINANCE	file:
+__repr__	mappings_views.py	/^    def __repr__(self):$/;"	m	class:V_FORMULA	file:
+__repr__	mappings_views.py	/^    def __repr__(self):$/;"	m	class:V_INVESTMENT	file:
+__repr__	mappings_views.py	/^    def __repr__(self):$/;"	m	class:V_MARGIN	file:
+__repr__	mappings_views.py	/^    def __repr__(self):$/;"	m	class:V_MARGIN_TYPE	file:
+__repr__	mappings_views.py	/^    def __repr__(self):$/;"	m	class:V_MARKET	file:
+__repr__	mappings_views.py	/^    def __repr__(self):$/;"	m	class:V_PARAMETER	file:
+__repr__	mappings_views.py	/^    def __repr__(self):$/;"	m	class:V_RATE	file:
+__repr__	mappings_views.py	/^    def __repr__(self):$/;"	m	class:V_REP_CHECK_TOTAL	file:
+__repr__	mappings_views.py	/^    def __repr__(self):$/;"	m	class:V_STOCK_NAME	file:
+__repr__	mappings_views.py	/^    def __repr__(self):$/;"	m	class:V_SUBCATEGORY	file:
+__repr__	mappings_views.py	/^    def __repr__(self):$/;"	m	class:V_TRADE	file:
+account_id_from_account	databaseaccess.py	/^    def account_id_from_account(self, account):$/;"	m	class:DatabaseAccess
+accountname_from_account_id	databaseaccess.py	/^    def accountname_from_account_id(self, account_id):$/;"	m	class:DatabaseAccess
+and_	databaseaccess.py	/^        Column, Integer, or_, and_$/;"	i
+assemble_statement_list_delete	databaseaccess.py	/^    def assemble_statement_list_delete(self, statements, insupdel=0):$/;"	m	class:DatabaseAccess
+assemble_statement_list_insert	databaseaccess.py	/^    def assemble_statement_list_insert(self, statements, insupdel=0):$/;"	m	class:DatabaseAccess
+assemble_statement_list_update	databaseaccess.py	/^    def assemble_statement_list_update(self, statements, insupdel=0):$/;"	m	class:DatabaseAccess
+calculate_commission	databaseaccess.py	/^    def calculate_commission(self):$/;"	m	class:DatabaseAccess
+calculate_initial_risk	databaseaccess.py	/^    def calculate_initial_risk(self, fields, stoploss):$/;"	m	class:DatabaseAccess
+calculate_profit_loss	databaseaccess.py	/^    def calculate_profit_loss(self, fields, trade_record):$/;"	m	class:DatabaseAccess
+calculate_risk	databaseaccess.py	/^    def calculate_risk(self, fields):$/;"	m	class:DatabaseAccess
+calculate_stoploss	databaseaccess.py	/^    def calculate_stoploss(self, fields):$/;"	m	class:DatabaseAccess
+category_from_category_id	databaseaccess.py	/^    def category_from_category_id(self, category_id):$/;"	m	class:DatabaseAccess
+category_id_from_category	databaseaccess.py	/^    def category_id_from_category(self, category):$/;"	m	class:DatabaseAccess
+clear_mappers	databaseaccess.py	/^from sqlalchemy.orm import mapper, clear_mappers$/;"	i
+config	databaseaccess.py	/^    def config(self):$/;"	m	class:DatabaseAccess
+create_engine	databaseaccess.py	/^        Column, Integer, or_, and_$/;"	i
+create_statements_TABLE_CURRENCY_EXCHANGE	databaseaccess.py	/^    def create_statements_TABLE_CURRENCY_EXCHANGE(self, input_fields):$/;"	m	class:DatabaseAccess
+create_statements_TABLE_FINANCE	databaseaccess.py	/^    def create_statements_TABLE_FINANCE(self, input_fields):$/;"	m	class:DatabaseAccess
+create_statements_TABLE_INVESTING	databaseaccess.py	/^    def create_statements_TABLE_INVESTING(self, input_fields):$/;"	m	class:DatabaseAccess
+create_statements_TABLE_RATE	databaseaccess.py	/^    def create_statements_TABLE_RATE(self, input_fields):$/;"	m	class:DatabaseAccess
+create_statements_TABLE_TRADE	databaseaccess.py	/^    def create_statements_TABLE_TRADE(self, input_fields, statements_finance):$/;"	m	class:DatabaseAccess
+currency_id_from_currency	databaseaccess.py	/^    def currency_id_from_currency(self, currency):$/;"	m	class:DatabaseAccess
+datetime	databaseaccess.py	/^from datetime import datetime$/;"	i
+export_records	databaseaccess.py	/^    def export_records(self, name):$/;"	m	class:DatabaseAccess
+first_currency_exchange_id_from_latest	databaseaccess.py	/^    def first_currency_exchange_id_from_latest(self):$/;"	m	class:DatabaseAccess
+first_finance_id_from_latest	databaseaccess.py	/^    def first_finance_id_from_latest(self):$/;"	m	class:DatabaseAccess
+first_rate_id_from_latest	databaseaccess.py	/^    def first_rate_id_from_latest(self):$/;"	m	class:DatabaseAccess
+func	databaseaccess.py	/^from sqlalchemy import func$/;"	i
+get_accounts	databaseaccess.py	/^    def get_accounts(self):$/;"	m	class:DatabaseAccess
+get_categories	databaseaccess.py	/^    def get_categories(self):$/;"	m	class:DatabaseAccess
+get_currencies	databaseaccess.py	/^    def get_currencies(self):$/;"	m	class:DatabaseAccess
+get_finance_record	databaseaccess.py	/^    def get_finance_record(self, finance_id):$/;"	m	class:DatabaseAccess
+get_formula_id_to_use	databaseaccess.py	/^    def get_formula_id_to_use(self, fields):$/;"	m	class:DatabaseAccess
+get_latest_date_created	databaseaccess.py	/^    def get_latest_date_created(self, tablename):$/;"	m	class:DatabaseAccess
+get_latest_rate_id	databaseaccess.py	/^    def get_latest_rate_id(self):$/;"	m	class:DatabaseAccess
+get_long_flag_value	databaseaccess.py	/^    def get_long_flag_value(self, category, subcategory, trade_record):$/;"	m	class:DatabaseAccess
+get_market_description	databaseaccess.py	/^    def get_market_description(self, market):$/;"	m	class:DatabaseAccess
+get_markets	databaseaccess.py	/^    def get_markets(self):$/;"	m	class:DatabaseAccess
+get_parameter_commission	databaseaccess.py	/^    def get_parameter_commission(self, amount, market):$/;"	m	class:DatabaseAccess
+get_parameter_tax	databaseaccess.py	/^    def get_parameter_tax(self, amount, market):$/;"	m	class:DatabaseAccess
+get_parameter_value	databaseaccess.py	/^    def get_parameter_value(self, parameter_id):$/;"	m	class:DatabaseAccess
+get_pool_trading	databaseaccess.py	/^    def get_pool_trading(self):$/;"	m	class:DatabaseAccess
+get_r_multiple_value	databaseaccess.py	/^    def get_r_multiple_value(self):$/;"	m	class:DatabaseAccess
+get_record	databaseaccess.py	/^    def get_record(self, row):$/;"	m	class:DatabaseAccess
+get_record	mappings.py	/^    def get_record(self):$/;"	m	class:T_FINANCE
+get_record	mappings.py	/^    def get_record(self):$/;"	m	class:T_TRADE
+get_rep_check_total	databaseaccess.py	/^    def get_rep_check_total(self, check_totals):$/;"	m	class:DatabaseAccess
+get_rep_check_totals	databaseaccess.py	/^    def get_rep_check_totals(self):$/;"	m	class:DatabaseAccess
+get_stock_description	databaseaccess.py	/^    def get_stock_description(self, stock):$/;"	m	class:DatabaseAccess
+get_stock_names	databaseaccess.py	/^    def get_stock_names(self, code):$/;"	m	class:DatabaseAccess
+get_stockinfo	databaseaccess.py	/^    def get_stockinfo(self, sname):$/;"	m	class:DatabaseAccess
+get_subcategories	databaseaccess.py	/^    def get_subcategories(self):$/;"	m	class:DatabaseAccess
+get_trade_record	databaseaccess.py	/^    def get_trade_record(self, finance_id):$/;"	m	class:DatabaseAccess
+get_win_flag_value	databaseaccess.py	/^    def get_win_flag_value(self, price_buy, price_sell, long_flag):$/;"	m	class:DatabaseAccess
+map_tables	databaseaccess.py	/^    def map_tables(self):$/;"	m	class:DatabaseAccess
+map_views	databaseaccess.py	/^    def map_views(self):$/;"	m	class:DatabaseAccess
+mapper	databaseaccess.py	/^from sqlalchemy.orm import mapper, clear_mappers$/;"	i
+market_id_from_market	databaseaccess.py	/^    def market_id_from_market(self, code):$/;"	m	class:DatabaseAccess
+new_drawdown_record	databaseaccess.py	/^    def new_drawdown_record(self):$/;"	m	class:DatabaseAccess
+or_	databaseaccess.py	/^        Column, Integer, or_, and_$/;"	i
+row_to_dict	databaseaccess.py	/^from modules_generic.function_sqlalchemy import row_to_dict$/;"	i
+sessionmaker	databaseaccess.py	/^from sqlalchemy.orm import sessionmaker$/;"	i
+stock_name_id_from_stock_name	databaseaccess.py	/^    def stock_name_id_from_stock_name(self, stock_name, market_id):$/;"	m	class:DatabaseAccess
+subcategory_from_subcategory_id	databaseaccess.py	/^    def subcategory_from_subcategory_id(self, subcategory_id):$/;"	m	class:DatabaseAccess
+subcategory_id_from_subcategory	databaseaccess.py	/^    def subcategory_id_from_subcategory(self, subcategory):$/;"	m	class:DatabaseAccess
+trade_already_started	databaseaccess.py	/^    def trade_already_started(self, market_id, stock_name_id):$/;"	m	class:DatabaseAccess
+update_stock	databaseaccess.py	/^    def update_stock(self, fields_stock, session, i, finance_id, recordid):$/;"	m	class:DatabaseAccess
+write_statement_list_delete	databaseaccess.py	/^    def write_statement_list_delete(self, final_statements, table_name):$/;"	m	class:DatabaseAccess
+write_statement_list_insert	databaseaccess.py	/^    def write_statement_list_insert(self, final_statements, table_name):$/;"	m	class:DatabaseAccess
+write_statement_list_update	databaseaccess.py	/^    def write_statement_list_update(self, final_statements, table_name):$/;"	m	class:DatabaseAccess
+write_to_database	databaseaccess.py	/^    def write_to_database(self, statements):$/;"	m	class:DatabaseAccess

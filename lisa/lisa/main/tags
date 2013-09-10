@@ -1,0 +1,27 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ControllerMain	controller.py	/^class ControllerMain():$/;"	c
+ControllerPyqt	controller.py	/^from pyqt.controllerpyqt import ControllerPyqt$/;"	i
+DatabaseAccess	controller.py	/^from database.databaseaccess import DatabaseAccess$/;"	i
+QtGui	controller.py	/^from PyQt4 import QtGui$/;"	i
+Stock	controller.py	/^from modules.stock import Stock$/;"	i
+__init__	controller.py	/^    def __init__(self, config):$/;"	m	class:ControllerMain
+add_inputline	controller.py	/^    def add_inputline(self, table):$/;"	m	class:ControllerMain
+add_tbl_summary	controller.py	/^    def add_tbl_summary(self, table, row):$/;"	m	class:ControllerMain
+backup	controller.py	/^    def backup(self):$/;"	m	class:ControllerMain
+fillcmb_stockname	controller.py	/^    def fillcmb_stockname(self):$/;"	m	class:ControllerMain
+fillcombos	controller.py	/^    def fillcombos(self):$/;"	m	class:ControllerMain
+filltxt_marketdescription	controller.py	/^    def filltxt_marketdescription(self):$/;"	m	class:ControllerMain
+filltxt_stockdescription	controller.py	/^    def filltxt_stockdescription(self):$/;"	m	class:ControllerMain
+getcontext	controller.py	/^from decimal import getcontext$/;"	i
+isfile	controller.py	/^from os.path import isfile$/;"	i
+os	controller.py	/^import os, sys$/;"	i
+run	controller.py	/^    def run(self):$/;"	m	class:ControllerMain
+set_infodetails	controller.py	/^    def set_infodetails(self):$/;"	m	class:ControllerMain
+shutil	controller.py	/^import shutil$/;"	i
+sys	controller.py	/^import os, sys$/;"	i
+write_commands	controller.py	/^    def write_commands(self, tablecontent):$/;"	m	class:ControllerMain
