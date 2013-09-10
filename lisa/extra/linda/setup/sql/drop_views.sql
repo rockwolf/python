@@ -1,3 +1,0 @@
-BEGIN;
-drop view V_DRAWDOWN_ACTIVE;
-COMMIT:
