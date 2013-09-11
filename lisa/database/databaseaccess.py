@@ -97,24 +97,24 @@ class DatabaseAccess():
             session = None
         return values
  
-    def get_stock_names(self, code):
+    def get_commodity_names(self, code):
         """
-            Get the stock names.
+            Get the commodity names.
         """
         values = []
         try:
             session = self.Session()
-            query = session.query(T_STOCK_NAME).join(
+            query = session.query(T_COMMODITY).join(
                 T_MARKET, 
-                T_STOCK_NAME.market_id == T_MARKET.market_id
+                T_COMMODITY.market_id == T_MARKET.market_id
             ).filter(
                 T_MARKET.code == code,
-                T_STOCK_NAME.active == 1
+                T_COMMODITY.active == 1
             )
             for instance in query: 
                 values.append(instance.name)
         except Exception as ex:
-            print("Error in get_stock_names: ", ex)
+            print("Error in get_commodity_names: ", ex)
         finally:
             session.rollback()
             session = None
@@ -138,47 +138,47 @@ class DatabaseAccess():
             session = None
         return value 
 
-    def get_stock_description(self, stock):
+    def get_commodity_description(self, commodity):
         """
-            Get the stock description.
+            Get the commodity description.
         """
         value = ''
         try:
             session = self.Session()
-            query = session.query(T_STOCK_NAME).filter(T_STOCK_NAME.name == stock)
+            query = session.query(T_COMMODITY).filter(T_COMMODITY.name == commodity)
             for instance in query:
                 value = instance.description
                 break
         except Exception as ex:
-            print("Error in get_stock_description: ", ex)
+            print("Error in get_commodity_description: ", ex)
         finally:
             session.rollback()
             session = None
         return value 
 
-    def get_stockinfo(self, sname):
+    def get_commodity_info(self, commodity_name):
         """
-            Get extra stock info.
+            Get extra commodity info.
         """
         values = []
         try:
             session = self.Session()
             query = session.query(
-                T_STOCK_NAME.name.label("stock_name"), 
+                T_COMMODITY.name.label("commodity_name"), 
                 T_MARKET.name.label("marketname"), 
                 T_MARKET.country
             ).join(
                 T_MARKET, 
-                T_STOCK_NAME.market_id == T_MARKET.market_id
+                T_COMMODITY.market_id == T_MARKET.market_id
             ).filter(
-                T_STOCK_NAME.name == sname
+                T_COMMODITY.name == commodity_name
             )
             for instance in query: 
-                values.append(instance.stock_name)
+                values.append(instance.commodity_name)
                 values.append(instance.marketname)
                 values.append(instance.country)
         except Exception as ex:
-            print(Error.GET_STOCK_INFO, ex)
+            print(Error.GET_COMMODITY_INFO, ex)
         finally:
             session.rollback()
             session = None
@@ -359,7 +359,7 @@ class DatabaseAccess():
                     record['account_id'],
                     record['amount'],
                     record['comment'],
-                    record['stock_name_id'],
+                    record['commodity_id'],
                     record['shares'],
                     record['price'],
                     record['tax'],
@@ -374,7 +374,7 @@ class DatabaseAccess():
                 result.append(T_TRADE(
                     record['trade_id'],
                     record['market_id'],
-                    record['stock_name_id'],
+                    record['commodity_id'],
                     record['date_buy'],
                     record['year_buy'],
                     record['month_buy'],
@@ -438,7 +438,7 @@ class DatabaseAccess():
                 record[0].append(-1)
             result[1].append(
                 {"market_id": record["market_id"]
-                 ,"stock_name_id": record["stock_name_id"]
+                 ,"commodity_id": record["commodity_id"]
                  ,"date_buy": record["date_buy"]
                  ,"year_buy": record["year_buy"]
                  ,"month_buy": record["month_buy"]
@@ -544,29 +544,29 @@ class DatabaseAccess():
             session = None
         return result
 
-    def stock_name_id_from_stock_name(self, stock_name, market_id):
+    def commodity_id_from_commodity_name(self, commodity_name, market_id):
         """
-            Get the stock_name_id from T_STOCK_NAME.
+            Get the commodity_id from T_COMMODITY.
         """
         result = -1
         session = self.Session()
         try:
             date_created = current_date()
             date_modified = current_date()
-            # Get stock_name_id, based on stock_name
-            # but first check if the stock_name already exists
-            # in T_STOCK_NAME. If not, add it to the table.
-            obj = session.query(T_STOCK_NAME).filter_by(name=stock_name, market_id=market_id).first() is not None
+            # Get commodity_id, based on commodity_name
+            # but first check if the commodity_name already exists
+            # in T_COMMODITY. If not, add it to the table.
+            obj = session.query(T_COMMODITY).filter_by(name=commodity_name, market_id=market_id).first() is not None
             if not obj: 
-                session.add(T_STOCK_NAME(stock_name, market_id, self.gui.get_stock_description(), date_created, date_modified))
+                session.add(T_COMMODITY(commodity_name, market_id, self.gui.get_commodity_description(), date_created, date_modified))
                 session.commit()
-                for instance in session.query(func.max(T_STOCK_NAME.stock_name_id).label('stock_name_id')):
-                    result = instance.stock_name_id
+                for instance in session.query(func.max(T_COMMODITY.commodity_id).label('commodity_id')):
+                    result = instance.commodity_name_id
             else:
-                for instance in session.query(T_STOCK_NAME).filter_by(name=stock_name, market_id=market_id):
-                    result = str(instance.stock_name_id)
+                for instance in session.query(T_COMMODITY).filter_by(name=commodity_name, market_id=market_id):
+                    result = str(instance.commodity_id)
         except Exception as ex:
-            print("Error retrieving stock_name_id: ", ex)
+            print("Error retrieving commodity_id: ", ex)
         finally:
             session.rollback()
             session = None
@@ -905,7 +905,7 @@ class DatabaseAccess():
         return result
 
     def get_specific_finance_record(self, date, account_id, category_id,
-            subcategory_id, amount, comment, stock_name_id, shares, price,
+            subcategory_id, amount, comment, commodity_id, shares, price,
             tax, commission):
         """
            Looks for a finance record with the given parameters. 
@@ -919,7 +919,7 @@ class DatabaseAccess():
                             subcategory_id=subcategory_id,
                             amount=amount,
                             comment=comment,
-                            stock_name_id=stock_name_id,
+                            commodity_id=commodity_id,
                             shares=shares,
                             price=price,
                             tax=tax,
@@ -934,7 +934,7 @@ class DatabaseAccess():
             session = None
             return result
 
-    def invade_already_started(self, market_id, stock_name_id, table_class):
+    def invade_already_started(self, market_id, commodity_id, table_class):
         """
             Check if this trade or investment has already started.
         """
@@ -945,7 +945,7 @@ class DatabaseAccess():
             # but both can't be filled in (= finished trade)
             first_obj = session.query(table_class).filter(
                     table_class.market_id == market_id,
-                    table_class.stock_name_id == stock_name_id,
+                    table_class.commodity_id == commodity_id,
                     table_class.active == 1).filter(
                         or_(
                             table_class.id_buy == -1,
