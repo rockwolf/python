@@ -2,7 +2,7 @@ BEGIN;
 truncate table T_FINANCE cascade;
 truncate table T_ACCOUNT cascade;
 truncate table T_INVESTMENT cascade;
-truncate table T_STOCK_NAME cascade;
+truncate table T_COMMODITY cascade;
 truncate table T_MARKET cascade;
 truncate table T_MARGIN_TYPE cascade;
 truncate table T_MARGIN cascade;
