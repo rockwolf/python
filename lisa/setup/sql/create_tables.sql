@@ -38,7 +38,7 @@ CREATE TABLE T_MARKET
 
 CREATE TABLE T_COMMODITY
 (
-    stock_name_id serial not null,
+    commodity_id serial not null,
     name varchar(15) not null,
     market_id int not null default -1,
     description varchar(256) not null default '',
@@ -113,7 +113,7 @@ CREATE TABLE T_FINANCE
     amount_debit decimal(18,6) not null default 0.0,
     amount_credit decimal(18,6) not null default 0.0,
     comment varchar(256) not null default '',
-    stock_name_id int not null default -1,
+    commodity int not null default -1,
     shares int not null default 0,
     price decimal(18,6) not null default 0.0,
     tax decimal(18,6) not null default 0.0,
@@ -133,7 +133,7 @@ CREATE TABLE T_INVESTMENT
     -- NOTE: drawdown does not matter for investing
     investment_id serial not null,
     market_id int not null,
-    stock_name_id int not null,
+    commodity_id int not null,
     date_buy timestamp not null default '1900-01-01',
     year_buy int not null default 1900,
     month_buy int not null default 1,
@@ -220,7 +220,7 @@ CREATE TABLE T_TRADE
 (
     trade_id serial not null,
     market_id int not null,
-    stock_name_id int not null,
+    commodity_id int not null,
     date_buy timestamp not null default '1900-01-01',
     year_buy int not null default 1900,
     month_buy int not null default 1,
