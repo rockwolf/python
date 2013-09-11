@@ -227,21 +227,37 @@ class T_COMMODITY(Base):
     market_id = Column(Integer)
     description = Column(String(256))
     active = Column(Integer)
+    tick = Column(Numeric(18,6))
+    order_min = Column(Numeric(18,6))
+    order_max = Column(Numeric(18,6))
+    margin_day_proc = Column(Numeric(18,6))
+    margin_night_proc = Column(Numeric(18,6))
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
 
-    def __init__(self, commodity_id, name, market_id, description, active, date_created, date_modified):
+    def __init__(self, commodity_id, name, market_id, description, active,
+        tick, order_min, order_max, margin_day_proc, margin_night_proc,
+        date_created, date_modified):
         self.commodity_id = commodity_id
         self.name = name
         self.market_id = market_id
         self.description = description
         self.active = active
+        self.tick = tick
+        self.order_min = order_min
+        self.order_max = order_max
+        self.margin_day_proc = margin_day_proc
+        self.margin_night_proc = margin_night_proc
         self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_STOCK_NAME('%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.commodity_id, self.name,
-                self.market_id, self.description, active, self.date_created, self.date_modified)
+        return "<T_STOCK_NAME('%s', '%s', '%s', '%s', '%s', '%s', '%s', \
+            '%s' '%s', '%s', '%s', '%s')>" % (self.commodity_id,
+                self.name, self.market_id, self.description, active,
+                self.tick, self.order_min, self.order_max,
+                self.margin_day_proc, self.margin_night_proc,
+                self.self.date_created, self.date_modified)
 
 class T_MARKET(Base):
     """ T_MARKET """
