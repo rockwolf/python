@@ -19,11 +19,11 @@ class V_INVESTMENT(Base):
     __table_args__ = {'autoload':True}
     investment_id = Column('investment_id', Integer, primary_key=True)
 
-class V_STOCK_NAME(Base):
-    """ V_STOCK_NAME """
-    __tablename__ = View.STOCK_NAME
+class V_COMMODITY(Base):
+    """ V_COMMODITY """
+    __tablename__ = View.COMMODITY
     __table_args__ = {'autoload':True}
-    stock_name_id = Column('stock_name_id', Integer, primary_key=True)
+    commodity_id = Column('commodity_id', Integer, primary_key=True)
 
 class V_MARKET(Base):
     """ V_MARKET """
