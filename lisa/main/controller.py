@@ -114,8 +114,8 @@ class ControllerMain():
                     'i_account_to':field[InputIndex.ACCOUNT_TO],
                     'i_amount':Decimal(field[InputIndex.AMOUNT]),
                     'i_comment':field[InputIndex.COMMENT],
-                    'i_stock_name':field[InputIndex.STOCK],
-                    'i_stock_description':field[InputIndex.STOCK_DESCRIPTION],
+                    'i_commodity_name':field[InputIndex.COMMODITY],
+                    'i_commodity_description':field[InputIndex.COMMODITY_DESCRIPTION],
                     'i_market_name':field[InputIndex.MARKET],
                     'i_market_description':field[InputIndex.MARKET_DESCRIPTION],
                     'i_shares':int(shares),
@@ -153,10 +153,10 @@ class ControllerMain():
         for currency in dba.get_currencies():
             self.gui.add_currency_from(currency)
             self.gui.add_currency_to(currency)
-        # Stock names
-        self.fillcmb_stock_name()
+        # Commodity names
+        self.fillcmb_commodity_name()
         self.filltxt_market_description()
-        self.filltxt_stock_description()
+        self.filltxt_commodity_description()
         # Pool
         self.fill_spn_pool()
         dba = None
@@ -216,9 +216,9 @@ class ControllerMain():
         """
         # initialize
         market = ''
-        stock = ''
+        commodity = ''
         market_description = ''
-        stock_description = ''
+        commodity_description = ''
         pool = '0.0'
     
         str_list = []
@@ -228,9 +228,9 @@ class ControllerMain():
         # get values    
         if(deals_with_stocks(self.gui.get_account_from(), self.gui.get_account_to())):
             market = self.gui.get_market_code()
-            stock = self.gui.get_stock_name()
+            commodity = self.gui.get_commodity_name()
             market_description = self.gui.get_market_description()
-            stock_description = self.gui.get_stock_description()
+            commodity_description = self.gui.get_commodity_description()
             pool = self.gui.get_pool()
             
         #TODO: check if it needs to be a negative amount
@@ -244,8 +244,8 @@ class ControllerMain():
         str_list[InputIndex.ACCOUNT_TO] = self.gui.get_account_to()
         str_list[InputIndex.AMOUNT] = amount
         str_list[InputIndex.COMMENT] = self.gui.get_comment()
-        str_list[InputIndex.STOCK] = stock
-        str_list[InputIndex.STOCK_DESCRIPTION] = stock_description
+        str_list[InputIndex.COMMODITY] = commodity
+        str_list[InputIndex.COMMODITY_DESCRIPTION] = commodity_description
         str_list[InputIndex.MARKET] = market
         str_list[InputIndex.MARKET_DESCRIPTION] = market_description
         str_list[InputIndex.QUANTITY] = self.gui.get_quantity()
@@ -283,10 +283,10 @@ class ControllerMain():
         dba = DatabaseAccess(self.config)
         account_from = self.gui.get_account_from()
         account_to = self.gui.get_account_to()
-        stock = self.gui.get_stock_name()
+        commodity = self.gui.get_commodity_name()
         #TODO: get the correct accounts here
         if deals_with_stocks(account_from, account_to) and not stock:
-            info = dba.get_stockinfo(stock)
+            info = dba.get_commodity_info(commodity)
             self.gui.set_infodetails(
                 '{} ({}): {}'.format(
                     info[1]
@@ -296,14 +296,14 @@ class ControllerMain():
             self.gui.set_infodetails('')
         dba = None
 
-    def fillcmb_stock_name(self):
+    def fillcmb_commodity_name(self):
         """
             fill cmb function
         """
         dba = DatabaseAccess(self.config)
-        self.gui.clear_cmb_stock_name()
-        for name in dba.get_stock_names(self.gui.get_market_code()):
-            self.gui.add_stock_name(name)
+        self.gui.clear_cmb_commodity_name()
+        for name in dba.get_commodity_names(self.gui.get_market_code()):
+            self.gui.add_commodity_name(name)
         dba = None
     
     def filltxt_market_description(self):
@@ -315,13 +315,13 @@ class ControllerMain():
                 dba.get_market_description(self.gui.get_market_code()))
         dba = None
 
-    def filltxt_stock_description(self):
+    def filltxt_commodity_description(self):
         """
-            fill stock description
+            fill commodity description
         """
         dba = DatabaseAccess(self.config)
-        self.gui.set_stock_description(
-                dba.get_stock_description(self.gui.get_stock_name()))
+        self.gui.set_commodity_description(
+                dba.get_stock_description(self.gui.get_commodity_name()))
         dba = None
 
     def fill_spn_pool(self):
