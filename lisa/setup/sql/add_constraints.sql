@@ -6,7 +6,7 @@ alter table T_ACCOUNT
 alter table T_MARKET
     add constraint pk_market_id primary key(market_id);
 alter table T_STOCK_NAME
-    add constraint pk_stock_name_id primary key(stock_name_id);
+    add constraint pk_commodity_id primary key(commodity_id);
 alter table T_STOCK_NAME
     add constraint fk_market_id foreign key(market_id) references T_MARKET(market_id);
 alter table T_FORMULA
@@ -22,13 +22,13 @@ alter table T_FINANCE
 alter table T_FINANCE
     add constraint fk_account_id foreign key(account_id) references T_ACCOUNT;
 alter table T_FINANCE
-    add constraint fk_stock_name_id foreign key(stock_name_id) references T_STOCK_NAME;
+    add constraint fk_commodity_id foreign key(commodity_id) references T_COMMODITY;
 alter table T_FINANCE
     add constraint fk_rate_id foreign key(rate_id) references T_RATE;
 alter table T_INVESTMENT
     add constraint pk_investment_id primary key(investment_id);
 alter table T_INVESTMENT
-    add constraint fk_stock_name_id foreign key(stock_name_id) references T_STOCK_NAME(stock_name_id);
+    add constraint fk_commodity_id foreign key(commodity_id) references T_COMMODITY(commotidy_id);
 alter table T_CURRENCY
     add constraint pk_currency_id primary key(currency_id);
 alter table T_CURRENCY_EXCHANGE
