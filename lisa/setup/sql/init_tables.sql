@@ -4,7 +4,7 @@ INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_
 values(1, '', '', '', 1, current_date, current_date);
 
 /* stock names */
-INSERT INTO T_STOCK_NAME(name, market_id, description, active, date_created, date_modified)
+INSERT INTO T_COMMODITY(name, market_id, description, active, date_created, date_modified)
 values('', 1, '', 1, current_date, current_date);
 
 /* t_account */
