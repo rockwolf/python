@@ -51,8 +51,8 @@ class Investment(CoreModule):
                         # GENERAL INFO
                         market_id = dba.market_id_from_market(
                                 fields['i_market_name'])
-                        stock_name_id = dba.stock_name_id_from_stock_name(
-                                fields['i_stock_name'], market_id)
+                        commodity_name_id = dba.commodity_name_id_from_commodity_name(
+                                fields['i_commodity_name'], market_id)
                         finance_record = dba.get_finance_record(finance_id)
                         #TODO: this is WRONG!
                         #it's based on the link between id_buy and id_sell,
@@ -69,7 +69,7 @@ class Investment(CoreModule):
                         print('test: long_flag =', long_flag)
 
                         if dba.invade_already_started(market_id,
-                                stock_name_id, T_INVESTMENT):
+                                commodity_name_id, T_INVESTMENT):
                             # UPDATE
                             flag_insupdel = STatement.UPDATE
                             investment_id = investment_record['investment_id']
@@ -242,7 +242,7 @@ class Investment(CoreModule):
                         # TEST INFO
                         print('<print>')
                         print('market_id =', market_id)
-                        print('stock_name_id =', stock_name_id)
+                        print('commodity_name_id =', commodity_name_id)
                         print('date_buy =', date_buy)
                         print('date_sell =', date_sell)
                         print('long_flag =', long_flag)
@@ -277,7 +277,7 @@ class Investment(CoreModule):
                             {
                                 'trade_id':trade_id,
                                 'market_id':int(market_id),
-                                'stock_name_id':int(stock_name_id),
+                                'commodity_name_id':int(commodity_name_id),
                                 'date_buy':date_buy,
                                 'year_buy':year_buy,
                                 'month_buy':month_buy,
