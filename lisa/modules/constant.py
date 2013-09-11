@@ -12,7 +12,7 @@ class Table():
     FINANCE = 't_finance'
     INVESTMENT = 't_investment'
     MARKET = 't_market'
-    STOCK_NAME = 't_stock_name'
+    COMMODITY = 't_commodity'
     ACCOUNT = 't_account'
     CURRENCY = 't_currency'
     CURRENCY_EXCHANGE = 't_currency_exchange'
@@ -33,7 +33,7 @@ class View():
     FINANCE = 'v_finance'
     INVESTMENT = 'v_investment'
     MARKET = 'v_market'
-    STOCK_NAME = 'v_stock_name'
+    COMMODITY = 'v_commodity'
     ACCOUNT = 'v_account'
     CURRENCY = 'v_currency'
     CURRENCY_EXCHANGE = 'v_currency_exchange'
@@ -58,12 +58,11 @@ class Error():
     GET_ACCOUNTS = "Error in get_accounts: "
     GET_ACCOUNT_LIST = "Error in get_account_list: "
     GET_MARKETS = "Error in get_markets: "
-    GET_STOCK_NAMES = "Error in get_stocknames: "
-    GET_STOCK_DESCRIPTION = "Error in get_stockdescription: "
+    GET_STOCK_NAMES = "Error in get_commodity_names: "
+    GET_STOCK_DESCRIPTION = "Error in get_commodity_description: "
     GET_STOCK_INFO = "Error in get_stockinfo: "
     GET_CURRENCIES = "Error in get_currencies: "
     EXPORT_RECORDS = "Error in export_records: "
-    SUBCATEGORY_ID_FROM_SUBCATEGORY = "Error retrieving subcategory_id: "
     ACCOUNT_ID_FROM_ACCOUNT = "Error retrieving account_id: "
     WRITE_TO_DATABASE_MAIN = "Error in write_to_database from main controller: "
     WRITE_TO_DATABASE = "Error in write_to_database: "
@@ -74,7 +73,6 @@ class Error():
     DELETE_DATABASE = "Error in write_statement_list_delete: "
     GET_INPUT_FIELDS = "Error in get_input_fields: "
     CREATE_STATEMENTS_TABLE_FINANCE = "Error in create_statements_TABLE_FINANCE: "
-    CREATE_STATEMENTS_TABLE_STOCK = "Error in create_statements_TABLE_STOCK: "
     CREATE_STATEMENTS_TABLE_TRADE = "Error in create_statements_TABLE_TRADE: "
     CREATE_STATEMENTS_TABLE_INVESTMENT = "Error in create_statements_TABLE_INVESTMENT: "
     CREATE_STATEMENTS_TABLE_RATE = "Error in create_statements_TABLE_RATE: "
@@ -93,8 +91,8 @@ class InputIndex():
     ACCOUNT_TO = 2
     AMOUNT = 3
     COMMENT = 4
-    STOCK = 5
-    STOCK_DESCRIPTION = 6
+    COMMODITY = 5
+    COMMODITY_DESCRIPTION = 6
     MARKET = 7
     MARKET_DESCRIPTION = 8
     QUANTITY = 9
