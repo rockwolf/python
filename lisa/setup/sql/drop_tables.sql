@@ -2,7 +2,7 @@ BEGIN;
 drop table T_FINANCE cascade;
 drop table T_ACCOUNT cascade;
 drop table T_INVESTMENT cascade;
-drop table T_STOCK_NAME cascade;
+drop table T_COMMODITY cascade;
 drop table T_MARKET cascade;
 drop table T_MARGIN_TYPE cascade;
 drop table T_MARGIN cascade;
