@@ -70,14 +70,14 @@ from
     t_investment s
 ;
 
-/* V_STOCK_NAME */
---DROP VIEW V_STOCK_NAME;
-CREATE VIEW V_STOCK_NAME
+/* V_COMMODITY */
+--DROP VIEW V_COMMODITY;
+CREATE VIEW V_COMMODITY
 AS
 select
     sn.*
 from
-    t_stock_name sn
+    t_commodity sn
 ;
 
 /* V_MARKET */
