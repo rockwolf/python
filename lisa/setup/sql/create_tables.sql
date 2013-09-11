@@ -36,13 +36,18 @@ CREATE TABLE T_MARKET
     unique(code)
 );
 
-CREATE TABLE T_STOCK_NAME
+CREATE TABLE T_COMMODITY
 (
     stock_name_id serial not null,
     name varchar(15) not null,
     market_id int not null default -1,
     description varchar(256) not null default '',
     active int not null default 1,
+    tick decimal(18, 6) not null default 1.0,
+    order_min decimal(18, 6) not null default -1.0,
+    order_max decimal(18, 6) not null default -1.0,
+    margin_day_proc decimal(18, 6) not null default -1.0,
+    margin_night_proc decimal(18, 6) not null default -1.0,
     date_created timestamp not null default '1900-01-01',
     date_modified timestamp not null default '1900-01-01',
     unique (name, market_id)
