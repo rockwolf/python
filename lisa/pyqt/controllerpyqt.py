@@ -40,14 +40,14 @@ class ControllerPyqt(QtGui.QMainWindow):
             self.gui.cmb_market_code, 
             QtCore.SIGNAL('currentIndexChanged(int)'), 
             self.cmb_market_code_changed)
-        self.gui.cmb_stock_name.connect(
-            self.gui.cmb_stock_name, 
+        self.gui.cmb_commodity_name.connect(
+            self.gui.cmb_commodity_name, 
             QtCore.SIGNAL('currentIndexChanged(int)'), 
-            self.cmb_stock_name_changed),
-        self.gui.cmb_stock_name.connect(
-            self.gui.cmb_stock_name,
+            self.cmb_commodity_name_changed),
+        self.gui.cmb_commodity_name.connect(
+            self.gui.cmb_commodity_name,
             QtCore.SIGNAL("keyPressed()"),
-            self.cmb_stock_name_key_pressed),
+            self.cmb_commodity_name_key_pressed),
         self.gui.btn_exit.connect(
             self.gui.btn_execute, 
             QtCore.SIGNAL("clicked()"), 
@@ -112,47 +112,47 @@ class ControllerPyqt(QtGui.QMainWindow):
         """ Remove the last added record from the table. """
         self.ctl.remove_last(self.table)
         
-    def cmb_stock_name_key_pressed(self, qKeyEvent):
+    def cmb_commodity_name_key_pressed(self, qKeyEvent):
         """
             keyPressed event in combo
         """
         print('test:', str(qKeyEevnt))
         if qKeyEvent.key() == QtCore.Qt.Key_Return: 
-            self.ctl.update_accounts_for_commodities(str(self.gui.cmb_stock_name.currentText()))
+            self.ctl.update_accounts_for_commodities(str(self.gui.cmb_commodity_name.currentText()))
 
     # Events
-    def toggle_stockinputs(self):
-        """ Enable/disable all inputs related to stock information """
+    def toggle_commodity_inputs(self):
+        """ Enable/disable all inputs related to commodity information """
         account_name = self.gui.cmb_account.currentText()
-        is_stock = deals_with_stocks(account_to)
+        is_commodity = deals_with_commodities(account_to)
         is_trade = is_a_trade(account_to)
-        # enable stock labels
-        self.gui.lbl_marketcode.setEnabled(is_stock)
-        self.gui.lbl_stockname.setEnabled(is_stock)
-        self.gui.lbl_quantity.setEnabled(is_stock)
-        self.gui.lbl_price.setEnabled(is_stock)
-        self.gui.lbl_commission.setEnabled(is_stock)
-        self.gui.lbl_tax.setEnabled(is_stock)
-        self.gui.lbl_risk.setEnabled(is_stock)
-        self.gui.lbl_pool.setEnabled(is_stock)
-        # enable stock inputs
-        self.gui.cmb_market_code.setEnabled(is_stock)
-        self.gui.txt_market_description.setEnabled(is_stock)
-        self.gui.cmb_stock_name.setEnabled(is_stock)
-        self.gui.txt_stock_description.setEnabled(is_stock)
-        self.gui.spn_quantity.setEnabled(is_stock)
-        self.gui.spn_price.setEnabled(is_stock)
-        self.gui.spn_commission.setEnabled(is_stock)
-        self.gui.spn_tax.setEnabled(is_stock)
-        self.gui.spn_pool.setEnabled(is_stock)
+        # enable commodity labels
+        self.gui.lbl_market_code.setEnabled(is_commodity)
+        self.gui.lbl_commodity_name.setEnabled(is_commodity)
+        self.gui.lbl_quantity.setEnabled(is_commodity)
+        self.gui.lbl_price.setEnabled(is_commodity)
+        self.gui.lbl_commission.setEnabled(is_commodity)
+        self.gui.lbl_tax.setEnabled(is_commodity)
+        self.gui.lbl_risk.setEnabled(is_commodity)
+        self.gui.lbl_pool.setEnabled(is_commodity)
+        # enable commodity inputs
+        self.gui.cmb_market_code.setEnabled(is_commodity)
+        self.gui.txt_market_description.setEnabled(is_commodity)
+        self.gui.cmb_commodity_name.setEnabled(is_commodity)
+        self.gui.txt_commodity_description.setEnabled(is_commodity)
+        self.gui.spn_quantity.setEnabled(is_commodity)
+        self.gui.spn_price.setEnabled(is_commodity)
+        self.gui.spn_commission.setEnabled(is_commodity)
+        self.gui.spn_tax.setEnabled(is_commodity)
+        self.gui.spn_pool.setEnabled(is_commodity)
         #TODO: automatic calculation of commission temporarily disabled
-        self.gui.chk_manual_commission.setEnabled(is_stock)
+        self.gui.chk_manual_commission.setEnabled(is_commodity)
         # enable trade labels
-        self.gui.lbl_risk.setEnabled(is_stock and is_trade)
-        self.gui.lbl_expiration.setEnabled(is_stock and is_trade)
+        self.gui.lbl_risk.setEnabled(is_commodity and is_trade)
+        self.gui.lbl_expiration.setEnabled(is_commodity and is_trade)
         # enable trade inputs
-        self.gui.spn_risk.setEnabled(is_stock and is_trade)
-        self.gui.dt_expiration.setEnabled(is_stock and is_trade)
+        self.gui.spn_risk.setEnabled(is_commodity and is_trade)
+        self.gui.dt_expiration.setEnabled(is_commodity and is_trade)
         # set inputfields
         self.gui.spn_tax.setValue(Decimal(self.config.default_tax))
         if is_trade:
@@ -169,10 +169,10 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.set_current_pool() #reset pool to current value
         self.ctl.set_infodetails()
 
-    def cmb_stock_name_changed(self):
+    def cmb_commodity_name_changed(self):
         """ When the stock name selection changes. """    
         self.ctl.filltxt_stock_description()
-        self.ctl.set_infodetails()        
+        self.ctl.set_info_details()        
         
     def cmb_market_code_changed(self):
         """ When the market_code combo selection changes. """
@@ -184,7 +184,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         # set the table header
         # TODO: set header values in mdlconstants and use the constants
         header = ['date', 'account_from', 'account_to', 'amount',
-                'comment', 'stock', 'stock_description', 'market',
+                'comment', 'commodity', 'stock_description', 'market',
                 'market_description', 'quantity', 'price',
                 'commission', 'tax', 'risk', 'currency_from', 'currency_to', 'exchange_rate',
                 'automatic_flag', 'expires_on']
@@ -222,9 +222,9 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.gui.txt_comment.clear()
         self.gui.spn_amount.setValue(0)
 
-    def clear_cmb_stock_name(self):
-        """ Clear the cmb_stock_name combobox. """
-        self.gui.cmb_stock_name.clear()
+    def clear_cmb_commodity_name(self):
+        """ Clear the cmb_commodity_name combobox. """
+        self.gui.cmb_commodity_name.clear()
 
     # Getters and setters
     def get_date(self):
@@ -256,13 +256,13 @@ class ControllerPyqt(QtGui.QMainWindow):
         """ Returns the market description. """
         return str(self.gui.txt_market_description.text())
 
-    def get_stock_name(self):
-        """ Returns the stock_name. """
-        return str(self.gui.cmb_stock_name.currentText())
+    def get_commodity_name(self):
+        """ Returns the commodity_name. """
+        return str(self.gui.cmb_commodity_name.currentText())
 
-    def get_stock_description(self):
-        """ Returns the stock description. """
-        return str(self.gui.txt_stock_description.text())
+    def get_commodity_description(self):
+        """ Returns the commodity description. """
+        return str(self.gui.txt_commodity_description.text())
 
     def get_quantity(self):
         """ Returns the quantity from the spn_quantity spinedit. """
@@ -328,14 +328,14 @@ class ControllerPyqt(QtGui.QMainWindow):
        self.gui.txt_market_description.clear()
        self.gui.txt_market_description.setText(value)
 
-    def set_stock_description(self, value):
-       """ Sets new info on txt_stock_description. """
-       self.gui.txt_stock_description.clear()
-       self.gui.txt_stock_description.setText(value)
+    def set_commodity_description(self, value):
+       """ Sets new info on txt_commodity_description. """
+       self.gui.txt_commodity_description.clear()
+       self.gui.txt_stock_commodity.setText(value)
    
-    def add_stock_name(self, value):
-       """ Add a new item to cmb_stock_name. """
-       self.gui.cmb_stock_name.addItem(value)
+    def add_commodity_name(self, value):
+       """ Add a new item to cmb_commodity_name. """
+       self.gui.cmb_commodity_name.addItem(value)
 
     def add_account_from(self, value):
        """ Add a new item to cmb_account_from. """
