@@ -21,7 +21,7 @@ class T_FINANCE(Base):
     account_id = Column(Integer)
     amount = Column(Numeric(18,6))
     comment = Column(String(256))
-    stock_name_id = Column(Integer)
+    commodity_id = Column(Integer)
     shares = Column(Integer)
     price = Column(Numeric(18,6))
     tax = Column(Numeric(18,6))
@@ -33,7 +33,7 @@ class T_FINANCE(Base):
     date_modified = Column(DateTime) 
 
     def __init__(self, finance_id, date, year, month, day, account_id,
-            amount, comment, stock_name_id, shares, price, tax,
+            amount, comment, commodity_id, shares, price, tax,
             commission, active, rate_id, currency_exchange_id, date_created, date_modified):
         self.finance_id = finance_id
         self.date = date
@@ -43,7 +43,7 @@ class T_FINANCE(Base):
         self.account_id = account_id
         self.amount = amount
         self.comment = comment
-        self.stock_name_id = stock_name_id
+        self.commodity_id = commodity_id
         self.shares = shares
         self.price = price
         self.tax = tax
@@ -58,7 +58,7 @@ class T_FINANCE(Base):
         return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', \
 '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
             self.finance_id, self.date, self.year, self.month, self.day, self.account_id,
-            self.amount_debit, self.comment, self.stock_name_id, self.shares, self.price,
+            self.amount_debit, self.comment, self.commodity_id, self.shares, self.price,
             self.tax, self.commission, self.active, self.rate_id,
             self.currency_exchange_id, self.date_created, self.date_modified)
 
@@ -68,7 +68,7 @@ class T_INVESTMENT(Base):
     #__table_args__ = {'autoload':True}
     trade_id = Column(Integer, primary_key=True)
     market_id = Column(Integer)
-    stock_name_id = Column(Integer)
+    commodity_id = Column(Integer)
     date_buy = Column(DateTime)
     year_buy = Column(Integer)
     month_buy = Column(Integer)
@@ -111,7 +111,7 @@ class T_INVESTMENT(Base):
     date_created = Column(DateTime)
     date_modified = Column(DateTime)   
 
-    def __init__(self, trade_id, market_id, stock_name_id, date_buy, year_buy, month_buy,
+    def __init__(self, trade_id, market_id, commodity_id, date_buy, year_buy, month_buy,
             day_buy, date_sell, year_sell, month_sell, day_sell, long_flag,
             price_buy, price_sell, shares_buy, shares_sell, commission_buy,
             commission_sell, tax_buy, tax_sell, risk_input, risk_input_percent, risk_initial,
@@ -122,7 +122,7 @@ class T_INVESTMENT(Base):
             expired_flag, active, date_created, date_modified):
         self.trade_id = trade_id
         self.market_id = market_id
-        self.stock_name_id = stock_name_id
+        self.commodity_id = commodity_id
         self.date_buy = date_buy
         self.year_buy = year_buy
         self.month_buy = month_buy
@@ -174,7 +174,7 @@ class T_INVESTMENT(Base):
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.trade_id,
                         self.market_id,
-                        self.stock_name_id,
+                        self.commodity_id,
                         self.date_buy,
                         self.year_buy,
                         self.month_buy,
@@ -218,11 +218,11 @@ class T_INVESTMENT(Base):
                         self.date_created,
                         self.date_modified)
 
-class T_STOCK_NAME(Base):
-    """ T_STOCK_NAME """
-    __tablename__ = Table.STOCK_NAME
+class T_COMMODITY(Base):
+    """ T_COMMODITY """
+    __tablename__ = Table.COMMODITY
     #__table_args__ = {'autoload':True}
-    stock_name_id = Column(Integer, primary_key=True)
+    commodity_id = Column(Integer, primary_key=True)
     name = Column(String(15))
     market_id = Column(Integer)
     description = Column(String(256))
@@ -230,8 +230,8 @@ class T_STOCK_NAME(Base):
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
 
-    def __init__(self, stock_name_id, name, market_id, description, active, date_created, date_modified):
-        self.stock_name_id = stock_name_id
+    def __init__(self, commodity_id, name, market_id, description, active, date_created, date_modified):
+        self.commodity_id = commodity_id
         self.name = name
         self.market_id = market_id
         self.description = description
@@ -240,7 +240,7 @@ class T_STOCK_NAME(Base):
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_STOCK_NAME('%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.stock_name_id, self.name,
+        return "<T_STOCK_NAME('%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.commodity_id, self.name,
                 self.market_id, self.description, active, self.date_created, self.date_modified)
 
 class T_MARKET(Base):
@@ -395,7 +395,7 @@ class T_TRADE(Base):
     #__table_args__ = {'autoload':True}
     trade_id = Column(Integer, primary_key=True)
     market_id = Column(Integer)
-    stock_name_id = Column(Integer)
+    commodity_id = Column(Integer)
     date_buy = Column(DateTime)
     year_buy = Column(Integer)
     month_buy = Column(Integer)
@@ -439,7 +439,7 @@ class T_TRADE(Base):
     date_created = Column(DateTime)
     date_modified = Column(DateTime)   
 
-    def __init__(self, trade_id, market_id, stock_name_id, date_buy, year_buy, month_buy,
+    def __init__(self, trade_id, market_id, commodity_id, date_buy, year_buy, month_buy,
             day_buy, date_sell, year_sell, month_sell, day_sell, long_flag,
             price_buy, price_sell, shares_buy, shares_sell, commission_buy,
             commission_sell, tax_buy, tax_sell, risk_input, risk_input_percent, risk_initial,
@@ -450,7 +450,7 @@ class T_TRADE(Base):
             expired_flag, active, date_created, date_modified):
         self.trade_id = trade_id
         self.market_id = market_id
-        self.stock_name_id = stock_name_id
+        self.commodity_id = commodity_id
         self.date_buy = date_buy
         self.year_buy = year_buy
         self.month_buy = month_buy
@@ -502,7 +502,7 @@ class T_TRADE(Base):
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.trade_id,
                         self.market_id,
-                        self.stock_name_id,
+                        self.commodity_id,
                         self.date_buy,
                         self.year_buy,
                         self.month_buy,
