@@ -5,7 +5,7 @@ drop view V_REP_CHECK_TOTAL;
 drop view V_FINANCE;
 drop view V_ACCOUNT;
 drop view V_INVESTMENT;
-drop view V_STOCK_NAME;
+drop view V_COMMODITY;
 drop view V_MARKET;
 drop view V_MARGIN_TYPE;
 drop view V_MARGIN;
