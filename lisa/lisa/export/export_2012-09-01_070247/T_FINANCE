@@ -1,0 +1,1 @@
+finance_id,date,year,month,day,account_id,category_id,subcategory_id,amount,comment,stock_name_id,shares,price,tax,commission,reference,active,rate_id,date_created,date_modified

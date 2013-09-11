@@ -1,0 +1,84 @@
+Finance definitions
+-------------------
+OUT
+...
+grand out over all accounts
+
+IN
+..
+grand in over all accounts
+
+OUT_personal
+............
+out over all dexb acounts
+
+IN_personal
+...........
+in over all dexb accounts
+(this includes personal stocks and investmenst)
+
+OUT_business
+............
+out over binb00 + unib00
+
+IN_business
+...........
+in over binb00 + unib00
+(this includes stocks buy, sell, change(??) and dividends)
+(-> just use flag=0 and remember that a new dexb will be made
+for this later.)
+
+Expenses
+........
+All outgoing money that is not transferred to an account of my own.
+
+t1.flag=0
+and t1.prod <> 'account.start'
+and t1.prod <> 'account.tx'
+and t1.prod <> 'invest.invest'
+and t1.prod <> 'invest.buystocks'
+and t1.prod <> 'invest.changestocks'
+and t1.prod <> 'bet.place'
+
+Income
+......
+All incoming money that is not transferred from an account of my own.
+
+t1.flag=1
+and
+(
+    t1.prod = 'invest.dividend'
+        or t1.prod = 'invest.refund'
+        or t1.prod = 'salary'
+        or t1.prod = 'stocks.sell'
+        or t1.prod = 'bets.cashin'
+)
+
+PassiveIncome
+.............
+All dividends and automatic investment returns.
+
+t1.flag=1 
+and 
+(
+    t1.prod = 'invest.dividend'
+    or t1.prod = 'invest.refund'
+)
+
+DividendIncome
+..............
+Incoming money from dividends.
+
+StockIncome
+...........
+Incoming money for invest.sellstocks and invest.changestocks, taken into account the money that went in. 
+
+PassiveIncomeBusiness
+......................
+Dividends gained from stocks that do not belong to a personal portfolio.
+
+(t1.prod = 'invest.dividend'
+or t1.prod = 'invest.refund')
+and acc = 'binb00'
+and date >= <date of start business>
+

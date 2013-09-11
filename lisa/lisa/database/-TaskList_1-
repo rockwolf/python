@@ -1,0 +1,29 @@
+File:/mnt/D/home/rockwolf/business/tst/lisa/lisa/database/databaseaccess.py
+
+Ln  470: TODO: calculate something when necessary
+Ln  472: TODO: calculate something when necessary
+Ln  474: TODO: calculate something when necessary
+Ln  476: TODO: actually calculate something when necessary
+Ln  513: TODO: this needs to be a portfolio module, but
+Ln  550: TODO: create seperate application that manages T_DRAWDOWN based on selection
+Ln  620: TODO: calculate this (new func?)
+Ln  621: TODO: calculate this
+Ln  648: TODO: check http://stackoverflow.com/questions/270879/efficiently-updating-database-using-sqlalchemy-orm
+Ln  662: TODO: update code goes here...
+Ln  672: TODO: check what we need to enter for risk,
+Ln  781: TODO: toroughly test this
+Ln  869: TODO: this code needs the update instruction I've written somewhere
+Ln  889: TODO: finish this later. Low priority!
+Ln  897: TODO: find a way to refactor this piece of crap code.
+Ln  987: TODO: finish this code
+Ln  996: TODO: finish this code (low priority!)
+Ln 1004: TODO: figure out what to do with this,
+Ln 1010: TODO: add descriptions to market_id_from_market and to
+Ln 1103: TODO: add the ability to add a market description (Very low priority!)
+Ln 1197: TODO: add extra field in gui for the country code and country name
+Ln 1286: TODO: determine the rate_id, based on ???
+Ln 1292: TODO: do we need to add a dummy formula that multiplies by 1?
+Ln 1297: TODO: was it 2?      
+Ln 1540: TODO: complete this, to return the correct value for
+Ln 1559: TODO: complete this, to return the correct value for
+Ln 1577: TODO: finish this code.

@@ -1,0 +1,7 @@
+# Config file for linda
+
+[database]
+host = 'testdb'
+name = 'finance'
+user = 'rockwolf'
+password = ''
