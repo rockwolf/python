@@ -1,3 +1,5 @@
 [submodule "clora/modules_generic"]
 	path = clora/modules_generic
 	url = https://github.com/rockwolf/modules_generic.git
+[submodule "emma/modules_generic"]
+	path = emma/modules_generic

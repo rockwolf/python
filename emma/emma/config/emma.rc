@@ -1,0 +1,9 @@
+### This is the main configuration file for emma.
+### Please keep everything in this file intact and change only the options
+### that need to be changed.
+
+[data]
+# default risk percentage
+risk = 2
+# default tax percentage
+tax = 0.17
