@@ -1,0 +1,47 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Ih2rem	ih2rem.py	/^class Ih2rem:$/;"	c
+__init__	ih2rem.py	/^    def __init__(self):$/;"	m	class:Ih2rem
+call	ih2rem.py	/^from subprocess import call$/;"	i
+datetime	ih2rem.py	/^from datetime import datetime$/;"	i
+exitstate	ih2rem.py	/^    exitstate = property(get_exitstate, set_exitstate)$/;"	v	class:Ih2rem
+fMain	ih2rem.py	/^def fMain():$/;"	f
+fProcess_csv	ih2rem.py	/^    def fProcess_csv(self, file):$/;"	m	class:Ih2rem
+fProcess_ics	ih2rem.py	/^    def fProcess_ics(self, file):$/;"	m	class:Ih2rem
+fRun	ih2rem.py	/^    def fRun(self):$/;"	m	class:Ih2rem
+fUsage	ih2rem.py	/^    def fUsage(self):$/;"	m	class:Ih2rem
+get_exitstate	ih2rem.py	/^    def get_exitstate(self):$/;"	m	class:Ih2rem
+get_inputdir	ih2rem.py	/^    def get_inputdir(self):$/;"	m	class:Ih2rem
+get_outputfile	ih2rem.py	/^    def get_outputfile(self):$/;"	m	class:Ih2rem
+get_pdate	ih2rem.py	/^    def get_pdate(self):$/;"	m	class:Ih2rem
+get_pprog	ih2rem.py	/^    def get_pprog(self):$/;"	m	class:Ih2rem
+get_prelease	ih2rem.py	/^    def get_prelease(self):$/;"	m	class:Ih2rem
+get_pversion	ih2rem.py	/^    def get_pversion(self):$/;"	m	class:Ih2rem
+get_tzlocal	ih2rem.py	/^    def get_tzlocal(self):$/;"	m	class:Ih2rem
+getopt	ih2rem.py	/^import sys, getopt, time, os, vobject$/;"	i
+inputdir	ih2rem.py	/^    inputdir = property(get_inputdir, set_inputdir)$/;"	v	class:Ih2rem
+os	ih2rem.py	/^import sys, getopt, time, os, vobject$/;"	i
+outputfile	ih2rem.py	/^    outputfile = property(get_outputfile, set_outputfile)$/;"	v	class:Ih2rem
+pdate	ih2rem.py	/^    pdate = property(get_pdate, set_pdate)$/;"	v	class:Ih2rem
+pprog	ih2rem.py	/^    pprog = property(get_pprog, set_pprog)$/;"	v	class:Ih2rem
+prelease	ih2rem.py	/^    prelease = property(get_prelease, set_prelease)$/;"	v	class:Ih2rem
+pversion	ih2rem.py	/^    pversion = property(get_pversion, set_pversion)$/;"	v	class:Ih2rem
+set_exitstate	ih2rem.py	/^    def set_exitstate(self, state):$/;"	m	class:Ih2rem
+set_inputdir	ih2rem.py	/^    def set_inputdir(self, version):$/;"	m	class:Ih2rem
+set_outputfile	ih2rem.py	/^    def set_outputfile(self, version):$/;"	m	class:Ih2rem
+set_pdate	ih2rem.py	/^    def set_pdate(self, date):$/;"	m	class:Ih2rem
+set_pprog	ih2rem.py	/^    def set_pprog(self, name):$/;"	m	class:Ih2rem
+set_prelease	ih2rem.py	/^    def set_prelease(self, release):$/;"	m	class:Ih2rem
+set_pversion	ih2rem.py	/^    def set_pversion(self, version):$/;"	m	class:Ih2rem
+set_tzlocal	ih2rem.py	/^    def set_tzlocal(self, version):$/;"	m	class:Ih2rem
+strip	ih2rem.py	/^from string import strip$/;"	i
+sys	ih2rem.py	/^import sys, getopt, time, os, vobject$/;"	i
+time	ih2rem.py	/^import sys, getopt, time, os, vobject$/;"	i
+timedelta	ih2rem.py	/^from datetime import timedelta$/;"	i
+timezone	ih2rem.py	/^from pytz import timezone$/;"	i
+tzlocal	ih2rem.py	/^    tzlocal = property(get_tzlocal, set_tzlocal)$/;"	v	class:Ih2rem
+vobject	ih2rem.py	/^import sys, getopt, time, os, vobject$/;"	i
