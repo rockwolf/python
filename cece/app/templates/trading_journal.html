@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+        <h1>Trading journal</h1>
+        <hr />
+        <p>
+            <ol>
+                {% for line in journal %}
+                <li>{{line}}</li>
+                {% endfor %}
+            </ol>
+        </p>
+{% endblock %}

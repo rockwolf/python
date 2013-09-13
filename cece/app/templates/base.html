@@ -1,0 +1,66 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <title>{{title}} - Central command entity</title>
+        <link rel="icon" href="/static/favicon.png" type="image/png">
+        <link href="/static/style.css" title="compact" rel="stylesheet" type="text/css">
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        {% if app_profile == 'zivle' %}
+            <div class="header2">
+                <ul id="menu_sub2"> 
+                    <li>
+                        <a href="/zivle/index">zivle</a>
+                    </li>
+                    <li>
+                        <a href="/zivle/contact">contact</a>
+                    </li>
+                    <li>
+                        <a href="/zivle/task">task</a>
+                    </li>
+                    <li>
+                        <a href="/zivle/report_finance">report_finance</a>
+                    </li>
+                    <li>
+                        <a href="/zivle/links">links</a>
+                    </li>
+                </ul>
+        {% endif %}
+        {% if app_profile == 'personal' %}
+            <div class="header">
+                <ul id="menu_sub"> 
+                    <li>
+                        <a href="/index">home</a>
+                    </li>
+                    <li>
+                        <a href="/contact">contact</a>
+                    </li>
+                    <li>
+                        <a href="/task">task</a>
+                    </li>
+                    <li>
+                        <a href="/trading_journal">trading_journal</a>
+                    </li>
+                    <li>
+                        <a href="/report_finance">report_finance</a>
+                    </li>
+                    <li>
+                        <a href="/links">links</a>
+                    </li>
+                </ul>
+        {% endif %}
+        {% if app_profile == 'zivle' %}
+                <div class="header_sub2">
+        {% endif %}
+        {% if app_profile == 'personal' %}
+                <div class="header_sub">
+        {% endif %}
+                &nbsp;Logged in as <b>{{user.login}}</b>.
+                </div>
+        </div>
+        <div id="main">
+            {% block content %}{% endblock %}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+        <h1>Tasks</h1>
+        <hr />
+        <p>
+            <ol>
+                {% for task in tasks %}
+                <li>{{task}}</li>
+                {% endfor %}
+            </ol>
+        </p>
+        <h1>Reminders</h1>
+        <hr />
+        <p>
+            <ol>
+                {% for reminder in reminders %}
+                <li>{{reminder}}</li>
+                {% endfor %}
+            </ol>
+        </p>
+{% endblock %}
