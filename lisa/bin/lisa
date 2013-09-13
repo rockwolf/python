@@ -1,0 +1,3 @@
+#!/bin/sh
+cd ../lisa
+python __init__.py $1
