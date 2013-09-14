@@ -5,10 +5,12 @@ alter table T_ACCOUNT
     add constraint pk_account_id primary key(account_id);
 alter table T_MARKET
     add constraint pk_market_id primary key(market_id);
-alter table T_STOCK_NAME
+alter table T_COMMODITY
     add constraint pk_commodity_id primary key(commodity_id);
-alter table T_STOCK_NAME
+alter table T_COMMODITY
     add constraint fk_market_id foreign key(market_id) references T_MARKET(market_id);
+alter table T_COMMODITY
+    add constraint fk_currency_id foreign key(currency_id) references T_CURRENCY(currency_id);
 alter table T_FORMULA
     add constraint pk_formula_id primary key(formula_id);
 alter table T_PARAMETER

@@ -43,7 +43,9 @@ CREATE TABLE T_COMMODITY
     market_id int not null default -1,
     description varchar(256) not null default '',
     active int not null default 1,
+    currency_id int not null default 1,
     tick decimal(18, 6) not null default 1.0,
+    tick_value decimal(18, 6) not null default 1.0,
     order_min decimal(18, 6) not null default -1.0,
     order_max decimal(18, 6) not null default -1.0,
     margin_day_proc decimal(18, 6) not null default -1.0,
@@ -127,9 +129,6 @@ CREATE TABLE T_FINANCE
 
 CREATE TABLE T_INVESTMENT
 (
-    --TODO: create an extra view, that shows a summary of your current portfolio
-    --TODO: make this table much simpler and put the calculations in a view?
-    --No, with lots of data, it will become slow!
     -- NOTE: drawdown does not matter for investing
     investment_id serial not null,
     market_id int not null,
@@ -203,9 +202,6 @@ CREATE TABLE T_MARGIN_TYPE
     margin_type varchar(50) not null
 );
 
--- TODO: We need to keep drawdown records... dammit!
--- TODO: create a gui part to maintain this.
--- TODO: when creating trade records, a record needs to be created here too
 CREATE TABLE T_DRAWDOWN
 (
     drawdown_id serial not null,

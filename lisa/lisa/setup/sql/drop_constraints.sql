@@ -22,13 +22,13 @@ alter table T_RATE
 alter table T_MARKET
     drop constraint pk_market_id;
 alter table T_FINANCE
-    drop constraint fk_stock_name_id;
-alter table T_STOCK
-    drop constraint fk_stock_name_id;
-alter table T_STOCK_NAME
-    drop constraint pk_stock_name_id;
-alter table T_STOCK_NAME
+    drop constraint fk_commodity_id;
+alter table T_COMMODITY
+    drop constraint pk_commidity_id;
+alter table T_COMMODITY
     drop constraint fk_market_id;
+alter table T_COMMODITY
+    drop constraint fk_currency_id;
 alter table T_FORMULA
     drop constraint pk_formula_id;
 alter table T_FINANCE
@@ -37,8 +37,6 @@ alter table T_RATE
     drop constraint pk_rate_id;
 alter table T_RATE
     drop constraint fk_formula_id;
-alter table T_STOCK
-    drop constraint fk_finance_id;
 alter table T_CURRENCY_EXCHANGE
     drop constraint fk_finance_id;
 alter table T_TRADE
@@ -47,8 +45,10 @@ alter table T_TRADE
     drop constraint fk_id_sell;
 alter table T_FINANCE
     drop constraint pk_finance_id;
-alter table T_STOCK
-    drop constraint pk_stock_id;
+alter table T_INVESTMENT
+    drop constraint fk_finance_id;
+alter table T_INVESTMENT
+    drop constraint pk_investment_id;
 alter table T_CURRENCY
     drop constraint pk_currency_id;
 alter table T_CURRENCY_EXCHANGE
