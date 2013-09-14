@@ -14,7 +14,7 @@ from PyQt4 import QtGui
 from modules.constant import *
 from modules.function import *
 from decimal import Decimal
-from modules_generic.function import *
+from generic.modules.function import *
 from modules.currency_exchange import CurrencyExchange
 from modules.rate import Rate
 from modules.finance import Finance

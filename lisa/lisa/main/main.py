@@ -35,11 +35,11 @@ class MainWrapper():
         """
         sys.path.append('main')
         sys.path.append('pyqt')
-        sys.path.append('pyqt_generic')
         sys.path.append('database')
-        sys.path.append('database_generic')
         sys.path.append('modules')
-        sys.path.append('modules_generic')
+        sys.path.append('generic')
+        sys.path.append('generic/modules')
+        sys.path.append('generic/pyqt')
         sys.path.append('setup')
     
     def file_import(self):

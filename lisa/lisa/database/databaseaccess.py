@@ -12,10 +12,10 @@ from sqlalchemy import func
 from decimal import Decimal
 from datetime import datetime
 
-from modules_generic.function import *
-from modules_generic.function_sqlalchemy import row_to_dict
-from modules_generic.messagehandler import *
-from modules_generic.calculator_finance import *
+from generic.modules.function import *
+from generic.modules.function_sqlalchemy import row_to_dict
+from generic.modules.messagehandler import *
+from generic.modules.calculator_finance import *
 from modules.constant import *
 from modules.function import *
 from meta import engine, Base
