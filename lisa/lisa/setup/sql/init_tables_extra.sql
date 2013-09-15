@@ -202,83 +202,83 @@ INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick,
 values('LCCU3.cfd', 16, 'London Cocoa, Pound Sterling SepYY', 1, 8, 1.0, 1.0, 1.0, 1000.0, 5.0, 10.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('LEV3.cfd', 16, 'Live Cattle (per 0.01), US Dollar/100 OctYY', 1, 2, current_date, current_date);
+values('LEV3.cfd', 16, 'Live Cattle (per 0.01), US Dollar/100 OctYY', 1, 2, 0.01, 1.0, 1.0, 500.0, 2.0, 4.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('LRCU3.cfd', 16, 'London Coffee, US Dollar SepYY', 1, 8, current_date, current_date);
+values('LRCU3.cfd', 16, 'London Coffee, US Dollar SepYY', 1, 2, 1.0, 1.0, 1.0, 50.0, 5.0, 10.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('LRCX3.cfd', 16, 'London Coffee, US Dollar NovYY', 1, 8, current_date, current_date);
+values('LRCX3.cfd', 16, 'London Coffee, US Dollar NovYY', 1, 2, 1.0, 1.0, 1.0, 50.0, 5.0, 10.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('LSUV3.cfd', 16, 'London Sugar, US Dollar OctYY', 1, 8, current_date, current_date);
+values('LSUV3.cfd', 16, 'London Sugar, US Dollar OctYY', 1, 2, 0.1, 1.0, 1.0, 500.0, 2.0, 4.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('LWBX3.cfd', 16, 'London Wheat (per 0.01), Pound Sterling NovYY', 1, 8, current_date, current_date);
+values('LWBX3.cfd', 16, 'London Wheat (per 0.01), Pound Sterling NovYY', 1, 8, 0.01, 1.0, 1.0, 100.0, 8.0, 16.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('OJU3.cfd', 16, 'Orange Juice, US Dollar/100 SepYY', 1, 2, current_date, current_date);
+values('OJU3.cfd', 16, 'Orange Juice, US Dollar/100 SepYY', 1, 2, 0.01, 1.0, 1.0, 100.0, 3.0, 6.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('OJX3.cfd', 16, 'Orange Juice, US Dollar/100 NovYY', 1, 2, current_date, current_date);
+values('OJX3.cfd', 16, 'Orange Juice, US Dollar/100 NovYY', 1, 2, 0.01, 1.0, 1.0, 100.0, 3.0, 6.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('SBV3.cfd', 16, 'US Sugar No11, US Dollar/100 OctYY', 1, 2, current_date, current_date);
+values('SBV3.cfd', 16, 'US Sugar No11, US Dollar/100 OctYY', 1, 2, 0.01, 1.0, 1.0, 100.0, 8.0, 16.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('ZVU3.cfd', 16, 'US Corn, US Dollar/100 SepYY', 1, 2, current_date, current_date);
+values('ZVU3.cfd', 16, 'US Corn, US Dollar/100 SepYY', 1, 2, 0.25, 1.0, 1.0, 1500.0, 8.0, 16.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('ZCZ3.cfd', 16, 'US Corn, US Dollar/100 DecYY', 1, 2, current_date, current_date);
+values('ZCZ3.cfd', 16, 'US Corn, US Dollar/100 DecYY', 1, 2, 0.25, 1.0, 1.0, 1500.0, 8.0, 16.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('ZLU3.cfd', 16, 'US Soybean Oil, US Dollar/100 SepYY', 1, 2, current_date, current_date);
+values('ZLU3.cfd', 16, 'US Soybean Oil, US Dollar/100 SepYY', 1, 2, 0.01, 1.0, 1.0, 250.0, 8.0, 16.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('ZLV3.cfd', 16, 'US Soybean Oil, US Dollar/100 OctYY', 1, 2, current_date, current_date);
+values('ZLV3.cfd', 16, 'US Soybean Oil, US Dollar/100 OctYY', 1, 2, 0.01, 1.0, 1.0, 250.0, 8.0, 16.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('ZSU3.cfd', 16, 'US Soybeans, US Dollar/100 SepYY', 1, 2, current_date, current_date);
+values('ZSU3.cfd', 16, 'US Soybeans, US Dollar/100 SepYY', 1, 2, 0.25, 1.0, 1.0, 1000.0, 8.0, 16.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('ZSX3.cfd', 16, 'US Soybeans, US Dollar/100 NovYY', 1, 2, current_date, current_date);
+values('ZSX3.cfd', 16, 'US Soybeans, US Dollar/100 NovYY', 1, 2, 0.25, 1.0, 1.0, 100.0, 8.0, 16.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('ZWU3.cfd', 16, 'US Wheat, US Dollar/100 SepYY', 1, 2, current_date, current_date);
+values('ZWU3.cfd', 16, 'US Wheat, US Dollar/100 SepYY', 1, 2, 0.25, 1.0, 1.0, 250.0, 8.0, 16.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('ZWZ3.cfd', 16, 'US Wheat, US Dollar/100 DecYY', 1, 2, current_date, current_date);
+values('ZWZ3.cfd', 16, 'US Wheat, US Dollar/100 DecYY', 1, 2, 0.25, 1.0, 1.0, 250.0, 8.0, 16.0, current_date, current_date);
 
 -- oil
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('.BRENT.cfd', 15, 'SPOT Brent Crude Oil, US Dollar/100', 1, 2, current_date, current_date);
+values('.BRENT.cfd', 15, 'SPOT Brent Crude Oil, US Dollar/100', 1, 2, 1.0, 1.0, 1.0, 100.0, 2.0, 4.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('.WTI.cfd', 15, 'SPOT WTI Light Crude Oil, US Dollar', 1, 2, current_date, current_date);
+values('.WTI.cfd', 15, 'SPOT WTI Light Crude Oil, US Dollar', 1, 2, 0.01, 1.0, 1.0, 100.0, 2.0, 4.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('CLV3.cfd', 15, 'WTI Crude Oil, US Dollar OctYY', 1, 2, current_date, current_date);
+values('CLV3.cfd', 15, 'WTI Crude Oil, US Dollar OctYY', 1, 2, 0.01, 1.0, 1.0, 100.0, 2.0, 4.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('CLX3.cfd', 15, 'WTI Crude Oil, US Dollar NovYY', 1, 2, current_date, current_date);
+values('CLX3.cfd', 15, 'WTI Crude Oil, US Dollar NovYY', 1, 2, 0.01, 1.0, 1.0, 100.0, 2.0, 4.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('HOU3.cfd', 15, 'Heating Oil, US Dollar NovYY', 1, 2, current_date, current_date);
+values('HOU3.cfd', 15, 'Heating Oil, US Dollar NovYY', 1, 2, 0.01, 1.0, 1.0, 100.0, 10.0, 20.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('HOV3.cfd', 15, 'Heating Oil, US Dollar OctYY', 1, 2, current_date, current_date);
+values('HOV3.cfd', 15, 'Heating Oil, US Dollar OctYY', 1, 2, 0.01, 1.0, 1.0, 100.0, 10.0, 20.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('LCOV3.cfd', 15, 'Brent Crude Oil, US Dollar/100 OctYY', 1, 2, current_date, current_date);
+values('LCOV3.cfd', 15, 'Brent Crude Oil, US Dollar/100 OctYY', 1, 2, 1.0, 1.0, 1.0, 100.0, 2.0, 4.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('LCOX3.cfd', 15, 'Brent Crude Oil, US Dollar/100 NovYY', 1, 2, current_date, current_date);
+values('LCOX3.cfd', 15, 'Brent Crude Oil, US Dollar/100 NovYY', 1, 2, 1.0, 1.0, 1.0, 100.0, 2.0, 4.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('LGOU3.cfd', 15, 'London Gas Oil (per 25), US Dollar/100 SepYY', 1, 2, current_date, current_date);
+values('LGOU3.cfd', 15, 'London Gas Oil (per 25), US Dollar/100 SepYY', 1, 2, 25.0, 1.0, 1.0, 250.0, 4.0, 8.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('LGOV3.cfd', 15, 'London Gas Oil (per 25), US Dollar/100 OctYY', 1, 2, current_date, current_date);
+values('LGOV3.cfd', 15, 'London Gas Oil (per 25), US Dollar/100 OctYY', 1, 2, 25.0, 1.0, 1.0, 250.0, 4.0, 8.0, current_date, current_date);
 
 -- metals
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
