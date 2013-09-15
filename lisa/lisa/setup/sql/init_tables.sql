@@ -3,10 +3,6 @@ BEGIN;
 INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
 values(1, '', '', '', 1, current_date, current_date);
 
-/* stock names */
-INSERT INTO T_COMMODITY(name, market_id, description, active, date_created, date_modified)
-values('', 1, '', 1, current_date, current_date);
-
 /* t_account */
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
 values('income', 'income', 1, current_date, current_date);
@@ -83,6 +79,10 @@ values(13, 'SEK', 'Swedish Krona');
 
 INSERT INTO T_CURRENCY(currency_id, code, description)
 values(14, 'RUB', 'Russian Ruble');
+
+/* commodity names */
+INSERT INTO T_COMMODITY(name, market_id, description, active, date_created, date_modified)
+values('', 1, '', 1, current_date, current_date);
 
 /* t_formula */
 INSERT INTO T_FORMULA(formula_id, value, description)

@@ -131,7 +131,7 @@ INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick,
 values('rhji', 3, 'RHJI International', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('nests', 3, 'Nestle', 1, -1.0, 1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
+values('nests', 3, 'Nestle', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
 values('devg', 3, 'Devgen', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);

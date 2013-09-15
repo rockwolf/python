@@ -115,7 +115,7 @@ CREATE TABLE T_FINANCE
     amount_debit decimal(18,6) not null default 0.0,
     amount_credit decimal(18,6) not null default 0.0,
     comment varchar(256) not null default '',
-    commodity int not null default -1,
+    commodity_id int not null default -1,
     shares int not null default 0,
     price decimal(18,6) not null default 0.0,
     tax decimal(18,6) not null default 0.0,
