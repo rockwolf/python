@@ -282,59 +282,59 @@ values('LGOV3.cfd', 15, 'London Gas Oil (per 25), US Dollar/100 OctYY', 1, 2, 25
 
 -- metals
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('.GOLD.cfd', 13, 'Spot Gold, US Dollar', 1, 2, current_date, current_date);
+values('.GOLD.cfd', 13, 'Spot Gold, US Dollar', 1, 2, 0.1, 1.0, 1.0, 500.0, 1.0, 2.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('.MGOLD.cfd ', 13, 'MINI Spot Gold, US Dollar', 1, 2, current_date, current_date);
+values('.MGOLD.cfd ', 13, 'MINI Spot Gold, US Dollar', 1, 2, 0.1, 0.1, 1.0, 50.0, 1.0, 2.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('.MSILVER.cfd', 14, 'Spot Mini Silver, US Dollar/100', 1, 2, current_date, current_date);
+values('.MSILVER.cfd', 14, 'Spot Mini Silver, US Dollar/100', 1, 2, 0.1, 0.1, 1.0, 25.0, 1.0, 2.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('.SILVER.cfd', 14, 'Spot Silver, US Dollar/100', 1, 2, current_date, current_date);
+values('.SILVER.cfd', 14, 'Spot Silver, US Dollar/100', 1, 2, 0.1, 1.0, 1.0, 250.0, 1.0, 2.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('GCZ3.cfd', 13, 'Gold, US Dollar DecYY', 1, 2, current_date, current_date);
+values('GCZ3.cfd', 13, 'Gold, US Dollar DecYY', 1, 2, 0.1, 1.0, 1.0, 500.0, 1.0, 2.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('HGU3.cfd ', 16, 'High Grade Copper (per 0.05), US Dollar SepYY', 1, 2, current_date, current_date);
+values('HGU3.cfd ', 16, 'High Grade Copper (per 0.05), US Dollar SepYY', 1, 2, 0.05, 1.0, 1.0, 500.0, 3.0, 6.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('HGZ3.cfd', 16, 'High Grade Copper (per 0.05), US Dollar DecYY', 1, 2, current_date, current_date);
+values('HGZ3.cfd', 16, 'High Grade Copper (per 0.05), US Dollar DecYY', 1, 2, 0.05, 1.0, 1.0, 500.0, 3.0, 6.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('MINISIU3.cfd', 14, 'Mini Silver, US Dollar/100 SepYY', 1, 2, current_date, current_date);
+values('MINISIU3.cfd', 14, 'Mini Silver, US Dollar/100 SepYY', 1, 2, 0.1, 0.1, 1.0, 25.0, 1.0, 2.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('MINISIZ3.cfd ', 14, 'Mini Silver, US Dollar/100 DecYY', 1, 2, current_date, current_date);
+values('MINISIZ3.cfd ', 14, 'Mini Silver, US Dollar/100 DecYY', 1, 2, 0.1, 0.1, 1.0, 25.0, 1.0, 2.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('PAU3.cfd', 16, 'Palladium, US Dollar SepYY', 1, 2, current_date, current_date);
+values('PAU3.cfd', 16, 'Palladium, US Dollar SepYY', 1, 2, 0.1, 1.0, 1.0, 50.0, 5.0, 10.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('PAZ3.cfd', 16, 'Palladium, US Dollar DecYY', 1, 2, current_date, current_date);
+values('PAZ3.cfd', 16, 'Palladium, US Dollar DecYY', 1, 2, 0.1, 1.0, 1.0, 50.0, 5.0, 10.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('PLV3.cfd', 16, 'Platinum, US Dollar OctYY', 1, 2, current_date, current_date);
+values('PLV3.cfd', 16, 'Platinum, US Dollar OctYY', 1, 2, 0.1, 1.0, 1.0, 50.0, 5.0, 10.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('SIU3.cfd', 14, 'Silver, US Dollar/100 SepYY', 1, 2, current_date, current_date);
+values('SIU3.cfd', 14, 'Silver, US Dollar/100 SepYY', 1, 2, 0.1, 1.0, 1.0, 250.0, 1.0, 2.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('SIZ3.cfd', 14, 'Silver, US Dollar/100 DecYY', 1, 2, current_date, current_date);
+values('SIZ3.cfd', 14, 'Silver, US Dollar/100 DecYY', 1, 2, 0.1, 1.0, 1.0, 250.0, 1.0, 2.0, current_date, current_date);
 
 -- indices
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('.DE30.cfd', 16, 'Germany 30 cash, Euro', 1, 1, current_date, current_date);
+values('.DE30.cfd', 16, 'Germany 30 cash, Euro', 1, 1, 0.1, 0.1, 1.0, 1000.0, 0.5, 1.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('.ES35.cfd', 16, 'Spain 35 cash, Euro', 1, 1, current_date, current_date);
+values('.ES35.cfd', 16, 'Spain 35 cash, Euro', 1, 1, 1.0, 1.0, 1.0, 250.0, 1.0, 2.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('.F40.cfd ', 16, 'France 40 cash, Euro', 1, 1, current_date, current_date);
+values('.F40.cfd ', 16, 'France 40 cash, Euro', 1, 1, 0.1, 0.1, 1.0, 1000.0, 0.5, 1.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('.N25.cfd', 16, 'Netherlands 25 cash, Euro', 1, 1, current_date, current_date);
+values('.N25.cfd', 16, 'Netherlands 25 cash, Euro', 1, 1, 0.1, 0.1, 1.0, 2000.0, 1.0, 2.0, current_date, current_date);
 
 /* ACCOUNTS */
 -- my accounts
