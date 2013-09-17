@@ -23,7 +23,7 @@ class MainWrapper():
         # own module directories
         self.adjust_system_path()
 
-        self.msghandler = __import__('messagehandler')
+        self.msghandler = __import__('generic.modules.messagehandler')
 
         # config
         self.config = ConfigParser()
@@ -50,8 +50,6 @@ class MainWrapper():
         sys.path.append('modules')
         sys.path.append('setup')
         sys.path.append('generic')
-        sys.path.append('generic/database')
-        sys.path.append('generic/modules')
 
     def run(self, profile):
         """

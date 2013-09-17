@@ -4,7 +4,7 @@ See LICENSE file for copyright and license details.
 """
 
 from generic.modules.calculator_finance import *
-from modules.constant import Transaction
+from modules.constant import *
 from decimal import Decimal
 
 class Calculator():
