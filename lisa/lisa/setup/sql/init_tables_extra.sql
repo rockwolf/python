@@ -202,6 +202,9 @@ INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick,
 values('LCCU3.cfd', 16, 'London Cocoa, Pound Sterling SepYY', 1, 8, 1.0, 1.0, 1.0, 1000.0, 5.0, 10.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
+values('LCCZ3.cfd', 16, 'London Cocoa, Pound Sterling DecYY', 1, 8, 1.0, 1.0, 1.0, 1000.0, 5.0, 10.0, current_date, current_date);
+
+INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
 values('LEV3.cfd', 16, 'Live Cattle (per 0.01), US Dollar/100 OctYY', 1, 2, 0.01, 1.0, 1.0, 500.0, 2.0, 4.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
@@ -209,6 +212,9 @@ values('LRCU3.cfd', 16, 'London Coffee, US Dollar SepYY', 1, 2, 1.0, 1.0, 1.0, 5
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
 values('LRCX3.cfd', 16, 'London Coffee, US Dollar NovYY', 1, 2, 1.0, 1.0, 1.0, 50.0, 5.0, 10.0, current_date, current_date);
+
+INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
+values('LSUV3.cfd', 16, 'London Sugar, US Dollar OctYY', 1, 2, 0.1, 1.0, 1.0, 500.0, 2.0, 4.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
 values('LSUV3.cfd', 16, 'London Sugar, US Dollar OctYY', 1, 2, 0.1, 1.0, 1.0, 500.0, 2.0, 4.0, current_date, current_date);

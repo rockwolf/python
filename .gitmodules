@@ -1,3 +1,6 @@
 [submodule "lisa/lisa/generic"]
 	path = lisa/lisa/generic
 	url = git@github.com:rockwolf/python_generic
+[submodule "emma/emma/generic"]
+	path = emma/emma/generic
+	url = git@github.com:rockwolf/python_generic.git

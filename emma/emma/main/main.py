@@ -47,10 +47,11 @@ class MainWrapper():
         """
         sys.path.append('main')
         sys.path.append('database')
-        sys.path.append('database_generic')
         sys.path.append('modules')
-        sys.path.append('modules_generic')
         sys.path.append('setup')
+        sys.path.append('generic')
+        sys.path.append('generic/database')
+        sys.path.append('generic/modules')
 
     def run(self, profile):
         """
