@@ -115,13 +115,13 @@ class Calculator():
             if self.buy:
                 print('BUY')
                 print('-------')
-                print(''.join(header.rjust(len(header)+3) for header in headers_buy_sell))
-                print(''.join(str(value).rjust(len(str(value))+3) for value in self.result_buy.values()))
+                print(''.join('{:^30}'.format(header) for header in headers_buy_sell))
+                print(''.join('{:^30}'.format(str(value)) for value in self.result_buy.values()))
             else:
                 print('SELL')
                 print('-------')
-                print(''.join(header.rjust(len(str(value))+3) for header in headers_buy_sell))
-                print(''.join(str(value).rjust(len(str(value))+3) for value in self.result_sell.values()))
+                print(''.join('{:^30}'.format(header) for header in headers_buy_sell))
+                print(''.join('{:^30}'.format(str(value)) for value in self.result_sell.values()))
         except Exception as ex:
             print('Error in print_pretty():', ex)
 
@@ -138,11 +138,11 @@ class Calculator():
                 line4 = ["assets:current_assets:stock:<bank account>", "", "", "", self.amount]
                 print('BUY')
                 print('-------')
-                print(''.join(header.rjust(len(header)+3) for header in headers))
-                print(''.join(str(item).rjust(len(str(item))+3) for item in line1))
-                print(''.join(str(item).rjust(len(str(item))+3) for item in line2))
-                print(''.join(str(item).rjust(len(str(item))+3) for item in line3))
-                print(''.join(str(item).rjust(len(str(item))+3) for item in line4))
+                print(''.join(header.center(len(header)+3) for header in headers))
+                print('{:x^30}'.format(''.join(str(item) for item in line1)))
+                print(''.join(str(item).center(len(str(item))+3) for item in line2))
+                print(''.join(str(item).center(len(str(item))+3) for item in line3))
+                print(''.join(str(item).center(len(str(item))+3) for item in line4))
             else:
                 line1 = ["assets:stock:<market>.<commodity>", self.shares, self.price, self.result_general["amount_simple"], ""]
                 line2 = ["expenses:commission:stock:<market>.<commodity>", "", "", self.commission, ""]
@@ -150,10 +150,10 @@ class Calculator():
                 line4 = ["assets:current_assets:stock:<bank account>", "", "", "", self.amount]
                 print('SELL')
                 print('-------')
-                print(''.join(header.rjust(len(header)+3) for header in headers))
-                print(''.join(str(item).rjust(len(str(item))+3) for item in line1))
-                print(''.join(str(item).rjust(len(str(item))+3) for item in line2))
-                print(''.join(str(item).rjust(len(str(item))+3) for item in line3))
-                print(''.join(str(item).rjust(len(str(item))+3) for item in line3))
+                print(''.join(header.center(len(header)+3) for header in headers))
+                print(''.join(str(item).center(len(str(item))+3) for item in line1))
+                print(''.join(str(item).center(len(str(item))+3) for item in line2))
+                print(''.join(str(item).center(len(str(item))+3) for item in line3))
+                print(''.join(str(item).center(len(str(item))+3) for item in line3))
         except Exception as ex:
             print('Error in print_gnucash():', ex)
