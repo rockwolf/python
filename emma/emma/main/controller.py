@@ -70,10 +70,17 @@ class ControllerMain():
             , self.account)
         calc.calculate()
         calc.print_pretty()
+        self.print_separator()
         calc.print_gnucash()
         
         if profile:
             print('Profile not implemented yet.')
+
+    def print_separator(self):
+        """
+            Print nice divider line.
+        """
+        print('-'*80)
 
     def backup(self):
         """
