@@ -83,7 +83,10 @@ class Calculator():
                         , self.commission)
 
             # Extra calculatable fields
-            # GENERAL
+            # GENERAL - need to know
+            # TODO: first fix calculate_shares_recommended in modules
+            self.result_general["shares"] = calculate_shares_recommended(...)
+            # GENERAL - input
             self.result_general["amount"] = self.amount
             self.result_general["tax"] = self.tax
             self.result_general["commission"] = self.commission
@@ -94,6 +97,8 @@ class Calculator():
             # SELL
             self.result_sell["cost_tax"] = cost_tax(Transaction.SELL, self.amount, self.commission, self.shares, self.price)
             self.result_sell["amount_with_tax"] = calculate_amount_with_tax(self.tax, self.shares, self.price)
+            # GENERAL - extra
+            self.result_extra["r_multiple"] = calculate_r_multiple(...)
         except Exception as ex:
             print('Error in calculate:', ex)
 
