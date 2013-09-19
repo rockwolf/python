@@ -83,22 +83,19 @@ class Calculator():
                         , self.commission)
 
             # Extra calculatable fields
-            # GENERAL - need to know
-            # TODO: first fix calculate_shares_recommended in modules
-            self.result_general["shares"] = calculate_shares_recommended(...)
             # GENERAL - input
             self.result_general["amount"] = self.amount
             self.result_general["tax"] = self.tax
             self.result_general["commission"] = self.commission
             self.result_general["amount_simple"] = calculate_amount_simple(self.shares, self.price)
+            # GENERAL - need to know
+            self.result_general["shares"] = calculate_shares_recommended(self.pool, self.risk, self.commission, tax, self.price)
             # BUY
             self.result_buy["cost_tax"] = cost_tax(Transaction.BUY, self.amount, self.commission, self.shares, self.price)
             self.result_buy["amount_with_tax"] = calculate_amount_with_tax(self.tax, self.shares, self.price)
             # SELL
             self.result_sell["cost_tax"] = cost_tax(Transaction.SELL, self.amount, self.commission, self.shares, self.price)
             self.result_sell["amount_with_tax"] = calculate_amount_with_tax(self.tax, self.shares, self.price)
-            # GENERAL - extra
-            self.result_extra["r_multiple"] = calculate_r_multiple(...)
         except Exception as ex:
             print('Error in calculate:', ex)
 
@@ -107,7 +104,7 @@ class Calculator():
             Print the results with headers etc.
         """
         try:
-            headers_general = ["amount", "tax", "commission", "amount_simple"]
+            headers_general = ["amount", "tax", "commission", "shares", "amount_simple"]
             headers_buy_sell = ["cost_tax", "amount_with_tax"]
             
             print('GENERAL')
@@ -134,31 +131,17 @@ class Calculator():
         try:
             headers = ['account', 'shares', 'price', 'debit', 'credit']
             if self.buy:
+                line1 = ["assets:stock:<market>.<commodity>", self.shares, self.price, "", self.result_general["amount_simple"]]
+                line2 = ["expenses:commission:stock:<market>.<commodity>", "", "", self.commission]
+                line3 = ["expenses:tax:stock:<market>.<commodity>", "", "", self.result_buy["cost_tax"]]
+                line4 = ["assets:current_assets:stock:<bank account>", "", "", "", self.amount]
                 print('BUY')
                 print('-------')
                 print(''.join(column.rjust(10) for header in headers))
-                print(
-                    'assets:stock:<market>.<commodity>,' +
-                    str(self.shares) +
-                    ',' +
-                    str(self.price) +
-                    ',' +
-                    str(self.result_general["amount_simple"]) +
-                    ','
-                )
-                print(
-                    'expenses:commission:stock:<market>.<commodity>,,' + 
-                    str(self.commission) +
-                    ','
-                )
-                print(
-                    'expenses:tax:stock:<market>.<commodity>,,' +
-                    str(self.result_buy["cost_tax"])
-                )
-                print(
-                    'assets:current_assets:stock:<bank account>,,,' +
-                    str(self.amount)
-                )
+                print(''.join(item.rjust(10) for item in line1)
+                print(''.join(item.rjust(10) for item in line2)
+                print(''.join(item.rjust(10) for item in line3)
+                print(''.join(item.rjust(10) for item in line4)
             else:
                 print('SELL')
                 print('-------')
