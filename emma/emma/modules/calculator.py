@@ -102,17 +102,23 @@ class Calculator():
             Print the results with headers etc.
         """
         try:
+            headers_general = ["amount", "tax", "commission", "amount_simple"]
+            headers_buy_sell = ["cost_tax", "amount_with_tax"]
+            
             print('GENERAL')
             print('-------')
-            print(self.result_general)
+            print(''.join(column.rjust(10) for header in headers_general))
+            print(''.join(column.rjust(10) for value in result_general.values()))
             if self.buy:
                 print('BUY')
                 print('-------')
-                print(self.result_buy)
+                print(''.join(column.rjust(10) for header in headers_buy_sell))
+                print(''.join(column.rjust(10) for value in result_buy.values()))
             else:
                 print('SELL')
                 print('-------')
-                print(self.result_sell)
+                print(''.join(column.rjust(10) for header in headers_buy_sell))
+                print(''.join(column.rjust(10) for value in result_sell.values()))
         except Exception as ex:
             print('Error in print_pretty():', ex)
 
