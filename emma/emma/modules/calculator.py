@@ -121,10 +121,11 @@ class Calculator():
             Print statements to enter in gnucash.
         """
         try:
+            headers = ['account', 'shares', 'price', 'debit', 'credit']
             if self.buy:
                 print('BUY')
                 print('-------')
-                print('account,shares,price,debit,credit')
+                print(''.join(column.rjust(10) for header in headers))
                 print(
                     'assets:stock:<market>.<commodity>,' +
                     str(self.shares) +
@@ -150,9 +151,7 @@ class Calculator():
             else:
                 print('SELL')
                 print('-------')
-                print(
-                    'account,shares,price,debit,credit'
-                )
+                print(''.join(column.rjust(10) for header in headers))
                 print(
                     'assets:stock:<market>.<commodity>,' +
                     str(self.shares) + 
