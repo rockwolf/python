@@ -110,8 +110,8 @@ class Calculator():
             
             print('GENERAL')
             print('-------')
-            print(''.join(header.rjust(len(header)+3) for header in headers_general))
-            print(''.join(str(value).rjust(len(str(value))+3) for value in self.result_general.values()))
+            print(''.join('{:^30}'.format(header) for header in headers_general))
+            print(''.join('{:^30}'.format(str(value)) for value in self.result_general.values()))
             if self.buy:
                 print('BUY')
                 print('-------')
