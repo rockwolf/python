@@ -138,35 +138,21 @@ class Calculator():
                 print('BUY')
                 print('-------')
                 print(''.join(column.rjust(10) for header in headers))
-                print(''.join(item.rjust(10) for item in line1)
-                print(''.join(item.rjust(10) for item in line2)
-                print(''.join(item.rjust(10) for item in line3)
-                print(''.join(item.rjust(10) for item in line4)
+                print(''.join(item.rjust(10) for item in line1))
+                print(''.join(item.rjust(10) for item in line2))
+                print(''.join(item.rjust(10) for item in line3))
+                print(''.join(item.rjust(10) for item in line4))
             else:
+                line1 = ["assets:stock:<market>.<commodity>", self.shares, self.price, self.result_general["amount_simple"], ""]
+                line2 = ["expenses:commission:stock:<market>.<commodity>", "", "", self.commission, ""]
+                line3 = ["expenses:tax:stock:<market>.<commodity>", "", "", "", self.result_sell["cost_tax"]]
+                line4 = ["assets:current_assets:stock:<bank account>", "", "", "", self.amount]
                 print('SELL')
                 print('-------')
                 print(''.join(column.rjust(10) for header in headers))
-                print(
-                    'assets:stock:<market>.<commodity>,' +
-                    str(self.shares) + 
-                    ',' +
-                    str(self.price) +
-                    ',' +
-                    str(self.result_general["amount_simple"]) +
-                    ','
-                )
-                print(
-                    'expenses:commission:stock:<market>.<commodity>,,' +
-                    str(self.commission) +
-                    ','
-                )
-                print(
-                    'expenses:tax:stock:<market>.<commodity>,,' +
-                    str(self.result_sell["cost_tax"])
-                )
-                print(
-                    'assets:current_assets:stock:<bank account>,,,' +
-                    str(self.amount)
-                )
+                print(''.join(item.rjust(10) for item in line1))
+                print(''.join(item.rjust(10) for item in line2))
+                print(''.join(item.rjust(10) for item in line3))
+                print(''.join(item.rjust(10) for item in line3))
         except Exception as ex:
             print('Error in print_gnucash():', ex)
