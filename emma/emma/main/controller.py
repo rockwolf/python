@@ -55,7 +55,8 @@ class ControllerMain():
         if self.automatic:
             #self.tax = retrieve_tax...
             #self.commission = retrieve_commission
-            print('Not implemendet yet...')
+            print('WARNING: Automatic retrieval of commission and tax not implemendet yet!')
+            print('         Please use the -c and -t switches.')
         calc = Calculator(
             self.pool
             , self.amount
