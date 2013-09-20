@@ -156,9 +156,3 @@ class Calculator():
                 print_lines(lines)
         except Exception as ex:
             print('Error in print_gnucash():', ex)
-            
-    def print_lines(self, values):
-        """
-            Print the data values.
-        """
-        print('{:x^30}'.format(''.join(str(value) for value in values)))
