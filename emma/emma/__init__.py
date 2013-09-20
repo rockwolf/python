@@ -71,13 +71,6 @@ if __name__ == "__main__":
     commodity = args['--commodity']
     account = args['--account']
    
-    print('amount =', amount)
-    print('pool =', pool)
-    print('shares =', shares)
-    print('price =', price)
-    print('tax =', tax)
-    print('commission =', commission)
-    print('buy =', buy)
     if args['--install']:
         install()
         sys.exit(0)
