@@ -8,7 +8,8 @@ import shutil
 import os
 #from decimal import getcontext
 from modules.calculator import Calculator
-from generic.modules.function import print_separator 
+from generic.modules.function import print_separator, print_in_columns
+from generic.modules.constant import Align
 
 class ControllerMain():
     """ Contains the bussiness logic of the application. """
@@ -56,7 +57,13 @@ class ControllerMain():
             , self.commodity
             , self.account)
         calc.calculate()
-        calc.print_pretty()
+        
+        header = [["GENERAL"]]
+        print_in_columns(header, Align.LEFT)
+        print_separator()
+        calc.print_general()
+        header = [["GNUCASH"]]
+        print_in_columns(header, Align.LEFT)
         print_separator()
         calc.print_gnucash()
         

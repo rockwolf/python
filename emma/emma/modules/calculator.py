@@ -97,7 +97,7 @@ class Calculator():
         except Exception as ex:
             print('Error in calculate:', ex)
 
-    def print_pretty(self):
+    def print_general(self):
         """
             Print the results with headers etc.
         """
@@ -124,7 +124,7 @@ class Calculator():
                 print_in_columns(headers_buy_sell)
                 print_in_columns(self.result_sell.values())
         except Exception as ex:
-            print('Error in print_pretty():', ex)
+            print('Error in print_results():', ex)
 
     def print_gnucash(self):
         """
