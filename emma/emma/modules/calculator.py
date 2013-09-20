@@ -111,18 +111,18 @@ class Calculator():
             
             print('GENERAL')
             print('-------')
-            self.print_lines(self.headers_general)
-            self.print_lines(self.result_general.values())
+            print_in_columns(self.headers_general)
+            print_in_columns(self.result_general.values())
             if self.buy:
-                print('BUY')
-                print('-------')
-                self.print_lines(headers_buy_sell)
-                self.print_lines(self.result_buy.values())
+                subheader = [["BUY", '-'*len("BUY")*2]]
+                print_in_columns(subheader)
+                print_in_columns(headers_buy_sell)
+                print_in_columns(self.result_buy.values())
             else:
-                print('SELL')
-                print('-------')
-                self.print_lines(headers_buy_sell)
-                self.print_lines(self.result_sell.values())
+                subheader = [["SELL", '-'*len("SELL")*2]]
+                print_in_columns(subheader)
+                print_in_columns(headers_buy_sell)
+                print_in_columns(self.result_sell.values())
         except Exception as ex:
             print('Error in print_pretty():', ex)
 
@@ -140,19 +140,19 @@ class Calculator():
                 lines.add(["expenses:commission:stock:<market>.<commodity>", "", "", self.commission])
                 lines.add(["expenses:tax:stock:<market>.<commodity>", "", "", self.result_buy["cost_tax"]])
                 lines.add(["assets:current_assets:stock:<bank account>", "", "", "", self.amount])
-                print('BUY')
-                print('-------')
-                print_lines(headers)
-                print_lines(lines)
+                subheader = [["BUY", '-'*len("BUY")*2]]
+                print_in_columns(subheader)
+                print_in_columns(headers)
+                print_in_columns(lines)
             else:
                 lines = []
                 lines.add(["assets:stock:<market>.<commodity>", self.shares, self.price, self.result_general["amount_simple"], ""])
                 lines.add(["expenses:commission:stock:<market>.<commodity>", "", "", self.commission, ""])
                 lines.add(["expenses:tax:stock:<market>.<commodity>", "", "", "", self.result_sell["cost_tax"]])
                 lines.add(["assets:current_assets:stock:<bank account>", "", "", "", self.amount])
-                print('SELL')
-                print('-------')
-                print_lines(headers)
-                print_lines(lines)
+                subheader = [["SELL", '-'*len("SELL")*2]]
+                print_in_columns(subheader)
+                print_in_columns(headers)
+                print_in_columns(lines)
         except Exception as ex:
             print('Error in print_gnucash():', ex)
