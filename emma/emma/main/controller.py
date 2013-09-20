@@ -5,10 +5,10 @@ See LICENSE file for copyright and license details.
 
 from os.path import isfile
 import shutil
-import os, sys
-from decimal import getcontext
-from modules.config import ConfigParser
+import os
+#from decimal import getcontext
 from modules.calculator import Calculator
+from generic.modules.function import print_separator 
 
 class ControllerMain():
     """ Contains the bussiness logic of the application. """

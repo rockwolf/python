@@ -3,9 +3,10 @@
 See LICENSE file for copyright and license details.
 """
 
-from generic.modules.calculator_finance import *
 from modules.constant import *
+from generic.modules.calculator_finance import *
 from decimal import Decimal
+from generic.modules.function import print_in_columns
 
 class Calculator():
     """
@@ -36,7 +37,6 @@ class Calculator():
         """
             Calculate all possible unknown values.
         """
-        print('Test: ', self.account)
         try:
             #Note: the order is important...
             # Input values
@@ -109,17 +109,17 @@ class Calculator():
                 ["cost_tax", "amount_with_tax"]
                 , ['-'*len("cost_tax"), '-'*len("amount_with_tax")]]
             
-            subheader = [["GENERAL", '-'*len("GENERAL")*2]]
+            subheader = [["GENERAL"], ['-'*len("GENERAL")*2]]
             print_in_columns(subheader)
-            print_in_columns(self.headers_general)
+            print_in_columns(headers_general)
             print_in_columns(self.result_general.values())
             if self.buy:
-                subheader = [["BUY", '-'*len("BUY")*2]]
+                subheader = [["BUY"], ['-'*len("BUY")*2]]
                 print_in_columns(subheader)
                 print_in_columns(headers_buy_sell)
                 print_in_columns(self.result_buy.values())
             else:
-                subheader = [["SELL", '-'*len("SELL")*2]]
+                subheader = [["SELL"], ['-'*len("SELL")*2]]
                 print_in_columns(subheader)
                 print_in_columns(headers_buy_sell)
                 print_in_columns(self.result_sell.values())
@@ -136,21 +136,21 @@ class Calculator():
                 , ['-'*len('account'), '-'*len('shares'), '-'*len('price'), '-'*len('debit'), '-'*len('credit')]]
             if self.buy:
                 lines = []
-                lines.add(["assets:stock:<market>.<commodity>", self.shares, self.price, "", self.result_general["amount_simple"]])
-                lines.add(["expenses:commission:stock:<market>.<commodity>", "", "", self.commission])
-                lines.add(["expenses:tax:stock:<market>.<commodity>", "", "", self.result_buy["cost_tax"]])
-                lines.add(["assets:current_assets:stock:<bank account>", "", "", "", self.amount])
-                subheader = [["BUY", '-'*len("BUY")*2]]
+                lines.append(["assets:stock:<market>.<commodity>", self.shares, self.price, "", self.result_general["amount_simple"]])
+                lines.append(["expenses:commission:stock:<market>.<commodity>", "", "", self.commission])
+                lines.append(["expenses:tax:stock:<market>.<commodity>", "", "", self.result_buy["cost_tax"]])
+                lines.append(["assets:current_assets:stock:<bank account>", "", "", "", self.amount])
+                subheader = [["BUY"], ['-'*len("BUY")*2]]
                 print_in_columns(subheader)
                 print_in_columns(headers)
                 print_in_columns(lines)
             else:
                 lines = []
-                lines.add(["assets:stock:<market>.<commodity>", self.shares, self.price, self.result_general["amount_simple"], ""])
-                lines.add(["expenses:commission:stock:<market>.<commodity>", "", "", self.commission, ""])
-                lines.add(["expenses:tax:stock:<market>.<commodity>", "", "", "", self.result_sell["cost_tax"]])
-                lines.add(["assets:current_assets:stock:<bank account>", "", "", "", self.amount])
-                subheader = [["SELL", '-'*len("SELL")*2]]
+                lines.append(["assets:stock:<market>.<commodity>", self.shares, self.price, self.result_general["amount_simple"], ""])
+                lines.append(["expenses:commission:stock:<market>.<commodity>", "", "", self.commission, ""])
+                lines.append(["expenses:tax:stock:<market>.<commodity>", "", "", "", self.result_sell["cost_tax"]])
+                lines.append(["assets:current_assets:stock:<bank account>", "", "", "", self.amount])
+                subheader = [["SELL"], ['-'*len("SELL")*2]]
                 print_in_columns(subheader)
                 print_in_columns(headers)
                 print_in_columns(lines)
