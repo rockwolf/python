@@ -42,9 +42,7 @@ class Calculator():
             # Input values
             if self.shares == Decimal(-1.0):
                 self.shares = calculate_shares_recommended(self.pool, self.risk, self.commission, self.tax, self.price)
-                print('test: shares =', self.shares)
             if self.price == Decimal(-1.0):
-                print('test: ', self.amount)
                 if self.buy:
                     self.price = calculate_price(
                         Transaction.BUY
@@ -59,7 +57,6 @@ class Calculator():
                         , self.shares
                         , self.tax
                         , self.commission)
-                print('price =', self.price)
             if self.commission == Decimal(-1.0):
                 self.commission = calculate_commission(
                     self.account
