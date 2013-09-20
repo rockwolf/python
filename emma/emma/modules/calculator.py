@@ -109,8 +109,8 @@ class Calculator():
                 ["cost_tax", "amount_with_tax"]
                 , ['-'*len("cost_tax"), '-'*len("amount_with_tax")]]
             
-            print('GENERAL')
-            print('-------')
+            subheader = [["GENERAL", '-'*len("GENERAL")*2]]
+            print_in_columns(subheader)
             print_in_columns(self.headers_general)
             print_in_columns(self.result_general.values())
             if self.buy:
