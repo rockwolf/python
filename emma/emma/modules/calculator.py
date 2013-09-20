@@ -88,8 +88,8 @@ class Calculator():
             self.result_general["amount"] = self.amount
             self.result_general["tax"] = self.tax
             self.result_general["commission"] = self.commission
+            # GENERAL - extra info
             self.result_general["amount_simple"] = calculate_amount_simple(self.shares, self.price)
-            # GENERAL - need to know
             self.result_general["shares"] = calculate_shares_recommended(self.pool, self.risk, self.commission, self.tax, self.price)
             # BUY
             self.result_buy["cost_tax"] = cost_tax(Transaction.BUY, self.amount, self.commission, self.shares, self.price)
@@ -105,23 +105,27 @@ class Calculator():
             Print the results with headers etc.
         """
         try:
-            headers_general = ["amount", "tax", "commission", "shares", "amount_simple"]
-            headers_buy_sell = ["cost_tax", "amount_with_tax"]
+            headers_general = [
+                ["amount", "tax", "commission", "shares", "amount_simple"]
+                , ['-'*len("amount"), '-'*len("tax"), '-'*len("commission"), '-'*len("shares"), '-'*len("amount_simple")]]
+            headers_buy_sell = [
+                ["cost_tax", "amount_with_tax"]
+                , ['-'*len("cost_tax"), '-'*len("amount_with_tax")]]
             
             print('GENERAL')
             print('-------')
-            print(''.join('{:^30}'.format(header) for header in headers_general))
-            print(''.join('{:^30}'.format(str(value)) for value in self.result_general.values()))
+            self.print_lines(self.headers_general)
+            self.print_lines(self.result_general.values())
             if self.buy:
                 print('BUY')
                 print('-------')
-                print(''.join('{:^30}'.format(header) for header in headers_buy_sell))
-                print(''.join('{:^30}'.format(str(value)) for value in self.result_buy.values()))
+                self.print_lines(headers_buy_sell)
+                self.print_lines(self.result_buy.values())
             else:
                 print('SELL')
                 print('-------')
-                print(''.join('{:^30}'.format(header) for header in headers_buy_sell))
-                print(''.join('{:^30}'.format(str(value)) for value in self.result_sell.values()))
+                self.print_lines(headers_buy_sell)
+                self.print_lines(self.result_sell.values())
         except Exception as ex:
             print('Error in print_pretty():', ex)
 
@@ -130,30 +134,34 @@ class Calculator():
             Print statements to enter in gnucash.
         """
         try:
-            headers = ['account', 'shares', 'price', 'debit', 'credit']
+            headers = [
+                ['account', 'shares', 'price', 'debit', 'credit']
+                , ['-'*len('account'), '-'*len('shares'), '-'*len('price'), '-'*len('debit'), '-'*len('credit')]]
             if self.buy:
-                line1 = ["assets:stock:<market>.<commodity>", self.shares, self.price, "", self.result_general["amount_simple"]]
-                line2 = ["expenses:commission:stock:<market>.<commodity>", "", "", self.commission]
-                line3 = ["expenses:tax:stock:<market>.<commodity>", "", "", self.result_buy["cost_tax"]]
-                line4 = ["assets:current_assets:stock:<bank account>", "", "", "", self.amount]
+                lines = []
+                lines.add(["assets:stock:<market>.<commodity>", self.shares, self.price, "", self.result_general["amount_simple"]])
+                lines.add(["expenses:commission:stock:<market>.<commodity>", "", "", self.commission])
+                lines.add(["expenses:tax:stock:<market>.<commodity>", "", "", self.result_buy["cost_tax"]])
+                lines.add(["assets:current_assets:stock:<bank account>", "", "", "", self.amount])
                 print('BUY')
                 print('-------')
-                print(''.join(header.center(len(header)+3) for header in headers))
-                print('{:x^30}'.format(''.join(str(item) for item in line1)))
-                print(''.join(str(item).center(len(str(item))+3) for item in line2))
-                print(''.join(str(item).center(len(str(item))+3) for item in line3))
-                print(''.join(str(item).center(len(str(item))+3) for item in line4))
+                print_lines(headers)
+                print_lines(lines)
             else:
-                line1 = ["assets:stock:<market>.<commodity>", self.shares, self.price, self.result_general["amount_simple"], ""]
-                line2 = ["expenses:commission:stock:<market>.<commodity>", "", "", self.commission, ""]
-                line3 = ["expenses:tax:stock:<market>.<commodity>", "", "", "", self.result_sell["cost_tax"]]
-                line4 = ["assets:current_assets:stock:<bank account>", "", "", "", self.amount]
+                lines = []
+                lines.add(["assets:stock:<market>.<commodity>", self.shares, self.price, self.result_general["amount_simple"], ""])
+                lines.add(["expenses:commission:stock:<market>.<commodity>", "", "", self.commission, ""])
+                lines.add(["expenses:tax:stock:<market>.<commodity>", "", "", "", self.result_sell["cost_tax"]])
+                lines.add(["assets:current_assets:stock:<bank account>", "", "", "", self.amount])
                 print('SELL')
                 print('-------')
-                print(''.join(header.center(len(header)+3) for header in headers))
-                print(''.join(str(item).center(len(str(item))+3) for item in line1))
-                print(''.join(str(item).center(len(str(item))+3) for item in line2))
-                print(''.join(str(item).center(len(str(item))+3) for item in line3))
-                print(''.join(str(item).center(len(str(item))+3) for item in line3))
+                print_lines(headers)
+                print_lines(lines)
         except Exception as ex:
             print('Error in print_gnucash():', ex)
+            
+    def print_lines(self, values):
+        """
+            Print the data values.
+        """
+        print('{:x^30}'.format(''.join(str(value) for value in values)))
