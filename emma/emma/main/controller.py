@@ -39,19 +39,6 @@ class ControllerMain():
             Start the app.
         """
         #TODO: if automatic: get tax and commission from library
-        print('<test>')
-        print(self.pool)
-        print(self.amount)
-        print(self.tax)
-        print(self.commission)
-        print(self.shares)
-        print(self.price)
-        print(self.buy)
-        print(self.automatic)
-        print(self.market)
-        print(self.commodity)
-        print('test: account =', self.account)
-        print('</test>')
         if self.automatic:
             #self.tax = retrieve_tax...
             #self.commission = retrieve_commission
@@ -70,17 +57,11 @@ class ControllerMain():
             , self.account)
         calc.calculate()
         calc.print_pretty()
-        self.print_separator()
+        print_separator()
         calc.print_gnucash()
         
         if profile:
             print('Profile not implemented yet.')
-
-    def print_separator(self):
-        """
-            Print nice divider line.
-        """
-        print('-'*80)
 
     def backup(self):
         """
