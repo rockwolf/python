@@ -62,6 +62,7 @@ class ControllerMain():
         print_in_columns(header, Align.LEFT)
         print_separator()
         calc.print_general()
+        print('')
         header = [["GNUCASH"]]
         print_in_columns(header, Align.LEFT)
         print_separator()

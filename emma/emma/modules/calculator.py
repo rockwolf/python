@@ -81,19 +81,24 @@ class Calculator():
                         , self.commission)
 
             # Extra calculatable fields
+            # TEST INFO
+            print(self.amount)
+            print(self.tax)
+            print(self.commission)
+            # /TEST INFO
             # GENERAL - input
-            self.result_general["amount"] = self.amount
-            self.result_general["tax"] = self.tax
-            self.result_general["commission"] = self.commission
+            self.result_general["amount"] = str(self.amount)
+            self.result_general["tax"] = str(self.tax)
+            self.result_general["commission"] = str(self.commission)
             # GENERAL - extra info
-            self.result_general["amount_simple"] = calculate_amount_simple(self.shares, self.price)
-            self.result_general["shares"] = calculate_shares_recommended(self.pool, self.risk, self.commission, self.tax, self.price)
+            self.result_general["amount_simple"] = str(calculate_amount_simple(self.shares, self.price))
+            self.result_general["shares"] = str(calculate_shares_recommended(self.pool, self.risk, self.commission, self.tax, self.price))
             # BUY
-            self.result_buy["cost_tax"] = cost_tax(Transaction.BUY, self.amount, self.commission, self.shares, self.price)
-            self.result_buy["amount_with_tax"] = calculate_amount_with_tax(self.tax, self.shares, self.price)
+            self.result_buy["cost_tax"] = str(cost_tax(Transaction.BUY, self.amount, self.commission, self.shares, self.price))
+            self.result_buy["amount_with_tax"] = str(calculate_amount_with_tax(self.tax, self.shares, self.price))
             # SELL
-            self.result_sell["cost_tax"] = cost_tax(Transaction.SELL, self.amount, self.commission, self.shares, self.price)
-            self.result_sell["amount_with_tax"] = calculate_amount_with_tax(self.tax, self.shares, self.price)
+            self.result_sell["cost_tax"] = str(cost_tax(Transaction.SELL, self.amount, self.commission, self.shares, self.price))
+            self.result_sell["amount_with_tax"] = str(calculate_amount_with_tax(self.tax, self.shares, self.price))
         except Exception as ex:
             print('Error in calculate:', ex)
 
