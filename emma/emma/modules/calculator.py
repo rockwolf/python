@@ -42,11 +42,26 @@ class Calculator():
             # Input values
             if self.shares == Decimal(-1.0):
                 # here, pool, risk, commission and tax and price should be given
-                # TODO: check for these conditions
+                needed = []
+                needed.append(self.pool)
+                needed.append(self.risk)
+                needed.append(self.commission)
+                needed.append(self.tax)
+                needed.append(self.price)
+                if has_missing_parameter(needed):
+                    raise Exception("Shares unknown, but parameter(s) missing for calculation.\n" \
+                    "Please enter pool, risk, commission, tax and price info.")
                 self.shares = calculate_shares_recommended(self.pool, self.risk, self.commission, self.tax, self.price)
             if self.price == Decimal(-1.0):
                 # here, amount, shares, tax and commission should be given
-                # TODO: check for these conditions
+                needed = []
+                needed.append(self.amount)
+                needed.append(self.shares)
+                needed.append(self.tax)
+                needed.append(self.commission)
+                if has_missing_parameter(needed):
+                    raise Exception("Price unknown, but parameter(s) missing for calculation.\n" \
+                    "Please enter amount, shares, tax and commission info.")
                 if self.buy:
                     self.price = calculate_price(
                         Transaction.BUY
@@ -63,7 +78,15 @@ class Calculator():
                         , self.commission)
             if self.commission == Decimal(-1.0):
                 # here, account, market, commodity, price and shares should be given
-                # TODO: check for these conditions
+                needed = []
+                needed.append(self.account)
+                needed.append(self.market)
+                needed.append(self.commodity)
+                needed.append(self.price)
+                needed.append(self.shares)
+                if has_missing_parameter(needed):
+                    raise Exception("Commission unknown, but parameter(s) missing for calculation.\n" \
+                    "Please enter account, market, commodity, price and shares info.")
                 self.commission = calculate_commission(
                     self.account
                     , self.market
@@ -72,7 +95,14 @@ class Calculator():
                     , self.shares)
             if self.amount == Decimal(-1.0):
                 # here, price, shares, tax and commission should be given
-                # TODO: check for these conditions
+                needed = []
+                needed.append(self.price)
+                needed.append(self.shares)
+                needed.append(self.tax)
+                needed.append(self.commission)
+                if has_missing_parameter(needed):
+                    raise Exception("Amount unknown, but parameter(s) missing for calculation.\n" \
+                    "Please enter price, shares, tax and commission info.")
                 if self.buy:
                     self.amount = calculate_amount(
                         self.price
@@ -87,7 +117,6 @@ class Calculator():
                         , Transaction.SELL
                         , self.tax
                         , self.commission)
-            #TODO: Relevant error msg when none of those conditions are met.
 
             # Extra calculatable fields
             # TEST INFO
@@ -171,3 +200,10 @@ class Calculator():
                 print_in_columns(lines)
         except Exception as ex:
             print('Error in print_gnucash():', ex)
+            
+    def has_missing_parameter(self, parameters):
+        """
+            Returns a boolean that says if the parameters list has a value
+            of DEFAULT_DECIMAL or not. True = a parameter is missing.
+        """
+        return DEFAULT_DECIMAL in parameters
