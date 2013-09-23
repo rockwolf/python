@@ -41,8 +41,12 @@ class Calculator():
             #Note: the order is important...
             # Input values
             if self.shares == Decimal(-1.0):
+                # here, pool, risk, commission and tax and price should be given
+                # TODO: check for these conditions
                 self.shares = calculate_shares_recommended(self.pool, self.risk, self.commission, self.tax, self.price)
             if self.price == Decimal(-1.0):
+                # here, amount, shares, tax and commission should be given
+                # TODO: check for these conditions
                 if self.buy:
                     self.price = calculate_price(
                         Transaction.BUY
@@ -58,6 +62,8 @@ class Calculator():
                         , self.tax
                         , self.commission)
             if self.commission == Decimal(-1.0):
+                # here, account, market, commodity, price and shares should be given
+                # TODO: check for these conditions
                 self.commission = calculate_commission(
                     self.account
                     , self.market
@@ -65,6 +71,8 @@ class Calculator():
                     , self.price
                     , self.shares)
             if self.amount == Decimal(-1.0):
+                # here, price, shares, tax and commission should be given
+                # TODO: check for these conditions
                 if self.buy:
                     self.amount = calculate_amount(
                         self.price
@@ -79,12 +87,14 @@ class Calculator():
                         , Transaction.SELL
                         , self.tax
                         , self.commission)
+            #TODO: Relevant error msg when none of those conditions are met.
 
             # Extra calculatable fields
             # TEST INFO
             print(self.amount)
             print(self.tax)
             print(self.commission)
+            print(self.shares)
             # /TEST INFO
             # GENERAL - input
             self.result_general["amount"] = str(self.amount)
