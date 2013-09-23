@@ -64,7 +64,7 @@ if __name__ == "__main__":
     commission = Decimal(args['--commission'])
     shares = Decimal(args['--shares']) if args['--shares'] else DEFAULT_DECIMAL
     price = Decimal(args['--price']) if args['--price'] else DEFAULT_DECIMAL
-    buy = Decimal(args['--buy'])
+    buy = bool(args['--buy'])
     automatic = bool(args['--automatic'])
     profile = bool(args['--profile'])
     market = args['--market']
