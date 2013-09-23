@@ -156,17 +156,17 @@ class Calculator():
             subheader = [["GENERAL"], ['-'*len("GENERAL")*2]]
             print_in_columns(subheader)
             print_in_columns(headers_general)
-            print_in_columns(self.result_general.values())
+            print_in_columns([self.result_general.values()])
             if self.buy:
                 subheader = [["BUY"], ['-'*len("BUY")*2]]
                 print_in_columns(subheader)
                 print_in_columns(headers_buy_sell)
-                print_in_columns(self.result_buy.values())
+                print_in_columns([self.result_buy.values()])
             else:
                 subheader = [["SELL"], ['-'*len("SELL")*2]]
                 print_in_columns(subheader)
                 print_in_columns(headers_buy_sell)
-                print_in_columns(self.result_sell.values())
+                print_in_columns([self.result_sell.values()])
         except Exception as ex:
             print('Error in print_results():', ex)
 
