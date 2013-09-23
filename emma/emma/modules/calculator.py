@@ -13,7 +13,7 @@ class Calculator():
         Calculator class
     """
    
-    def __init__(self, pool, amount, tax, commission, shares, price, buy, market, commodity, account):
+    def __init__(self, pool, amount, tax, commission, shares, price, buy, market, commodity, account, risk):
         """
             Initialize
         """
@@ -27,7 +27,7 @@ class Calculator():
         self.market = market
         self.commodity = commodity
         self.account = account
-        self.risk = Decimal(0.02)
+        self.risk = risk
         # result
         self.result_general = {}
         self.result_buy = {}
