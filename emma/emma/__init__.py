@@ -37,11 +37,11 @@ from setup.setup import Setup
 from decimal import Decimal
 from modules.constant import *
 
-def main(pool, amount, tax, commission, shares, price, buy, automatic, market, commodity, account, profile):
+def main(pool, amount, tax, commission, shares, price, buy, automatic, market, commodity, account, profile, risk):
     """ Main driver. """
     ### Run the application ###
     from main.main import MainWrapper
-    wrapper = MainWrapper(pool, amount, tax, commission, shares, price, buy, automatic, market, commodity, account)
+    wrapper = MainWrapper(pool, amount, tax, commission, shares, price, buy, automatic, market, commodity, account, risk)
     wrapper.run(profile) #run the main method for the program
       
 def install():
