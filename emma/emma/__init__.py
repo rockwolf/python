@@ -5,16 +5,17 @@ Usage:
     emma [options]
 
 Options:
-    -a=amount, --amount=amount
-    -l=pool, --pool=pool
+    -a amount, --amount amount
+    -l pool, --pool pool
     -b, --buy
-    -c=commission, --commission=commission  [default: 9.75]
-    -t=tax, --tax=tax                       [default: 0.25]
-    -s=shares, --shares=shares
-    -p=price, --price=price
-    -m=market, --market=market              [default: ebr]
-    -d=commodity, --commodity=commodity
-    -u=account, --account=account           [default: binb00]
+    -c commission, --commission commission
+    -t tax, --tax tax
+    -s shares, --shares shares
+    -p price, --price price
+    -m market, --market market              [default: ebr]
+    -d commodity, --commodity commodity
+    -u account, --account account           [default: binb00]
+    -r risk, --risk risk                    [default: 0.02]
     --automatic
     --profile
     --install
@@ -61,7 +62,7 @@ if __name__ == "__main__":
     pool = Decimal(args['--pool']) if args['--pool'] else DEFAULT_DECIMAL
     amount = Decimal(args['--amount']) if args['--amount'] else DEFAULT_DECIMAL
     tax = Decimal(args['--tax'])/Decimal(100.0) if args['--tax'] else DEFAULT_DECIMAL
-    commission = Decimal(args['--commission'])
+    commission = Decimal(args['--commission']) if arags['--commission'] else DEFAULT_DECIMAL
     shares = Decimal(args['--shares']) if args['--shares'] else DEFAULT_DECIMAL
     price = Decimal(args['--price']) if args['--price'] else DEFAULT_DECIMAL
     buy = bool(args['--buy'])
@@ -70,6 +71,7 @@ if __name__ == "__main__":
     market = args['--market']
     commodity = args['--commodity']
     account = args['--account']
+    risk = Decimal(args['--risk']) if args['--risk'] else Decimal(0.02)
    
     if args['--install']:
         install()
@@ -92,4 +94,5 @@ if __name__ == "__main__":
         , market
         , commodity
         , account
-        , profile)
+        , profile
+        , risk)
