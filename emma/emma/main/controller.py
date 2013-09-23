@@ -14,7 +14,7 @@ from generic.modules.constant import Align
 class ControllerMain():
     """ Contains the bussiness logic of the application. """
     
-    def __init__(self, config, pool, amount, tax, commission, shares, price, buy, automatic, market, commodity, account):
+    def __init__(self, config, pool, amount, tax, commission, shares, price, buy, automatic, market, commodity, account, risk):
         """ Initialize """
         # initialise special vars
         self.config = config #object
@@ -32,6 +32,7 @@ class ControllerMain():
         self.market = market
         self.commodity = commodity 
         self.account = account
+        self.risk = risk
 
     # Methods
     ## General
@@ -55,7 +56,8 @@ class ControllerMain():
             , self.buy
             , self.market
             , self.commodity
-            , self.account)
+            , self.account
+            , self.risk)
         calc.calculate()
         
         header = [["GENERAL"]]
