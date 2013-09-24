@@ -29,7 +29,7 @@ See LICENSE file for copyright and license details.
 from docopt import docopt
 
 __all__ = ['Emma']
-__version__ = 'Emma 1.01'
+__version__ = 'Emma 1.02'
 
 import sys
 
