@@ -37,6 +37,7 @@ class Calculator():
         """
             Calculate all possible unknown values.
         """
+        result = {}
         try:
             #Note: the order is important...
             # Input values
