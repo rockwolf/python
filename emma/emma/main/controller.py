@@ -15,7 +15,7 @@ from generic.modules.constant import Align
 class ControllerMain():
     """ Contains the bussiness logic of the application. """
     
-    def __init__(self, config, pool, amount, tax, commission, shares, price, buy, automatic, market, commodity, account, risk, export):
+    def __init__(self, config, pool, amount, tax, commission, shares, price, buy, automatic, market, commodity, account, risk, currency, exchange, estimate, export):
         """ Initialize """
         # initialise special vars
         self.config = config #object
@@ -34,6 +34,9 @@ class ControllerMain():
         self.commodity = commodity 
         self.account = account
         self.risk = risk
+        self.currency = currency
+        self.exchange = exchange
+        self.estimate = estimate
         self.export = export
 
     # Methods
@@ -59,7 +62,10 @@ class ControllerMain():
             , self.market
             , self.commodity
             , self.account
-            , self.risk)
+            , self.risk
+            , self.currency
+            , self.exchange
+            , self.estimate)
         calc.calculate()
         
         printer = Printer()
@@ -67,7 +73,8 @@ class ControllerMain():
         #TODO: The printer class should contain functions that take an optional filename argument to export to the file.
         #TODO: Logic to get the export + generate the filename
         #TODO: make market and commodity obligatory!
-        export_file = "export/yyyymmdd_hhmmss_V001_<market>_<commodity>.txt" if export else ""
+        str_estim = "_estimate" if estimate else ""
+        export_file = "export/yyyymmdd_hhmmss_V001_<market>_<commodity>{}.txt".format(str_estim) if export else ""
         header = [["GENERAL"]]
         print_in_columns(header, Align.LEFT)
         print_separator()
