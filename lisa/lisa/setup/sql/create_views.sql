@@ -145,13 +145,14 @@ from
 CREATE VIEW V_REP_CHECK_TOTAL
 AS
 select
-    a.name as account_name,
-    sum(f.amount) as account_total
+    *
+    --a.name as account_name,
+    --sum(f.amount) as account_total
 from
     t_finance f
-    inner join t_account a on f.account_id = a.account_id
-group by
-    a.name
+    --inner join t_account a on f.account_id = a.account_id
+--group by
+--    a.name
 ;
 
 /* V_POOL */

@@ -66,7 +66,7 @@ if __name__ == "__main__":
     pool = Decimal(args['--pool']) if args['--pool'] else DEFAULT_DECIMAL
     amount = Decimal(args['--amount']) if args['--amount'] else DEFAULT_DECIMAL
     tax = Decimal(args['--tax'])/Decimal(100.0) if args['--tax'] else DEFAULT_DECIMAL
-    commission = Decimal(args['--commission']) if arags['--commission'] else DEFAULT_DECIMAL
+    commission = Decimal(args['--commission']) if args['--commission'] else DEFAULT_DECIMAL
     shares = Decimal(args['--shares']) if args['--shares'] else DEFAULT_DECIMAL
     price = Decimal(args['--price']) if args['--price'] else DEFAULT_DECIMAL
     buy = bool(args['--buy'])
@@ -76,8 +76,8 @@ if __name__ == "__main__":
     commodity = args['--commodity']
     account = args['--account']
     risk = Decimal(args['--risk']) if args['--risk'] else Decimal(0.02)
-    currency = args['--currency']) if args['--currency'] else DEFAULT_CURRENCY
-    exchange = args['--exchange']) if args['--exchange'] else DEFAULT_DECIMAL
+    currency = args['--currency'] if args['--currency'] else DEFAULT_CURRENCY
+    exchange = args['--exchange'] if args['--exchange'] else DEFAULT_DECIMAL
     estimate = args['--estimate']
     export = args['--export']
    

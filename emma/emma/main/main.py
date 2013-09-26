@@ -80,7 +80,7 @@ class MainWrapper():
                     self.risk,
                     self.currency,
                     self.exchange,
-                    self.esetimate,
+                    self.estimate,
                     self.export)
             ctl.run(profile)
             ctl = None

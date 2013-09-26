@@ -73,8 +73,8 @@ class ControllerMain():
         #TODO: The printer class should contain functions that take an optional filename argument to export to the file.
         #TODO: Logic to get the export + generate the filename
         #TODO: make market and commodity obligatory!
-        str_estim = "_estimate" if estimate else ""
-        export_file = "export/yyyymmdd_hhmmss_V001_<market>_<commodity>{}.txt".format(str_estim) if export else ""
+        str_estim = "_estimate" if self.estimate else ""
+        export_file = "export/yyyymmdd_hhmmss_V001_<market>_<commodity>{}.txt".format(str_estim) if self.export else ""
         header = [["GENERAL"]]
         print_in_columns(header, Align.LEFT)
         print_separator()

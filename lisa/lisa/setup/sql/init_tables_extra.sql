@@ -217,7 +217,7 @@ INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick,
 values('LSUV3.cfd', 16, 'London Sugar, US Dollar OctYY', 1, 2, 0.1, 1.0, 1.0, 500.0, 2.0, 4.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('LSUV3.cfd', 16, 'London Sugar, US Dollar OctYY', 1, 2, 0.1, 1.0, 1.0, 500.0, 2.0, 4.0, current_date, current_date);
+values('LSUZ3.cfd', 16, 'London Sugar, US Dollar DecYY', 1, 2, 0.1, 1.0, 1.0, 500.0, 2.0, 4.0, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
 values('LWBX3.cfd', 16, 'London Wheat (per 0.01), Pound Sterling NovYY', 1, 8, 0.01, 1.0, 1.0, 100.0, 8.0, 16.0, current_date, current_date);

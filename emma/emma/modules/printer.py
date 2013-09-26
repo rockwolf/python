@@ -8,10 +8,10 @@ from generic.modules.calculator_finance import *
 from decimal import Decimal
 from generic.modules.function import print_in_columns
 
-class Calculator():
+class Printer():
     """
-Calculator class
-"""
+        Printer class
+    """
    
     def __init__(self):
         """
