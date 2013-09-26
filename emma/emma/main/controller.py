@@ -34,6 +34,7 @@ class ControllerMain():
         self.commodity = commodity 
         self.account = account
         self.risk = risk
+        self.export = export
 
     # Methods
     ## General
@@ -59,21 +60,23 @@ class ControllerMain():
             , self.commodity
             , self.account
             , self.risk)
-        results = calc.calculate()
+        calc.calculate()
         
         printer = Printer()
         #TODO: create a printer class and put the functions there
         #TODO: The printer class should contain functions that take an optional filename argument to export to the file.
         #TODO: Logic to get the export + generate the filename
+        #TODO: make market and commodity obligatory!
+        export_file = "export/yyyymmdd_hhmmss_V001_<market>_<commodity>.txt" if export else ""
         header = [["GENERAL"]]
         print_in_columns(header, Align.LEFT)
         print_separator()
-        printer.print_general()
+        printer.print_general(calc.result_general, calc.result_buy, calc.result_sell, export_file)
         print('')
         header = [["GNUCASH"]]
         print_in_columns(header, Align.LEFT)
         print_separator()
-        printer.print_gnucash()
+        printer.print_gnucash(calc.result_general, calc.result_buy, calc.result_sell, export_file)
         
         if profile:
             print('Profile not implemented yet.')
