@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'viewpyqt.ui'
 #
-# Created: Thu Sep 26 18:23:36 2013
+# Created: Thu Sep 26 19:15:59 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -206,13 +206,13 @@ class Ui_MainWindow(object):
         self.lbl_marketcode.setFont(font)
         self.lbl_marketcode.setObjectName(_fromUtf8("lbl_marketcode"))
         self.gridLayout.addWidget(self.lbl_marketcode, 0, 5, 1, 1)
-        self.lbl_stockname = QtGui.QLabel(self.centralwidget)
+        self.lbl_commodity_name = QtGui.QLabel(self.centralwidget)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Inconsolata"))
         font.setPointSize(14)
-        self.lbl_stockname.setFont(font)
-        self.lbl_stockname.setObjectName(_fromUtf8("lbl_stockname"))
-        self.gridLayout.addWidget(self.lbl_stockname, 0, 6, 1, 1)
+        self.lbl_commodity_name.setFont(font)
+        self.lbl_commodity_name.setObjectName(_fromUtf8("lbl_commodity_name"))
+        self.gridLayout.addWidget(self.lbl_commodity_name, 0, 6, 1, 1)
         self.lbl_quantity = QtGui.QLabel(self.centralwidget)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Inconsolata"))
@@ -585,8 +585,8 @@ class Ui_MainWindow(object):
         self.lbl_check.setText(_translate("MainWindow", "TextLabel", None))
         self.lbl_infofinance.setText(_translate("MainWindow", "TextLabel", None))
         self.lbl_date.setText(_translate("MainWindow", "Date", None))
-        self.lbl_marketcode.setText(_translate("MainWindow", "Market code", None))
-        self.lbl_stockname.setText(_translate("MainWindow", "Stock name", None))
+        self.lbl_marketcode.setText(_translate("MainWindow", "Market", None))
+        self.lbl_commodity_name.setText(_translate("MainWindow", "Commodity", None))
         self.lbl_quantity.setText(_translate("MainWindow", "Quantity", None))
         self.lbl_price.setText(_translate("MainWindow", "Price", None))
         self.lbl_commission.setText(_translate("MainWindow", "Commission", None))
