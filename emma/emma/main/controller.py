@@ -8,13 +8,14 @@ import shutil
 import os
 #from decimal import getcontext
 from modules.calculator import Calculator
+from modules.printer import Printer
 from generic.modules.function import print_separator, print_in_columns
 from generic.modules.constant import Align
 
 class ControllerMain():
     """ Contains the bussiness logic of the application. """
     
-    def __init__(self, config, pool, amount, tax, commission, shares, price, buy, automatic, market, commodity, account, risk):
+    def __init__(self, config, pool, amount, tax, commission, shares, price, buy, automatic, market, commodity, account, risk, export):
         """ Initialize """
         # initialise special vars
         self.config = config #object
@@ -58,17 +59,21 @@ class ControllerMain():
             , self.commodity
             , self.account
             , self.risk)
-        calc.calculate()
+        results = calc.calculate()
         
+        printer = Printer()
+        #TODO: create a printer class and put the functions there
+        #TODO: The printer class should contain functions that take an optional filename argument to export to the file.
+        #TODO: Logic to get the export + generate the filename
         header = [["GENERAL"]]
         print_in_columns(header, Align.LEFT)
         print_separator()
-        calc.print_general()
+        printer.print_general()
         print('')
         header = [["GNUCASH"]]
         print_in_columns(header, Align.LEFT)
         print_separator()
-        calc.print_gnucash()
+        printer.print_gnucash()
         
         if profile:
             print('Profile not implemented yet.')
