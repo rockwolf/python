@@ -18,6 +18,7 @@ Options:
     -r risk, --risk risk                    [default: 0.02]
     -u symbol, --currency symbol            [default: USD]
     -x rate, --exchange rate                [default: 1.0]
+    --estimate
     --export
     --automatic
     --profile
@@ -40,11 +41,11 @@ from setup.setup import Setup
 from decimal import Decimal
 from modules.constant import *
 
-def main(pool, amount, tax, commission, shares, price, buy, automatic, market, commodity, account, profile, risk, currency, exchange):
+def main(pool, amount, tax, commission, shares, price, buy, automatic, market, commodity, account, profile, risk, currency, exchange, estimate, export):
     """ Main driver. """
     ### Run the application ###
     from main.main import MainWrapper
-    wrapper = MainWrapper(pool, amount, tax, commission, shares, price, buy, automatic, market, commodity, account, risk, currency, exchange)
+    wrapper = MainWrapper(pool, amount, tax, commission, shares, price, buy, automatic, market, commodity, account, risk, currency, exchange, estimate, export)
     wrapper.run(profile) #run the main method for the program
       
 def install():
@@ -77,6 +78,7 @@ if __name__ == "__main__":
     risk = Decimal(args['--risk']) if args['--risk'] else Decimal(0.02)
     currency = args['--currency']) if args['--currency'] else DEFAULT_CURRENCY
     exchange = args['--exchange']) if args['--exchange'] else DEFAULT_DECIMAL
+    estimate = args['--estimate']
     export = args['--export']
    
     if args['--install']:
@@ -104,4 +106,5 @@ if __name__ == "__main__":
         , risk
         , currency
         , exchange
+        , estimate
         , export)
