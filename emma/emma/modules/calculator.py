@@ -140,66 +140,6 @@ class Calculator():
             self.result_sell["amount_with_tax"] = str(calculate_amount_with_tax(self.tax, self.shares, self.price))
         except Exception as ex:
             print('Error in calculate:', ex)
-
-    def print_general(self):
-        """
-            Print the results with headers etc.
-        """
-        try:
-            headers_general = [
-                ["amount", "tax", "commission", "shares", "amount_simple"]
-                , ['-'*len("amount"), '-'*len("tax"), '-'*len("commission"), '-'*len("shares"), '-'*len("amount_simple")]]
-            headers_buy_sell = [
-                ["cost_tax", "amount_with_tax"]
-                , ['-'*len("cost_tax"), '-'*len("amount_with_tax")]]
-            
-            subheader = [["GENERAL"], ['-'*len("GENERAL")*2]]
-            print_in_columns(subheader)
-            print_in_columns(headers_general)
-            print_in_columns([self.result_general.values()])
-            if self.buy:
-                subheader = [["BUY"], ['-'*len("BUY")*2]]
-                print_in_columns(subheader)
-                print_in_columns(headers_buy_sell)
-                print_in_columns([self.result_buy.values()])
-            else:
-                subheader = [["SELL"], ['-'*len("SELL")*2]]
-                print_in_columns(subheader)
-                print_in_columns(headers_buy_sell)
-                print_in_columns([self.result_sell.values()])
-        except Exception as ex:
-            print('Error in print_results():', ex)
-
-    def print_gnucash(self):
-        """
-            Print statements to enter in gnucash.
-        """
-        try:
-            headers = [
-                ['account', 'shares', 'price', 'debit', 'credit']
-                , ['-'*len('account'), '-'*len('shares'), '-'*len('price'), '-'*len('debit'), '-'*len('credit')]]
-            if self.buy:
-                lines = []
-                lines.append(["assets:stock:<market>.<commodity>", self.shares, self.price, "", self.result_general["amount_simple"]])
-                lines.append(["expenses:commission:stock:<market>.<commodity>", "", "", self.commission])
-                lines.append(["expenses:tax:stock:<market>.<commodity>", "", "", self.result_buy["cost_tax"]])
-                lines.append(["assets:current_assets:stock:<bank account>", "", "", "", self.amount])
-                subheader = [["BUY"], ['-'*len("BUY")*2]]
-                print_in_columns(subheader)
-                print_in_columns(headers)
-                print_in_columns(lines)
-            else:
-                lines = []
-                lines.append(["assets:stock:<market>.<commodity>", self.shares, self.price, self.result_general["amount_simple"], ""])
-                lines.append(["expenses:commission:stock:<market>.<commodity>", "", "", self.commission, ""])
-                lines.append(["expenses:tax:stock:<market>.<commodity>", "", "", "", self.result_sell["cost_tax"]])
-                lines.append(["assets:current_assets:stock:<bank account>", "", "", "", self.amount])
-                subheader = [["SELL"], ['-'*len("SELL")*2]]
-                print_in_columns(subheader)
-                print_in_columns(headers)
-                print_in_columns(lines)
-        except Exception as ex:
-            print('Error in print_gnucash():', ex)
             
     def has_missing_parameter(self, parameters):
         """
