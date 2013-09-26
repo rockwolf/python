@@ -8,7 +8,7 @@ from PyQt4 import QtCore, QtGui
 from decimal import Decimal
 
 from pyqt.viewpyqt import Ui_MainWindow
-from pyqt_generic.tablemodel import TableModel
+from generic.pyqt.tablemodel import TableModel
 from modules.function import *
 
 class ControllerPyqt(QtGui.QMainWindow):
@@ -167,16 +167,16 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.gui.spn_risk.setValue(0.0)
         self.gui.chk_manual_commission.setEnabled(False)
         self.set_current_pool() #reset pool to current value
-        self.ctl.set_infodetails()
+        self.ctl.set_info_details()
 
     def cmb_commodity_name_changed(self):
-        """ When the stock name selection changes. """    
-        self.ctl.filltxt_stock_description()
+        """ When the commodity selection changes. """    
+        self.ctl.filltxt_commodity_description()
         self.ctl.set_info_details()        
         
     def cmb_market_code_changed(self):
         """ When the market_code combo selection changes. """
-        self.ctl.fillcmb_stock_name()
+        self.ctl.fillcmb_commodity_name()
         self.ctl.filltxt_market_description()
     
     def init_tbl_summary(self):
@@ -184,7 +184,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         # set the table header
         # TODO: set header values in mdlconstants and use the constants
         header = ['date', 'account_from', 'account_to', 'amount',
-                'comment', 'commodity', 'stock_description', 'market',
+                'comment', 'commodity', 'commodity_description', 'market',
                 'market_description', 'quantity', 'price',
                 'commission', 'tax', 'risk', 'currency_from', 'currency_to', 'exchange_rate',
                 'automatic_flag', 'expires_on']
@@ -315,7 +315,7 @@ class ControllerPyqt(QtGui.QMainWindow):
     	""" Returns the value of the dt_expiration date picker. """
     	return str(self.gui.dt_expiration.date().toString(QtCore.Qt.ISODate))
 
-    def set_infodetails(self, value):
+    def set_info_details(self, value):
        """ Sets new info on the lbl_infodetails label. """
        self.gui.lbl_infodetails.setText(value)
 
@@ -331,7 +331,7 @@ class ControllerPyqt(QtGui.QMainWindow):
     def set_commodity_description(self, value):
        """ Sets new info on txt_commodity_description. """
        self.gui.txt_commodity_description.clear()
-       self.gui.txt_stock_commodity.setText(value)
+       self.gui.txt_commodity_description.setText(value)
    
     def add_commodity_name(self, value):
        """ Add a new item to cmb_commodity_name. """

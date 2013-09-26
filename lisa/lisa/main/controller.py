@@ -276,7 +276,7 @@ class ControllerMain():
         """
         table.delete_row()
 
-    def set_infodetails(self):
+    def set_info_details(self):
         """
             Update infolabel details.
         """
@@ -287,13 +287,13 @@ class ControllerMain():
         #TODO: get the correct accounts here
         if deals_with_stocks(account_from, account_to) and not stock:
             info = dba.get_commodity_info(commodity)
-            self.gui.set_infodetails(
+            self.gui.set_info_details(
                 '{} ({}): {}'.format(
                     info[1]
                     ,''.join(info[2].split())
                     ,info[0]))
         else:
-            self.gui.set_infodetails('')
+            self.gui.set_info_details('')
         dba = None
 
     def fillcmb_commodity_name(self):
@@ -321,7 +321,7 @@ class ControllerMain():
         """
         dba = DatabaseAccess(self.config)
         self.gui.set_commodity_description(
-                dba.get_stock_description(self.gui.get_commodity_name()))
+                dba.get_commodity_description(self.gui.get_commodity_name()))
         dba = None
 
     def fill_spn_pool(self):

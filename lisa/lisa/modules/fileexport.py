@@ -7,7 +7,7 @@ import os
 import csv
 
 from database.databaseaccess import DatabaseAccess
-from modules_generic.function import current_date
+from generic.modules.function import current_date
 
 class FileExport():
     """ Class with methods to export to a textfile. """

@@ -853,10 +853,11 @@ class DatabaseAccess():
         values = []
         session = self.Session()
         try:
-            obj = session.query(V_REP_CHECK_TOTAL)
-            for instance in obj:
-                    values.append([instance.account_name,
-                        instance.account_total])
+            dummy = ""
+            #obj = session.query(V_REP_CHECK_TOTAL)
+            #for instance in obj:
+            #        values.append([instance.account_name,
+            #            instance.account_total])
         except Exception as ex:
             print("Error in get_rep_check_totals: ", ex)
         finally:

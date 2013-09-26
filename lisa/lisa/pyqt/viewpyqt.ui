@@ -275,12 +275,12 @@
            </font>
           </property>
           <property name="text">
-           <string>Market code</string>
+           <string>Market</string>
           </property>
          </widget>
         </item>
         <item row="0" column="6">
-         <widget class="QLabel" name="lbl_stockname">
+         <widget class="QLabel" name="lbl_commodityname">
           <property name="font">
            <font>
             <family>Inconsolata</family>
@@ -288,7 +288,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Stock name</string>
+           <string>Commodity</string>
           </property>
          </widget>
         </item>
@@ -419,7 +419,7 @@
          </widget>
         </item>
         <item row="1" column="6">
-         <widget class="QComboBox" name="cmb_stock_name">
+         <widget class="QComboBox" name="cmb_commodity_name">
           <property name="minimumSize">
            <size>
             <width>120</width>
@@ -523,7 +523,7 @@
          </widget>
         </item>
         <item row="3" column="6">
-         <widget class="QLineEdit" name="txt_stock_description">
+         <widget class="QLineEdit" name="txt_commodity_description">
           <property name="font">
            <font>
             <family>Inconsolata</family>
@@ -825,7 +825,7 @@
       </item>
       <item>
        <layout class="QGridLayout" name="gridLayout_6">
-        <item row="0" column="4">
+        <item row="0" column="6">
          <widget class="QPushButton" name="btn_clear">
           <property name="font">
            <font>
@@ -838,7 +838,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="6">
+        <item row="0" column="8">
          <spacer name="horizontalSpacer_5">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -851,7 +851,7 @@
           </property>
          </spacer>
         </item>
-        <item row="0" column="9">
+        <item row="0" column="11">
          <widget class="QPushButton" name="btn_exit">
           <property name="font">
            <font>
@@ -864,7 +864,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
+        <item row="0" column="2">
          <widget class="QPushButton" name="btn_add">
           <property name="font">
            <font>
@@ -877,7 +877,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="5">
+        <item row="0" column="7">
          <widget class="QPushButton" name="btn_execute">
           <property name="font">
            <font>
@@ -890,7 +890,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="7">
+        <item row="0" column="9">
          <widget class="QLabel" name="lbl_infodetails">
           <property name="font">
            <font>
@@ -903,7 +903,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
+        <item row="0" column="3">
          <widget class="QPushButton" name="btn_update">
           <property name="font">
            <font>
@@ -916,7 +916,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="2">
+        <item row="0" column="4">
          <widget class="QPushButton" name="btn_remove">
           <property name="font">
            <font>
@@ -929,7 +929,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="3">
+        <item row="0" column="5">
          <widget class="QPushButton" name="btn_removelast">
           <property name="font">
            <font>
@@ -942,7 +942,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="8">
+        <item row="0" column="10">
          <spacer name="horizontalSpacer_10">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -954,6 +954,32 @@
            </size>
           </property>
          </spacer>
+        </item>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="btn_emma">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>&amp;Emma</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="btn_gnucash">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>&amp;Gnucash</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -973,13 +999,13 @@
  <tabstops>
   <tabstop>dt_date</tabstop>
   <tabstop>cmb_market_code</tabstop>
-  <tabstop>cmb_stock_name</tabstop>
+  <tabstop>cmb_commodity_name</tabstop>
   <tabstop>spn_quantity</tabstop>
   <tabstop>spn_price</tabstop>
   <tabstop>spn_commission</tabstop>
   <tabstop>spn_tax</tabstop>
   <tabstop>txt_market_description</tabstop>
-  <tabstop>txt_stock_description</tabstop>
+  <tabstop>txt_commodity_description</tabstop>
   <tabstop>btn_add</tabstop>
   <tabstop>btn_update</tabstop>
   <tabstop>btn_remove</tabstop>

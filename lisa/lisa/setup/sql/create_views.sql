@@ -195,12 +195,13 @@ where
 CREATE VIEW V_EXPORT_LEDGER
 AS
 select
-    f.date --TODO: format?
+    /*f.date --TODO: format?
     ,f.comment
     ,f.amount_debit
     ,f.amount_credit
     --,c.code
-    --TODO: finish
+    --TODO: finish */
+    *
 from
     t_finance f
     --inner join t_currency_exchange ce on ce.currency_exchange_id = f.currency_exchange_id

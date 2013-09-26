@@ -9,7 +9,7 @@ from modules.core_module import CoreModule
 from modules.statement import Statement
 from modules.constant import *
 from modules.function import *
-from modules_generic.function import *
+from generic.modules.function import *
 
 class Finance(CoreModule):
     """
