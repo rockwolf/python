@@ -13,7 +13,7 @@ class MainWrapper():
         Set system paths and run the app.
     """
     
-    def __init__(self, pool, amount, tax, commission, shares, price, buy, automatic, market, commodity, account, risk, currency, exchange, export):
+    def __init__(self, pool, amount, tax, commission, shares, price, buy, automatic, market, commodity, account, risk, currency, exchange, estimate, export):
         """
             Set program params and python path and load the config.
         """
@@ -43,6 +43,7 @@ class MainWrapper():
         self.risk = risk
         self.currency = currency
         self.exchange = exchange
+        self.estimate = estimate
         self.export = export
 
     def adjust_system_path(self):
@@ -79,6 +80,7 @@ class MainWrapper():
                     self.risk,
                     self.currency,
                     self.exchange,
+                    self.esetimate,
                     self.export)
             ctl.run(profile)
             ctl = None
