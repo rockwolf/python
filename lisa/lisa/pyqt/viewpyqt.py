@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'viewpyqt.ui'
 #
-# Created: Thu Sep 26 19:15:59 2013
+# Created: Thu Sep 26 22:30:29 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -137,6 +137,10 @@ class Ui_MainWindow(object):
 "    color: #626262;\n"
 "}"))
         self.centralwidget = QtGui.QWidget(MainWindow)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.centralwidget.setFont(font)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.gridLayout_2 = QtGui.QGridLayout(self.centralwidget)
         self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
@@ -337,7 +341,7 @@ class Ui_MainWindow(object):
         font.setFamily(_fromUtf8("Inconsolata"))
         font.setPointSize(14)
         self.cmb_account_from.setFont(font)
-        self.cmb_account_from.setInputMethodHints(QtCore.Qt.ImhLowercaseOnly)
+        self.cmb_account_from.setInputMethodHints(QtCore.Qt.ImhPreferLowercase)
         self.cmb_account_from.setEditable(True)
         self.cmb_account_from.setObjectName(_fromUtf8("cmb_account_from"))
         self.gridLayout.addWidget(self.cmb_account_from, 1, 1, 1, 1)

@@ -127,6 +127,12 @@
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="font">
+    <font>
+     <family>Inconsolata</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
      <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,1">
@@ -541,7 +547,7 @@
            </font>
           </property>
           <property name="inputMethodHints">
-           <set>Qt::ImhLowercaseOnly</set>
+           <set>Qt::ImhPreferLowercase</set>
           </property>
           <property name="editable">
            <bool>true</bool>
