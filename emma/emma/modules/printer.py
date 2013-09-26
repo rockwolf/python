@@ -19,7 +19,7 @@ Calculator class
         """
         pass
     
-    def print_general(self):
+    def print_general(self, result_general, result_buy, result_sell, export_file = ""):
         """
             Print the results with headers etc.
         """
@@ -34,21 +34,21 @@ Calculator class
             subheader = [["GENERAL"], ['-'*len("GENERAL")*2]]
             print_in_columns(subheader)
             print_in_columns(headers_general)
-            print_in_columns([self.result_general.values()])
+            print_in_columns([result_general.values()])
             if self.buy:
                 subheader = [["BUY"], ['-'*len("BUY")*2]]
                 print_in_columns(subheader)
                 print_in_columns(headers_buy_sell)
-                print_in_columns([self.result_buy.values()])
+                print_in_columns([result_buy.values()])
             else:
                 subheader = [["SELL"], ['-'*len("SELL")*2]]
                 print_in_columns(subheader)
                 print_in_columns(headers_buy_sell)
-                print_in_columns([self.result_sell.values()])
+                print_in_columns([result_sell.values()])
         except Exception as ex:
             print('Error in print_results():', ex)
 
-    def print_gnucash(self):
+    def print_gnucash(self, result_general, result_buy, result_sell, export_file = ""):
         """
             Print statements to enter in gnucash.
         """
@@ -58,9 +58,9 @@ Calculator class
                 , ['-'*len('account'), '-'*len('shares'), '-'*len('price'), '-'*len('debit'), '-'*len('credit')]]
             if self.buy:
                 lines = []
-                lines.append(["assets:stock:<market>.<commodity>", self.shares, self.price, "", self.result_general["amount_simple"]])
+                lines.append(["assets:stock:<market>.<commodity>", self.shares, self.price, "", result_general["amount_simple"]])
                 lines.append(["expenses:commission:stock:<market>.<commodity>", "", "", self.commission])
-                lines.append(["expenses:tax:stock:<market>.<commodity>", "", "", self.result_buy["cost_tax"]])
+                lines.append(["expenses:tax:stock:<market>.<commodity>", "", "", result_buy["cost_tax"]])
                 lines.append(["assets:current_assets:stock:<bank account>", "", "", "", self.amount])
                 subheader = [["BUY"], ['-'*len("BUY")*2]]
                 print_in_columns(subheader)
@@ -68,9 +68,9 @@ Calculator class
                 print_in_columns(lines)
             else:
                 lines = []
-                lines.append(["assets:stock:<market>.<commodity>", self.shares, self.price, self.result_general["amount_simple"], ""])
+                lines.append(["assets:stock:<market>.<commodity>", self.shares, self.price, result_general["amount_simple"], ""])
                 lines.append(["expenses:commission:stock:<market>.<commodity>", "", "", self.commission, ""])
-                lines.append(["expenses:tax:stock:<market>.<commodity>", "", "", "", self.result_sell["cost_tax"]])
+                lines.append(["expenses:tax:stock:<market>.<commodity>", "", "", "", result_sell["cost_tax"]])
                 lines.append(["assets:current_assets:stock:<bank account>", "", "", "", self.amount])
                 subheader = [["SELL"], ['-'*len("SELL")*2]]
                 print_in_columns(subheader)
