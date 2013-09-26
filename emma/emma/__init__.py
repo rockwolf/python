@@ -16,6 +16,7 @@ Options:
     -d commodity, --commodity commodity
     -u account, --account account           [default: binb00]
     -r risk, --risk risk                    [default: 0.02]
+    --export
     --automatic
     --profile
     --install
@@ -72,6 +73,7 @@ if __name__ == "__main__":
     commodity = args['--commodity']
     account = args['--account']
     risk = Decimal(args['--risk']) if args['--risk'] else Decimal(0.02)
+    export = args['--export']
    
     if args['--install']:
         install()
@@ -95,4 +97,5 @@ if __name__ == "__main__":
         , commodity
         , account
         , profile
-        , risk)
+        , risk
+        , export)
