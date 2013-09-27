@@ -17,7 +17,7 @@ default_tax = '0.25'
 default_risk = '2'
 # default currency
 # uses the index from T_CURRENCY
-default_currency_from = '1'
+default_currency_from = '2'
 default_currency_to = '1'
 # default exchange rate
 default_exchange_rate = '1'
