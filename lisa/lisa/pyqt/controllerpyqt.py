@@ -68,6 +68,14 @@ class ControllerPyqt(QtGui.QMainWindow):
             self.gui.btn_removelast, 
             QtCore.SIGNAL("clicked()"), 
             self.btn_removelast_clicked)
+        self.gui.btn_emma.connect(
+            self.gui.btn_emma, 
+            QtCore.SIGNAL("clicked()"), 
+            self.btn_emma_clicked)
+        self.gui.btn_gnucash.connect(
+            self.gui.btn_gnucash, 
+            QtCore.SIGNAL("clicked()"), 
+            self.btn_gnucash_clicked)
 
     # Button Events
     def btn_execute_clicked(self):
@@ -93,7 +101,6 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.ctl.add_tbl_summary(self.table, lines)
         self.clear_fields()
         self.set_lbl_check(self.ctl.get_check_info(self.table.tablecontent))
-        
 
     def btn_update_clicked(self):
         """ Update the selected record in the table. """
@@ -111,6 +118,18 @@ class ControllerPyqt(QtGui.QMainWindow):
     def btn_removelast_clicked(self):
         """ Remove the last added record from the table. """
         self.ctl.remove_last(self.table)
+        
+    def btn_emma_clicked(self):
+        """
+            Equations for money management.
+        """
+        pass
+
+    def btn_gnucash_clicked(self):
+        """
+            What to enter in GnuCash?
+        """
+        pass
         
     def cmb_commodity_name_key_pressed(self, qKeyEvent):
         """
