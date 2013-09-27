@@ -113,7 +113,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         #TODO: get the table row to get the index
         #This currently gets the last row.
         selected_index = -1
-        self.ctl.remove_selected(self.table, selected_index) 
+        self.ctl.remove_selected(self.table, selected_index)
     
     def btn_removelast_clicked(self):
         """ Remove the last added record from the table. """
@@ -123,12 +123,21 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
             Equations for money management.
         """
-        pass
+        input_line = self.ctl.get_input_line(self.table)
+        buying = we_are_buying(
+            input_line[InputIndex.ACCOUNT_FROM],
+            input_line[InputIndex.ACCOUNT_TO])
+        #TODO: open dialog that will display the emma info
+        #TODO: call calculate function of that window,
+        # with input_line and buying as parameters
 
     def btn_gnucash_clicked(self):
         """
             What to enter in GnuCash?
         """
+        #TODO: show gnucash entries for all the lines in the table.
+        # OR show gnucash info for all lines in the db that have not been entered yet.
+        # => add extra column: gnucash with value 0 or 1 (1 = already entered in gnucash)
         pass
         
     def cmb_commodity_name_key_pressed(self, qKeyEvent):
