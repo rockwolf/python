@@ -10,6 +10,7 @@ from decimal import Decimal
 from pyqt.viewpyqt import Ui_MainWindow
 from generic.pyqt.tablemodel import TableModel
 from modules.function import *
+from modules.constant import *
 
 class ControllerPyqt(QtGui.QMainWindow):
     """ Controller that also contains pyqt related code. """
