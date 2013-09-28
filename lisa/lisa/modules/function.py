@@ -41,22 +41,14 @@ def is_an_investment(account_from, account_to):
             break
     return result
     
-def is_negative_amount(account_from, account_to):
+def is_negative_amount(account_from):
     """
         Check if the amount we enter should be positive or negative.
-        Rules:
-        Debit all expenses and losses, credit all incomes and gains
-        Debit all assets, credit all liabilities
-        Debit the receiver, credit the giver
     """
     result = False
-    #TODO: if 'expenses' in account_from ... etc.
-    # Make this simple: when money moves from a bank-account, it is negative
-    # when it moves to a bank account, it is positive
-    # if account_from in bank_accounts?
-    # Perhaps add an extra field in the db T_ACCOUNT to indicate which account is a bank-account?
+    # If asset in account_from
     for name in NEGATIVES:
-        if name.lower() in account_name.lower():
+        if name.lower() in account_from.lower():
             result = True
             break;
     return result
@@ -90,6 +82,8 @@ def we_are_buying(account_from, account_to):
     """
         Are we buying? (not buying == selling)
     """
+    buy = False
+    sell = False
     for value in INVESTING_ACCOUNTS:
         if (value.lower() in account_from):
             buy = True

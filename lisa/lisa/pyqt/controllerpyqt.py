@@ -8,9 +8,23 @@ from PyQt4 import QtCore, QtGui
 from decimal import Decimal
 
 from pyqt.viewpyqt import Ui_MainWindow
+from pyqt.viewpyqt_dialog_emma import Ui_DialogEmma
 from generic.pyqt.tablemodel import TableModel
 from modules.function import *
 from modules.constant import *
+
+class DialogEmma(QtGui.QDialog):
+    """
+        Subclassing the DialogEmma dialog
+        to define the accept.
+    """
+    def __init(self, parent=None):
+        super(DialogEmma, self).__init__(parent)
+        self.ui = Ui_DialogEmma()
+        self.ui.setupUi(self)
+        # use new style signals
+        self.ui.buttonBox.accepted.connect(self.accept)
+        self.ui.buttonBox.rejected.connect(self.reject)
 
 class ControllerPyqt(QtGui.QMainWindow):
     """ Controller that also contains pyqt related code. """
@@ -125,12 +139,20 @@ class ControllerPyqt(QtGui.QMainWindow):
             Equations for money management.
         """
         input_line = self.ctl.get_input_line(self.table)
+        print("test1")
         buying = we_are_buying(
             input_line[InputIndex.ACCOUNT_FROM],
             input_line[InputIndex.ACCOUNT_TO])
+        print("test2")
         #TODO: open dialog that will display the emma info
         #TODO: call calculate function of that window,
         # with input_line and buying as parameters
+        self.dialog = DialogEmma(self)
+        print("test3")
+        self.dialog.show() # exec_() for modal, show() for non-modal dialog
+        print("test4")
+        self.dialog.txt_general.setText("test")
+        print("test5")
 
     def btn_gnucash_clicked(self):
         """

@@ -106,10 +106,7 @@ class InputIndex():
     MANUAL_COMMISSION = 17
     DATE_EXPIRATION = 18
     POOL = 19
-    PERIODIC_FLAG = 20
-    PERIODIC_START = 21
-    PERIODIC_END = 22
-    SIZE = 22 #size of the enum
+    SIZE = 20 #size of the enum
     
 class Message():
     """
@@ -145,8 +142,7 @@ INVESTING_ACCOUNTS = ['binb00']
 TRADING_ACCOUNTS = ['whsi00']
 BETTING_ACCOUNTS = ['unib00']
 INVESTMENT = ['stock', 'fund', 'bond']
-#TODO: credit the giver? How to add to NEGATIVES?
-NEGATIVES = ['income', 'capital_gain', 'profit', 'liabilities']
+NEGATIVES = ['asset']
     
 DEFAULT_DATE = "1900-01-01"
 DEFAULT_DECIMAL = Decimal(0.0)

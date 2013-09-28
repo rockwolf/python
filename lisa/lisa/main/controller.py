@@ -234,7 +234,7 @@ class ControllerMain():
             pool = self.gui.get_pool()
             
         #TODO: check if it needs to be a negative amount
-        if is_negative_amount(account_name):
+        if is_negative_amount(self.gui.get_account_from()):
             amount = '-' + self.gui.get_amount()
         else:
             amount = self.gui.get_amount()
@@ -259,9 +259,6 @@ class ControllerMain():
         str_list[InputIndex.MANUAL_COMMISSION] = self.gui.get_manual_commission()
         str_list[InputIndex.DATE_EXPIRATION] = self.gui.get_date_expiration()
         str_list[InputIndex.POOL] = pool
-        str_list[InputIndex.PERIODIC_FLAG] = self.gui.get_periodic_flag()
-        str_list[InputIndex.PERIODIC_START] = self.gui.get_periodic_start()
-        str_list[InputIndex.PERIODIC_END] = self.gui.get_periodic_end()
         return str_list
 
     def remove_selected(self, table, selected_index):

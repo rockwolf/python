@@ -27,6 +27,9 @@
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
        </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="0" column="0">
@@ -56,6 +59,9 @@
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
        </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="3" column="0">
@@ -68,6 +74,9 @@
        </property>
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -111,7 +120,7 @@
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::Close</set>
      </property>
     </widget>
    </item>
@@ -126,8 +135,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>257</x>
+     <y>555</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -142,12 +151,28 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>325</x>
+     <y>555</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>clicked(QAbstractButton*)</signal>
+   <receiver>DialogEmma</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1155</x>
+     <y>542</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1187</x>
+     <y>561</y>
     </hint>
    </hints>
   </connection>
