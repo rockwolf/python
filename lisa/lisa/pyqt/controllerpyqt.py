@@ -7,24 +7,28 @@ import sys
 from PyQt4 import QtCore, QtGui
 from decimal import Decimal
 
-from pyqt.viewpyqt import Ui_MainWindow
-from pyqt.viewpyqt_dialog_emma import Ui_DialogEmma
+#from pyqt.viewpyqt import Ui_MainWindow
+#from pyqt.viewpyqt_dialog_emma import Ui_DialogEmma
+import pyqt.viewpyqt
+import pyqt.viewpyqt_dialog_emma
 from generic.pyqt.tablemodel import TableModel
 from modules.function import *
 from modules.constant import *
 
-class DialogEmma(QtGui.QDialog):
+class DialogEmma(QtGui.QDialog, pyqt.viewpyqt_dialog_emma.Ui_DialogEmma):
     """
         Subclassing the DialogEmma dialog
         to define the accept.
     """
-    def __init(self, parent=None):
+    def __init(self, data, parent=None):
         super(DialogEmma, self).__init__(parent)
-        self.ui = Ui_DialogEmma()
+        self.ui = pyqt.viewpyqt_dialog_emma.Ui_DialogEmma()
         self.ui.setupUi(self)
         # use new style signals
-        self.ui.buttonBox.accepted.connect(self.accept)
-        self.ui.buttonBox.rejected.connect(self.reject)
+        self.ui.buttonBox.accepted.connect(self.ui.accept)
+        self.ui.buttonBox.rejected.connect(self.ui.reject)
+        self.ui.txt_general.setText(data)
+        #self.updateUi()
 
 class ControllerPyqt(QtGui.QMainWindow):
     """ Controller that also contains pyqt related code. """
@@ -36,61 +40,25 @@ class ControllerPyqt(QtGui.QMainWindow):
         # initialize gui
         QtGui.QMainWindow.__init__(self)
 
-        self.gui = Ui_MainWindow()
+        self.gui = pyqt.viewpyqt.Ui_MainWindow()
         self.gui.setupUi(self) 
         self.connectslots()
         self.ctl = controller
 
     def connectslots(self):
         """ Connect methods to the signals the gui emits """
-        self.gui.btn_exit.connect(
-            self.gui.btn_exit, 
-            QtCore.SIGNAL('clicked()'), 
-            self.btn_exit_clicked)
-        self.gui.btn_add.connect(
-            self.gui.btn_add, 
-            QtCore.SIGNAL("clicked()"), 
-            self.btn_add_clicked)
-        self.gui.cmb_market_code.connect(
-            self.gui.cmb_market_code, 
-            QtCore.SIGNAL('currentIndexChanged(int)'), 
-            self.cmb_market_code_changed)
-        self.gui.cmb_commodity_name.connect(
-            self.gui.cmb_commodity_name, 
-            QtCore.SIGNAL('currentIndexChanged(int)'), 
-            self.cmb_commodity_name_changed),
-        self.gui.cmb_commodity_name.connect(
-            self.gui.cmb_commodity_name,
-            QtCore.SIGNAL("keyPressed()"),
-            self.cmb_commodity_name_key_pressed),
-        self.gui.btn_exit.connect(
-            self.gui.btn_execute, 
-            QtCore.SIGNAL("clicked()"), 
-            self.btn_execute_clicked)
-        self.gui.btn_clear.connect(
-            self.gui.btn_clear, 
-            QtCore.SIGNAL("clicked()"), 
-            self.btn_clear_clicked)
-        self.gui.btn_update.connect(
-            self.gui.btn_update, 
-            QtCore.SIGNAL("clicked()"), 
-            self.btn_update_clicked)
-        self.gui.btn_remove.connect(
-            self.gui.btn_remove, 
-            QtCore.SIGNAL("clicked()"), 
-            self.btn_remove_clicked)
-        self.gui.btn_removelast.connect(
-            self.gui.btn_removelast, 
-            QtCore.SIGNAL("clicked()"), 
-            self.btn_removelast_clicked)
-        self.gui.btn_emma.connect(
-            self.gui.btn_emma, 
-            QtCore.SIGNAL("clicked()"), 
-            self.btn_emma_clicked)
-        self.gui.btn_gnucash.connect(
-            self.gui.btn_gnucash, 
-            QtCore.SIGNAL("clicked()"), 
-            self.btn_gnucash_clicked)
+        self.gui.btn_exit.clicked.connect(self.btn_exit_clicked)
+        self.gui.btn_add.clicked.connect(self.btn_add_clicked)
+        self.gui.cmb_market_code.currentIndexChanged[int].connect(self.cmb_market_code_changed)
+        self.gui.cmb_commodity_name.currentIndexChanged[int].connect(self.cmb_commodity_name_changed)
+        #self.gui.cmb_commodity_name.keyPressed.connect(self.cmb_commodity_name_key_pressed)
+        self.gui.btn_execute.clicked.connect(self.btn_execute_clicked)
+        self.gui.btn_clear.clicked.connect(self.btn_clear_clicked)
+        self.gui.btn_update.clicked.connect(self.btn_update_clicked)
+        self.gui.btn_remove.clicked.connect(self.btn_remove_clicked)
+        self.gui.btn_removelast.clicked.connect(self.btn_removelast_clicked)
+        self.gui.btn_emma.clicked.connect(self.btn_emma_clicked)
+        self.gui.btn_gnucash.clicked.connect(self.btn_gnucash_clicked)
 
     # Button Events
     def btn_execute_clicked(self):
@@ -149,10 +117,8 @@ class ControllerPyqt(QtGui.QMainWindow):
         # with input_line and buying as parameters
         self.dialog = DialogEmma(self)
         print("test3")
-        self.dialog.show() # exec_() for modal, show() for non-modal dialog
+        self.dialog.exec_() # exec_() for modal, show() for non-modal dialog
         print("test4")
-        self.dialog.txt_general.setText("test")
-        print("test5")
 
     def btn_gnucash_clicked(self):
         """
@@ -163,20 +129,21 @@ class ControllerPyqt(QtGui.QMainWindow):
         # => add extra column: gnucash with value 0 or 1 (1 = already entered in gnucash)
         pass
         
-    def cmb_commodity_name_key_pressed(self, qKeyEvent):
-        """
-            keyPressed event in combo
-        """
-        print('test:', str(qKeyEevnt))
-        if qKeyEvent.key() == QtCore.Qt.Key_Return: 
-            self.ctl.update_accounts_for_commodities(str(self.gui.cmb_commodity_name.currentText()))
+    #def cmb_commodity_name_key_pressed(self, qKeyEvent):
+    #    """
+    #        keyPressed event in combo
+    #    """
+    #    print('test:', str(qKeyEevnt))
+    #    if qKeyEvent.key() == QtCore.Qt.Key_Return: 
+    #        self.ctl.update_accounts_for_commodities(str(self.gui.cmb_commodity_name.currentText()))
 
     # Events
     def toggle_commodity_inputs(self):
         """ Enable/disable all inputs related to commodity information """
-        account_name = self.gui.cmb_account.currentText()
-        is_commodity = deals_with_commodities(account_to)
-        is_trade = is_a_trade(account_to)
+        account_from = self.gui.cmb_account_from.currentText()
+        account_to = self.gui.cmb_account_to.currentText()
+        is_commodity = deals_with_commodities(account_from, account_to)
+        is_trade = is_a_trade(account_from, account_to)
         # enable commodity labels
         self.gui.lbl_market_code.setEnabled(is_commodity)
         self.gui.lbl_commodity_name.setEnabled(is_commodity)
