@@ -20,6 +20,7 @@ from modules.rate import Rate
 from modules.finance import Finance
 from modules.investment import Investment
 from modules.trade import Trade
+from modules.emma import Emma
 
 class ControllerMain():
     """ Contains the bussiness logic of the application. """
