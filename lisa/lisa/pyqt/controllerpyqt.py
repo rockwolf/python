@@ -15,7 +15,7 @@ from generic.pyqt.tablemodel import TableModel
 from modules.function import *
 from modules.constant import *
 
-class DialogEmma(QtGui.QDialog, pyqt.viewpyqt_dialog_emma.Ui_DialogEmma):
+class DialogEmma(QtGui.QDialog):
     """
         Subclassing the DialogEmma dialog
         to define the accept.
@@ -29,6 +29,12 @@ class DialogEmma(QtGui.QDialog, pyqt.viewpyqt_dialog_emma.Ui_DialogEmma):
         self.ui.buttonBox.rejected.connect(self.ui.reject)
         self.ui.txt_general.setText(data)
         #self.updateUi()
+        
+    def accept(self):
+        super(DialogEmma, self).accept() # call the accept method of QDialog.
+                                           # super is needed
+                                           # since we just override the accept method
+
 
 class ControllerPyqt(QtGui.QMainWindow):
     """ Controller that also contains pyqt related code. """
