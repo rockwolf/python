@@ -20,14 +20,14 @@ class DialogEmma(QtGui.QDialog):
         Subclassing the DialogEmma dialog
         to define the accept.
     """
-    def __init(self, data, parent=None):
+    def __init__(self, parent=None):
         super(DialogEmma, self).__init__(parent)
         self.ui = pyqt.viewpyqt_dialog_emma.Ui_DialogEmma()
         self.ui.setupUi(self)
         # use new style signals
-        self.ui.buttonBox.accepted.connect(self.ui.accept)
-        self.ui.buttonBox.rejected.connect(self.ui.reject)
-        self.ui.txt_general.setText(data)
+        self.ui.buttonBox.accepted.connect(self.accept)
+        self.ui.buttonBox.rejected.connect(self.reject)
+        #self.ui.txt_general.setText(data)
         #self.updateUi()
         
     def accept(self):
@@ -112,19 +112,15 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
             Equations for money management.
         """
-        input_line = self.ctl.get_input_line(self.table)
-        print("test1")
-        buying = we_are_buying(
-            input_line[InputIndex.ACCOUNT_FROM],
-            input_line[InputIndex.ACCOUNT_TO])
-        print("test2")
+        #input_line = self.ctl.get_input_line(self.table)
+        #buying = we_are_buying(
+        #    input_line[InputIndex.ACCOUNT_FROM],
+        #    input_line[InputIndex.ACCOUNT_TO])
         #TODO: open dialog that will display the emma info
         #TODO: call calculate function of that window,
         # with input_line and buying as parameters
-        self.dialog = DialogEmma(self)
-        print("test3")
-        self.dialog.exec_() # exec_() for modal, show() for non-modal dialog
-        print("test4")
+        dlg = DialogEmma()
+        dlg.exec_() # exec_() for modal, show() for non-modal dialog
 
     def btn_gnucash_clicked(self):
         """

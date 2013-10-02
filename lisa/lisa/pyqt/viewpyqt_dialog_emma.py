@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'viewpyqt_dialog_emma.ui'
+# Form implementation generated from reading ui file 'pyqt/viewpyqt_dialog_emma.ui'
 #
-# Created: Sat Sep 28 17:43:12 2013
+# Created: Wed Oct  2 18:18:41 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
