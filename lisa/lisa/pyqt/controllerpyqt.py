@@ -12,6 +12,7 @@ from decimal import Decimal
 import pyqt.viewpyqt
 import pyqt.viewpyqt_dialog_emma
 from generic.pyqt.tablemodel import TableModel
+from modules.emma import *
 from modules.function import *
 from modules.constant import *
 
@@ -20,14 +21,14 @@ class DialogEmma(QtGui.QDialog):
         Subclassing the DialogEmma dialog
         to define the accept.
     """
-    def __init__(self, parent=None):
+    def __init__(self, result_general, result_buy, result_sell, parent=None):
         super(DialogEmma, self).__init__(parent)
         self.ui = pyqt.viewpyqt_dialog_emma.Ui_DialogEmma()
         self.ui.setupUi(self)
         # use new style signals
         self.ui.buttonBox.accepted.connect(self.accept)
         self.ui.buttonBox.rejected.connect(self.reject)
-        #self.ui.txt_general.setText(data)
+        self.ui.txt_general.setText(result_general)
         #self.updateUi()
         
     def accept(self):
@@ -112,14 +113,35 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
             Equations for money management.
         """
-        #input_line = self.ctl.get_input_line(self.table)
-        #buying = we_are_buying(
-        #    input_line[InputIndex.ACCOUNT_FROM],
-        #    input_line[InputIndex.ACCOUNT_TO])
+        input_line = self.ctl.get_input_line(self.table)
+        buying = we_are_buying(
+            input_line[InputIndex.ACCOUNT_FROM],
+            input_line[InputIndex.ACCOUNT_TO])
         #TODO: open dialog that will display the emma info
         #TODO: call calculate function of that window,
         # with input_line and buying as parameters
-        dlg = DialogEmma()
+        emma = Emma(
+            input_line[InputIndex.POOL], #TODO:incorporate a margin entry part (see parameter table!) 
+            #
+            input_line[InputIndex.AMOUNT],
+            input_line[InputIndex.TAX],
+            input_line[InputIndex.COMMISSION],
+            0, #input_line[InputIndex.SHARES], #TODO: SHARES DOES NOT EXIST
+            input_line[InputIndex.PRICE],
+            buying,
+            input_line[InputIndex.MARKET],
+            input_line[InputIndex.COMMODITY],
+            input_line[InputIndex.ACCOUNT_FROM],
+            input_line[InputIndex.RISK],
+            input_line[InputIndex.CURRENCY_FROM],
+            input_line[InputIndex.EXCHANGE_RATE],
+            #input_line[InputIndex.ESTIMATE])
+            0) #TODO: ESTIMATE does not exist
+        emma.calculate()
+        dlg = DialogEmma(
+            emma.result_general,
+            emma.result_buy,
+            emma.result_sell)
         dlg.exec_() # exec_() for modal, show() for non-modal dialog
 
     def btn_gnucash_clicked(self):
