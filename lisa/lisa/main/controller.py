@@ -35,6 +35,7 @@ class ControllerMain():
     def run(self):
         """ Start the gui. """
         app = QtGui.QApplication(sys.argv)
+        app.setStyle("cleanLooks")
         window = ControllerPyqt(self.config, self)
         self.gui = window
         window.init_gui()
