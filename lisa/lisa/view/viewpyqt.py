@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'viewpyqt.ui'
 #
-# Created: Thu Sep 26 22:30:29 2013
+# Created: Fri Oct  4 23:23:10 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -66,7 +66,7 @@ class Ui_MainWindow(object):
 "    background: #ffffd7;\n"
 "    color: #626262;\n"
 "}\n"
-"#lbl_stockname\n"
+"#lbl_commodity_name\n"
 "{\n"
 "    background: #ffffd7;\n"
 "    color: #626262;\n"
@@ -134,6 +134,75 @@ class Ui_MainWindow(object):
 "#lbl_infodetails\n"
 "{\n"
 "    background: #ffffd7;\n"
+"    color: #626262;\n"
+"}\n"
+"#chk_long\n"
+"{\n"
+"    background: #ffffd7;\n"
+"    color: #626262;\n"
+"}\n"
+"#btn_emma\n"
+"{\n"
+"    background: #b58900;\n"
+"    color: #fdf6e3;\n"
+"}\n"
+"#btn_gnucash\n"
+"{\n"
+"    background: #b58900;\n"
+"    color: #fdf6e3;\n"
+"}\n"
+"#btn_parameters\n"
+"{\n"
+"    background: #b58900;\n"
+"    color: #fdf6e3;\n"
+"}\n"
+"#btn_add\n"
+"{\n"
+"    background: #586e75;\n"
+"    color: #fdf6e3;\n"
+"}\n"
+"#btn_update\n"
+"{\n"
+"    background: #586e75;\n"
+"    color: #fdf6e3;\n"
+"}\n"
+"#btn_remove\n"
+"{\n"
+"    background: #586e75;\n"
+"    color: #fdf6e3;\n"
+"}\n"
+"#btn_removelast\n"
+"{\n"
+"    background: #586e75;\n"
+"    color: #fdf6e3;\n"
+"}\n"
+"#btn_clear\n"
+"{\n"
+"    background: #586e75;\n"
+"    color: #fdf6e3;\n"
+"}\n"
+"#btn_execute\n"
+"{\n"
+"    background: #cb4b16;\n"
+"    color: #fdf6e3;\n"
+"}\n"
+"#btn_exit\n"
+"{\n"
+"    background: #ffffd7;\n"
+"    color: #626262;\n"
+"}\n"
+"#cmb_account_to\n"
+"{\n"
+"    background: #ffffff;\n"
+"    color: #626262;\n"
+"}\n"
+"#btn_account_from\n"
+"{\n"
+"    background: #ffffdd;\n"
+"    color: #626262;\n"
+"}\n"
+"*\n"
+"{\n"
 "    color: #626262;\n"
 "}"))
         self.centralwidget = QtGui.QWidget(MainWindow)
@@ -277,7 +346,7 @@ class Ui_MainWindow(object):
         font.setPointSize(14)
         self.cmb_market_code.setFont(font)
         self.cmb_market_code.setInputMethodHints(QtCore.Qt.ImhLowercaseOnly)
-        self.cmb_market_code.setEditable(True)
+        self.cmb_market_code.setEditable(False)
         self.cmb_market_code.setObjectName(_fromUtf8("cmb_market_code"))
         self.gridLayout.addWidget(self.cmb_market_code, 1, 5, 1, 1)
         self.cmb_commodity_name = QtGui.QComboBox(self.centralwidget)
@@ -287,7 +356,7 @@ class Ui_MainWindow(object):
         font.setPointSize(14)
         self.cmb_commodity_name.setFont(font)
         self.cmb_commodity_name.setInputMethodHints(QtCore.Qt.ImhLowercaseOnly)
-        self.cmb_commodity_name.setEditable(True)
+        self.cmb_commodity_name.setEditable(False)
         self.cmb_commodity_name.setObjectName(_fromUtf8("cmb_commodity_name"))
         self.gridLayout.addWidget(self.cmb_commodity_name, 1, 6, 1, 1)
         self.spn_quantity = QtGui.QSpinBox(self.centralwidget)
@@ -327,6 +396,7 @@ class Ui_MainWindow(object):
         font.setFamily(_fromUtf8("Inconsolata"))
         font.setPointSize(14)
         self.txt_market_description.setFont(font)
+        self.txt_market_description.setReadOnly(True)
         self.txt_market_description.setObjectName(_fromUtf8("txt_market_description"))
         self.gridLayout.addWidget(self.txt_market_description, 3, 5, 1, 1)
         self.txt_commodity_description = QtGui.QLineEdit(self.centralwidget)
@@ -334,6 +404,7 @@ class Ui_MainWindow(object):
         font.setFamily(_fromUtf8("Inconsolata"))
         font.setPointSize(14)
         self.txt_commodity_description.setFont(font)
+        self.txt_commodity_description.setReadOnly(True)
         self.txt_commodity_description.setObjectName(_fromUtf8("txt_commodity_description"))
         self.gridLayout.addWidget(self.txt_commodity_description, 3, 6, 1, 1)
         self.cmb_account_from = QtGui.QComboBox(self.centralwidget)
@@ -393,14 +464,6 @@ class Ui_MainWindow(object):
         self.lbl_risk.setFont(font)
         self.lbl_risk.setObjectName(_fromUtf8("lbl_risk"))
         self.gridLayout.addWidget(self.lbl_risk, 4, 9, 1, 1)
-        self.chk_manual_commission = QtGui.QCheckBox(self.centralwidget)
-        font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Inconsolata"))
-        font.setPointSize(14)
-        self.chk_manual_commission.setFont(font)
-        self.chk_manual_commission.setChecked(False)
-        self.chk_manual_commission.setObjectName(_fromUtf8("chk_manual_commission"))
-        self.gridLayout.addWidget(self.chk_manual_commission, 3, 9, 1, 1)
         self.lbl_expiration = QtGui.QLabel(self.centralwidget)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Inconsolata"))
@@ -476,6 +539,133 @@ class Ui_MainWindow(object):
         self.cmb_account_to.setEditable(True)
         self.cmb_account_to.setObjectName(_fromUtf8("cmb_account_to"))
         self.gridLayout.addWidget(self.cmb_account_to, 3, 1, 1, 1)
+        self.chk_long = QtGui.QCheckBox(self.centralwidget)
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(98, 98, 98))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 215))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(98, 98, 98))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(98, 98, 98))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 215))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 215))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(98, 98, 98))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 215))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(98, 98, 98))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(98, 98, 98))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 215))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 215))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(98, 98, 98))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 215))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(98, 98, 98))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(98, 98, 98))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 215))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 215))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
+        self.chk_long.setPalette(palette)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.chk_long.setFont(font)
+        self.chk_long.setObjectName(_fromUtf8("chk_long"))
+        self.gridLayout.addWidget(self.chk_long, 3, 7, 1, 1)
+        self.chk_manual_commission = QtGui.QCheckBox(self.centralwidget)
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(98, 98, 98))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 215))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(98, 98, 98))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(98, 98, 98))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 215))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 215))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(98, 98, 98))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 215))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(98, 98, 98))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(98, 98, 98))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 215))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 215))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(98, 98, 98))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 215))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(98, 98, 98))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(98, 98, 98))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 215))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 215))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
+        self.chk_manual_commission.setPalette(palette)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.chk_manual_commission.setFont(font)
+        self.chk_manual_commission.setChecked(False)
+        self.chk_manual_commission.setObjectName(_fromUtf8("chk_manual_commission"))
+        self.gridLayout.addWidget(self.chk_manual_commission, 3, 8, 1, 1)
         self.gridLayout.setColumnStretch(1, 1)
         self.verticalLayout.addLayout(self.gridLayout)
         self.gridLayout_6 = QtGui.QGridLayout()
@@ -486,74 +676,83 @@ class Ui_MainWindow(object):
         font.setPointSize(14)
         self.btn_clear.setFont(font)
         self.btn_clear.setObjectName(_fromUtf8("btn_clear"))
-        self.gridLayout_6.addWidget(self.btn_clear, 0, 6, 1, 1)
+        self.gridLayout_6.addWidget(self.btn_clear, 1, 7, 1, 1)
         spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_6.addItem(spacerItem2, 0, 8, 1, 1)
+        self.gridLayout_6.addItem(spacerItem2, 1, 12, 1, 1)
         self.btn_exit = QtGui.QPushButton(self.centralwidget)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Inconsolata"))
         font.setPointSize(14)
         self.btn_exit.setFont(font)
         self.btn_exit.setObjectName(_fromUtf8("btn_exit"))
-        self.gridLayout_6.addWidget(self.btn_exit, 0, 11, 1, 1)
+        self.gridLayout_6.addWidget(self.btn_exit, 1, 15, 1, 1)
         self.btn_add = QtGui.QPushButton(self.centralwidget)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Inconsolata"))
         font.setPointSize(14)
         self.btn_add.setFont(font)
         self.btn_add.setObjectName(_fromUtf8("btn_add"))
-        self.gridLayout_6.addWidget(self.btn_add, 0, 2, 1, 1)
+        self.gridLayout_6.addWidget(self.btn_add, 1, 3, 1, 1)
         self.btn_execute = QtGui.QPushButton(self.centralwidget)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Inconsolata"))
         font.setPointSize(14)
         self.btn_execute.setFont(font)
         self.btn_execute.setObjectName(_fromUtf8("btn_execute"))
-        self.gridLayout_6.addWidget(self.btn_execute, 0, 7, 1, 1)
+        self.gridLayout_6.addWidget(self.btn_execute, 1, 10, 1, 1)
         self.lbl_infodetails = QtGui.QLabel(self.centralwidget)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Inconsolata"))
         font.setPointSize(14)
         self.lbl_infodetails.setFont(font)
         self.lbl_infodetails.setObjectName(_fromUtf8("lbl_infodetails"))
-        self.gridLayout_6.addWidget(self.lbl_infodetails, 0, 9, 1, 1)
+        self.gridLayout_6.addWidget(self.lbl_infodetails, 1, 13, 1, 1)
         self.btn_update = QtGui.QPushButton(self.centralwidget)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Inconsolata"))
         font.setPointSize(14)
         self.btn_update.setFont(font)
         self.btn_update.setObjectName(_fromUtf8("btn_update"))
-        self.gridLayout_6.addWidget(self.btn_update, 0, 3, 1, 1)
+        self.gridLayout_6.addWidget(self.btn_update, 1, 4, 1, 1)
         self.btn_remove = QtGui.QPushButton(self.centralwidget)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Inconsolata"))
         font.setPointSize(14)
         self.btn_remove.setFont(font)
         self.btn_remove.setObjectName(_fromUtf8("btn_remove"))
-        self.gridLayout_6.addWidget(self.btn_remove, 0, 4, 1, 1)
+        self.gridLayout_6.addWidget(self.btn_remove, 1, 5, 1, 1)
         self.btn_removelast = QtGui.QPushButton(self.centralwidget)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Inconsolata"))
         font.setPointSize(14)
         self.btn_removelast.setFont(font)
         self.btn_removelast.setObjectName(_fromUtf8("btn_removelast"))
-        self.gridLayout_6.addWidget(self.btn_removelast, 0, 5, 1, 1)
+        self.gridLayout_6.addWidget(self.btn_removelast, 1, 6, 1, 1)
         spacerItem3 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_6.addItem(spacerItem3, 0, 10, 1, 1)
+        self.gridLayout_6.addItem(spacerItem3, 1, 14, 1, 1)
         self.btn_emma = QtGui.QPushButton(self.centralwidget)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Inconsolata"))
         font.setPointSize(14)
         self.btn_emma.setFont(font)
         self.btn_emma.setObjectName(_fromUtf8("btn_emma"))
-        self.gridLayout_6.addWidget(self.btn_emma, 0, 0, 1, 1)
+        self.gridLayout_6.addWidget(self.btn_emma, 1, 0, 1, 1)
         self.btn_gnucash = QtGui.QPushButton(self.centralwidget)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Inconsolata"))
         font.setPointSize(14)
         self.btn_gnucash.setFont(font)
         self.btn_gnucash.setObjectName(_fromUtf8("btn_gnucash"))
-        self.gridLayout_6.addWidget(self.btn_gnucash, 0, 1, 1, 1)
+        self.gridLayout_6.addWidget(self.btn_gnucash, 1, 1, 1, 1)
+        spacerItem4 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout_6.addItem(spacerItem4, 1, 9, 1, 1)
+        self.btn_parameters = QtGui.QPushButton(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Inconsolata"))
+        font.setPointSize(14)
+        self.btn_parameters.setFont(font)
+        self.btn_parameters.setObjectName(_fromUtf8("btn_parameters"))
+        self.gridLayout_6.addWidget(self.btn_parameters, 1, 2, 1, 1)
         self.verticalLayout.addLayout(self.gridLayout_6)
         self.vl_table = QtGui.QVBoxLayout()
         self.vl_table.setSizeConstraint(QtGui.QLayout.SetFixedSize)
@@ -601,12 +800,13 @@ class Ui_MainWindow(object):
         self.lbl_account.setText(_translate("MainWindow", "Account", None))
         self.lbl_currency_from.setText(_translate("MainWindow", "Currency from", None))
         self.lbl_risk.setText(_translate("MainWindow", "Risk (%)", None))
-        self.chk_manual_commission.setText(_translate("MainWindow", "Automatic", None))
         self.lbl_expiration.setText(_translate("MainWindow", "Expires on", None))
         self.dt_expiration.setDisplayFormat(_translate("MainWindow", "yyyy-MM-dd", None))
         self.lbl_exchange_rate.setText(_translate("MainWindow", "Exchange rate", None))
         self.lbl_currency_to.setText(_translate("MainWindow", "Currency to", None))
         self.lbl_comment.setText(_translate("MainWindow", "Comment", None))
+        self.chk_long.setText(_translate("MainWindow", "Long", None))
+        self.chk_manual_commission.setText(_translate("MainWindow", "Automatic", None))
         self.btn_clear.setText(_translate("MainWindow", "&Clear", None))
         self.btn_exit.setText(_translate("MainWindow", "&Quit", None))
         self.btn_add.setText(_translate("MainWindow", "&Add", None))
@@ -617,4 +817,5 @@ class Ui_MainWindow(object):
         self.btn_removelast.setText(_translate("MainWindow", "Remove &last", None))
         self.btn_emma.setText(_translate("MainWindow", "&Emma", None))
         self.btn_gnucash.setText(_translate("MainWindow", "&Gnucash", None))
+        self.btn_parameters.setText(_translate("MainWindow", "&Parameters", None))
 
