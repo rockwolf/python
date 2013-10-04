@@ -5,7 +5,7 @@ See LICENSE file for copyright and license details.
 import sys
 
 from modules.config import ConfigParser
-from main.controller import ControllerMain
+from controller.controller import ControllerMain
 from modules.fileimport import FileImport
 from modules.fileexport import FileExport
 from setup.setup import Setup
@@ -33,13 +33,13 @@ class MainWrapper():
         """
             Adjust the system path, so we can search in custom dirs for modules.
         """
-        sys.path.append('main')
-        sys.path.append('pyqt')
+        sys.path.append('controller')
+        sys.path.append('view')
         sys.path.append('database')
         sys.path.append('modules')
         sys.path.append('generic')
         sys.path.append('generic/modules')
-        sys.path.append('generic/pyqt')
+        sys.path.append('generic/view')
         sys.path.append('setup')
     
     def file_import(self):

@@ -7,11 +7,10 @@ import sys
 from PyQt4 import QtCore, QtGui
 from decimal import Decimal
 
-#from pyqt.viewpyqt import Ui_MainWindow
-#from pyqt.viewpyqt_dialog_emma import Ui_DialogEmma
-import pyqt.viewpyqt
-import pyqt.viewpyqt_dialog_emma
+import view.viewpyqt
+import view.viewpyqt_dialog_emma
 from generic.pyqt.tablemodel import TableModel
+from generic.modules.function import *
 from modules.emma import *
 from modules.function import *
 from modules.constant import *
@@ -23,14 +22,14 @@ class DialogEmma(QtGui.QDialog):
     """
     def __init__(self, data_general, data_buy, data_sell, parent=None):
         super(DialogEmma, self).__init__(parent)
-        self.ui = pyqt.viewpyqt_dialog_emma.Ui_DialogEmma()
+        self.ui = view.viewpyqt_dialog_emma.Ui_DialogEmma()
         self.ui.setupUi(self)
         # use new style signals
         self.ui.buttonBox.accepted.connect(self.accept)
         self.ui.buttonBox.rejected.connect(self.reject)
-        self.ui.txt_general.setText(data_general.join('\n'))
-        self.ui.txt_buy.setText(data_buy.join('\n'))
-        self.ui.txt_sell.setText(data_sell.join('\n'))
+        self.ui.txt_general.setText('\n'.join(data_general))
+        self.ui.txt_buy.setText('\n'.join(data_buy))
+        self.ui.txt_sell.setText('\n'.join(data_sell))
         #self.updateUi()
         
     def accept(self):
@@ -49,7 +48,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         # initialize gui
         QtGui.QMainWindow.__init__(self)
 
-        self.gui = pyqt.viewpyqt.Ui_MainWindow()
+        self.gui = view.viewpyqt.Ui_MainWindow()
         self.gui.setupUi(self) 
         self.connectslots()
         self.ctl = controller

@@ -9,7 +9,7 @@ import os, sys
 from decimal import getcontext
 
 from database.databaseaccess import DatabaseAccess
-from pyqt.controllerpyqt import ControllerPyqt
+from controller.controllerpyqt import ControllerPyqt
 from PyQt4 import QtGui
 from modules.constant import *
 from modules.function import *

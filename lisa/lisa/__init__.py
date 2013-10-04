@@ -33,7 +33,7 @@ def main(option, export_type, testmode):
     #NOTE: the import statement loads the views and tables,
     #but when doing an install, they are not created yet.
     #So we skip loading this until we are sure we can start.
-    from main.main import MainWrapper
+    from main import MainWrapper
     wrapper = MainWrapper()
     if testmode:
         print("test: unit_test")
