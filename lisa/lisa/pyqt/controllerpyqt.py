@@ -28,9 +28,9 @@ class DialogEmma(QtGui.QDialog):
         # use new style signals
         self.ui.buttonBox.accepted.connect(self.accept)
         self.ui.buttonBox.rejected.connect(self.reject)
-        self.ui.txt_general.setText(data_general)
-        self.ui.txt_buy.setText(data_buy)
-        self.ui.txt_sell.setText(data_sell)
+        self.ui.txt_general.setText(data_general.join('\n'))
+        self.ui.txt_buy.setText(data_buy.join('\n'))
+        self.ui.txt_sell.setText(data_sell.join('\n'))
         #self.updateUi()
         
     def accept(self):
@@ -119,9 +119,6 @@ class ControllerPyqt(QtGui.QMainWindow):
         buying = we_are_buying(
             input_line[InputIndex.ACCOUNT_FROM],
             input_line[InputIndex.ACCOUNT_TO])
-        #TODO: open dialog that will display the emma info
-        #TODO: call calculate function of that window,
-        # with input_line and buying as parameters
         #TODO: make sure that price and amount are filled in, to avoid division by zero
         if not (Decimal(input_line[InputIndex.AMOUNT]) == DEFAULT_DECIMAL
             or Decimal(input_line[InputIndex.PRICE]) == DEFAULT_DECIMAL):
@@ -143,15 +140,13 @@ class ControllerPyqt(QtGui.QMainWindow):
                 #input_line[InputIndex.ESTIMATE])
                 0) #TODO: ESTIMATE does not exist
             emma.calculate()
-            data_general = "test1"
-            data_buy = "shares: " + emma.result_general["shares"]
-            data_sell = "test3"
+            
             dlg = DialogEmma(
-                data_general,
-                data_buy,
-                data_sell)
+                dict_to_list_sorted(emma.result_general),
+                dict_to_list_sorted(emma.result_buy),
+                dict_to_list_sorted(emma.result_sell))
             dlg.exec_() # exec_() for modal, show() for non-modal dialog
-
+            
     def btn_gnucash_clicked(self):
         """
             What to enter in GnuCash?
