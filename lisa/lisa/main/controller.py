@@ -283,7 +283,6 @@ class ControllerMain():
         account_from = self.gui.get_account_from()
         account_to = self.gui.get_account_to()
         commodity = self.gui.get_commodity_name()
-        #TODO: get the correct accounts here
         if deals_with_stocks(account_from, account_to) and not stock:
             info = dba.get_commodity_info(commodity)
             self.gui.set_info_details(
@@ -355,7 +354,6 @@ class ControllerMain():
         if is_a_trading_market(market):
             # NOTE: This only works when
             # an account can not be used for trading and investing at the same time
-            # NOTE: commodities is used, instead of stocks, to look at trading and investing seperately.
             dba.save_new_account('assets:current_assets:commodities:' + new_commodity.lower() + ' (long)')
             dba.save_new_account('assets:current_assets:commodities:' + new_commodity.lower() + ' (short)')
         dba = None
