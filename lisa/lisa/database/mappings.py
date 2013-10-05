@@ -102,7 +102,8 @@ class T_INVESTMENT(Base):
     win_flag = Column(Integer)
     id_buy = Column(Integer)
     id_sell = Column(Integer)
-    currency_exchange_id = Column(Integer)
+    currency_exchange_id_buy = Column(Integer)
+    currency_exchange_id_sell = Column(Integer)
     drawdown_id = Column(Integer)
     pool_at_start = Column(Numeric(18,6))
     date_expiration = Column(DateTime)
@@ -118,7 +119,8 @@ class T_INVESTMENT(Base):
             risk_initial_percent, risk_actual, risk_actual_percent, cost_total, cost_other, 
             amount_buy_simple, amount_sell_simple, stoploss, profit_loss, profit_loss_percent, r_multiple,
             win_flag, id_buy, id_sell,
-            currency_exchange_id, drawdown_id, pool_at_start, date_expiration,
+            currency_exchange_id_buy, currency_exchange_id_sell, drawdown_id,
+            pool_at_start, date_expiration,
             expired_flag, active, date_created, date_modified):
         self.trade_id = trade_id
         self.market_id = market_id
@@ -157,7 +159,8 @@ class T_INVESTMENT(Base):
         self.win_flag = win_flag
         self.id_buy = id_buy
         self.id_sell = id_sell
-        self.currency_exchange_id = currency_exchange_id
+        self.currency_exchange_id_buy = currency_exchange_id_buy
+        self.currency_exchange_id_sell = currency_exchange_id_sell
         self.drawdown_id = drawdown_id
         self.pool_at_start = pool_at_start
         self.date_expiration = date_expiration
@@ -167,7 +170,7 @@ class T_INVESTMENT(Base):
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_INVESTMENT('%s', '%s', '%s', '%s', \
+        return "<T_INVESTMENT('%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
@@ -209,7 +212,8 @@ class T_INVESTMENT(Base):
                         self.win_flag,
                         self.id_buy,
                         self.id_sell,
-                        self.currency_exchange_id,
+                        self.currency_exchange_id_buy,
+                        self.currency_exchange_id_sell,
                         self.drawdown_id,
                         self.pool_at_start,
                         self.expiration_date,
@@ -466,7 +470,8 @@ class T_TRADE(Base):
             risk_initial_percent, risk_actual, risk_actual_percent, cost_total, cost_other,
             amount_buy_simple, amount_sell_simple, stoploss, profit_loss, profit_loss_percent, r_multiple,
             win_flag, id_buy, id_sell,
-            currency_exchange_id, drawdown_id, pool_at_start, date_expiration,
+            currency_exchange_id_buy, currency_exchange_id_sell, 
+            drawdown_id, pool_at_start, date_expiration,
             expired_flag, active, date_created, date_modified):
         self.trade_id = trade_id
         self.market_id = market_id
@@ -505,7 +510,8 @@ class T_TRADE(Base):
         self.win_flag = win_flag
         self.id_buy = id_buy
         self.id_sell = id_sell
-        self.currency_exchange_id = currency_exchange_id
+        self.currency_exchange_id_buy = currency_exchange_id_buy
+        self.currency_exchange_id_sell = currency_exchange_id_sell
         self.drawdown_id = drawdown_id
         self.pool_at_start = pool_at_start
         self.date_expiration = date_expiration
@@ -520,7 +526,7 @@ class T_TRADE(Base):
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.trade_id,
+            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.trade_id,
                         self.market_id,
                         self.commodity_id,
                         self.date_buy,
@@ -557,7 +563,8 @@ class T_TRADE(Base):
                         self.win_flag,
                         self.id_buy,
                         self.id_sell,
-                        self.currency_exchange_id,
+                        self.currency_exchange_id_buy,
+                        self.currency_exchange_id_sell,
                         self.drawdown_id,
                         self.pool_at_start,
                         self.date_expiration,
