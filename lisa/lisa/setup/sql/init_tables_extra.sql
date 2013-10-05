@@ -778,32 +778,29 @@ SIZ3.cfd - Silver, US Dollar/100 Dec13
 --values('assets:e-mini:commodities:ojx...', 'e-mini:ojx...', 1, current_date, current_date);
 
 -- Add specific parameters
-/*INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(1, 'comm_binb_be', 9.75, 'Commission binkbank for buying regular stocks.');
+INSERT INTO T_PARAMETER(parameter_id, name, value, description)
+values(1, 'pool_margin', 0.25, 'margin to leave of pool');
+
+INSERT INTO T_PARAMETER(parameter_id, name, value, description)
+values(2, 'risk', 0.02, 'risk of pool we are willing to take initially');
 
 --TODO: add another parameter for the 2500 EUR!
 --We need to check for this in the code that determines
 --which formula/parameter to use.
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(2, 'comm_binb_be_below2500', 7.25, 'Commission binkbank for buying regular stocks < 2500 EUR.');
+values(3, 'tax_stocks_be', 0.0025, 'Tax on Belgian stock market transactions.');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(3, 'comm_whsi_commodities_us', 0.25, 'Solid amount for calculation of costs for commodities on US markets.');
+values(4, 'tax_dividend_be', 0.25, 'dividend tax - BE');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(4, 'tax_stocks_be', 0.0025, 'Tax on Belgian stock market transactions.');
+values(5, 'tax_dividend_d', 0.2675, 'dividend tax - D');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(5, 'tax_dividend_be', 0.25, 'dividend tax - BE');
+values(6, 'tax_dividend_fr', 0.30, 'dividend tax - FR');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(6, 'tax_dividend_d', 0.2675, 'dividend tax - D');
-
-INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(7, 'tax_dividend_fr', 0.30, 'dividend tax - FR');
-
-INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(8, 'tax_dividend_nl', 0.15, 'dividend tax - NL');*/
+values(7, 'tax_dividend_nl', 0.15, 'dividend tax - NL');
 
 -- Add specific margin types
 /*INSERT INTO T_MARGIN_TYPE(margin_type)

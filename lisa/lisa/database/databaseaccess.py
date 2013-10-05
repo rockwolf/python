@@ -227,7 +227,6 @@ class DatabaseAccess():
                 and trade_record['date_buy'] != DEFAULT_DATE)
         return 1 if result else 0
 
-    #TODO: toroughly test this
     def get_win_flag_value(self, price_buy, price_sell, long_flag):
         """
             Trade finished... did we win?

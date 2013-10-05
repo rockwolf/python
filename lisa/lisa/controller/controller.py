@@ -283,7 +283,7 @@ class ControllerMain():
         account_from = self.gui.get_account_from()
         account_to = self.gui.get_account_to()
         commodity = self.gui.get_commodity_name()
-        if deals_with_stocks(account_from, account_to) and not stock:
+        if deals_with_stocks(account_from, account_to) and not commodity:
             info = dba.get_commodity_info(commodity)
             self.gui.set_info_details(
                 '{} ({}): {}'.format(

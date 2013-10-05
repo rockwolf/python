@@ -9,6 +9,7 @@ from decimal import Decimal
 
 import view.viewpyqt
 import view.viewpyqt_dialog_emma
+import view.viewpyqt_dialog_parameters
 from generic.pyqt.tablemodel import TableModel
 from generic.modules.function import *
 from modules.emma import *
@@ -30,12 +31,33 @@ class DialogEmma(QtGui.QDialog):
         self.ui.txt_general.setText('\n'.join(data_general))
         self.ui.txt_buy.setText('\n'.join(data_buy))
         self.ui.txt_sell.setText('\n'.join(data_sell))
-        #self.updateUi()
         
     def accept(self):
         super(DialogEmma, self).accept() # call the accept method of QDialog.
                                            # super is needed
                                            # since we just override the accept method
+
+class DialogParameters(QtGui.QDialog):
+    """
+        Subclassing the DialogParameters dialog
+        to define the accept.
+    """
+    def __init__(self, parent=None):
+        super(DialogParameters, self).__init__(parent)
+        self.ui = view.viewpyqt_dialog_parameters.Ui_DialogParameters()
+        self.ui.setupUi(self)
+        # use new style signals
+        self.ui.buttonBox.accepted.connect(self.accept)
+        self.ui.buttonBox.rejected.connect(self.reject)
+        header = ['parameter_id', 'name', 'value', 'description']
+        table = TableModel(header, [], 0, len(header))
+        # takeAt(0) removes the default empty table that's there and addWidget
+        # adds a newly created one.
+        self.ui.vl_parameters.takeAt(0)
+        self.ui.vl_parameters.addWidget(table)
+
+    def accept(self):
+        super(DialogParameters, self).accept()
 
 
 class ControllerPyqt(QtGui.QMainWindow):
@@ -67,6 +89,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.gui.btn_removelast.clicked.connect(self.btn_removelast_clicked)
         self.gui.btn_emma.clicked.connect(self.btn_emma_clicked)
         self.gui.btn_gnucash.clicked.connect(self.btn_gnucash_clicked)
+        self.gui.btn_parameters.clicked.connect(self.btn_parameters_clicked)
 
     # Button Events
     def btn_execute_clicked(self):
@@ -154,7 +177,15 @@ class ControllerPyqt(QtGui.QMainWindow):
         # OR show gnucash info for all lines in the db that have not been entered yet.
         # => add extra column: gnucash with value 0 or 1 (1 = already entered in gnucash)
         pass
-        
+
+    def btn_parameters_clicked(self):
+        """
+            Equations for money management.
+        """
+        dlg = DialogParameters()
+        dlg.exec_()
+ 
+
     #def cmb_commodity_name_key_pressed(self, qKeyEvent):
     #    """
     #        keyPressed event in combo
