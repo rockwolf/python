@@ -1,4 +1,4 @@
-#!/usr/env/python
+#!/usr/bin/env python
 """
     See LICENSE file for copyright and license details.					
 """
@@ -61,10 +61,14 @@ class DialogParameters(QtGui.QDialog):
 
 
 class ControllerPyqt(QtGui.QMainWindow):
-    """ Controller that also contains pyqt related code. """
+    """
+        Controller that also contains pyqt related code.
+    """
     
     def __init__(self, config, controller):
-        """ Construct basic QApplication, add widgets and start exec_loop """
+        """
+            Construct basic QApplication, add widgets and start exec_loop
+        """
         # initialise special vars
         self.config = config
         # initialize gui
@@ -76,7 +80,9 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.ctl = controller
 
     def connectslots(self):
-        """ Connect methods to the signals the gui emits """
+        """
+            Connect methods to the signals the gui emits
+        """
         self.gui.btn_exit.clicked.connect(self.btn_exit_clicked)
         self.gui.btn_add.clicked.connect(self.btn_add_clicked)
         self.gui.cmb_market_code.currentIndexChanged[int].connect(self.cmb_market_code_changed)
@@ -93,22 +99,30 @@ class ControllerPyqt(QtGui.QMainWindow):
 
     # Button Events
     def btn_execute_clicked(self):
-        """ Write given input lines from table to database. """
+        """
+            Write given input lines from table to database.
+        """
         self.ctl.write_to_database(self.table.tablecontent)
         self.set_lbl_check(self.ctl.get_check_info([]))
         self.table.clear()
         
     def btn_exit_clicked(self):
-        """ Exit """
+        """
+            Exit
+        """
         self.clear_inputbuffer()
         sys.exit(0)
 
     def btn_clear_clicked(self):
-        """ Clear the input buffer. """
+        """
+            Clear the input buffer.
+        """
         self.clear_inputbuffer()
     
     def btn_add_clicked(self):
-        """ Add new input to the input_fields table. """
+        """
+            Add new input to the input_fields table.
+        """
         input_line = self.ctl.get_input_line(self.table)
         lines = self.ctl.generate_extra_lines(input_line)
         lines.append(input_line)
@@ -117,13 +131,17 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.set_lbl_check(self.ctl.get_check_info(self.table.tablecontent))
 
     def btn_update_clicked(self):
-        """ Update the selected record in the table. """
+        """
+            Update the selected record in the table.
+        """
         selected_index = self.table.selectionModel().selectedRows()
         print('Test:', str(selected_index))
         self.table.update_row(self.table, selected_index)
 
     def btn_remove_clicked(self):
-        """ Remove the selected record in the table. """
+        """
+            Remove the selected record in the table.
+        """
         #TODO: get the table row to get the index
         #This currently gets the last row.
         selected_index = -1
@@ -184,7 +202,6 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
         dlg = DialogParameters()
         dlg.exec_()
- 
 
     #def cmb_commodity_name_key_pressed(self, qKeyEvent):
     #    """
@@ -196,7 +213,9 @@ class ControllerPyqt(QtGui.QMainWindow):
 
     # Events
     def toggle_commodity_inputs(self):
-        """ Enable/disable all inputs related to commodity information """
+        """
+            Enable/disable all inputs related to commodity information
+        """
         account_from = self.gui.cmb_account_from.currentText()
         account_to = self.gui.cmb_account_to.currentText()
         is_commodity = deals_with_commodities(account_from, account_to)
@@ -245,17 +264,23 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.ctl.set_info_details()
 
     def cmb_commodity_name_changed(self):
-        """ When the commodity selection changes. """    
+        """
+            When the commodity selection changes.
+        """
         self.ctl.filltxt_commodity_description()
         self.ctl.set_info_details()        
         
     def cmb_market_code_changed(self):
-        """ When the market_code combo selection changes. """
+        """
+            When the market_code combo selection changes.
+        """
         self.ctl.fillcmb_commodity_name()
         self.ctl.filltxt_market_description()
     
     def init_tbl_summary(self):
-        """ Initialize tbl_summary. """
+        """
+            Initialize tbl_summary.
+        """
         # set the table header
         # TODO: set header values in mdlconstants and use the constants
         header = ['date', 'account_from', 'account_to', 'amount',
@@ -270,203 +295,324 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.gui.vl_table.addWidget(self.table)
 
     def init_gui(self):
-        """ Initialise fields """
+        """
+            Initialise fields
+        """
         # Info labels
         self.gui.lbl_infofinance.clear()
-        self.gui.lbl_infofinance.setText('>> ' + self.config.exportdir)
+        self.gui.lbl_infofinance.setText('>> ' + self.ctl.get_parameter_value(14))
         self.gui.lbl_infodetails.clear()
         self.set_lbl_check(self.ctl.get_check_info([]))
         # fill all combo boxes
         self.ctl.init_display_data()
         # default values
+        self.set_default_commission()
+        self.set_default_tax()
+        self.set_default_market()
+        self.set_default_commodity()
         self.set_default_account_from()
         self.set_default_account_to()
         self.set_default_exchange_rate()
         self.set_default_currency_from()
         self.set_default_currency_to()
+        self.set_default_risk()
         # Init tbl_summary
         self.init_tbl_summary()
 
     # Clear fields
     def clear_inputbuffer(self):
-        """ Clears the table that contains the data. """
+        """
+            Clears the table that contains the data.
+        """
         self.table.clear()
 
     def clear_fields(self):
-        """ Clear the main input fields. """
+        """
+            Clear the main input fields.
+        """
         self.gui.txt_comment.clear()
         self.gui.spn_amount.setValue(0)
 
     def clear_cmb_commodity_name(self):
-        """ Clear the cmb_commodity_name combobox. """
+        """
+            Clear the cmb_commodity_name combobox.
+        """
         self.gui.cmb_commodity_name.clear()
 
     # Getters and setters
     def get_date(self):
-        """ Returns the date from the date-picker. """
+        """
+            Returns the date from the date-picker.
+        """
         return str(self.gui.dt_date.date().toString(QtCore.Qt.ISODate))
 
     def get_account_from(self):
-        """ Returns the account name from the cmb_account_from combobox. """
+        """
+            Returns the account name from the cmb_account_from combobox.
+        """
         return str(self.gui.cmb_account_from.currentText())
 
     def get_account_to(self):
-        """ Returns the account name from the cmb_account_to combobox. """
+        """
+            Returns the account name from the cmb_account_to combobox.
+        """
         return str(self.gui.cmb_account_to.currentText())
     
     def get_amount(self):
-        """ Returns the amount from the spn_amount spinedit. """
+        """
+            Returns the amount from the spn_amount spinedit.
+        """
         return str(self.gui.spn_amount.textFromValue( \
                 self.gui.spn_amount.value()))
 
     def get_comment(self):
-        """ Returns the comment text. """
+        """
+            Returns the comment text.
+        """
         return str(self.gui.txt_comment.text())
 
     def get_market_code(self):
-        """ Returns the market_code. """
+        """
+            Returns the market_code.
+        """
         return str(self.gui.cmb_market_code.currentText())
     
     def get_market_description(self):
-        """ Returns the market description. """
+        """
+            Returns the market description.
+        """
         return str(self.gui.txt_market_description.text())
 
     def get_commodity_name(self):
-        """ Returns the commodity_name. """
+        """
+            Returns the commodity_name.
+        """
         return str(self.gui.cmb_commodity_name.currentText())
 
     def get_commodity_description(self):
-        """ Returns the commodity description. """
+        """
+            Returns the commodity description.
+        """
         return str(self.gui.txt_commodity_description.text())
 
     def get_quantity(self):
-        """ Returns the quantity from the spn_quantity spinedit. """
+        """
+            Returns the quantity from the spn_quantity spinedit.
+        """
         return str(self.gui.spn_quantity.textFromValue( \
                 self.gui.spn_quantity.value()))
 
     def get_price(self):
-        """ Returns the price from the spn_price spinedit. """
+        """
+            Returns the price from the spn_price spinedit.
+        """
         return str(self.gui.spn_price.textFromValue( \
                 self.gui.spn_price.value()))
 
     def get_pool(self):
-        """ Returns the pool from the spn_pool spinedit. """
+        """
+            Returns the pool from the spn_pool spinedit.
+        """
         return str(self.gui.spn_pool.textFromValue( \
                 self.gui.spn_pool.value()))
 
     def get_commission(self):
-        """ Returns the commission from the spn_commission spinedit. """
+        """
+            Returns the commission from the spn_commission spinedit.
+        """
         return str(self.gui.spn_commission.textFromValue( \
                 self.gui.spn_commission.value()))
 
     def get_tax(self):
-        """ Returns the tax from the spn_tax spinedit. """
+        """
+            Returns the tax from the spn_tax spinedit.
+        """
         return str(self.gui.spn_tax.textFromValue( \
                 self.gui.spn_tax.value()))
 
     def get_risk(self):
-        """ Returns the risk from the spn_risk spinedit. """
+        """
+            Returns the risk from the spn_risk spinedit.
+        """
         return str(Decimal(self.gui.spn_risk.textFromValue( \
                 self.gui.spn_risk.value())))
                 
     def get_currency_from(self):
-    	""" Returns the from currency used. """
+    	"""
+            Returns the from currency used.
+        """
     	return str(self.gui.cmb_currency_from.currentText())
  
     def get_currency_to(self):
-    	""" Returns the to currency used. """
+    	"""
+            Returns the to currency used.
+        """
     	return str(self.gui.cmb_currency_to.currentText())
     	
     def get_exchange_rate(self):
-    	""" Returns the exchange rate used. """
+    	"""
+            Returns the exchange rate used.
+        """
     	return str(self.gui.spn_exchange_rate.textFromValue( \
     		self.gui.spn_exchange_rate.value()))
 
     def get_manual_commission(self):
-        """ Returns the value of the manual commission calc. checkbox """
+        """
+            Returns the value of the manual commission calc. checkbox
+        """
         return '0' if self.gui.chk_manual_commission.isChecked() else '1' 
         
     def get_date_expiration(self):
-    	""" Returns the value of the dt_expiration date picker. """
+    	"""
+            Returns the value of the dt_expiration date picker.
+        """
     	return str(self.gui.dt_expiration.date().toString(QtCore.Qt.ISODate))
 
     def set_info_details(self, value):
-       """ Sets new info on the lbl_infodetails label. """
-       self.gui.lbl_infodetails.setText(value)
+        """
+            Sets new info on the lbl_infodetails label.
+        """
+        self.gui.lbl_infodetails.setText(value)
 
     def set_lbl_check(self, value):
-       """ Sets new info on the lbl_infodetails label. """
-       self.gui.lbl_check.setText(value)
+        """
+            Sets new info on the lbl_infodetails label.
+        """
+        self.gui.lbl_check.setText(value)
 
     def set_market_description(self, value):
-       """ Sets new info on txt_market_description. """
-       self.gui.txt_market_description.clear()
-       self.gui.txt_market_description.setText(value)
+        """
+            Sets new info on txt_market_description.
+        """
+        self.gui.txt_market_description.clear()
+        self.gui.txt_market_description.setText(value)
 
     def set_commodity_description(self, value):
-       """ Sets new info on txt_commodity_description. """
-       self.gui.txt_commodity_description.clear()
-       self.gui.txt_commodity_description.setText(value)
+        """
+            Sets new info on txt_commodity_description.
+        """
+        self.gui.txt_commodity_description.clear()
+        self.gui.txt_commodity_description.setText(value)
    
     def add_commodity_name(self, value):
-       """ Add a new item to cmb_commodity_name. """
-       self.gui.cmb_commodity_name.addItem(value)
+        """
+            Add a new item to cmb_commodity_name.
+        """
+        self.gui.cmb_commodity_name.addItem(value)
 
     def add_account_from(self, value):
-       """ Add a new item to cmb_account_from. """
-       self.gui.cmb_account_from.addItem(value)
+        """
+            Add a new item to cmb_account_from.
+        """
+        self.gui.cmb_account_from.addItem(value)
 
     def add_account_to(self, value):
-       """ Add a new item to cmb_account_to. """
-       self.gui.cmb_account_to.addItem(value)
+        """
+            Add a new item to cmb_account_to.
+        """
+        self.gui.cmb_account_to.addItem(value)
 
     def add_market_code(self, value):
-       """ Add a new item to cmb_market_code. """
-       self.gui.cmb_market_code.addItem(value)
+        """
+            Add a new item to cmb_market_code.
+        """
+        self.gui.cmb_market_code.addItem(value)
        
+    def set_default_commission(self):
+        """
+            Select the default commission.
+        """
+        self.gui.spn_commission.setValue(Decimal(self.ctl.get_parameter_value(17)))
+        
+    def set_default_tax(self):
+        """
+            Select the default tax.
+        """
+        self.gui.spn_tax.setValue(Decimal(self.ctl.get_parameter_value(18)))
+        
+    def set_default_market(self):
+        """
+            Select the default market.
+        """
+        index = int(self.ctl.get_parameter_value(19))-1
+        self.set_combo_selection(index, self.gui.cmb_market_code)
+
+    def set_default_commodity(self):
+        """
+            Select the default commodity.
+        """
+        index = int(self.ctl.get_parameter_value(20))-1
+        self.set_combo_selection(index, self.gui.cmb_commodity_name)
+
     def set_default_account_from(self):
-        """ Select the default account. """
-        index = int(self.config.default_account_from)-1
+        """
+            Select the default account.
+        """
+        index = int(self.ctl.get_parameter_value(11))-1
         self.set_combo_selection(index, self.gui.cmb_account_from)
 
     def set_default_account_to(self):
-        """ Select the default account. """
-        index = int(self.config.default_account_to)-1
+        """
+            Select the default account.
+        """
+        index = int(self.ctl.get_parameter_value(12))-1
         self.set_combo_selection(index, self.gui.cmb_account_to)
 
     def set_default_currency_from(self):
-        """ Set the default from currency value at startup. """
-        index = int(self.config.default_currency_from)-1
+        """
+            Set the default from currency value at startup.
+        """
+        index = int(self.ctl.get_parameter_value(8))-1
         self.set_combo_selection(index, self.gui.cmb_currency_from)
 
     def set_default_currency_to(self):
-        """ Set the default to currency value at startup. """
-        index = int(self.config.default_currency_to)-1
+        """
+            Set the default to currency value at startup.
+        """
+        index = int(self.ctl.get_parameter_value(9))-1
         self.set_combo_selection(index, self.gui.cmb_currency_to)
  
     def set_default_exchange_rate(self):
-        """ Set the default exchange rate value at startup. """
-        self.gui.spn_exchange_rate.setValue(Decimal(self.config.default_exchange_rate))
+        """
+            Set the default exchange rate value at startup.
+        """
+        self.gui.spn_exchange_rate.setValue(Decimal(self.ctl.get_parameter_value(10)))
+
+    def set_default_risk(self):
+        """
+            Set the default risk.
+        """
+        self.gui.spn_risk.setValue(Decimal(self.ctl.get_parameter_value(2)))
 
     def set_combo_selection(self, index, combobox):
-        """ Sets a combobox selection. """
+        """
+            Sets a combobox selection.
+        """
         if index > 0:
             combobox.setCurrentIndex(index)
 
     def set_current_pool(self):
-        """ Resets the trading pool to the most current value. """
+        """
+            Resets the trading pool to the most current value.
+        """
         self.ctl.fill_spn_pool()
 
     def set_pool(self, value):
-        """ Sets the trading pool to the given value. """
+        """
+            Sets the trading pool to the given value.
+        """
         self.gui.spn_pool.setValue(value)
 
     def add_currency_from(self, value):
-        """ Add a new item to cmb_currency_from. """ 
+        """
+            Add a new item to cmb_currency_from.
+        """ 
         self.gui.cmb_currency_from.addItem(value)
  
     def add_currency_to(self, value):
-        """ Add a new item to cmb_currency_to. """ 
+        """
+            Add a new item to cmb_currency_to.
+        """ 
         self.gui.cmb_currency_to.addItem(value)
         
     #TODO: reactivate the checkbox manual flag

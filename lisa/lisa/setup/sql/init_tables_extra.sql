@@ -779,28 +779,67 @@ SIZ3.cfd - Silver, US Dollar/100 Dec13
 
 -- Add specific parameters
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(1, 'pool_margin', 0.25, 'margin to leave of pool');
+values(1, 'pool_margin', '0.25', 'margin to leave of pool');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(2, 'risk', 0.02, 'risk of pool we are willing to take initially');
+values(2, 'risk', '2.0', 'percent risk of pool we are willing to take initially');
 
 --TODO: add another parameter for the 2500 EUR!
 --We need to check for this in the code that determines
 --which formula/parameter to use.
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(3, 'tax_stocks_be', 0.0025, 'Tax on Belgian stock market transactions.');
+values(3, 'tax_stocks_be', '0.0025', 'Tax on Belgian stock market transactions.');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(4, 'tax_dividend_be', 0.25, 'dividend tax - BE');
+values(4, 'tax_dividend_be', '0.25', 'dividend tax - BE');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(5, 'tax_dividend_d', 0.2675, 'dividend tax - D');
+values(5, 'tax_dividend_d', '0.2675', 'dividend tax - D');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(6, 'tax_dividend_fr', 0.30, 'dividend tax - FR');
+values(6, 'tax_dividend_fr', '0.30', 'dividend tax - FR');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(7, 'tax_dividend_nl', 0.15, 'dividend tax - NL');
+values(7, 'tax_dividend_nl', '0.15', 'dividend tax - NL');
+
+INSERT INTO T_PARAMETER(parameter_id, name, value, description)
+values(8, 'default_currency_from', '2', 'default index for the currency_from combobox');
+
+INSERT INTO T_PARAMETER(parameter_id, name, value, description)
+values(9, 'default_currency_to', '1', 'default index for the currency_to combobox');
+
+INSERT INTO T_PARAMETER(parameter_id, name, value, description)
+values(10, 'default_exchange_rate', '1.0', 'default exchange rate');
+
+INSERT INTO T_PARAMETER(parameter_id, name, value, description)
+values(11, 'default_account_from', '19', 'default index for the account_from combobox');
+
+INSERT INTO T_PARAMETER(parameter_id, name, value, description)
+values(12, 'default_account_to', '39', 'default index for the account_to combobox');
+
+INSERT INTO T_PARAMETER(parameter_id, name, value, description)
+values(13, 'importdir', 'import', 'default index for the account_to combobox');
+
+INSERT INTO T_PARAMETER(parameter_id, name, value, description)
+values(14, 'exportdir', 'export', 'default index for the account_to combobox');
+
+INSERT INTO T_PARAMETER(parameter_id, name, value, description)
+values(15, 'log', '0', '1 = use logging, 0 = don''t use logging');
+
+INSERT INTO T_PARAMETER(parameter_id, name, value, description)
+values(16, 'log_file', 'log/lisa.log', 'log file');
+
+INSERT INTO T_PARAMETER(parameter_id, name, value, description)
+values(17, 'default_commission', '3.0', 'default commission');
+
+INSERT INTO T_PARAMETER(parameter_id, name, value, description)
+values(18, 'default_tax', '0.0', 'default tax');
+
+INSERT INTO T_PARAMETER(parameter_id, name, value, description)
+values(19, 'default_market', '16', 'default market');
+
+INSERT INTO T_PARAMETER(parameter_id, name, value, description)
+values(20, 'default_commodity', '1', 'default commodity, depends on the market so 1 is recommended here');
 
 -- Add specific margin types
 /*INSERT INTO T_MARGIN_TYPE(margin_type)

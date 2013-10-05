@@ -357,3 +357,14 @@ class ControllerMain():
             dba.save_new_account('assets:current_assets:commodities:' + new_commodity.lower() + ' (long)')
             dba.save_new_account('assets:current_assets:commodities:' + new_commodity.lower() + ' (short)')
         dba = None
+
+    def get_parameter_value(self, parameter_index):
+        """
+            Get the parameter value from T_PARAMETER.
+            Note: A final conversion needs to be done to
+            the correct type, as this returns a string!
+        """
+        dba = DatabaseAccess(self.config)
+        result = dba.get_parameter_value(parameter_index)
+        dba = None
+        return result
