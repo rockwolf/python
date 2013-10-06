@@ -35,6 +35,7 @@ class MainWrapper():
         """
         sys.path.append('controller')
         sys.path.append('view')
+        sys.path.append('model')
         sys.path.append('database')
         sys.path.append('modules')
         sys.path.append('generic')

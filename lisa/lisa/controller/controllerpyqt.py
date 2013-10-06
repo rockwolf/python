@@ -15,6 +15,7 @@ from generic.modules.function import *
 from modules.emma import *
 from modules.function import *
 from modules.constant import *
+from model.tablemodelpyqt_lisa import *
 
 class DialogEmma(QtGui.QDialog):
     """
@@ -102,9 +103,9 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
             Write given input lines from table to database.
         """
-        self.ctl.write_to_database(self.table.tablecontent)
+        self.ctl.write_to_database(self.gui.tbl_data.data)
         self.set_lbl_check(self.ctl.get_check_info([]))
-        self.table.clear()
+        self.gui.tbl_data.clear()
         
     def btn_exit_clicked(self):
         """
@@ -123,20 +124,18 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
             Add new input to the input_fields table.
         """
-        input_line = self.ctl.get_input_line(self.table)
-        lines = self.ctl.generate_extra_lines(input_line)
-        lines.append(input_line)
-        self.ctl.add_tbl_summary(self.table, lines)
+        input_line = self.ctl.get_input_line(self.gui.tbl_data)
+        self.ctl.add_tbl_summary(self.gui.tbl_data, input_line)
         self.clear_fields()
-        self.set_lbl_check(self.ctl.get_check_info(self.table.tablecontent))
+        self.set_lbl_check(self.ctl.get_check_info(self.gui.tbl_data.tablecontent))
 
     def btn_update_clicked(self):
         """
             Update the selected record in the table.
         """
-        selected_index = self.table.selectionModel().selectedRows()
+        selected_index = self.gui.tbldata.selectionModel().selectedRows()
         print('Test:', str(selected_index))
-        self.table.update_row(self.table, selected_index)
+        self.gui.tbl_data.update_row(self.gui.tbl_data, selected_index)
 
     def btn_remove_clicked(self):
         """
@@ -145,17 +144,17 @@ class ControllerPyqt(QtGui.QMainWindow):
         #TODO: get the table row to get the index
         #This currently gets the last row.
         selected_index = -1
-        self.ctl.remove_selected(self.table, selected_index)
+        self.ctl.remove_selected(self.gui.tbl_data, selected_index)
     
     def btn_removelast_clicked(self):
         """ Remove the last added record from the table. """
-        self.ctl.remove_last(self.table)
+        self.ctl.remove_last(self.gui.tbl_data)
         
     def btn_emma_clicked(self):
         """
             Equations for money management.
         """
-        input_line = self.ctl.get_input_line(self.table)
+        input_line = self.ctl.get_input_line(self.gui.tbl_data)
         buying = we_are_buying(
             input_line[InputIndex.ACCOUNT_FROM],
             input_line[InputIndex.ACCOUNT_TO])
@@ -277,22 +276,18 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.ctl.fillcmb_commodity_name()
         self.ctl.filltxt_market_description()
     
-    def init_tbl_summary(self):
+    def init_tbl_data(self):
         """
-            Initialize tbl_summary.
+            Initialize tbl_data.
         """
-        # set the table header
         # TODO: set header values in mdlconstants and use the constants
-        header = ['date', 'account_from', 'account_to', 'amount',
+        headers = ['date', 'account_from', 'account_to', 'amount',
                 'comment', 'commodity', 'commodity_description', 'market',
                 'market_description', 'quantity', 'price',
                 'commission', 'tax', 'risk', 'currency_from', 'currency_to', 'exchange_rate',
                 'automatic_flag', 'expires_on']
-        self.table = TableModel(header, [], 0, len(header))
-        # takeAt(0) removes the default empty table that's there and addWidget
-        # adds a newly created one.
-        self.gui.vl_table.takeAt(0)
-        self.gui.vl_table.addWidget(self.table)
+        data_init = [["" for i in range(len(headers))]] 
+        self.gui.tbl_data.model = TableModelLisa(data_init, headers)
 
     def init_gui(self):
         """
@@ -316,15 +311,15 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.set_default_currency_from()
         self.set_default_currency_to()
         self.set_default_risk()
-        # Init tbl_summary
-        self.init_tbl_summary()
+        # Init tbl_data
+        self.init_tbl_data()
 
     # Clear fields
     def clear_inputbuffer(self):
         """
             Clears the table that contains the data.
         """
-        self.table.clear()
+        self.gui.tbl_data.clear()
 
     def clear_fields(self):
         """

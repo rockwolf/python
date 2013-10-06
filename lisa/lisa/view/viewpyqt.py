@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'view/viewpyqt.ui'
+# Form implementation generated from reading ui file 'viewpyqt.ui'
 #
-# Created: Sat Oct  5 10:25:22 2013
+# Created: Sun Oct  6 17:06:37 2013
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -694,6 +694,11 @@ class Ui_MainWindow(object):
         self.vl_table = QtGui.QVBoxLayout()
         self.vl_table.setSizeConstraint(QtGui.QLayout.SetFixedSize)
         self.vl_table.setObjectName(_fromUtf8("vl_table"))
+        self.tbl_data = QtGui.QTableView(self.centralwidget)
+        self.tbl_data.setFrameShadow(QtGui.QFrame.Sunken)
+        self.tbl_data.setMidLineWidth(0)
+        self.tbl_data.setObjectName(_fromUtf8("tbl_data"))
+        self.vl_table.addWidget(self.tbl_data)
         self.verticalLayout.addLayout(self.vl_table)
         self.verticalLayout.setStretch(3, 1)
         self.gridLayout_2.addLayout(self.verticalLayout, 0, 0, 1, 1)
