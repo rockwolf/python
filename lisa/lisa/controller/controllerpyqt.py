@@ -125,9 +125,10 @@ class ControllerPyqt(QtGui.QMainWindow):
             Add new input to the input_fields table.
         """
         input_line = self.ctl.get_input_line()
-        self.ctl.add_tbl_data(self.gui.tbl_data.model, [input_line])
+        print("test1: ", input_line)
+        self.ctl.add_tbl_data(self.model_data, [input_line])
         self.clear_fields()
-        self.set_lbl_check(self.ctl.get_check_info(self.model_data.tablecontent))
+        #self.set_lbl_check(self.ctl.get_check_info(self.model_data.tablecontent))
 
     def btn_update_clicked(self):
         """
@@ -288,8 +289,8 @@ class ControllerPyqt(QtGui.QMainWindow):
                 'commission', 'tax', 'risk', 'currency_from', 'currency_to', 'exchange_rate',
                 'automatic_flag', 'expires_on']
         data_init = [["" for i in range(len(headers))]] 
-        self.gui.tbl_data.model = TableModelLisa(data_init, headers)
-        self.model_data = self.gui.tbl_data.model
+        self.model_data = TableModelLisa(data_init, headers)
+        self.gui.tbl_data.setModel(self.model_data)
 
     def init_gui(self):
         """

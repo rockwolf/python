@@ -30,11 +30,11 @@ class TableModelLisa(QtCore.QAbstractTableModel):
         if role == QtCore.Qt.EditRole:
             row = index.row()
             column = index.column()
-            return self.__values[row][column].name()
+            return self.__values[row][column]
         if role == QtCore.Qt.ToolTipRole:
             row = index.row()
             column = index.column()
-            return "data: " + self.__values[row][column].name()
+            return "data: " + self.__values[row][column]
         #if role == QtCore.Qt.DecorationRole:
         #        row = index.row()
         #        column = index.column()
@@ -47,7 +47,7 @@ class TableModelLisa(QtCore.QAbstractTableModel):
             row = index.row()
             column = index.column()
             value = self.__values[row][column]
-            return value.name()
+            return value
    
     def flags(self, index):
         return QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable
@@ -56,10 +56,10 @@ class TableModelLisa(QtCore.QAbstractTableModel):
         if role == QtCore.Qt.EditRole:
             row = index.row()
             column = index.column()
-            if value.isValid():
-                self.__values[row][column] = value
-                self.dataChanged.emit(index, index)
-                return True
+            #if value.isValid():
+            self.__values[row][column] = value
+            self.dataChanged.emit(index, index)
+            return True
         return False
     
     def insertRows(self, position, rows, values = [], parent = QtCore.QModelIndex()):
