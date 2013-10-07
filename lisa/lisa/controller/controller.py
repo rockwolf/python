@@ -212,7 +212,7 @@ class ControllerMain():
         dba = None
         return values
 
-    def get_input_line(self, table):
+    def get_input_line(self):
         """
             Get the input values.
         """
@@ -330,11 +330,11 @@ class ControllerMain():
         self.gui.set_pool(dba.get_pool())
         dba = None
 
-    def add_tbl_summary(self, table, row):
+    def add_tbl_data(self, model_data, rows):
         """
-            Add or remove a row from the table view
+            Add or remove rows from the table view
         """
-        table.add_row(row)
+        model_data.insertRows(-1, len(model_data.get_values()), rows)
 
     def convert_to_base_currency(self, currency_base, currency_new, value):
         """

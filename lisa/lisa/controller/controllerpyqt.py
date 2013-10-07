@@ -103,9 +103,9 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
             Write given input lines from table to database.
         """
-        self.ctl.write_to_database(self.gui.tbl_data.data)
+        self.ctl.write_to_database(self.model_data)
         self.set_lbl_check(self.ctl.get_check_info([]))
-        self.gui.tbl_data.clear()
+        self.model_data.clear()
         
     def btn_exit_clicked(self):
         """
@@ -124,10 +124,10 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
             Add new input to the input_fields table.
         """
-        input_line = self.ctl.get_input_line(self.gui.tbl_data)
-        self.ctl.add_tbl_summary(self.gui.tbl_data, input_line)
+        input_line = self.ctl.get_input_line()
+        self.ctl.add_tbl_data(self.gui.tbl_data.model, [input_line])
         self.clear_fields()
-        self.set_lbl_check(self.ctl.get_check_info(self.gui.tbl_data.tablecontent))
+        self.set_lbl_check(self.ctl.get_check_info(self.model_data.tablecontent))
 
     def btn_update_clicked(self):
         """
@@ -135,7 +135,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
         selected_index = self.gui.tbldata.selectionModel().selectedRows()
         print('Test:', str(selected_index))
-        self.gui.tbl_data.update_row(self.gui.tbl_data, selected_index)
+        self.gui.tbl_data.update_row(self.model_data, selected_index)
 
     def btn_remove_clicked(self):
         """
@@ -144,17 +144,18 @@ class ControllerPyqt(QtGui.QMainWindow):
         #TODO: get the table row to get the index
         #This currently gets the last row.
         selected_index = -1
-        self.ctl.remove_selected(self.gui.tbl_data, selected_index)
+        self.ctl.remove_selected(self.model_data, selected_index)
     
     def btn_removelast_clicked(self):
         """ Remove the last added record from the table. """
-        self.ctl.remove_last(self.gui.tbl_data)
+        #TODO: test + fix?
+        self.model_data.removeRows(-1)
         
     def btn_emma_clicked(self):
         """
             Equations for money management.
         """
-        input_line = self.ctl.get_input_line(self.gui.tbl_data)
+        input_line = self.ctl.get_input_line()
         buying = we_are_buying(
             input_line[InputIndex.ACCOUNT_FROM],
             input_line[InputIndex.ACCOUNT_TO])
@@ -288,6 +289,7 @@ class ControllerPyqt(QtGui.QMainWindow):
                 'automatic_flag', 'expires_on']
         data_init = [["" for i in range(len(headers))]] 
         self.gui.tbl_data.model = TableModelLisa(data_init, headers)
+        self.model_data = self.gui.tbl_data.model
 
     def init_gui(self):
         """
@@ -319,7 +321,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
             Clears the table that contains the data.
         """
-        self.gui.tbl_data.clear()
+        self.model_data.clear()
 
     def clear_fields(self):
         """
