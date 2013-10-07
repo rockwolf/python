@@ -79,6 +79,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.gui.setupUi(self) 
         self.connectslots()
         self.ctl = controller
+        self.model_data = None
 
     def connectslots(self):
         """
@@ -124,9 +125,13 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
             Add new input to the input_fields table.
         """
-        input_line = self.ctl.get_input_line()
-        print("test1: ", input_line)
-        self.ctl.add_tbl_data(self.model_data, [input_line])
+        print("-- test [btn_add_clicked] :", self.gui.tbl_data.model)
+        # Init tbl_data
+        if self.model_data == None:
+            self.init_tbl_data()
+        else: 
+            input_line = self.ctl.get_input_line()
+            self.ctl.add_tbl_data(self.model_data, [input_line])
         self.clear_fields()
         #self.set_lbl_check(self.ctl.get_check_info(self.model_data.tablecontent))
 
@@ -288,8 +293,8 @@ class ControllerPyqt(QtGui.QMainWindow):
                 'market_description', 'quantity', 'price',
                 'commission', 'tax', 'risk', 'currency_from', 'currency_to', 'exchange_rate',
                 'automatic_flag', 'expires_on']
-        data_init = [["" for i in range(len(headers))]] 
-        self.model_data = TableModelLisa(data_init, headers)
+        input_line = self.ctl.get_input_line()
+        self.model_data = TableModelLisa([input_line], headers)
         self.gui.tbl_data.setModel(self.model_data)
 
     def init_gui(self):
@@ -314,8 +319,6 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.set_default_currency_from()
         self.set_default_currency_to()
         self.set_default_risk()
-        # Init tbl_data
-        self.init_tbl_data()
 
     # Clear fields
     def clear_inputbuffer(self):

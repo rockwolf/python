@@ -53,19 +53,26 @@ class TableModelLisa(QtCore.QAbstractTableModel):
         return QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable
 
     def setData(self, index, value, role = QtCore.Qt.EditRole):
+        print("-- test [setData]:", value) 
         if role == QtCore.Qt.EditRole:
             row = index.row()
             column = index.column()
             #if value.isValid():
+            print(value)
             self.__values[row][column] = value
             self.dataChanged.emit(index, index)
             return True
         return False
     
     def insertRows(self, position, rows, values = [], parent = QtCore.QModelIndex()):
+        print("-- test [insertRows]:", values)
         self.beginInsertRows(QtCore.QModelIndex(), position, position + rows - 1)
         for i in range(rows):
-            self.__values[i].insert(position, values[i])
+            #for item in values[i]:
+            #print("-- test [insertRows i={}]: {}".format(i, values[i]))
+            #defaultValues = ["x" for i in range(self.columnCount(None))]
+            #self.__values.insert(position, defaultValues)
+            self.__values.insert(position, values[i])
         self.endInsertRows()
         return True
 
