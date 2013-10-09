@@ -15,7 +15,6 @@ from generic.modules.function import *
 from modules.emma import *
 from modules.function import *
 from modules.constant import *
-from model.tablemodelpyqt_lisa import *
 
 class DialogEmma(QtGui.QDialog):
     """
@@ -294,7 +293,7 @@ class ControllerPyqt(QtGui.QMainWindow):
                 'commission', 'tax', 'risk', 'currency_from', 'currency_to', 'exchange_rate',
                 'automatic_flag', 'expires_on']
         input_line = self.ctl.get_input_line()
-        self.model_data = TableModelLisa([input_line], headers)
+        self.model_data = TableModel([input_line], headers)
         self.gui.tbl_data.setModel(self.model_data)
 
     def init_gui(self):
