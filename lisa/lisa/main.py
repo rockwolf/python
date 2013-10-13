@@ -72,11 +72,9 @@ class MainWrapper():
             unit testing
         """
         print("Importing TestValues class...")
-        from modules_generic.calculator_finance_test import TestValues
+        from generic.modules.calculator_finance_test import TestValues
         print("Initialize class...")
-        test = TestValues()
-        print("Running test...")
-        test.run()
+        unittest.main()
         print("Done.")
 
     def run(self):
