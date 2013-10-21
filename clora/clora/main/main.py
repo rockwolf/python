@@ -1,4 +1,4 @@
-#!/usr/env/python
+#!/usr/bin/env python
 """
 See LICENSE file for copyright and license details.
 """
