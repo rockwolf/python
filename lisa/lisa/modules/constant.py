@@ -10,40 +10,31 @@ class Table():
        Tables.
     """
     FINANCE = 't_finance'
-    INVESTMENT = 't_investment'
     MARKET = 't_market'
     COMMODITY = 't_commodity'
     ACCOUNT = 't_account'
     CURRENCY = 't_currency'
     CURRENCY_EXCHANGE = 't_currency_exchange'
-    FORMULA = 't_formula'
     PARAMETER = 't_parameter'
     TRADE = 't_trade'
     RATE = 't_rate'
     DRAWDOWN = 't_drawdown'
-    MARGIN = 't_margin'
-    MARGIN_TYPE = 't_margin_type'
     POOL = 't_pool'
-    BET = 't_bet'
     
 class View():
     """
         Views.
     """
     FINANCE = 'v_finance'
-    INVESTMENT = 'v_investment'
     MARKET = 'v_market'
     COMMODITY = 'v_commodity'
     ACCOUNT = 'v_account'
     CURRENCY = 'v_currency'
     CURRENCY_EXCHANGE = 'v_currency_exchange'
-    FORMULA = 'v_formula'
     PARAMETER = 'v_parameter'
     TRADE = 'v_trade'
     RATE = 'v_rate'
     DRAWDOWN = 'v_drawdown'
-    MARGIN = 'v_margin'
-    MARGIN_TYPE = 'v_margin_type'
     POOL = 'v_pool'
     REP_CHECK_TOTAL = 'v_rep_check_total'
     ACCOUNT_NAME = 'v_account_name'
@@ -74,9 +65,7 @@ class Error():
     GET_INPUT_FIELDS = "Error in get_input_fields: "
     CREATE_STATEMENTS_TABLE_FINANCE = "Error in create_statements_TABLE_FINANCE: "
     CREATE_STATEMENTS_TABLE_TRADE = "Error in create_statements_TABLE_TRADE: "
-    CREATE_STATEMENTS_TABLE_INVESTMENT = "Error in create_statements_TABLE_INVESTMENT: "
     CREATE_STATEMENTS_TABLE_RATE = "Error in create_statements_TABLE_RATE: "
-    CREATE_STATEMENTS_TABLE_BET = "Error in create_statements_TABLE_BET: "
     CREATE_STATEMENTS_TABLE_CURRENCY_EXCHANGE = "Error in create_statements_TABLE_CURRENCY_EXCHANGE: "
     INVADE_ALREADY_STARTED = "Error in invade_already_started: "
     NEW_DRAWDOWN_RECORD = "Error in new_drawdown_record: "
@@ -138,10 +127,6 @@ class Transaction():
     BUY = 0
     SELL = 1
     
-INVESTING_ACCOUNTS = ['binb00']
-TRADING_ACCOUNTS = ['whsi00']
-BETTING_ACCOUNTS = ['unib00']
-INVESTMENT = ['stock', 'fund', 'bond']
 NEGATIVES = ['asset']
     
 DEFAULT_DATE = "1900-01-01"
