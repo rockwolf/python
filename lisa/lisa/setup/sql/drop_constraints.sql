@@ -18,7 +18,7 @@ alter table T_MARKET
 alter table T_FINANCE
     drop constraint fk_commodity_id;
 alter table T_COMMODITY
-    drop constraint pk_commidity_id;
+    drop constraint pk_commodity_id;
 alter table T_COMMODITY
     drop constraint fk_market_id;
 alter table T_COMMODITY
