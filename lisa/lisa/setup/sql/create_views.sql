@@ -60,16 +60,6 @@ from
     t_currency_exchange ce
 ;
 
-/* V_INVESTMENT */
---DROP VIEW V_INVESTMENT;
-CREATE VIEW V_INVESTMENT
-AS
-select
-    s.*
-from
-    t_investment s
-;
-
 /* V_COMMODITY */
 --DROP VIEW V_COMMODITY;
 CREATE VIEW V_COMMODITY
@@ -90,26 +80,6 @@ from
     t_market m
 ;
 
-/* V_MARGIN */
---DROP VIEW V_MARGIN;
-CREATE VIEW V_MARGIN
-AS
-select
-    m.*
-from
-    t_margin m 
-;
-
-/* V_MARGIN_TYPE */
---DROP VIEW V_MARGIN_TYPE;
-CREATE VIEW V_MARGIN_TYPE
-AS
-select
-    mt.*
-from
-    t_margin_type mt 
-;
-
 /* V_DRAWDOWN */
 --DROP VIEW V_DRAWDOWN;
 CREATE VIEW V_DRAWDOWN
@@ -118,16 +88,6 @@ select
     d.*
 from
     t_drawdown d 
-;
-
-/* V_FORMULA */
---DROP VIEW V_FORMULA;
-CREATE VIEW V_FORMULA
-AS
-select
-    f.*
-from
-    t_formula f 
 ;
 
 /* V_PARAMETER */
