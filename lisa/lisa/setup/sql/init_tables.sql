@@ -95,12 +95,6 @@ values(-1.0, -1.0/100, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 1, 0, current_date, c
 /* t_parameter */
 -- None
 
-/* t_margin_types */
--- None
-
-/* margins */
--- None
-
 /* t_version */
 INSERT INTO T_VERSION
 values(1, '2.0', 'Lisa with trading options.', current_date, current_date);
