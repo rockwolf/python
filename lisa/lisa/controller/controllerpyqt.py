@@ -224,7 +224,6 @@ class ControllerPyqt(QtGui.QMainWindow):
         account_from = self.gui.cmb_account_from.currentText()
         account_to = self.gui.cmb_account_to.currentText()
         is_commodity = deals_with_commodities(account_from, account_to)
-        is_trade = is_a_trade(account_from, account_to)
         # enable commodity labels
         self.gui.lbl_market_code.setEnabled(is_commodity)
         self.gui.lbl_commodity_name.setEnabled(is_commodity)
@@ -234,6 +233,8 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.gui.lbl_tax.setEnabled(is_commodity)
         self.gui.lbl_risk.setEnabled(is_commodity)
         self.gui.lbl_pool.setEnabled(is_commodity)
+        self.gui.lbl_risk.setEnabled(is_commodity)
+        self.gui.lbl_expiration.setEnabled(is_commodity)
         # enable commodity inputs
         self.gui.cmb_market_code.setEnabled(is_commodity)
         self.gui.txt_market_description.setEnabled(is_commodity)
@@ -246,18 +247,11 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.gui.spn_pool.setEnabled(is_commodity)
         #TODO: automatic calculation of commission temporarily disabled
         self.gui.chk_manual_commission.setEnabled(is_commodity)
-        # enable trade labels
-        self.gui.lbl_risk.setEnabled(is_commodity and is_trade)
-        self.gui.lbl_expiration.setEnabled(is_commodity and is_trade)
-        # enable trade inputs
-        self.gui.spn_risk.setEnabled(is_commodity and is_trade)
-        self.gui.dt_expiration.setEnabled(is_commodity and is_trade)
+        self.gui.spn_risk.setEnabled(is_commodity)
+        self.gui.dt_expiration.setEnabled(is_commodity)
         # set inputfields
         self.gui.spn_tax.setValue(Decimal(self.config.default_tax))
-        if is_trade:
-            self.gui.spn_risk.setValue(Decimal(self.config.default_risk))
-        else:
-            self.gui.spn_risk.setValue(0.0)
+        self.gui.spn_risk.setValue(Decimal(self.config.default_risk))
         # reset input fields
         self.gui.spn_quantity.setValue(0.0)
         self.gui.spn_price.setValue(0.0)
