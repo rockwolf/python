@@ -282,6 +282,7 @@ values('.N25.cfd', 16, 'Netherlands 25 cash, Euro', 1, 1, 0.1, 0.1, 1.0, 2000.0,
 
 /* ACCOUNTS */
 -- my accounts
+--TODO: fix the names, it should be assets:current_assets:commodities: --> Check in gnucash!
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
 values('assets:current_assets:belf00', 'belf00', 1, current_date, current_date);
 
