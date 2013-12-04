@@ -644,7 +644,3 @@ values(14, 'default_market', '16', 'default market');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
 values(15, 'default_commodity', '1', 'default commodity, depends on the market so 1 is recommended here');
-
--- Add specific margin types
-
--- Add specific margins
