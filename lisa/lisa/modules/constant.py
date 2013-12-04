@@ -127,6 +127,7 @@ class Transaction():
     BUY = 0
     SELL = 1
     
+TRADING_ACCOUNTS = ['whsi00']
 NEGATIVES = ['asset']
     
 DEFAULT_DATE = "1900-01-01"
