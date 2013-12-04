@@ -7,39 +7,6 @@
 """
 
 from modules.constant import INVESTMENT, TRADING_ACCOUNTS, NEGATIVES, BETTING_ACCOUNTS, INVESTING_ACCOUNTS
-
-def is_a_trade(account_from, account_to):
-    """
-        Function to determine if a line to process, is a trade.
-    """
-    result = False
-    for value in TRADING_ACCOUNTS:
-        if (value.lower() in account_from) \
-            or (value.lower() in account_to):
-            result = True
-            break
-    return result
-
-def is_an_investment(account_from, account_to):
-    """
-        Function to determine if a line to process, is an investent (buy
-        or sell of stock, that's not a trade).
-    """
-    # Check if it's an invenstment activity
-    result = False
-    for value in INVESTMENT:
-        if (value.lower() in account_from) \
-            or (value.lower() in account_to):
-            result = True
-            break
-    # That is NOT a trade
-    # NOTE: having the same trading and investing account is not allowed!
-    for value in TRADING_ACCOUNTS:
-        if (value.lower() in account_from) \
-            or (value.lower() in account_to):
-            result = False
-            break
-    return result
     
 def is_negative_amount(account_from):
     """
@@ -59,18 +26,6 @@ def deals_with_stocks(account_from, account_to):
     """
     return (is_a_trade(account_from, account_to) or
             is_an_investment(account_from, account_to))
-            
-def is_a_bet(account_from, account_to):
-    """
-        See if we are dealing with a betting transaction.
-    """
-    result = False
-    for value in BETTING_ACCOUNTS:
-        if (value.lower() in account_from) \
-            or (value.lower() in account_to):
-            result = True
-            break
-    return result
 
 def is_a_table(key):
     """
