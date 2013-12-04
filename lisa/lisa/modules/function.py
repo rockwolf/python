@@ -6,7 +6,13 @@
     A file with Lisa specific functions that can be used everywhere
 """
 
-from modules.constant import NEGATIVES
+from modules.constant import NEGATIVES, TRADING_ACCOUNTS
+
+def is_a_trading_account(account):
+    """
+        Check if the given account is a broker (used for trading).
+    """
+    return (account in TRADING_ACCOUNTS)
     
 def is_negative_amount(account_from):
     """
