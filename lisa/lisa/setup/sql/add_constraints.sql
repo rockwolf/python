@@ -15,8 +15,6 @@ alter table T_PARAMETER
     add constraint pk_parameter_id primary key(parameter_id);
 alter table T_RATE
     add constraint pk_rate_id primary key(rate_id);
-alter table T_RATE
-    add constraint fk_formula_id foreign key(formula_id) references T_FORMULA(formula_id);
 alter table T_FINANCE
     add constraint pk_finance_id primary key(finance_id);
 alter table T_FINANCE
