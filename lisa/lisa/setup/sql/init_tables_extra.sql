@@ -125,68 +125,6 @@ INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_
 values(40, 'other us', 'Other US markets', 'US', 1, current_date, current_date);
 
 /* STOCKS/COMMODITIES */
--- TODO: fill in the correct values for currency_id, tick, tick_value, order_min, ... margin_night_proc
--- Stocks
-INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('rhji', 3, 'RHJI International', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
-
-INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('nests', 3, 'Nestle', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
-
-INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('devg', 3, 'Devgen', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
-
-INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('enin', 3, '4 Energy Invest', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
-
-INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('adhof', 2, 'Koninklijke AHOLD N.V.', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
-
-INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('dexb', 3, 'Dexia', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
-
-INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('crxl', 2, 'Crucell N.V.', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
-
-INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('drak', 2, 'Draka Holding N.V.', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
-
-INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('theb', 3, 'Thenergo N.V.', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
-
-INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('eurn', 3, 'Euronav', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
-
-INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('tnet', 3, 'Telenet', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
-
-INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('exm', 3, 'Exmar', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
-
-INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('cofb', 3, 'Cofinimmo N.V.', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
-
-INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('fme', 4, 'Fresenius Medical Care', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
-
-INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('gsz', 5, 'GDF Suez SA', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
-
-INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('zsl23.90', 3, 'Zilver Sprinter Long 23.90', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
-
-INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('car', 5, 'Carrefour', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
-
-INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('boka', 2, 'Koninklijke Boskalis Westminster NV', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
-
-INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('sr', 2, 'SNS Reaal NV', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
-
-INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
-values('solb', 3, 'Solvay S.A.', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
-
 -- CFD's
 --- softs
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
@@ -367,64 +305,6 @@ values('assets:current_assets:unib00', 'unib00', 1, current_date, current_date);
 
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
 values('assets:current_assets:whsi00', 'whsi00', 1, current_date, current_date);
-
--- stocks
-INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:stock:ams.ahodf', 'ams.ahodf', 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:stock:ams.boka', 'ams.boka', 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:stock:ams.crxl', 'ams.crxl', 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:stock:ams.drak', 'ams.drak', 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:stock:ams.sbm', 'ams.sbm', 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:stock:ams.sr', 'ams.sr', 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:stock:ebr.cofb', 'ebr.cofb', 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:stock:ebr.devg', 'ebr.devg', 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:stock:ebr.dexb', 'ebr.dexb', 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:stock:ebr.enin', 'ebr.enin', 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:stock:ebr.eurn', 'ebr.eurn', 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:stock:ebr.exm', 'ebr.exm', 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:stock:ebr.nests', 'ebr.nests', 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:stock:ebr.rhji', 'ebr.rhji', 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:stock:ebr.solb', 'ebr.solb', 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:stock:ebr.tess', 'ebr.tess', 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:stock:epa.car', 'epa.car', 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:stock:epa.gsz', 'epa.gsz', 1, current_date, current_date);
-
-INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
-values('assets:stock:zsl23.90', 'zsl23.90', 1, current_date, current_date);
 
 -- CFD's
 --- softs
@@ -719,64 +599,6 @@ values('assets:cfd:indices (short):.F40.cfd', '.F40.cfd', 1, current_date, curre
 INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
 values('assets:cfd:indices (short):.N25.cfd', '.N25.cfd', 1, current_date, current_date);
 
-/* list:
--- softs - august
-CCZ3.cfd - US COCOA, US Dollar Dec13
-CTZ3.cfd - US Cotton No.2, US Dollar/100 Dec13
-KCZ3.cfd - US Coffee C, US Dollar/100 Dec13
-LCCU3.cfd - London Cocoa, Pound Sterling Sep13
-LEV3.cfd - Live Cattle (per 0.01), US Dollar/100 Oct13
-LRCU3.cfd - London Coffee, US Dollar Sep13
-LRCX3.cfd - London Coffee, US Dollar Nov13
-LSUV3.cfd - London Sugar, US Dollar Oct13
-LWBX3.cfd - London Wheat (per 0.01), Pound Sterling Nov13
-OJU3.cfd - Orange Juice, US Dollar/100 Sep13
-OJX3.cfd - Orange Juice, US Dollar/100 Nov13
-SBV3.cfd - US Sugar No11, US Dollar/100 Oct13
-ZVU3.cfd - US Corn, US Dollar/100 Sep13
-ZCZ3.cfd - US Corn, US Dollar/100 Dec13
-ZLU3.cfd - US Soybean Oil, US Dollar/100 Sep13
-ZLV3.cfd - US Soybean Oil, US Dollar/100 Oct13
-ZSU3.cfd - US Soybeans, US Dollar/100 Sep13
-ZSX3.cfd - US Soybeanr, US Dollar/100 Nov13
-ZWU3.cfd - US Wheat, US Dollar/100 Sep13
-ZWZ3.cfd - US Wheat, US Dollar/100 Dec13
--- oil (market 15)
-.BRENT.cfd - SPOT Brent Crude Oil, US Dollar/100
-.WTI.cfd - SPOT WTI Light Crude Oil, US Dollar
-CLV3.cfd - WTI Crude Oil, US Dollar Oct13
-CLX3.cfd - WTI Crude Oil, US Dollar Nov13
-HOU3.cfd - Heating Oil, US Dollar Sep13
-HOV3.cfd - Heating Oil, US Dollar Oct13
-LCOV3.cfd - Brent Crude Oil, US Dollar/100 Oct13
-LCOX3.cfd - Brent Crude Oil, US Dollar/100 Nov13
-LGOU3.cfd - London Gas Oil (per 25), US Dollar/100 Sep13
-LGOV3.cfd - London Gas Oil (per 25), US Dollar/100 Oct13
--- metals
-.GOLD.cfd - Spot Gold, US Dollar
-.MGOLD.cfd - MINI Spot Gold, US Dollar
-.MSILVER.cfd - Spot Mini Silver, US Dollar/100
-.SILVER.cfd - Spot Silver, US Dollar/100
-GCZ3.cfd - Gold, US Dollar Dec13
-HGU3.cfd - High Grade Copper (per 0.05), US Dollar Sep13
-HGZ3.cfd - High Grade Copper (per 0.05), US Dollar Dec13
-MINISIU3.cfd - Mini Silver, US Dollar/100 Sep13
-MINISIZ3.cfd - Mini Silver, US Dollar/100 Dec13
-PAU3.cfd - Palladium, US Dollar Sep13
-PAZ3.cfd - Palladium, US Dollar Dec13
-PLV3.cfd - Platinum, US Dollar Oct13
-SIU3.cfd - Silver, US Dollar/100 Sep13
-SIZ3.cfd - Silver, US Dollar/100 Dec13
--- indices (Note: BE not available)
-.DE30.cfd - Germany 30 cash, Euro
-.ES35.cfd - Spain 35 cash, Euro
-.F40.cfd - France 40 cash, Euro
-.N25.cfd - Netherlands 25 cash, Euro
-*/
-
---INSERT INTO T_ACCOUNT(name, description, active, date_created, date_modified)
---values('assets:e-mini:commodities:ojx...', 'e-mini:ojx...', 1, current_date, current_date);
-
 -- Add specific parameters
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
 values(1, 'pool_margin', '0.25', 'margin to leave of pool');
@@ -784,100 +606,45 @@ values(1, 'pool_margin', '0.25', 'margin to leave of pool');
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
 values(2, 'risk', '2.0', 'percent risk of pool we are willing to take initially');
 
---TODO: add another parameter for the 2500 EUR!
---We need to check for this in the code that determines
---which formula/parameter to use.
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(3, 'tax_stocks_be', '0.0025', 'Tax on Belgian stock market transactions.');
+values(3, 'default_currency_from', '2', 'default index for the currency_from combobox');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(4, 'tax_dividend_be', '0.25', 'dividend tax - BE');
+values(4, 'default_currency_to', '1', 'default index for the currency_to combobox');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(5, 'tax_dividend_d', '0.2675', 'dividend tax - D');
+values(5, 'default_exchange_rate', '1.0', 'default exchange rate');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(6, 'tax_dividend_fr', '0.30', 'dividend tax - FR');
+values(6, 'default_account_from', '19', 'default index for the account_from combobox');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(7, 'tax_dividend_nl', '0.15', 'dividend tax - NL');
+values(7, 'default_account_to', '39', 'default index for the account_to combobox');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(8, 'default_currency_from', '2', 'default index for the currency_from combobox');
+values(8, 'importdir', 'import', 'default index for the account_to combobox');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(9, 'default_currency_to', '1', 'default index for the currency_to combobox');
+values(9, 'exportdir', 'export', 'default index for the account_to combobox');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(10, 'default_exchange_rate', '1.0', 'default exchange rate');
+values(10, 'log', '0', '1 = use logging, 0 = don''t use logging');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(11, 'default_account_from', '19', 'default index for the account_from combobox');
+values(11, 'log_file', 'log/lisa.log', 'log file');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(12, 'default_account_to', '39', 'default index for the account_to combobox');
+values(12, 'default_commission', '3.0', 'default commission');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(13, 'importdir', 'import', 'default index for the account_to combobox');
+values(13, 'default_tax', '0.0', 'default tax');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(14, 'exportdir', 'export', 'default index for the account_to combobox');
+values(14, 'default_market', '16', 'default market');
 
 INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(15, 'log', '0', '1 = use logging, 0 = don''t use logging');
-
-INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(16, 'log_file', 'log/lisa.log', 'log file');
-
-INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(17, 'default_commission', '3.0', 'default commission');
-
-INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(18, 'default_tax', '0.0', 'default tax');
-
-INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(19, 'default_market', '16', 'default market');
-
-INSERT INTO T_PARAMETER(parameter_id, name, value, description)
-values(20, 'default_commodity', '1', 'default commodity, depends on the market so 1 is recommended here');
+values(15, 'default_commodity', '1', 'default commodity, depends on the market so 1 is recommended here');
 
 -- Add specific margin types
-/*INSERT INTO T_MARGIN_TYPE(margin_type)
-values('safety');*/
 
 -- Add specific margins
-/* -- Note: this might belong to the bi sql folder
-INSERT INTO T_MARGIN(margin_type_id, description, value, date_created, date_modified)
-values(1, 'Financial reserve', 5000, current_date, current_date);
-
-INSERT INTO T_MARGIN(margin_type_id, description, value, date_created, date_modified)
-values(1, 'Financial reserve after crossover', 1600000, current_date, current_date);
-
-INSERT INTO T_MARGIN(margin_type_id, description, value, date_created, date_modified)
-values(1, 'Safety margin passive income', 5000, current_date, current_date);
-
-INSERT INTO T_MARGIN(margin_type_id, description, value, date_created, date_modified)
-values(1, 'Safe withdrawal rate', 0.03, current_date, current_date);
-
-INSERT INTO T_MARGIN(margin_type_id, description, value, date_created, date_modified)
-values(1, 'Bargain reserve', 100000, current_date, current_date);*/
-
--- Add specific formulae
---TODO: add a column where you can say what the parameters are?
---TODO: add a table which contains the values for tax and commissions?
-/*INSERT INTO T_FORMULA(formula_id, value, description)
-values(1, '{0}', 'Default: no formula needed, just use the value.');
-
-INSERT INTO T_FORMULA(formula_id, value, description)
-values(2, '{0}+{1}*{2}', 'WHS commission calculation for US markets: <solid amount>+<small fraction>*<number of shares>.');
-
-INSERT INTO T_FORMULA(formula_id, value, description)
-values(3, '{0}+{1}*{2}/100', 'WHS commission calculation for non-US markets: <solid amount>+<small percentage>*<order size>.');
-
---TODO: this system is under review.
---Might be too complex to implement.
-INSERT INTO T_FORMULA(formula_id, value, description)
-values(4, 'if {0} >= {1} : {2} else {3}', 'commission be stocks');
-
-INSERT INTO T_FORMULA(formula_id, value, description)
-values(5, '','commission us stocks');*/
