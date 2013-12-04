@@ -18,7 +18,6 @@ from generic.modules.function import *
 from modules.currency_exchange import CurrencyExchange
 from modules.rate import Rate
 from modules.finance import Finance
-from modules.investment import Investment
 from modules.trade import Trade
 from modules.emma import Emma
 
@@ -49,8 +48,6 @@ class ControllerMain():
             rate = Rate(self.config)
             finance = Finance(self.config)
             trade = Trade(self.config)
-            investment = Investment(self.config)
-            bet = Bet(self.config)
             
             input_fields = self.get_input_fields(tablecontent)
             # Note: The order of execution below is important!
@@ -76,17 +73,10 @@ class ControllerMain():
             #test.print_statements()
             #if self.is_an_investment():
             #    dba.write_to_database(dba.create_statements_TABLE_INVESTMENT(input_fields))
-            # t_bet
-            var_bet = bet.create_statements(
-                        input_fields,
-                        var_finance)
-            bet.print_statements()
-            #bet.write_to_database(var_finance)
             currency_exchange = None
             rate = None
             finance = None
             trade = None
-            investment = None
         except  Exception as ex:
             print(Error.WRITE_TO_DATABASE_MAIN, ex)
 
@@ -347,15 +337,8 @@ class ControllerMain():
            Create a long and short account for a new commodity.
         """
         dba = DatabaseAccess(self.config)
-        # TODO: make is_a_trading_market, without having to specify all markets in
-        # constant.py
-        # Perhaps add a flag to t_market? [I|T] [invest|trade]
-        # TODO: add a button to set the flag for the currently selected market
-        if is_a_trading_market(market):
-            # NOTE: This only works when
-            # an account can not be used for trading and investing at the same time
-            dba.save_new_account('assets:current_assets:commodities:' + new_commodity.lower() + ' (long)')
-            dba.save_new_account('assets:current_assets:commodities:' + new_commodity.lower() + ' (short)')
+        dba.save_new_account('assets:current_assets:commodities:' + new_commodity.lower() + ' (long)')
+        dba.save_new_account('assets:current_assets:commodities:' + new_commodity.lower() + ' (short)')
         dba = None
 
     def get_parameter_value(self, parameter_index):
