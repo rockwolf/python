@@ -11,8 +11,6 @@ alter table T_COMMODITY
     add constraint fk_market_id foreign key(market_id) references T_MARKET(market_id);
 alter table T_COMMODITY
     add constraint fk_currency_id foreign key(currency_id) references T_CURRENCY(currency_id);
-alter table T_FORMULA
-    add constraint pk_formula_id primary key(formula_id);
 alter table T_PARAMETER
     add constraint pk_parameter_id primary key(parameter_id);
 alter table T_RATE
@@ -31,10 +29,6 @@ alter table T_INVESTMENT
     add constraint pk_investment_id primary key(investment_id);
 alter table T_INVESTMENT
     add constraint fk_commodity_id foreign key(commodity_id) references T_COMMODITY(commodity_id);
-/*alter table T_INVESTMENT
-    add constraint fk_investment_exchange_id_buy foreign key(currency_exchange_id_buy) references T_CURRENCY_EXCHANGE(currency_exchange_id);
-alter table T_INVESTMENT
-    add constraint fk_investment_exchange_id_sell foreign key(currency_exchange_id_sell) references T_CURRENCY_EXCHANGE(currency_exchange_id);*/
 alter table T_CURRENCY
     add constraint pk_currency_id primary key(currency_id);
 alter table T_CURRENCY_EXCHANGE
@@ -67,7 +61,5 @@ alter table T_MARGIN
     add constraint fk_margin_type_id foreign key(margin_type_id) references T_MARGIN_TYPE(margin_type_id);
 alter table T_POOL
     add constraint fk_account_id foreign key(account_id) references T_ACCOUNT(account_id);
-alter table T_BET
-    add constraint pk_bet_id primary key(bet_id);
 
 COMMIT;
