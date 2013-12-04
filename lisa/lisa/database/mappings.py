@@ -291,43 +291,6 @@ class T_MARKET(Base):
     def __repr__(self):
         return "<T_MARKET('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.market_id, self.code, self.name, self.country, self.active, self.date_created, self.date_modified)
 
-class T_MARGIN(Base):
-    """ T_MARGIN """
-    __tablename__ = Table.MARGIN
-    #__table_args__ = {'autoload':True}
-    margin_id = Column(Integer, primary_key=True)
-    margin_type_id = Column(Integer)
-    description = Column(String(256))
-    value = Column(Numeric(18,6))
-    date_created = Column(DateTime)
-    date_modified = Column(DateTime)
-
-    def __init__(self, margin_id, margin_type_id, description, value, date_created, date_modified):
-        self.margin_id = margin_id
-        self.margin_type_id = margin_type_id
-        self.description = description
-        self.value = value
-        self.date_created = date_created
-        self.date_modified = date_modified
-
-    def __repr__(self):
-        return "<T_MARGIN('%s', '%s', '%s', '%s' ,'%s', '%s')>" % (self.margin_id, self.margin_type_id,
-                self.description, self.value, self.date_created, self.date_modified)
-
-class T_MARGIN_TYPE(Base):
-    """ T_MARGIN_TYPE """
-    __tablename__ = Table.MARGIN_TYPE
-    #__table_args__ = {'autoload':True}
-    margin_type_id = Column(Integer, primary_key=True)
-    margin_type = Column(String(50))
-
-    def __init__(self, margin_type_id, margin_type):
-        self.margin_type_id = margin_type_id
-        self.margin_type = margin_type
-
-    def __repr__(self):
-        return "<T_MARGIN_TYPE('%s', '%s')>" % (self.margin_type_id, self.margin_type)
-
 class T_ACCOUNT(Base):
     """ T_ACCOUNT """
     __tablename__ = Table.ACCOUNT
@@ -395,23 +358,6 @@ class T_CURRENCY_EXCHANGE(Base):
                 self.exchange_rate,
                 self.date_created,
                 self.date_modified)
-
-class T_FORMULA(Base):
-    """ T_FORMULA """
-    __tablename__ = Table.FORMULA
-    #__table_args__ = {'autoload':True}
-    formula_id = Column(Integer, primary_key=True)
-    value = Column(String(512))
-    description = Column(String(256))
-
-    def __init__(self, formula_id, value, description):
-        self.formula_id = formula_id
-        self.value = value
-        self.description = description
-
-    def __repr__(self):
-        return "<T_FORMULA('%s', '%s', '%s')>" % (self.formula_id,
-                self.value, self.description)
 
 class T_TRADE(Base):
     """ T_TRADE """
@@ -586,14 +532,13 @@ class T_RATE(Base):
     on_other = Column(Numeric(18,6))
     commission = Column(Numeric(18,6))
     tax = Column(Numeric(18,6))
-    formula_id = Column(Integer)
     automatic_flag = Column(Integer)
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
 
     def __init__(self, rate_id, calculated, calculated_percent,
-            on_shares, on_commission, on_ordersize, on_other, commission, tax,
-            formula_id, automatic_flag, date_created, date_modified):
+            on_shares, on_commission, on_ordersize, on_other, commission,
+            tax, automatic_flag, date_created, date_modified):
         self.rate_id = rate_id
         self.calculated = calculated
         self.calculated_percent = calculated_percent
@@ -603,18 +548,17 @@ class T_RATE(Base):
         self.on_other = on_other
         self.commission = commission
         self.tax = tax
-        self.formula_id = formula_id
         self.automatic_flag = automatic_flag
         self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
         return "<T_RATE('%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-'%s', '%s', '%s', '%s', '%s', '%s')>" % (self.rate_id,
+'%s', '%s', '%s', '%s', '%s')>" % (self.rate_id,
                         self.calculated, self.calculated_percent, self.on_shares,
                         self.on_commission, self.on_ordersize, self.on_other,
-                        self.commission, self.tax, self.formula_id,
-                        self.automatic_flag, self.date_created, self.date_modified)
+                        self.commission, self.tax, self.automatic_flag,
+                        self.date_created, self.date_modified)
 
 class T_DRAWDOWN(Base):
     """ T_DRAWDOWN """
@@ -694,69 +638,3 @@ class T_POOL(Base):
                 self.active,
                 self.date_created,
                 self.date_modified)
-
-class T_BET(Base):
-    """ T_BET """
-    __tablename__ = Table.BET
-    #__table_args__ = {'autoload':True}
-    bet_id = Column(Integer, primary_key=True)
-    date = Column(DateTime)
-    pool = Column(Numeric(18,6))
-    stake = Column(Numeric(18,6))
-    value = Column(Numeric(18,6))
-    difference = Column(Numeric(18,6))
-    win = Column(Integer)
-    win_total = Column(Integer)
-    win_percent = Column(Numeric(18,6))
-    average = Column(Numeric(18,6))
-    average_total = Column(Numeric(18,6))
-    average_percent = Column(Numeric(18,6))
-    date_created = Column(DateTime)
-    date_modified = Column(DateTime)
-
-    def __init__(
-        self
-        , bet_id
-        , date
-        , pool
-        , stake
-        , value
-        , difference
-        , win
-        , win_total
-        , win_percent
-        , average
-        , average_total
-        , average_percent
-        , date_created
-        , date_modified):
-        self.bet_id = bet_id
-        self.pool = pool
-        self.stake = stake
-        self.value = value
-        sel.difference = difference
-        self.win = win
-        self.win_total = win_total
-        self.win_percent = win_percent
-        self.average = average
-        self.average_total = average_total
-        self.average_percent = average_percent
-        self.date_created = date_created
-        self.date_modified = date_modified
-
-    def __repr__(self):
-        return "<T_BET('%s', '%s', '%s', '%s', '%s', '%s', \
-            '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
-            self.bet_id
-            , self.pool
-            , self.stake
-            , self.value
-            , self.difference
-            , self.win
-            , self.win_total
-            , self.win_percent
-            , self.average
-            , self.average_total
-            , self.average_percent
-            , self.date_created
-            , self.date_modified)
