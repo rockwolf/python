@@ -39,6 +39,7 @@ CREATE TABLE T_MARKET
 CREATE TABLE T_COMMODITY
 (
     commodity_id serial not null,
+    commodity_type id not null,
     name varchar(15) not null,
     market_id int not null default -1,
     description varchar(256) not null default '',
@@ -126,57 +127,6 @@ CREATE TABLE T_FINANCE
     date_modified timestamp not null default '1900-01-01'
 );
 
-CREATE TABLE T_INVESTMENT
-(
-    -- NOTE: drawdown does not matter for investing
-    investment_id serial not null,
-    market_id int not null,
-    commodity_id int not null,
-    date_buy timestamp not null default '1900-01-01',
-    year_buy int not null default 1900,
-    month_buy int not null default 1,
-    day_buy int not null default 1,
-    date_sell timestamp not null default '1900-01-01',
-    year_sell int not null default 1900,
-    month_sell int not null default 1,
-    day_sell int not null default 1,
-    long_flag int not null default -1,
-    price_buy decimal(18,6) not null default 0.0,
-    price_sell decimal(18,6) not null default 0.0,
-    shares_buy int not null default 0,
-    shares_sell int not null default 0,
-    commission_buy decimal(18,6) not null default 0.0,
-    commission_sell decimal(18,6) not null default 0.0,
-    tax_buy decimal(18,6) not null default 0.0,
-    tax_sell decimal(18,6) not null default 0.0,
-    amount_buy_simple decimal(18,6) not null default 0.0,
-    amount_sell_simple decimal(18,6) not null default 0.0,
-    risk_input decimal(18,6) not null default 0.0,
-    risk_input_percent decimal(18,6) not null default 0.0,
-    risk_initial decimal(18,6) not null default 0.0,
-    risk_initial_percent decimal(18,6) not null default 0.0,
-    risk_actual decimal(18,6) not null default 0.0,
-    risk_actual_percent decimal(18,6) not null default 0.0,
-    cost_total decimal(18,6) not null default 0.0,
-    cost_other decimal(18,6) not null default 0.0,
-    stoploss decimal(18,6) not null default 0.0,
-    profit_loss decimal(18,6) not null default 0.0,
-    profit_loss_percent decimal(18,6) not null default 0.0,
-    r_multiple decimal(18,6) not null default 0.0,
-    win_flag int not null default -1,
-    id_buy int not null default -1,
-    id_sell int not null default -1,
-    currency_exchange_id_buy int not null default -1,
-    currency_exchange_id_sell int not null default -1,
-    drawdown_id int not null default -1,
-    pool_at_start decimal(18,6) not null default 0.0,
-    date_expiration timestamp not null default '1900-01-01',
-    expired_flag int not null default -1,
-    active int not null default 1,
-    date_created timestamp not null default '1900-01-01',
-    date_modified timestamp not null default '1900-01-01'
-);
-
 CREATE TABLE T_CURRENCY
 (
     currency_id int not null,
@@ -193,13 +143,6 @@ CREATE TABLE T_CURRENCY_EXCHANGE
     exchange_rate decimal(18,6) not null default 0.0,
     date_created timestamp not null default '1900-01-01',
     date_modified timestamp not null default '1900-01-01'
-);
-
-/* This might belong in bi */
-CREATE TABLE T_MARGIN_TYPE
-(
-    margin_type_id serial not null,
-    margin_type varchar(50) not null
 );
 
 CREATE TABLE T_DRAWDOWN
@@ -273,6 +216,12 @@ CREATE TABLE T_MARGIN
     date_modified timestamp not null default '1900-01-01'
 );
 
+CREATE TABLE T_MARGIN_TYPE
+(
+    margin_type_id serial not null,
+    margin_type varchar(50) not null
+);
+
 CREATE TABLE T_VERSION
 (
     version_id int not null,
@@ -280,22 +229,6 @@ CREATE TABLE T_VERSION
     version_info varchar(100) not null default '',
     date_created timestamp not null default '1900-01-01',
     date_modified timestamp not null default '1900-01-01'
-);
-
-CREATE TABLE T_BET
-(
-    bet_id int not null,
-    date timestamp not null default '1900-01-01',
-    pool decimal(18,6) not null default 0.0,
-    stake decimal(18,6) not null default 0.0,
-    value decimal(18,6) not null default 0.0,
-    difference decimal(18,6) not null default 0.0,
-    win int not null,
-    win_total int not null,
-    win_percent decimal(18,6) not null default 0.0,
-    average decimal(18,6) not null default 0.0,
-    average_total decimal(18,6) not null default 0.0,
-    average_percent decimal(18,6) not null default 0.0
 );
 
 COMMIT;
