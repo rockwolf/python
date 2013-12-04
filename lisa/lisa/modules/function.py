@@ -6,7 +6,7 @@
     A file with Lisa specific functions that can be used everywhere
 """
 
-from modules.constant import INVESTMENT, TRADING_ACCOUNTS, NEGATIVES, BETTING_ACCOUNTS, INVESTING_ACCOUNTS
+from modules.constant import NEGATIVES
     
 def is_negative_amount(account_from):
     """
@@ -37,17 +37,11 @@ def we_are_buying(account_from, account_to):
     """
         Are we buying? (not buying == selling)
     """
+    #TODO: find a better way to do this
     buy = False
     sell = False
-    for value in INVESTING_ACCOUNTS:
-        if (value.lower() in account_from):
-            buy = True
-            sell = False
-        elif (value.lower() in account_to):
-            buy = False
-            sell = True
     if (not buy) and (not sell):
-        for value in TRADING_ACCOUNTS:
+        for value in ['whsi00']:
             if (value.lower() in account_from):
                 buy = True
                 sell = False
