@@ -201,15 +201,14 @@ class DatabaseAccess():
             session = None
         return values
     
-    def trade_closed(self, invade_record):
+    def trade_closed(self, trade_record):
         """
-            Checks if a trade/investment is closed.
+            Checks if a trade is closed.
         """
-        #NOTE: invade = can be INVestment or trADE
         return (
-            (invade_record['date_buy'] != DEFAULT_DATE)
-            and (invade_record['date_sell'] != DEFAULT_DATE)
-            and (invade_record['shares_buy'] == invade_record['shares_sell']))
+            (trade_record['date_buy'] != DEFAULT_DATE)
+            and (trade_record['date_sell'] != DEFAULT_DATE)
+            and (trade_record['shares_buy'] == invade_record['shares_sell']))
     	
     def get_long_flag_value(self, account_from, account_to, trade_record):
         """
@@ -217,13 +216,13 @@ class DatabaseAccess():
         """
         result = False
         if trade_record == []:
-            result = is_a_trade(account_from, account_to) \
-                and get_last_part(account_from) in TRADING_ACCOUNTS
-            # NOTE: if account_from = WHSI00, we know we are trading + buying
+            result = is_a_trading_account(account_from) and \
+                deals_with_commodities(account_to)
+            # NOTE: if account_from = broker and account_to is a commodity,
+            # we know we are trading + buying
             # and that is going long if we don't have a trading record yet.
         else:
-            result = (is_a_trade(account_from, account_to) \
-                and get_last_part(account_to) in TRADING_ACCOUNTS
+            result = (deals_with_commodities(account_from, account_to) \
                 and trade_record['date_buy'] != DEFAULT_DATE)
         return 1 if result else 0
 
@@ -343,7 +342,6 @@ class DatabaseAccess():
                     record['on_other'],
                     record['commission'],
                     record['tax'],
-                    record['formula_id'],
                     record['automatic_flag'],
                     record['date_created'],
                     record['date_modified']))
@@ -431,8 +429,6 @@ class DatabaseAccess():
                 #TODO: instead of table_id being the id, make it
                 #the first field in the update string {...}: {..}
                 result[0].append(record['trade_id'])
-            elif statements.table_name == Table.INVESTMENT:
-                result[0].append(record['investment_id'])
             else:
                 record[0].append(-1)
             result[1].append(
@@ -620,22 +616,6 @@ class DatabaseAccess():
             session.rollback()
             session = None
         return result
-
-    def category_from_category_id(self, category_id):
-        """
-            Get the category for a given category_id from the T_CATEGORY table.
-        """
-        result = ''
-        try:
-            session = self.Session()
-            for instance in session.query(T_CATEGORY).filter_by(category_id=category_id):
-                result = instance.name
-        except Exception as ex:
-            print("Error retrieving category from category_id: ", ex)
-        finally:
-            session.rollback()
-            session = None
-        return result
     
     def currency_id_from_currency(self, currency):
         """
@@ -655,27 +635,6 @@ class DatabaseAccess():
             session.rollback()
             session = None
         return result
-
-    def get_formula_id_to_use(self, fields):
-        """
-            Gets the formula_id to use for a given trading line of the input fields.
-        """
-        #TODO: Is this still necessary, or is all this handled by the haskell library?
-        #TODO: determine the rate_id, based on ???
-        # Ah no, we need to create a new rate_id,
-        # but determine the formula_id to use
-        # fields['currency'] = USD => probably the formula with usd
-        # fields['category'] = 'trade.tx'
-        # fields['subcategory'] =  => 'buy' or 'sell'
-        #TODO: do we need to add a dummy formula that multiplies by 1?
-        #NOTE: do it manually for now, we'll fix this later
-        formula_id = 1
-        #if is_a_trade(fields):
-        #       if uppercase(fields['currency']) == 'USD':
-        #           formula_id = 2 #TODO: was it 2?      
-        #       elif somethingsomething:
-        #           formula_id = 1
-        return formula_id
 
     def get_latest_rate_id(self):
         """
@@ -904,8 +863,8 @@ class DatabaseAccess():
             session = None
         return result
 
-    def get_specific_finance_record(self, date, account_id, category_id,
-            subcategory_id, amount, comment, commodity_id, shares, price,
+    def get_specific_finance_record(self, date, account_id, account_from_id,
+            account_to_id, amount, comment, commodity_id, shares, price,
             tax, commission):
         """
            Looks for a finance record with the given parameters. 
@@ -915,8 +874,8 @@ class DatabaseAccess():
             result = session.query(T_FINANCE).filter_by(
                             date=date,
                             account_id=account_id,
-                            category_id=category_id,
-                            subcategory_id=subcategory_id,
+                            account_from_id=account_from_id_id,
+                            account_to_id=account_to_id,
                             amount=amount,
                             comment=comment,
                             commodity_id=commodity_id,
@@ -962,7 +921,7 @@ class DatabaseAccess():
 
     def get_invade_record(self, finance_id, table_class):
         """
-            Gets the investment/trade_record with the given finance_id set in
+            Gets the trade_record with the given finance_id set in
             either id_buy or id_sell.
         """
         #TODO: this code can only deal with buying all and selling all for now!
