@@ -874,7 +874,7 @@ class DatabaseAccess():
             result = session.query(T_FINANCE).filter_by(
                             date=date,
                             account_id=account_id,
-                            account_from_id=account_from_id_id,
+                            account_from_id=account_from_id,
                             account_to_id=account_to_id,
                             amount=amount,
                             comment=comment,
