@@ -22,9 +22,9 @@ def is_negative_amount(account_from):
 
 def deals_with_commodities(account):
     """
-        Check if 'commodity' is in the account name.
+        Check if 'commodities' is in the account name.
     """
-    return ('commodity' in account)
+    return ('commodities' in account)
 
 def deals_with_stocks(account_from, account_to):
     """
