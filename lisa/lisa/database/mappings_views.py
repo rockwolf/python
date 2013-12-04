@@ -13,12 +13,6 @@ class V_FINANCE(Base):
     __table_args__ = {'autoload':True}
     finance_id = Column('finance_id', Integer, primary_key=True)
 
-class V_INVESTMENT(Base):
-    """ V_INVESTMENT """
-    __tablename__ = View.INVESTMENT
-    __table_args__ = {'autoload':True}
-    investment_id = Column('investment_id', Integer, primary_key=True)
-
 class V_COMMODITY(Base):
     """ V_COMMODITY """
     __tablename__ = View.COMMODITY
@@ -30,18 +24,6 @@ class V_MARKET(Base):
     __tablename__ = View.MARKET
     __table_args__ = {'autoload':True}
     market_id = Column('market_id', Integer, primary_key=True)
-
-class V_MARGIN(Base):
-    """ V_MARGIN """
-    __tablename__ = View.MARGIN
-    __table_args__ = {'autoload':True}
-    margin_id = Column('margin_id', Integer, primary_key=True)
-
-class V_MARGIN_TYPE(Base):
-    """ V_MARGIN_TYPE """
-    __tablename__ = View.MARGIN_TYPE
-    __table_args__ = {'autoload':True}
-    margin_type_id = Column('margin_type_id', Integer, primary_key=True)
 
 class V_ACCOUNT(Base):
     """ V_ACCOUNT """
@@ -60,12 +42,6 @@ class V_CURRENCY_EXCHANGE(Base):
     __tablename__ = View.CURRENCY_EXCHANGE
     __table_args__ = {'autoload':True}
     currency_exchange_id = Column('currency_exchange_id', Integer, primary_key=True)
-
-class V_FORMULA(Base):
-    """ V_FORMULA """
-    __tablename__ = View.FORMULA
-    __table_args__ = {'autoload':True}
-    formula_id = Column('formula_id', Integer, primary_key=True)
 
 class V_TRADE(Base):
     """ V_TRADE """
