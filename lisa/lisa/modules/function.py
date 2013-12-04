@@ -20,12 +20,18 @@ def is_negative_amount(account_from):
             break;
     return result
 
+def deals_with_commodities(account):
+    """
+        Check if 'commodity' is in the account name.
+    """
+    return ('commodity' in account)
+
 def deals_with_stocks(account_from, account_to):
     """
         See if we need to use rate, marketid and stockid.
     """
-    return (is_a_trade(account_from, account_to) or
-            is_an_investment(account_from, account_to))
+    return (deals_with_commodities(account_from) or
+        deals_with_commodities(account_to))
 
 def is_a_table(key):
     """
