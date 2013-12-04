@@ -206,22 +206,6 @@ CREATE TABLE T_TRADE
     date_modified timestamp not null default '1900-01-01'
 );
 
-CREATE TABLE T_MARGIN
-(
-    margin_id serial not null,
-    margin_type_id int not null default -1,
-    description varchar(100) not null default '',
-    value decimal(18,6) not null default 0.0,
-    date_created timestamp not null default '1900-01-01',
-    date_modified timestamp not null default '1900-01-01'
-);
-
-CREATE TABLE T_MARGIN_TYPE
-(
-    margin_type_id serial not null,
-    margin_type varchar(50) not null
-);
-
 CREATE TABLE T_VERSION
 (
     version_id int not null,
