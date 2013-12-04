@@ -1,15 +1,11 @@
 BEGIN;
 truncate table T_FINANCE cascade;
 truncate table T_ACCOUNT cascade;
-truncate table T_INVESTMENT cascade;
 truncate table T_COMMODITY cascade;
 truncate table T_MARKET cascade;
-truncate table T_MARGIN_TYPE cascade;
-truncate table T_MARGIN cascade;
 truncate table T_TRADE cascade;
 truncate table T_RATE cascade;
 truncate table T_CURRENCY_EXCHANGE cascade;
 truncate table T_CURRENCY cascade;
-truncate table T_FORMULA cascade;
 truncate table T_DRAWDOWN cascade;
 COMMIT;
