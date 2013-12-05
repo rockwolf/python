@@ -661,12 +661,12 @@ class DatabaseAccess():
         """
             Function to get the value that belongs to the given parameter.
         """
-        result = ''
+        result = 0.0 
         session = self.Session()
         try:
             for instance in session.query(T_PARAMETER).filter_by(
                     parameter_id=parameter_id):
-                result = instance.value
+                result = Decimal(instance.value)
         except Exception as ex:
             print("Error retrieving parameter value: ", ex)
         finally:
