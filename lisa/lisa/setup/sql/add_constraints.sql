@@ -23,8 +23,6 @@ alter table T_FINANCE
     add constraint fk_commodity_id foreign key(commodity_id) references T_COMMODITY;
 alter table T_FINANCE
     add constraint fk_rate_id foreign key(rate_id) references T_RATE;
-alter table T_INVESTMENT
-    add constraint fk_commodity_id foreign key(commodity_id) references T_COMMODITY(commodity_id);
 alter table T_CURRENCY
     add constraint pk_currency_id primary key(currency_id);
 alter table T_CURRENCY_EXCHANGE

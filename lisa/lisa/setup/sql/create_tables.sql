@@ -39,7 +39,6 @@ CREATE TABLE T_MARKET
 CREATE TABLE T_COMMODITY
 (
     commodity_id serial not null,
-    commodity_type id not null,
     name varchar(15) not null,
     market_id int not null default -1,
     description varchar(256) not null default '',

@@ -84,10 +84,6 @@ values(14, 'RUB', 'Russian Ruble');
 INSERT INTO T_COMMODITY(name, market_id, description, active, date_created, date_modified)
 values('', 1, '', 1, current_date, current_date);
 
-/* t_formula */
-INSERT INTO T_FORMULA(formula_id, value, description)
-values(1, '{0}', 'Default: no formula needed, just use the value.');
-
 /* t_rate */
 INSERT INTO T_RATE(calculated, calculated_percent, on_shares, on_commission, on_ordersize, on_other, commission, tax, automatic_flag, date_created, date_modified)
 values(-1.0, -1.0/100, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 0, current_date, current_date);
