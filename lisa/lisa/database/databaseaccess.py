@@ -208,7 +208,7 @@ class DatabaseAccess():
         return (
             (trade_record['date_buy'] != DEFAULT_DATE)
             and (trade_record['date_sell'] != DEFAULT_DATE)
-            and (trade_record['shares_buy'] == invade_record['shares_sell']))
+            and (trade_record['shares_buy'] == trade_record['shares_sell']))
     	
     def get_long_flag_value(self, account_from, account_to, trade_record):
         """
