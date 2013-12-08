@@ -86,7 +86,7 @@ class ControllerMain():
         try:
             for field in tablecontent:
                 account_to = field[InputIndex.ACCOUNT_TO]
-                if deals_with_stocks(account_from, account_to) :
+                if deals_with_commodities(account_from, account_to) :
                     shares = field[InputIndex.SHARES]
                     price = field[InputIndex.PRICE]
                     commission = field[InputIndex.COMMISSION]
@@ -218,7 +218,7 @@ class ControllerMain():
             str_list.append('')
     
         # get values    
-        if(deals_with_stocks(self.gui.get_account_from(), self.gui.get_account_to())):
+        if(deals_with_commodities(self.gui.get_account_from(), self.gui.get_account_to())):
             market = self.gui.get_market_code()
             commodity = self.gui.get_commodity_name()
             market_description = self.gui.get_market_description()
@@ -253,17 +253,17 @@ class ControllerMain():
         str_list[InputIndex.POOL] = pool
         return str_list
 
-    def remove_selected(self, table, selected_index):
+    def remove_selected(self, table_model, selected_index):
         """
             Removes the selected record from the input buffer.
         """
-        table.delete_row(selected_index)
+        table_model.removeRows(selected_index - 1, 1)
 
-    def remove_last(self, table):
+    def remove_last(self, table_model):
         """
             Removes the most recently added record from the input buffer.
         """
-        table.delete_row()
+        table_model.removeRows(table_model.rowCount(None) - 1, 1)
 
     def set_info_details(self):
         """
@@ -273,7 +273,7 @@ class ControllerMain():
         account_from = self.gui.get_account_from()
         account_to = self.gui.get_account_to()
         commodity = self.gui.get_commodity_name()
-        if deals_with_stocks(account_from, account_to) and not commodity:
+        if deals_with_commodities(account_from, account_to) and not commodity:
             info = dba.get_commodity_info(commodity)
             self.gui.set_info_details(
                 '{} ({}): {}'.format(

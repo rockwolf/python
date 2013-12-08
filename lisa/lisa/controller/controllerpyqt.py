@@ -148,13 +148,12 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
         #TODO: get the table row to get the index
         #This currently gets the last row.
-        selected_index = -1
+        selected_index = self.model_data.rowCount(None)
         self.ctl.remove_selected(self.model_data, selected_index)
     
     def btn_removelast_clicked(self):
         """ Remove the last added record from the table. """
-        #TODO: test + fix?
-        self.model_data.removeRows(-1)
+        self.ctl.remove_last(self.model_data)
         
     def btn_emma_clicked(self):
         """
