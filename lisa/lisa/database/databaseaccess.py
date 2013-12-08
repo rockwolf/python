@@ -666,7 +666,7 @@ class DatabaseAccess():
         try:
             for instance in session.query(T_PARAMETER).filter_by(
                     parameter_id=parameter_id):
-                result = Decimal(instance.value)
+                result = str(instance.value)
         except Exception as ex:
             print("Error retrieving parameter value: ", ex)
         finally:

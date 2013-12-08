@@ -296,7 +296,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
         # Info labels
         self.gui.lbl_infofinance.clear()
-        self.gui.lbl_infofinance.setText('>> ' + self.ctl.get_parameter_value(14))
+        self.gui.lbl_infofinance.setText('[<< ' + self.ctl.get_parameter_value(8) + ' >> ' + self.ctl.get_parameter_value(9) + ']')
         self.gui.lbl_infodetails.clear()
         self.set_lbl_check(self.ctl.get_check_info([]))
         # fill all combo boxes
@@ -318,7 +318,9 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
             Clears the table that contains the data.
         """
-        self.model_data.clear()
+        #TODO: clear when possible
+        if self.model_data != None:
+            self.model_data.clear()
 
     def clear_fields(self):
         """
@@ -516,61 +518,61 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
             Select the default commission.
         """
-        self.gui.spn_commission.setValue(Decimal(self.ctl.get_parameter_value(17)))
+        self.gui.spn_commission.setValue(Decimal(self.ctl.get_parameter_value(12)))
         
     def set_default_tax(self):
         """
             Select the default tax.
         """
-        self.gui.spn_tax.setValue(Decimal(self.ctl.get_parameter_value(18)))
+        self.gui.spn_tax.setValue(Decimal(self.ctl.get_parameter_value(13)))
         
     def set_default_market(self):
         """
             Select the default market.
         """
-        index = int(self.ctl.get_parameter_value(19))-1
+        index = int(self.ctl.get_parameter_value(14))-1
         self.set_combo_selection(index, self.gui.cmb_market_code)
 
     def set_default_commodity(self):
         """
             Select the default commodity.
         """
-        index = int(self.ctl.get_parameter_value(20))-1
+        index = int(self.ctl.get_parameter_value(15))-1
         self.set_combo_selection(index, self.gui.cmb_commodity_name)
 
     def set_default_account_from(self):
         """
             Select the default account.
         """
-        index = int(self.ctl.get_parameter_value(11))-1
+        index = int(self.ctl.get_parameter_value(6))-1
         self.set_combo_selection(index, self.gui.cmb_account_from)
 
     def set_default_account_to(self):
         """
             Select the default account.
         """
-        index = int(self.ctl.get_parameter_value(12))-1
+        index = int(self.ctl.get_parameter_value(7))-1
         self.set_combo_selection(index, self.gui.cmb_account_to)
 
     def set_default_currency_from(self):
         """
             Set the default from currency value at startup.
         """
-        index = int(self.ctl.get_parameter_value(8))-1
+        index = int(self.ctl.get_parameter_value(3))-1
         self.set_combo_selection(index, self.gui.cmb_currency_from)
 
     def set_default_currency_to(self):
         """
             Set the default to currency value at startup.
         """
-        index = int(self.ctl.get_parameter_value(9))-1
+        index = int(self.ctl.get_parameter_value(4))-1
         self.set_combo_selection(index, self.gui.cmb_currency_to)
  
     def set_default_exchange_rate(self):
         """
             Set the default exchange rate value at startup.
         """
-        self.gui.spn_exchange_rate.setValue(Decimal(self.ctl.get_parameter_value(10)))
+        self.gui.spn_exchange_rate.setValue(Decimal(self.ctl.get_parameter_value(5)))
 
     def set_default_risk(self):
         """
