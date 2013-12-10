@@ -21,7 +21,7 @@ It can help to get a clear view on the code structure, for developers.
 
 [[btnadd]]
 == Adding a transaction line
-=== UI: btn_add
+=== btn_add
 This section describes what happens, if we enter data in the input fields and
 press the 'add'-button.
 Note: this only adds the input as a transaction line to the table-model in pyqt.
@@ -29,41 +29,104 @@ It will not do anything on the database yet.
 Lisa uses the table in the gui as a first buffer, so you can look at the data and
 make corrections when needed, before actually sending them to the database.
 
+=== UI
+Screenshot to be added.
+
 === Code
+controller/controllerpyqt.py/btn_add_clicked
 [source, python, numbered]
 ----
-if None:  
-  init_tbl_data() # <1>
-else:  
-  get_input_line # <2>
+def btn_add_clicked(self):
+    """
+        Add new input to the input_fields table.
+    """
+    # Init tbl_data
+    input_line = self.ctl.get_input_line() # <1>
+    if self.model_data == None:
+        self.init_tbl_data(input_line) # <2>
+    else: 
+        self.ctl.add_tbl_data(self.model_data, [input_line]) # <3>
+    self.clear_fields()
 ----
 
-<1> Makes sure we have a model connected to our table.
-<2> Gets data from the input fields, this is a first area of manipulation. Get_input_line his returns a dictionary of input values, adressable via keys.
+<1> Gets data from the input fields, this is a first area of manipulation. Get_input_line his returns a dictionary of input values, adressable via keys.
+<2> Makes sure we have a model connected to our table.
+<3> Adds the inputline directly to the model via insertRows.
 
 For the model to be created, the input line is retrieved. It is necessary to determine what values go into the table model.
 
 [source, python, numbered]
 ----
-  self.ctl.add_tbl_data(self.model_data, [input_line])
+def get_input_line(self):
+    """
+        Get the input values.
+    """
+    # initialize
+    market = ''
+    commodity = ''
+    market_description = ''
+    commodity_description = ''
+    pool = DEFAULT_DECIMAL
+
+    str_list = []
+    for i in range(0,InputIndex.SIZE):
+        str_list.append('')
+
+    # get values    
+    if(deals_with_commodities(self.gui.get_account_from(), self.gui.get_account_to())):
+        market = self.gui.get_market_code()
+        commodity = self.gui.get_commodity_name()
+        market_description = self.gui.get_market_description()
+        commodity_description = self.gui.get_commodity_description()
+        pool = self.gui.get_pool()
+        
+    #TODO: check if it needs to be a negative amount
+    if is_negative_amount(self.gui.get_account_from()) \
+        and Decimal(amount) != DEFAULT_DECIMAL:
+        amount = '-' + self.gui.get_amount()
+    else:
+        amount = self.gui.get_amount()
+    
+    str_list[InputIndex.DATE] = self.gui.get_date()
+    str_list[InputIndex.ACCOUNT_FROM] = self.gui.get_account_from()
+    str_list[InputIndex.ACCOUNT_TO] = self.gui.get_account_to()
+    str_list[InputIndex.AMOUNT] = amount
+    str_list[InputIndex.COMMENT] = self.gui.get_comment()
+    str_list[InputIndex.COMMODITY] = commodity
+    str_list[InputIndex.COMMODITY_DESCRIPTION] = commodity_description
+    str_list[InputIndex.MARKET] = market
+    str_list[InputIndex.MARKET_DESCRIPTION] = market_description
+    str_list[InputIndex.QUANTITY] = self.gui.get_quantity()
+    str_list[InputIndex.PRICE] = self.gui.get_price()
+    str_list[InputIndex.COMMISSION] = self.gui.get_commission()
+    str_list[InputIndex.TAX] = self.gui.get_tax()
+    str_list[InputIndex.RISK] = self.gui.get_risk()
+    str_list[InputIndex.CURRENCY_FROM] = self.gui.get_currency_from()
+    str_list[InputIndex.CURRENCY_TO] = self.gui.get_currency_to()
+    str_list[InputIndex.EXCHANGE_RATE] = self.gui.get_exchange_rate()
+    str_list[InputIndex.MANUAL_COMMISSION] = self.gui.get_manual_commission()
+    str_list[InputIndex.DATE_EXPIRATION] = self.gui.get_date_expiration()
+    str_list[InputIndex.POOL] = pool
+    return str_list
 ----
-
-Adds the inputline directly to the model via insertRows.
-
 
 [[btnremove]]
 == Removing a transaction line
-=== UI: btn_remove / btn_remove_last
+=== btn_remove / btn_remove_last
 This section describes the functionality between the remove and remove_last buttons.
 Remove_last will remove the last entry from the table-model.
 Remove will remove the currently selected entry from the table-model.
 When nothing is selected, the last entry will be removed.
+
 Note:
 ----
 Currently, only removing the last entry is supported.
 ----
 
-=== Code: btn_remove / btn_remove_last
+=== UI
+Screenshot to be added.
+
+=== Code
 [source, python, numbered]
 ----
 self.ctl.remove_last(self.model_data)
@@ -84,12 +147,15 @@ Also note that the model should refresh automatically, as that is the
 nature of working with model-views in (py)qt.
 
 == Execute
-=== UI: btn_execute
+=== btn_execute
 This section will describe the most important step: processing the table-data.
 Processing will calculate missing or extra values and writes it all to the
 correct tables in the database.
 
-=== Code: btn_execute_click
+=== UI
+Screenshot to be added.
+
+=== Code
 [source, python, numbered]
 ----
     self.ctl.write_to_database(self.model_data) # <1>
@@ -119,4 +185,8 @@ used.
 [source, python, numbered]
 ----
 None 
+----
+
+----
+// vim: set syntax=asciidoc:
 ----
