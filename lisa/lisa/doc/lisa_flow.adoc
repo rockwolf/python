@@ -1,0 +1,34 @@
+= Lisa documentation
+Andy Nagels <thereisanewway@gmail.com>
+:Author Initials: AN
+:toc:
+:icons:
+:numbered:
+:website: https://github.com/rockwolf/python/lisa
+
+Lisa is a pyqt application that works in conjunction with a PostgresQL
+database, to provide the user with an interface to store financial transactions.
+It's main focus lies in creating a trading journal for active traders,
+with support for commodities, cfd's etc.
+
+.This document
+**********************************************************************
+This document describes the workflow of the code, in relation to using
+the application.
+
+It can help to get a clear view on the code structure, for developers.
+**********************************************************************
+
+[[btnadd]]
+== Adding a transaction line
+=== UI action
+This section describes what happens, if we enter data in the input fields and
+press the 'add'-button.
+
+=== Code
+if None:  
+  init_tbl_data() `->` makes sure we have a model connected to our table.  
+else:  
+  get_input_line `->` gets data from the input fields, this is a first area of manipulation.  
+
+Get_input_line his returns a dictionary of input values, adressable via keys.
