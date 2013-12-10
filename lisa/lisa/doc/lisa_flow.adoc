@@ -21,7 +21,7 @@ It can help to get a clear view on the code structure, for developers.
 
 [[btnadd]]
 == Adding a transaction line
-=== UI action
+=== UI action: btn_add
 This section describes what happens, if we enter data in the input fields and
 press the 'add'-button.
 Note: this only adds the input as a transaction line to the table-model in pyqt.
@@ -51,7 +51,7 @@ Adds the inputline directly to the model via insertRows.
 
 [[btnremove]]
 == Removing a transaction line
-=== UI action
+=== UI: btn_remove / btn_remove_last
 This section describes the functionality between the remove and remove_last buttons.
 Remove_last will remove the last entry from the table-model.
 Remove will remove the currently selected entry from the table-model.
@@ -61,7 +61,7 @@ Note:
 Currently, only removing the last entry is supported.
 ---
 
-=== Code
+=== Code: btn_remove / btn_remove_last
 [btn_remove_last_clicked, python]
 ---
 self.ctl.remove_last(self.model_data)
@@ -79,3 +79,36 @@ the correct functionality on the table model.
 
 Also note that the model should refresh automatically, as that is the 
 nature of working with model-views in (py)qt.
+
+== Execute
+=== UI: btn_execute
+This section will describe the most important step: processing the table-data.
+Processing will calculate missing or extra values and writes it all to the
+correct tables in the database.
+
+=== Code: btn_execute_click
+[btn_execute_click, python]
+---
+    self.ctl.write_to_database(self.model_data) #<1>
+    self.set_lbl_check(self.ctl.get_check_info([])) #<2>
+    self.model_data.clear() #<3>
+---
+<1> The main processing is started from this function in the controller.
+<2> Detailed info that is displayed, will change after processing. An example
+of this, is the total pool.
+<3> After processing, the table-data is cleared again.
+
+=== Code: write_to_database
+This code will do the following:
+- load the classes for currency_exchange, rate, finance and trade.
+- get the input_fields
+- process currency_exchange: get statements, print them and write them to the db
+- process rate: get statements, print them and write them to the db
+- process finance: get statements, print them and write them to the db
+- process trade: get statements, print them and write them to the db
+
+==== Code: get_input_fields
+[write_to_database, python]
+---
+  
+---
