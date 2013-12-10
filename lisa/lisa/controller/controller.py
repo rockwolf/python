@@ -41,7 +41,7 @@ class ControllerMain():
         window.show()
         sys.exit(app.exec_())
 
-    def write_to_database(self, tablecontent):
+    def write_to_database(self, table_model):
         """ Write the records to write to the database. """
         try:
             currency_exchange = CurrencyExchange(self.config)
@@ -49,7 +49,7 @@ class ControllerMain():
             finance = Finance(self.config)
             trade = Trade(self.config)
             
-            input_fields = self.get_input_fields(tablecontent)
+            input_fields = self.get_input_fields(table_model)
             # Note: The order of execution below is important!
             # t_currency_exchange
             var_currency_exchange = currency_exchange.create_statements(input_fields)
@@ -80,11 +80,11 @@ class ControllerMain():
         except  Exception as ex:
             print(Error.WRITE_TO_DATABASE_MAIN, ex)
 
-    def get_input_fields(self, tablecontent):
+    def get_input_fields(self, table_model):
         """ Gets input, adds extra info and puts this in a list. """
         input = []
         try:
-            for field in tablecontent:
+            for field in table_model:
                 account_to = field[InputIndex.ACCOUNT_TO]
                 if deals_with_commodities(account_from, account_to) :
                     shares = field[InputIndex.SHARES]
@@ -211,7 +211,7 @@ class ControllerMain():
         commodity = ''
         market_description = ''
         commodity_description = ''
-        pool = '0.0'
+        pool = DEFAULT_DECIMAL
     
         str_list = []
         for i in range(0,InputIndex.SIZE):
@@ -226,7 +226,8 @@ class ControllerMain():
             pool = self.gui.get_pool()
             
         #TODO: check if it needs to be a negative amount
-        if is_negative_amount(self.gui.get_account_from()):
+        if is_negative_amount(self.gui.get_account_from()) \
+            and Decimal(amount) != DEFAULT_DECIMAL:
             amount = '-' + self.gui.get_amount()
         else:
             amount = self.gui.get_amount()

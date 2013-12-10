@@ -111,6 +111,11 @@ This code will do the following:
 - process trade: get statements, print them and write them to the db
 
 ==== Code: get_input_fields
+This function is a step inbetween, that performs typecasts on the inputs and makes
+the values available via a dictionary.
+Default empty/zero values are also filled in for the trade-related input fields, if they are not
+used.
+
 [source, python, numbered]
 ----
 None 
