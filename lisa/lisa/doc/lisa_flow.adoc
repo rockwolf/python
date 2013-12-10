@@ -30,22 +30,24 @@ Lisa uses the table in the gui as a first buffer, so you can look at the data an
 make corrections when needed, before actually sending them to the database.
 
 === Code
-[first part, python]
----
+[source, python, numbered]
+----
 if None:  
-  init_tbl_data() #<1>
+  init_tbl_data() # <1>
 else:  
-  get_input_line #<2>
----
-<1>`->` makes sure we have a model connected to our table.
-<2> `->` gets data from the input fields, this is a first area of manipulation. Get_input_line his returns a dictionary of input values, adressable via keys.
+  get_input_line # <2>
+----
+
+<1> Makes sure we have a model connected to our table.
+<2> Gets data from the input fields, this is a first area of manipulation. Get_input_line his returns a dictionary of input values, adressable via keys.
 
 For the model to be created, the input line is retrieved. It is necessary to determine what values go into the table model.
 
-[next step, python]
----
+[source, python, numbered]
+----
   self.ctl.add_tbl_data(self.model_data, [input_line])
----
+----
+
 Adds the inputline directly to the model via insertRows.
 
 
@@ -57,20 +59,21 @@ Remove_last will remove the last entry from the table-model.
 Remove will remove the currently selected entry from the table-model.
 When nothing is selected, the last entry will be removed.
 Note:
----
+----
 Currently, only removing the last entry is supported.
----
+----
 
 === Code: btn_remove / btn_remove_last
-[btn_remove_last_clicked, python]
----
+[source, python, numbered]
+----
 self.ctl.remove_last(self.model_data)
----
+----
 
-[remove_last, python]
----
-table_model.removeRows(table_model.rowCount(None) - 1, 1) #<1>
----
+[source, python, numbered]
+----
+table_model.removeRows(table_model.rowCount(None) - 1, 1) # <1>
+----
+
 <1> This removes the last entry, based on the rowCount method of the model.
 
 We can see that the table-model contains most of the functionality to
@@ -87,15 +90,15 @@ Processing will calculate missing or extra values and writes it all to the
 correct tables in the database.
 
 === Code: btn_execute_click
-[btn_execute_click, python]
----
-    self.ctl.write_to_database(self.model_data) #<1>
-    self.set_lbl_check(self.ctl.get_check_info([])) #<2>
-    self.model_data.clear() #<3>
----
+[source, python, numbered]
+----
+    self.ctl.write_to_database(self.model_data) # <1>
+    self.set_lbl_check(self.ctl.get_check_info([])) # <2>
+    self.model_data.clear() # <3>
+----
+
 <1> The main processing is started from this function in the controller.
-<2> Detailed info that is displayed, will change after processing. An example
-of this, is the total pool.
+<2> Detailed info that is displayed, will change after processing, e.g. the total pool.
 <3> After processing, the table-data is cleared again.
 
 === Code: write_to_database
@@ -108,7 +111,7 @@ This code will do the following:
 - process trade: get statements, print them and write them to the db
 
 ==== Code: get_input_fields
-[write_to_database, python]
----
-  
----
+[source, python, numbered]
+----
+None 
+----
