@@ -21,7 +21,7 @@ It can help to get a clear view on the code structure, for developers.
 
 [[btnadd]]
 == Adding a transaction line
-=== UI action: btn_add
+=== UI: btn_add
 This section describes what happens, if we enter data in the input fields and
 press the 'add'-button.
 Note: this only adds the input as a transaction line to the table-model in pyqt.
