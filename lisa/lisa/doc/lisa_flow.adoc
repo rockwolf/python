@@ -35,3 +35,11 @@ else:
 ---
 <1>`->` makes sure we have a model connected to our table.
 <2> `->` gets data from the input fields, this is a first area of manipulation. Get_input_line his returns a dictionary of input values, adressable via keys.
+
+For the model to be created, the input line is retrieved. It is necessary to determine what values go into the table model.
+
+[next step, python]
+---
+  self.ctl.add_tbl_data(self.model_data, [input_line])
+---
+Adds the inputline directly to the model via insertRows.
