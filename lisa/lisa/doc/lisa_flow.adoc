@@ -26,9 +26,12 @@ This section describes what happens, if we enter data in the input fields and
 press the 'add'-button.
 
 === Code
+[first part, python]
+---
 if None:  
-  init_tbl_data() `->` makes sure we have a model connected to our table.  
+  init_tbl_data() <1>
 else:  
-  get_input_line `->` gets data from the input fields, this is a first area of manipulation.  
-
-Get_input_line his returns a dictionary of input values, adressable via keys.
+  get_input_line <2>
+---
+<1>`->` makes sure we have a model connected to our table.
+<2> `->` gets data from the input fields, this is a first area of manipulation. Get_input_line his returns a dictionary of input values, adressable via keys.
