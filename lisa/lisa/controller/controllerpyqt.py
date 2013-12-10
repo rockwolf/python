@@ -126,10 +126,10 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
         print("-- test [btn_add_clicked] :", self.gui.tbl_data.model)
         # Init tbl_data
+        input_line = self.ctl.get_input_line()
         if self.model_data == None:
-            self.init_tbl_data()
+            self.init_tbl_data(input_line)
         else: 
-            input_line = self.ctl.get_input_line()
             self.ctl.add_tbl_data(self.model_data, [input_line])
         self.clear_fields()
         #self.set_lbl_check(self.ctl.get_check_info(self.model_data.tablecontent))
@@ -275,17 +275,16 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.ctl.fillcmb_commodity_name()
         self.ctl.filltxt_market_description()
     
-    def init_tbl_data(self):
+    def init_tbl_data(self, input_line):
         """
-            Initialize tbl_data.
+            Initialize tbl_data, with the first input_line
+            already added to the model.
         """
-        # TODO: set header values in mdlconstants and use the constants
         headers = ['date', 'account_from', 'account_to', 'amount',
                 'comment', 'commodity', 'commodity_description', 'market',
                 'market_description', 'quantity', 'price',
                 'commission', 'tax', 'risk', 'currency_from', 'currency_to', 'exchange_rate',
                 'automatic_flag', 'expires_on']
-        input_line = self.ctl.get_input_line()
         self.model_data = TableModel([input_line], headers)
         self.gui.tbl_data.setModel(self.model_data)
 
