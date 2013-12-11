@@ -205,35 +205,17 @@ class ControllerMain():
 
     def get_input_line(self):
         """
-            Get the input values.
+            Get the input values, but add basic extra calculations.
         """
-        # initialize
-        str_list = []
-        for i in range(0,InputIndex.SIZE):
-            str_list.append('')
-        
-        market = ''
-        commodity = ''
-        market_description = ''
-        commodity_description = ''
-        pool = DEFAULT_DECIMAL
-        # get values for trading, when needed
-        if(deals_with_commodities(self.gui.get_account_from(), self.gui.get_account_to())):
-            market = self.gui.get_market_code()
-            commodity = self.gui.get_commodity_name()
-            market_description = self.gui.get_market_description()
-            commodity_description = self.gui.get_commodity_description()
-            pool = self.gui.get_pool()
-        
         return get_input_line_extra(
             self.gui.get_date()
             , self.gui.get_account_from()
             , self.gui.get_account_to()
             , self.gui.get_amount()
-            , commodity
-            , commodity_description
-            , market
-            , market_description
+            , self.gui.get_commodity()
+            , self.gui.get_commodity_description()
+            , self.gui.get_market()
+            , self.gui.get_market_description()
             , self.gui.get_quantity()
             , self.gui.get_price()
             , self.gui.get_commission()
@@ -244,21 +226,49 @@ class ControllerMain():
             , self.gui.get_exchange_rate()
             , self.gui.get_manual_commission()
             , self.gui.get_date_expiration()
-            , pool)
+            , self.gui.get_pool())
             
     
-    def get_input_line_extra():
+    def get_input_line_extra(self
+        , date
+        , account_from
+        , account_to
+        , amount
+        , commodity
+        , commodity_description
+        , market
+        , market_description
+        , quantity
+        , price
+        , commission
+        , tax
+        , risk
+        , currency_from
+        , currency_to
+        , exchange_rate
+        , manual_commission
+        , date_expiration
+        , pool):
         """
             Add calculated fields to the input line,
             to end up with what the application will process.
         """
-        #TODO: check if it needs to be a negative amount
-        #TODO: move this to the get_input_line_extra func
-        if is_negative_amount(self.gui.get_account_from()) \
+        # initialize
+        str_list = []
+        for i in range(0,InputIndex.SIZE):
+            str_list.append('')
+        
+        # get values for trading, when needed
+        if not (deals_with_commodities(self.gui.get_account_from(), self.gui.get_account_to())):
+            market = ''
+            commodity = ''
+            market_description = ''
+            commodity_description = ''
+            pool = DEFAULT_DECIMAL
+        # Check if it needs to be a negative amount
+        if is_negative_amount(account_from) \
             and Decimal(amount) != DEFAULT_DECIMAL:
-            amount = '-' + self.gui.get_amount()
-        else:
-            amount = self.gui.get_amount()
+            amount = '-' + amount
         #TODO: how to incorporate get_input_fields code?
         str_list[InputIndex.DATE] = self.gui.get_date()
         str_list[InputIndex.ACCOUNT_FROM] = self.gui.get_account_from()
