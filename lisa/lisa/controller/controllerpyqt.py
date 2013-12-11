@@ -161,27 +161,27 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
         input_line = self.ctl.get_input_line()
         buying = we_are_buying(
-            input_line[InputIndex.ACCOUNT_FROM],
-            input_line[InputIndex.ACCOUNT_TO])
+            input_line[Input.ACCOUNT_FROM],
+            input_line[Input.ACCOUNT_TO])
         #TODO: make sure that price and amount are filled in, to avoid division by zero
-        if not (Decimal(input_line[InputIndex.AMOUNT]) == DEFAULT_DECIMAL
-            or Decimal(input_line[InputIndex.PRICE]) == DEFAULT_DECIMAL):
+        if not (Decimal(input_line[Input.AMOUNT]) == DEFAULT_DECIMAL
+            or Decimal(input_line[Input.PRICE]) == DEFAULT_DECIMAL):
             emma = Emma(
-                Decimal(input_line[InputIndex.POOL]), #TODO:incorporate a margin entry part (see parameter table!) 
+                Decimal(input_line[Input.POOL]), #TODO:incorporate a margin entry part (see parameter table!) 
                 #
-                Decimal(input_line[InputIndex.AMOUNT]),
-                Decimal(input_line[InputIndex.TAX]),
-                Decimal(input_line[InputIndex.COMMISSION]),
-                0, #input_line[InputIndex.SHARES], #TODO: SHARES DOES NOT EXIST
-                Decimal(input_line[InputIndex.PRICE]),
+                Decimal(input_line[Input.AMOUNT]),
+                Decimal(input_line[Input.TAX]),
+                Decimal(input_line[Input.COMMISSION]),
+                0, #input_line[Input.SHARES], #TODO: SHARES DOES NOT EXIST
+                Decimal(input_line[Input.PRICE]),
                 buying,
-                input_line[InputIndex.MARKET],
-                input_line[InputIndex.COMMODITY],
-                input_line[InputIndex.ACCOUNT_FROM],
-                Decimal(input_line[InputIndex.RISK]),
-                input_line[InputIndex.CURRENCY_FROM],
-                Decimal(input_line[InputIndex.EXCHANGE_RATE]),
-                #input_line[InputIndex.ESTIMATE])
+                input_line[Input.MARKET],
+                input_line[Input.COMMODITY],
+                input_line[Input.ACCOUNT_FROM],
+                Decimal(input_line[Input.RISK]),
+                input_line[Input.CURRENCY_FROM],
+                Decimal(input_line[Input.EXCHANGE_RATE]),
+                #input_line[Input.ESTIMATE])
                 0) #TODO: ESTIMATE does not exist
             emma.calculate()
             
@@ -285,7 +285,9 @@ class ControllerPyqt(QtGui.QMainWindow):
                 'market_description', 'quantity', 'price',
                 'commission', 'tax', 'risk', 'currency_from', 'currency_to', 'exchange_rate',
                 'automatic_flag', 'expires_on']
+        print('test: input_line = ', input_line)
         self.model_data = TableModel([input_line], headers)
+        print('test: model_data = ', self.model_data.get_values())
         self.gui.tbl_data.setModel(self.model_data)
 
     def init_gui(self):

@@ -47,7 +47,7 @@ class Finance(CoreModule):
                                 fields[Input.COMMODITY], market_id)
                     rate_id = dba.get_latest_rate_id()
                     
-                amount_value = fields[Input.AMOUNT])
+                amount_value = fields[Input.AMOUNT]
                 if is_negative_amount(amount_value):
                     amount_value = -1.0 * amount_value
                     

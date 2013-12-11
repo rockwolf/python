@@ -180,15 +180,15 @@ class ControllerMain():
         """
             Get the input values, but add basic extra calculations.
         """
-        return get_input_line_extra(
+        return self.get_input_line_extra(
             self.gui.get_date()
             , self.gui.get_account_from()
             , self.gui.get_account_to()
             , self.gui.get_amount()
             , self.gui.get_comment()
-            , self.gui.get_commodity()
+            , self.gui.get_commodity_name()
             , self.gui.get_commodity_description()
-            , self.gui.get_market()
+            , self.gui.get_market_code()
             , self.gui.get_market_description()
             , self.gui.get_quantity()
             , self.gui.get_price()
@@ -231,7 +231,7 @@ class ControllerMain():
         """
         # initialize
         str_list = []
-        for i in range(0,InputIndex.SIZE):
+        for i in range(0,Input.SIZE):
             str_list.append('')
         
         # When not needed, values for trading will be cleared.
