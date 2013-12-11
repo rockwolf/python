@@ -32,8 +32,8 @@ class Finance(CoreModule):
             currency_exchange_id = dba.first_currency_exchange_id_from_latest()
             rate_id = dba.first_rate_id_from_latest()
             for fields in input_fields:
-                #TODO: what to do with the subcategory_id? and cat_id?
-                account_id = dba.account_id_from_account(fields['i_account'])
+                account_from_id = dba.account_id_from_account(fields[Input.ACCOUNT_FROM])
+                account_to_id = dba.account_id_from_account(fields[Input.ACCOUNT_TO])
                
                 #NOTE: in the database, the first values in the tables of the
                 #below id's, are empty/dummy values, used for when we are not
@@ -41,48 +41,46 @@ class Finance(CoreModule):
                 market_id = 1
                 stock_name_id = 1
                 rate_id = 1
-                if deals_with_stocks(fields['i_account_from'], fields['i_account_to']):
-                    if fields['i_market_name'] != '':
-                        market_id = dba.market_id_from_market(fields['i_market_name'])
-                    if fields['i_stock_name'] != '':
-                        stock_name_id = dba.stock_name_id_from_stock_name(
-                                fields['i_stock_name'], market_id)
+                if deals_with_stocks(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):
+                    if fields[Input.MARKET] != '':
+                        market_id = dba.market_id_from_market(fields[Input.MARKET])
+                    if fields[Input.COMMODITY] != '':
+                        commodity_name_id = dba.commodity_name_id_from_commodity_name(
+                                fields[Input.COMMODITY], market_id)
                     rate_id = dba.get_latest_rate_id()
                 finance_record = dba.get_specific_finance_record(
-                    fields['i_date'],
-                    account_id,
-                    category_id,
-                    subcategory_id,
-                    Decimal(fields['i_amount']),
-                    fields['i_comment'],
-                    stock_name_id,
-                    int(fields['i_shares']),
-                    Decimal(fields['i_shares']),
-                    Decimal(fields['i_tax']),
-                    Decimal(fields['i_commission']))
-                amount_value = DEFAULT_DECIMAL
-                if is_negative_amount(fields['i_amount']):
-                    amount_value = -1.0 * Decimal(fields['i_amount'])
-                else:
-                    amount_value = Decimal(fields['i_amount'])
+                    fields[Input.DATE],
+                    account_from_id,
+                    account_to_id,
+                    fields[Input.AMOUNT],
+                    fields[Input.COMMENT],
+                    commodity_name_id,
+                    fields[Input.QUANTITY],
+                    fields[Input.TAX],
+                    fields[Input.COMMISSION])
+                amount_value = fields[Input.AMOUNT])
+                if is_negative_amount(amount_value):
+                    amount_value = -1.0 * amount_value
+                    
                 if finance_record is None:
                         records = records + 1
                         statement_finance.add(
                             records,
                             {
                                 'finance_id':None,
-                                'date':fields['i_date'],
-                                'year':fields['i_date'].year,
-                                'month':fields['i_date'].month,
-                                'day':fields['i_date'].day,
-                                'account_id':account_id,
+                                'date':fields[Input.DATE],
+                                'year':fields[Input.DATE].year,
+                                'month':fields[Input.DATE].month,
+                                'day':fields[Input.DATE].day,
+                                'account_from_id':account_from_id,
+                                'account_to_id':account_to_id,
                                 'amount': amount_value,
-                                'comment':fields['i_comment'],
+                                'comment':fields[Input.COMMENT],
                                 'stock_name_id':stock_name_id,
-                                'shares':int(fields['i_shares']),
-                                'price':Decimal(fields['i_price']),
-                                'tax':Decimal(fields['i_tax']),
-                                'commission':Decimal(fields['i_commission']),
+                                'shares':fields[Input.QUANTITY],
+                                'price':fields[Input.PRICE],
+                                'tax':fields[Input.TAX],
+                                'commission':fields[Input.COMMISSION],
                                 'active':1,
                                 'rate_id':rate_id,
                                 'currency_exchange_id':currency_exchange_id,
