@@ -89,21 +89,6 @@ class ControllerMain():
         input = []
         try:
             for field in table_model:
-                account_to = field[InputIndex.ACCOUNT_TO]
-                if deals_with_commodities(account_from, account_to) :
-                    shares = field[InputIndex.SHARES]
-                    price = field[InputIndex.PRICE]
-                    commission = field[InputIndex.COMMISSION]
-                    tax = field[InputIndex.TAX]
-                    risk = field[InputIndex.RISK]
-                    pool = field[InputIndex.POOL]
-                else:
-                    shares = DEFAULT_INT
-                    price = DEFAULT_DECIMAL
-                    commission = DEFAULT_DECIMAL
-                    tax = DEFAULT_DECIMAL
-                    risk = DEFAULT_DECIMAL
-                    pool = DEFAULT_DECIMAL
                 input.append({
                     'i_date':string_to_date(field[InputIndex.DATE]),
                     'i_account_from':field[InputIndex.ACCOUNT_FROM], #Note: Get account_id from T_ACCOUNT for final insert
@@ -258,13 +243,18 @@ class ControllerMain():
         for i in range(0,InputIndex.SIZE):
             str_list.append('')
         
-        # get values for trading, when needed
+        # When not needed, values for trading will be cleared.
         if not (deals_with_commodities(self.gui.get_account_from(), self.gui.get_account_to())):
             market = ''
             commodity = ''
             market_description = ''
             commodity_description = ''
             pool = DEFAULT_DECIMAL
+            shares = DEFAULT_INT
+            price = DEFAULT_DECIMAL
+            commission = DEFAULT_DECIMAL
+            tax = DEFAULT_DECIMAL
+            risk = DEFAULT_DECIMAL
         # Check if it needs to be a negative amount
         if is_negative_amount(account_from) \
             and Decimal(amount) != DEFAULT_DECIMAL:
