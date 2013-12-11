@@ -90,26 +90,26 @@ class ControllerMain():
         try:
             for field in table_model:
                 input.append({
-                    'i_date':string_to_date(field[InputIndex.DATE]),
+                    'i_date':field[InputIndex.DATE],
                     'i_account_from':field[InputIndex.ACCOUNT_FROM], #Note: Get account_id from T_ACCOUNT for final insert
                     'i_account_to':field[InputIndex.ACCOUNT_TO],
-                    'i_amount':Decimal(field[InputIndex.AMOUNT]),
+                    'i_amount':field[InputIndex.AMOUNT],
                     'i_comment':field[InputIndex.COMMENT],
                     'i_commodity_name':field[InputIndex.COMMODITY],
                     'i_commodity_description':field[InputIndex.COMMODITY_DESCRIPTION],
                     'i_market_name':field[InputIndex.MARKET],
                     'i_market_description':field[InputIndex.MARKET_DESCRIPTION],
-                    'i_shares':int(shares),
-                    'i_price':Decimal(price),
-                    'i_commission':Decimal(commission),
-                    'i_tax':Decimal(tax),
-                    'i_risk_input':Decimal(risk),
+                    'i_shares':field[InputIndex.QUANTITY],
+                    'i_price':field[InputIndex.PRICE],
+                    'i_commission':field[InputIndex.COMMISSION],
+                    'i_tax':field[InputIndex.TAX],
+                    'i_risk_input':field[InputIndex.RISK],
                     'i_currency_from':field[InputIndex.CURRENCY_FROM], #Note: Get currency_id from T_CURRENCY for final insert
                     'i_currency_to':field[InputIndex.CURRENCY_TO], #Note: Get currency_id from T_CURRENCY for final insert
-                    'i_exchange_rate':Decimal(field[InputIndex.EXCHANGE_RATE]),
-                    'i_automatic_flag':int(field[InputIndex.AUTOMATIC_FLAG]),
-                    'i_date_expiration':string_to_date(field[InputIndex.DATE_EXPIRATION]),
-                    'i_pool':Decimal(pool)
+                    'i_exchange_rate':field[InputIndex.EXCHANGE_RATE],
+                    'i_automatic_flag':field[InputIndex.AUTOMATIC_FLAG],
+                    'i_date_expiration':field[InputIndex.DATE_EXPIRATION],
+                    'i_pool':field[InputIndex.POOL]
                 })
         except Exception as ex:
             print(Error.GET_INPUT_FIELDS, ex)
@@ -197,6 +197,7 @@ class ControllerMain():
             , self.gui.get_account_from()
             , self.gui.get_account_to()
             , self.gui.get_amount()
+            , self.gui.get_comment()
             , self.gui.get_commodity()
             , self.gui.get_commodity_description()
             , self.gui.get_market()
@@ -219,6 +220,7 @@ class ControllerMain():
         , account_from
         , account_to
         , amount
+        , comment
         , commodity
         , commodity_description
         , market
@@ -237,6 +239,7 @@ class ControllerMain():
         """
             Add calculated fields to the input line,
             to end up with what the application will process.
+            The values in the list are also cast to the correct type.
         """
         # initialize
         str_list = []
@@ -259,29 +262,27 @@ class ControllerMain():
         if is_negative_amount(account_from) \
             and Decimal(amount) != DEFAULT_DECIMAL:
             amount = '-' + amount
-        #TODO: how to incorporate get_input_fields code?
-        str_list[InputIndex.DATE] = self.gui.get_date()
-        str_list[InputIndex.ACCOUNT_FROM] = self.gui.get_account_from()
-        str_list[InputIndex.ACCOUNT_TO] = self.gui.get_account_to()
-        str_list[InputIndex.AMOUNT] = amount
-        str_list[InputIndex.COMMENT] = self.gui.get_comment()
+        str_list[InputIndex.DATE] = string_to_date(date)
+        str_list[InputIndex.ACCOUNT_FROM] = account_from
+        str_list[InputIndex.ACCOUNT_TO] = account_to
+        str_list[InputIndex.AMOUNT] = Decimal(amount)
+        str_list[InputIndex.COMMENT] = comment
         str_list[InputIndex.COMMODITY] = commodity
         str_list[InputIndex.COMMODITY_DESCRIPTION] = commodity_description
         str_list[InputIndex.MARKET] = market
         str_list[InputIndex.MARKET_DESCRIPTION] = market_description
-        str_list[InputIndex.QUANTITY] = self.gui.get_quantity()
-        str_list[InputIndex.PRICE] = self.gui.get_price()
-        str_list[InputIndex.COMMISSION] = self.gui.get_commission()
-        str_list[InputIndex.TAX] = self.gui.get_tax()
-        str_list[InputIndex.RISK] = self.gui.get_risk()
-        str_list[InputIndex.CURRENCY_FROM] = self.gui.get_currency_from()
-        str_list[InputIndex.CURRENCY_TO] = self.gui.get_currency_to()
-        str_list[InputIndex.EXCHANGE_RATE] = self.gui.get_exchange_rate()
-        str_list[InputIndex.MANUAL_COMMISSION] = self.gui.get_manual_commission()
-        str_list[InputIndex.DATE_EXPIRATION] = self.gui.get_date_expiration()
-        str_list[InputIndex.POOL] = pool
+        str_list[InputIndex.QUANTITY] = int(quantity)
+        str_list[InputIndex.PRICE] = Decimal(price)
+        str_list[InputIndex.COMMISSION] = Decimal(commission)
+        str_list[InputIndex.TAX] = Decimal(tax)
+        str_list[InputIndex.RISK] = Decimal(risk)
+        str_list[InputIndex.CURRENCY_FROM] = currency_from
+        str_list[InputIndex.CURRENCY_TO] = currency_to
+        str_list[InputIndex.EXCHANGE_RATE] = Decimal(exchange_rate)
+        str_list[InputIndex.MANUAL_COMMISSION] = int(manual_commission)
+        str_list[InputIndex.DATE_EXPIRATION] = string_to_date(date_expiration)
+        str_list[InputIndex.POOL] = Decimal(pool)
         return str_list
-        #TODO: finish this function
 
     def remove_selected(self, table_model, selected_index):
         """
