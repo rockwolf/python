@@ -143,7 +143,6 @@ Remove_last will remove the last entry from the table-model.
 Remove will remove the currently selected entry from the table-model.
 When nothing is selected, the last entry will be removed.
 
-Note:
 ----
 Currently, only removing the last entry is supported.
 ----
