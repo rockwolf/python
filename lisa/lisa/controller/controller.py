@@ -208,31 +208,58 @@ class ControllerMain():
             Get the input values.
         """
         # initialize
+        str_list = []
+        for i in range(0,InputIndex.SIZE):
+            str_list.append('')
+        
         market = ''
         commodity = ''
         market_description = ''
         commodity_description = ''
         pool = DEFAULT_DECIMAL
-    
-        str_list = []
-        for i in range(0,InputIndex.SIZE):
-            str_list.append('')
-    
-        # get values    
+        # get values for trading, when needed
         if(deals_with_commodities(self.gui.get_account_from(), self.gui.get_account_to())):
             market = self.gui.get_market_code()
             commodity = self.gui.get_commodity_name()
             market_description = self.gui.get_market_description()
             commodity_description = self.gui.get_commodity_description()
             pool = self.gui.get_pool()
+        
+        return get_input_line_extra(
+            self.gui.get_date()
+            , self.gui.get_account_from()
+            , self.gui.get_account_to()
+            , self.gui.get_amount()
+            , commodity
+            , commodity_description
+            , market
+            , market_description
+            , self.gui.get_quantity()
+            , self.gui.get_price()
+            , self.gui.get_commission()
+            , self.gui.get_tax()
+            , self.gui.get_risk()
+            , self.gui.get_currency_from()
+            , self.gui.get_currency_to()
+            , self.gui.get_exchange_rate()
+            , self.gui.get_manual_commission()
+            , self.gui.get_date_expiration()
+            , pool)
             
+    
+    def get_input_line_extra():
+        """
+            Add calculated fields to the input line,
+            to end up with what the application will process.
+        """
         #TODO: check if it needs to be a negative amount
+        #TODO: move this to the get_input_line_extra func
         if is_negative_amount(self.gui.get_account_from()) \
             and Decimal(amount) != DEFAULT_DECIMAL:
             amount = '-' + self.gui.get_amount()
         else:
             amount = self.gui.get_amount()
-        
+        #TODO: how to incorporate get_input_fields code?
         str_list[InputIndex.DATE] = self.gui.get_date()
         str_list[InputIndex.ACCOUNT_FROM] = self.gui.get_account_from()
         str_list[InputIndex.ACCOUNT_TO] = self.gui.get_account_to()
@@ -254,6 +281,7 @@ class ControllerMain():
         str_list[InputIndex.DATE_EXPIRATION] = self.gui.get_date_expiration()
         str_list[InputIndex.POOL] = pool
         return str_list
+        #TODO: finish this function
 
     def remove_selected(self, table_model, selected_index):
         """
