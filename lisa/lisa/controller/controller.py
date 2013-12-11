@@ -22,17 +22,23 @@ from modules.trade import Trade
 from modules.emma import Emma
 
 class ControllerMain():
-    """ Contains the bussiness logic of the application. """
+    """
+        Contains the bussiness logic of the application.
+    """
     
     def __init__(self, config):
-        """ Construct basic QApplication, add widgets and start exec_loop """
+        """
+            Construct basic QApplication, add widgets and start exec_loop
+        """
         # initialise special vars
         self.config = config
 
     # Methods
     ## General
     def run(self):
-        """ Start the gui. """
+        """
+            Start the gui.
+        """
         app = QtGui.QApplication(sys.argv)
         app.setStyle("cleanLooks")
         window = ControllerPyqt(self.config, self)
@@ -42,7 +48,9 @@ class ControllerMain():
         sys.exit(app.exec_())
 
     def write_to_database(self, table_model):
-        """ Write the records to write to the database. """
+        """
+            Write the records to write to the database.
+        """
         try:
             currency_exchange = CurrencyExchange(self.config)
             rate = Rate(self.config)
@@ -80,12 +88,15 @@ class ControllerMain():
         except  Exception as ex:
             print(Error.WRITE_TO_DATABASE_MAIN, ex)
 
-    #TODO: Add extra info to get_input_line
-    # and add the result to the table.
-    # Then we see what is calculated and it will make get_input_fields
-    # simpler.
     def get_input_fields(self, table_model):
-        """ Gets input, adds extra info and puts this in a list. """
+        """
+            Loop over the data in the model and save it to a
+            list of dictionaries, for easy access.
+            A dictionary is not a fast structure, but we enter
+            all data manually anyway, so performance loss will
+            not be an issue, as the amount of records to process
+            will stay small.
+        """
         input = []
         try:
             for field in table_model:
@@ -118,7 +129,9 @@ class ControllerMain():
 
     ## Init of gui
     def init_display_data(self):
-        """ fill in the combo boxes with values. """
+        """
+            fill in the combo boxes with values.
+        """
         dba = DatabaseAccess(self.config)
         # Accounts
         for acc in dba.get_account_list():
