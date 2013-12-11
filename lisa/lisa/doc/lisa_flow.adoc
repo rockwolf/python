@@ -57,56 +57,73 @@ For the model to be created, the input line is retrieved. It is necessary to det
 
 [source, python, numbered]
 ----
-def get_input_line(self):
+def get_input_line_extra(self
+    , date
+    , account_from
+    , account_to
+    , amount
+    , comment
+    , commodity
+    , commodity_description
+    , market
+    , market_description
+    , quantity
+    , price
+    , commission
+    , tax
+    , risk
+    , currency_from
+    , currency_to
+    , exchange_rate
+    , manual_commission
+    , date_expiration
+    , pool):
     """
-        Get the input values.
+        Add calculated fields to the input line,
+        to end up with what the application will process.
+        The values in the list are also cast to the correct type.
     """
     # initialize
-    market = ''
-    commodity = ''
-    market_description = ''
-    commodity_description = ''
-    pool = DEFAULT_DECIMAL
-
     str_list = []
     for i in range(0,InputIndex.SIZE):
         str_list.append('')
-
-    # get values    
-    if(deals_with_commodities(self.gui.get_account_from(), self.gui.get_account_to())):
-        market = self.gui.get_market_code()
-        commodity = self.gui.get_commodity_name()
-        market_description = self.gui.get_market_description()
-        commodity_description = self.gui.get_commodity_description()
-        pool = self.gui.get_pool()
         
-    #TODO: check if it needs to be a negative amount
-    if is_negative_amount(self.gui.get_account_from()) \
+    # When not needed, values for trading will be cleared.
+    if not (deals_with_commodities(self.gui.get_account_from(), self.gui.get_account_to())):
+        market = ''
+        commodity = ''
+        market_description = ''
+        commodity_description = ''
+        pool = DEFAULT_DECIMAL
+        shares = DEFAULT_INT
+        price = DEFAULT_DECIMAL
+        commission = DEFAULT_DECIMAL
+        tax = DEFAULT_DECIMAL
+        risk = DEFAULT_DECIMAL
+    # Check if it needs to be a negative amount
+    if is_negative_amount(account_from) \
         and Decimal(amount) != DEFAULT_DECIMAL:
-        amount = '-' + self.gui.get_amount()
-    else:
-        amount = self.gui.get_amount()
-    
-    str_list[InputIndex.DATE] = self.gui.get_date()
-    str_list[InputIndex.ACCOUNT_FROM] = self.gui.get_account_from()
-    str_list[InputIndex.ACCOUNT_TO] = self.gui.get_account_to()
-    str_list[InputIndex.AMOUNT] = amount
-    str_list[InputIndex.COMMENT] = self.gui.get_comment()
+        amount = '-' + amount
+    str_list[InputIndex.DATE] = string_to_date(date)
+    str_list[InputIndex.ACCOUNT_FROM] = account_from
+    str_list[InputIndex.ACCOUNT_TO] = account_to
+    str_list[InputIndex.AMOUNT] = Decimal(amount)
+    str_list[InputIndex.COMMENT] = comment
     str_list[InputIndex.COMMODITY] = commodity
     str_list[InputIndex.COMMODITY_DESCRIPTION] = commodity_description
     str_list[InputIndex.MARKET] = market
     str_list[InputIndex.MARKET_DESCRIPTION] = market_description
-    str_list[InputIndex.QUANTITY] = self.gui.get_quantity()
-    str_list[InputIndex.PRICE] = self.gui.get_price()
-    str_list[InputIndex.COMMISSION] = self.gui.get_commission()
-    str_list[InputIndex.TAX] = self.gui.get_tax()
-    str_list[InputIndex.RISK] = self.gui.get_risk()
-    str_list[InputIndex.CURRENCY_FROM] = self.gui.get_currency_from()
-    str_list[InputIndex.CURRENCY_TO] = self.gui.get_currency_to()
-    str_list[InputIndex.EXCHANGE_RATE] = self.gui.get_exchange_rate()
-    str_list[InputIndex.MANUAL_COMMISSION] = self.gui.get_manual_commission()
-    str_list[InputIndex.DATE_EXPIRATION] = self.gui.get_date_expiration()
-    str_list[InputIndex.POOL] = pool
+    str_list[InputIndex.QUANTITY] = int(quantity)
+    str_list[InputIndex.PRICE] = Decimal(price)
+    str_list[InputIndex.COMMISSION] = Decimal(commission)
+    str_list[InputIndex.TAX] = Decimal(tax)
+    str_list[InputIndex.RISK] = Decimal(risk)
+    str_list[InputIndex.CURRENCY_FROM] = currency_from
+    str_list[InputIndex.CURRENCY_TO] = currency_to
+    str_list[InputIndex.EXCHANGE_RATE] = Decimal(exchange_rate)
+    str_list[InputIndex.MANUAL_COMMISSION] = int(manual_commission)
+    str_list[InputIndex.DATE_EXPIRATION] = string_to_date(date_expiration)
+    str_list[InputIndex.POOL] = Decimal(pool)
     return str_list
 ----
 
