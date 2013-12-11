@@ -37,7 +37,7 @@ class Finance(CoreModule):
                 #below id's, are empty/dummy values, used for when we are not
                 #dealing with stocks.
                 market_id = 1
-                stock_name_id = 1
+                commodity_name_id = 1
                 rate_id = 1
                 if deals_with_stocks(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):
                     if fields[Input.MARKET] != '':
@@ -64,7 +64,7 @@ class Finance(CoreModule):
                         'account_to_id':account_to_id,
                         'amount': amount_value,
                         'comment':fields[Input.COMMENT],
-                        'stock_name_id':stock_name_id,
+                        'stock_name_id':commodity_name_id,
                         'shares':fields[Input.QUANTITY],
                         'price':fields[Input.PRICE],
                         'tax':fields[Input.TAX],
