@@ -80,6 +80,10 @@ class ControllerMain():
         except  Exception as ex:
             print(Error.WRITE_TO_DATABASE_MAIN, ex)
 
+    #TODO: Add extra info to get_input_line
+    # and add the result to the table.
+    # Then we see what is calculated and it will make get_input_fields
+    # simpler.
     def get_input_fields(self, table_model):
         """ Gets input, adds extra info and puts this in a list. """
         input = []
