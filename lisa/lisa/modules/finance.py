@@ -21,8 +21,6 @@ class Finance(CoreModule):
             Creates the records needed for Table.FINANCE
             and returns them as a Statement object.
         """
-        #TODO: move all create statements tot their own module?
-        #This code here is already way to big to my liking.
         try:
             dba = DatabaseAccess(self.config)
             date_created = current_date()
@@ -48,47 +46,37 @@ class Finance(CoreModule):
                         commodity_name_id = dba.commodity_name_id_from_commodity_name(
                                 fields[Input.COMMODITY], market_id)
                     rate_id = dba.get_latest_rate_id()
-                finance_record = dba.get_specific_finance_record(
-                    fields[Input.DATE],
-                    account_from_id,
-                    account_to_id,
-                    fields[Input.AMOUNT],
-                    fields[Input.COMMENT],
-                    commodity_name_id,
-                    fields[Input.QUANTITY],
-                    fields[Input.TAX],
-                    fields[Input.COMMISSION])
+                    
                 amount_value = fields[Input.AMOUNT])
                 if is_negative_amount(amount_value):
                     amount_value = -1.0 * amount_value
                     
-                if finance_record is None:
-                        records = records + 1
-                        statement_finance.add(
-                            records,
-                            {
-                                'finance_id':None,
-                                'date':fields[Input.DATE],
-                                'year':fields[Input.DATE].year,
-                                'month':fields[Input.DATE].month,
-                                'day':fields[Input.DATE].day,
-                                'account_from_id':account_from_id,
-                                'account_to_id':account_to_id,
-                                'amount': amount_value,
-                                'comment':fields[Input.COMMENT],
-                                'stock_name_id':stock_name_id,
-                                'shares':fields[Input.QUANTITY],
-                                'price':fields[Input.PRICE],
-                                'tax':fields[Input.TAX],
-                                'commission':fields[Input.COMMISSION],
-                                'active':1,
-                                'rate_id':rate_id,
-                                'currency_exchange_id':currency_exchange_id,
-                                'date_created':date_created,
-                                'date_modified':date_modified
-                            }
-                        )
-                        currency_exchange_id = currency_exchange_id + 1
+                records = records + 1
+                statement_finance.add(
+                    records,
+                    {
+                        'finance_id':None,
+                        'date':fields[Input.DATE],
+                        'year':fields[Input.DATE].year,
+                        'month':fields[Input.DATE].month,
+                        'day':fields[Input.DATE].day,
+                        'account_from_id':account_from_id,
+                        'account_to_id':account_to_id,
+                        'amount': amount_value,
+                        'comment':fields[Input.COMMENT],
+                        'stock_name_id':stock_name_id,
+                        'shares':fields[Input.QUANTITY],
+                        'price':fields[Input.PRICE],
+                        'tax':fields[Input.TAX],
+                        'commission':fields[Input.COMMISSION],
+                        'active':1,
+                        'rate_id':rate_id,
+                        'currency_exchange_id':currency_exchange_id,
+                        'date_created':date_created,                            
+                        'date_modified':date_modified
+                    }
+                )
+                currency_exchange_id = currency_exchange_id + 1
             return statement_finance
         except Exception as ex:
             print(Error.CREATE_STATEMENTS_TABLE_FINANCE, ex)
