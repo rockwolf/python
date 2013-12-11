@@ -91,41 +91,16 @@ class ControllerMain():
     def get_input_fields(self, table_model):
         """
             Loop over the data in the model and save it to a
-            list of dictionaries, for easy access.
-            A dictionary is not a fast structure, but we enter
-            all data manually anyway, so performance loss will
-            not be an issue, as the amount of records to process
-            will stay small.
+            list, for easy access.
         """
-        input = []
+        model_records = []
         try:
             for field in table_model:
-                input.append({
-                    'i_date':field[InputIndex.DATE],
-                    'i_account_from':field[InputIndex.ACCOUNT_FROM], #Note: Get account_id from T_ACCOUNT for final insert
-                    'i_account_to':field[InputIndex.ACCOUNT_TO],
-                    'i_amount':field[InputIndex.AMOUNT],
-                    'i_comment':field[InputIndex.COMMENT],
-                    'i_commodity_name':field[InputIndex.COMMODITY],
-                    'i_commodity_description':field[InputIndex.COMMODITY_DESCRIPTION],
-                    'i_market_name':field[InputIndex.MARKET],
-                    'i_market_description':field[InputIndex.MARKET_DESCRIPTION],
-                    'i_shares':field[InputIndex.QUANTITY],
-                    'i_price':field[InputIndex.PRICE],
-                    'i_commission':field[InputIndex.COMMISSION],
-                    'i_tax':field[InputIndex.TAX],
-                    'i_risk_input':field[InputIndex.RISK],
-                    'i_currency_from':field[InputIndex.CURRENCY_FROM], #Note: Get currency_id from T_CURRENCY for final insert
-                    'i_currency_to':field[InputIndex.CURRENCY_TO], #Note: Get currency_id from T_CURRENCY for final insert
-                    'i_exchange_rate':field[InputIndex.EXCHANGE_RATE],
-                    'i_automatic_flag':field[InputIndex.AUTOMATIC_FLAG],
-                    'i_date_expiration':field[InputIndex.DATE_EXPIRATION],
-                    'i_pool':field[InputIndex.POOL]
-                })
+                model_records.append(field)
         except Exception as ex:
             print(Error.GET_INPUT_FIELDS, ex)
         finally:
-            return input 
+            return model_records 
 
     ## Init of gui
     def init_display_data(self):
@@ -275,26 +250,26 @@ class ControllerMain():
         if is_negative_amount(account_from) \
             and Decimal(amount) != DEFAULT_DECIMAL:
             amount = '-' + amount
-        str_list[InputIndex.DATE] = string_to_date(date)
-        str_list[InputIndex.ACCOUNT_FROM] = account_from
-        str_list[InputIndex.ACCOUNT_TO] = account_to
-        str_list[InputIndex.AMOUNT] = Decimal(amount)
-        str_list[InputIndex.COMMENT] = comment
-        str_list[InputIndex.COMMODITY] = commodity
-        str_list[InputIndex.COMMODITY_DESCRIPTION] = commodity_description
-        str_list[InputIndex.MARKET] = market
-        str_list[InputIndex.MARKET_DESCRIPTION] = market_description
-        str_list[InputIndex.QUANTITY] = int(quantity)
-        str_list[InputIndex.PRICE] = Decimal(price)
-        str_list[InputIndex.COMMISSION] = Decimal(commission)
-        str_list[InputIndex.TAX] = Decimal(tax)
-        str_list[InputIndex.RISK] = Decimal(risk)
-        str_list[InputIndex.CURRENCY_FROM] = currency_from
-        str_list[InputIndex.CURRENCY_TO] = currency_to
-        str_list[InputIndex.EXCHANGE_RATE] = Decimal(exchange_rate)
-        str_list[InputIndex.MANUAL_COMMISSION] = int(manual_commission)
-        str_list[InputIndex.DATE_EXPIRATION] = string_to_date(date_expiration)
-        str_list[InputIndex.POOL] = Decimal(pool)
+        str_list[Input.DATE] = string_to_date(date)
+        str_list[Input.ACCOUNT_FROM] = account_from
+        str_list[Input.ACCOUNT_TO] = account_to
+        str_list[Input.AMOUNT] = Decimal(amount)
+        str_list[Input.COMMENT] = comment
+        str_list[Input.COMMODITY] = commodity
+        str_list[Input.COMMODITY_DESCRIPTION] = commodity_description
+        str_list[Input.MARKET] = market
+        str_list[Input.MARKET_DESCRIPTION] = market_description
+        str_list[Input.QUANTITY] = int(quantity)
+        str_list[Input.PRICE] = Decimal(price)
+        str_list[Input.COMMISSION] = Decimal(commission)
+        str_list[Input.TAX] = Decimal(tax)
+        str_list[Input.RISK] = Decimal(risk)
+        str_list[Input.CURRENCY_FROM] = currency_from
+        str_list[Input.CURRENCY_TO] = currency_to
+        str_list[Input.EXCHANGE_RATE] = Decimal(exchange_rate)
+        str_list[Input.MANUAL_COMMISSION] = int(manual_commission)
+        str_list[Input.DATE_EXPIRATION] = string_to_date(date_expiration)
+        str_list[Input.POOL] = Decimal(pool)
         return str_list
 
     def remove_selected(self, table_model, selected_index):
