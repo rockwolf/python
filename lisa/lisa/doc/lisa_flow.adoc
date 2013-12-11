@@ -55,6 +55,10 @@ def btn_add_clicked(self):
 
 For the model to be created, the input line is retrieved. It is necessary to determine what values go into the table model.
 
+The method get_input_line, will retrieve the data directly from the gui.
+But these values are modified by get_input_line_extra, to include extra information
+and do some type-casting.
+
 [source, python, numbered]
 ----
 def get_input_line_extra(self
@@ -126,6 +130,10 @@ def get_input_line_extra(self
     str_list[InputIndex.POOL] = Decimal(pool)
     return str_list
 ----
+
+There is also a method called get_input_fields.
+That method will loop through all the records in the table-model
+and they will be joined.
 
 [[btnremove]]
 == Removing a transaction line
