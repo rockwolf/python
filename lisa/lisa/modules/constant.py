@@ -70,7 +70,7 @@ class Error():
     NEW_DRAWDOWN_RECORD = "Error in new_drawdown_record: "
     GET_SPECIFIC_FINANCE_RECORD = "Error in get_specific_finance_record: "
 
-class InputIndex():
+class Input():
     """
         Index for the input list, for easy recognition.
     """
