@@ -79,9 +79,9 @@ class Input():
     ACCOUNT_TO = 2
     AMOUNT = 3
     COMMENT = 4
-    COMMODITY = 5
+    COMMODITY_NAME = 5
     COMMODITY_DESCRIPTION = 6
-    MARKET = 7
+    MARKET_CODE = 7
     MARKET_DESCRIPTION = 8
     QUANTITY = 9
     PRICE = 10
