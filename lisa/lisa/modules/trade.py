@@ -62,8 +62,6 @@ class Trade(CoreModule):
                             flag_insupdel = Statement.UPDATE
                             trade_id = trade_record['trade_id']
                             ## buy/sell related fields
-                            # TODO: the below should now be fields['i_account_from'] in TRADING_ACCOUNTS for buying
-                            # ..._to']... for selling
                             if we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]) \
                                 and T_TRADE.id_buy == -1:
                                 id_buy = finance_id
