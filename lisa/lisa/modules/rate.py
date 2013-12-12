@@ -28,13 +28,13 @@ class Rate(CoreModule):
             statement_rate = Statement(Table.RATE)
             records = 0
             for fields in input_fields:
-                if deals_with_stocks(fields['i_account_from'], fields['i_account_to']):
+                if deals_with_stocks(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):
                     formula_id = dba.get_formula_id_to_use(fields)
                     records = records + 1
                     
-                    if fields['i_manual_flag'] == 1:
-                        commission = fields['i_commission']
-                        tax = fields['i_tax']
+                    if fields[Input.MANUAL_FLAG] == 1:
+                        commission = fields[Input.COMMISSION]
+                        tax = fields[Input.TAX]
                         on_shares = DEFAULT_DECIMAL
                         on_commission = DEFAULT_DECIMAL 
                         on_ordersize = DEFAULT_DECIMAL
@@ -54,10 +54,10 @@ class Rate(CoreModule):
                         calculated = dba.calculate_commission()
                         commission = dba.get_parameter_value(
                                 dba.get_parameter_commission(
-                                    fields['i_amount'], fields['i_market_name']))
+                                    fields[Input.AMOUNT], fields[Input.MARKET_CODE]))
                         tax = dba.get_parameter_value(
                                 dba.get_parameter_tax(
-                                fields['i_amount'], fields['i_market_name']))
+                                fields[Input.AMOUNT], fields[Input.MARKET_CODE]))
                     
                     statement_rate.add(
                         records,
@@ -72,7 +72,7 @@ class Rate(CoreModule):
                             'commission':Decimal(commission),
                             'tax':Decimal(tax),
                             'formula_id':int(formula_id),
-                            'manual_flag':int(fields['i_manual_flag']),
+                            'manual_flag':int(fields[Input.MANUAL_FLAG]),
                             'date_created':date_created,
                             'date_modified':date_modified
                         }
