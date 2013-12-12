@@ -19,40 +19,41 @@ def is_negative_amount(account_from):
         Check if the amount we enter should be positive or negative.
     """
     result = False
-    # If asset in account_from
+    # Note: the below translates to:
+    # if 'asset' in account_from
     for name in NEGATIVES:
-        if name.lower() in account_from.lower():
+        if name.upper() in account_from.upper():
             result = True
             break;
     return result
 
 def deals_with_commodities(account_from, account_to = ''):
     """
-        Check if 'commodities' is in the account name.
+        Check if we are using commoditie-related text in 
+        one of the account names.
     """
-    return ('commodities' in [account_from, account_to])
+    return ((':commodities' in [account_from, account_to]) \
+        or (':cfd' in [account_from, account_to]))
 
 def is_a_table(key):
     """
-        Used to ignore all dictionary entries that don't start with t_
+        Used to ignore all dictionary entries that don't start with T_
     """
-    return key.lower().startswith('t_')
+    return key.upper().startswith('T_')
 
 def we_are_buying(account_from, account_to):
     """
         Are we buying? (not buying == selling)
     """
-    #TODO: find a better way to do this
     buy = False
     sell = False
-    if (not buy) and (not sell):
-        for value in ['whsi00']:
-            if (value.lower() in account_from):
-                buy = True
-                sell = False
-            elif (value.lower() in account_to):
-                buy = False
-                sell = True
+    for value in TRADING_ACCOUNTS:
+        if (value.lower() in account_from):
+            buy = True
+            sell = False
+        elif (value.lower() in account_to):
+            buy = False
+            sell = True
     return buy
 
 def combine_sets(a_set):
@@ -68,7 +69,7 @@ def combine_sets(a_set):
     
 def get_last_part(astring, aseparator):
     """
-        Gets the last part of a <asaparator> seprated string.
+        Gets the last part of an <asaparator> seprated string.
     """
     partlist = astring.split(aseparator)
     return partlist[len(partlist) - 1]
