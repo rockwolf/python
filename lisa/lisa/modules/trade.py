@@ -40,13 +40,7 @@ class Trade(CoreModule):
             finance_id = dba.first_finance_id_from_latest()
             if finance_id != -1:
                 for fields in input_fields:
-                    #TODO: is_an_investment?
-                    #TODO: check which parts are actually different from
-                    #updating T_INVEST (the less difference, the better)
-                    #TODO: try to separate the differences
-                    #TODO: make an Invade class, where Trade and Invest
-                    # inherit from.
-                    if is_a_trade(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):            
+                    if deals_with_commodities(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):            
                         record = records + 1
                         # GENERAL INFO
                         market_id = dba.market_id_from_market(
