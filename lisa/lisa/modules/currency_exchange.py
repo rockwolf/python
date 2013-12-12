@@ -35,9 +35,9 @@ class CurrencyExchange(CoreModule):
                     records,
                     {
                         'currency_exchange_id':None,
-                        'currency_from_id':dba.currency_id_from_currency(fields['i_currency_from']),
-                        'currency_to_id':dba.currency_id_from_currency(fields['i_currency_to']),
-                        'exchange_rate':Decimal(fields['i_exchange_rate']),
+                        'currency_from_id':dba.currency_id_from_currency(fields[Input.CURRENCY_FROM]),
+                        'currency_to_id':dba.currency_id_from_currency(fields[Input.CURRENCY_TO]),
+                        'exchange_rate':Decimal(fields[Input.EXCHANGE_RATE]),
                         'date_created':date_created,
                         'date_modified':date_modified
                     }
