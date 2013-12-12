@@ -40,11 +40,11 @@ class Finance(CoreModule):
                 commodity_name_id = 1
                 rate_id = 1
                 if deals_with_stocks(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):
-                    if fields[Input.MARKET] != '':
-                        market_id = dba.market_id_from_market(fields[Input.MARKET])
-                    if fields[Input.COMMODITY] != '':
+                    if fields[Input.MARKET_CODE] != '':
+                        market_id = dba.market_id_from_market(fields[Input.MARKET_CODE])
+                    if fields[Input.COMMODITY_NAME] != '':
                         commodity_name_id = dba.commodity_name_id_from_commodity_name(
-                                fields[Input.COMMODITY], market_id)
+                                fields[Input.COMMODITY_NAME], market_id)
                     rate_id = dba.get_latest_rate_id()
                     
                 amount_value = fields[Input.AMOUNT]
