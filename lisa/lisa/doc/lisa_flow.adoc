@@ -170,6 +170,7 @@ the correct functionality on the table model.
 Also note that the model should refresh automatically, as that is the 
 nature of working with model-views in (py)qt.
 
+[[btnexecute]]
 == Execute
 === btn_execute
 This section will describe the most important step: processing the table-data.
@@ -210,6 +211,12 @@ used.
 ----
 None 
 ----
+
+
+[[btnexit]]
+== Quit
+=== btn_exit
+The exit button closes the application.
 
 ----
 // vim: set syntax=asciidoc:
