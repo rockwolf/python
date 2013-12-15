@@ -258,9 +258,9 @@ class ControllerMain():
         str_list[Input.ACCOUNT_TO] = account_to
         str_list[Input.AMOUNT] = Decimal(amount)
         str_list[Input.COMMENT] = comment
-        str_list[Input.COMMODITY] = commodity
+        str_list[Input.COMMODITY_NAME] = commodity
         str_list[Input.COMMODITY_DESCRIPTION] = commodity_description
-        str_list[Input.MARKET] = market
+        str_list[Input.MARKET_CODE] = market
         str_list[Input.MARKET_DESCRIPTION] = market_description
         str_list[Input.QUANTITY] = int(quantity)
         str_list[Input.PRICE] = Decimal(price)
@@ -346,7 +346,7 @@ class ControllerMain():
         """
             Add or remove rows from the table view
         """
-        model_data.insertRows(-1, len(model_data.get_values())+len(rows)-1, rows)
+        model_data.insertRows(len(model_data.get_values())-1, len(rows)-1, rows)
 
     def convert_to_base_currency(self, currency_base, currency_new, value):
         """

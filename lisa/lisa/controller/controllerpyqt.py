@@ -124,13 +124,14 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
             Add new input to the input_fields table.
         """
-        print("-- test [btn_add_clicked] :", self.gui.tbl_data.model)
         # Init tbl_data
         input_line = self.ctl.get_input_line()
+        print('test: self.model_data = ' + str(self.model_data))
         if self.model_data == None:
             self.init_tbl_data(input_line)
         else: 
             self.ctl.add_tbl_data(self.model_data, [input_line])
+        print("-- test [btn_add_clicked] :", self.model_data.get_values())
         self.clear_fields()
         #self.set_lbl_check(self.ctl.get_check_info(self.model_data.tablecontent))
 
@@ -285,9 +286,9 @@ class ControllerPyqt(QtGui.QMainWindow):
                 'market_description', 'quantity', 'price',
                 'commission', 'tax', 'risk', 'currency_from', 'currency_to', 'exchange_rate',
                 'automatic_flag', 'expires_on']
-        print('test: input_line = ', input_line)
+        #print('test: input_line = ', input_line)
         self.model_data = TableModel([input_line], headers)
-        print('test: model_data = ', self.model_data.get_values())
+        #print('test: model_data = ', self.model_data.get_values())
         self.gui.tbl_data.setModel(self.model_data)
 
     def init_gui(self):
