@@ -35,7 +35,7 @@ class FileExport():
                 subdir = os.path.join(exportdir, 'export_' + current_date('%Y-%m-%d_%H%M%S'))
                 if not os.path.isdir(subdir):
                     os.makedirs(subdir)
-                print("Retrieving table records from database...")
+                print "Retrieving table records from database..."
                 #Export all tables that are loaded by the ORM
                 #But views where created per table to have more control:
                 #to limit the export, only the views need to be updated.
@@ -60,20 +60,20 @@ class FileExport():
                     for record in records:
                         outcsv.writerow([ getattr(record, column.name) for
                             column in dba.loaded_objects[viewname].c ])
-                    print("Writing", len(records), "records for", tablename, "to file", exportpath, "...")
+                    print "Writing", len(records), "records for", tablename, "to file", exportpath, "..."
                 exportfile.close()
                 #Note: no need to close the csv, because it's just a parser
                 #that uses exportfile as an underlying file. Closing exportfile
                 #is all you need to do.
-                print("Done.")
+                print "Done."
             finally:
                 dba = None
         except Exception as ex:
-            print("Error in csv_export: ", ex)
+            print "Error in csv_export: ", ex
 
     def ledger_export(self):
         """ Export all data to ledger-cli dat files. """
         try:
-            print('Not implemented yet...')
+            print 'Not implemented yet...'
         except Exception as ex:
-            print("Error in ledger_export: ", ex)
+            print "Error in ledger_export: ", ex

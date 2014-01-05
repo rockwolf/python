@@ -39,7 +39,7 @@ class DatabaseAccess():
             #self.map_views()
             self.tables = [x for x in self.metadata.tables.keys() if is_a_table(x) ]
         except Exception as ex:
-            print("Error in initialisation of DatabaseAccess: ", ex)
+            print "Error in initialisation of DatabaseAccess: ", ex
  
     def get_accounts(self):
         """
@@ -56,7 +56,7 @@ class DatabaseAccess():
                         , "account_id":instance.account_id
                     })
         except Exception as ex:
-            print(Error.GET_ACCOUNTS, ex)
+            print Error.GET_ACCOUNTS, ex
         finally:
             session.rollback()
             session = None
@@ -73,7 +73,7 @@ class DatabaseAccess():
             for instance in query: 
                 values.append(instance.name)
         except Exception as ex:
-            print(Error.GET_ACCOUNT_LIST, ex)
+            print Error.GET_ACCOUNT_LIST, ex
         finally:
             session.rollback()
             session = None
@@ -91,7 +91,7 @@ class DatabaseAccess():
             for instance in query: 
                 values.append(instance.code)
         except Exception as ex:
-            print(Error.GET_MARKETS, ex)
+            print Error.GET_MARKETS, ex
         finally:
             session.rollback()
             session = None
@@ -114,7 +114,7 @@ class DatabaseAccess():
             for instance in query: 
                 values.append(instance.name)
         except Exception as ex:
-            print("Error in get_commodity_names: ", ex)
+            print "Error in get_commodity_names: ", ex
         finally:
             session.rollback()
             session = None
@@ -132,7 +132,7 @@ class DatabaseAccess():
                 value = instance.name
                 break
         except Exception as ex:
-            print(Error.GET_MARKET_DESCRIPTION, ex)
+            print Error.GET_MARKET_DESCRIPTION, ex
         finally:
             session.rollback()
             session = None
@@ -150,7 +150,7 @@ class DatabaseAccess():
                 value = instance.description
                 break
         except Exception as ex:
-            print("Error in get_commodity_description: ", ex)
+            print "Error in get_commodity_description: ", ex
         finally:
             session.rollback()
             session = None
@@ -178,7 +178,7 @@ class DatabaseAccess():
                 values.append(instance.marketname)
                 values.append(instance.country)
         except Exception as ex:
-            print(Error.GET_COMMODITY_INFO, ex)
+            print Error.GET_COMMODITY_INFO, ex
         finally:
             session.rollback()
             session = None
@@ -195,7 +195,7 @@ class DatabaseAccess():
             for instance in query: 
                 values.append(instance.code)
         except Exception as ex:
-            print(Error.GET_CURRENCIES, ex)
+            print Error.GET_CURRENCIES, ex
         finally:
             session.rollback()
             session = None
@@ -259,7 +259,7 @@ class DatabaseAccess():
                 self.write_statement_list_delete(
                         statements_delete, statements.table_name)
         except Exception as ex:
-            print(Error.WRITE_TO_DATABASE_SESSION, ex)
+            print Error.WRITE_TO_DATABASE_SESSION, ex
 
     def write_statement_list_insert(self, final_statements, table_name):
         """
@@ -268,13 +268,17 @@ class DatabaseAccess():
         session = self.Session()
         try:
             if final_statements != []:
-                print(table_name, end=': ')
+                #TODO: print(table_name, end=': ') in python2.7?
+                splitnames = table_name.split(':')
+                for name in splitnames:
+                    print name
                 session.add_all(final_statements)
                 session.commit()
-                print("{0} records added.".format(str(len(final_statements))))
-                print('')
+                #TODO: {0} in python2.7?
+                print "{0} records added.".format(str(len(final_statements)))
+                print ''
         except Exception as ex:
-            print(Error.INSERT_DATABASE, ex)
+            print Error.INSERT_DATABASE, ex
         finally:
             session.rollback()
             session = None
@@ -289,19 +293,23 @@ class DatabaseAccess():
         session = self.Session()
         try:
             if final_statements != []:
-                print(table_name, end=': ')
+                #TODO: see higher
+                splitnames = table_name.split(':')
+                for name in splitnames:
+                    print name
+                #print table_name, end=': '
                 #session.add_all(final_statements)
                 #session.commit()
                 for statement in final_statements:
-                    print('test:', statement)
+                    print 'test:', statement
                     session.query(table_name).filter_by(
                             id=statement[0]).update(statement[1])
                 #TODO: commit/flush code in for or outside?
                 session.commit()
-                print("{0} records updated.".format(str(len(final_statements))))
-                print('')
+                print "{0} records updated.".format(str(len(final_statements)))
+                print ''
         except Exception as ex:
-            print(Error.UPDATE_DATABASE, ex)
+            print Error.UPDATE_DATABASE, ex
         finally:
             session.rollback()
             session = None
@@ -499,7 +507,7 @@ class DatabaseAccess():
         try:
             records = session.query(name).all()
         except Exception as ex:
-            print("Error in export_records: ", ex)
+            print "Error in export_records: ", ex
         finally:
             session.rollback()
             session = None
@@ -533,7 +541,7 @@ class DatabaseAccess():
                 for instance in session.query(T_ACCOUNT).filter_by(name=account):
                     result = str(instance.account_id)
         except Exception as ex:
-            print(Error.ACCOUNT_ID_FROM_ACCOUNT, ex)
+            print Error.ACCOUNT_ID_FROM_ACCOUNT, ex
         finally:
             session.rollback()
             session = None
@@ -561,7 +569,7 @@ class DatabaseAccess():
                 for instance in session.query(T_COMMODITY).filter_by(name=commodity_name, market_id=market_id):
                     result = str(instance.commodity_id)
         except Exception as ex:
-            print("Error retrieving commodity_id: ", ex)
+            print "Error retrieving commodity_id: ", ex
         finally:
             session.rollback()
             session = None
@@ -595,7 +603,7 @@ class DatabaseAccess():
                 for instance in session.query(T_MARKET).filter_by(code=code):
                     result = str(instance.market_id)
         except Exception as ex:
-            print("Error retrieving market_id: ", ex)
+            print "Error retrieving market_id: ", ex
         finally:
             session.rollback()
             session = None
@@ -611,7 +619,7 @@ class DatabaseAccess():
             for instance in session.query(V_ACCOUNT_NAME).filter_by(account_id=account_id):
                 result = instance.name
         except Exception as ex:
-            print("Error retrieving accountname from account_id: ", ex)
+            print "Error retrieving accountname from account_id: ", ex
         finally:
             session.rollback()
             session = None
@@ -630,7 +638,7 @@ class DatabaseAccess():
             else:
                 raise Exception("Error: currency {0} not found! -1 used as a currency_id.".format(currency))
         except Exception as ex:
-            print(Error.ACCOUNT_ID_FROM_ACCOUNT, ex)
+            print Error.ACCOUNT_ID_FROM_ACCOUNT, ex
         finally:
             session.rollback()
             session = None
@@ -651,7 +659,7 @@ class DatabaseAccess():
                 # a get_latest_rate_id() + 1 would become 1
                 result = 0
         except Exception as ex:
-            print("Error retrieving latest rate_id from T_RATE: ", ex)
+            print "Error retrieving latest rate_id from T_RATE: ", ex
         finally:
             session.rollback()
             session = None
@@ -668,7 +676,7 @@ class DatabaseAccess():
                     parameter_id=parameter_id):
                 result = str(instance.value)
         except Exception as ex:
-            print("Error retrieving parameter value: ", ex)
+            print "Error retrieving parameter value: ", ex
         finally:
             session.rollback()
             session = None
@@ -688,7 +696,7 @@ class DatabaseAccess():
             if first_obj is not None:
                 result = first_obj.currency_exchange_id
         except Exception as ex:
-            print("Error in first_currency_id_from_latest: ", ex)
+            print "Error in first_currency_id_from_latest: ", ex
         finally:
             session.rollback()
             session = None
@@ -707,7 +715,7 @@ class DatabaseAccess():
             for instance in obj:
                 result = instance.rate_id
         except Exception as ex:
-            print("Error in first_rate_id_from_latest: ", ex)
+            print "Error in first_rate_id_from_latest: ", ex
         finally:
             session.rollback()
             session = None
@@ -726,7 +734,7 @@ class DatabaseAccess():
             for instance in obj:
                 result = instance.finance_id
         except Exception as ex:
-            print("Error in first_finance_id_from_latest: ", ex)
+            print "Error in first_finance_id_from_latest: ", ex
         finally:
             session.rollback()
             session = None
@@ -753,7 +761,7 @@ class DatabaseAccess():
             if first_obj is not None:
                 result = first_obj.date_created
         except Exception as ex:
-            print('Error in get_latest_date_created for table', tablename + ':', ex)
+            print 'Error in get_latest_date_created for table', tablename + ':', ex
         finally:
             session.rollback()
             session = None
@@ -771,7 +779,7 @@ class DatabaseAccess():
             if first_obj is not None:
                 result = self.get_record(first_obj)
         except Exception as ex:
-            print("Error in get_finance_record: ", ex)
+            print "Error in get_finance_record: ", ex
         finally:
             session.rollback()
             session = None
@@ -785,7 +793,7 @@ class DatabaseAccess():
         try:
             result = row_to_dict(row)
         except Exception as ex:
-            print("Error in get_record: ", ex)
+            print "Error in get_record: ", ex
         return result
 
     def get_rep_check_total(self, check_totals):
@@ -817,7 +825,7 @@ class DatabaseAccess():
             #        values.append([instance.account_name,
             #            instance.account_total])
         except Exception as ex:
-            print("Error in get_rep_check_totals: ", ex)
+            print "Error in get_rep_check_totals: ", ex
         finally:
             session.rollback()
             session = None
@@ -839,7 +847,7 @@ class DatabaseAccess():
                         'drawdown_id')):
                 result = instance.drawdown_id
         except Exception as ex:
-            print(Error.NEW_DRAWDOWN_RECORD, ex)
+            print Error.NEW_DRAWDOWN_RECORD, ex
         finally:
             session.rollback()
             session = None
@@ -857,7 +865,7 @@ class DatabaseAccess():
             if first_obj.total is not None:
                 result = Decimal(first_obj.total)
         except Exception as ex:
-            print("Error in get_pool: ", ex)
+            print "Error in get_pool: ", ex
         finally:
             session.rollback()
             session = None
@@ -886,7 +894,7 @@ class DatabaseAccess():
                             active=1
                             ).first()
         except Exception as ex:
-            print(Error.GET_SPECIFIC_FINANCE_RECORD, ex)
+            print Error.GET_SPECIFIC_FINANCE_RECORD, ex
             session.rollback()
             result = None
         finally:
@@ -916,7 +924,7 @@ class DatabaseAccess():
             if first_obj is not None:
                 result = True
         except Exception as ex:
-            print(Error.INVADE_ALREADY_STARTED, ex)
+            print Error.INVADE_ALREADY_STARTED, ex
         return result
 
     def get_invade_record(self, finance_id, table_class):
@@ -935,7 +943,7 @@ class DatabaseAccess():
             if first_obj is not None:
                 result = self.get_record(first_obj)
         except Exception as ex:
-            print("Error in get_invade_record: ", ex)
+            print "Error in get_invade_record: ", ex
         finally:
             session.rollback()
             session = None

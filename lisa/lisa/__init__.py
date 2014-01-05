@@ -36,7 +36,7 @@ def main(option, export_type, testmode):
     from main import MainWrapper
     wrapper = MainWrapper()
     if testmode:
-        print("test: unit_test")
+        print "test: unit_test"
         wrapper.unit_test()
         wrapper.exitstate = 1
     if (option == 'import'):
@@ -75,11 +75,11 @@ if __name__ == "__main__":
         elif args['--export'] == Export.CSV:
             export_type = Export.CSV
         else:
-            print("Error: wrong export type (" + 
-                    args['--export'] +
-                    "), falling back on the default (" +
-                    Export.CSV +
-                    ")!");
+            print "Error: wrong export type (" + \
+                    args['--export'] + \
+                    "), falling back on the default (" + \
+                    Export.CSV + \
+                    ")!"
             export_type = Export.CSV
     elif args['--install']:
         install()
@@ -90,6 +90,6 @@ if __name__ == "__main__":
     elif args['--test']:
         testmode = True
     elif args['--python']:
-        print('Python ' + sys.version)
+        print 'Python', sys.version
         sys.exit(0)
     main(option, export_type, testmode)

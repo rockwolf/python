@@ -79,6 +79,6 @@ class Rate(CoreModule):
                     )
             return statement_rate
         except Exception as ex:
-            print(Error.CREATE_STATEMENTS_TABLE_RATE, ex)
+            print Error.CREATE_STATEMENTS_TABLE_RATE, ex
         finally:
             dba = None

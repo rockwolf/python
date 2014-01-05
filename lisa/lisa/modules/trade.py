@@ -51,9 +51,9 @@ class Trade(CoreModule):
                     long_flag = dba.get_long_flag_value(fields[Input.ACCOUNT_FROM],
                             fields[Input.ACCOUNT_TO], trade_record)
                     # TEST INFO
-                    print('test finance_record=', finance_record)
-                    print('test trade_record=', trade_record)
-                    print('test: long_flag =', long_flag)
+                    print 'test finance_record=', finance_record
+                    print 'test trade_record=', trade_record
+                    print 'test: long_flag =', long_flag
 
                     if dba.invade_already_started(market_id,
                             commodity_name_id, T_TRADE):
@@ -109,7 +109,7 @@ class Trade(CoreModule):
                         risk_input_percent = trade_record['risk_input_percent']
                         risk_initial = trade_record['risk_initial']
                         risk_initial_percent = (risk_initial/amount_buy_simple)*Decimal(100.0)
-                        print('test: amount_buy_simple =', amount_buy_simple)
+                        print 'test: amount_buy_simple =', amount_buy_simple
                         risk_actual = calculate_risk_actual(
                             trade_record['price_buy'],
                             trade_record['shares_buy'],
@@ -182,14 +182,14 @@ class Trade(CoreModule):
                             commission_sell = fields[Input.COMMISSION]
                             tax_buy = DEFAULT_DECIMAL
                             tax_sell = fields[Input.TAX]
-                        print(library_test())
-                        print('TEST stoploss:(price, shares, tax, comm, risk_input, pool) = '
+                        print library_test()
+                        print 'TEST stoploss:(price, shares, tax, comm, risk_input, pool) = '
                                 , fields[Input.PRICE]
                                 , fields[Input.QUANTITY]
                                 , fields[Input.TAX]
                                 , fields[Input.COMMISSION]
                                 , fields[Input.RISK]
-                                , fields[Input.POOL])
+                                , fields[Input.POOL]
                         stoploss = calculate_stoploss(
                             abs(fields[Input.PRICE]),
                             fields[Input.QUANTITY],
@@ -199,24 +199,24 @@ class Trade(CoreModule):
                             fields[Input.POOL])
                         profit_loss = DEFAULT_DECIMAL #Only calculated at end of trade.
                         pool_at_start = fields[Input.POOL]
-                        print('test: i_price =', fields[Input.PRICE])
-                        print('test: i_shares =', fields[Input.QUANTITY])
+                        print 'test: i_price =', fields[Input.PRICE]
+                        print 'test: i_shares =', fields[Input.QUANTITY]
                         amount_buy_simple = calculate_amount_simple(
                                 Decimal(fields[Input.PRICE])
                                 , Decimal(fields[Input.QUANTITY]))
                         amount_sell_simple = DEFAULT_DECIMAL
-                        print('test E')
+                        print 'test E'
                         risk_input = calculate_risk_input(
                             fields[Input.POOL],
                             fields[Input.RISK])
                         risk_input_percent = fields[Input.RISK]
-                        print('test F')
+                        print 'test F'
                         risk_initial = calculate_risk_initial(
                             fields[Input.PRICE],
                             fields[Input.QUANTITY],
                             stoploss)
-                        print('test: price, shares, stoploss = ', fields[Input.PRICE], fields[Input.QUANTITY], stoploss)
-                        print('test amount_buy_simple = ', amount_buy_simple)
+                        print 'test: price, shares, stoploss = ', fields[Input.PRICE], fields[Input.QUANTITY], stoploss
+                        print 'test amount_buy_simple = ', amount_buy_simple
                         risk_initial_percent = Decimal(100.0)*risk_initial/amount_buy_simple
                         risk_actual = DEFAULT_DECIMAL
                         risk_actual_percent = DEFAULT_DECIMAL
@@ -239,37 +239,37 @@ class Trade(CoreModule):
                     day_sell = date_sell.day
                     
                     # TEST INFO
-                    print('<print>')
-                    print('market_id =', market_id)
-                    print('commodity_name_id =', commodity_name_id)
-                    print('date_buy =', date_buy)
-                    print('date_sell =', date_sell)
-                    print('long_flag =', long_flag)
-                    print('price_buy =', price_buy)
-                    print('price_sell =', price_sell)
-                    print('risk_input =', risk_input)
-                    print('risk_input_percent =', risk_input_percent)
-                    print('risk_initial =', risk_initial)
-                    print('risk_initial_percent =', risk_initial_percent)
-                    print('risk_actual =', risk_actual)
-                    print('risk_actual_percent =', risk_actual_percent)
-                    print('cost_total =', cost_total)
-                    print('cost_other =', cost_other)
-                    print('amount_buy_simple =', amount_buy_simple)
-                    print('amount_sell_simple =', amount_sell_simple)
-                    print('stoploss =', stoploss)
-                    print('profit_loss =', profit_loss)
-                    print('profit_loss_percent =', profit_loss_percent)
-                    print('r_multiple =', r_multiple)
-                    print('win_flag =', win_flag)
-                    print('id_buy =', id_buy)
-                    print('id_sell =', id_sell)
-                    print('currency_exchange_id =', currency_exchange_id)
-                    print('drawdown_id =', drawdown_id)
-                    print('pool_at_start =', pool_at_start)
-                    print('date_expiration =', date_expiration)
-                    print('expired_flag =', expired_flag)
-                    print('<\print>')
+                    #print('<print>')
+                    #print('market_id =', market_id)
+                    #print('commodity_name_id =', commodity_name_id)
+                    #print('date_buy =', date_buy)
+                    #print('date_sell =', date_sell)
+                    #print('long_flag =', long_flag)
+                    #print('price_buy =', price_buy)
+                    #print('price_sell =', price_sell)
+                    #print('risk_input =', risk_input)
+                    #print('risk_input_percent =', risk_input_percent)
+                    #print('risk_initial =', risk_initial)
+                    #print('risk_initial_percent =', risk_initial_percent)
+                    #print('risk_actual =', risk_actual)
+                    #print('risk_actual_percent =', risk_actual_percent)
+                    #print('cost_total =', cost_total)
+                    #print('cost_other =', cost_other)
+                    #print('amount_buy_simple =', amount_buy_simple)
+                    #print('amount_sell_simple =', amount_sell_simple)
+                    #print('stoploss =', stoploss)
+                    #print('profit_loss =', profit_loss)
+                    #print('profit_loss_percent =', profit_loss_percent)
+                    #print('r_multiple =', r_multiple)
+                    #print('win_flag =', win_flag)
+                    #print('id_buy =', id_buy)
+                    #print('id_sell =', id_sell)
+                    #print('currency_exchange_id =', currency_exchange_id)
+                    #print('drawdown_id =', drawdown_id)
+                    #print('pool_at_start =', pool_at_start)
+                    #print('date_expiration =', date_expiration)
+                    #print('expired_flag =', expired_flag)
+                    #print('<\print>')
                     
                     # ADDING THE STATEMENTS
                     statement_trade.add(
@@ -327,6 +327,6 @@ class Trade(CoreModule):
                 finance_id = finance_id + 1
             return statement_trade
         except Exception as ex:
-            print(Error.CREATE_STATEMENTS_TABLE_TRADE, ex)
+            print Error.CREATE_STATEMENTS_TABLE_TRADE, ex
         finally:
             dba = None

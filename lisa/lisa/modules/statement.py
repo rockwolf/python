@@ -14,7 +14,7 @@ class Statement():
             self.statements_delete = []
             self.table_name = table_name
         except Exception as ex:
-            print("Error in initialisation of Statements: ", ex)
+            print "Error in initialisation of Statements: ", ex
 
     def get_value_list(self, insupdel=0):
         """
@@ -44,7 +44,7 @@ class Statement():
             elif insupdel == 2:
                 self.statements_delete.append([recordid, tablerow_object])
         except Exception as ex:
-            print("Error adding statement for", self.table_name, ": ", ex)
+            print "Error adding statement for", self.table_name, ": ", ex
    
     def remove(self, index=-1, insupdel=0):
         """ Remove statement added on specified index """
@@ -56,7 +56,7 @@ class Statement():
             elif insupdel == Statements.DELETE:
             	self.statements_delete.pop(index)
         except Exception as ex:
-            print("Error removing statement from the list: ", ex)
+            print "Error removing statement from the list: ", ex
 
     def print_statements(self):
         """ 
@@ -76,10 +76,10 @@ class Statement():
             on the screen (logic).
         """
         if statements != []:
-            print(message, self.table_name)
-            print('_'*len(message) + '_'*len(self.table_name), '\n')
+            print message, self.table_name
+            print '_'*len(message) + '_'*len(self.table_name), '\n'
             for s in statements:
-                print(s)
+                print s
 
     def get_statement_list(self, insupdel=0):
         """
@@ -99,5 +99,5 @@ class Statement():
                 for statement in statements:
                     result.append(statement[1])
         except Exception as ex:
-            print("Error retrieving statement list: ", ex)
+            print "Error retrieving statement list: ", ex
         return result

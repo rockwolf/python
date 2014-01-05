@@ -23,11 +23,11 @@ class FileImport():
         try:
             dba = DatabaseAccess(self.config)
             importdir = self.config.importdir
-            print(importdir + ' -> ' + self.config.dbhost + '/' + self.config.dbname + ': ')
+            print importdir + ' -> ' + self.config.dbhost + '/' + self.config.dbname + ': '
             for root, dirs, files in os.walk(importdir):
                 try:
                     for filename in files:
-                        print('Importing table', filename + ':', end = ' ')
+                        print 'Importing table', filename + ':', end = ' '
                         source = open(os.path.join(importdir, root[len(importdir):], filename), 'r')
                         # assume first line is header
                         csv_ = csv.DictReader(source, delimiter=',')
@@ -40,17 +40,17 @@ class FileImport():
                             i = i + 1
                         sys.stdout.flush()
                         sleep(0.001)
-                        print(str(i), 'rows imported...', end = ' ')
-                        print('[OK]')
+                        print str(i), 'rows imported...', end = ' '
+                        print '[OK]'
                 except Exception as ex:
-                    print('[Error!]')
-                    print("Error in for loop: ", ex)
+                    print '[Error!]'
+                    print "Error in for loop: ", ex
                     break
                 finally:
                     source.close()
-            print('')
+            print ''
         except Exception as ex:
-            print('')
-            print("Error in file_import:", ex)
+            print ''
+            print "Error in file_import:", ex
         finally:
             dba = None

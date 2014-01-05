@@ -124,10 +124,10 @@ class Emma():
 
             # Extra calculatable fields
             # TEST INFO
-            print(self.amount)
-            print(self.tax)
-            print(self.commission)
-            print(self.shares)
+            print self.amount
+            print self.tax
+            print self.commission
+            print self.shares
             # /TEST INFO
             # GENERAL - input
             self.result_general["amount"] = str(self.amount)
@@ -143,7 +143,7 @@ class Emma():
             self.result_sell["cost_tax"] = str(cost_tax(Transaction.SELL, self.amount, self.commission, self.shares, self.price))
             self.result_sell["amount_with_tax"] = str(calculate_amount_with_tax(self.tax, self.shares, self.price))
         except Exception as ex:
-            print('Error in calculate:', ex)
+            print 'Error in calculate:', ex
             
     def has_missing_parameter(self, parameters):
         """

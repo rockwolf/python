@@ -79,6 +79,6 @@ class Finance(CoreModule):
                 currency_exchange_id = currency_exchange_id + 1
             return statement_finance
         except Exception as ex:
-            print(Error.CREATE_STATEMENTS_TABLE_FINANCE, ex)
+            print Error.CREATE_STATEMENTS_TABLE_FINANCE, ex
         finally:
             dba = None
