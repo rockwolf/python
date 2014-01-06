@@ -89,7 +89,7 @@ class ControllerMain():
             finance = None
             trade = None
         except  Exception as ex:
-            print(Error.WRITE_TO_DATABASE_MAIN, ex)
+            print Error.WRITE_TO_DATABASE_MAIN, ex
 
     def get_input_fields(self, table_model):
         """
@@ -101,7 +101,7 @@ class ControllerMain():
             for field in table_model:
                 model_records.append(field)
         except Exception as ex:
-            print(Error.GET_INPUT_FIELDS, ex)
+            print Error.GET_INPUT_FIELDS, ex
         finally:
             return model_records 
 
