@@ -27,7 +27,7 @@ class FileImport():
             for root, dirs, files in os.walk(importdir):
                 try:
                     for filename in files:
-                        print 'Importing table', filename + ':', end = ' '
+                        print 'Importing table', filename + ':' #, end = ' ' # end code from python3
                         source = open(os.path.join(importdir, root[len(importdir):], filename), 'r')
                         # assume first line is header
                         csv_ = csv.DictReader(source, delimiter=',')
@@ -40,7 +40,7 @@ class FileImport():
                             i = i + 1
                         sys.stdout.flush()
                         sleep(0.001)
-                        print str(i), 'rows imported...', end = ' '
+                        print str(i), 'rows imported...' #, end = ' ' # end code from python3
                         print '[OK]'
                 except Exception as ex:
                     print '[Error!]'

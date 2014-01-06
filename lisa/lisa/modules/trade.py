@@ -183,13 +183,13 @@ class Trade(CoreModule):
                             tax_buy = DEFAULT_DECIMAL
                             tax_sell = fields[Input.TAX]
                         print library_test()
-                        print 'TEST stoploss:(price, shares, tax, comm, risk_input, pool) = '
-                                , fields[Input.PRICE]
-                                , fields[Input.QUANTITY]
-                                , fields[Input.TAX]
-                                , fields[Input.COMMISSION]
-                                , fields[Input.RISK]
-                                , fields[Input.POOL]
+                        print 'TEST stoploss:(price, shares, tax, comm, risk_input, pool) = ({0}, {1}, {2}, {3}, {4}, {5})'.format(
+                            fields[Input.PRICE]
+                            , fields[Input.QUANTITY]
+                            , fields[Input.TAX]
+                            , fields[Input.COMMISSION]
+                            , fields[Input.RISK]
+                            , fields[Input.POOL])
                         stoploss = calculate_stoploss(
                             abs(fields[Input.PRICE]),
                             fields[Input.QUANTITY],
