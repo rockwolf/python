@@ -126,12 +126,12 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
         # Init tbl_data
         input_line = self.ctl.get_input_line()
-        print('test: self.model_data = ' + str(self.model_data))
+        print 'test: self.model_data = ' + str(self.model_data)
         if self.model_data == None:
             self.init_tbl_data(input_line)
         else: 
             self.ctl.add_tbl_data(self.model_data, [input_line])
-        print("-- test [btn_add_clicked] :", self.model_data.get_values())
+        print "-- test [btn_add_clicked] :", self.model_data.get_values()
         self.clear_fields()
         #self.set_lbl_check(self.ctl.get_check_info(self.model_data.tablecontent))
 
@@ -140,7 +140,7 @@ class ControllerPyqt(QtGui.QMainWindow):
             Update the selected record in the table.
         """
         selected_index = self.gui.tbldata.selectionModel().selectedRows()
-        print('Test:', str(selected_index))
+        print 'Test:', str(selected_index)
         self.gui.tbl_data.update_row(self.model_data, selected_index)
 
     def btn_remove_clicked(self):
@@ -212,7 +212,7 @@ class ControllerPyqt(QtGui.QMainWindow):
     #    """
     #        keyPressed event in combo
     #    """
-    #    print('test:', str(qKeyEevnt))
+    #    print 'test:', str(qKeyEevnt)
     #    if qKeyEvent.key() == QtCore.Qt.Key_Return: 
     #        self.ctl.update_accounts_for_commodities(str(self.gui.cmb_commodity_name.currentText()))
 
@@ -286,9 +286,9 @@ class ControllerPyqt(QtGui.QMainWindow):
                 'market_description', 'quantity', 'price',
                 'commission', 'tax', 'risk', 'currency_from', 'currency_to', 'exchange_rate',
                 'automatic_flag', 'expires_on']
-        #print('test: input_line = ', input_line)
+        #print 'test: input_line = ', input_line
         self.model_data = TableModel([input_line], headers)
-        #print('test: model_data = ', self.model_data.get_values())
+        #print 'test: model_data = ', self.model_data.get_values()
         self.gui.tbl_data.setModel(self.model_data)
 
     def init_gui(self):
