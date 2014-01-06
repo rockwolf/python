@@ -268,7 +268,8 @@ class DatabaseAccess():
         session = self.Session()
         try:
             if final_statements != []:
-                #TODO: print(table_name, end=': ') in python2.7?
+                #NOTE: The below 3 lines are this one-liner in python3:
+                #print(table_name, end=': ')
                 splitnames = table_name.split(':')
                 for name in splitnames:
                     print name
@@ -293,11 +294,11 @@ class DatabaseAccess():
         session = self.Session()
         try:
             if final_statements != []:
-                #TODO: see higher
+                #NOTE: The below 3 lines are this one-liner in python3:
+                #print(table_name, end=': ')
                 splitnames = table_name.split(':')
                 for name in splitnames:
                     print name
-                #print table_name, end=': '
                 #session.add_all(final_statements)
                 #session.commit()
                 for statement in final_statements:
