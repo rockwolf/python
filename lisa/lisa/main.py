@@ -56,7 +56,7 @@ class MainWrapper():
         setup = None
         imp = None
 
-    def export(self, export_type):
+    def file_export(self, export_type):
         """
             export
         """
