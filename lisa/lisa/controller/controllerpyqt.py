@@ -126,12 +126,13 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
         # Init tbl_data
         input_line = self.ctl.get_input_line()
-        print 'test: self.model_data = ' + str(self.model_data)
+        print '-1a- test: self.ctl.get_input_line() =', input_line
+        print '-1b- test: self.model_data =', str(self.model_data)
         if self.model_data == None:
             self.init_tbl_data(input_line)
         else: 
             self.ctl.add_tbl_data(self.model_data, [input_line])
-        print "-- test [btn_add_clicked] :", self.model_data.get_values()
+        print "-1c- test [btn_add_clicked] :", self.model_data.get_values()
         self.clear_fields()
         #self.set_lbl_check(self.ctl.get_check_info(self.model_data.tablecontent))
 
@@ -286,7 +287,7 @@ class ControllerPyqt(QtGui.QMainWindow):
                 'market_description', 'quantity', 'price',
                 'commission', 'tax', 'risk', 'currency_from', 'currency_to', 'exchange_rate',
                 'automatic_flag', 'expires_on']
-        #print 'test: input_line = ', input_line
+        print 'test: input_line = ', input_line
         self.model_data = TableModel([input_line], headers)
         #print 'test: model_data = ', self.model_data.get_values()
         self.gui.tbl_data.setModel(self.model_data)
@@ -359,8 +360,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
             Returns the amount from the spn_amount spinedit.
         """
-        return str(self.gui.spn_amount.textFromValue( \
-                self.gui.spn_amount.value()))
+        return str(self.gui.spn_amount.textFromValue(self.gui.spn_amount.value()))
 
     def get_comment(self):
         """
@@ -396,43 +396,37 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
             Returns the quantity from the spn_quantity spinedit.
         """
-        return str(self.gui.spn_quantity.textFromValue( \
-                self.gui.spn_quantity.value()))
+        return str(self.gui.spn_quantity.textFromValue(self.gui.spn_quantity.value()))
 
     def get_price(self):
         """
             Returns the price from the spn_price spinedit.
         """
-        return str(self.gui.spn_price.textFromValue( \
-                self.gui.spn_price.value()))
+        return str(self.gui.spn_price.textFromValue(self.gui.spn_price.value()))
 
     def get_pool(self):
         """
             Returns the pool from the spn_pool spinedit.
         """
-        return str(self.gui.spn_pool.textFromValue( \
-                self.gui.spn_pool.value()))
+        return str(self.gui.spn_pool.textFromValue(self.gui.spn_pool.value()))
 
     def get_commission(self):
         """
             Returns the commission from the spn_commission spinedit.
         """
-        return str(self.gui.spn_commission.textFromValue( \
-                self.gui.spn_commission.value()))
+        return str(self.gui.spn_commission.textFromValue(self.gui.spn_commission.value()))
 
     def get_tax(self):
         """
             Returns the tax from the spn_tax spinedit.
         """
-        return str(self.gui.spn_tax.textFromValue( \
-                self.gui.spn_tax.value()))
+        return str(self.gui.spn_tax.textFromValue(self.gui.spn_tax.value()))
 
     def get_risk(self):
         """
             Returns the risk from the spn_risk spinedit.
         """
-        return str(Decimal(str(self.gui.spn_risk.textFromValue( \
-                self.gui.spn_risk.value()))))
+        return str(Decimal(str(self.gui.spn_risk.textFromValue(self.gui.spn_risk.value()))))
                 
     def get_currency_from(self):
     	"""
@@ -450,8 +444,7 @@ class ControllerPyqt(QtGui.QMainWindow):
     	"""
             Returns the exchange rate used.
         """
-    	return str(self.gui.spn_exchange_rate.textFromValue( \
-    		self.gui.spn_exchange_rate.value()))
+    	return str(self.gui.spn_exchange_rate.textFromValue(self.gui.spn_exchange_rate.value()))
 
     def get_manual_commission(self):
         """

@@ -32,8 +32,9 @@ def deals_with_commodities(account_from, account_to = ''):
         Check if we are using commoditie-related text in 
         one of the account names.
     """
-    return ((':commodities' in [account_from, account_to]) \
-        or (':cfd' in [account_from, account_to]))
+    test1 = ':commodities'
+    test2 = ':cfd'
+    return ((test1 in account_from or test1 in  account_to) or (test2 in account_from or test2 in account_to))
 
 def is_a_table(key):
     """
