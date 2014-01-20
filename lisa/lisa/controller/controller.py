@@ -238,7 +238,6 @@ class ControllerMain():
             str_list.append('')
         
         # When not needed, values for trading will be cleared.
-        print '-2a- deals_with_commodities?: ', str(deals_with_commodities(self.gui.get_account_from(), self.gui.get_account_to()))
         if not (deals_with_commodities(self.gui.get_account_from(), self.gui.get_account_to())):
             market = ''
             commodity = ''
