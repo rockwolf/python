@@ -252,8 +252,8 @@ class ControllerMain():
             tax = DEFAULT_DECIMAL
             risk = DEFAULT_DECIMAL
         # Check if it needs to be a negative amount
-        if is_negative_amount(account_from) \
-            and Decimal(amount) != DEFAULT_DECIMAL:
+        if (is_negative_amount(account_from)
+            and Decimal(amount) != DEFAULT_DECIMAL):
             amount = '-' + amount
         str_list[Input.DATE] = string_to_date(date)
         str_list[Input.ACCOUNT_FROM] = account_from
