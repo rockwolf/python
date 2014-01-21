@@ -41,6 +41,8 @@ class ControllerMain():
         """
         app = QtGui.QApplication(sys.argv)
         app.setStyle("cleanLooks")
+        #TODO: play with the different styles
+        # "windows", "motif", "cde", "plastique" and "cleanlooks"
         window = ControllerPyqt(self.config, self)
         self.gui = window
         window.init_gui()
