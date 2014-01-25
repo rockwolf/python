@@ -126,13 +126,13 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
         # Init tbl_data
         input_line = self.ctl.get_input_line()
-        print '-1a- test: self.ctl.get_input_line() =', input_line
-        print '-1b- test: self.model_data =', str(self.model_data)
         if self.model_data == None:
+            print '1b_0: init_tbl_data'
             self.init_tbl_data(input_line)
         else: 
+            print '1b_1: add_tbl_data'
             self.ctl.add_tbl_data(self.model_data, [input_line])
-        print "-1c- test [btn_add_clicked] :", self.model_data.get_values()
+        print "-1c- test [btn_add_clicked], model_data :", self.model_data.get_values()
         self.clear_fields()
         #self.set_lbl_check(self.ctl.get_check_info(self.model_data.tablecontent))
 
@@ -152,6 +152,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         #This currently gets the last row.
         selected_index = self.model_data.rowCount(None)
         self.ctl.remove_selected(self.model_data, selected_index)
+        print "-3a- test [btn_remove_clicked], model_data :", self.model_data.get_values()
     
     def btn_removelast_clicked(self):
         """ Remove the last added record from the table. """
@@ -287,9 +288,7 @@ class ControllerPyqt(QtGui.QMainWindow):
                 'market_description', 'quantity', 'price',
                 'commission', 'tax', 'risk', 'currency_from', 'currency_to', 'exchange_rate',
                 'automatic_flag', 'expires_on']
-        print 'test: input_line = ', input_line
         self.model_data = TableModel([input_line], headers)
-        #print 'test: model_data = ', self.model_data.get_values()
         self.gui.tbl_data.setModel(self.model_data)
 
     def init_gui(self):
@@ -328,6 +327,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
             Clear the main input fields.
         """
+        print '2a- clear fields: comment and amount cleared'
         self.gui.txt_comment.clear()
         self.gui.spn_amount.setValue(0)
 
