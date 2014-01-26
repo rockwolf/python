@@ -127,12 +127,9 @@ class ControllerPyqt(QtGui.QMainWindow):
         # Init tbl_data
         input_line = self.ctl.get_input_line()
         if self.model_data == None:
-            print '1b_0: init_tbl_data'
             self.init_tbl_data(input_line)
         else: 
-            print '1b_1: add_tbl_data'
             self.ctl.add_tbl_data(self.model_data, [input_line])
-        print "-1c- test [btn_add_clicked], model_data :", self.model_data.get_values()
         self.clear_fields()
         #self.set_lbl_check(self.ctl.get_check_info(self.model_data.tablecontent))
 
@@ -152,7 +149,6 @@ class ControllerPyqt(QtGui.QMainWindow):
         #This currently gets the last row.
         selected_index = self.model_data.rowCount(None)
         self.ctl.remove_selected(self.model_data, selected_index)
-        print "-3a- test [btn_remove_clicked], model_data :", self.model_data.get_values()
     
     def btn_removelast_clicked(self):
         """ Remove the last added record from the table. """

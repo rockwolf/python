@@ -348,7 +348,6 @@ class ControllerMain():
         """
             Add or remove rows from the table view
         """
-        print '-5a- test [add_tbl_data]: insertRows(', str(len(model_data.get_values())-1), ',', str(len(rows)-1), ',', str(rows), ')'
         model_data.insertRows(len(model_data.get_values()), len(rows), rows)
 
     def convert_to_base_currency(self, currency_base, currency_new, value):
