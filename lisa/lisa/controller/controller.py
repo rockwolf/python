@@ -59,9 +59,10 @@ class ControllerMain():
             finance = Finance(self.config)
             trade = Trade(self.config)
             
-            input_fields = self.get_input_fields(table_model)
+            input_fields = table_model.get_values()
             # Note: The order of execution below is important!
             # t_currency_exchange
+            print 'test1: input_fields = ', input_fields
             var_currency_exchange = currency_exchange.create_statements(input_fields)
             var_currency_exchange.print_statements()
             currency_exchange.write_to_database(var_currency_exchange)
@@ -93,20 +94,6 @@ class ControllerMain():
         except  Exception as ex:
             print Error.WRITE_TO_DATABASE_MAIN, ex
 
-    def get_input_fields(self, table_model):
-        """
-            Loop over the data in the model and save it to a
-            list, for easy access.
-        """
-        model_records = []
-        try:
-            for field in table_model:
-                model_records.append(field)
-        except Exception as ex:
-            print Error.GET_INPUT_FIELDS, ex
-        finally:
-            return model_records 
-
     ## Init of gui
     def init_display_data(self):
         """
@@ -132,24 +119,26 @@ class ControllerMain():
         self.fill_spn_pool()
         dba = None
 
-    def get_check_info(self, tablecontent):
+    def get_check_info(self, table_model):
         """
             Gets the account check info.
         """
-        dba = DatabaseAccess(self.config)
-        values = []
-        for entry in dba.get_rep_check_totals():
-            values.append(entry) 
-        for entry in self.get_account_totals_from_input_fields(
-                self.get_input_fields(tablecontent)):
-            for saved_entry in values:
-                if saved_entry[0] == entry[0]: 
-                    saved_entry[1] = saved_entry[1] + entry[1]
-        info = dba.get_rep_check_total(values)
-        if info == '':
-            info == 'Error retrieving info...'
-        dba = None
-        return info
+        #TODO: fix this later
+        pass
+        #dba = DatabaseAccess(self.config)
+        #values = []
+        #for entry in dba.get_rep_check_totals():
+        #    values.append(entry) 
+        #for entry in self.get_account_totals_from_input_fields(
+        #        table_model.get_values()):
+        #    for saved_entry in values:
+        #        if saved_entry[0] == entry[0]: 
+        #            saved_entry[1] = saved_entry[1] + entry[1]
+        #info = dba.get_rep_check_total(values)
+        #if info == '':
+        #    info == 'Error retrieving info...'
+        #dba = None
+        #return info
 
     def get_account_total_from_input_fields(self,
             account_name, input_fields):

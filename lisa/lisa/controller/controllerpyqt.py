@@ -104,7 +104,9 @@ class ControllerPyqt(QtGui.QMainWindow):
             Write given input lines from table to database.
         """
         self.ctl.write_to_database(self.model_data)
-        self.set_lbl_check(self.ctl.get_check_info([]))
+        #self.set_lbl_check(self.ctl.get_check_info([]))
+        #TODO: when the get_check_info is fixed, fix this too
+        self.set_lbl_check('')
         self.model_data.clear()
         
     def btn_exit_clicked(self):
@@ -295,7 +297,9 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.gui.lbl_infofinance.clear()
         self.gui.lbl_infofinance.setText('[<< ' + self.ctl.get_parameter_value(8) + ' >> ' + self.ctl.get_parameter_value(9) + ']')
         self.gui.lbl_infodetails.clear()
-        self.set_lbl_check(self.ctl.get_check_info([]))
+        #self.set_lbl_check(self.ctl.get_check_info([]))
+        #TODO: when the get_check_info is fixed, fix this too
+        self.set_lbl_check('')
         # fill all combo boxes
         self.ctl.init_display_data()
         # default values

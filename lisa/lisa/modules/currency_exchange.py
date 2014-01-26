@@ -22,7 +22,11 @@ class CurrencyExchange(CoreModule):
         """
         try:
             dba = DatabaseAccess(self.config)
+            print 'test2: input_fields = ', input_fields
+            #TODO: The Statement call fails, it expects no arguments?
+            # Is that a python27 error?
             statement_currency_exchange = Statement(Table.CURRENCY_EXCHANGE)
+            print 'test2: after Statement creation'
             date_created = current_date()
             date_modified = current_date()
             records = 0
@@ -44,6 +48,6 @@ class CurrencyExchange(CoreModule):
                 )
             return statement_currency_exchange
         except Exception as ex:
-            print(Error.CREATE_STATEMENTS_TABLE_CURRENCY_EXCHANGE, ex)
+            print Error.CREATE_STATEMENTS_TABLE_CURRENCY_EXCHANGE, ex
         finally:
             dba = None
