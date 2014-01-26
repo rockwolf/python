@@ -54,10 +54,10 @@ class ControllerMain():
             Write the records to write to the database.
         """
         try:
-            currency_exchange = CurrencyExchange(self.config)
-            rate = Rate(self.config)
-            finance = Finance(self.config)
-            trade = Trade(self.config)
+            currency_exchange = CurrencyExchange()
+            rate = Rate()
+            finance = Finance()
+            trade = Trade()
             
             input_fields = table_model.get_values()
             # Note: The order of execution below is important!
