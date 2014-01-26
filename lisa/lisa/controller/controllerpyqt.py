@@ -327,9 +327,9 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
             Clear the main input fields.
         """
-        print '2a- clear fields: comment and amount cleared'
-        self.gui.txt_comment.clear()
-        self.gui.spn_amount.setValue(0)
+        pass
+        #self.gui.txt_comment.clear()
+        #self.gui.spn_amount.setValue(0)
 
     def clear_cmb_commodity_name(self):
         """
