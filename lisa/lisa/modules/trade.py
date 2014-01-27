@@ -18,6 +18,13 @@ class Trade(CoreModule):
     """
         Trade class.
     """
+
+    def __init__(self, config):
+        """
+            Initialisation
+        """
+        self.config = config
+
     #NOTE: Correct way of updating =  Supplier.query.filter(<your stuff here, or user filter_by, or whatever is in your where clause>).update(values)
     #e.g.: session.query(Supplier).filter_by(id=2).update({"name": u"Mayowa"})
     #TABLE_TRADE.query.filter(market_name=...,commodity_name=...).update({"date_...": date_... etc.})

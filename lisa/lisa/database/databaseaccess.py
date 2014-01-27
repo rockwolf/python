@@ -3,8 +3,7 @@
     See LICENSE file for copyright and license details.					
 """
 
-from sqlalchemy import Table, MetaData, \
-        Column, Integer, or_, and_
+from sqlalchemy import Table, MetaData, Column, Integer, or_, and_
 from sqlalchemy.types import VARCHAR
 #from sqlalchemy.sql import exisst
 from sqlalchemy.orm import sessionmaker

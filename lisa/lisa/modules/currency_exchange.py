@@ -16,6 +16,12 @@ class CurrencyExchange(CoreModule):
         CurrencyExchange class.
     """
 
+    def __init__(self, config):
+        """
+            Initialisation
+        """
+        self.config = config
+
     def create_statements(self, input_fields):
         """
             Creates the records needed for Table.CURRENCY_EXCHANGE.

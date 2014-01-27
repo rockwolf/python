@@ -10,7 +10,7 @@ class Statement():
 
     def __init__(self, table_name):
         """
-            Init
+            Initialise
         """
         try:
             self.statements_insert = []

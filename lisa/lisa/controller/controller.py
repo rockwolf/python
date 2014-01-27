@@ -54,35 +54,35 @@ class ControllerMain():
             Write the records to write to the database.
         """
         try:
-            currency_exchange = CurrencyExchange()
-            rate = Rate()
-            finance = Finance()
-            trade = Trade()
+            currency_exchange = CurrencyExchange(self.config)
+            rate = Rate(self.config)
+            finance = Finance(self.config)
+            trade = Trade(self.config)
             
             input_fields = table_model.get_values()
             # Note: The order of execution below is important!
             # t_currency_exchange
-            print 'test1: input_fields = ', input_fields
             var_currency_exchange = currency_exchange.create_statements(input_fields)
+            print 'testxxx'
             var_currency_exchange.print_statements()
             currency_exchange.write_to_database(var_currency_exchange)
             # t_rate
-            var_rate = rate.create_statements(input_fields)
-            var_rate.print_statements()
-            rate.write_to_database(var_rate)
+            #var_rate = rate.create_statements(input_fields)
+            #var_rate.print_statements()
+            #rate.write_to_database(var_rate)
             # t_finance
-            var_finance = finance.create_statements(input_fields)
-            var_finance.print_statements()
-            finance.write_to_database(var_finance)
-            if deals_with_commodities(
-                input_fields[Input.ACCOUNT_FROM]
-                , input_fields[Input.ACCOUNT_TO]):
-                # t_trade
-                var_trade = trade.create_statements(
-                                input_fields,
-                                var_finance)
-                var_trade.print_statements()
-                trade.write_to_database(var_trade)
+            #var_finance = finance.create_statements(input_fields)
+            #var_finance.print_statements()
+            #finance.write_to_database(var_finance)
+            #if deals_with_commodities(
+            #    input_fields[Input.ACCOUNT_FROM]
+            #    , input_fields[Input.ACCOUNT_TO]):
+            #    # t_trade
+            #    var_trade = trade.create_statements(
+            #                    input_fields,
+            #                    var_finance)
+            #    var_trade.print_statements()
+            #    trade.write_to_database(var_trade)
             #test = dba.create_statements_TABLE_INVESTMENT(input_fields)
             #test.print_statements()
             #if self.is_an_investment():
