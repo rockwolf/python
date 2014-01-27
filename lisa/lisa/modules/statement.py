@@ -4,10 +4,14 @@
 """
 
 class Statement():
-    """ A class to contain statements to be executed within the orm session. """
+    """
+        A class to contain statements to be executed within the orm session.
+    """
 
     def __init__(self, table_name):
-        """ Init """
+        """
+            Init
+        """
         try:
             self.statements_insert = []
             self.statements_update = []
@@ -33,7 +37,9 @@ class Statement():
         return result
  
     def add(self, recordid, tablerow_object, insupdel=0):
-        """ Add a statement with recordid and tablerow object. """
+        """
+            Add a statement with recordid and tablerow object.
+        """
         try:
             # Add a statement
             # with recordid
@@ -47,7 +53,9 @@ class Statement():
             print "Error adding statement for", self.table_name, ": ", ex
    
     def remove(self, index=-1, insupdel=0):
-        """ Remove statement added on specified index """
+        """
+            Remove statement added on specified index
+        """
         try:
             if insupdel == Statements.INSERT:
                 self.statements_insert.pop(index)
