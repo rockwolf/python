@@ -31,8 +31,9 @@ class CurrencyExchange(CoreModule):
             print 'test2: input_fields = ', input_fields
             #TODO: The Statement call fails, it expects no arguments?
             # Is that a python27 error?
+            print 'test3: Table.CURRENCY_EXCHANGE=', Table.CURRENCY_EXCHANGE
             statement_currency_exchange = Statement(Table.CURRENCY_EXCHANGE)
-            print 'test2: after Statement creation'
+            print 'test4: after Statement creation'
             date_created = current_date()
             date_modified = current_date()
             records = 0

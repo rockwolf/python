@@ -1,4 +1,4 @@
-#! /usr/local/bin/python
+#!/usr/local/bin/python
 """
     See LICENSE file for copyright and license details.
 """
@@ -8,17 +8,18 @@ class Statement():
         A class to contain statements to be executed within the orm session.
     """
 
-    def __init__(self, table_name):
-        """
-            Initialise
-        """
-        try:
-            self.statements_insert = []
-            self.statements_update = []
-            self.statements_delete = []
-            self.table_name = table_name
-        except Exception as ex:
-            print "Error in initialisation of Statements: ", ex
+    #def __init__(self, table_name):
+    #    """
+    #        Init
+    #    """
+    #    print 'test3.5'
+    #    try:
+    #        self.statements_insert = []
+    #        self.statements_update = []
+    #        self.statements_delete = []
+    #        self.table_name = table_name
+    #    except Exception as ex:
+    #        print "Error in initialisation of Statements: ", ex
 
     def get_value_list(self, insupdel=0):
         """
@@ -46,7 +47,7 @@ class Statement():
             if insupdel == 0:
                 self.statements_insert.append([recordid, tablerow_object])
             elif insupdel == 1:
-            	self.statements_update.append([recordid, tablerow_object])
+                self.statements_update.append([recordid, tablerow_object])
             elif insupdel == 2:
                 self.statements_delete.append([recordid, tablerow_object])
         except Exception as ex:
@@ -60,9 +61,9 @@ class Statement():
             if insupdel == Statements.INSERT:
                 self.statements_insert.pop(index)
             elif insupdel == Statements.UPDATE:
-            	self.statements_update.pop(index)
+                self.statements_update.pop(index)
             elif insupdel == Statements.DELETE:
-            	self.statements_delete.pop(index)
+                self.statements_delete.pop(index)
         except Exception as ex:
             print "Error removing statement from the list: ", ex
 
@@ -98,11 +99,11 @@ class Statement():
         result = []
         try:
             if insupdel == Statement.INSERT:
-            	statements = self.statements_insert
+                statements = self.statements_insert
             elif insupdel == Statement.UPDATE:
-            	statements = self.statements_update
+                statements = self.statements_update
             elif insupdel == Statement.DELETE:
-            	statements = self.statements_delete
+                statements = self.statements_delete
             if statements is not None:
                 for statement in statements:
                     result.append(statement[1])
