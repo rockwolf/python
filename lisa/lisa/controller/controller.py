@@ -63,7 +63,6 @@ class ControllerMain():
             # Note: The order of execution below is important!
             # t_currency_exchange
             var_currency_exchange = currency_exchange.create_statements(input_fields)
-            print 'testxxx'
             var_currency_exchange.print_statements()
             currency_exchange.write_to_database(var_currency_exchange)
             # t_rate

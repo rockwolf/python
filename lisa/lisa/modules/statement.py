@@ -15,7 +15,7 @@ class Statement():
 
     def __init__(self, table_name):
         """
-            Init
+            Initialisation
         """
         print 'test3.5'
         try:
