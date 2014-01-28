@@ -7,19 +7,24 @@ class Statement():
     """
         A class to contain statements to be executed within the orm session.
     """
+    # So far I tried:
+    # - setting object in the Statement class: Statement(object)
+    # - leaving the () out
+    # - removing the __init__
+    # - replace table_name with tablename in the function def
 
-    #def __init__(self, table_name):
-    #    """
-    #        Init
-    #    """
-    #    print 'test3.5'
-    #    try:
-    #        self.statements_insert = []
-    #        self.statements_update = []
-    #        self.statements_delete = []
-    #        self.table_name = table_name
-    #    except Exception as ex:
-    #        print "Error in initialisation of Statements: ", ex
+    def __init__(self, table_name):
+        """
+            Init
+        """
+        print 'test3.5'
+        try:
+            self.statements_insert = []
+            self.statements_update = []
+            self.statements_delete = []
+            self.table_name = table_name
+        except Exception as ex:
+            print "Error in initialisation of Statements: ", ex
 
     def get_value_list(self, insupdel=0):
         """
