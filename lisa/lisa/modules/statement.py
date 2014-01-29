@@ -17,7 +17,6 @@ class Statement():
         """
             Initialisation
         """
-        print 'test3.5'
         try:
             self.statements_insert = []
             self.statements_update = []
