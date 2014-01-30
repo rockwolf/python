@@ -34,7 +34,7 @@ class Rate(CoreModule):
             statement_rate = Statement(Table.RATE)
             records = 0
             for fields in input_fields:
-                if deals_with_stocks(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):
+                if deals_with_commodities(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):
                     formula_id = dba.get_formula_id_to_use(fields)
                     records = records + 1
                     

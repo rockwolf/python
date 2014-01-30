@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'viewpyqt.ui'
 #
-# Created: Sun Oct  6 17:06:37 2013
+# Created: Thu Jan 30 20:24:07 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -709,21 +709,36 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        MainWindow.setTabOrder(self.dt_date, self.cmb_market_code)
-        MainWindow.setTabOrder(self.cmb_market_code, self.cmb_commodity_name)
-        MainWindow.setTabOrder(self.cmb_commodity_name, self.spn_quantity)
+        MainWindow.setTabOrder(self.dt_date, self.cmb_account_from)
+        MainWindow.setTabOrder(self.cmb_account_from, self.cmb_account_to)
+        MainWindow.setTabOrder(self.cmb_account_to, self.spn_amount)
+        MainWindow.setTabOrder(self.spn_amount, self.cmb_market_code)
+        MainWindow.setTabOrder(self.cmb_market_code, self.txt_market_description)
+        MainWindow.setTabOrder(self.txt_market_description, self.cmb_commodity_name)
+        MainWindow.setTabOrder(self.cmb_commodity_name, self.txt_commodity_description)
+        MainWindow.setTabOrder(self.txt_commodity_description, self.spn_quantity)
         MainWindow.setTabOrder(self.spn_quantity, self.spn_price)
         MainWindow.setTabOrder(self.spn_price, self.spn_commission)
         MainWindow.setTabOrder(self.spn_commission, self.spn_tax)
-        MainWindow.setTabOrder(self.spn_tax, self.txt_market_description)
-        MainWindow.setTabOrder(self.txt_market_description, self.txt_commodity_description)
-        MainWindow.setTabOrder(self.txt_commodity_description, self.btn_add)
+        MainWindow.setTabOrder(self.spn_tax, self.chk_manual_commission)
+        MainWindow.setTabOrder(self.chk_manual_commission, self.txt_comment)
+        MainWindow.setTabOrder(self.txt_comment, self.cmb_currency_from)
+        MainWindow.setTabOrder(self.cmb_currency_from, self.cmb_currency_to)
+        MainWindow.setTabOrder(self.cmb_currency_to, self.spn_exchange_rate)
+        MainWindow.setTabOrder(self.spn_exchange_rate, self.dt_expiration)
+        MainWindow.setTabOrder(self.dt_expiration, self.spn_pool)
+        MainWindow.setTabOrder(self.spn_pool, self.spn_risk)
+        MainWindow.setTabOrder(self.spn_risk, self.btn_emma)
+        MainWindow.setTabOrder(self.btn_emma, self.btn_gnucash)
+        MainWindow.setTabOrder(self.btn_gnucash, self.btn_parameters)
+        MainWindow.setTabOrder(self.btn_parameters, self.btn_add)
         MainWindow.setTabOrder(self.btn_add, self.btn_update)
         MainWindow.setTabOrder(self.btn_update, self.btn_remove)
         MainWindow.setTabOrder(self.btn_remove, self.btn_removelast)
         MainWindow.setTabOrder(self.btn_removelast, self.btn_clear)
         MainWindow.setTabOrder(self.btn_clear, self.btn_execute)
-        MainWindow.setTabOrder(self.btn_execute, self.btn_exit)
+        MainWindow.setTabOrder(self.btn_execute, self.tbl_data)
+        MainWindow.setTabOrder(self.tbl_data, self.btn_exit)
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))

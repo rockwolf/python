@@ -66,22 +66,22 @@ class ControllerMain():
             var_currency_exchange.print_statements()
             currency_exchange.write_to_database(var_currency_exchange)
             # t_rate
-            #var_rate = rate.create_statements(input_fields)
-            #var_rate.print_statements()
-            #rate.write_to_database(var_rate)
+            var_rate = rate.create_statements(input_fields)
+            var_rate.print_statements()
+            rate.write_to_database(var_rate)
             # t_finance
-            #var_finance = finance.create_statements(input_fields)
-            #var_finance.print_statements()
-            #finance.write_to_database(var_finance)
-            #if deals_with_commodities(
-            #    input_fields[Input.ACCOUNT_FROM]
-            #    , input_fields[Input.ACCOUNT_TO]):
-            #    # t_trade
-            #    var_trade = trade.create_statements(
-            #                    input_fields,
-            #                    var_finance)
-            #    var_trade.print_statements()
-            #    trade.write_to_database(var_trade)
+            var_finance = finance.create_statements(input_fields)
+            var_finance.print_statements()
+            finance.write_to_database(var_finance)
+            if deals_with_commodities(
+                input_fields[Input.ACCOUNT_FROM]
+                , input_fields[Input.ACCOUNT_TO]):
+                # t_trade
+                var_trade = trade.create_statements(
+                                input_fields,
+                                var_finance)
+                var_trade.print_statements()
+                trade.write_to_database(var_trade)
             #test = dba.create_statements_TABLE_INVESTMENT(input_fields)
             #test.print_statements()
             #if self.is_an_investment():

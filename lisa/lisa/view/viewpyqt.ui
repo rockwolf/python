@@ -1287,20 +1287,35 @@
  </widget>
  <tabstops>
   <tabstop>dt_date</tabstop>
+  <tabstop>cmb_account_from</tabstop>
+  <tabstop>cmb_account_to</tabstop>
+  <tabstop>spn_amount</tabstop>
   <tabstop>cmb_market_code</tabstop>
+  <tabstop>txt_market_description</tabstop>
   <tabstop>cmb_commodity_name</tabstop>
+  <tabstop>txt_commodity_description</tabstop>
   <tabstop>spn_quantity</tabstop>
   <tabstop>spn_price</tabstop>
   <tabstop>spn_commission</tabstop>
   <tabstop>spn_tax</tabstop>
-  <tabstop>txt_market_description</tabstop>
-  <tabstop>txt_commodity_description</tabstop>
+  <tabstop>chk_manual_commission</tabstop>
+  <tabstop>txt_comment</tabstop>
+  <tabstop>cmb_currency_from</tabstop>
+  <tabstop>cmb_currency_to</tabstop>
+  <tabstop>spn_exchange_rate</tabstop>
+  <tabstop>dt_expiration</tabstop>
+  <tabstop>spn_pool</tabstop>
+  <tabstop>spn_risk</tabstop>
+  <tabstop>btn_emma</tabstop>
+  <tabstop>btn_gnucash</tabstop>
+  <tabstop>btn_parameters</tabstop>
   <tabstop>btn_add</tabstop>
   <tabstop>btn_update</tabstop>
   <tabstop>btn_remove</tabstop>
   <tabstop>btn_removelast</tabstop>
   <tabstop>btn_clear</tabstop>
   <tabstop>btn_execute</tabstop>
+  <tabstop>tbl_data</tabstop>
   <tabstop>btn_exit</tabstop>
  </tabstops>
  <resources/>
