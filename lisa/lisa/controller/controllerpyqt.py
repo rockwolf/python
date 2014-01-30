@@ -246,7 +246,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.gui.spn_tax.setEnabled(is_commodity)
         self.gui.spn_pool.setEnabled(is_commodity)
         #TODO: automatic calculation of commission temporarily disabled
-        self.gui.chk_manual_commission.setEnabled(is_commodity)
+        self.gui.chk_automatic_flag.setEnabled(is_commodity)
         self.gui.spn_risk.setEnabled(is_commodity)
         self.gui.dt_expiration.setEnabled(is_commodity)
         # set inputfields
@@ -258,7 +258,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.gui.spn_tax.setValue(0.0)
         self.gui.spn_commission.setValue(0.0)
         self.gui.spn_risk.setValue(0.0)
-        self.gui.chk_manual_commission.setEnabled(False)
+        self.gui.chk_automatic_flag.setEnabled(False)
         self.set_current_pool() #reset pool to current value
         self.ctl.set_info_details()
 
@@ -446,11 +446,11 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
     	return str(self.gui.spn_exchange_rate.textFromValue(self.gui.spn_exchange_rate.value()))
 
-    def get_manual_commission(self):
+    def get_automatic_flag(self):
         """
-            Returns the value of the manual commission calc. checkbox
+            Returns the value of the automatic_flag calc. checkbox
         """
-        return '0' if self.gui.chk_manual_commission.isChecked() else '1' 
+        return '0' if self.gui.chk_automatic_flag.isChecked() else '1' 
         
     def get_date_expiration(self):
     	"""
@@ -605,9 +605,6 @@ class ControllerPyqt(QtGui.QMainWindow):
         """ 
         self.gui.cmb_currency_to.addItem(value)
         
-    #TODO: reactivate the checkbox manual flag
-    #TODO: add event so that when clicked, the commission and tax are
-    #automatically calculated.
     #TODO: when automatic is checked, the commission and tax fields
     #should no longer be editable, and vice versa.
     #TODO: when the market or amount or category or subcategory (<> buy or sell) is changed, this also should be refreshed!

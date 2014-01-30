@@ -887,7 +887,7 @@
          </widget>
         </item>
         <item row="3" column="8">
-         <widget class="QCheckBox" name="chk_manual_commission">
+         <widget class="QCheckBox" name="chk_automatic_flag">
           <property name="palette">
            <palette>
             <active>
@@ -1298,7 +1298,7 @@
   <tabstop>spn_price</tabstop>
   <tabstop>spn_commission</tabstop>
   <tabstop>spn_tax</tabstop>
-  <tabstop>chk_manual_commission</tabstop>
+  <tabstop>chk_automatic_flag</tabstop>
   <tabstop>txt_comment</tabstop>
   <tabstop>cmb_currency_from</tabstop>
   <tabstop>cmb_currency_to</tabstop>

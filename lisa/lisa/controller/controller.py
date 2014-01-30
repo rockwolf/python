@@ -191,7 +191,7 @@ class ControllerMain():
             , self.gui.get_currency_from()
             , self.gui.get_currency_to()
             , self.gui.get_exchange_rate()
-            , self.gui.get_manual_commission()
+            , self.gui.get_automatic_flag()
             , self.gui.get_date_expiration()
             , self.gui.get_pool())
             
@@ -214,7 +214,7 @@ class ControllerMain():
         , currency_from
         , currency_to
         , exchange_rate
-        , manual_commission
+        , automatic_flag
         , date_expiration
         , pool):
         """
@@ -260,7 +260,7 @@ class ControllerMain():
         str_list[Input.CURRENCY_FROM] = currency_from
         str_list[Input.CURRENCY_TO] = currency_to
         str_list[Input.EXCHANGE_RATE] = Decimal(exchange_rate)
-        str_list[Input.MANUAL_COMMISSION] = int(manual_commission)
+        str_list[Input.AUTOMATIC_FLAG] = int(automatic_flag)
         str_list[Input.DATE_EXPIRATION] = string_to_date(date_expiration)
         str_list[Input.POOL] = Decimal(pool)
         return str_list

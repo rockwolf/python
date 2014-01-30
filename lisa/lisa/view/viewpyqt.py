@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'viewpyqt.ui'
 #
-# Created: Thu Jan 30 20:24:07 2014
+# Created: Thu Jan 30 20:34:37 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -539,7 +539,7 @@ class Ui_MainWindow(object):
         self.cmb_account_to.setEditable(True)
         self.cmb_account_to.setObjectName(_fromUtf8("cmb_account_to"))
         self.gridLayout.addWidget(self.cmb_account_to, 3, 1, 1, 1)
-        self.chk_manual_commission = QtGui.QCheckBox(self.centralwidget)
+        self.chk_automatic_flag = QtGui.QCheckBox(self.centralwidget)
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(98, 98, 98))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -595,14 +595,14 @@ class Ui_MainWindow(object):
         brush = QtGui.QBrush(QtGui.QColor(255, 255, 215))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
-        self.chk_manual_commission.setPalette(palette)
+        self.chk_automatic_flag.setPalette(palette)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Inconsolata"))
         font.setPointSize(14)
-        self.chk_manual_commission.setFont(font)
-        self.chk_manual_commission.setChecked(False)
-        self.chk_manual_commission.setObjectName(_fromUtf8("chk_manual_commission"))
-        self.gridLayout.addWidget(self.chk_manual_commission, 3, 8, 1, 1)
+        self.chk_automatic_flag.setFont(font)
+        self.chk_automatic_flag.setChecked(False)
+        self.chk_automatic_flag.setObjectName(_fromUtf8("chk_automatic_flag"))
+        self.gridLayout.addWidget(self.chk_automatic_flag, 3, 8, 1, 1)
         self.gridLayout.setColumnStretch(1, 1)
         self.verticalLayout.addLayout(self.gridLayout)
         self.gridLayout_6 = QtGui.QGridLayout()
@@ -720,8 +720,8 @@ class Ui_MainWindow(object):
         MainWindow.setTabOrder(self.spn_quantity, self.spn_price)
         MainWindow.setTabOrder(self.spn_price, self.spn_commission)
         MainWindow.setTabOrder(self.spn_commission, self.spn_tax)
-        MainWindow.setTabOrder(self.spn_tax, self.chk_manual_commission)
-        MainWindow.setTabOrder(self.chk_manual_commission, self.txt_comment)
+        MainWindow.setTabOrder(self.spn_tax, self.chk_automatic_flag)
+        MainWindow.setTabOrder(self.chk_automatic_flag, self.txt_comment)
         MainWindow.setTabOrder(self.txt_comment, self.cmb_currency_from)
         MainWindow.setTabOrder(self.cmb_currency_from, self.cmb_currency_to)
         MainWindow.setTabOrder(self.cmb_currency_to, self.spn_exchange_rate)
@@ -762,7 +762,7 @@ class Ui_MainWindow(object):
         self.lbl_exchange_rate.setText(_translate("MainWindow", "Exchange rate", None))
         self.lbl_currency_to.setText(_translate("MainWindow", "Currency to", None))
         self.lbl_comment.setText(_translate("MainWindow", "Comment", None))
-        self.chk_manual_commission.setText(_translate("MainWindow", "Automatic", None))
+        self.chk_automatic_flag.setText(_translate("MainWindow", "Automatic", None))
         self.btn_clear.setText(_translate("MainWindow", "&Clear", None))
         self.btn_exit.setText(_translate("MainWindow", "&Quit", None))
         self.btn_add.setText(_translate("MainWindow", "&Add", None))

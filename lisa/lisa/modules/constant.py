@@ -91,7 +91,7 @@ class Input():
     CURRENCY_FROM = 14
     CURRENCY_TO = 15
     EXCHANGE_RATE = 16
-    MANUAL_COMMISSION = 17
+    AUTOMATIC_FLAG = 17
     DATE_EXPIRATION = 18
     POOL = 19
     SIZE = 20 #size of the enum

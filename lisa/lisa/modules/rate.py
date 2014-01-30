@@ -35,10 +35,9 @@ class Rate(CoreModule):
             records = 0
             for fields in input_fields:
                 if deals_with_commodities(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):
-                    formula_id = dba.get_formula_id_to_use(fields)
                     records = records + 1
                     
-                    if fields[Input.MANUAL_FLAG] == 1:
+                    if fields[Input.AUTOMATIC_FLAG] == 1:
                         commission = fields[Input.COMMISSION]
                         tax = fields[Input.TAX]
                         on_shares = DEFAULT_DECIMAL
@@ -77,8 +76,7 @@ class Rate(CoreModule):
                             'on_other':Decimal(on_other),
                             'commission':Decimal(commission),
                             'tax':Decimal(tax),
-                            'formula_id':int(formula_id),
-                            'manual_flag':int(fields[Input.MANUAL_FLAG]),
+                            'automatic_flag':int(fields[Input.AUTOMATIC_FLAG]),
                             'date_created':date_created,
                             'date_modified':date_modified
                         }
