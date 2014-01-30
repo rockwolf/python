@@ -65,7 +65,7 @@ class Trade(CoreModule):
                     if dba.invade_already_started(market_id,
                             commodity_name_id, T_TRADE):
                         # UPDATE
-                        flag_insupdel = Statement.UPDATE
+                        flag_insupdel = StatementType.UPDATE
                         trade_id = trade_record['trade_id']
                         ## buy/sell related fields
                         if we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]) \
@@ -160,7 +160,7 @@ class Trade(CoreModule):
                         expired_flag = (1 if date_sell > date_expiration else 0)
                     else:
                         # INSERT
-                        flag_insupdel = Statement.INSERT
+                        flag_insupdel = StatementType.INSERT
                         trade_id = None # insert: new one created automatically
                         ## buy/sell related fields
                         if we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):

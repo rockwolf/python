@@ -2,28 +2,24 @@
 """
     See LICENSE file for copyright and license details.
 """
+from modules.constant import StatementType
 
 class Statement():
     """
         A class to contain statements to be executed within the orm session.
     """
-    # So far I tried:
-    # - setting object in the Statement class: Statement(object)
-    # - leaving the () out
-    # - removing the __init__
-    # - replace table_name with tablename in the function def
 
-    def __init__(self, table_name):
+    def __init__(self, table):
         """
-            Initialisation
+            Init
         """
         try:
             self.statements_insert = []
             self.statements_update = []
             self.statements_delete = []
-            self.table_name = table_name
+            self.table_name = table
         except Exception as ex:
-            print "Error in initialisation of Statements: ", ex
+            print "Error in initialisation of Statement: ", ex
 
     def get_value_list(self, insupdel=0):
         """
@@ -31,11 +27,11 @@ class Statement():
         """
         #NOTE: statement = [record, {...}]
         result = []
-        if insupdel == Statement.INSERT:
+        if insupdel == StatementType.INSERT:
             statements = self.statements_insert
-        elif insupdel == Statement.UPDATE:
+        elif insupdel == StatementType.UPDATE:
             statements = self.statements_update
-        elif insupdel == Statement.DELETE:
+        elif insupdel == StatementType.DELETE:
             statements = self.statements_delete
         for statement in statements:    
             result.append([key for key, val in statement[1].items()])
@@ -62,11 +58,11 @@ class Statement():
             Remove statement added on specified index
         """
         try:
-            if insupdel == Statements.INSERT:
+            if insupdel == StatementType.INSERT:
                 self.statements_insert.pop(index)
-            elif insupdel == Statements.UPDATE:
+            elif insupdel == StatementType.UPDATE:
                 self.statements_update.pop(index)
-            elif insupdel == Statements.DELETE:
+            elif insupdel == StatementType.DELETE:
                 self.statements_delete.pop(index)
         except Exception as ex:
             print "Error removing statement from the list: ", ex
@@ -102,11 +98,11 @@ class Statement():
         #NOTE: statement = [record, {...}]
         result = []
         try:
-            if insupdel == Statement.INSERT:
+            if insupdel == StatementType.INSERT:
                 statements = self.statements_insert
-            elif insupdel == Statement.UPDATE:
+            elif insupdel == StatementType.UPDATE:
                 statements = self.statements_update
-            elif insupdel == Statement.DELETE:
+            elif insupdel == StatementType.DELETE:
                 statements = self.statements_delete
             if statements is not None:
                 for statement in statements:

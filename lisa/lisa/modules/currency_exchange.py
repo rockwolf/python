@@ -2,6 +2,7 @@
 """
     See LICENSE file for copyright and license details.
 """
+import sys
 from datetime import datetime
 
 from database.databaseaccess import DatabaseAccess
@@ -18,7 +19,7 @@ class CurrencyExchange(CoreModule):
 
     def __init__(self, config):
         """
-            Initialisation
+            Init
         """
         self.config = config
 
@@ -31,9 +32,6 @@ class CurrencyExchange(CoreModule):
             print 'test2: input_fields = ', input_fields
             #TODO: The Statement call fails, it expects no arguments?
             # Is that a python27 error?
-            print 'test3: Table.CURRENCY_EXCHANGE=', Table.CURRENCY_EXCHANGE
-            test = Statement()
-            print 'test 3bis'
             statement_currency_exchange = Statement(Table.CURRENCY_EXCHANGE)
             print 'test4: after Statement creation'
             date_created = current_date()

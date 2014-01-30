@@ -111,9 +111,9 @@ class Export():
     LEDGER = "ledger"
     CSV = "csv"
     
-class Statement():
+class StatementType():
     """
-        Statement types.
+        Database statement types.
     """
     INSERT = 0
     UPDATE = 1

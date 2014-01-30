@@ -244,17 +244,17 @@ class DatabaseAccess():
             if statements != []:
                 #insert
                 statements_insert = self.assemble_statement_list_insert(
-                        statements, Statement.INSERT)
+                        statements, StatementType.INSERT)
                 self.write_statement_list_insert(
                         statements_insert, statements.table_name)
                 #update
                 statements_update = self.assemble_statement_list_update(
-                        statements, Statement.UPDATE)
+                        statements, StatementType.UPDATE)
                 self.write_statement_list_update(
                         statements_update, statements.table_name)
                 #delete
                 statements_delete = self.assemble_statement_list_delete(
-                        statements, Statement.DELETE)
+                        statements, StatementType.DELETE)
                 self.write_statement_list_delete(
                         statements_delete, statements.table_name)
         except Exception as ex:
@@ -321,7 +321,7 @@ class DatabaseAccess():
         #TODO: finish this later. Low priority!
         pass
 
-    def assemble_statement_list_insert(self, statements, insupdel=Statement.INSERT):
+    def assemble_statement_list_insert(self, statements, insupdel=StatementType.INSERT):
         """
             Creates list of TABLE_NAME(..., ..., ...) records
             from new statements, that we can use to insert at once.
@@ -424,7 +424,7 @@ class DatabaseAccess():
                     record['date_modified']))
         return result
 
-    def assemble_statement_list_update(self, statements, insupdel=Statement.UPDATE):
+    def assemble_statement_list_update(self, statements, insupdel=StatementType.UPDATE):
         """
             Creates list of update records from statements,
             that we can use to update at once.
@@ -487,7 +487,7 @@ class DatabaseAccess():
                 )
         return result 
 
-    def assemble_statement_list_delete(self, statements, insupdel=Statement.DELETE):
+    def assemble_statement_list_delete(self, statements, insupdel=StatementType.DELETE):
         """
             Creates list of from delete statements,
             that we can use to delete at once.
