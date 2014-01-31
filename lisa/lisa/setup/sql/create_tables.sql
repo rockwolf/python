@@ -145,6 +145,7 @@ CREATE TABLE T_DRAWDOWN
     unique(drawdown_id)
 );
     
+-- TODO: add orig fields and other missing ones, cfr. ods
 CREATE TABLE T_TRADE
 (
     trade_id serial not null,
