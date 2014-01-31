@@ -28,8 +28,6 @@ class Trade(CoreModule):
     #NOTE: Correct way of updating =  Supplier.query.filter(<your stuff here, or user filter_by, or whatever is in your where clause>).update(values)
     #e.g.: session.query(Supplier).filter_by(id=2).update({"name": u"Mayowa"})
     #TABLE_TRADE.query.filter(market_name=...,commodity_name=...).update({"date_...": date_... etc.})
-    #TODO: create seperate application that manages T_DRAWDOWN based on selection
-    #where win_flag = -1
     def create_statements(self, input_fields, statements_finance):
         """
             Creates the records needed for Table.TRADE and returns them as a
@@ -57,10 +55,12 @@ class Trade(CoreModule):
                     trade_record = dba.get_invade_record(finance_id, T_TRADE)
                     long_flag = dba.get_long_flag_value(fields[Input.ACCOUNT_FROM],
                             fields[Input.ACCOUNT_TO], trade_record)
+                    
                     # TEST INFO
                     print 'test finance_record=', finance_record
                     print 'test trade_record=', trade_record
                     print 'test: long_flag =', long_flag
+                    print library_test()
 
                     if dba.invade_already_started(market_id,
                             commodity_name_id, T_TRADE):
@@ -68,8 +68,8 @@ class Trade(CoreModule):
                         flag_insupdel = StatementType.UPDATE
                         trade_id = trade_record['trade_id']
                         ## buy/sell related fields
-                        if we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]) \
-                            and T_TRADE.id_buy == -1:
+                        if (we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO])
+                            and T_TRADE.id_buy == -1_:
                             id_buy = finance_id
                             id_sell = trade_record['id_sell']
                             date_buy = date_created
@@ -82,8 +82,8 @@ class Trade(CoreModule):
                             commission_sell = trade_record['commission_sell']
                             tax_buy = fields[Input.TAX]
                             tax_sell = trade_record['tax_sell']
-                        elif not we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO])\
-                            and T_TRADE.id_sell == -1:
+                        elif (not we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO])
+                            and T_TRADE.id_sell == -1):
                             id_buy = trade_record['id_buy']
                             id_sell = finance_id
                             date_buy = trade_record['date_buy']
@@ -105,8 +105,7 @@ class Trade(CoreModule):
                         profit_loss = calculate_profit_loss(
                             trade_record['amount_sell'],
                             trade_record['amount_buy'])
-                        pool_at_start = \
-                            trade_record['pool_at_start']
+                        pool_at_start = trade_record['pool_at_start']
                         date_created = trade_record['date_created']
                         amount_buy_simple = trade_record['amount_buy_simple']
                         amount_sell_simple = calculate_amount_simple(
@@ -116,7 +115,6 @@ class Trade(CoreModule):
                         risk_input_percent = trade_record['risk_input_percent']
                         risk_initial = trade_record['risk_initial']
                         risk_initial_percent = (risk_initial/amount_buy_simple)*Decimal(100.0)
-                        print 'test: amount_buy_simple =', amount_buy_simple
                         risk_actual = calculate_risk_actual(
                             trade_record['price_buy'],
                             trade_record['shares_buy'],
@@ -172,6 +170,7 @@ class Trade(CoreModule):
                             price_sell = DEFAULT_DECIMAL
                             shares_buy = fields[Input.QUANTITY]
                             shares_sell = DEFAULT_INT
+                            #TODO: commission and tax from T_RATE, when fields[Input.AUTOMATIC_FLAG] is 1
                             commission_buy = fields[Input.COMMISSION]
                             commission_sell = DEFAULT_DECIMAL
                             tax_buy = fields[Input.TAX]
@@ -186,17 +185,10 @@ class Trade(CoreModule):
                             shares_buy = DEFAULT_INT
                             shares_sell = fields[Input.QUANTITY]
                             commission_buy = DEFAULT_DECIMAL
+                            # TODO: commission and tax from T_RATE (see also higher)
                             commission_sell = fields[Input.COMMISSION]
                             tax_buy = DEFAULT_DECIMAL
                             tax_sell = fields[Input.TAX]
-                        print library_test()
-                        print 'TEST stoploss:(price, shares, tax, comm, risk_input, pool) = ({0}, {1}, {2}, {3}, {4}, {5})'.format(
-                            fields[Input.PRICE]
-                            , fields[Input.QUANTITY]
-                            , fields[Input.TAX]
-                            , fields[Input.COMMISSION]
-                            , fields[Input.RISK]
-                            , fields[Input.POOL])
                         stoploss = calculate_stoploss(
                             abs(fields[Input.PRICE]),
                             fields[Input.QUANTITY],
@@ -212,18 +204,14 @@ class Trade(CoreModule):
                                 Decimal(fields[Input.PRICE])
                                 , Decimal(fields[Input.QUANTITY]))
                         amount_sell_simple = DEFAULT_DECIMAL
-                        print 'test E'
                         risk_input = calculate_risk_input(
                             fields[Input.POOL],
                             fields[Input.RISK])
                         risk_input_percent = fields[Input.RISK]
-                        print 'test F'
                         risk_initial = calculate_risk_initial(
                             fields[Input.PRICE],
                             fields[Input.QUANTITY],
                             stoploss)
-                        print 'test: price, shares, stoploss = ', fields[Input.PRICE], fields[Input.QUANTITY], stoploss
-                        print 'test amount_buy_simple = ', amount_buy_simple
                         risk_initial_percent = Decimal(100.0)*risk_initial/amount_buy_simple
                         risk_actual = DEFAULT_DECIMAL
                         risk_actual_percent = DEFAULT_DECIMAL
@@ -321,10 +309,9 @@ class Trade(CoreModule):
                             'id_sell':int(id_sell),
                             'currency_exchange_id':int(currency_exchange_id),
                             'drawdown_id':int(drawdown_id),
-                            'pool_at_start':
-                                Decimal(pool_at_start),
-                            'date_expiration': date_expiration,
-                            'expired_flag': expired_flag,
+                            'pool_at_start':Decimal(pool_at_start),
+                            'date_expiration':date_expiration,
+                            'expired_flag':expired_flag,
                             'active':1,
                             'date_created':date_created,
                             'date_modified':date_modified
