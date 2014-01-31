@@ -64,29 +64,13 @@ CREATE TABLE T_PARAMETER
     unique(parameter_id)
 );
 
--- TODO: when creating records (both trade + finance)
--- you create an entry here, for automatically calculating the commission.
--- create finance record
--- create trade record
--- create rate record
--- update finance record with calculculated commission
--- ?? But should happen in the gui already????
--- extra button to calculate the commission?
--- or on property change of price and shares and amount
---
--- commission and rate are 0? will be calculated here
--- or dependend on checkbox? <= better
--- no checkbox = use those values
--- calculcated = the total
+-- when automatic is checked, the gui should calculate it on the fly.
+-- Then, when writing the records to T_RATE, the automatically calculated values
+-- should be put in T_RATE.
+-- This table thus contains commission and tax values, which might
 CREATE TABLE T_RATE
 (
     rate_id serial not null,
-    calculated decimal(18, 6) not null default 0.0,
-    calculated_percent decimal(18, 6) not null default 0.0,
-    on_shares decimal(18, 6) not null default 0.0,
-    on_commission decimal(18, 6) not null default 0.0,
-    on_ordersize decimal(18, 6) not null default 0.0,
-    on_other decimal(18, 6) not null default 0.0,
     commission decimal(18, 6) not null default 0.0,
     tax decimal(18, 6) not null default 0.0,
     automatic_flag int not null default -1,
