@@ -342,12 +342,6 @@ class DatabaseAccess():
             for record in inner_part_list:
                 result.append(T_RATE(
                     record['rate_id'],
-                    record['calculated'],
-                    record['calculated_percent'],
-                    record['on_shares'],
-                    record['on_commission'],
-                    record['on_ordersize'],
-                    record['on_other'],
                     record['commission'],
                     record['tax'],
                     record['automatic_flag'],
