@@ -37,7 +37,7 @@ class Rate(CoreModule):
                 if deals_with_commodities(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):
                     records = records + 1
                     
-                    if fields[Input.AUTOMATIC_FLAG] == 1:
+                    if fields[Input.AUTOMATIC_FLAG] == 0:
                         commission = fields[Input.COMMISSION]
                         tax = fields[Input.TAX]
                         on_shares = DEFAULT_DECIMAL
@@ -56,7 +56,8 @@ class Rate(CoreModule):
                         on_other = DEFAULT_DECIMAL
                         #TODO: these functions need to come from another place,
                         #so we can call them here.
-                        calculated = dba.calculate_commission()
+                        #TODO: call the necessary functions from the generic library
+                        #But: do we really need this T_RATE crap?
                         commission = dba.get_parameter_value(
                                 dba.get_parameter_commission(
                                     fields[Input.AMOUNT], fields[Input.MARKET_CODE]))
