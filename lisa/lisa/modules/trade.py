@@ -51,15 +51,15 @@ class Trade(CoreModule):
         self.risk_actual = DEFAULT_DECIMAL
         self.risk_actual_percent = DEFAULT_DECIMAL
         self.cost_total = DEFAULT_DECIMAL
-                            'cost_other':Decimal(cost_other),
-                            'amount_buy_simple':Decimal(amount_buy_simple),
-                            'amount_sell_simple':Decimal(amount_sell_simple),
-                            'stoploss':Decimal(stoploss),
-                            'profit_loss':Decimal(profit_loss),
-                            'profit_loss_percent':Decimal(profit_loss_percent),
-                            'r_multiple':Decimal(r_multiple),
-                            'win_flag':int(win_flag),
-                            'id_buy':int(id_buy),
+        self.cost_other = DEFAULT_DECIMAL
+        self.amount_buy_simple = DEFAULT_DECIMAL
+        self.amount_sell_simple = DEFAULT_DECIMAL
+        self.stoploss = DEFAULT_DECIMAL
+        self.profit_loss = DEFAULT_DECIMAL
+        self.profit_loss_percent = DEFAULT_DECIMAL
+        self.r_multiple = DEFAULT_DECIMAL
+        self.win_flag = DEFAULT_DECIMAL
+        self.id_buy = DEFAULT_INT
                             'id_sell':int(id_sell),
                             'currency_exchange_id':int(currency_exchange_id),
                             'drawdown_id':int(drawdown_id),
