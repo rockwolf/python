@@ -364,28 +364,15 @@ class T_RATE(Base):
     __tablename__ = Table.RATE
     #__table_args__ = {'autoload':True}
     rate_id = Column(Integer, primary_key=True)
-    calculated = Column(Numeric(18,6))
-    calculated_percent = Column(Numeric(18,6))
-    on_shares = Column(Numeric(18,6))
-    on_commission = Column(Numeric(18,6))
-    on_ordersize = Column(Numeric(18,6))
-    on_other = Column(Numeric(18,6))
     commission = Column(Numeric(18,6))
     tax = Column(Numeric(18,6))
     automatic_flag = Column(Integer)
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
 
-    def __init__(self, rate_id, calculated, calculated_percent,
-            on_shares, on_commission, on_ordersize, on_other, commission,
-            tax, automatic_flag, date_created, date_modified):
+    def __init__(self, rate_id, commission, tax,
+        automatic_flag, date_created, date_modified):
         self.rate_id = rate_id
-        self.calculated = calculated
-        self.calculated_percent = calculated_percent
-        self.on_shares = on_shares
-        self.on_commission = on_commission
-        self.on_ordersize = on_ordersize
-        self.on_other = on_other
         self.commission = commission
         self.tax = tax
         self.automatic_flag = automatic_flag
@@ -393,12 +380,10 @@ class T_RATE(Base):
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_RATE('%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-'%s', '%s', '%s', '%s', '%s')>" % (self.rate_id,
-                        self.calculated, self.calculated_percent, self.on_shares,
-                        self.on_commission, self.on_ordersize, self.on_other,
-                        self.commission, self.tax, self.automatic_flag,
-                        self.date_created, self.date_modified)
+        return "<T_RATE('%s', '%s', '%s', '%s', '%s', '%s')>" % (
+            self.rate_id, self.commission, self.tax,
+            self.automatic_flag, self.date_created,
+            self.date_modified)
 
 class T_DRAWDOWN(Base):
     """ T_DRAWDOWN """
