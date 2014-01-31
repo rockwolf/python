@@ -24,6 +24,51 @@ class Trade(CoreModule):
             Initialisation
         """
         self.config = config
+        self.trade_id = DEFAULT_INT
+        self.market_id = DEFAULT_INT
+        self.commodity_name = ''
+        self.date_buy = DEFAULT_DATE
+        self.year_buy = DEFAULT_INT
+        self.month_buy = DEFAULT_INT
+        self.day_buy = DEFAULT_INT
+        self.date_sell = DEFAULT_DATE
+        self.year_sell = DEFAULT_INT
+        self.month_sell = DEFAULT_INT
+        self.day_sell = DEFAULT_INT
+        self.long_flag = DEFAULT_INT
+        self.price_buy = DEFAULT_DECIMAL
+        self.price_sell = DEFAULT_DECIMAL
+        self.shares_buy = DEFAULT_DECIMAL
+        self.shares_sell = DEFAULT_DECIMAL
+        self.commission_buy = DEFAULT_DECIMAL
+        self.commission_sell = DEFAULT_DECIMAL
+        self.tax_buy = DEFAULT_DECIMAL
+        self.tax_sell = DEFAULT_DECIMAL
+        self.risk_input = DEFAULT_DECIMAL
+        self.risk_input_percent = DEFAULT_DECIMAL
+        self.risk_initial = DEFAULT_DECIMAL
+        self.risk_initial_percent = DEFAULT_DECIMAL
+        self.risk_actual = DEFAULT_DECIMAL
+        self.risk_actual_percent = DEFAULT_DECIMAL
+        self.cost_total = DEFAULT_DECIMAL
+                            'cost_other':Decimal(cost_other),
+                            'amount_buy_simple':Decimal(amount_buy_simple),
+                            'amount_sell_simple':Decimal(amount_sell_simple),
+                            'stoploss':Decimal(stoploss),
+                            'profit_loss':Decimal(profit_loss),
+                            'profit_loss_percent':Decimal(profit_loss_percent),
+                            'r_multiple':Decimal(r_multiple),
+                            'win_flag':int(win_flag),
+                            'id_buy':int(id_buy),
+                            'id_sell':int(id_sell),
+                            'currency_exchange_id':int(currency_exchange_id),
+                            'drawdown_id':int(drawdown_id),
+                            'pool_at_start':Decimal(pool_at_start),
+                            'date_expiration':date_expiration,
+                            'expired_flag':expired_flag,
+                            'active':1,
+                            'date_created':date_created,
+                            'date_modified':date_modified
 
     #NOTE: Correct way of updating =  Supplier.query.filter(<your stuff here, or user filter_by, or whatever is in your where clause>).update(values)
     #e.g.: session.query(Supplier).filter_by(id=2).update({"name": u"Mayowa"})
