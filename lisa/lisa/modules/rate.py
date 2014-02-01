@@ -10,7 +10,7 @@ from modules.statement import Statement
 from modules.constant import *
 from modules.function import *
 from generic.modules.function import *
-from generic.modules.calculator_finance import *
+from generic.modules.calculator_finance import CalculatorFinance
 
 class Rate(CoreModule):
     """
@@ -35,6 +35,7 @@ class Rate(CoreModule):
         """
         try:
             dba = DatabaseAccess(self.config)
+            lib = CalculatorFinance()
             self.date_created = current_date()
             self.date_modified = current_date()
             records = 0
@@ -45,17 +46,18 @@ class Rate(CoreModule):
                         self.commission = fields[Input.COMMISSION]
                         self.tax = fields[Input.TAX]
                     else:
-                        self.commission = calculate_commission(TRADING_ACCOUNTS[0], fields[Input.MARKET_CODE], fields[Input.COMMODITY_NAME], fields[Input.PRICE], fields[Input.QUANTITY])
+                        self.commission = lib.calculate_commission(TRADING_ACCOUNTS[0], fields[Input.MARKET_CODE], fields[Input.COMMODITY_NAME], fields[Input.PRICE], fields[Input.QUANTITY])
                         # TODO: make a calculate_tax function in the library?
                         self.tax = fields[Input.TAX]
-                    self.add_to_statement(fields)
+                    self.add_to_statement(records, fields)
             return self.statement_rate
         except Exception as ex:
             print Error.CREATE_STATEMENTS_TABLE_RATE, ex
         finally:
             dba = None
+            lib = None
 
-    def add_to_statement(self, fields):
+    def add_to_statement(self, records, fields):
         """
             Add the data to the statement list.
         """
