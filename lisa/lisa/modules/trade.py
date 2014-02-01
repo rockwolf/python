@@ -102,7 +102,7 @@ class Trade(CoreModule):
                     # TEST INFO
                     print_test_info()
                     # ADDING THE STATEMENTS
-                    add_to_statement_trade()
+                    add_to_statement()
                        
                 finance_id = finance_id + 1
             return statement_trade
@@ -321,9 +321,9 @@ class Trade(CoreModule):
         except Exception as ex:
             print Error.CREATE_STATEMENTS_TABLE_TRADE, ex
 
-    def add_to_statement_trade(self):
+    def add_to_statement(self):
         """
-            Add the data to the statement_trade list.
+            Add the data to the statement list.
         """
         statement_trade.add(
             records,

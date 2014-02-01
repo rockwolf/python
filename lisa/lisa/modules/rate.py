@@ -10,6 +10,7 @@ from modules.statement import Statement
 from modules.constant import *
 from modules.function import *
 from generic.modules.function import *
+from generic.modules.calculator_finance import *
 
 class Rate(CoreModule):
     """
@@ -21,6 +22,11 @@ class Rate(CoreModule):
             Initialisation
         """
         self.config = config
+        self.statement_rate = Statement(Table.RATE)
+        self.commission = DEFAULT_DECIMAL
+        self.tax = DEFAULT_DECIMAL
+        self.date_created = DEFAULT_DATE
+        self.date_modified = DEFAULT_DATE
 
     def create_statements(self, input_fields):
         """
@@ -29,61 +35,38 @@ class Rate(CoreModule):
         """
         try:
             dba = DatabaseAccess(self.config)
-            date_created = current_date()
-            date_modified = current_date()
-            statement_rate = Statement(Table.RATE)
+            self.date_created = current_date()
+            self.date_modified = current_date()
             records = 0
             for fields in input_fields:
                 if deals_with_commodities(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):
                     records = records + 1
-                    
                     if fields[Input.AUTOMATIC_FLAG] == 0:
-                        commission = fields[Input.COMMISSION]
-                        tax = fields[Input.TAX]
-                        on_shares = DEFAULT_DECIMAL
-                        on_commission = DEFAULT_DECIMAL 
-                        on_ordersize = DEFAULT_DECIMAL
-                        on_other = DEFAULT_DECIMAL
-                        calculated = DEFAULT_DECIMAL
+                        self.commission = fields[Input.COMMISSION]
+                        self.tax = fields[Input.TAX]
                     else:
-                        #TODO: calculate something when necessary
-                        on_shares = DEFAULT_DECIMAL
-                        #TODO: calculate something when necessary
-                        on_commission = DEFAULT_DECIMAL
-                        #TODO: calculate something when necessary
-                        on_ordersize = DEFAULT_DECIMAL
-                        #TODO: actually calculate something when necessary
-                        on_other = DEFAULT_DECIMAL
-                        #TODO: these functions need to come from another place,
-                        #so we can call them here.
-                        #TODO: call the necessary functions from the generic library
-                        #But: do we really need this T_RATE crap?
-                        commission = dba.get_parameter_value(
-                                dba.get_parameter_commission(
-                                    fields[Input.AMOUNT], fields[Input.MARKET_CODE]))
-                        tax = dba.get_parameter_value(
-                                dba.get_parameter_tax(
-                                fields[Input.AMOUNT], fields[Input.MARKET_CODE]))
-                    
-                    statement_rate.add(
-                        records,
-                        {
-                            'rate_id':None,
-                            'calculated':Decimal(calculated),
-                            'calculated_percent':Decimal(calculated)/Decimal(100.0),
-                            'on_shares':Decimal(on_shares),
-                            'on_commission':Decimal(on_commission),
-                            'on_ordersize':Decimal(on_ordersize),
-                            'on_other':Decimal(on_other),
-                            'commission':Decimal(commission),
-                            'tax':Decimal(tax),
-                            'automatic_flag':int(fields[Input.AUTOMATIC_FLAG]),
-                            'date_created':date_created,
-                            'date_modified':date_modified
-                        }
-                    )
-            return statement_rate
+                        self.commission = calculate_commission(TRADING_ACCOUNTS[0], fields[Input.MARKET_CODE], fields[Input.COMMODITY_NAME], fields[Input.PRICE], fields[Input.QUANTITY])
+                        # TODO: make a calculate_tax function in the library?
+                        self.tax = fields[Input.TAX]
+                    self.add_to_statement(fields)
+            return self.statement_rate
         except Exception as ex:
             print Error.CREATE_STATEMENTS_TABLE_RATE, ex
         finally:
             dba = None
+
+    def add_to_statement(self, fields):
+        """
+            Add the data to the statement list.
+        """
+        self.statement_rate.add(
+            records,
+            {
+                'rate_id':None,
+                'commission':Decimal(self.commission),
+                'tax':Decimal(self.tax),
+                'automatic_flag':int(fields[Input.AUTOMATIC_FLAG]),
+                'date_created':self.date_created,
+                'date_modified':self.date_modified
+            }
+        )

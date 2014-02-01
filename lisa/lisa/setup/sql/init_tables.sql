@@ -85,8 +85,8 @@ INSERT INTO T_COMMODITY(name, market_id, description, active, date_created, date
 values('', 1, '', 1, current_date, current_date);
 
 /* t_rate */
-INSERT INTO T_RATE(calculated, calculated_percent, on_shares, on_commission, on_ordersize, on_other, commission, tax, automatic_flag, date_created, date_modified)
-values(-1.0, -1.0/100, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 0, current_date, current_date);
+INSERT INTO T_RATE(commission, tax, automatic_flag, date_created, date_modified)
+values(-1.0, -1.0, 0, current_date, current_date);
 
 /* t_parameter */
 -- None
