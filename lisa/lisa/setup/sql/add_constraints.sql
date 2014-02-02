@@ -22,8 +22,6 @@ alter table T_FINANCE
 alter table T_FINANCE
     add constraint fk_account_to_id foreign key(account_to_id) references T_ACCOUNT(account_id);
 alter table T_FINANCE
-    add constraint fk_commodity_id foreign key(commodity_id) references T_COMMODITY;
-alter table T_FINANCE
     add constraint fk_rate_id foreign key(rate_id) references T_RATE;
 alter table T_CURRENCY
     add constraint pk_currency_id primary key(currency_id);
