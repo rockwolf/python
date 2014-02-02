@@ -18,7 +18,9 @@ alter table T_RATE
 alter table T_FINANCE
     add constraint pk_finance_id primary key(finance_id);
 alter table T_FINANCE
-    add constraint fk_account_id foreign key(account_id) references T_ACCOUNT;
+    add constraint fk_account_from_id foreign key(account_from_id) references T_ACCOUNT(account_id);
+alter table T_FINANCE
+    add constraint fk_account_to_id foreign key(account_to_id) references T_ACCOUNT(account_id);
 alter table T_FINANCE
     add constraint fk_commodity_id foreign key(commodity_id) references T_COMMODITY;
 alter table T_FINANCE

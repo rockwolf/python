@@ -18,7 +18,8 @@ class T_FINANCE(Base):
     year = Column(Integer)
     month = Column(Integer)
     day = Column(Integer)
-    account_id = Column(Integer)
+    account_from_id = Column(Integer)
+    account_to_id = Column(Integer)
     amount = Column(Numeric(18,6))
     comment = Column(String(256))
     commodity_id = Column(Integer)
@@ -32,15 +33,16 @@ class T_FINANCE(Base):
     date_created = Column(DateTime)
     date_modified = Column(DateTime) 
 
-    def __init__(self, finance_id, date, year, month, day, account_id,
-            amount, comment, commodity_id, shares, price, tax,
+    def __init__(self, finance_id, date, year, month, day, account_from_id,
+            account_to_id, amount, comment, commodity_id, shares, price, tax,
             commission, active, rate_id, currency_exchange_id, date_created, date_modified):
         self.finance_id = finance_id
         self.date = date
         self.year = year
         self.month = month
         self.day = day
-        self.account_id = account_id
+        self.account_from_id = account_from_id
+        self.account_to_id = account_to_id
         self.amount = amount
         self.comment = comment
         self.commodity_id = commodity_id
@@ -56,10 +58,10 @@ class T_FINANCE(Base):
 
     def __repr__(self):
         return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
-            self.finance_id, self.date, self.year, self.month, self.day, self.account_id,
-            self.amount_debit, self.comment, self.commodity_id, self.shares, self.price,
-            self.tax, self.commission, self.active, self.rate_id,
+'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
+            self.finance_id, self.date, self.year, self.month, self.day, self.account_from_id,
+            self.account_to_id, self.amount, self.comment, self.commodity_id, self.shares,
+            self.price, self.tax, self.commission, self.active, self.rate_id,
             self.currency_exchange_id, self.date_created, self.date_modified)
 
 class T_COMMODITY(Base):
