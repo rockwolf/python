@@ -364,8 +364,8 @@ class DatabaseAccess():
                     record['tax'],
                     record['commission'],
                     record['active'],
-                    record['rate_id'],
                     record['currency_exchange_id'],
+                    record['rate_id'],
                     record['date_created'],
                     record['date_modified']))
         elif statements.table_name == Table.TRADE:

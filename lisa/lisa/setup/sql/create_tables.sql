@@ -90,14 +90,11 @@ CREATE TABLE T_FINANCE
     account_to_id int not null default -1,
     amount decimal(18,6) not null default 0.0,
     comment varchar(256) not null default '',
+    market_id int not null default -1,
     commodity_id int not null default -1,
-    shares int not null default 0,
-    price decimal(18,6) not null default 0.0,
-    tax decimal(18,6) not null default 0.0,
-    commission decimal (18,6) not null default 0.0,
-    active int not null default 1, 
-    rate_id int not null default -1,
     currency_exchange_id int not null default -1,
+    rate_id int not null default -1,
+    active int not null default 1, 
     date_created timestamp not null default '1900-01-01',
     date_modified timestamp not null default '1900-01-01'
 );
