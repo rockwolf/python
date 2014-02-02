@@ -541,7 +541,7 @@ class DatabaseAccess():
             session = None
         return result
 
-    def commodity_id_from_commodity_name(self, commodity_name, market_id):
+    def commodity_name_id_from_commodity_name(self, commodity_name, market_id):
         """
             Get the commodity_id from T_COMMODITY.
         """

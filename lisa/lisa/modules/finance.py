@@ -45,7 +45,7 @@ class Finance(CoreModule):
                 market_id = 1
                 commodity_name_id = 1
                 rate_id = 1
-                if deals_with_stocks(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):
+                if deals_with_commodities(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):
                     if fields[Input.MARKET_CODE] != '':
                         market_id = dba.market_id_from_market(fields[Input.MARKET_CODE])
                     if fields[Input.COMMODITY_NAME] != '':
@@ -54,8 +54,8 @@ class Finance(CoreModule):
                     rate_id = dba.get_latest_rate_id()
                     
                 amount_value = fields[Input.AMOUNT]
-                if is_negative_amount(amount_value):
-                    amount_value = -1.0 * amount_value
+                if is_negative_amount(fields[Input.ACCOUNT_FROM]):
+                    amount_value = Decimal(-1.0) * amount_value
                     
                 records = records + 1
                 statement_finance.add(
