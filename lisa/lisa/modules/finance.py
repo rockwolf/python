@@ -36,8 +36,8 @@ class Finance(CoreModule):
             currency_exchange_id = dba.first_currency_exchange_id_from_latest()
             rate_id = dba.first_rate_id_from_latest()
             for fields in input_fields:
-                account_from_id = dba.account_id_from_account(fields[Input.ACCOUNT_FROM])
-                account_to_id = dba.account_id_from_account(fields[Input.ACCOUNT_TO])
+                account_from_id = dba.account_id_from_account_name(fields[Input.ACCOUNT_FROM], True)
+                account_to_id = dba.account_id_from_account_name(fields[Input.ACCOUNT_TO], False)
                
                 #NOTE: in the database, the first values in the tables of the
                 #below id's, are empty/dummy values, used for when we are not
