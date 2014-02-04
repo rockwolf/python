@@ -854,7 +854,7 @@ class DatabaseAccess():
         session = self.Session()
         try:
             first_obj = session.query(func.sum(T_FINANCE.amount).label('total')
-                    ).filter_by(account_id=TRADING_ACCOUNT_ID).first()
+                    ).filter_by(account_from_id=TRADING_ACCOUNT_ID).first()
             if first_obj.total is not None:
                 result = Decimal(first_obj.total)
         except Exception as ex:
