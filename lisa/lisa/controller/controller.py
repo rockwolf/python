@@ -73,9 +73,17 @@ class ControllerMain():
             var_finance = finance.create_statements(input_fields)
             var_finance.print_statements()
             finance.write_to_database(var_finance)
+            print "test: after finance.write_to_database"
+            print "test: input_fields =", input_fields
+            #TODO: input_fields is a list of lists and
+            # not a list. So the below function is wrong!
+            # We need to do this check in the T_TRADE function, if that is not already the case.
             if deals_with_commodities(
                 input_fields[Input.ACCOUNT_FROM]
                 , input_fields[Input.ACCOUNT_TO]):
+                print "test: deals_with_commodities =", deals_with_commodities(
+                input_fields[Input.ACCOUNT_FROM]
+                , input_fields[Input.ACCOUNT_TO])
                 # t_trade
                 var_trade = trade.create_statements(
                                 input_fields,
