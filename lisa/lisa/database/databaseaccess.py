@@ -662,7 +662,7 @@ class DatabaseAccess():
         """
             Function to get the value that belongs to the given parameter.
         """
-        result = 0.0 
+        result = DEFAULT_DECIMAL 
         session = self.Session()
         try:
             for instance in session.query(T_PARAMETER).filter_by(
