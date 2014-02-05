@@ -73,8 +73,6 @@ class ControllerMain():
             var_finance = finance.create_statements(input_fields)
             var_finance.print_statements()
             finance.write_to_database(var_finance)
-            print "test: after finance.write_to_database"
-            print "test: input_fields =", input_fields
             #TODO: input_fields is a list of lists and
             # not a list. So the below function is wrong!
             # We need to do this check in the T_TRADE function, if that is not already the case.
