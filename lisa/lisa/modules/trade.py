@@ -88,6 +88,8 @@ class Trade(CoreModule):
             finance_id = dba.first_finance_id_from_latest()
             if finance_id != -1:
                 for fields in input_fields:
+                    #TODO: check for deals_with_commodities here
+                    # but check whether to increase finance_id or not...
                     record = records + 1
                     # GENERAL INFO AT START
                     self.general_info_at_start(fields, trade_record) 
