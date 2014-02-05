@@ -90,6 +90,10 @@ class Trade(CoreModule):
                 for fields in input_fields:
                     #TODO: check for deals_with_commodities here
                     # but check whether to increase finance_id or not...
+                    if deals_with_commodities(
+                        fields[Input.ACCOUNT_FROM]
+                        , fields[Input.ACCOUNT_TO]):
+                            #TODO: indent the below code appropriately.
                     record = records + 1
                     # GENERAL INFO AT START
                     self.general_info_at_start(fields, trade_record) 
