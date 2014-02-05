@@ -71,6 +71,7 @@ class Trade(CoreModule):
         self.active = DEFAULT_INT
         self.date_created = DEFAULT_DATE
         self.date_modified = DEFAULT_DATE
+        self.trade_record = []
 
     def create_statements(self, input_fields, statements_finance):
         """
@@ -85,39 +86,36 @@ class Trade(CoreModule):
             date_created = current_date()
             date_modified = current_date()
             records = 0
-            finance_id = dba.first_finance_id_from_latest()
-            if finance_id != -1:
+            self.finance_id = dba.first_finance_id_from_latest()
+            if self.finance_id != -1:
                 for fields in input_fields:
-                    #TODO: check for deals_with_commodities here
-                    # but check whether to increase finance_id or not...
                     if deals_with_commodities(
                         fields[Input.ACCOUNT_FROM]
                         , fields[Input.ACCOUNT_TO]):
                             #TODO: indent the below code appropriately.
-                    record = records + 1
-                    # GENERAL INFO AT START
-                    self.general_info_at_start(fields, trade_record) 
-                    # UPDATE/INSERT
-                    if dba.invade_already_started(market_id,
-                            commodity_name_id, T_TRADE):
-                        self.update_info(fields, trade_record)
-                    else:
-                        self.insert_info(fields, trade_record)
-                    # GENERAL VARIABLES THAT CAN BE CALCULATED ON THE DATA WE HAVE
-                    self.general_info_at_end()
-                    # TEST INFO
-                    print_test_info()
-                    # ADDING THE STATEMENTS
-                    add_to_statement()
-                       
-                finance_id = finance_id + 1
+                        record = records + 1
+                        # GENERAL INFO AT START
+                        self.general_info_at_start(dba, fields) 
+                        # UPDATE/INSERT
+                        if dba.invade_already_started(self.market_id,
+                                commodity_name_id, T_TRADE):
+                            self.update_info(fields, self.trade_record)
+                        else:
+                            self.insert_info(fields, self.trade_record)
+                        # GENERAL VARIABLES THAT CAN BE CALCULATED ON THE DATA WE HAVE
+                        self.general_info_at_end()
+                        # TEST INFO
+                        print_test_info()
+                        # ADDING THE STATEMENTS
+                        add_to_statement()
+                self.finance_id = self.finance_id + 1
             return statement_trade
         except Exception as ex:
             print Error.CREATE_STATEMENTS_TABLE_TRADE, ex
         finally:
             dba = None
 
-    def general_info_at_start(self, fields, trade_record):
+    def general_info_at_start(self, dba, fields):
         """
             General info at the start of the trade.
         """
@@ -125,11 +123,11 @@ class Trade(CoreModule):
             self.market_id = dba.market_id_from_market(
                 fields[Input.MARKET_CODE])
             self.commodity_name_id = dba.commodity_name_id_from_commodity_name(
-                fields[Input.COMMODITY_NAME], market_id)
-            self.finance_record = dba.get_finance_record(finance_id)
-            self.trade_record = dba.get_invade_record(finance_id, T_TRADE)
+                fields[Input.COMMODITY_NAME], self.market_id)
+            self.finance_record = dba.get_finance_record(self.finance_id)
+            self.trade_record = dba.get_invade_record(self.finance_id, T_TRADE)
             self.long_flag = dba.get_long_flag_value(fields[Input.ACCOUNT_FROM],
-                fields[Input.ACCOUNT_TO], trade_record)
+                fields[Input.ACCOUNT_TO], self.trade_record)
             
             # TEST INFO
             print 'test finance_record=', self.finance_record
@@ -152,7 +150,7 @@ class Trade(CoreModule):
             ## buy/sell related fields
             if (we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO])
                 and T_TRADE.id_buy == -1):
-                id_buy = finance_id
+                id_buy = self.finance_id
                 id_sell = trade_record['id_sell']
                 date_buy = date_created
                 date_sell = trade_record['date_sell']
@@ -167,7 +165,7 @@ class Trade(CoreModule):
             elif (not we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO])
                 and T_TRADE.id_sell == -1):
                 id_buy = trade_record['id_buy']
-                id_sell = finance_id
+                id_sell = self.finance_id
                 date_buy = trade_record['date_buy']
                 date_sell = date_created
                 price_buy = abs(trade_record['price_buy'])
@@ -250,7 +248,7 @@ class Trade(CoreModule):
             trade_id = None # insert: new one created automatically
             ## buy/sell related fields
             if we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):
-                id_buy = finance_id
+                id_buy = self.finance_id
                 id_sell = -1
                 date_buy = date_created
                 date_sell = string_to_date(DEFAULT_DATE)
@@ -265,7 +263,7 @@ class Trade(CoreModule):
                 tax_sell = DEFAULT_DECIMAL
             else:
                 id_buy = -1
-                id_sell = finance_id
+                id_sell = self.finance_id
                 date_sell = date_created
                 date_buy = string_to_date(DEFAULT_DATE)
                 price_buy = DEFAULT_DECIMAL
