@@ -78,18 +78,12 @@ class ControllerMain():
             #TODO: input_fields is a list of lists and
             # not a list. So the below function is wrong!
             # We need to do this check in the T_TRADE function, if that is not already the case.
-            if deals_with_commodities(
-                input_fields[Input.ACCOUNT_FROM]
-                , input_fields[Input.ACCOUNT_TO]):
-                print "test: deals_with_commodities =", deals_with_commodities(
-                input_fields[Input.ACCOUNT_FROM]
-                , input_fields[Input.ACCOUNT_TO])
-                # t_trade
-                var_trade = trade.create_statements(
-                                input_fields,
-                                var_finance)
-                var_trade.print_statements()
-                trade.write_to_database(var_trade)
+            # t_trade
+            var_trade = trade.create_statements(
+                            input_fields,
+                            var_finance)
+            var_trade.print_statements()
+            trade.write_to_database(var_trade)
             #test = dba.create_statements_TABLE_INVESTMENT(input_fields)
             #test.print_statements()
             #if self.is_an_investment():
