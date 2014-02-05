@@ -83,8 +83,8 @@ class Trade(CoreModule):
         #Trading without adding to positions is assumed by this code!
         try:
             dba = DatabaseAccess(self.config)
-            date_created = current_date()
-            date_modified = current_date()
+            self.date_created = current_date()
+            self.date_modified = current_date()
             records = 0
             self.finance_id = dba.first_finance_id_from_latest()
             if self.finance_id != -1:
@@ -98,14 +98,14 @@ class Trade(CoreModule):
                         self.general_info_at_start(dba, fields) 
                         # UPDATE/INSERT
                         if dba.invade_already_started(self.market_id,
-                                commodity_name_id, T_TRADE):
+                                self.commodity_name_id, T_TRADE):
                             self.update_info(fields, self.trade_record)
                         else:
                             self.insert_info(fields, self.trade_record)
                         # GENERAL VARIABLES THAT CAN BE CALCULATED ON THE DATA WE HAVE
-                        self.general_info_at_end()
+                        self.general_info_at_end(fields, self.trade_record)
                         # TEST INFO
-                        print_test_info()
+                        self.print_test_info()
                         # ADDING THE STATEMENTS
                         add_to_statement()
                 self.finance_id = self.finance_id + 1
@@ -133,7 +133,7 @@ class Trade(CoreModule):
             print 'test finance_record=', self.finance_record
             print 'test trade_record=', self.trade_record
             print 'test: long_flag =', self.long_flag
-            print library_test()
+            #print library_test()
         except Exception as ex:
             print Error.CREATE_STATEMENTS_TABLE_TRADE, ex
 
@@ -152,7 +152,7 @@ class Trade(CoreModule):
                 and T_TRADE.id_buy == -1):
                 id_buy = self.finance_id
                 id_sell = trade_record['id_sell']
-                date_buy = date_created
+                date_buy = self.date_created
                 date_sell = trade_record['date_sell']
                 price_buy = abs(fields[Input.PRICE])
                 price_sell = abs(trade_record['price_sell'])
@@ -167,7 +167,7 @@ class Trade(CoreModule):
                 id_buy = trade_record['id_buy']
                 id_sell = self.finance_id
                 date_buy = trade_record['date_buy']
-                date_sell = date_created
+                date_sell = self.date_created
                 price_buy = abs(trade_record['price_buy'])
                 price_sell = abs(fields[Input.PRICE])
                 shares_buy = trade_record['shares_buy']
@@ -186,7 +186,7 @@ class Trade(CoreModule):
                 trade_record['amount_sell'],
                 trade_record['amount_buy'])
             pool_at_start = trade_record['pool_at_start']
-            date_created = trade_record['date_created']
+            self.date_created = trade_record['date_created']
             amount_buy_simple = trade_record['amount_buy_simple']
             amount_sell_simple = calculate_amount_simple(
                     Decimal(fields[Input.PRICE])
@@ -250,7 +250,7 @@ class Trade(CoreModule):
             if we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):
                 id_buy = self.finance_id
                 id_sell = -1
-                date_buy = date_created
+                date_buy = self.date_created
                 date_sell = string_to_date(DEFAULT_DATE)
                 price_buy = abs(fields[Input.PRICE])
                 price_sell = DEFAULT_DECIMAL
@@ -264,7 +264,7 @@ class Trade(CoreModule):
             else:
                 id_buy = -1
                 id_sell = self.finance_id
-                date_sell = date_created
+                date_sell = self.date_created
                 date_buy = string_to_date(DEFAULT_DATE)
                 price_buy = DEFAULT_DECIMAL
                 price_sell = abs(fields[Input.PRICE])
