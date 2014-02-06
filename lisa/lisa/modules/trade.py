@@ -12,7 +12,7 @@ from modules.constant import *
 from modules.function import *
 from generic.modules.function import *
 from database.mappings import T_TRADE
-from generic.modules.calculator_finance import *
+import generic.modules.calculator_finance as calc
 
 class Trade(CoreModule):
     """
@@ -182,20 +182,20 @@ class Trade(CoreModule):
                     " and you are trying to add one like it" \
                     " again?".format(T_TRADE))
             stoploss = trade_record['stoploss']
-            profit_loss = calculate_profit_loss(
+            profit_loss = calc.calculate_profit_loss(
                 trade_record['amount_sell'],
                 trade_record['amount_buy'])
             pool_at_start = trade_record['pool_at_start']
             self.date_created = trade_record['date_created']
             amount_buy_simple = trade_record['amount_buy_simple']
-            amount_sell_simple = calculate_amount_simple(
+            amount_sell_simple = calc.calculate_amount_simple(
                     Decimal(fields[Input.PRICE])
                     , Decimal(fields[Input.QUANTITY]))
             risk_input = trade_record['risk_input']
             risk_input_percent = trade_record['risk_input_percent']
             risk_initial = trade_record['risk_initial']
             risk_initial_percent = (risk_initial/amount_buy_simple)*Decimal(100.0)
-            risk_actual = calculate_risk_actual(
+            risk_actual = calc.calculate_risk_actual(
                 trade_record['price_buy'],
                 trade_record['shares_buy'],
                 trade_record['price_sell'],
@@ -203,12 +203,12 @@ class Trade(CoreModule):
                 trade_record['stoploss'],
                 trade_record['risk_initial'])
             risk_actual_percent = (risk_actual/amount_buy_simple)*Decimal(100.0)
-            cost_total = calculate_cost_total(
+            cost_total = calc.calculate_cost_total(
                 trade_record['tax_buy'],
                 trade_record['commission_buy'],
                 trade_record['tax_sell'],
                 trade_record['commission_sell'])
-            cost_other = calculate_cost_other(
+            cost_other = calc.calculate_cost_other(
                     cost_total,
                     profit_loss)
             if we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):
@@ -223,7 +223,7 @@ class Trade(CoreModule):
                         long_flag)
             currency_exchange_id = trade_record['currency_exchange_id']
             drawdown_id = trade_record['drawdown_id']
-            r_multiple = calculate_r_multiple(
+            r_multiple = calc.calculate_r_multiple(
                 trade_record['price_buy'],
                 trade_record['price_sell'],
                 trade_record['price_stoploss'])
@@ -275,7 +275,7 @@ class Trade(CoreModule):
                 commission_sell = fields[Input.COMMISSION]
                 tax_buy = DEFAULT_DECIMAL
                 tax_sell = fields[Input.TAX]
-            stoploss = calculate_stoploss(
+            stoploss = calc.calculate_stoploss(
                 abs(fields[Input.PRICE]),
                 fields[Input.QUANTITY],
                 fields[Input.TAX],
@@ -284,15 +284,15 @@ class Trade(CoreModule):
                 fields[Input.POOL])
             profit_loss = DEFAULT_DECIMAL #Only calculated at end of trade.
             pool_at_start = fields[Input.POOL]
-            amount_buy_simple = calculate_amount_simple(
+            amount_buy_simple = calc.calculate_amount_simple(
                     Decimal(fields[Input.PRICE])
                     , Decimal(fields[Input.QUANTITY]))
             amount_sell_simple = DEFAULT_DECIMAL
-            risk_input = calculate_risk_input(
+            risk_input = calc.calculate_risk_input(
                 fields[Input.POOL],
                 fields[Input.RISK])
             risk_input_percent = fields[Input.RISK]
-            risk_initial = calculate_risk_initial(
+            risk_initial = calc.calculate_risk_initial(
                 fields[Input.PRICE],
                 fields[Input.QUANTITY],
                 stoploss)
