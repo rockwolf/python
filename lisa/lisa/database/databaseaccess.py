@@ -407,7 +407,6 @@ class DatabaseAccess():
                     record['win_flag'],
                     record['id_buy'],
                     record['id_sell'],
-                    record['currency_exchange_id'],
                     record['drawdown_id'],
                     record['pool_at_start'],
                     record['date_expiration'],
@@ -469,7 +468,6 @@ class DatabaseAccess():
                  ,"win_flag": record["win_flag"]
                  ,"id_buy": record["id_buy"]
                  ,"id_sell": record["id_sell"]
-                 ,"currency_exchange_id": record["currency_exchange_id"]
                  ,"drawdown_id": record["drawdown_id"]
                  ,"pool_at_start": record["pool_at_start"]
                  ,"date_expiration": record["date_expiration"]
