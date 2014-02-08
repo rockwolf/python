@@ -12,7 +12,7 @@ from modules.constant import *
 from modules.function import *
 from generic.modules.function import *
 from database.mappings import T_TRADE
-import generic.modules.calculator_finance as calc
+from generic.modules.calculator_finance import CalculatorFinance
 
 class Trade(CoreModule):
     """
@@ -83,6 +83,7 @@ class Trade(CoreModule):
         #Trading without adding to positions is assumed by this code!
         try:
             dba = DatabaseAccess(self.config)
+            calc = CalculatorFinance()
             self.date_created = current_date()
             self.date_modified = current_date()
             records = 0
@@ -95,13 +96,13 @@ class Trade(CoreModule):
                             #TODO: indent the below code appropriately.
                         record = records + 1
                         # GENERAL INFO AT START
-                        self.general_info_at_start(dba, fields) 
+                        self.general_info_at_start(dba, calc, fields) 
                         # UPDATE/INSERT
                         if dba.invade_already_started(self.market_id,
                                 self.commodity_name_id, T_TRADE):
-                            self.update_info(fields, self.trade_record)
+                            self.update_info(calc, fields, self.trade_record)
                         else:
-                            self.insert_info(fields, self.trade_record)
+                            self.insert_info(calc, fields, self.trade_record)
                         # GENERAL VARIABLES THAT CAN BE CALCULATED ON THE DATA WE HAVE
                         self.general_info_at_end(fields, self.trade_record)
                         # TEST INFO
@@ -113,9 +114,10 @@ class Trade(CoreModule):
         except Exception as ex:
             print Error.CREATE_STATEMENTS_TABLE_TRADE, ex
         finally:
+            calc = None
             dba = None
 
-    def general_info_at_start(self, dba, fields):
+    def general_info_at_start(self, dba, calc, fields):
         """
             General info at the start of the trade.
         """
@@ -137,7 +139,7 @@ class Trade(CoreModule):
         except Exception as ex:
             print Error.CREATE_STATEMENTS_TABLE_TRADE, ex
 
-    def update_info(self, fields, trade_record):
+    def update_info(self, calc, fields, trade_record):
         """
             Update info.
         """
@@ -182,7 +184,7 @@ class Trade(CoreModule):
                     " and you are trying to add one like it" \
                     " again?".format(T_TRADE))
             stoploss = trade_record['stoploss']
-            profit_loss = calc.calculate_profit_loss(
+            self.profit_loss = calc.calculate_profit_loss(
                 trade_record['amount_sell'],
                 trade_record['amount_buy'])
             pool_at_start = trade_record['pool_at_start']
@@ -210,7 +212,7 @@ class Trade(CoreModule):
                 trade_record['commission_sell'])
             cost_other = calc.calculate_cost_other(
                     cost_total,
-                    profit_loss)
+                    self.profit_loss)
             if we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):
                 win_flag = dba.get_win_flag_value(
                         price_buy,
@@ -239,7 +241,7 @@ class Trade(CoreModule):
         except Exception as ex:
             print Error.CREATE_STATEMENTS_TABLE_TRADE, ex
 
-    def insert_info(self, fields, trade_record):
+    def insert_info(self, calc, fields, trade_record):
         """
             Insert info.
         """
@@ -248,33 +250,33 @@ class Trade(CoreModule):
             trade_id = None # insert: new one created automatically
             ## buy/sell related fields
             if we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):
-                id_buy = self.finance_id
-                id_sell = -1
-                date_buy = self.date_created
-                date_sell = string_to_date(DEFAULT_DATE)
-                price_buy = abs(fields[Input.PRICE])
-                price_sell = DEFAULT_DECIMAL
-                shares_buy = fields[Input.QUANTITY]
-                shares_sell = DEFAULT_INT
+                self.d_buy = self.finance_id
+                self.id_sell = -1
+                self.date_buy = self.date_created
+                self.date_sell = string_to_date(DEFAULT_DATE)
+                self.price_buy = abs(fields[Input.PRICE])
+                self.price_sell = DEFAULT_DECIMAL
+                self.shares_buy = fields[Input.QUANTITY]
+                self.shares_sell = DEFAULT_INT
                 #TODO: commission and tax from T_RATE, when fields[Input.AUTOMATIC_FLAG] is 1
-                commission_buy = fields[Input.COMMISSION]
-                commission_sell = DEFAULT_DECIMAL
-                tax_buy = fields[Input.TAX]
-                tax_sell = DEFAULT_DECIMAL
+                self.commission_buy = fields[Input.COMMISSION]
+                self.commission_sell = DEFAULT_DECIMAL
+                self.tax_buy = fields[Input.TAX]
+                self.tax_sell = DEFAULT_DECIMAL
             else:
-                id_buy = -1
-                id_sell = self.finance_id
-                date_sell = self.date_created
-                date_buy = string_to_date(DEFAULT_DATE)
-                price_buy = DEFAULT_DECIMAL
-                price_sell = abs(fields[Input.PRICE])
-                shares_buy = DEFAULT_INT
-                shares_sell = fields[Input.QUANTITY]
-                commission_buy = DEFAULT_DECIMAL
+                self.id_buy = -1
+                self.id_sell = self.finance_id
+                self.date_sell = self.date_created
+                self.date_buy = string_to_date(DEFAULT_DATE)
+                self.price_buy = DEFAULT_DECIMAL
+                self.price_sell = abs(fields[Input.PRICE])
+                self.shares_buy = DEFAULT_INT
+                self.shares_sell = fields[Input.QUANTITY]
+                self.commission_buy = DEFAULT_DECIMAL
                 # TODO: commission and tax from T_RATE (see also higher)
-                commission_sell = fields[Input.COMMISSION]
-                tax_buy = DEFAULT_DECIMAL
-                tax_sell = fields[Input.TAX]
+                self.commission_sell = fields[Input.COMMISSION]
+                self.tax_buy = DEFAULT_DECIMAL
+                self.tax_sell = fields[Input.TAX]
             stoploss = calc.calculate_stoploss(
                 abs(fields[Input.PRICE]),
                 fields[Input.QUANTITY],
@@ -282,29 +284,29 @@ class Trade(CoreModule):
                 fields[Input.COMMISSION],
                 fields[Input.RISK],
                 fields[Input.POOL])
-            profit_loss = DEFAULT_DECIMAL #Only calculated at end of trade.
-            pool_at_start = fields[Input.POOL]
-            amount_buy_simple = calc.calculate_amount_simple(
+            self.profit_loss = DEFAULT_DECIMAL #Only calculated at end of trade.
+            self.pool_at_start = fields[Input.POOL]
+            self.amount_buy_simple = calc.calculate_amount_simple(
                     Decimal(fields[Input.PRICE])
                     , Decimal(fields[Input.QUANTITY]))
-            amount_sell_simple = DEFAULT_DECIMAL
-            risk_input = calc.calculate_risk_input(
+            self.amount_sell_simple = DEFAULT_DECIMAL
+            self.risk_input = calc.calculate_risk_input(
                 fields[Input.POOL],
                 fields[Input.RISK])
-            risk_input_percent = fields[Input.RISK]
-            risk_initial = calc.calculate_risk_initial(
+            self.risk_input_percent = fields[Input.RISK]
+            self.risk_initial = calc.calculate_risk_initial(
                 fields[Input.PRICE],
                 fields[Input.QUANTITY],
-                stoploss)
-            risk_initial_percent = Decimal(100.0)*risk_initial/amount_buy_simple
-            risk_actual = DEFAULT_DECIMAL
-            risk_actual_percent = DEFAULT_DECIMAL
-            cost_total = DEFAULT_DECIMAL
-            cost_other = DEFAULT_DECIMAL
-            win_flag = -1 #not yet finished, we can not know it yet.
-            currency_exchange_id = dba.first_currency_exchange_id_from_latest()
-            drawdown_id = dba.new_drawdown_record()
-            r_multiple = DEFAULT_DECIMAL
+                self.stoploss)
+            self.risk_initial_percent = Decimal(100.0)*risk_initial/amount_buy_simple
+            self.risk_actual = DEFAULT_DECIMAL
+            self.risk_actual_percent = DEFAULT_DECIMAL
+            self.cost_total = DEFAULT_DECIMAL
+            self.cost_other = DEFAULT_DECIMAL
+            self.win_flag = -1 #not yet finished, we can not know it yet.
+            self.currency_exchange_id = dba.first_currency_exchange_id_from_latest()
+            self.drawdown_id = dba.new_drawdown_record()
+            self.r_multiple = DEFAULT_DECIMAL
             date_expiration = fields[Input.DATE_EXPIRATION]
             expired_flag = DEFAULT_INT
         except Exception as ex:
@@ -315,13 +317,13 @@ class Trade(CoreModule):
             General info at the end of the trade.
         """
         try:
-            profit_loss_percent = profit_loss/Decimal(100.0)
-            year_buy = date_buy.year
-            month_buy = date_buy.month
-            day_buy = date_buy.day
-            year_sell = date_sell.year
-            month_sell = date_sell.month
-            day_sell = date_sell.day
+            self.profit_loss_percent = self.profit_loss/Decimal(100.0)
+            self.year_buy = self.date_buy.year
+            self.month_buy = self.date_buy.month
+            self.day_buy = self.date_buy.day
+            self.year_sell = self.date_sell.year
+            self.month_sell = self.date_sell.month
+            self.day_sell = self.date_sell.day
         except Exception as ex:
             print Error.CREATE_STATEMENTS_TABLE_TRADE, ex
 
