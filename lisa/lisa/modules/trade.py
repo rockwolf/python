@@ -249,7 +249,7 @@ class Trade(CoreModule):
             self.trade_id = None # insert: new one created automatically
             ## buy/sell related fields
             if we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):
-                self.d_buy = self.finance_id
+                self.id_buy = self.finance_id
                 self.id_sell = -1
                 self.date_buy = self.date_created
                 self.date_sell = string_to_date(DEFAULT_DATE)
