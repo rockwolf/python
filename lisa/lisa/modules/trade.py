@@ -129,12 +129,6 @@ class Trade(CoreModule):
             self.trade_record = dba.get_invade_record(self.finance_id, T_TRADE)
             self.long_flag = dba.get_long_flag_value(fields[Input.ACCOUNT_FROM],
                 fields[Input.ACCOUNT_TO], self.trade_record)
-            
-            # TEST INFO
-            print 'test finance_record=', self.finance_record
-            print 'test trade_record=', self.trade_record
-            print 'test: long_flag =', self.long_flag
-            #print library_test()
         except Exception as ex:
             print Error.CREATE_STATEMENTS_TABLE_TRADE, ex
 
