@@ -39,7 +39,9 @@ class Trade(CoreModule):
         self.day_sell = DEFAULT_INT
         self.long_flag = DEFAULT_INT
         self.price_buy = DEFAULT_DECIMAL
+        self.price_buy_orig = DEFAULT_DECIMAL
         self.price_sell = DEFAULT_DECIMAL
+        self.price_sell_orig = DEFAULT_DECIMAL
         self.shares_buy = DEFAULT_DECIMAL
         self.shares_sell = DEFAULT_DECIMAL
         self.commission_buy = DEFAULT_DECIMAL
@@ -57,6 +59,7 @@ class Trade(CoreModule):
         self.amount_buy_simple = DEFAULT_DECIMAL
         self.amount_sell_simple = DEFAULT_DECIMAL
         self.stoploss = DEFAULT_DECIMAL
+        self.stoploss_orig = DEFAULT_DECIMAL
         self.profit_loss = DEFAULT_DECIMAL
         self.profit_loss_percent = DEFAULT_DECIMAL
         self.r_multiple = DEFAULT_DECIMAL
