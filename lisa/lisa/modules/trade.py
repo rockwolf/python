@@ -253,8 +253,8 @@ class Trade(CoreModule):
                 self.id_sell = -1
                 self.date_buy = self.date_created
                 self.date_sell = string_to_date(DEFAULT_DATE)
-                self.price_buy = abs(fields[Input.PRICE])
-                self.price_buy_orig = calc.convert_to_orig(self.price_buy, fields[Input.EXCHANGE_RATE])
+                self.price_buy = calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
+                self.price_buy_orig = fields[Input.PRICE]
                 self.price_sell = DEFAULT_DECIMAL
                 self.price_sell_orig = DEFAULT_DECIMAL
                 self.shares_buy = fields[Input.QUANTITY]
@@ -271,8 +271,8 @@ class Trade(CoreModule):
                 self.date_buy = string_to_date(DEFAULT_DATE)
                 self.price_buy = DEFAULT_DECIMAL
                 self.price_buy_orig = DEFAULT_DECIMAL
-                self.price_sell = abs(fields[Input.PRICE])
-                self.price_sell_orig = calc.convert_to_orig(self.price_sell, fields[Input.EXCHANGE_RATE])
+                self.price_sell = calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE]);
+                self.price_sell_orig = fields[Input.PRICE];
                 self.shares_buy = DEFAULT_INT
                 self.shares_sell = fields[Input.QUANTITY]
                 self.commission_buy = DEFAULT_DECIMAL
