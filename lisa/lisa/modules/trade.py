@@ -276,19 +276,19 @@ class Trade(CoreModule):
                 self.commission_sell = fields[Input.COMMISSION]
                 self.tax_buy = DEFAULT_DECIMAL
                 self.tax_sell = fields[Input.TAX]
-                stoploss = calc.calculate_stoploss(
-                    abs(fields[Input.PRICE]),
-                    fields[Input.QUANTITY],
-                    fields[Input.TAX],
-                    fields[Input.COMMISSION],
-                    fields[Input.RISK],
-                    fields[Input.POOL],
-                    self.long_flag)
+            self.stoploss = calc.calculate_stoploss(
+                abs(fields[Input.PRICE]),
+                fields[Input.QUANTITY],
+                fields[Input.TAX],
+                fields[Input.COMMISSION],
+                fields[Input.RISK],
+                fields[Input.POOL],
+                self.long_flag)
             self.profit_loss = DEFAULT_DECIMAL #Only calculated at end of trade.
             self.pool_at_start = fields[Input.POOL]
             self.amount_buy_simple = calc.calculate_amount_simple(
-                    Decimal(fields[Input.PRICE])
-                    , Decimal(fields[Input.QUANTITY]))
+                Decimal(fields[Input.PRICE])
+                , Decimal(fields[Input.QUANTITY]))
             self.amount_sell_simple = DEFAULT_DECIMAL
             self.risk_input = calc.calculate_risk_input(
                 fields[Input.POOL],
