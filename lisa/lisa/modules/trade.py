@@ -78,7 +78,7 @@ class Trade(CoreModule):
             Creates the records needed for Table.TRADE and returns them as a
             Statement object.
         """
-        #NOTE: price_buy will be fields['i_amount']
+        #NOTE: price_buy will be fields['i_price']
         #When we buy more, it will be overwritten!
         #Trading without adding to positions is assumed by this code!
         try:
