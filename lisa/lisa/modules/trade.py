@@ -147,7 +147,7 @@ class Trade(CoreModule):
         #TABLE_TRADE.query.filter(market_name=...,commodity_name=...).update({"date_...": date_... etc.})
         try:
             self.flag_insupdel = StatementType.UPDATE
-            trade_id = trade_record['trade_id']
+            self.trade_id = trade_record['trade_id']
             ## buy/sell related fields
             if (we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO])
                 and T_TRADE.id_buy == -1):
@@ -246,7 +246,7 @@ class Trade(CoreModule):
         """
         try:
             self.flag_insupdel = StatementType.INSERT
-            trade_id = None # insert: new one created automatically
+            self.trade_id = None # insert: new one created automatically
             ## buy/sell related fields
             if we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):
                 self.d_buy = self.finance_id
