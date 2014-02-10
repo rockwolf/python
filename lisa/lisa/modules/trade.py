@@ -254,7 +254,9 @@ class Trade(CoreModule):
                 self.date_buy = self.date_created
                 self.date_sell = string_to_date(DEFAULT_DATE)
                 self.price_buy = abs(fields[Input.PRICE])
+                self.price_buy_orig = calc.convert_to_orig(self.price_buy, fields[Input.EXCHANGE_RATE])
                 self.price_sell = DEFAULT_DECIMAL
+                self.price_sell_orig = DEFAULT_DECIMAL
                 self.shares_buy = fields[Input.QUANTITY]
                 self.shares_sell = DEFAULT_INT
                 #TODO: commission and tax from T_RATE, when fields[Input.AUTOMATIC_FLAG] is 1
@@ -268,7 +270,9 @@ class Trade(CoreModule):
                 self.date_sell = self.date_created
                 self.date_buy = string_to_date(DEFAULT_DATE)
                 self.price_buy = DEFAULT_DECIMAL
+                self.price_buy_orig = DEFAULT_DECIMAL
                 self.price_sell = abs(fields[Input.PRICE])
+                self.price_sell_orig = calc.convert_to_orig(self.price_sell, fields[Input.EXCHANGE_RATE])
                 self.shares_buy = DEFAULT_INT
                 self.shares_sell = fields[Input.QUANTITY]
                 self.commission_buy = DEFAULT_DECIMAL
@@ -284,6 +288,7 @@ class Trade(CoreModule):
                 fields[Input.RISK],
                 fields[Input.POOL],
                 self.long_flag)
+            self.stoploss_orig = calc.convert_to_orig(self.stoploss, fields[Input.EXCHANGE_RATE])
             self.profit_loss = DEFAULT_DECIMAL #Only calculated at end of trade.
             self.pool_at_start = fields[Input.POOL]
             self.amount_buy_simple = calc.calculate_amount_simple(
