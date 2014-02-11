@@ -96,7 +96,7 @@ class Trade(CoreModule):
                     if deals_with_commodities(
                         fields[Input.ACCOUNT_FROM]
                         , fields[Input.ACCOUNT_TO]):
-                        record = records + 1
+                        records = records + 1
                         # GENERAL INFO AT START
                         self.general_info_at_start(dba, calc, fields) 
                         # UPDATE/INSERT
