@@ -149,63 +149,68 @@ class Trade(CoreModule):
             if (we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO])
                 and T_TRADE.id_buy == -1):
                 self.id_buy = self.finance_id
-                self.id_sell = trade_record['id_sell']
+                self.id_sell = self.trade_record['id_sell']
                 self.date_buy = self.date_created
-                self.date_sell = trade_record['date_sell']
-                self.price_buy = abs(fields[Input.PRICE])
-                self.price_sell = abs(trade_record['price_sell'])
+                self.date_sell = self.trade_record['date_sell']
+                self.price_buy = calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
+                self.price_buy_orig = abs(fields[Input.PRICE])
+                self.price_sell = self.trade_record['price_sell']
+                self.price_sell_orig = self.trade_record['price_sell_orig']
                 self.shares_buy = fields[Input.QUANTITY]
-                self.shares_sell = trade_record['shares_sell']
+                self.shares_sell = self.trade_record['shares_sell']
                 self.commission_buy = fields[Input.COMMISSION]
-                self.commission_sell = trade_record['commission_sell']
+                self.commission_sell = self.trade_record['commission_sell']
                 self.tax_buy = fields[Input.TAX]
-                self.tax_sell = trade_record['tax_sell']
+                self.tax_sell = self.trade_record['tax_sell']
             elif (not we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO])
                 and T_TRADE.id_sell == -1):
-                self.id_buy = trade_record['id_buy']
+                self.id_buy = self.trade_record['id_buy']
                 self.id_sell = self.finance_id
-                self.date_buy = trade_record['date_buy']
+                self.date_buy = self.trade_record['date_buy']
                 self.date_sell = self.date_created
-                self.price_buy = abs(trade_record['price_buy'])
-                self.price_sell = abs(fields[Input.PRICE])
+                self.price_buy = self.trade_record['price_buy']
+                self.price_buy_orig = self.trade_record['price_buy_orig']
+                self.price_sell = calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
+                self.price_sell_orig = fields[Input.PRICE]
                 self.shares_buy = trade_record['shares_buy']
                 self.shares_sell = fields[Input.QUANTITY]
                 self.commission_buy = trade_record['commission_buy']
                 self.commission_sell = fields[Input.COMMISSION]
-                self.tax_buy = trade_record['tax_buy']
+                self.tax_buy = self.trade_record['tax_buy']
                 self.tax_sell = fields[Input.TAX]
             else:
                 raise Exception(
                     "{0} already contains a sell or buy record" \
                     " and you are trying to add one like it" \
                     " again?".format(T_TRADE))
-            self.stoploss = trade_record['stoploss']
+            self.stoploss = self.trade_record['stoploss']
+            self.stoploss_orig = self.trade_record['stoploss_orig']
             self.profit_loss = calc.calculate_profit_loss(
-                trade_record['amount_sell'],
-                trade_record['amount_buy'])
-            self.pool_at_start = trade_record['pool_at_start']
-            self.date_created = trade_record['date_created']
+                self.trade_record['amount_sell'],
+                self.trade_record['amount_buy'])
+            self.pool_at_start = self.trade_record['pool_at_start']
+            self.date_created = self.trade_record['date_created']
             self.amount_buy_simple = trade_record['amount_buy_simple']
             self.amount_sell_simple = calc.calculate_amount_simple(
                     Decimal(fields[Input.PRICE])
                     , Decimal(fields[Input.QUANTITY]))
-            self.risk_input = trade_record['risk_input']
-            self.risk_input_percent = trade_record['risk_input_percent']
-            self.risk_initial = trade_record['risk_initial']
+            self.risk_input = self.trade_record['risk_input']
+            self.risk_input_percent = self.trade_record['risk_input_percent']
+            self.risk_initial = self.trade_record['risk_initial']
             self.risk_initial_percent = (risk_initial/amount_buy_simple)*Decimal(100.0)
             self.risk_actual = calc.calculate_risk_actual(
-                trade_record['price_buy'],
-                trade_record['shares_buy'],
-                trade_record['price_sell'],
-                trade_record['shares_sell'],
-                trade_record['stoploss'],
-                trade_record['risk_initial'])
+                self.trade_record['price_buy'],
+                self.trade_record['shares_buy'],
+                self.trade_record['price_sell'],
+                self.trade_record['shares_sell'],
+                self.trade_record['stoploss'],
+                self.trade_record['risk_initial'])
             self.risk_actual_percent = (risk_actual/amount_buy_simple)*Decimal(100.0)
             self.cost_total = calc.calculate_cost_total(
-                trade_record['tax_buy'],
-                trade_record['commission_buy'],
-                trade_record['tax_sell'],
-                trade_record['commission_sell'])
+                self.trade_record['tax_buy'],
+                self.trade_record['commission_buy'],
+                self.trade_record['tax_sell'],
+                self.trade_record['commission_sell'])
             self.cost_other = calc.calculate_cost_other(
                     self.cost_total,
                     self.profit_loss)
@@ -216,16 +221,16 @@ class Trade(CoreModule):
                         self.long_flag)
             else:
                 self.win_flag = dba.get_win_flag_value(
-                        trade_record['price_buy'],
+                        self.trade_record['price_buy'],
                         self.price_sell,
                         self.long_flag)
-            self.currency_exchange_id = trade_record['currency_exchange_id']
-            self.drawdown_id = trade_record['drawdown_id']
+            self.currency_exchange_id = self.trade_record['currency_exchange_id']
+            self.drawdown_id = self.trade_record['drawdown_id']
             self.r_multiple = calc.calculate_r_multiple(
-                trade_record['price_buy'],
-                trade_record['price_sell'],
-                trade_record['price_stoploss'])
-            self.date_expiration = trade_record['date_expiration']
+                self.trade_record['price_buy'],
+                self.trade_record['price_sell'],
+                self.trade_record['price_stoploss'])
+            self.date_expiration = self.trade_record['date_expiration']
             #TODO: for investing, id_buy/sell is id_firstbuy and id_firstsell
             # and expiration flag should only be set at the end of the trade, when
             # the trade is closed. This means that date_buy and date_sell is not
