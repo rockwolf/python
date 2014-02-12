@@ -96,7 +96,7 @@ class Trade(CoreModule):
                     if deals_with_commodities(
                         fields[Input.ACCOUNT_FROM]
                         , fields[Input.ACCOUNT_TO]):
-                        record = records + 1
+                        records = records + 1
                         # GENERAL INFO AT START
                         self.general_info_at_start(dba, calc, fields) 
                         # UPDATE/INSERT
@@ -111,7 +111,7 @@ class Trade(CoreModule):
                         self.print_test_info()
                         # ADDING THE STATEMENTS
                         self.add_to_statement(records)
-                self.finance_id = self.finance_id + 1
+                    self.finance_id = self.finance_id + 1
             return self.statement_trade
         except Exception as ex:
             print Error.CREATE_STATEMENTS_TABLE_TRADE, ex
@@ -273,8 +273,8 @@ class Trade(CoreModule):
                 self.date_buy = string_to_date(DEFAULT_DATE)
                 self.price_buy = DEFAULT_DECIMAL
                 self.price_buy_orig = DEFAULT_DECIMAL
-                self.price_sell = calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE]);
-                self.price_sell_orig = fields[Input.PRICE];
+                self.price_sell = calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
+                self.price_sell_orig = fields[Input.PRICE]
                 self.shares_buy = DEFAULT_INT
                 self.shares_sell = fields[Input.QUANTITY]
                 self.commission_buy = DEFAULT_DECIMAL
