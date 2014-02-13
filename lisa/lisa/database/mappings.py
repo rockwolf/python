@@ -238,19 +238,21 @@ class T_TRADE(Base):
     pool_at_start = Column(Numeric(18,6))
     date_expiration = Column(DateTime)
     expired_flag = Column(Integer)
+    spread = Column(Integer)
     active = Column(Integer)
     date_created = Column(DateTime)
     date_modified = Column(DateTime)   
 
-    def __init__(self, trade_id, market_id, commodity_id, date_buy, year_buy, month_buy,
-            day_buy, date_sell, year_sell, month_sell, day_sell, long_flag,
-            price_buy, price_sell, shares_buy, shares_sell, commission_buy,
+    def __init__(self, trade_id, market_id, commodity_id, date_buy,
+            year_buy, month_buy, day_buy, date_sell, year_sell,
+            month_sell, day_sell, long_flag, price_buy, price_buy_orig,
+            price_sell, price_sell_orig, shares_buy, shares_sell, commission_buy,
             commission_sell, tax_buy, tax_sell, risk_input, risk_input_percent, risk_initial,
             risk_initial_percent, risk_actual, risk_actual_percent, cost_total, cost_other,
-            amount_buy_simple, amount_sell_simple, stoploss, profit_loss, profit_loss_percent, r_multiple,
-            win_flag, id_buy, id_sell,
+            amount_buy_simple, amount_sell_simple, stoploss, profit_loss, profit_loss_orig,
+            profit_loss_percent, r_multiple, win_flag, id_buy, id_sell,
             drawdown_id, pool_at_start, date_expiration,
-            expired_flag, active, date_created, date_modified):
+            expired_flag, active, spread, date_created, date_modified):
         self.trade_id = trade_id
         self.market_id = market_id
         self.commodity_id = commodity_id
@@ -282,6 +284,7 @@ class T_TRADE(Base):
         self.amount_buy_simple = amount_buy_simple
         self.amount_sell_simple = amount_sell_simple
         self.stoploss = stoploss
+        self.stoploss_orig = stoploss_orig
         self.profit_loss = profit_loss
         self.profit_loss_percent = profit_loss_percent
         self.r_multiple = r_multiple
@@ -292,6 +295,7 @@ class T_TRADE(Base):
         self.pool_at_start = pool_at_start
         self.date_expiration = date_expiration
         self.expired_flag = expired_flag
+        self.spread = spread
         self.active = active
         self.date_created = date_created
         self.date_modified = date_modified
@@ -302,50 +306,56 @@ class T_TRADE(Base):
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.trade_id,
-                        self.market_id,
-                        self.commodity_id,
-                        self.date_buy,
-                        self.year_buy,
-                        self.month_buy,
-                        self.day_buy,
-                        self.date_sell,
-                        self.year_sell,
-                        self.month_sell,
-                        self.day_sell,
-                        self.long_flag,
-                        self.price_buy,
-                        self.price_sell,
-                        self.shares_buy,
-                        self.shares_sell,
-                        self.commission_buy,
-                        self.commission_sell,
-                        self.tax_buy,
-                        self.tax_sell,
-                        self.risk_input,
-                        self.risk_input_percent,
-                        self.risk_initial,
-                        self.risk_initial_percent,
-                        self.risk_actual,
-                        self.risk_actual_percent,
-                        self.cost_total,
-                        self.cost_other,
-                        self.amount_buy_simple,
-                        self.amount_sell_simple,
-                        self.stoploss,
-                        self.profit_loss,
-                        self.profit_loss_percent,
-                        self.r_multiple,
-                        self.win_flag,
-                        self.id_buy,
-                        self.id_sell,
-                        self.drawdown_id,
-                        self.pool_at_start,
-                        self.date_expiration,
-                        self.expired_flag,
-                        self.active,
-                        self.date_created,
-                        self.date_modified)
+            '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
+            '%s', '%s', '%s', '%s', '%s')>" % (
+                self.trade_id,
+                self.market_id,
+                self.commodity_id,
+                self.date_buy,
+                self.year_buy,
+                self.month_buy,
+                self.day_buy,
+                self.date_sell,
+                self.year_sell,
+                self.month_sell,
+                self.day_sell,
+                self.long_flag,
+                self.price_buy,
+                self.price_buy_orig,
+                self.price_sell,
+                self.price_sell_orig,
+                self.shares_buy,
+                self.shares_sell,
+                self.commission_buy,
+                self.commission_sell,
+                self.tax_buy,
+                self.tax_sell,
+                self.risk_input,
+                self.risk_input_percent,
+                self.risk_initial,
+                self.risk_initial_percent,
+                self.risk_actual,
+                self.risk_actual_percent,
+                self.cost_total,
+                self.cost_other,
+                self.amount_buy_simple,
+                self.amount_sell_simple,
+                self.stoploss,
+                self.stoploss_orig,
+                self.profit_loss,
+                self.profit_loss_percent,
+                self.r_multiple,
+                self.win_flag,
+                self.id_buy,
+                self.id_sell,
+                self.drawdown_id,
+                self.pool_at_start,
+                self.date_expiration,
+                self.expired_flag,
+                self.spread,
+                self.active,
+                self.date_created,
+                self.date_modified)
 
 class T_RATE(Base):
     """ T_RATE """
