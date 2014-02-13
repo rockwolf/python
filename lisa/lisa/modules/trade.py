@@ -101,7 +101,7 @@ class Trade(CoreModule):
                         self.general_info_at_start(dba, calc, fields) 
                         # UPDATE/INSERT
                         if dba.invade_already_started(self.market_id,
-                                self.commodity_name_id, T_TRADE):
+                                self.commodity_id, T_TRADE):
                             self.update_info(dba, calc, fields, self.trade_record)
                         else:
                             self.insert_info(dba, calc, fields, self.trade_record)
@@ -126,7 +126,7 @@ class Trade(CoreModule):
         try:
             self.market_id = dba.market_id_from_market(
                 fields[Input.MARKET_CODE])
-            self.commodity_name_id = dba.commodity_name_id_from_commodity_name(
+            self.commodity_id = dba.commodity_id_from_commodity_name(
                 fields[Input.COMMODITY_NAME], self.market_id)
             self.finance_record = dba.get_finance_record(self.finance_id)
             self.trade_record = dba.get_invade_record(self.finance_id, T_TRADE)
@@ -346,7 +346,7 @@ class Trade(CoreModule):
             {
                 'trade_id':self.trade_id,
                 'market_id':int(self.market_id),
-                'commodity_name_id':int(self.commodity_name_id),
+                'commodity_id':int(self.commodity_id),
                 'date_buy':self.date_buy,
                 'year_buy':self.year_buy,
                 'month_buy':self.month_buy,
@@ -399,7 +399,7 @@ class Trade(CoreModule):
         """
         print('<print>')
         print('market_id =', self.market_id)
-        print('commodity_name_id =', self.commodity_name_id)
+        print('commodity_id =', self.commodity_id)
         print('date_buy =', self.date_buy)
         print('date_sell =', self.date_sell)
         print('long_flag =', self.long_flag)

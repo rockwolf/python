@@ -538,7 +538,7 @@ class DatabaseAccess():
             session = None
         return result
 
-    def commodity_name_id_from_commodity_name(self, commodity_name, market_id):
+    def commodity_id_from_commodity_name(self, commodity_name, market_id):
         """
             Get the commodity_id from T_COMMODITY.
         """
@@ -555,7 +555,7 @@ class DatabaseAccess():
                 session.add(T_COMMODITY(commodity_name, market_id, self.gui.get_commodity_description(), date_created, date_modified))
                 session.commit()
                 for instance in session.query(func.max(T_COMMODITY.commodity_id).label('commodity_id')):
-                    result = instance.commodity_name_id
+                    result = instance.commodity_id
             else:
                 for instance in session.query(T_COMMODITY).filter_by(name=commodity_name, market_id=market_id):
                     result = str(instance.commodity_id)

@@ -43,13 +43,13 @@ class Finance(CoreModule):
                 #below id's, are empty/dummy values, used for when we are not
                 #dealing with stocks.
                 market_id = 1
-                commodity_name_id = 1
+                commodity_id = 1
                 rate_id = 1
                 if deals_with_commodities(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):
                     if fields[Input.MARKET_CODE] != '':
                         market_id = dba.market_id_from_market(fields[Input.MARKET_CODE])
                     if fields[Input.COMMODITY_NAME] != '':
-                        commodity_name_id = dba.commodity_name_id_from_commodity_name(
+                        commodity_id = dba.commodity_id_from_commodity_name(
                                 fields[Input.COMMODITY_NAME], market_id)
                     rate_id = dba.get_latest_rate_id()
                     
@@ -70,14 +70,9 @@ class Finance(CoreModule):
                         'account_to_id':account_to_id,
                         'amount': amount_value,
                         'comment':fields[Input.COMMENT],
-                        'stock_name_id':commodity_name_id,
-                        'shares':fields[Input.QUANTITY],
-                        'price':fields[Input.PRICE],
-                        'tax':fields[Input.TAX],
-                        'commission':fields[Input.COMMISSION],
-                        'active':1,
-                        'rate_id':rate_id,
                         'currency_exchange_id':currency_exchange_id,
+                        'rate_id':rate_id,
+                        'active':1,
                         'date_created':date_created,                            
                         'date_modified':date_modified
                     }
