@@ -71,6 +71,7 @@ class Trade(CoreModule):
         self.pool_at_start = DEFAULT_DECIMAL
         self.date_expiration = DEFAULT_DATE
         self.expired_flag = DEFAULT_INT
+        self.spread = DEFAULT_INT
         self.active = DEFAULT_INT
         self.date_created = DEFAULT_DATE
         self.date_modified = DEFAULT_DATE
@@ -132,6 +133,7 @@ class Trade(CoreModule):
             self.trade_record = dba.get_invade_record(self.finance_id, T_TRADE)
             self.long_flag = dba.get_long_flag_value(fields[Input.ACCOUNT_FROM],
                 fields[Input.ACCOUNT_TO], self.trade_record)
+            self.spread = dba.get_spread_from_commodity_id(self.commodity_id)
         except Exception as ex:
             print Error.CREATE_STATEMENTS_TABLE_TRADE, ex
 
@@ -388,6 +390,7 @@ class Trade(CoreModule):
                 'pool_at_start':Decimal(self.pool_at_start),
                 'date_expiration':self.date_expiration,
                 'expired_flag':self.expired_flag,
+                'spread':self.spread,
                 'active':1,
                 'date_created':self.date_created,
                 'date_modified':self.date_modified

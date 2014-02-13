@@ -939,3 +939,21 @@ class DatabaseAccess():
             session.rollback()
             session = None
         return result
+
+    def get_spread_from_commodity_id(self, commodity_id):
+        """
+            Get the spread value for a given commodity.
+        """
+        result = DEFAULT_DECIMAL
+        try:
+            session = self.Session()
+            first_obj = session.query(T_COMMODITY.spread).filter_by(
+                commodity_id=commodity_id).first()
+            if first_obj is not None:
+                result = Decimal(first_obj.spread)
+        except Exception as ex:
+            print "Error  in get_spread_from_commodity_id: ", ex
+        finally:
+            session.rollbck()
+            session = None
+            return result

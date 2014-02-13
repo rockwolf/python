@@ -36,6 +36,7 @@ CREATE TABLE T_MARKET
     unique(code)
 );
 
+--TODO: add spread col (see t_trade)
 CREATE TABLE T_COMMODITY
 (
     commodity_id serial not null,
