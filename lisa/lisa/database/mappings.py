@@ -69,12 +69,13 @@ class T_COMMODITY(Base):
     order_max = Column(Numeric(18,6))
     margin_day_proc = Column(Numeric(18,6))
     margin_night_proc = Column(Numeric(18,6))
+    spread = Column(Numeric(18,6))
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
 
     def __init__(self, commodity_id, name, market_id, description, active,
         currency_id, tick, tick_value, order_min, order_max, margin_day_proc,
-        margin_night_proc, date_created, date_modified):
+        margin_night_proc, spread, date_created, date_modified):
         self.commodity_id = commodity_id
         self.name = name
         self.market_id = market_id
@@ -87,16 +88,17 @@ class T_COMMODITY(Base):
         self.order_max = order_max
         self.margin_day_proc = margin_day_proc
         self.margin_night_proc = margin_night_proc
+        self.spread = spread
         self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
         return "<T_STOCK_NAME('%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-            '%s' '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.commodity_id,
+            '%s' '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.commodity_id,
                 self.name, self.market_id, self.description, active,
                 currency_id, self.tick, self.tick_value, self.order_min,
                 self.order_max, self.margin_day_proc, self.margin_night_proc,
-                self.self.date_created, self.date_modified)
+                self.spread, self.self.date_created, self.date_modified)
 
 class T_MARKET(Base):
     """ T_MARKET """
