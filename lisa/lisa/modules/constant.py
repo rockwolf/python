@@ -94,7 +94,8 @@ class Input():
     AUTOMATIC_FLAG = 17
     DATE_EXPIRATION = 18
     POOL = 19
-    SIZE = 20 #size of the enum
+    SPREAD = 20
+    SIZE = 21 #size of the enum
     
 class Message():
     """

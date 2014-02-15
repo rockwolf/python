@@ -271,64 +271,11 @@
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout" columnstretch="0,1,0,0,0,0,0,0,0,0,0">
+       <layout class="QGridLayout" name="gridLayout" columnstretch="0,1,0,0,0,1,0,0,0,0,0,0">
         <property name="horizontalSpacing">
          <number>3</number>
         </property>
-        <item row="1" column="2">
-         <widget class="QDoubleSpinBox" name="spn_amount">
-          <property name="minimumSize">
-           <size>
-            <width>70</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Inconsolata</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="locale">
-           <locale language="C" country="AnyCountry"/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="maximum">
-           <double>999999.999998999992386</double>
-          </property>
-          <property name="value">
-           <double>0.000000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="8">
-         <widget class="QDoubleSpinBox" name="spn_price">
-          <property name="minimumSize">
-           <size>
-            <width>10</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Inconsolata</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="locale">
-           <locale language="C" country="AnyCountry"/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="maximum">
-           <double>999999.999998999992386</double>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
+        <item row="2" column="0">
          <widget class="QLabel" name="lbl_date">
           <property name="font">
            <font>
@@ -341,33 +288,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="5">
-         <widget class="QLabel" name="lbl_marketcode">
-          <property name="font">
-           <font>
-            <family>Inconsolata</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Market</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="6">
-         <widget class="QLabel" name="lbl_commodity_name">
-          <property name="font">
-           <font>
-            <family>Inconsolata</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Commodity</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="7">
+        <item row="5" column="6">
          <widget class="QLabel" name="lbl_quantity">
           <property name="font">
            <font>
@@ -380,7 +301,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="8">
+        <item row="7" column="6">
          <widget class="QLabel" name="lbl_price">
           <property name="font">
            <font>
@@ -393,49 +314,41 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="9">
+        <item row="2" column="11">
          <widget class="QLabel" name="lbl_commission">
           <property name="font">
            <font>
             <family>Inconsolata</family>
             <pointsize>14</pointsize>
+            <italic>false</italic>
            </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: #268bd2;</string>
           </property>
           <property name="text">
            <string>Commission</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="10">
+        <item row="5" column="11">
          <widget class="QLabel" name="lbl_tax">
           <property name="font">
            <font>
             <family>Inconsolata</family>
             <pointsize>14</pointsize>
+            <italic>false</italic>
            </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: #268bd2;</string>
           </property>
           <property name="text">
            <string>Tax（％）</string>
           </property>
          </widget>
         </item>
-        <item row="5" column="8">
-         <widget class="QDoubleSpinBox" name="spn_pool">
-          <property name="font">
-           <font>
-            <family>Inconsolata</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="maximum">
-           <double>999999.999998999992386</double>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="8">
+        <item row="2" column="10">
          <widget class="QLabel" name="lbl_pool">
           <property name="font">
            <font>
@@ -448,74 +361,7 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QDateEdit" name="dt_date">
-          <property name="minimumSize">
-           <size>
-            <width>90</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Inconsolata</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="date">
-           <date>
-            <year>1900</year>
-            <month>1</month>
-            <day>1</day>
-           </date>
-          </property>
-          <property name="displayFormat">
-           <string>yyyy-MM-dd</string>
-          </property>
-          <property name="calendarPopup">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="5">
-         <widget class="QComboBox" name="cmb_market_code">
-          <property name="font">
-           <font>
-            <family>Inconsolata</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="inputMethodHints">
-           <set>Qt::ImhLowercaseOnly</set>
-          </property>
-          <property name="editable">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="6">
-         <widget class="QComboBox" name="cmb_commodity_name">
-          <property name="minimumSize">
-           <size>
-            <width>120</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Inconsolata</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="inputMethodHints">
-           <set>Qt::ImhLowercaseOnly</set>
-          </property>
-          <property name="editable">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="7">
+        <item row="6" column="6">
          <widget class="QSpinBox" name="spn_quantity">
           <property name="minimumSize">
            <size>
@@ -537,8 +383,47 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="9">
-         <widget class="QDoubleSpinBox" name="spn_commission">
+        <item row="2" column="1">
+         <widget class="QLabel" name="lbl_account">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Account</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="10">
+         <widget class="QLabel" name="lbl_risk">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Risk (%)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1">
+         <widget class="QLabel" name="lbl_comment">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Comment</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="11">
+         <widget class="QDoubleSpinBox" name="spn_spread">
           <property name="minimumSize">
            <size>
             <width>10</width>
@@ -562,7 +447,24 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="10">
+        <item row="7" column="11">
+         <widget class="QLabel" name="lblSpread">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+            <italic>false</italic>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: #268bd2;</string>
+          </property>
+          <property name="text">
+           <string>Spread</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="11">
          <widget class="QDoubleSpinBox" name="spn_tax">
           <property name="minimumSize">
            <size>
@@ -587,111 +489,8 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="5">
-         <widget class="QLineEdit" name="txt_market_description">
-          <property name="font">
-           <font>
-            <family>Inconsolata</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="6">
-         <widget class="QLineEdit" name="txt_commodity_description">
-          <property name="font">
-           <font>
-            <family>Inconsolata</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QComboBox" name="cmb_account_from">
-          <property name="font">
-           <font>
-            <family>Inconsolata</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="inputMethodHints">
-           <set>Qt::ImhPreferLowercase</set>
-          </property>
-          <property name="editable">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="lbl_amount">
-          <property name="font">
-           <font>
-            <family>Inconsolata</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Amount</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="lbl_account">
-          <property name="font">
-           <font>
-            <family>Inconsolata</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Account</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="2">
-         <widget class="QLabel" name="lbl_currency_from">
-          <property name="font">
-           <font>
-            <family>Inconsolata</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Currency from</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="2">
-         <widget class="QComboBox" name="cmb_currency_from">
-          <property name="minimumSize">
-           <size>
-            <width>90</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Inconsolata</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="9">
-         <widget class="QDoubleSpinBox" name="spn_risk">
+        <item row="4" column="11">
+         <widget class="QDoubleSpinBox" name="spn_commission">
           <property name="minimumSize">
            <size>
             <width>10</width>
@@ -715,36 +514,228 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="9">
-         <widget class="QLabel" name="lbl_risk">
+        <item row="0" column="11">
+         <widget class="QCheckBox" name="chk_automatic_flag">
+          <property name="palette">
+           <palette>
+            <active>
+             <colorrole role="WindowText">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>38</red>
+                <green>139</green>
+                <blue>210</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Button">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>238</red>
+                <green>232</green>
+                <blue>213</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Text">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>38</red>
+                <green>139</green>
+                <blue>210</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="ButtonText">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>38</red>
+                <green>139</green>
+                <blue>210</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Base">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>238</red>
+                <green>232</green>
+                <blue>213</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Window">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>238</red>
+                <green>232</green>
+                <blue>213</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </active>
+            <inactive>
+             <colorrole role="WindowText">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>38</red>
+                <green>139</green>
+                <blue>210</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Button">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>238</red>
+                <green>232</green>
+                <blue>213</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Text">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>38</red>
+                <green>139</green>
+                <blue>210</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="ButtonText">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>38</red>
+                <green>139</green>
+                <blue>210</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Base">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>238</red>
+                <green>232</green>
+                <blue>213</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Window">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>238</red>
+                <green>232</green>
+                <blue>213</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </inactive>
+            <disabled>
+             <colorrole role="WindowText">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>38</red>
+                <green>139</green>
+                <blue>210</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Button">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>238</red>
+                <green>232</green>
+                <blue>213</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Text">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>38</red>
+                <green>139</green>
+                <blue>210</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="ButtonText">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>38</red>
+                <green>139</green>
+                <blue>210</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Base">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>238</red>
+                <green>232</green>
+                <blue>213</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Window">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>238</red>
+                <green>232</green>
+                <blue>213</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </disabled>
+           </palette>
+          </property>
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+            <italic>false</italic>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: #268bd2;</string>
+          </property>
+          <property name="text">
+           <string>Automatic</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="5">
+         <widget class="QComboBox" name="cmb_market_code">
           <property name="font">
            <font>
             <family>Inconsolata</family>
             <pointsize>14</pointsize>
            </font>
           </property>
-          <property name="text">
-           <string>Risk (%)</string>
+          <property name="inputMethodHints">
+           <set>Qt::ImhLowercaseOnly</set>
+          </property>
+          <property name="editable">
+           <bool>false</bool>
           </property>
          </widget>
         </item>
-        <item row="4" column="7">
-         <widget class="QLabel" name="lbl_expiration">
+        <item row="5" column="5">
+         <widget class="QLineEdit" name="txt_market_description">
           <property name="font">
            <font>
             <family>Inconsolata</family>
             <pointsize>14</pointsize>
            </font>
           </property>
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
-          <property name="text">
-           <string>Expires on</string>
+          <property name="readOnly">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
-        <item row="5" column="7">
+        <item row="4" column="8">
          <widget class="QDateEdit" name="dt_expiration">
           <property name="font">
            <font>
@@ -777,7 +768,144 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="6">
+        <item row="2" column="8">
+         <widget class="QLabel" name="lbl_expiration">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="text">
+           <string>Expires on</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="10">
+         <widget class="QDoubleSpinBox" name="spn_risk">
+          <property name="minimumSize">
+           <size>
+            <width>10</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="locale">
+           <locale language="C" country="AnyCountry"/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="maximum">
+           <double>999999.999998999992386</double>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="5">
+         <widget class="QLabel" name="lbl_commodity_name">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Commodity</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="5">
+         <widget class="QComboBox" name="cmb_commodity_name">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="inputMethodHints">
+           <set>Qt::ImhLowercaseOnly</set>
+          </property>
+          <property name="editable">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="5">
+         <widget class="QLineEdit" name="txt_commodity_description">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="7">
+         <widget class="QLabel" name="lbl_currency_to">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Currency to</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="7">
+         <widget class="QComboBox" name="cmb_currency_to">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="6">
+         <widget class="QDoubleSpinBox" name="spn_price">
+          <property name="minimumSize">
+           <size>
+            <width>10</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="locale">
+           <locale language="C" country="AnyCountry"/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="maximum">
+           <double>999999.999998999992386</double>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="7">
          <widget class="QLabel" name="lbl_exchange_rate">
           <property name="font">
            <font>
@@ -790,7 +918,7 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="6">
+        <item row="8" column="7">
          <widget class="QDoubleSpinBox" name="spn_exchange_rate">
           <property name="minimumSize">
            <size>
@@ -815,30 +943,23 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="5">
-         <widget class="QLabel" name="lbl_currency_to">
+        <item row="4" column="10">
+         <widget class="QDoubleSpinBox" name="spn_pool">
           <property name="font">
            <font>
             <family>Inconsolata</family>
             <pointsize>14</pointsize>
            </font>
           </property>
-          <property name="text">
-           <string>Currency to</string>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="maximum">
+           <double>999999.999998999992386</double>
           </property>
          </widget>
         </item>
-        <item row="5" column="5">
-         <widget class="QComboBox" name="cmb_currency_to">
-          <property name="font">
-           <font>
-            <family>Inconsolata</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
+        <item row="8" column="1">
          <widget class="QLineEdit" name="txt_comment">
           <property name="enabled">
            <bool>true</bool>
@@ -857,20 +978,7 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="1">
-         <widget class="QLabel" name="lbl_comment">
-          <property name="font">
-           <font>
-            <family>Inconsolata</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Comment</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
+        <item row="5" column="1">
          <widget class="QComboBox" name="cmb_account_to">
           <property name="font">
            <font>
@@ -886,179 +994,29 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="8">
-         <widget class="QCheckBox" name="chk_automatic_flag">
-          <property name="palette">
-           <palette>
-            <active>
-             <colorrole role="WindowText">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>98</red>
-                <green>98</green>
-                <blue>98</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="Button">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>255</red>
-                <green>255</green>
-                <blue>215</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="Text">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>98</red>
-                <green>98</green>
-                <blue>98</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="ButtonText">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>98</red>
-                <green>98</green>
-                <blue>98</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="Base">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>255</red>
-                <green>255</green>
-                <blue>215</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="Window">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>255</red>
-                <green>255</green>
-                <blue>215</blue>
-               </color>
-              </brush>
-             </colorrole>
-            </active>
-            <inactive>
-             <colorrole role="WindowText">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>98</red>
-                <green>98</green>
-                <blue>98</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="Button">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>255</red>
-                <green>255</green>
-                <blue>215</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="Text">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>98</red>
-                <green>98</green>
-                <blue>98</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="ButtonText">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>98</red>
-                <green>98</green>
-                <blue>98</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="Base">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>255</red>
-                <green>255</green>
-                <blue>215</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="Window">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>255</red>
-                <green>255</green>
-                <blue>215</blue>
-               </color>
-              </brush>
-             </colorrole>
-            </inactive>
-            <disabled>
-             <colorrole role="WindowText">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>98</red>
-                <green>98</green>
-                <blue>98</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="Button">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>255</red>
-                <green>255</green>
-                <blue>215</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="Text">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>98</red>
-                <green>98</green>
-                <blue>98</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="ButtonText">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>98</red>
-                <green>98</green>
-                <blue>98</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="Base">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>255</red>
-                <green>255</green>
-                <blue>215</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="Window">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>255</red>
-                <green>255</green>
-                <blue>215</blue>
-               </color>
-              </brush>
-             </colorrole>
-            </disabled>
-           </palette>
+        <item row="4" column="1">
+         <widget class="QComboBox" name="cmb_account_from">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="inputMethodHints">
+           <set>Qt::ImhPreferLowercase</set>
+          </property>
+          <property name="editable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QDateEdit" name="dt_date">
+          <property name="minimumSize">
+           <size>
+            <width>90</width>
+            <height>0</height>
+           </size>
           </property>
           <property name="font">
            <font>
@@ -1066,11 +1024,107 @@
             <pointsize>14</pointsize>
            </font>
           </property>
-          <property name="text">
-           <string>Automatic</string>
+          <property name="date">
+           <date>
+            <year>1900</year>
+            <month>1</month>
+            <day>1</day>
+           </date>
           </property>
-          <property name="checked">
-           <bool>false</bool>
+          <property name="displayFormat">
+           <string>yyyy-MM-dd</string>
+          </property>
+          <property name="calendarPopup">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="5">
+         <widget class="QLabel" name="lbl_marketcode">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Market</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="6">
+         <widget class="QLabel" name="lbl_amount">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Amount</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="7">
+         <widget class="QLabel" name="lbl_currency_from">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Currency from</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="7">
+         <widget class="QComboBox" name="cmb_currency_from">
+          <property name="minimumSize">
+           <size>
+            <width>90</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="6">
+         <widget class="QDoubleSpinBox" name="spn_amount">
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="locale">
+           <locale language="C" country="AnyCountry"/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="maximum">
+           <double>999999.999998999992386</double>
+          </property>
+          <property name="value">
+           <double>0.000000000000000</double>
           </property>
          </widget>
         </item>
@@ -1289,34 +1343,35 @@
   <tabstop>dt_date</tabstop>
   <tabstop>cmb_account_from</tabstop>
   <tabstop>cmb_account_to</tabstop>
-  <tabstop>spn_amount</tabstop>
+  <tabstop>txt_comment</tabstop>
   <tabstop>cmb_market_code</tabstop>
   <tabstop>txt_market_description</tabstop>
   <tabstop>cmb_commodity_name</tabstop>
   <tabstop>txt_commodity_description</tabstop>
+  <tabstop>spn_amount</tabstop>
   <tabstop>spn_quantity</tabstop>
   <tabstop>spn_price</tabstop>
-  <tabstop>spn_commission</tabstop>
-  <tabstop>spn_tax</tabstop>
-  <tabstop>chk_automatic_flag</tabstop>
-  <tabstop>txt_comment</tabstop>
   <tabstop>cmb_currency_from</tabstop>
   <tabstop>cmb_currency_to</tabstop>
   <tabstop>spn_exchange_rate</tabstop>
   <tabstop>dt_expiration</tabstop>
   <tabstop>spn_pool</tabstop>
   <tabstop>spn_risk</tabstop>
-  <tabstop>btn_emma</tabstop>
-  <tabstop>btn_gnucash</tabstop>
-  <tabstop>btn_parameters</tabstop>
+  <tabstop>chk_automatic_flag</tabstop>
+  <tabstop>spn_commission</tabstop>
+  <tabstop>spn_tax</tabstop>
+  <tabstop>spn_spread</tabstop>
   <tabstop>btn_add</tabstop>
   <tabstop>btn_update</tabstop>
   <tabstop>btn_remove</tabstop>
   <tabstop>btn_removelast</tabstop>
   <tabstop>btn_clear</tabstop>
   <tabstop>btn_execute</tabstop>
-  <tabstop>tbl_data</tabstop>
   <tabstop>btn_exit</tabstop>
+  <tabstop>btn_emma</tabstop>
+  <tabstop>btn_gnucash</tabstop>
+  <tabstop>btn_parameters</tabstop>
+  <tabstop>tbl_data</tabstop>
  </tabstops>
  <resources/>
  <connections/>

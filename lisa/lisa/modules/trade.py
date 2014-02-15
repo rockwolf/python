@@ -133,7 +133,10 @@ class Trade(CoreModule):
             self.trade_record = dba.get_invade_record(self.finance_id, T_TRADE)
             self.long_flag = dba.get_long_flag_value(fields[Input.ACCOUNT_FROM],
                 fields[Input.ACCOUNT_TO], self.trade_record)
-            self.spread = dba.get_spread_from_commodity_id(self.commodity_id)
+            if fields[Input.AUTOMATIC_FLAG] == 1:
+                self.spread = dba.get_spread_from_commodity_id(self.commodity_id)
+            else:
+                self.spread = fields[Input.SPREAD]
         except Exception as ex:
             print Error.CREATE_STATEMENTS_TABLE_TRADE, ex
 
@@ -368,6 +371,8 @@ class Trade(CoreModule):
                 'commission_sell':Decimal(self.commission_sell),
                 'tax_buy':Decimal(self.tax_buy),
                 'tax_sell':Decimal(self.tax_sell),
+                'amount_buy_simple':Decimal(self.amount_buy_simple),
+                'amount_sell_simple':Decimal(self.amount_sell_simple),
                 'risk_input':Decimal(self.risk_input),
                 'risk_input_percent':Decimal(self.risk_input_percent),
                 'risk_initial':Decimal(self.risk_initial),
@@ -376,8 +381,6 @@ class Trade(CoreModule):
                 'risk_actual_percent':Decimal(self.risk_actual_percent),
                 'cost_total':Decimal(self.cost_total),
                 'cost_other':Decimal(self.cost_other),
-                'amount_buy_simple':Decimal(self.amount_buy_simple),
-                'amount_sell_simple':Decimal(self.amount_sell_simple),
                 'stoploss':Decimal(self.stoploss),
                 'stoploss_orig':Decimal(self.stoploss_orig),
                 'profit_loss':Decimal(self.profit_loss),
@@ -430,6 +433,7 @@ class Trade(CoreModule):
         print('currency_exchange_id =', self.currency_exchange_id)
         print('drawdown_id =', self.drawdown_id)
         print('pool_at_start =', self.pool_at_start)
+        print('spread=', self.spread)
         print('date_expiration =', self.date_expiration)
         print('expired_flag =', self.expired_flag)
         print('<\print>')

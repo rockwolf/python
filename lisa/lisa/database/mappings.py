@@ -95,10 +95,10 @@ class T_COMMODITY(Base):
     def __repr__(self):
         return "<T_STOCK_NAME('%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s' '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.commodity_id,
-                self.name, self.market_id, self.description, active,
-                currency_id, self.tick, self.tick_value, self.order_min,
+                self.name, self.market_id, self.description, self.active,
+                self.currency_id, self.tick, self.tick_value, self.order_min,
                 self.order_max, self.margin_day_proc, self.margin_night_proc,
-                self.spread, self.self.date_created, self.date_modified)
+                self.spread, self.date_created, self.date_modified)
 
 class T_MARKET(Base):
     """ T_MARKET """
@@ -218,6 +218,8 @@ class T_TRADE(Base):
     commission_sell = Column(Numeric(18,6))
     tax_buy = Column(Numeric(18,6))
     tax_sell = Column(Numeric(18,6))
+    amount_buy_simple = Column(Numeric(18,6))
+    amount_sell_simple = Column(Numeric(18,6))
     risk_input = Column(Numeric(18,6))
     risk_input_percent = Column(Numeric(18,6))
     risk_initial = Column(Numeric(18,6))
@@ -226,8 +228,6 @@ class T_TRADE(Base):
     risk_actual_percent = Column(Numeric(18,6))
     cost_total = Column(Numeric(18,6))
     cost_other = Column(Numeric(18,6))
-    amount_buy_simple = Column(Numeric(18,6))
-    amount_sell_simple = Column(Numeric(18,6))
     stoploss = Column(Numeric(18,6))
     stoploss_orig = Column(Numeric(18,6))
     profit_loss = Column(Numeric(18,6))

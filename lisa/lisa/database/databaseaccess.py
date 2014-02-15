@@ -954,6 +954,6 @@ class DatabaseAccess():
         except Exception as ex:
             print "Error  in get_spread_from_commodity_id: ", ex
         finally:
-            session.rollbck()
+            session.rollback()
             session = None
             return result

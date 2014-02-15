@@ -73,9 +73,6 @@ class ControllerMain():
             var_finance = finance.create_statements(input_fields)
             var_finance.print_statements()
             finance.write_to_database(var_finance)
-            #TODO: input_fields is a list of lists and
-            # not a list. So the below function is wrong!
-            # We need to do this check in the T_TRADE function, if that is not already the case.
             # t_trade
             var_trade = trade.create_statements(
                             input_fields,
@@ -193,7 +190,8 @@ class ControllerMain():
             , self.gui.get_exchange_rate()
             , self.gui.get_automatic_flag()
             , self.gui.get_date_expiration()
-            , self.gui.get_pool())
+            , self.gui.get_pool()
+            , self.gui.get_spread())
             
     
     def get_input_line_extra(self
@@ -216,7 +214,8 @@ class ControllerMain():
         , exchange_rate
         , automatic_flag
         , date_expiration
-        , pool):
+        , pool
+        , spread):
         """
             Add calculated fields to the input line,
             to end up with what the application will process.
@@ -263,6 +262,7 @@ class ControllerMain():
         str_list[Input.AUTOMATIC_FLAG] = int(automatic_flag)
         str_list[Input.DATE_EXPIRATION] = string_to_date(date_expiration)
         str_list[Input.POOL] = Decimal(pool)
+        str_list[Input.SPREAD] = Decimal(spread)
         return str_list
 
     def remove_selected(self, table_model, selected_index):
