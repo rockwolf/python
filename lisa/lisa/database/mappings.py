@@ -290,8 +290,8 @@ class T_TRADE(Base):
         pool_at_start,
         date_expiration,
         expired_flag,
-        active,
         spread,
+        active,
         date_created,
         date_modified):
         self.trade_id = trade_id
@@ -307,13 +307,17 @@ class T_TRADE(Base):
         self.day_sell = day_sell
         self.long_flag = long_flag
         self.price_buy = price_buy
+        self.price_buy_orig = price_buy_orig
         self.price_sell = price_sell
+        self.price_sell_orig = price_sell_orig
         self.shares_buy = shares_buy
         self.shares_sell = shares_sell
         self.commission_buy = commission_buy
         self.commission_sell = commission_sell
         self.tax_buy = tax_buy
         self.tax_sell = tax_sell
+        self.amount_buy_simple = amount_buy_simple
+        self.amount_sell_simple = amount_sell_simple
         self.risk_input = risk_input
         self.risk_input_percent = risk_input_percent
         self.risk_initial = risk_initial 
@@ -322,8 +326,6 @@ class T_TRADE(Base):
         self.risk_actual_percent = risk_actual_percent
         self.cost_total = cost_total
         self.cost_other = cost_other
-        self.amount_buy_simple = amount_buy_simple
-        self.amount_sell_simple = amount_sell_simple
         self.stoploss = stoploss
         self.stoploss_orig = stoploss_orig
         self.profit_loss = profit_loss
@@ -371,6 +373,8 @@ class T_TRADE(Base):
                 self.commission_sell,
                 self.tax_buy,
                 self.tax_sell,
+                self.amount_buy_simple,
+                self.amount_sell_simple,
                 self.risk_input,
                 self.risk_input_percent,
                 self.risk_initial,
@@ -379,8 +383,6 @@ class T_TRADE(Base):
                 self.risk_actual_percent,
                 self.cost_total,
                 self.cost_other,
-                self.amount_buy_simple,
-                self.amount_sell_simple,
                 self.stoploss,
                 self.stoploss_orig,
                 self.profit_loss,

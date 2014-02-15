@@ -389,6 +389,8 @@ class DatabaseAccess():
                     record['commission_sell'],
                     record['tax_buy'],
                     record['tax_sell'],
+                    record['amount_buy_simple'],
+                    record['amount_sell_simple'],
                     record['risk_input'],
                     record['risk_input_percent'],
                     record['risk_initial'],
@@ -397,8 +399,6 @@ class DatabaseAccess():
                     record['risk_actual_percent'],
                     record['cost_total'],
                     record['cost_other'],
-                    record['amount_buy_simple'],
-                    record['amount_sell_simple'],
                     record['stoploss'],
                     record['stoploss_orig'],
                     record['profit_loss'],
@@ -411,6 +411,7 @@ class DatabaseAccess():
                     record['pool_at_start'],
                     record['date_expiration'],
                     record['expired_flag'],
+                    record['spread'],
                     record['active'],
                     record['date_created'],
                     record['date_modified']))
@@ -444,7 +445,9 @@ class DatabaseAccess():
                  ,"day_sell": record["day_sell"]
                  ,"long_flag": record["long_flag"]
                  ,"price_buy": record["price_buy"]
+                 ,"price_buy_orig": record["price_buy_orig"]
                  ,"price_sell": record["price_sell"]
+                 ,"price_sell_orig": record["price_sell_orig"]
                  ,"shares_buy": record["shares_buy"]
                  ,"shares_sell": record["shares_sell"]
                  ,"commission_buy": record["commission_buy"]
@@ -462,6 +465,7 @@ class DatabaseAccess():
                  ,"cost_total": record["cost_total"]
                  ,"cost_other": record["cost_other"]
                  ,"stoploss": record["stoploss"]
+                 ,"stoploss_orig": record["stoploss_orig"]
                  ,"profit_loss": record["profit_loss"]
                  ,"profit_loss_percent": record["profit_loss_percent"]
                  ,"r_multiple": record["r_multiple"]
@@ -472,6 +476,7 @@ class DatabaseAccess():
                  ,"pool_at_start": record["pool_at_start"]
                  ,"date_expiration": record["date_expiration"]
                  ,"expired_flag": record["expired_flag"]
+                 ,"spread": record["spread"]
                  ,"active": record["active"]
                  ,"date_created": record["date_created"]
                  ,"date_modified": record["date_modified"]}
