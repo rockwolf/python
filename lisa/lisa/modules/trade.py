@@ -158,7 +158,7 @@ class Trade(CoreModule):
                 self.date_buy = fields[Input.DATE]
                 self.date_sell = self.trade_record['date_sell']
                 self.price_buy = calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
-                self.price_buy_orig = abs(fields[Input.PRICE])
+                self.price_buy_orig = fields[Input.PRICE]
                 self.price_sell = self.trade_record['price_sell']
                 self.price_sell_orig = self.trade_record['price_sell_orig']
                 self.shares_buy = fields[Input.QUANTITY]
@@ -197,8 +197,8 @@ class Trade(CoreModule):
             self.date_created = self.trade_record['date_created']
             self.amount_buy_simple = trade_record['amount_buy_simple']
             self.amount_sell_simple = calc.calculate_amount_simple(
-                    Decimal(fields[Input.PRICE])
-                    , Decimal(fields[Input.QUANTITY]))
+                    calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
+                    , fields[Input.QUANTITY])
             self.risk_input = self.trade_record['risk_input']
             self.risk_input_percent = self.trade_record['risk_input_percent']
             self.risk_initial = self.trade_record['risk_initial']
@@ -288,7 +288,7 @@ class Trade(CoreModule):
                 self.tax_buy = DEFAULT_DECIMAL
                 self.tax_sell = fields[Input.TAX]
             self.stoploss = calc.calculate_stoploss(
-                abs(fields[Input.PRICE]),
+                calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE]),
                 fields[Input.QUANTITY],
                 fields[Input.TAX],
                 fields[Input.COMMISSION],
@@ -301,8 +301,8 @@ class Trade(CoreModule):
             self.profit_loss = DEFAULT_DECIMAL #Only calculated at end of trade.
             self.pool_at_start = fields[Input.POOL]
             self.amount_buy_simple = calc.calculate_amount_simple(
-                Decimal(fields[Input.PRICE])
-                , Decimal(fields[Input.QUANTITY]))
+                calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
+                , fields[Input.QUANTITY])
             self.amount_sell_simple = DEFAULT_DECIMAL
             self.risk_input = calc.calculate_risk_input(
                 self.get_pool_without_margin(
@@ -311,7 +311,7 @@ class Trade(CoreModule):
                 fields[Input.RISK])
             self.risk_input_percent = fields[Input.RISK]
             self.risk_initial = calc.calculate_risk_initial(
-                fields[Input.PRICE],
+                calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE]),
                 fields[Input.QUANTITY],
                 fields[Input.TAX],
                 fields[Input.COMMISSION],
