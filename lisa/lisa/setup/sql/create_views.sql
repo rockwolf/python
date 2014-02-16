@@ -167,4 +167,34 @@ from
     --inner join t_currency_exchange ce on ce.currency_exchange_id = f.currency_exchange_id
     --inner join t_currency c on f.currency_id_to = c.currency_id_to
 ;
+
+/* V_TRADE_JOURNAL */
+--DROP VIEW V_TRADE_JOURNAL;
+/*CREATE VIEW V_TRADE_JOURNAL
+AS
+select
+    m.name as market
+    , c.name as commodity
+    , t.date_buy
+    , t.date_sell
+    , t.long_flag
+    , t.price_buy
+    , t.price_sell
+    , t.shares_buy
+    , t.shares_sell
+    , t.commission_buy
+    , t.commission_sell
+    , t.cost_buy
+    , t.cost_sell
+    , t.risk_input
+    , t.risk_initial
+    , t.risk_actual
+    , t.price_buy_orig
+    , t.price_sell_orig
+from
+    t_trade t
+    inner join t_market m on t.market_id = m.market_id
+    inner join t_commodity c on t.commodity_id = c.commodity_id
+;*/
+
 COMMIT;

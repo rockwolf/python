@@ -155,7 +155,7 @@ class Trade(CoreModule):
                 and T_TRADE.id_buy == -1):
                 self.id_buy = self.finance_id
                 self.id_sell = self.trade_record['id_sell']
-                self.date_buy = self.date_created
+                self.date_buy = fields[Input.DATE]
                 self.date_sell = self.trade_record['date_sell']
                 self.price_buy = calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
                 self.price_buy_orig = abs(fields[Input.PRICE])
@@ -172,7 +172,7 @@ class Trade(CoreModule):
                 self.id_buy = self.trade_record['id_buy']
                 self.id_sell = self.finance_id
                 self.date_buy = self.trade_record['date_buy']
-                self.date_sell = self.date_created
+                self.date_sell = fields[Input.DATE]
                 self.price_buy = self.trade_record['price_buy']
                 self.price_buy_orig = self.trade_record['price_buy_orig']
                 self.price_sell = calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
@@ -258,7 +258,7 @@ class Trade(CoreModule):
             if we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):
                 self.id_buy = self.finance_id
                 self.id_sell = -1
-                self.date_buy = self.date_created
+                self.date_buy = fields[Input.DATE]
                 self.date_sell = string_to_date(DEFAULT_DATE)
                 self.price_buy = calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
                 self.price_buy_orig = fields[Input.PRICE]
@@ -274,7 +274,7 @@ class Trade(CoreModule):
             else:
                 self.id_buy = -1
                 self.id_sell = self.finance_id
-                self.date_sell = self.date_created
+                self.date_sell = fields[Input.DATE]
                 self.date_buy = string_to_date(DEFAULT_DATE)
                 self.price_buy = DEFAULT_DECIMAL
                 self.price_buy_orig = DEFAULT_DECIMAL
@@ -413,6 +413,10 @@ class Trade(CoreModule):
         print('long_flag =', self.long_flag)
         print('price_buy =', self.price_buy)
         print('price_sell =', self.price_sell)
+        print('price_buy_orig =', self.price_buy_orig)
+        print('price_sell_orig =', self.price_sell_orig)
+        print('amount_buy_simple =', self.amount_buy_simple)
+        print('amount_sell_simple =', self.amount_sell_simple)
         print('risk_input =', self.risk_input)
         print('risk_input_percent =', self.risk_input_percent)
         print('risk_initial =', self.risk_initial)
@@ -421,8 +425,6 @@ class Trade(CoreModule):
         print('risk_actual_percent =', self.risk_actual_percent)
         print('cost_total =', self.cost_total)
         print('cost_other =', self.cost_other)
-        print('amount_buy_simple =', self.amount_buy_simple)
-        print('amount_sell_simple =', self.amount_sell_simple)
         print('stoploss =', self.stoploss)
         print('profit_loss =', self.profit_loss)
         print('profit_loss_percent =', self.profit_loss_percent)
