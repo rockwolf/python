@@ -326,8 +326,8 @@ class Trade(CoreModule):
             self.currency_exchange_id = dba.first_currency_exchange_id_from_latest()
             self.drawdown_id = dba.new_drawdown_record()
             self.r_multiple = DEFAULT_DECIMAL
-            date_expiration = fields[Input.DATE_EXPIRATION]
-            expired_flag = DEFAULT_INT
+            self.date_expiration = fields[Input.DATE_EXPIRATION]
+            self.expired_flag = DEFAULT_INT
         except Exception as ex:
             print Error.CREATE_STATEMENTS_TABLE_TRADE, ex
 
