@@ -1,3 +1,4 @@
+#!/usr/local/bin/python
 """
     See LICENSE file for copyright and license details.
 """
@@ -12,7 +13,7 @@ def is_a_trading_account(account):
     """
         Check if the given account is a broker (used for trading).
     """
-    return (account in TRADING_ACCOUNTS)
+    return (get_last_part(account) in TRADING_ACCOUNTS)
     
 def is_negative_amount(account_from):
     """
@@ -68,7 +69,7 @@ def combine_sets(a_set):
         combined = combined | item
     return list(combined)
     
-def get_last_part(astring, aseparator):
+def get_last_part(astring, aseparator = ':'):
     """
         Gets the last part of an <asaparator> seprated string.
     """
