@@ -293,7 +293,9 @@ class Trade(CoreModule):
                 fields[Input.TAX],
                 fields[Input.COMMISSION],
                 fields[Input.RISK],
-                fields[Input.POOL],
+                self.get_pool_without_margin(
+                    fields[Input.POOL],
+                    dba.get_margin_pool()),
                 self.long_flag)
             self.stoploss_orig = calc.convert_to_orig(self.stoploss, fields[Input.EXCHANGE_RATE])
             self.profit_loss = DEFAULT_DECIMAL #Only calculated at end of trade.
@@ -303,7 +305,9 @@ class Trade(CoreModule):
                 , Decimal(fields[Input.QUANTITY]))
             self.amount_sell_simple = DEFAULT_DECIMAL
             self.risk_input = calc.calculate_risk_input(
-                fields[Input.POOL],
+                self.get_pool_without_margin(
+                    fields[Input.POOL],
+                    dba.get_margin_pool()),
                 fields[Input.RISK])
             self.risk_input_percent = fields[Input.RISK]
             self.risk_initial = calc.calculate_risk_initial(
@@ -440,3 +444,8 @@ class Trade(CoreModule):
         print('expired_flag =', self.expired_flag)
         print('<\print>')
 
+    def get_pool_without_margin(self, pool, margin):
+        """
+            Returns the pool minus a margin.
+        """
+        return pool*(Decimal('1.0')-margin/Decimal(100.0))

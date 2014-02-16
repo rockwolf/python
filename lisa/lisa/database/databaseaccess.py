@@ -962,3 +962,10 @@ class DatabaseAccess():
             session.rollback()
             session = None
             return result
+
+    def get_margin_pool(self):
+        """
+            Get margin to use on the pool.
+        """
+        #TODO: get this from the database.
+        return Decimal(25.0)

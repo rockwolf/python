@@ -192,7 +192,6 @@ class ControllerMain():
             , self.gui.get_date_expiration()
             , self.gui.get_pool()
             , self.gui.get_spread())
-            
     
     def get_input_line_extra(self
         , date
