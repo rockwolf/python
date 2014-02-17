@@ -101,6 +101,8 @@ class Trade(CoreModule):
                         # GENERAL INFO AT START
                         self.general_info_at_start(dba, calc, fields) 
                         # UPDATE/INSERT
+                        print "test: invade_started = ", dba.invade_already_started(self.market_id,
+                                self.commodity_id, T_TRADE)
                         if dba.invade_already_started(self.market_id,
                                 self.commodity_id, T_TRADE):
                             self.update_info(dba, calc, fields, self.trade_record)
@@ -150,6 +152,7 @@ class Trade(CoreModule):
         try:
             self.flag_insupdel = StatementType.UPDATE
             self.trade_id = trade_record['trade_id']
+            print "test: trade_id = ", self.trade_id
             ## buy/sell related fields
             if (we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO])
                 and T_TRADE.id_buy == -1):
@@ -202,7 +205,7 @@ class Trade(CoreModule):
             self.risk_input = self.trade_record['risk_input']
             self.risk_input_percent = self.trade_record['risk_input_percent']
             self.risk_initial = self.trade_record['risk_initial']
-            self.risk_initial_percent = (risk_initial/amount_buy_simple)*Decimal(100.0)
+            self.risk_initial_percent = (self.risk_initial/self.amount_buy_simple)*Decimal(100.0)
             self.risk_actual = calc.calculate_risk_actual(
                 self.trade_record['price_buy'],
                 self.trade_record['shares_buy'],
