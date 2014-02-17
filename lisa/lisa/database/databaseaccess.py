@@ -967,5 +967,4 @@ class DatabaseAccess():
         """
             Get margin to use on the pool.
         """
-        #TODO: get this from the database.
-        return Decimal(25.0)
+        return Decimal(self.get_parameter_value(1))
