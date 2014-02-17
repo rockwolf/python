@@ -246,9 +246,12 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.gui.spn_tax.setEnabled(is_commodity)
         self.gui.spn_pool.setEnabled(is_commodity)
         #TODO: automatic calculation of commission temporarily disabled
+        #TODO: double check the behaviour here, for the newly added fields.
         self.gui.chk_automatic_flag.setEnabled(is_commodity)
         self.gui.spn_risk.setEnabled(is_commodity)
         self.gui.dt_expiration.setEnabled(is_commodity)
+        self.gui.spn_pool_at_start.setEnabled(is_commodity);
+        self.gui.spn_spread.setEnabled(is_commodity);
         # set inputfields
         self.gui.spn_tax.setValue(Decimal(self.config.default_tax))
         self.gui.spn_risk.setValue(Decimal(self.config.default_risk))
@@ -285,7 +288,7 @@ class ControllerPyqt(QtGui.QMainWindow):
                 'comment', 'commodity', 'commodity_description', 'market',
                 'market_description', 'quantity', 'price',
                 'commission', 'tax', 'risk', 'currency_from', 'currency_to', 'exchange_rate',
-                'automatic_flag', 'expires_on', 'pool', 'spread']
+                'automatic_flag', 'expires_on', 'pool', 'spread', 'tick_size', 'tick_value']
         self.model_data = TableModel([input_line], headers)
         self.gui.tbl_data.setModel(self.model_data)
 
@@ -464,11 +467,17 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
         return str(self.gui.spn_spread.textFromValue(self.gui.spn_spread.value()))
     
+    def get_tick_size(self):
+        """
+            Returns the tick value from the spn_tick_size spinedit.
+        """
+        return str(self.gui.spn_tick_size.textFromValue(self.gui.spn_tick_size.value()))
+    
     def get_tick_value(self):
         """
             Returns the tick value from the spn_tick_value spinedit.
         """
-        return str(self.gui.spn_tick_value.textFromValue(self.gui.spn_tick.value()))
+        return str(self.gui.spn_tick_value.textFromValue(self.gui.spn_tick_value.value()))
 
     def set_info_details(self, value):
         """
