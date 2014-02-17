@@ -448,4 +448,4 @@ class Trade(CoreModule):
         """
             Returns the pool minus a margin.
         """
-        return pool*(Decimal('1.0')-margin/Decimal(100.0))
+        return pool*(Decimal('1.0')-margin)
