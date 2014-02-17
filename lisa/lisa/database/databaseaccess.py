@@ -962,7 +962,43 @@ class DatabaseAccess():
             session.rollback()
             session = None
             return result
+            
+    def get_tick_size_from_commodity_id(self, commodity_id):
+        """
+            Get the tick size for a given commodity.
+        """
+        result = DEFAULT_DECIMAL
+        try:
+            session = self.Session()
+            first_obj = session.query(T_COMMODITY.spread).filter_by(
+                commodity_id=commodity_id).first()
+            if first_obj is not None:
+                result = Decimal(first_obj.tick_size)
+        except Exception as ex:
+            print "Error  in get_tick_size_from_commodity_id: ", ex
+        finally:
+            session.rollback()
+            session = None
+            return result
 
+    def get_tick_value_from_commodity_id(self, commodity_id):
+        """
+            Get the tick value for a given commodity.
+        """
+        result = DEFAULT_DECIMAL
+        try:
+            session = self.Session()
+            first_obj = session.query(T_COMMODITY.spread).filter_by(
+                commodity_id=commodity_id).first()
+            if first_obj is not None:
+                result = Decimal(first_obj.tick_value)
+        except Exception as ex:
+            print "Error  in get_tick_value_from_commodity_id: ", ex
+        finally:
+            session.rollback()
+            session = None
+            return result
+            
     def get_margin_pool(self):
         """
             Get margin to use on the pool.
