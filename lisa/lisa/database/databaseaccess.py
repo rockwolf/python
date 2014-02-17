@@ -906,6 +906,7 @@ class DatabaseAccess():
             session = self.Session()
             #NOTE: id_buy or id_sell must be -1
             # but both can't be filled in (= finished trade)
+            print "test: market_id=", market_id, "commodity_id=", commodity_id
             first_obj = session.query(table_class).filter(
                     table_class.market_id == market_id,
                     table_class.commodity_id == commodity_id,
