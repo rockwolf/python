@@ -463,6 +463,12 @@ class ControllerPyqt(QtGui.QMainWindow):
             Returns the spread from the spn_spread spinedit.
         """
         return str(self.gui.spn_spread.textFromValue(self.gui.spn_spread.value()))
+    
+    def get_tick_value(self):
+        """
+            Returns the tick value from the spn_tick_value spinedit.
+        """
+        return str(self.gui.spn_tick_value.textFromValue(self.gui.spn_tick.value()))
 
     def set_info_details(self, value):
         """
