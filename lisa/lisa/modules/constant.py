@@ -4,6 +4,7 @@
 """
 
 from decimal import Decimal
+from generic.modules.function import *
 
 class Table():
     """
@@ -130,7 +131,7 @@ class Transaction():
 TRADING_ACCOUNTS = ['whsi00']
 NEGATIVES = ['asset']
     
-DEFAULT_DATE = "1900-01-01"
+DEFAULT_DATE = string_to_date("1900-01-01")
 DEFAULT_DECIMAL = Decimal(0.0)
 DEFAULT_INT = 0
 DEFAULT_DECIMAL_EMMA = Decimal(-1.0)
