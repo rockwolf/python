@@ -132,6 +132,7 @@ class Trade(CoreModule):
             self.commodity_id = dba.commodity_id_from_commodity_name(
                 fields[Input.COMMODITY_NAME], self.market_id)
             self.finance_record = dba.get_finance_record(self.finance_id)
+            print "test: get_invade_record(" + str(self.finance_id) + ", T_TRADE)"
             self.trade_record = dba.get_invade_record(self.finance_id, T_TRADE)
             self.long_flag = dba.get_long_flag_value(fields[Input.ACCOUNT_FROM],
                 fields[Input.ACCOUNT_TO], self.trade_record)
@@ -158,7 +159,7 @@ class Trade(CoreModule):
                 and T_TRADE.id_buy == -1):
                 self.id_buy = self.finance_id
                 self.id_sell = self.trade_record['id_sell']
-                self.date_buy = fields[Input.DATE]
+                self.date_buy = str_to_date(fields[Input.DATE])
                 self.date_sell = self.trade_record['date_sell']
                 self.price_buy = calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
                 self.price_buy_orig = fields[Input.PRICE]
@@ -175,7 +176,7 @@ class Trade(CoreModule):
                 self.id_buy = self.trade_record['id_buy']
                 self.id_sell = self.finance_id
                 self.date_buy = self.trade_record['date_buy']
-                self.date_sell = fields[Input.DATE]
+                self.date_sell = str_to_date(fields[Input.DATE])
                 self.price_buy = self.trade_record['price_buy']
                 self.price_buy_orig = self.trade_record['price_buy_orig']
                 self.price_sell = calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
