@@ -915,8 +915,7 @@ class DatabaseAccess():
                             table_class.id_buy == -1,
                             table_class.id_sell == -1
                         )).filter(
-                            table_class.id_buy != -1,
-                            table_class.id_sell !=  -1
+                            table_class.id_buy != table_class.id_sell
                        ).first()
             if first_obj is not None:
                 result = True
