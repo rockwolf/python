@@ -154,6 +154,7 @@ class Trade(CoreModule):
             self.flag_insupdel = StatementType.UPDATE
             self.trade_id = trade_record['trade_id']
             print "test: trade_id = ", self.trade_id
+            print "test: self.trade_record = ", self.trade_record
             ## buy/sell related fields
             if (we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO])
                 and T_TRADE.id_buy == -1):
