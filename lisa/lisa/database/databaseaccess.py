@@ -929,7 +929,7 @@ class DatabaseAccess():
             either id_buy or id_sell.
         """
         #TODO: this code can only deal with buying all and selling all for now!
-        result = []
+        result = {}
         session = self.Session()
         try:
             first_obj = session.query(table_class).filter(
