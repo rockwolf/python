@@ -75,7 +75,7 @@ class Trade(CoreModule):
         self.active = DEFAULT_INT
         self.date_created = DEFAULT_DATE
         self.date_modified = DEFAULT_DATE
-        self.trade_record = []
+        self.trade_record = {}
 
     def create_statements(self, input_fields, statements_finance):
         """
