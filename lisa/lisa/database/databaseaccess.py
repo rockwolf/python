@@ -937,6 +937,7 @@ class DatabaseAccess():
                         table_class.id_buy == finance_id,
                         table_class.id_sell == finance_id)).first() #finance_id is unique anyway
             if first_obj is not None:
+                print "test get_invade_record: found!"
                 result = self.get_record(first_obj)
         except Exception as ex:
             print "Error in get_invade_record: ", ex

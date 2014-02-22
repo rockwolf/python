@@ -75,7 +75,7 @@ class Trade(CoreModule):
         self.active = DEFAULT_INT
         self.date_created = DEFAULT_DATE
         self.date_modified = DEFAULT_DATE
-        self.trade_record = {}
+        self.trade_record = []
 
     def create_statements(self, input_fields, statements_finance):
         """
@@ -105,9 +105,9 @@ class Trade(CoreModule):
                                 self.commodity_id, T_TRADE)
                         if dba.invade_already_started(self.market_id,
                                 self.commodity_id, T_TRADE):
-                            self.update_info(dba, calc, fields, self.trade_record)
+                            self.update_info(dba, calc, fields)
                         else:
-                            self.insert_info(dba, calc, fields, self.trade_record)
+                            self.insert_info(dba, calc, fields)
                         # GENERAL VARIABLES THAT CAN BE CALCULATED ON THE DATA WE HAVE
                         self.general_info_at_end(fields, self.trade_record)
                         # TEST INFO
@@ -133,7 +133,10 @@ class Trade(CoreModule):
                 fields[Input.COMMODITY_NAME], self.market_id)
             self.finance_record = dba.get_finance_record(self.finance_id)
             print "test: get_invade_record(" + str(self.finance_id) + ", T_TRADE)"
+            #TODO: you can't call get_invade_record with the new finance_id! That one does not exist yet in t_trade!
+            #Find another way to call/code dba.get_invade_record
             self.trade_record = dba.get_invade_record(self.finance_id, T_TRADE)
+            print "test: invade_record =", self.trade_record
             self.long_flag = dba.get_long_flag_value(fields[Input.ACCOUNT_FROM],
                 fields[Input.ACCOUNT_TO], self.trade_record)
             if fields[Input.AUTOMATIC_FLAG] == 1:
@@ -143,7 +146,7 @@ class Trade(CoreModule):
         except Exception as ex:
             print Error.CREATE_STATEMENTS_TABLE_TRADE, ex
 
-    def update_info(self, dba, calc, fields, trade_record):
+    def update_info(self, dba, calc, fields):
         """
             Update info.
         """
@@ -152,9 +155,9 @@ class Trade(CoreModule):
         #TABLE_TRADE.query.filter(market_name=...,commodity_name=...).update({"date_...": date_... etc.})
         try:
             self.flag_insupdel = StatementType.UPDATE
-            self.trade_id = trade_record['trade_id']
-            print "test: trade_id = ", self.trade_id
             print "test: self.trade_record = ", self.trade_record
+            self.trade_id = self.trade_record['trade_id']
+            print "test: trade_id = ", self.trade_id
             ## buy/sell related fields
             if (we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO])
                 and T_TRADE.id_buy == -1):
@@ -182,9 +185,9 @@ class Trade(CoreModule):
                 self.price_buy_orig = self.trade_record['price_buy_orig']
                 self.price_sell = calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
                 self.price_sell_orig = fields[Input.PRICE]
-                self.shares_buy = trade_record['shares_buy']
+                self.shares_buy = self.trade_record['shares_buy']
                 self.shares_sell = fields[Input.QUANTITY]
-                self.commission_buy = trade_record['commission_buy']
+                self.commission_buy = self.trade_record['commission_buy']
                 self.commission_sell = fields[Input.COMMISSION]
                 self.tax_buy = self.trade_record['tax_buy']
                 self.tax_sell = fields[Input.TAX]
@@ -200,7 +203,7 @@ class Trade(CoreModule):
                 self.trade_record['amount_buy'])
             self.pool_at_start = self.trade_record['pool_at_start']
             self.date_created = self.trade_record['date_created']
-            self.amount_buy_simple = trade_record['amount_buy_simple']
+            self.amount_buy_simple = self.trade_record['amount_buy_simple']
             self.amount_sell_simple = calc.calculate_amount_simple(
                     calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
                     , fields[Input.QUANTITY])
@@ -252,7 +255,7 @@ class Trade(CoreModule):
         except Exception as ex:
             print Error.CREATE_STATEMENTS_TABLE_TRADE, ex
 
-    def insert_info(self, dba, calc, fields, trade_record):
+    def insert_info(self, dba, calc, fields):
         """
             Insert info.
         """
