@@ -76,6 +76,7 @@ class Trade(CoreModule):
         self.date_created = DEFAULT_DATE
         self.date_modified = DEFAULT_DATE
         self.trade_record = []
+        self.open_trade_position = -1
 
     def create_statements(self, input_fields, statements_finance):
         """
@@ -98,13 +99,15 @@ class Trade(CoreModule):
                         fields[Input.ACCOUNT_FROM]
                         , fields[Input.ACCOUNT_TO]):
                         records = records + 1
+                        self.open_trade_position = dba.open_trade_position(
+                            self.market_id,
+                            self.commodity_id,
+                            T_TRADE)
                         # GENERAL INFO AT START
                         self.general_info_at_start(dba, calc, fields) 
                         # UPDATE/INSERT
-                        print "test: invade_started = ", dba.invade_already_started(self.market_id,
-                                self.commodity_id, T_TRADE)
-                        if dba.invade_already_started(self.market_id,
-                                self.commodity_id, T_TRADE):
+                        print "test: invade_started = ", (self.open_trade_position > -1)
+                        if open_trade_position > -1:
                             self.update_info(dba, calc, fields)
                         else:
                             self.insert_info(dba, calc, fields)
@@ -132,11 +135,11 @@ class Trade(CoreModule):
             self.commodity_id = dba.commodity_id_from_commodity_name(
                 fields[Input.COMMODITY_NAME], self.market_id)
             self.finance_record = dba.get_finance_record(self.finance_id)
-            print "test: get_invade_record(" + str(self.finance_id) + ", T_TRADE)"
+            print "test: get_trade_record(" + str(self.finance_id) + ", T_TRADE)"
             #TODO: you can't call get_invade_record with the new finance_id! That one does not exist yet in t_trade!
             #Find another way to call/code dba.get_invade_record
-            self.trade_record = dba.get_invade_record(self.finance_id, T_TRADE)
-            print "test: invade_record =", self.trade_record
+            self.trade_record = dba.get_trade_record(self.open_trade_position, T_TRADE)
+            print "test: trade_record =", self.trade_record
             self.long_flag = dba.get_long_flag_value(fields[Input.ACCOUNT_FROM],
                 fields[Input.ACCOUNT_TO], self.trade_record)
             if fields[Input.AUTOMATIC_FLAG] == 1:

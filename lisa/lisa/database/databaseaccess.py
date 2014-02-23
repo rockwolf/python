@@ -897,11 +897,15 @@ class DatabaseAccess():
             session = None
             return result
 
-    def invade_already_started(self, market_id, commodity_id, table_class):
+    def open_trade_position(self, market_id, commodity_id, table_class):
         """
-            Check if this trade or investment has already started.
+            Check if this trade or investment has already started
+            and return it's trade_id (or investment_id).
+            Retuns:
+            when not found -> -1
+            when found -> the id
         """
-        result = False
+        result = -1
         try:
             session = self.Session()
             #NOTE: id_buy or id_sell must be -1
@@ -918,24 +922,25 @@ class DatabaseAccess():
                             table_class.id_buy != table_class.id_sell
                        ).first()
             if first_obj is not None:
-                result = True
+                result = first_obj.trade_id
         except Exception as ex:
             print Error.INVADE_ALREADY_STARTED, ex
-        return result
+        finally:
+            session.rollback()
+            session = None
+            return result
 
-    def get_invade_record(self, finance_id, table_class):
+    def get_trade_record(self, trade_id, table_class):
         """
-            Gets the trade_record with the given finance_id set in
-            either id_buy or id_sell.
+            Gets the trade_record with the given trade_id.
         """
         #TODO: this code can only deal with buying all and selling all for now!
         result = {}
         session = self.Session()
         try:
             first_obj = session.query(table_class).filter(
-                    or_(
-                        table_class.id_buy == finance_id,
-                        table_class.id_sell == finance_id)).first() #finance_id is unique anyway
+                        table_class.trade_id == trade_id,
+                        )
             if first_obj is not None:
                 print "test get_invade_record: found!"
                 result = self.get_record(first_obj)
@@ -944,7 +949,7 @@ class DatabaseAccess():
         finally:
             session.rollback()
             session = None
-        return result
+            return result
 
     def get_spread_from_commodity_id(self, commodity_id):
         """
