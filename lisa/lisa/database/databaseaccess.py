@@ -214,7 +214,7 @@ class DatabaseAccess():
             Are we long?
         """
         result = False
-        if trade_record == []:
+        if trade_record == {}:
             result = is_a_trading_account(account_from) and \
                 deals_with_commodities(account_to)
             # NOTE: if account_from = broker and account_to is a commodity,

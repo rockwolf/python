@@ -104,7 +104,7 @@ class Trade(CoreModule):
                         self.general_info_at_start(dba, calc, fields) 
                         # UPDATE/INSERT
                         print "test: invade_started = ", (self.open_trade_position > -1)
-                        if open_trade_position > -1:
+                        if self.open_trade_position > -1:
                             self.update_info(dba, calc, fields)
                         else:
                             self.insert_info(dba, calc, fields)
