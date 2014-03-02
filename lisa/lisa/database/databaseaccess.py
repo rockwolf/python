@@ -763,35 +763,24 @@ class DatabaseAccess():
             session = None
         return result
 
-    def get_finance_record(self, finance_id):
+    def get_finance_record(self, afinance_id):
         """ 
             Gets the finance_record with the given finance_id.
         """
-        result = []
+        result = {}
         session = self.Session()
         try:
-            first_obj = session.query(T_FINANCE).filter_by(finance_id =
-                    finance_id).first()
+            first_obj = session.query(T_FINANCE).filter(T_FINANCE.finance_id ==
+                    afinance_id).first()
             if first_obj is not None:
-                result = self.get_record(first_obj)
+                result = first_obj.__dict__
         except Exception as ex:
             print "Error in get_finance_record: ", ex
         finally:
             session.rollback()
             session = None
+            return result
     
-    def get_record(self, row):
-        """
-            Gets a dictionary with the fields of a return record from the
-            database.
-        """ 
-        result = {}
-        try:
-            result = row_to_dict(row)
-        except Exception as ex:
-            print "Error in get_record: ", ex
-        return result
-
     def get_rep_check_total(self, check_totals):
         """
             Returns a string with the totals per account.
@@ -930,7 +919,7 @@ class DatabaseAccess():
             session = None
             return result
 
-    def get_trade_record(self, trade_id, table_class):
+    def get_trade_record(self, atrade_id):
         """
             Gets the trade_record with the given trade_id.
         """
@@ -938,14 +927,14 @@ class DatabaseAccess():
         result = {}
         session = self.Session()
         try:
-            first_obj = session.query(table_class).filter(
-                        table_class.trade_id == trade_id,
-                        )
+            first_obj = session.query(T_TRADE).filter(
+                        T_TRADE.trade_id == atrade_id,
+                        ).first()
             if first_obj is not None:
                 print "test get_invade_record: found!"
-                result = self.get_record(first_obj)
+                result = first_obj.__dict__
         except Exception as ex:
-            print "Error in get_invade_record: ", ex
+            print "Error in get_trade_record: ", ex
         finally:
             session.rollback()
             session = None

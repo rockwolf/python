@@ -28,6 +28,7 @@ class Trade(CoreModule):
         self.flag_insupdel = StatementType.INSERT
         self.trade_id = DEFAULT_INT
         self.market_id = DEFAULT_INT
+        self.commodity_id = DEFAULT_INT
         self.commodity_name = ''
         self.date_buy = DEFAULT_DATE
         self.year_buy = DEFAULT_INT
@@ -99,10 +100,6 @@ class Trade(CoreModule):
                         fields[Input.ACCOUNT_FROM]
                         , fields[Input.ACCOUNT_TO]):
                         records = records + 1
-                        self.open_trade_position = dba.open_trade_position(
-                            self.market_id,
-                            self.commodity_id,
-                            T_TRADE)
                         # GENERAL INFO AT START
                         self.general_info_at_start(dba, calc, fields) 
                         # UPDATE/INSERT
@@ -134,11 +131,15 @@ class Trade(CoreModule):
                 fields[Input.MARKET_CODE])
             self.commodity_id = dba.commodity_id_from_commodity_name(
                 fields[Input.COMMODITY_NAME], self.market_id)
+            self.open_trade_position = dba.open_trade_position(
+                self.market_id,
+                self.commodity_id,
+                T_TRADE)
             self.finance_record = dba.get_finance_record(self.finance_id)
-            print "test: get_trade_record(" + str(self.finance_id) + ", T_TRADE)"
+            print "test: get_trade_record(" + str(self.finance_id)
             #TODO: you can't call get_invade_record with the new finance_id! That one does not exist yet in t_trade!
             #Find another way to call/code dba.get_invade_record
-            self.trade_record = dba.get_trade_record(self.open_trade_position, T_TRADE)
+            self.trade_record = dba.get_trade_record(self.open_trade_position)
             print "test: trade_record =", self.trade_record
             self.long_flag = dba.get_long_flag_value(fields[Input.ACCOUNT_FROM],
                 fields[Input.ACCOUNT_TO], self.trade_record)
