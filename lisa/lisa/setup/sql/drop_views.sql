@@ -13,4 +13,5 @@ drop view V_CURRENCY;
 drop view V_PARAMETER;
 drop view V_POOL;
 drop view V_EXPECTANCY;
+drop view V_TRADE_JOURNAL;
 COMMIT;

@@ -136,7 +136,7 @@ class Trade(CoreModule):
                 self.commodity_id,
                 T_TRADE)
             self.finance_record = dba.get_finance_record(self.finance_id)
-            print "test: get_trade_record(" + str(self.finance_id)
+            print "test: get_trade_record(" + str(self.open_trade_position)
             #TODO: you can't call get_invade_record with the new finance_id! That one does not exist yet in t_trade!
             #Find another way to call/code dba.get_invade_record
             self.trade_record = dba.get_trade_record(self.open_trade_position)

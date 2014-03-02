@@ -170,9 +170,11 @@ from
 
 /* V_TRADE_JOURNAL */
 --DROP VIEW V_TRADE_JOURNAL;
-/*CREATE VIEW V_TRADE_JOURNAL
+CREATE VIEW V_TRADE_JOURNAL
 AS
 select
+    t.trade_id,
+    t.active,
     m.name as market
     , c.name as commodity
     , t.date_buy
@@ -184,17 +186,50 @@ select
     , t.shares_sell
     , t.commission_buy
     , t.commission_sell
-    , t.cost_buy
-    , t.cost_sell
+    , t.tax_buy
+    , t.tax_sell
+    --, t.cost_buy
+    --, t.cost_sell
     , t.risk_input
+    , t.risk_input_percent
     , t.risk_initial
+    , t.risk_initial_percent
     , t.risk_actual
+    , t.risk_actual_percent
+    , t.stoploss
+    , t.stoploss_orig
+    , t.profit_loss
+    , t.profit_loss_percent
+    , t.r_multiple
+    , t.win_flag
+    --, t.wins
+    --, t.wins_percent
+    , t.amount_buy_simple
+    , t.amount_sell_simple
+    , d.drawdown_current
+    , d.drawdown_max
+    , t.spread
     , t.price_buy_orig
     , t.price_sell_orig
+    --, u_buy.code as currency_from_buy
+    --, 'EUR' as currency_to_buy
+    --, u_sell.code as currency_from_sell
+    --, 'EUR' as currency_to_sell
+    --, e_buy.exchange_rate as exchange_rate_buy
+    --, e_sell.exchange_rate as exchange_rate_sell
+    , t.id_buy
+    , t.id_sell
 from
     t_trade t
     inner join t_market m on t.market_id = m.market_id
     inner join t_commodity c on t.commodity_id = c.commodity_id
-;*/
+    inner join t_drawdown d on t.drawdown_id = d.drawdown_id
+    left join t_finance f_buy on t.id_buy = f_buy.finance_id
+    --inner join t_currency_exchange e_buy on f_buy.currency_exchange_id = e_buy.currency_exchange_id
+    --inner join t_currency u_buy on e_buy.currency_from_id = u_buy.currency_id
+    left join t_finance f_sell on t.id_sell = f_sell.finance_id
+    --inner join t_currency_exchange e_sell on f_sell.currency_exchange_id = e_sell.currency_exchange_id
+    --inner join t_currency u_sell on e_sell.currency_from_id = u_sell.currency_id
+;
 
 COMMIT;

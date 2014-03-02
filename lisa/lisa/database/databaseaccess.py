@@ -250,6 +250,7 @@ class DatabaseAccess():
                 #update
                 statements_update = self.assemble_statement_list_update(
                         statements, StatementType.UPDATE)
+                print "test: statements_update = ", statements_update
                 self.write_statement_list_update(
                         statements_update, statements.table_name)
                 #delete
@@ -290,6 +291,7 @@ class DatabaseAccess():
         #TODO: this code needs the update instruction I've written somewhere
         #in databaseaccess.py
         #=> session.query(Supplier).filter_by(id=2).update({"name": u"Mayowa"})
+        print "test: final_statements =", final_statements
         session = self.Session()
         try:
             if final_statements != []:
@@ -931,8 +933,7 @@ class DatabaseAccess():
                         T_TRADE.trade_id == atrade_id,
                         ).first()
             if first_obj is not None:
-                print "test get_invade_record: found!"
-                result = first_obj.__dict__
+                result = row_to_dict(first_obj)
         except Exception as ex:
             print "Error in get_trade_record: ", ex
         finally:

@@ -47,6 +47,10 @@ class ControllerMain():
         self.gui = window
         window.init_gui()
         window.show()
+        # test
+        #dba = DatabaseAccess(self.config)
+        #print "test in controller.run:", dba.get_trade_record(1)
+        #dba = None
         sys.exit(app.exec_())
 
     def write_to_database(self, table_model):
