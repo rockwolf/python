@@ -180,6 +180,12 @@ class Trade(CoreModule):
                 self.commission_sell = self.trade_record['commission_sell']
                 self.tax_buy = fields[Input.TAX]
                 self.tax_sell = self.trade_record['tax_sell']
+                self.amount_buy = fields[Input.AMOUNT]
+                self.amount_buy_simple = calc.calculate_amount_simple(
+                    calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
+                    , fields[Input.QUANTITY])
+                self.amount_sell = self.trade_record['amount_sell']
+                self.amount_sell_simple = self.['amount_sell_simple']
             elif (not we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO])
                 and self.trade_record['id_sell'] == -1):
                 self.id_buy = self.trade_record['id_buy']
@@ -196,6 +202,12 @@ class Trade(CoreModule):
                 self.commission_sell = fields[Input.COMMISSION]
                 self.tax_buy = self.trade_record['tax_buy']
                 self.tax_sell = fields[Input.TAX]
+                self.amount_buy = self.trade_record['amount_buy']
+                self.amount_buy_simple = self.trade_record['amount_buy_simple']
+                self.amount_sell = fields[Input.AMOUNT]
+                self.amount_sell_simple = calc.calculate_amount_simple(
+                    calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
+                    , fields[Input.QUANTITY])
             else:
                 raise Exception(
                     "{0} already contains a sell or buy record" \
@@ -204,18 +216,15 @@ class Trade(CoreModule):
             self.stoploss = self.trade_record['stoploss']
             self.stoploss_orig = self.trade_record['stoploss_orig']
             self.profit_loss = calc.calculate_profit_loss(
-                self.trade_record['amount_sell'],
-                self.trade_record['amount_buy'])
+                self.amount_sell,
+                self.amount_buy)
             self.pool_at_start = self.trade_record['pool_at_start']
             self.date_created = self.trade_record['date_created']
-            self.amount_buy_simple = self.trade_record['amount_buy_simple']
-            self.amount_sell_simple = calc.calculate_amount_simple(
-                    calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
-                    , fields[Input.QUANTITY])
             self.risk_input = self.trade_record['risk_input']
             self.risk_input_percent = self.trade_record['risk_input_percent']
             self.risk_initial = self.trade_record['risk_initial']
             self.risk_initial_percent = (self.risk_initial/self.amount_buy_simple)*Decimal(100.0)
+            #TODO: could need fields['price'] when shorting!
             self.risk_actual = calc.calculate_risk_actual(
                 self.trade_record['price_buy'],
                 self.trade_record['shares_buy'],
