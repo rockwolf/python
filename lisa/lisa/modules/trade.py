@@ -137,8 +137,6 @@ class Trade(CoreModule):
                 T_TRADE)
             self.finance_record = dba.get_finance_record(self.finance_id)
             print "test: get_trade_record(" + str(self.open_trade_position)
-            #TODO: you can't call get_invade_record with the new finance_id! That one does not exist yet in t_trade!
-            #Find another way to call/code dba.get_invade_record
             self.trade_record = dba.get_trade_record(self.open_trade_position)
             print "test: trade_record =", self.trade_record
             self.long_flag = dba.get_long_flag_value(fields[Input.ACCOUNT_FROM],
@@ -163,8 +161,11 @@ class Trade(CoreModule):
             self.trade_id = self.trade_record['trade_id']
             print "test: trade_id = ", self.trade_id
             ## buy/sell related fields
+            print 'Test: we_are_buying=', we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO])
+            print 'Test: T_TRADE.id_buy=', self.trade_record['id_buy']
+            print 'Test: T_TRADE.id_sell=', self.trade_record['id_sell']
             if (we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO])
-                and T_TRADE.id_buy == -1):
+                and self.trade_record['id_buy'] == -1):
                 self.id_buy = self.finance_id
                 self.id_sell = self.trade_record['id_sell']
                 self.date_buy = fields[Input.DATE]
@@ -180,7 +181,7 @@ class Trade(CoreModule):
                 self.tax_buy = fields[Input.TAX]
                 self.tax_sell = self.trade_record['tax_sell']
             elif (not we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO])
-                and T_TRADE.id_sell == -1):
+                and self.trade_record['id_sell'] == -1):
                 self.id_buy = self.trade_record['id_buy']
                 self.id_sell = self.finance_id
                 self.date_buy = self.trade_record['date_buy']
