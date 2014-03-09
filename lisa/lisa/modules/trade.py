@@ -224,39 +224,32 @@ class Trade(CoreModule):
             self.risk_input_percent = self.trade_record['risk_input_percent']
             self.risk_initial = self.trade_record['risk_initial']
             self.risk_initial_percent = (self.risk_initial/self.amount_buy_simple)*Decimal(100.0)
-            #TODO: could need fields['price'] when shorting!
             self.risk_actual = calc.calculate_risk_actual(
-                self.trade_record['price_buy'],
-                self.trade_record['shares_buy'],
-                self.trade_record['price_sell'],
-                self.trade_record['shares_sell'],
-                self.trade_record['stoploss'],
-                self.trade_record['risk_initial'])
+                self.price_buy,
+                self.shares_buy,
+                self.price_sell,
+                self.shares_sell,
+                self.stoploss,
+                self.risk_initial)
             self.risk_actual_percent = (risk_actual/amount_buy_simple)*Decimal(100.0)
             self.cost_total = calc.calculate_cost_total(
-                self.trade_record['tax_buy'],
-                self.trade_record['commission_buy'],
-                self.trade_record['tax_sell'],
-                self.trade_record['commission_sell'])
+                self.tax_buy,
+                self.commission_buy,
+                self.tax_sell,
+                self.commission_sell)
             self.cost_other = calc.calculate_cost_other(
                     self.cost_total,
                     self.profit_loss)
-            if we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):
-                self.win_flag = dba.get_win_flag_value(
-                        self.price_buy,
-                        self.trade_record['price_sell'],
-                        self.long_flag)
-            else:
-                self.win_flag = dba.get_win_flag_value(
-                        self.trade_record['price_buy'],
-                        self.price_sell,
-                        self.long_flag)
+            self.win_flag = dba.get_win_flag_value(
+                    self.price_buy,
+                    self.price_sell,
+                    self.long_flag)
             self.currency_exchange_id = self.trade_record['currency_exchange_id']
             self.drawdown_id = self.trade_record['drawdown_id']
             self.r_multiple = calc.calculate_r_multiple(
-                self.trade_record['price_buy'],
-                self.trade_record['price_sell'],
-                self.trade_record['price_stoploss'])
+                self.price_buy,
+                self.price_sell,
+                self.price_stoploss)
             self.date_expiration = self.trade_record['date_expiration']
             #TODO: for investing, id_buy/sell is id_firstbuy and id_firstsell
             # and expiration flag should only be set at the end of the trade, when
