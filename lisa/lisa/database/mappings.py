@@ -218,6 +218,8 @@ class T_TRADE(Base):
     commission_sell = Column(Numeric(18,6))
     tax_buy = Column(Numeric(18,6))
     tax_sell = Column(Numeric(18,6))
+    amount_buy = Column(Numeric(18,6))
+    amount_sell = Column(Numeric(18,6))
     amount_buy_simple = Column(Numeric(18,6))
     amount_sell_simple = Column(Numeric(18,6))
     risk_input = Column(Numeric(18,6))
@@ -268,6 +270,8 @@ class T_TRADE(Base):
         commission_sell,
         tax_buy,
         tax_sell,
+        amount_buy,
+        amount_sell,
         amount_buy_simple,
         amount_sell_simple,
         risk_input,
@@ -316,6 +320,8 @@ class T_TRADE(Base):
         self.commission_sell = commission_sell
         self.tax_buy = tax_buy
         self.tax_sell = tax_sell
+        self.amount_buy = amount_buy
+        self.amount_sell = amount_sell
         self.amount_buy_simple = amount_buy_simple
         self.amount_sell_simple = amount_sell_simple
         self.risk_input = risk_input
@@ -350,7 +356,7 @@ class T_TRADE(Base):
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-            '%s', '%s', '%s', '%s', '%s')>" % (
+            '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
                 self.trade_id,
                 self.market_id,
                 self.commodity_id,
@@ -373,6 +379,8 @@ class T_TRADE(Base):
                 self.commission_sell,
                 self.tax_buy,
                 self.tax_sell,
+                self.amount_buy,
+                self.amount_sell,
                 self.amount_buy_simple,
                 self.amount_sell_simple,
                 self.risk_input,

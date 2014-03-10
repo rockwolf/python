@@ -152,6 +152,8 @@ CREATE TABLE T_TRADE
     commission_sell decimal(18,6) not null default 0.0,
     tax_buy decimal(18,6) not null default 0.0,
     tax_sell decimal(18,6) not null default 0.0,
+    amount_buy decimal(18,6) not null default 0.0,
+    amount_sell decimal(18,6) not null default 0.0,
     amount_buy_simple decimal(18,6) not null default 0.0,
     amount_sell_simple decimal(18,6) not null default 0.0,
     risk_input decimal(18,6) not null default 0.0,

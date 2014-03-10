@@ -57,6 +57,8 @@ class Trade(CoreModule):
         self.risk_actual_percent = DEFAULT_DECIMAL
         self.cost_total = DEFAULT_DECIMAL
         self.cost_other = DEFAULT_DECIMAL
+        self.amount_buy = DEFAULT_DECIMAL
+        self.amount_sell = DEFAULT_DECIMAL
         self.amount_buy_simple = DEFAULT_DECIMAL
         self.amount_sell_simple = DEFAULT_DECIMAL
         self.stoploss = DEFAULT_DECIMAL
@@ -185,7 +187,7 @@ class Trade(CoreModule):
                     calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
                     , fields[Input.QUANTITY])
                 self.amount_sell = self.trade_record['amount_sell']
-                self.amount_sell_simple = self.['amount_sell_simple']
+                self.amount_sell_simple = self.trade_record['amount_sell_simple']
             elif (not we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO])
                 and self.trade_record['id_sell'] == -1):
                 self.id_buy = self.trade_record['id_buy']
@@ -284,8 +286,15 @@ class Trade(CoreModule):
                 #TODO: commission and tax from T_RATE, when fields[Input.AUTOMATIC_FLAG] is 1
                 self.commission_buy = fields[Input.COMMISSION]
                 self.commission_sell = DEFAULT_DECIMAL
+                self.amount_buy = fields[Input.AMOUNT]
+                self.amount_sell = DEFAULT_DECIMAL
+                self.amount_buy_simple = calc.calculate_amount_simple(
+                    calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
+                    , fields[Input.QUANTITY])
+                self.amount_sell_simple = DEFAULT_DECIMAL
                 self.tax_buy = fields[Input.TAX]
                 self.tax_sell = DEFAULT_DECIMAL
+                self.risk_initial_percent = Decimal(100.0)*self.risk_initial/self.amount_buy_simple
             else:
                 self.id_buy = -1
                 self.id_sell = self.finance_id
@@ -300,8 +309,15 @@ class Trade(CoreModule):
                 self.commission_buy = DEFAULT_DECIMAL
                 # TODO: commission and tax from T_RATE (see also higher)
                 self.commission_sell = fields[Input.COMMISSION]
+                self.amount_buy = DEFAULT_DECIMAL
+                self.amount_sell = fields[Input.AMOUNT]
+                self.amount_buy_simple = DEFAULT_DECIMAL
+                self.amount_sell_simple = calc.calculate_amount_simple(
+                    calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
+                    , fields[Input.QUANTITY])
                 self.tax_buy = DEFAULT_DECIMAL
                 self.tax_sell = fields[Input.TAX]
+                self.risk_initial_percent = Decimal(100.0)*self.risk_initial/self.amount_sell_simple
             self.stoploss = calc.calculate_stoploss(
                 calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE]),
                 fields[Input.QUANTITY],
@@ -315,10 +331,6 @@ class Trade(CoreModule):
             self.stoploss_orig = calc.convert_to_orig(self.stoploss, fields[Input.EXCHANGE_RATE])
             self.profit_loss = DEFAULT_DECIMAL #Only calculated at end of trade.
             self.pool_at_start = fields[Input.POOL]
-            self.amount_buy_simple = calc.calculate_amount_simple(
-                calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
-                , fields[Input.QUANTITY])
-            self.amount_sell_simple = DEFAULT_DECIMAL
             self.risk_input = calc.calculate_risk_input(
                 self.get_pool_without_margin(
                     fields[Input.POOL],
@@ -332,7 +344,6 @@ class Trade(CoreModule):
                 fields[Input.COMMISSION],
                 self.stoploss,
                 self.long_flag)
-            self.risk_initial_percent = Decimal(100.0)*self.risk_initial/self.amount_buy_simple
             self.risk_actual = DEFAULT_DECIMAL
             self.risk_actual_percent = DEFAULT_DECIMAL
             self.cost_total = DEFAULT_DECIMAL
@@ -390,6 +401,8 @@ class Trade(CoreModule):
                 'commission_sell':Decimal(self.commission_sell),
                 'tax_buy':Decimal(self.tax_buy),
                 'tax_sell':Decimal(self.tax_sell),
+                'amount_buy':Decimal(self.amount_buy),
+                'amount_sell':Decimal(self.amount_sell),
                 'amount_buy_simple':Decimal(self.amount_buy_simple),
                 'amount_sell_simple':Decimal(self.amount_sell_simple),
                 'risk_input':Decimal(self.risk_input),

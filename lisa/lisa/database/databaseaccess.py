@@ -391,6 +391,8 @@ class DatabaseAccess():
                     record['commission_sell'],
                     record['tax_buy'],
                     record['tax_sell'],
+                    record['amount_buy'],
+                    record['amount_sell'],
                     record['amount_buy_simple'],
                     record['amount_sell_simple'],
                     record['risk_input'],
