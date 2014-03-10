@@ -204,6 +204,8 @@ select
     , t.win_flag
     --, t.wins
     --, t.wins_percent
+    , t.amount_buy
+    , t.amount_sell
     , t.amount_buy_simple
     , t.amount_sell_simple
     , d.drawdown_current
