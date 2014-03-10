@@ -50,9 +50,10 @@ class DialogParameters(QtGui.QDialog):
         self.ui.buttonBox.accepted.connect(self.accept)
         self.ui.buttonBox.rejected.connect(self.reject)
         header = ['parameter_id', 'name', 'value', 'description']
-        table = TableModel(header, [], 0, len(header))
+        table = TableModel(['test'], header)
         # takeAt(0) removes the default empty table that's there and addWidget
         # adds a newly created one.
+        self.ui.tbl_parameters.setModel(self.model_data)
         self.ui.vl_parameters.takeAt(0)
         self.ui.vl_parameters.addWidget(table)
 
