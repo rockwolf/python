@@ -196,6 +196,11 @@ values('ZWZ3.cfd', 16, 'US Wheat, US Dollar/100 DecYY', 1, 2, 0.25, 1.0, 1.0, 25
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
 values('SBH4.cfd', 16, 'US Sugar No11, US Dollar/100 MarYY', 1, 2, 0.25, 1.0, 1.0, 250.0, 8.0, 16.0, 7.0, current_date, current_date);
 
+--TODO: These values belong to a general tick/tick value/min-max order info page. Put them seperately and link commodity-names
+--to these default values. This way, you don't need to repeat everything.
+INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+values('LCCH4.cfd', 16, 'London Cocoa Futures, Pound Sterling MarYY', 1, 8, 1.0, 1.0, 1.0, 250.0, 8.0, 16.0, 7.0, current_date, current_date);
+
 -- oil
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
 values('.BRENT.cfd', 15, 'SPOT Brent Crude Oil, US Dollar/100', 1, 2, 1.0, 1.0, 1.0, 100.0, 2.0, 4.0, 0.0, current_date, current_date);
