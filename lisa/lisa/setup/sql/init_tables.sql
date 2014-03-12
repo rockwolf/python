@@ -89,7 +89,7 @@ INSERT INTO T_COMMODITY_TYPE(name, description, active, date_created, date_modif
 values('cfd', 'Contracts for difference', 1, current_date, current_date);
 
 /* commodity general */
-INSERT INTO T_COMMODITY_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
 values('', 1, 1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, current_date, current_date);
 
 /* t_rate */
