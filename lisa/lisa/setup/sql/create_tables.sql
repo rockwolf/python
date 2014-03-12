@@ -42,16 +42,26 @@ CREATE TABLE T_COMMODITY
     commodity_id serial not null,
     name varchar(50) not null,
     description varchar(256) not null default '',
-    commodity_general_id int not null default -1,
+    commodity_type_id int not null default 1,
+    cfd_general_id int not null default -1,
     active int not null default 1,
     date_created timestamp not null default '1900-01-01',
     date_modified timestamp not null default '1900-01-01'
 );
 
-
-CREATE TABLE T_COMMODITY_GENERAL
+CREATE TABLE T_COMMODITY_TYPE
 (
-    commodity_general_id serial not null,
+    commodity_type_id serial not null,
+    name varchar(50) not null,
+    description varchar(256) not null default '',
+    active int not null default 1,
+    date_created timestamp not null default '1900-01-01',
+    date_modified timestamp not null default '1900-01-01'
+);
+
+CREATE TABLE T_CFD_GENERAL
+(
+    cfd_general_id serial not null,
     name varchar(50) not null,
     market_id int not null default -1,
     currency_id int not null default 1,
