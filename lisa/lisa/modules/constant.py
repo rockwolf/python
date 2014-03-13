@@ -21,6 +21,8 @@ class Table():
     RATE = 't_rate'
     DRAWDOWN = 't_drawdown'
     POOL = 't_pool'
+    COMMODITY_TYPE = 't_commodity_type'
+    CFD_GENERAL = 't_cfd_general'
     
 class View():
     """

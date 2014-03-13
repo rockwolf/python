@@ -62,6 +62,18 @@ class T_COMMODITY(Base):
     market_id = Column(Integer)
     description = Column(String(256))
     active = Column(Integer)
+    date_created = Column(DateTime)
+    date_modified = Column(DateTime)
+
+class T_COMMODITY_TYPE(Base):
+    """ T_COMMODITY_TYPE """
+    __tablename__ = Table.COMMODITY_TYPE
+    commodity_type_id = Column(Integer)
+    #TODO: repr etc.
+
+class T_CFD_GENERAL(Base):
+    """ T_CFD_GENERAL """
+    __tablename__ = Table.CFD_GENERAL
     currency_id = Column(Integer)
     tick = Column(Numeric(18,6))
     tick_value = Column(Numeric(18,6))
@@ -72,8 +84,10 @@ class T_COMMODITY(Base):
     spread = Column(Numeric(18,6))
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
+    #TODO: repr etc.
 
     def __init__(self, commodity_id, name, market_id, description, active,
+        #TODO: only the cfd_general stuff
         currency_id, tick, tick_value, order_min, order_max, margin_day_proc,
         margin_night_proc, spread, date_created, date_modified):
         self.commodity_id = commodity_id
@@ -93,7 +107,8 @@ class T_COMMODITY(Base):
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_STOCK_NAME('%s', '%s', '%s', '%s', '%s', '%s', '%s', \
+        #TODO: only the cfd_general stuff
+        return "<T_CFD_GENERAL('%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s' '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.commodity_id,
                 self.name, self.market_id, self.description, self.active,
                 self.currency_id, self.tick, self.tick_value, self.order_min,
