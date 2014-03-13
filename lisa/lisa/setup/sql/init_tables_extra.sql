@@ -2,8 +2,6 @@
 -- Add market names
 -- NOTE: see list of country codes at:
 -- http://www.iso.org/iso/country_codes/iso_3166_code_lists/country_names_and_code_elements.htm
---TODO: check if this still maps to the current market id's in production
---and check this when using KETTLE
 
 -- GENERAL
 INSERT INTO T_MARKET(market_id, code, name, country, active, date_created, date_modified)
@@ -286,9 +284,97 @@ values('.F40.cfd ', 16, 'France 40 cash, Euro', 1, 1, current_date, current_date
 INSERT INTO T_COMMODITY(name, market_id, description, active, currency_id, date_created, date_modified)
 values('.N25.cfd', 16, 'Netherlands 25 cash, Euro', 1, 1, current_date, current_date);
 
-/* T_COMMODITY_GENERAL */
-INSERT INTO T_CFD_GENERAL(... tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES(...)
+/* T_CFD_GENERAL */
+-- commodities (futures)
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('Brent Crude Oil Futures', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('Carbon Emissions', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('Cattle Live Futures', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('Corn Futures', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('Gold Futures', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('Heating Oil', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('', ..., current_date, current_date);
 
 /* ACCOUNTS */
 -- my accounts
