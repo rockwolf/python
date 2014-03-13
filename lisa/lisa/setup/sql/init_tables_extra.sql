@@ -305,73 +305,73 @@ INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_
 VALUES('Heating Oil', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('High Grade Copper', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('London Cocoa Futures', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('London Coffee Futures', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('London Gas Oil Futures', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('London Sugar Futures', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('London Wheat futures', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('Milling Wheat Futures', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('Mini Silver Futures', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('Natural Gas', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('Orange Juice', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('Palladium Futures', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('Platinum Futures', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('Rapeseed Futures', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('Silver futures', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('US Cocoa', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('US Coffee C', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('US Corn Futures', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('US Cotton No. 2', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('US Soybean Oil Futures', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('US Soybeans Futures', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('US Sugar 11', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('US Wheat futures', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('WTI Crude Oil Futures', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
 VALUES('', ..., current_date, current_date);
