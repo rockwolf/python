@@ -374,7 +374,22 @@ INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_
 VALUES('WTI Crude Oil Futures', ..., current_date, current_date);
 
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
-VALUES('', ..., current_date, current_date);
+VALUES('Spot Brent Crude Oil', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('Spot Gold', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('Spot Mini Gold', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('Spot Mini Silver', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('Spot Silver', ..., current_date, current_date);
+
+INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, spread, date_created, date_modified)
+VALUES('Spot WTI Light Crude Oil', ..., current_date, current_date);
 
 /* ACCOUNTS */
 -- my accounts
