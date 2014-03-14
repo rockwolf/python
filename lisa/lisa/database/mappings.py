@@ -77,6 +77,14 @@ class T_COMMODITY(Base):
         self.active = active
         self.date_created = date_created
         self.date_modified = date_modified
+    
+    def __repr__(self):
+        return "<T_COMMODITY('%s', \
+        , '%s', '%s', '%s', '%s', '%s', '%s'\
+        , '%s')>" % ( self.commodity_id,
+            self.name, self.description,
+            self.commodity_type_id, self.cfd_general_id,
+            self.active, self.date_created, self.date_modified)
                 
 
 class T_COMMODITY_TYPE(Base):
@@ -97,6 +105,13 @@ class T_COMMODITY_TYPE(Base):
         self.active = active
         self.date_created = date_created
         self.date_modified = date_modified
+        
+    def __repr__(self):
+        return "<T_COMMODITY_TYPE('%s', \
+        , '%s', '%s', '%s', '%s', '%s')>" % (
+            self.commodity_type_id, self.name,
+            self.description, self.active, 
+            self.date_created, self.date_modified)
     
 
 class T_CFD_GENERAL(Base):
@@ -114,10 +129,8 @@ class T_CFD_GENERAL(Base):
     margin_night_proc = Column(Numeric(18,6))
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
-    #TODO: repr etc.
 
     def __init__(self, cfd_general_id, name, market_id, description, active,
-        #TODO: only the cfd_general stuff
         currency_id, tick, tick_value, order_min, order_max, margin_day_proc,
         margin_night_proc, date_created, date_modified):
         self.cfd_general_id = cfd_general_id
@@ -136,7 +149,6 @@ class T_CFD_GENERAL(Base):
         self.date_modified = date_modified
 
     def __repr__(self):
-        #TODO: only the cfd_general stuff
         return "<T_CFD_GENERAL('%s', '%s', '%s', '%s', '%s', '%s', '%s', \
             '%s' '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.cfd_general_id,
                 self.name, self.market_id, self.description, self.active,
