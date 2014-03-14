@@ -58,7 +58,7 @@ class T_COMMODITY(Base):
     __tablename__ = Table.COMMODITY
     #__table_args__ = {'autoload':True}
     commodity_id = Column(Integer, primary_key=True)
-    name = Column(String(15))
+    name = Column(String(50))
     description = Column(String(256))
     commodity_type_id = Column(Integer)
     cfd_general_id = Column(Integer)
@@ -83,7 +83,7 @@ class T_COMMODITY_TYPE(Base):
     """ T_COMMODITY_TYPE """
     __tablename__ = Table.COMMODITY_TYPE
     commodity_type_id = Column(Integer)
-    name = Column(String(15))
+    name = Column(String(50))
     description = Column(String(256))
     active = Column(Integer)
     date_created = Column(DateTime)
@@ -102,6 +102,9 @@ class T_COMMODITY_TYPE(Base):
 class T_CFD_GENERAL(Base):
     """ T_CFD_GENERAL """
     __tablename__ = Table.CFD_GENERAL
+    cfd_general_id = Column(Integer)
+    name = Column(String(50))
+    market_id = Column(Integer)
     currency_id = Column(Integer)
     tick = Column(Numeric(18,6))
     tick_value = Column(Numeric(18,6))
@@ -109,16 +112,15 @@ class T_CFD_GENERAL(Base):
     order_max = Column(Numeric(18,6))
     margin_day_proc = Column(Numeric(18,6))
     margin_night_proc = Column(Numeric(18,6))
-    spread = Column(Numeric(18,6))
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
     #TODO: repr etc.
 
-    def __init__(self, commodity_id, name, market_id, description, active,
+    def __init__(self, cfd_general_id, name, market_id, description, active,
         #TODO: only the cfd_general stuff
         currency_id, tick, tick_value, order_min, order_max, margin_day_proc,
-        margin_night_proc, spread, date_created, date_modified):
-        self.commodity_id = commodity_id
+        margin_night_proc, date_created, date_modified):
+        self.cfd_general_id = cfd_general_id
         self.name = name
         self.market_id = market_id
         self.description = description
@@ -130,18 +132,17 @@ class T_CFD_GENERAL(Base):
         self.order_max = order_max
         self.margin_day_proc = margin_day_proc
         self.margin_night_proc = margin_night_proc
-        self.spread = spread
         self.date_created = date_created
         self.date_modified = date_modified
 
     def __repr__(self):
         #TODO: only the cfd_general stuff
         return "<T_CFD_GENERAL('%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-            '%s' '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.commodity_id,
+            '%s' '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.cfd_general_id,
                 self.name, self.market_id, self.description, self.active,
                 self.currency_id, self.tick, self.tick_value, self.order_min,
                 self.order_max, self.margin_day_proc, self.margin_night_proc,
-                self.spread, self.date_created, self.date_modified)
+                self.date_created, self.date_modified)
 
 class T_MARKET(Base):
     """ T_MARKET """
