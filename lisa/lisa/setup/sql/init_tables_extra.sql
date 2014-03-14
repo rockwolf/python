@@ -132,13 +132,13 @@ INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, ac
 values('CTZ3.cfd', 'US Cotton No.2, US Dollar/100 DecYY', 1, 24, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('KCZ3.cfd', 'US Coffee C, US Dollar/100 DecYY', 1, X, 1, current_date, current_date);
+values('KCZ3.cfd', 'US Coffee C, US Dollar/100 DecYY', 1, 22, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, activedate_created, date_modified)
-values('LCCU3.cfd', 'London Cocoa, Pound Sterling SepYY', 1, X, 1, current_date, current_date);
+values('LCCU3.cfd', 'London Cocoa, Pound Sterling SepYY', 1, 8, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('LCCZ3.cfd', 'London Cocoa, Pound Sterling DecYY', 1, X, 1, current_date, current_date);
+values('LCCZ3.cfd', 'London Cocoa, Pound Sterling DecYY', 1, 8, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
 values('LEV3.cfd', 'Live Cattle (per 0.01), US Dollar/100 OctYY', 1, 3, 1, current_date, current_date);
@@ -165,7 +165,7 @@ INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, ac
 values('OJX3.cfd', 'Orange Juice, US Dollar/100 NovYY', 1, 16, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('SBV3.cfd', 'US Sugar No11, US Dollar/100 OctYY', 1, X, 1, current_date, current_date);
+values('SBV3.cfd', 'US Sugar No11, US Dollar/100 OctYY', 1, 27, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
 values('ZVU3.cfd', 'US Corn, US Dollar/100 SepYY', 1, 4, 1, current_date, current_date);
@@ -174,41 +174,41 @@ INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, ac
 values('ZCZ3.cfd', 'US Corn, US Dollar/100 DecYY', 1, 4, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('ZLU3.cfd', 'US Soybean Oil, US Dollar/100 SepYY', 1, X, 1, current_date, current_date);
+values('ZLU3.cfd', 'US Soybean Oil, US Dollar/100 SepYY', 1, 25, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('ZLV3.cfd', 'US Soybean Oil, US Dollar/100 OctYY', 1, X, 1, current_date, current_date);
+values('ZLV3.cfd', 'US Soybean Oil, US Dollar/100 OctYY', 1, 25, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('ZSU3.cfd', 'US Soybeans, US Dollar/100 SepYY', 1, X, 1, current_date, current_date);
+values('ZSU3.cfd', 'US Soybeans, US Dollar/100 SepYY', 1, 26, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('ZSX3.cfd', 'US Soybeans, US Dollar/100 NovYY', 1, X, 1, current_date, current_date);
+values('ZSX3.cfd', 'US Soybeans, US Dollar/100 NovYY', 1, 26, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('ZWU3.cfd', 'US Wheat, US Dollar/100 SepYY', 1, X, 1, current_date, current_date);
+values('ZWU3.cfd', 'US Wheat, US Dollar/100 SepYY', 1, 28, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('ZWZ3.cfd', 'US Wheat, US Dollar/100 DecYY', 1, X, 1, current_date, current_date);
+values('ZWZ3.cfd', 'US Wheat, US Dollar/100 DecYY', 1, 28, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('SBH4.cfd', 'US Sugar No11, US Dollar/100 MarYY', 1, X, 1, current_date, current_date);
+values('SBH4.cfd', 'US Sugar No11, US Dollar/100 MarYY', 1, 27, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('LCCH4.cfd', 'London Cocoa Futures, Pound Sterling MarYY', 1, X, 1, current_date, current_date);
+values('LCCH4.cfd', 'London Cocoa Futures, Pound Sterling MarYY', 1, 8, 1, current_date, current_date);
 
 -- oil
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('.BRENT.cfd', 15, 'SPOT Brent Crude Oil, US Dollar/100', 1, X, 1, current_date, current_date);
+values('.BRENT.cfd', 15, 'SPOT Brent Crude Oil, US Dollar/100', 1, 30, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('.WTI.cfd', 15, 'SPOT WTI Light Crude Oil, US Dollar', 1, X, 1, current_date, current_date);
+values('.WTI.cfd', 15, 'SPOT WTI Light Crude Oil, US Dollar', 1, 35, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('CLV3.cfd', 15, 'WTI Crude Oil, US Dollar OctYY', 1, X, 1, current_date, current_date);
+values('CLV3.cfd', 15, 'WTI Crude Oil, US Dollar OctYY', 1, 29, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('CLX3.cfd', 15, 'WTI Crude Oil, US Dollar NovYY', 1, X, 1, current_date, current_date);
+values('CLX3.cfd', 15, 'WTI Crude Oil, US Dollar NovYY', 1, 29, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
 values('HOU3.cfd', 15, 'Heating Oil, US Dollar NovYY', 1, 6, 1, current_date, current_date);
@@ -220,59 +220,59 @@ INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, ac
 values('LCOV3.cfd', 15, 'Brent Crude Oil, US Dollar/100 OctYY', 1, 1, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('LCOX3.cfd', 15, 'Brent Crude Oil, US Dollar/100 NovYY', 1, X, 1, current_date, current_date);
+values('LCOX3.cfd', 15, 'Brent Crude Oil, US Dollar/100 NovYY', 1, 1, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, date_created, date_modified)
-values('LGOU3.cfd', 15, 'London Gas Oil (per 25), US Dollar/100 SepYY', 1, X, 1, current_date, current_date);
+values('LGOU3.cfd', 15, 'London Gas Oil (per 25), US Dollar/100 SepYY', 1, 11, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('LGOV3.cfd', 15, 'London Gas Oil (per 25), US Dollar/100 OctYY', 1, X, 1, current_date, current_date);
+values('LGOV3.cfd', 15, 'London Gas Oil (per 25), US Dollar/100 OctYY', 1, 11, 1, current_date, current_date);
 
 -- metals
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('.GOLD.cfd', 13, 'Spot Gold, US Dollar', 1, X, 1, current_date, current_date);
+values('.GOLD.cfd', 13, 'Spot Gold, US Dollar', 1, 31, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, date_created, date_modified)
-values('.MGOLD.cfd ', 13, 'MINI Spot Gold, US Dollar', 1, X, 1, current_date, current_date);
+values('.MGOLD.cfd ', 13, 'MINI Spot Gold, US Dollar', 1, 32, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('.MSILVER.cfd', 14, 'Spot Mini Silver, US Dollar/100', 1, X, 1, current_date, current_date);
+values('.MSILVER.cfd', 14, 'Spot Mini Silver, US Dollar/100', 1, 33, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('.SILVER.cfd', 14, 'Spot Silver, US Dollar/100', 1, X, 1, current_date, current_date);
+values('.SILVER.cfd', 14, 'Spot Silver, US Dollar/100', 1, 34, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('GCZ3.cfd', 13, 'Gold, US Dollar DecYY', 1, X, 1, current_date, current_date);
+values('GCZ3.cfd', 13, 'Gold, US Dollar DecYY', 1, 5, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('HGU3.cfd ', 'High Grade Copper (per 0.05), US Dollar SepYY', 1, X, 1, current_date, current_date);
+values('HGU3.cfd ', 'High Grade Copper (per 0.05), US Dollar SepYY', 1, 7, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('HGZ3.cfd', 'High Grade Copper (per 0.05), US Dollar DecYY', 1, X, 1, current_date, current_date);
+values('HGZ3.cfd', 'High Grade Copper (per 0.05), US Dollar DecYY', 1, 7, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('MINISIU3.cfd', 14, 'Mini Silver, US Dollar/100 SepYY', 1, X, 1, current_date, current_date);
+values('MINISIU3.cfd', 14, 'Mini Silver, US Dollar/100 SepYY', 1, 14, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('MINISIZ3.cfd ', 14, 'Mini Silver, US Dollar/100 DecYY', 1, X, 1, current_date, current_date);
+values('MINISIZ3.cfd ', 14, 'Mini Silver, US Dollar/100 DecYY', 1, 14, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('PAU3.cfd', 'Palladium, US Dollar SepYY', 1, X, 1, current_date, current_date);
+values('PAU3.cfd', 'Palladium, US Dollar SepYY', 1, 17, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('PAZ3.cfd', 'Palladium, US Dollar DecYY', 1, X, 1, current_date, current_date);
+values('PAZ3.cfd', 'Palladium, US Dollar DecYY', 1, 17, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('PLV3.cfd', 'Platinum, US Dollar OctYY', 1, X, 1, current_date, current_date);
+values('PLV3.cfd', 'Platinum, US Dollar OctYY', 1, 18, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('SIU3.cfd', 14, 'Silver, US Dollar/100 SepYY', 1, X, 1, current_date, current_date);
+values('SIU3.cfd', 14, 'Silver, US Dollar/100 SepYY', 1, 20, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('SIZ3.cfd', 14, 'Silver, US Dollar/100 DecYY', 1, X, 1, current_date, current_date);
+values('SIZ3.cfd', 14, 'Silver, US Dollar/100 DecYY', 1, 20, 1, current_date, current_date);
 
 -- indices
-INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
+/*INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
 values('.DE30.cfd', 'Germany 30 cash, Euro', 1, X, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
@@ -282,7 +282,7 @@ INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, ac
 values('.F40.cfd ', 'France 40 cash, Euro', 1, X, 1, current_date, current_date);
 
 INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
-values('.N25.cfd', 'Netherlands 25 cash, Euro', 1, 1, X, current_date, current_date);
+values('.N25.cfd', 'Netherlands 25 cash, Euro', 1, 1, X, current_date, current_date);*/
 
 /* T_CFD_GENERAL */
 -- commodities (futures)
