@@ -83,6 +83,20 @@ class T_COMMODITY_TYPE(Base):
     """ T_COMMODITY_TYPE """
     __tablename__ = Table.COMMODITY_TYPE
     commodity_type_id = Column(Integer)
+    name = Column(String(15))
+    description = Column(String(256))
+    active = Column(Integer)
+    date_created = Column(DateTime)
+    date_modified = Column(DateTime)
+    
+    def __init__(self, commodity_type_id, name, description,
+        active, date_created, date_modified):
+        self.commodity_type_id = commodity_type_id
+        self.name = name
+        self.description = description
+        self.active = active
+        self.date_created = date_created
+        self.date_modified = date_modified
     
 
 class T_CFD_GENERAL(Base):
