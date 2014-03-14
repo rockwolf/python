@@ -59,17 +59,31 @@ class T_COMMODITY(Base):
     #__table_args__ = {'autoload':True}
     commodity_id = Column(Integer, primary_key=True)
     name = Column(String(15))
-    market_id = Column(Integer)
     description = Column(String(256))
+    commodity_type_id = Column(Integer)
+    cfd_general_id = Column(Integer)
     active = Column(Integer)
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
+    
+    def __init__(self, commodity_id, name, description,
+        commodity_type_id, cfd_general_id,
+        active, date_created, date_modified):
+        self.commodity_id = commodity_id
+        self.name = name
+        self.description = description
+        self.commodity_type_id = commodity_type_id
+        self.cfd_general_id = cfd_general_id
+        self.active = active
+        self.date_created = date_created
+        self.date_modified = date_modified
+                
 
 class T_COMMODITY_TYPE(Base):
     """ T_COMMODITY_TYPE """
     __tablename__ = Table.COMMODITY_TYPE
     commodity_type_id = Column(Integer)
-    #TODO: repr etc.
+    
 
 class T_CFD_GENERAL(Base):
     """ T_CFD_GENERAL """
