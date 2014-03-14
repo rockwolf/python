@@ -11,5 +11,6 @@ drop table T_PARAMETER cascade;
 drop table T_DRAWDOWN cascade;
 drop table T_VERSION cascade;
 drop table T_POOL cascade;
+drop table T_COMMODITY_TYPE cascade;
 drop table T_CFD_GENERAL cascade;
 COMMIT;

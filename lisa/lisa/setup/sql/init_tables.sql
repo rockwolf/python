@@ -81,8 +81,8 @@ INSERT INTO T_CURRENCY(currency_id, code, description)
 values(14, 'RUB', 'Russian Ruble');
 
 /* commodity names */
-INSERT INTO T_COMMODITY(name, market_id, description, cfd_general_id, active, date_created, date_modified)
-values('', 1, '', 1, current_date, current_date);
+INSERT INTO T_COMMODITY(name, description, commodity_type_id, cfd_general_id, active, date_created, date_modified)
+values('', '', 1, 1, current_date, current_date);
 
 /* commodity type */
 INSERT INTO T_COMMODITY_TYPE(name, description, active, date_created, date_modified)
