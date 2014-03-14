@@ -71,7 +71,6 @@ CREATE TABLE T_CFD_GENERAL
     order_max decimal(18, 6) not null default -1.0,
     margin_day_proc decimal(18, 6) not null default -1.0,
     margin_night_proc decimal(18, 6) not null default -1.0,
-    spread decimal(18,6) not null default 0.0,
     date_created timestamp not null default '1900-01-01',
     date_modified timestamp not null default '1900-01-01'
 );
