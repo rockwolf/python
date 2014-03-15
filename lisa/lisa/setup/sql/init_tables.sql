@@ -82,7 +82,7 @@ values(14, 'RUB', 'Russian Ruble');
 
 /* commodity type */
 INSERT INTO T_COMMODITY_TYPE(name, description, active, date_created, date_modified)
-values('cfd', 'Contracts for difference', 1, current_date, current_date);
+values('', '', 1, current_date, current_date);
 
 /* commodity general */
 INSERT INTO T_CFD_GENERAL(name, market_id, currency_id, tick, tick_value, order_min, order_max, margin_day_proc, margin_night_proc, date_created, date_modified)
