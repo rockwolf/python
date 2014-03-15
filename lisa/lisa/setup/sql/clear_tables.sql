@@ -8,4 +8,6 @@ truncate table T_RATE cascade;
 truncate table T_CURRENCY_EXCHANGE cascade;
 truncate table T_CURRENCY cascade;
 truncate table T_DRAWDOWN cascade;
+truncate table T_COMMODITY_TYPE cascade;
+truncate table T_CFD_GENERAL cascade;
 COMMIT;

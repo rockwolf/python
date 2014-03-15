@@ -234,4 +234,24 @@ from
     --inner join t_currency u_sell on e_sell.currency_from_id = u_sell.currency_id
 ;
 
+/* V_COMMODITY_TYPE */
+--DROP VIEW V_COMMODITY_TYPE;
+CREATE VIEW V_COMMODITY_TYPE
+AS
+select
+    ct.*
+from
+    t_commodity_type ct 
+;
+
+/* V_CFD_GENERAL */
+--DROP VIEW V_CFD_GENERAL;
+CREATE VIEW V_CFD_GENERAL
+AS
+select
+    cfd.*
+from
+    t_cfd_general cfd 
+;
+
 COMMIT;

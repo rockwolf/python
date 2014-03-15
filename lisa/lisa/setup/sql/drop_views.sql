@@ -14,4 +14,7 @@ drop view V_PARAMETER;
 drop view V_POOL;
 drop view V_EXPECTANCY;
 drop view V_TRADE_JOURNAL;
+drop view V_COMMODITY_TYPE;
+drop view V_CFD_GENERAL;
+drop view V_COMMODITY_INFO;
 COMMIT;

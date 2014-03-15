@@ -42,6 +42,9 @@ class View():
     REP_CHECK_TOTAL = 'v_rep_check_total'
     ACCOUNT_NAME = 'v_account_name'
     EXPECTANCY = 'v_expectancy'
+    COMMODITY_TYPE = 'v_commodity_type'
+    CFD_GENERAL = 'v_cfd_general'
+    COMMODITY_INFO = 'v_commodity_info'
 
 class Error():
     """

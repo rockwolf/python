@@ -90,7 +90,7 @@ class T_COMMODITY(Base):
 class T_COMMODITY_TYPE(Base):
     """ T_COMMODITY_TYPE """
     __tablename__ = Table.COMMODITY_TYPE
-    commodity_type_id = Column(Integer)
+    commodity_type_id = Column(Integer, primary_key=True)
     name = Column(String(50))
     description = Column(String(256))
     active = Column(Integer)
@@ -117,7 +117,7 @@ class T_COMMODITY_TYPE(Base):
 class T_CFD_GENERAL(Base):
     """ T_CFD_GENERAL """
     __tablename__ = Table.CFD_GENERAL
-    cfd_general_id = Column(Integer)
+    cfd_general_id = Column(Integer, primary_key=True)
     name = Column(String(50))
     market_id = Column(Integer)
     currency_id = Column(Integer)

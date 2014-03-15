@@ -103,15 +103,11 @@ class DatabaseAccess():
         values = []
         try:
             session = self.Session()
-            query = session.query(T_COMMODITY).join(
-                T_MARKET, 
-                T_COMMODITY.market_id == T_MARKET.market_id
-            ).filter(
-                T_MARKET.code == code,
-                T_COMMODITY.active == 1
+            query = session.query(V_COMMODITY_INFO).filter(
+                V_COMMODITY_INFO.market_code == code
             )
             for instance in query: 
-                values.append(instance.name)
+                values.append(instance.commodity_name)
         except Exception as ex:
             print "Error in get_commodity_names: ", ex
         finally:

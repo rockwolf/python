@@ -90,3 +90,9 @@ class V_EXPECTANCY(Base):
     __tablename__ = View.EXPECTANCY
     __table_args__ = {'autoload':True}
     expectancy = Column('expectancy', Numeric, primary_key=True)
+
+class V_COMMODITY_INFO(Base):
+    """ V_COMMODITY_INFO """
+    __tablename__ = View.COMMODITY_INFO
+    __table_args__ = {'autoload':True}
+    commodity_id = Column('commodity_id', Numeric, primary_key=True)
