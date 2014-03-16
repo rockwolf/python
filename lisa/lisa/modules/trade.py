@@ -143,10 +143,7 @@ class Trade(CoreModule):
             print "test: trade_record =", self.trade_record
             self.long_flag = dba.get_long_flag_value(fields[Input.ACCOUNT_FROM],
                 fields[Input.ACCOUNT_TO], self.trade_record)
-            if fields[Input.AUTOMATIC_FLAG] == 1:
-                self.spread = dba.get_spread_from_commodity_id(self.commodity_id)
-            else:
-                self.spread = fields[Input.SPREAD]
+            self.spread = fields[Input.SPREAD]
         except Exception as ex:
             print Error.CREATE_STATEMENTS_TABLE_TRADE, ex
 

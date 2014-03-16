@@ -80,6 +80,12 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.connectslots()
         self.ctl = controller
         self.model_data = None
+        # tbl headers
+        self.headers = ['date', 'account_from', 'account_to', 'amount',
+                'comment', 'commodity', 'commodity_description', 'market',
+                'market_description', 'quantity', 'price',
+                'commission', 'tax', 'risk', 'currency_from', 'currency_to', 'exchange_rate',
+                'automatic_flag', 'expires_on', 'pool', 'spread']
 
     def connectslots(self):
         """
@@ -108,7 +114,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         #self.set_lbl_check(self.ctl.get_check_info([]))
         #TODO: when the get_check_info is fixed, fix this too
         self.set_lbl_check('')
-        self.model_data.clear()
+        self.clear_inputbuffer()
         
     def btn_exit_clicked(self):
         """
@@ -285,12 +291,7 @@ class ControllerPyqt(QtGui.QMainWindow):
             Initialize tbl_data, with the first input_line
             already added to the model.
         """
-        headers = ['date', 'account_from', 'account_to', 'amount',
-                'comment', 'commodity', 'commodity_description', 'market',
-                'market_description', 'quantity', 'price',
-                'commission', 'tax', 'risk', 'currency_from', 'currency_to', 'exchange_rate',
-                'automatic_flag', 'expires_on', 'pool', 'spread']
-        self.model_data = TableModel([input_line], headers)
+        self.model_data = TableModel([input_line], self.headers)
         self.gui.tbl_data.setModel(self.model_data)
 
     def init_gui(self):
@@ -325,7 +326,8 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
         #TODO: clear when possible
         if self.model_data != None:
-            self.model_data.clear()
+            self.model_data = TableModel([], self.headers)
+        self.gui.tbl_data.setModel(self.model_data)
 
     def clear_fields(self):
         """

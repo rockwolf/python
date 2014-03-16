@@ -555,15 +555,11 @@ class DatabaseAccess():
             # Get commodity_id, based on commodity_name
             # but first check if the commodity_name already exists
             # in T_COMMODITY. If not, add it to the table.
-            obj = session.query(T_COMMODITY).filter_by(name=commodity_name, market_id=market_id).first() is not None
-            if not obj: 
-                session.add(T_COMMODITY(commodity_name, market_id, self.gui.get_commodity_description(), date_created, date_modified))
-                session.commit()
-                for instance in session.query(func.max(T_COMMODITY.commodity_id).label('commodity_id')):
-                    result = instance.commodity_id
-            else:
-                for instance in session.query(T_COMMODITY).filter_by(name=commodity_name, market_id=market_id):
-                    result = str(instance.commodity_id)
+            first_obj = session.query(V_COMMODITY_INFO).filter_by(
+                commodity_name=commodity_name,
+                market_id=market_id).first()
+            if first_obj is not None: 
+                result = str(first_obj.commodity_id)
         except Exception as ex:
             print "Error retrieving commodity_id: ", ex
         finally:
@@ -934,24 +930,6 @@ class DatabaseAccess():
                 result = row_to_dict(first_obj)
         except Exception as ex:
             print "Error in get_trade_record: ", ex
-        finally:
-            session.rollback()
-            session = None
-            return result
-
-    def get_spread_from_commodity_id(self, commodity_id):
-        """
-            Get the spread value for a given commodity.
-        """
-        result = DEFAULT_DECIMAL
-        try:
-            session = self.Session()
-            first_obj = session.query(V_COMMODITY_INFO.spread).filter_by(
-                commodity_id=commodity_id).first()
-            if first_obj is not None:
-                result = Decimal(first_obj.spread)
-        except Exception as ex:
-            print "Error  in get_spread_from_commodity_id: ", ex
         finally:
             session.rollback()
             session = None
