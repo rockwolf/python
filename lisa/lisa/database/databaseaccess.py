@@ -946,7 +946,7 @@ class DatabaseAccess():
         result = DEFAULT_DECIMAL
         try:
             session = self.Session()
-            first_obj = session.query(T_COMMODITY.spread).filter_by(
+            first_obj = session.query(V_COMMODITY_INFO.spread).filter_by(
                 commodity_id=commodity_id).first()
             if first_obj is not None:
                 result = Decimal(first_obj.spread)
@@ -964,7 +964,7 @@ class DatabaseAccess():
         result = DEFAULT_DECIMAL
         try:
             session = self.Session()
-            first_obj = session.query(T_COMMODITY.spread).filter_by(
+            first_obj = session.query(T_TRADE.spread).filter_by(
                 commodity_id=commodity_id).first()
             if first_obj is not None:
                 result = Decimal(first_obj.tick_size)
@@ -982,7 +982,7 @@ class DatabaseAccess():
         result = DEFAULT_DECIMAL
         try:
             session = self.Session()
-            first_obj = session.query(T_COMMODITY.spread).filter_by(
+            first_obj = session.query(T_TRADE.spread).filter_by(
                 commodity_id=commodity_id).first()
             if first_obj is not None:
                 result = Decimal(first_obj.tick_value)
