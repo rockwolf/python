@@ -69,7 +69,6 @@ class Trade(CoreModule):
         self.win_flag = DEFAULT_DECIMAL
         self.id_buy = DEFAULT_INT
         self.id_sell = DEFAULT_INT
-        self.currency_exchange_id = DEFAULT_INT
         self.drawdown_id = DEFAULT_INT
         self.pool_at_start = DEFAULT_DECIMAL
         self.date_expiration = DEFAULT_DATE
@@ -113,7 +112,7 @@ class Trade(CoreModule):
                         # GENERAL VARIABLES THAT CAN BE CALCULATED ON THE DATA WE HAVE
                         self.general_info_at_end(fields, self.trade_record)
                         # TEST INFO
-                        self.print_test_info()
+                        #self.print_test_info()
                         # ADDING THE STATEMENTS
                         self.add_to_statement(records)
                     self.finance_id = self.finance_id + 1
@@ -138,9 +137,7 @@ class Trade(CoreModule):
                 self.commodity_id,
                 T_TRADE)
             self.finance_record = dba.get_finance_record(self.finance_id)
-            print "test: get_trade_record(" + str(self.open_trade_position)
             self.trade_record = dba.get_trade_record(self.open_trade_position)
-            print "test: trade_record =", self.trade_record
             self.long_flag = dba.get_long_flag_value(fields[Input.ACCOUNT_FROM],
                 fields[Input.ACCOUNT_TO], self.trade_record)
             self.spread = fields[Input.SPREAD]
@@ -156,9 +153,7 @@ class Trade(CoreModule):
         #TABLE_TRADE.query.filter(market_name=...,commodity_name=...).update({"date_...": date_... etc.})
         try:
             self.flag_insupdel = StatementType.UPDATE
-            print "test: self.trade_record = ", self.trade_record
             self.trade_id = self.trade_record['trade_id']
-            print "test: trade_id = ", self.trade_id
             ## buy/sell related fields
             print 'Test: we_are_buying=', we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO])
             print 'Test: T_TRADE.id_buy=', self.trade_record['id_buy']
@@ -215,8 +210,15 @@ class Trade(CoreModule):
             self.stoploss = self.trade_record['stoploss']
             self.stoploss_orig = self.trade_record['stoploss_orig']
             self.profit_loss = calc.calculate_profit_loss(
-                self.amount_sell,
-                self.amount_buy)
+                self.price_buy,
+                self.shares_buy,
+                self.price_sell,
+                self.shares_sell,
+                self.tax_buy,
+                self.tax_sell,
+                self.commission_buy,
+                self.commission_sell,
+                self.long_flag)
             self.pool_at_start = self.trade_record['pool_at_start']
             self.date_created = self.trade_record['date_created']
             self.risk_input = self.trade_record['risk_input']
@@ -226,11 +228,17 @@ class Trade(CoreModule):
             self.risk_actual = calc.calculate_risk_actual(
                 self.price_buy,
                 self.shares_buy,
+                self.tax_buy,
+                self.commission_buy,
                 self.price_sell,
                 self.shares_sell,
+                self.tax_sell,
+                self.commission_sell,
                 self.stoploss,
-                self.risk_initial)
-            self.risk_actual_percent = (risk_actual/amount_buy_simple)*Decimal(100.0)
+                self.risk_initial,
+                self.profit_loss,
+                self.long_flag)
+            self.risk_actual_percent = (self.risk_actual/self.amount_buy_simple)*Decimal(100.0)
             self.cost_total = calc.calculate_cost_total(
                 self.tax_buy,
                 self.commission_buy,
@@ -243,12 +251,10 @@ class Trade(CoreModule):
                     self.price_buy,
                     self.price_sell,
                     self.long_flag)
-            self.currency_exchange_id = self.trade_record['currency_exchange_id']
             self.drawdown_id = self.trade_record['drawdown_id']
             self.r_multiple = calc.calculate_r_multiple(
-                self.price_buy,
-                self.price_sell,
-                self.price_stoploss)
+                self.profit_loss,
+                self.risk_initial)
             self.date_expiration = self.trade_record['date_expiration']
             #TODO: for investing, id_buy/sell is id_firstbuy and id_firstsell
             # and expiration flag should only be set at the end of the trade, when
@@ -346,7 +352,6 @@ class Trade(CoreModule):
             self.cost_total = DEFAULT_DECIMAL
             self.cost_other = DEFAULT_DECIMAL
             self.win_flag = -1 #not yet finished, we can not know it yet.
-            self.currency_exchange_id = dba.first_currency_exchange_id_from_latest()
             self.drawdown_id = dba.new_drawdown_record()
             self.r_multiple = DEFAULT_DECIMAL
             self.date_expiration = fields[Input.DATE_EXPIRATION]
@@ -461,7 +466,6 @@ class Trade(CoreModule):
         print('win_flag =', self.win_flag)
         print('id_buy =', self.id_buy)
         print('id_sell =', self.id_sell)
-        print('currency_exchange_id =', self.currency_exchange_id)
         print('drawdown_id =', self.drawdown_id)
         print('pool_at_start =', self.pool_at_start)
         print('spread=', self.spread)

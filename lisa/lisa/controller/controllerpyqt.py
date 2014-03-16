@@ -324,7 +324,6 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
             Clears the table that contains the data.
         """
-        #TODO: clear when possible
         if self.model_data != None:
             self.model_data = TableModel([], self.headers)
         self.gui.tbl_data.setModel(self.model_data)

@@ -287,7 +287,6 @@ class DatabaseAccess():
         #TODO: this code needs the update instruction I've written somewhere
         #in databaseaccess.py
         #=> session.query(Supplier).filter_by(id=2).update({"name": u"Mayowa"})
-        print "test: final_statements =", final_statements
         session = self.Session()
         try:
             if final_statements != []:
@@ -420,20 +419,18 @@ class DatabaseAccess():
     def assemble_statement_list_update(self, statements, insupdel=StatementType.UPDATE):
         """
             Creates list of update records from statements,
-            that we can use to update at once.
+            that we can use to update.
         """
-        #NOTE: updating needs more code in the write_to_database function
-        result = []
+        result = [[]]
         inner_part_list = statements.get_statement_list(insupdel)
         for record in inner_part_list:
             if statements.table_name == Table.TRADE:
-                #TODO: instead of table_id being the id, make it
-                #the first field in the update string {...}: {..}
                 result[0].append(record['trade_id'])
             else:
-                record[0].append(-1)
+                result[0].append(-1)
             result[1].append(
-                {"market_id": record["market_id"]
+                 {
+                 "market_id": record["market_id"]
                  ,"commodity_id": record["commodity_id"]
                  ,"date_buy": record["date_buy"]
                  ,"year_buy": record["year_buy"]
@@ -454,6 +451,8 @@ class DatabaseAccess():
                  ,"commission_sell": record["commission_sell"]
                  ,"tax_buy": record["tax_buy"]
                  ,"tax_sell": record["tax_sell"]
+                 ,"amount_buy": record["amount_buy"]
+                 ,"amount_sell": record["amount_sell"]
                  ,"amount_buy_simple": record["amount_buy_simple"]
                  ,"amount_sell_simple": record["amount_sell_simple"]
                  ,"risk_input": record["risk_input"]
