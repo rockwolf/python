@@ -13,114 +13,194 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="1" column="0">
-      <widget class="QTextEdit" name="txt_general">
-       <property name="font">
-        <font>
-         <family>Inconsolata</family>
-         <pointsize>14</pointsize>
-        </font>
+  <layout class="QGridLayout" name="gridLayout_3">
+   <item row="0" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,1">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetMaximumSize</enum>
+     </property>
+     <item>
+      <widget class="QGroupBox" name="grp_input">
+       <property name="title">
+        <string>Input</string>
        </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <layout class="QGridLayout" name="gridLayout_2" columnstretch="1,1,0,0,0,0,0">
+          <item row="2" column="0">
+           <widget class="QLabel" name="lbl_account_to">
+            <property name="text">
+             <string>Account_to</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLineEdit" name="txt_quantity_recommended"/>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLabel" name="lbl_quantity_recommended">
+            <property name="text">
+             <string>Recommended quantity</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="6">
+           <widget class="QLabel" name="lbl_price_orig">
+            <property name="text">
+             <string>Price (orig curr)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="6">
+           <widget class="QDoubleSpinBox" name="spn_price_orig">
+            <property name="decimals">
+             <number>6</number>
+            </property>
+            <property name="maximum">
+             <double>99.999999000000003</double>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="lbl_pool">
+            <property name="text">
+             <string>Pool (a 25% safety margin will be deducted automatically)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="4">
+           <widget class="QLabel" name="lbl_tax">
+            <property name="text">
+             <string>Tax</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="lbl_risk">
+            <property name="text">
+             <string>Risk</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QDoubleSpinBox" name="spn_pool">
+            <property name="decimals">
+             <number>6</number>
+            </property>
+            <property name="maximum">
+             <double>99.999999000000003</double>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QComboBox" name="cmb_account_to"/>
+          </item>
+          <item row="1" column="5">
+           <widget class="QComboBox" name="cmb_currency_from"/>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="lbl_account_from">
+            <property name="text">
+             <string>Account from</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QDoubleSpinBox" name="spn_commission">
+            <property name="decimals">
+             <number>6</number>
+            </property>
+            <property name="maximum">
+             <double>99.999999000000003</double>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QLabel" name="lbl_commission">
+            <property name="text">
+             <string>Commission</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QComboBox" name="cmb_account_from"/>
+          </item>
+          <item row="1" column="4">
+           <widget class="QDoubleSpinBox" name="spn_tax">
+            <property name="decimals">
+             <number>6</number>
+            </property>
+            <property name="maximum">
+             <double>99.999999000000003</double>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QDoubleSpinBox" name="spn_risk">
+            <property name="decimals">
+             <number>6</number>
+            </property>
+            <property name="maximum">
+             <double>99.999999000000003</double>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="5">
+           <widget class="QLabel" name="lbl_currency">
+            <property name="text">
+             <string>Currency from</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="5">
+           <widget class="QLabel" name="lbl_currency_to">
+            <property name="text">
+             <string>Currency to</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="5">
+           <widget class="QComboBox" name="cmb_currency_to"/>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="lbl_general">
-       <property name="font">
-        <font>
-         <family>Inconsolata</family>
-         <pointsize>14</pointsize>
-        </font>
+     <item>
+      <widget class="QGroupBox" name="grp_summary">
+       <property name="title">
+        <string>Summary</string>
        </property>
-       <property name="text">
-        <string>General</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="QTextEdit" name="txt_sell">
-       <property name="font">
-        <font>
-         <family>Inconsolata</family>
-         <pointsize>14</pointsize>
-        </font>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QTextEdit" name="txt_buy">
-       <property name="font">
-        <font>
-         <family>Inconsolata</family>
-         <pointsize>14</pointsize>
-        </font>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="lbl_buy">
-       <property name="font">
-        <font>
-         <family>Inconsolata</family>
-         <pointsize>14</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Buy</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="lbl_sell">
-       <property name="font">
-        <font>
-         <family>Inconsolata</family>
-         <pointsize>14</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Sell</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QTextEdit" name="txt_summary">
+          <property name="font">
+           <font>
+            <family>Inconsolata</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </item>
     </layout>
    </item>
-   <item>
-    <widget class="QDialogButtonBox" name="buttonBox">
+   <item row="1" column="0">
+    <widget class="QDialogButtonBox" name="btn_box">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Close</set>
+      <set>QDialogButtonBox::Apply|QDialogButtonBox::Close</set>
      </property>
     </widget>
    </item>
@@ -129,7 +209,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>btn_box</sender>
    <signal>accepted()</signal>
    <receiver>DialogEmma</receiver>
    <slot>accept()</slot>
@@ -145,7 +225,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>btn_box</sender>
    <signal>rejected()</signal>
    <receiver>DialogEmma</receiver>
    <slot>reject()</slot>
@@ -161,7 +241,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>btn_box</sender>
    <signal>clicked(QAbstractButton*)</signal>
    <receiver>DialogEmma</receiver>
    <slot>reject()</slot>
