@@ -16,21 +16,24 @@ from modules.emma import *
 from modules.function import *
 from modules.constant import *
 
-class DialogEmma(QtGui.QDialog):
+class DialogEmma(QtGui.QDialog, controller):
     """
         Subclassing the DialogEmma dialog
         to define the accept.
     """
-    def __init__(self, data_general, data_buy, data_sell, parent=None):
+    def __init__(self, parent=None):
         super(DialogEmma, self).__init__(parent)
+        self.ctl = controller
         self.ui = view.viewpyqt_dialog_emma.Ui_DialogEmma()
         self.ui.setupUi(self)
         # use new style signals
         self.ui.buttonBox.accepted.connect(self.accept)
         self.ui.buttonBox.rejected.connect(self.reject)
-        self.ui.txt_general.setText('\n'.join(data_general))
-        self.ui.txt_buy.setText('\n'.join(data_buy))
-        self.ui.txt_sell.setText('\n'.join(data_sell))
+        self.ui.txt_summary.setText('\n'.join(data_general))
+        # Set default values
+        self.ui.spn_pool.setValue(); #TODO: get the pool from self.ctl.somethingsomething
+        self.ui.spn_risk.setValue();
+        self.ui.cmb
         
     def accept(self):
         super(DialogEmma, self).accept() # call the accept method of QDialog.
