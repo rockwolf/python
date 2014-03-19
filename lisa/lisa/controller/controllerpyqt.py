@@ -16,7 +16,7 @@ from modules.emma import *
 from modules.function import *
 from modules.constant import *
 
-class DialogEmma(QtGui.QDialog, controller):
+class DialogEmma(QtGui.QDialog, dba, controller):
     """
         Subclassing the DialogEmma dialog
         to define the accept.
@@ -24,6 +24,7 @@ class DialogEmma(QtGui.QDialog, controller):
     def __init__(self, parent=None):
         super(DialogEmma, self).__init__(parent)
         self.ctl = controller
+        self.dba = dba
         self.ui = view.viewpyqt_dialog_emma.Ui_DialogEmma()
         self.ui.setupUi(self)
         # use new style signals
@@ -39,6 +40,27 @@ class DialogEmma(QtGui.QDialog, controller):
         super(DialogEmma, self).accept() # call the accept method of QDialog.
                                            # super is needed
                                            # since we just override the accept method
+                                           
+    def fillcmb_currency_from():
+        """
+            Fill the currency_from combobox.
+        """
+         # Currencies
+         for currency in self.dba.get_currencies():
+              self.add_currency_from(currency)
+              self.add_currency_to(currency)
+              
+    def add_currency_from(self, value):
+        """
+            Add a new item to cmb_currency_from.
+        """
+        self.gui.cmb_currency_from.addItem(value)
+    
+    def add_currency_to(self, value):
+        """
+            Add a new item to cmb_currency_to.
+        """
+        self.gui.cmb_currency_to.addItem(value)
 
 class DialogParameters(QtGui.QDialog):
     """
