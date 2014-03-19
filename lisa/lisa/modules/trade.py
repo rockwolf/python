@@ -327,7 +327,7 @@ class Trade(CoreModule):
                 fields[Input.TAX],
                 fields[Input.COMMISSION],
                 fields[Input.RISK],
-                self.get_pool_without_margin(
+                get_pool_without_margin(
                     fields[Input.POOL],
                     dba.get_margin_pool()),
                 self.long_flag)
@@ -335,7 +335,7 @@ class Trade(CoreModule):
             self.profit_loss = DEFAULT_DECIMAL #Only calculated at end of trade.
             self.pool_at_start = fields[Input.POOL]
             self.risk_input = calc.calculate_risk_input(
-                self.get_pool_without_margin(
+                get_pool_without_margin(
                     fields[Input.POOL],
                     dba.get_margin_pool()),
                 fields[Input.RISK])
