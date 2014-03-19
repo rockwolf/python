@@ -75,3 +75,9 @@ def get_last_part(astring, aseparator = ':'):
     """
     partlist = astring.split(aseparator)
     return partlist[len(partlist) - 1]
+
+def get_pool_without_margin(self, pool, margin):
+        """
+            Returns the pool minus a margin.
+        """
+        return pool*(Decimal('1.0')-margin)

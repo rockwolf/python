@@ -472,9 +472,3 @@ class Trade(CoreModule):
         print('date_expiration =', self.date_expiration)
         print('expired_flag =', self.expired_flag)
         print('<\print>')
-
-    def get_pool_without_margin(self, pool, margin):
-        """
-            Returns the pool minus a margin.
-        """
-        return pool*(Decimal('1.0')-margin)
