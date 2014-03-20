@@ -435,7 +435,9 @@ class Trade(CoreModule):
                 'stoploss':Decimal(self.stoploss),
                 'stoploss_orig':Decimal(self.stoploss_orig),
                 'profit_loss':Decimal(self.profit_loss),
-                'profit_loss_percent':Decimal(self.profit_loss_percent),
+                'profit_loss_orig':Decimal(self.profit_loss_orig),
+                'profit_loss_total':Decimal(self.profit_loss_total),
+                'profit_loss_total_percent':Decimal(self.profit_loss_total_percent),
                 'r_multiple':Decimal(self.r_multiple),
                 'win_flag':int(self.win_flag),
                 'id_buy':int(self.id_buy),
@@ -478,7 +480,9 @@ class Trade(CoreModule):
         print('cost_other =', self.cost_other)
         print('stoploss =', self.stoploss)
         print('profit_loss =', self.profit_loss)
-        print('profit_loss_percent =', self.profit_loss_percent)
+        print('profit_loss_orig =', self.profit_loss_orig)
+        print('profit_loss_total =', self.profit_loss_total)
+        print('profit_loss_total_percent =', self.profit_loss_total_percent)
         print('r_multiple =', self.r_multiple)
         print('win_flag =', self.win_flag)
         print('id_buy =', self.id_buy)
