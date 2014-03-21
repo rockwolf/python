@@ -65,7 +65,9 @@ class Trade(CoreModule):
         self.stoploss = DEFAULT_DECIMAL
         self.stoploss_orig = DEFAULT_DECIMAL
         self.profit_loss = DEFAULT_DECIMAL
-        self.profit_loss_percent = DEFAULT_DECIMAL
+        self.profit_loss_orig = DEFAULT_DECIMAL
+        self.profit_loss_total = DEFAULT_DECIMAL
+        self.profit_loss_total_percent = DEFAULT_DECIMAL
         self.r_multiple = DEFAULT_DECIMAL
         self.win_flag = DEFAULT_DECIMAL
         self.id_buy = DEFAULT_INT
@@ -220,6 +222,18 @@ class Trade(CoreModule):
                 self.commission_buy,
                 self.commission_sell,
                 self.long_flag)
+            self.profit_loss_orig = calc.convert_from_orig(self.profit_loss, fields[Input.EXCHANGE_RATE]) 
+            self.profit_loss_total = calc.calculate_profit_loss_total(
+                self.price_buy,
+                self.shares_buy,
+                self.price_sell,
+                self.shares_sell,
+                self.tax_buy,
+                self.tax_sell,
+                self.commission_buy,
+                self.commission_sell,
+                self.long_flag)
+            self.profit_loss_total_percent = (self.profit_loss_total/self.amount_buy_simple)*Decimal(100.0)
             self.pool_at_start = self.trade_record['pool_at_start']
             self.date_created = self.trade_record['date_created']
             self.risk_input = self.trade_record['risk_input']
@@ -334,6 +348,9 @@ class Trade(CoreModule):
                 self.long_flag)
             self.stoploss_orig = calc.convert_to_orig(self.stoploss, fields[Input.EXCHANGE_RATE])
             self.profit_loss = DEFAULT_DECIMAL #Only calculated at end of trade.
+            self.profit_loss_orig = DEFAULT_DECIMAL
+            self.profit_loss_total = DEFAULT_DECIMAL
+            self.profit_loss_total_percent = DEFAULT_DECIMAL
             self.pool_at_start = fields[Input.POOL]
             self.risk_input = calc.calculate_risk_input(
                 get_pool_without_margin(
@@ -419,7 +436,9 @@ class Trade(CoreModule):
                 'stoploss':Decimal(self.stoploss),
                 'stoploss_orig':Decimal(self.stoploss_orig),
                 'profit_loss':Decimal(self.profit_loss),
-                'profit_loss_percent':Decimal(self.profit_loss_percent),
+                'profit_loss_orig':Decimal(self.profit_loss_orig),
+                'profit_loss_total':Decimal(self.profit_loss_total),
+                'profit_loss_total_percent':Decimal(self.profit_loss_total_percent),
                 'r_multiple':Decimal(self.r_multiple),
                 'win_flag':int(self.win_flag),
                 'id_buy':int(self.id_buy),
@@ -462,7 +481,9 @@ class Trade(CoreModule):
         print('cost_other =', self.cost_other)
         print('stoploss =', self.stoploss)
         print('profit_loss =', self.profit_loss)
-        print('profit_loss_percent =', self.profit_loss_percent)
+        print('profit_loss_orig =', self.profit_loss_orig)
+        print('profit_loss_total =', self.profit_loss_total)
+        print('profit_loss_total_percent =', self.profit_loss_total_percent)
         print('r_multiple =', self.r_multiple)
         print('win_flag =', self.win_flag)
         print('id_buy =', self.id_buy)

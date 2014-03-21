@@ -289,7 +289,9 @@ class T_TRADE(Base):
     stoploss = Column(Numeric(18,6))
     stoploss_orig = Column(Numeric(18,6))
     profit_loss = Column(Numeric(18,6))
-    profit_loss_percent = Column(Numeric(18,6))
+    profit_loss_orig = Column(Numeric(18,6))
+    profit_loss_total = Column(Numeric(18,6))
+    profit_loss_total_percent = Column(Numeric(18,6))
     r_multiple = Column(Numeric(18,6))
     win_flag = Column(Integer)
     id_buy = Column(Integer)
@@ -341,7 +343,9 @@ class T_TRADE(Base):
         stoploss,
         stoploss_orig,
         profit_loss,
-        profit_loss_percent,
+        profit_loss_orig,
+        profit_loss_total,
+        profit_loss_total_percent,
         r_multiple,
         win_flag,
         id_buy,
@@ -391,7 +395,9 @@ class T_TRADE(Base):
         self.stoploss = stoploss
         self.stoploss_orig = stoploss_orig
         self.profit_loss = profit_loss
-        self.profit_loss_percent = profit_loss_percent
+        self.profit_loss_orig = profit_loss_orig
+        self.profit_loss_total = profit_loss_total
+        self.profit_loss_total_percent = profit_loss_total_percent
         self.r_multiple = r_multiple
         self.win_flag = win_flag
         self.id_buy = id_buy
@@ -450,7 +456,9 @@ class T_TRADE(Base):
                 self.stoploss,
                 self.stoploss_orig,
                 self.profit_loss,
-                self.profit_loss_percent,
+                self.profit_loss_orig,
+                self.profit_loss_total,
+                self.profit_loss_total_percent,
                 self.r_multiple,
                 self.win_flag,
                 self.id_buy,

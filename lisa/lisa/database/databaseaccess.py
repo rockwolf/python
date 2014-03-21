@@ -401,7 +401,9 @@ class DatabaseAccess():
                     record['stoploss'],
                     record['stoploss_orig'],
                     record['profit_loss'],
-                    record['profit_loss_percent'],
+                    record['profit_loss_orig'],
+                    record['profit_loss_total'],
+                    record['profit_loss_total_percent'],
                     record['r_multiple'],
                     record['win_flag'],
                     record['id_buy'],
@@ -466,7 +468,9 @@ class DatabaseAccess():
                  ,"stoploss": record["stoploss"]
                  ,"stoploss_orig": record["stoploss_orig"]
                  ,"profit_loss": record["profit_loss"]
-                 ,"profit_loss_percent": record["profit_loss_percent"]
+                 ,"profit_loss_orig": record["profit_loss_orig"]
+                 ,"profit_loss_total": record["profit_loss_total"]
+                 ,"profit_loss_total_percent": record["profit_loss_total_percent"]
                  ,"r_multiple": record["r_multiple"]
                  ,"win_flag": record["win_flag"]
                  ,"id_buy": record["id_buy"]
