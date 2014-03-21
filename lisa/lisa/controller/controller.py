@@ -6,14 +6,13 @@
 from os.path import isfile
 import shutil
 import os, sys
-from decimal import getcontext
+from decimal import Decimal, getcontext
 
 from database.databaseaccess import DatabaseAccess
 from controllerpyqt import ControllerPyqt
 from PyQt4 import QtGui
 from modules.constant import *
 from modules.function import *
-from decimal import Decimal
 from generic.modules.function import *
 from modules.currency_exchange import CurrencyExchange
 from modules.rate import Rate

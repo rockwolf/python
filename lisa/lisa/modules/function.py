@@ -8,6 +8,7 @@
 """
 
 from modules.constant import NEGATIVES, TRADING_ACCOUNTS
+from decimal import Decimal
 
 def is_a_trading_account(account):
     """
@@ -76,7 +77,7 @@ def get_last_part(astring, aseparator = ':'):
     partlist = astring.split(aseparator)
     return partlist[len(partlist) - 1]
 
-def get_pool_without_margin(self, pool, margin):
+def get_pool_without_margin(pool, margin):
         """
             Returns the pool minus a margin.
         """

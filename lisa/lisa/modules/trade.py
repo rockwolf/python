@@ -4,6 +4,7 @@
 """
 
 from datetime import datetime
+from decimal import Decimal
 
 from database.databaseaccess import DatabaseAccess
 from modules.core_module import CoreModule
