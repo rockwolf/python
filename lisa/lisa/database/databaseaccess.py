@@ -289,7 +289,7 @@ class DatabaseAccess():
         #=> session.query(Supplier).filter_by(id=2).update({"name": u"Mayowa"})
         session = self.Session()
         try:
-            if final_statements != []:
+            if final_statements != [[]]:
                 #NOTE: The below 3 lines are this one-liner in python3:
                 #print(table_name, end=': ')
                 splitnames = table_name.split(':')
@@ -301,8 +301,10 @@ class DatabaseAccess():
                     print 'test:', statement
                     session.query(table_name).filter_by(
                             id=statement[0]).update(statement[1])
+                    print 'test: after query'
                 #TODO: commit/flush code in for or outside?
                 session.commit()
+                    print 'test: after commit'
                 print "{0} records updated.".format(str(len(final_statements)))
                 print ''
         except Exception as ex:
