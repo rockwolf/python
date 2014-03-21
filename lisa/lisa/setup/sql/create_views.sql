@@ -199,7 +199,9 @@ select
     , t.stoploss
     , t.stoploss_orig
     , t.profit_loss
-    , t.profit_loss_percent
+    , t.profit_loss_orig
+    , t.profit_loss_total
+    , t.profit_loss_total_percent
     , t.r_multiple
     , t.win_flag
     --, t.wins
