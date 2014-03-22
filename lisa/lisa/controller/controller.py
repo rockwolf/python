@@ -178,7 +178,7 @@ class ControllerMain():
             self.gui.get_date(),
             self.gui.get_account_from(),
             self.gui.get_account_to(),
-            self.gui.get_amount().
+            self.gui.get_amount(),
             self.gui.get_comment(),
             self.gui.get_commodity_name(),
             self.gui.get_commodity_description(),

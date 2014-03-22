@@ -1,7 +1,29 @@
 {
+  "mainFile": "lisa/__init__.py", 
+  "use-tabs": false, 
   "venv": "", 
-  "project-type": "Import from sources", 
+  "relatedProjects": [], 
   "name": "lisa", 
   "license": "New BSD License", 
+  "url": "", 
+  "pythonPath": "python", 
+  "preExecScript": "", 
+  "additional_builtins": [], 
+  "programParams": "", 
+  "indentation": 4, 
+  "PYTHONPATH": "", 
+  "supported-extensions": [
+    ".py", 
+    ".html", 
+    ".jpg", 
+    ".png", 
+    ".ui", 
+    ".css", 
+    ".json", 
+    ".js", 
+    ".ini"
+  ], 
+  "project-type": "Import from sources", 
+  "postExecScript": "", 
   "description": "Less Interaction Saves Action"
 }
