@@ -304,7 +304,7 @@ class DatabaseAccess():
                     print 'test: after query'
                 #TODO: commit/flush code in for or outside?
                 session.commit()
-                    print 'test: after commit'
+                print 'test: after commit'
                 print "{0} records updated.".format(str(len(final_statements)))
                 print ''
         except Exception as ex:

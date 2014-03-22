@@ -16,6 +16,7 @@ from modules.emma import *
 from modules.function import *
 from modules.constant import *
 
+
 class DialogEmma(QtGui.QDialog):
     """
         Subclassing the DialogEmma dialog
@@ -32,15 +33,16 @@ class DialogEmma(QtGui.QDialog):
         self.ui.buttonBox.rejected.connect(self.reject)
         self.ui.txt_summary.setText('\n'.join(data_general))
         # Set default values
-        self.ui.spn_pool.setValue(); #TODO: get the pool from self.ctl.somethingsomething
-        self.ui.spn_risk.setValue();
-        self.ui.cmb
-        
+        self.ui.spn_pool.setValue()
+        # TODO: get the pool from self.ctl.somethingsomething
+        self.ui.spn_risk.setValue()
+        # self.ui.cmb
+
     def accept(self):
-        super(DialogEmma, self).accept() # call the accept method of QDialog.
-                                           # super is needed
-                                           # since we just override the accept method
-                                           
+        super(DialogEmma, self).accept()  # call the accept method of QDialog.
+                                           # super is needed since we just
+                                           # override the accept method
+
     def fillcmb_currency_from():
         """
             Fill the currency_from combobox.
@@ -49,18 +51,19 @@ class DialogEmma(QtGui.QDialog):
         for currency in self.dba.get_currencies():
             self.add_currency_from(currency)
             self.add_currency_to(currency)
-              
+
     def add_currency_from(self, value):
         """
             Add a new item to cmb_currency_from.
         """
         self.gui.cmb_currency_from.addItem(value)
-    
+
     def add_currency_to(self, value):
         """
             Add a new item to cmb_currency_to.
         """
         self.gui.cmb_currency_to.addItem(value)
+
 
 class DialogParameters(QtGui.QDialog):
     """
@@ -90,7 +93,7 @@ class ControllerPyqt(QtGui.QMainWindow):
     """
         Controller that also contains pyqt related code.
     """
-    
+
     def __init__(self, config, controller):
         """
             Construct basic QApplication, add widgets and start exec_loop
@@ -101,7 +104,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         QtGui.QMainWindow.__init__(self)
 
         self.gui = view.viewpyqt.Ui_MainWindow()
-        self.gui.setupUi(self) 
+        self.gui.setupUi(self)
         self.connectslots()
         self.ctl = controller
         self.model_data = None
@@ -109,8 +112,9 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.headers = ['date', 'account_from', 'account_to', 'amount',
                 'comment', 'commodity', 'commodity_description', 'market',
                 'market_description', 'quantity', 'price',
-                'commission', 'tax', 'risk', 'currency_from', 'currency_to', 'exchange_rate',
-                'automatic_flag', 'expires_on', 'pool', 'spread']
+                'commission', 'tax', 'risk', 'currency_from', 'currency_to',
+                'exchange_rate', 'automatic_flag', 'expires_on', 'pool',
+                'spread']
 
     def connectslots(self):
         """
@@ -118,9 +122,15 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
         self.gui.btn_exit.clicked.connect(self.btn_exit_clicked)
         self.gui.btn_add.clicked.connect(self.btn_add_clicked)
-        self.gui.cmb_market_code.currentIndexChanged[int].connect(self.cmb_market_code_changed)
-        self.gui.cmb_commodity_name.currentIndexChanged[int].connect(self.cmb_commodity_name_changed)
-        #self.gui.cmb_commodity_name.keyPressed.connect(self.cmb_commodity_name_key_pressed)
+        self.gui.cmb_market_code.currentIndexChanged[int].connect(
+            self.cmb_market_code_changed
+        )
+        self.gui.cmb_commodity_name.currentIndexChanged[int].connect(
+            self.cmb_commodity_name_changed
+        )
+        #self.gui.cmb_commodity_name.keyPressed.connect(
+        #    self.cmb_commodity_name_key_pressed
+        #)
         self.gui.btn_execute.clicked.connect(self.btn_execute_clicked)
         self.gui.btn_clear.clicked.connect(self.btn_clear_clicked)
         self.gui.btn_update.clicked.connect(self.btn_update_clicked)
@@ -137,10 +147,10 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
         self.ctl.write_to_database(self.model_data)
         #self.set_lbl_check(self.ctl.get_check_info([]))
-        #TODO: when the get_check_info is fixed, fix this too
+        # TODO: when the get_check_info is fixed, fix this too
         self.set_lbl_check('')
         self.clear_inputbuffer()
-        
+
     def btn_exit_clicked(self):
         """
             Exit
@@ -153,19 +163,21 @@ class ControllerPyqt(QtGui.QMainWindow):
             Clear the input buffer.
         """
         self.clear_inputbuffer()
-    
+
     def btn_add_clicked(self):
         """
             Add new input to the input_fields table.
         """
         # Init tbl_data
         input_line = self.ctl.get_input_line()
-        if self.model_data == None:
+        if self.model_data is None:
             self.init_tbl_data(input_line)
-        else: 
+        else:
             self.ctl.add_tbl_data(self.model_data, [input_line])
         self.clear_fields()
-        #self.set_lbl_check(self.ctl.get_check_info(self.model_data.tablecontent))
+        #self.set_lbl_check(self.ctl.get_check_info(
+        #    self.model_data.tablecontent)
+        #)
 
     def btn_update_clicked(self):
         """
@@ -183,11 +195,11 @@ class ControllerPyqt(QtGui.QMainWindow):
         #This currently gets the last row.
         selected_index = self.model_data.rowCount(None)
         self.ctl.remove_selected(self.model_data, selected_index)
-    
+
     def btn_removelast_clicked(self):
         """ Remove the last added record from the table. """
         self.ctl.remove_last(self.model_data)
-        
+
     def btn_emma_clicked(self):
         """
             Equations for money management.
@@ -195,21 +207,20 @@ class ControllerPyqt(QtGui.QMainWindow):
         input_line = self.ctl.get_input_line()
         if not (Decimal(input_line[Input.AMOUNT]) == DEFAULT_DECIMAL
             or Decimal(input_line[Input.PRICE]) == DEFAULT_DECIMAL):
-            print 'test0'
             emma = Emma(input_line)
-            print 'test1'
             emma.calculate()
             print emma.result
             dlg = DialogEmma()
-            dlg.exec_() # exec_() for modal, show() for non-modal dialog
-            
+            dlg.exec_()  # exec_() for modal, show() for non-modal dialog
+
     def btn_gnucash_clicked(self):
         """
             What to enter in GnuCash?
         """
-        #TODO: show gnucash entries for all the lines in the table.
-        # OR show gnucash info for all lines in the db that have not been entered yet.
-        # => add extra column: gnucash with value 0 or 1 (1 = already entered in gnucash)
+        # TODO: show gnucash entries for all the lines in the table.
+        # OR show gnucash info for all lines in the db that have not
+        # been entered yet.=> add extra column:
+        # gnucash with value 0 or 1 (1 = already entered in gnucash)
         pass
 
     def btn_parameters_clicked(self):
@@ -224,8 +235,10 @@ class ControllerPyqt(QtGui.QMainWindow):
     #        keyPressed event in combo
     #    """
     #    print 'test:', str(qKeyEevnt)
-    #    if qKeyEvent.key() == QtCore.Qt.Key_Return: 
-    #        self.ctl.update_accounts_for_commodities(str(self.gui.cmb_commodity_name.currentText()))
+    #    if qKeyEvent.key() == QtCore.Qt.Key_Return:
+    #        self.ctl.update_accounts_for_commodities(
+    #    str(self.gui.cmb_commodity_name.currentText())
+    #)
 
     # Events
     def toggle_commodity_inputs(self):
@@ -256,13 +269,13 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.gui.spn_commission.setEnabled(is_commodity)
         self.gui.spn_tax.setEnabled(is_commodity)
         self.gui.spn_pool.setEnabled(is_commodity)
-        #TODO: automatic calculation of commission temporarily disabled
-        #TODO: double check the behaviour here, for the newly added fields.
+        # TODO: automatic calculation of commission temporarily disabled
+        # TODO: double check the behaviour here, for the newly added fields.
         self.gui.chk_automatic_flag.setEnabled(is_commodity)
         self.gui.spn_risk.setEnabled(is_commodity)
         self.gui.dt_expiration.setEnabled(is_commodity)
-        self.gui.spn_pool_at_start.setEnabled(is_commodity);
-        self.gui.spn_spread.setEnabled(is_commodity);
+        self.gui.spn_pool_at_start.setEnabled(is_commodity)
+        self.gui.spn_spread.setEnabled(is_commodity)
         # set inputfields
         self.gui.spn_tax.setValue(Decimal(self.config.default_tax))
         self.gui.spn_risk.setValue(Decimal(self.config.default_risk))
@@ -273,7 +286,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         self.gui.spn_commission.setValue(0.0)
         self.gui.spn_risk.setValue(0.0)
         self.gui.chk_automatic_flag.setEnabled(False)
-        self.set_current_pool() #reset pool to current value
+        self.set_current_pool()  # reset pool to current value
         self.ctl.set_info_details()
 
     def cmb_commodity_name_changed(self):
@@ -281,15 +294,15 @@ class ControllerPyqt(QtGui.QMainWindow):
             When the commodity selection changes.
         """
         self.ctl.filltxt_commodity_description()
-        self.ctl.set_info_details()        
-        
+        self.ctl.set_info_details()
+
     def cmb_market_code_changed(self):
         """
             When the market_code combo selection changes.
         """
         self.ctl.fillcmb_commodity_name()
         self.ctl.filltxt_market_description()
-    
+
     def init_tbl_data(self, input_line):
         """
             Initialize tbl_data, with the first input_line
@@ -304,10 +317,15 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
         # Info labels
         self.gui.lbl_infofinance.clear()
-        self.gui.lbl_infofinance.setText('[<< ' + self.ctl.get_parameter_value(8) + ' >> ' + self.ctl.get_parameter_value(9) + ']')
+        self.gui.lbl_infofinance.setText(
+            '[<< {} >> {}]'.format(
+                self.ctl.get_parameter_value(8),
+                self.ctl.get_parameter_value(9)
+            )
+        )
         self.gui.lbl_infodetails.clear()
         #self.set_lbl_check(self.ctl.get_check_info([]))
-        #TODO: when the get_check_info is fixed, fix this too
+        # TODO: when the get_check_info is fixed, fix this too
         self.set_lbl_check('')
         # fill all combo boxes
         self.ctl.init_display_data()
@@ -328,7 +346,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
             Clears the table that contains the data.
         """
-        if self.model_data != None:
+        if self.model_data is not None:
             self.model_data = TableModel([], self.headers)
         self.gui.tbl_data.setModel(self.model_data)
 
@@ -364,7 +382,7 @@ class ControllerPyqt(QtGui.QMainWindow):
             Returns the account name from the cmb_account_to combobox.
         """
         return str(self.gui.cmb_account_to.currentText())
-    
+
     def get_amount(self):
         """
             Returns the amount from the spn_amount spinedit.
@@ -382,7 +400,7 @@ class ControllerPyqt(QtGui.QMainWindow):
             Returns the market_code.
         """
         return str(self.gui.cmb_market_code.currentText())
-    
+
     def get_market_description(self):
         """
             Returns the market description.
@@ -405,7 +423,9 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
             Returns the quantity from the spn_quantity spinedit.
         """
-        return str(self.gui.spn_quantity.textFromValue(self.gui.spn_quantity.value()))
+        return str(self.gui.spn_quantity.textFromValue(
+            self.gui.spn_quantity.value())
+        )
 
     def get_price(self):
         """
@@ -423,7 +443,9 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
             Returns the commission from the spn_commission spinedit.
         """
-        return str(self.gui.spn_commission.textFromValue(self.gui.spn_commission.value()))
+        return str(self.gui.spn_commission.textFromValue(
+            self.gui.spn_commission.value())
+        )
 
     def get_tax(self):
         """
@@ -435,44 +457,49 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
             Returns the risk from the spn_risk spinedit.
         """
-        return str(Decimal(str(self.gui.spn_risk.textFromValue(self.gui.spn_risk.value()))))
-                
+        return str(Decimal(str(self.gui.spn_risk.textFromValue(
+            self.gui.spn_risk.value())))
+        )
+
     def get_currency_from(self):
-    	"""
+        """
             Returns the from currency used.
         """
-    	return str(self.gui.cmb_currency_from.currentText())
- 
+        return str(self.gui.cmb_currency_from.currentText())
+
     def get_currency_to(self):
-    	"""
+        """
             Returns the to currency used.
         """
-    	return str(self.gui.cmb_currency_to.currentText())
-    	
+        return str(self.gui.cmb_currency_to.currentText())
+
     def get_exchange_rate(self):
-    	"""
+        """
             Returns the exchange rate used.
         """
-    	return str(self.gui.spn_exchange_rate.textFromValue(self.gui.spn_exchange_rate.value()))
+        return str(self.gui.spn_exchange_rate.textFromValue(
+            self.gui.spn_exchange_rate.value())
+        )
 
     def get_automatic_flag(self):
         """
             Returns the value of the automatic_flag calc. checkbox
         """
-        return '0' if self.gui.chk_automatic_flag.isChecked() else '1' 
-        
+        return '0' if self.gui.chk_automatic_flag.isChecked() else '1'
+
     def get_date_expiration(self):
-    	"""
+        """
             Returns the value of the dt_expiration date picker.
         """
-    	return str(self.gui.dt_expiration.date().toString(QtCore.Qt.ISODate))
+        return str(self.gui.dt_expiration.date().toString(QtCore.Qt.ISODate))
 
     def get_spread(self):
         """
             Returns the spread from the spn_spread spinedit.
         """
-        return str(self.gui.spn_spread.textFromValue(self.gui.spn_spread.value()))
-    
+        return str(self.gui.spn_spread.textFromValue(
+            self.gui.spn_spread.value())
+        )
 
     def set_info_details(self, value):
         """
@@ -499,7 +526,7 @@ class ControllerPyqt(QtGui.QMainWindow):
         """
         self.gui.txt_commodity_description.clear()
         self.gui.txt_commodity_description.setText(value)
-   
+
     def add_commodity_name(self, value):
         """
             Add a new item to cmb_commodity_name.
@@ -523,72 +550,80 @@ class ControllerPyqt(QtGui.QMainWindow):
             Add a new item to cmb_market_code.
         """
         self.gui.cmb_market_code.addItem(value)
-       
+
     def set_default_commission(self):
         """
             Select the default commission.
         """
-        self.gui.spn_commission.setValue(Decimal(self.ctl.get_parameter_value(12)))
-        
+        self.gui.spn_commission.setValue(
+            Decimal(self.ctl.get_parameter_value(12))
+        )
+
     def set_default_tax(self):
         """
             Select the default tax.
         """
-        self.gui.spn_tax.setValue(Decimal(self.ctl.get_parameter_value(13)))
-        
+        self.gui.spn_tax.setValue(
+            Decimal(self.ctl.get_parameter_value(13))
+        )
+
     def set_default_market(self):
         """
             Select the default market.
         """
-        index = int(self.ctl.get_parameter_value(14))-1
+        index = int(self.ctl.get_parameter_value(14)) - 1
         self.set_combo_selection(index, self.gui.cmb_market_code)
 
     def set_default_commodity(self):
         """
             Select the default commodity.
         """
-        index = int(self.ctl.get_parameter_value(15))-1
+        index = int(self.ctl.get_parameter_value(15)) - 1
         self.set_combo_selection(index, self.gui.cmb_commodity_name)
 
     def set_default_account_from(self):
         """
             Select the default account.
         """
-        index = int(self.ctl.get_parameter_value(6))-1
+        index = int(self.ctl.get_parameter_value(6)) - 1
         self.set_combo_selection(index, self.gui.cmb_account_from)
 
     def set_default_account_to(self):
         """
             Select the default account.
         """
-        index = int(self.ctl.get_parameter_value(7))-1
+        index = int(self.ctl.get_parameter_value(7)) - 1
         self.set_combo_selection(index, self.gui.cmb_account_to)
 
     def set_default_currency_from(self):
         """
             Set the default from currency value at startup.
         """
-        index = int(self.ctl.get_parameter_value(3))-1
+        index = int(self.ctl.get_parameter_value(3)) - 1
         self.set_combo_selection(index, self.gui.cmb_currency_from)
 
     def set_default_currency_to(self):
         """
             Set the default to currency value at startup.
         """
-        index = int(self.ctl.get_parameter_value(4))-1
+        index = int(self.ctl.get_parameter_value(4)) - 1
         self.set_combo_selection(index, self.gui.cmb_currency_to)
- 
+
     def set_default_exchange_rate(self):
         """
             Set the default exchange rate value at startup.
         """
-        self.gui.spn_exchange_rate.setValue(Decimal(self.ctl.get_parameter_value(5)))
+        self.gui.spn_exchange_rate.setValue(
+            Decimal(self.ctl.get_parameter_value(5))
+        )
 
     def set_default_risk(self):
         """
             Set the default risk.
         """
-        self.gui.spn_risk.setValue(Decimal(self.ctl.get_parameter_value(2)))
+        self.gui.spn_risk.setValue(
+            Decimal(self.ctl.get_parameter_value(2))
+        )
 
     def set_combo_selection(self, index, combobox):
         """
@@ -612,16 +647,18 @@ class ControllerPyqt(QtGui.QMainWindow):
     def add_currency_from(self, value):
         """
             Add a new item to cmb_currency_from.
-        """ 
+        """
         self.gui.cmb_currency_from.addItem(value)
- 
+
     def add_currency_to(self, value):
         """
             Add a new item to cmb_currency_to.
-        """ 
+        """
         self.gui.cmb_currency_to.addItem(value)
-        
-    #TODO: when automatic is checked, the commission and tax fields
+
+    # TODO: when automatic is checked, the commission and tax fields
     #should no longer be editable, and vice versa.
-    #TODO: when the market or amount or category or subcategory (<> buy or sell) is changed, this also should be refreshed!
-    #The goal is to make tax and commission dependent on the values in t_parameter
+    # TODO: when the market or amount or category or subcategory
+    # (<> buy or sell) is changed, this also should be refreshed!
+    #The goal is to make tax and commission dependent on the values
+    # in t_parameter

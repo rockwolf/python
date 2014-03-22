@@ -1,12 +1,10 @@
 #!/usr/env/python
 """
-    See LICENSE file for copyright and license details.					
+    See LICENSE file for copyright and license details.
 """
 
-from os.path import isfile
-import shutil
-import os, sys
-from decimal import Decimal, getcontext
+import sys
+from decimal import Decimal
 
 from database.databaseaccess import DatabaseAccess
 from controllerpyqt import ControllerPyqt
@@ -18,13 +16,14 @@ from modules.currency_exchange import CurrencyExchange
 from modules.rate import Rate
 from modules.finance import Finance
 from modules.trade import Trade
-from modules.emma import Emma
+#from modules.emma import Emma
+
 
 class ControllerMain():
     """
         Contains the bussiness logic of the application.
     """
-    
+
     def __init__(self, config):
         """
             Construct basic QApplication, add widgets and start exec_loop
@@ -40,7 +39,7 @@ class ControllerMain():
         """
         app = QtGui.QApplication(sys.argv)
         app.setStyle("cleanLooks")
-        #TODO: play with the different styles
+        # TODO: play with the different styles
         # "windows", "motif", "cde", "plastique" and "cleanlooks"
         window = ControllerPyqt(self.config, self)
         self.gui = window
@@ -61,11 +60,12 @@ class ControllerMain():
             rate = Rate(self.config)
             finance = Finance(self.config)
             trade = Trade(self.config)
-            
+
             input_fields = table_model.get_values()
             # Note: The order of execution below is important!
             # t_currency_exchange
-            var_currency_exchange = currency_exchange.create_statements(input_fields)
+            var_currency_exchange = currency_exchange.create_statements(
+                input_fields)
             var_currency_exchange.print_statements()
             currency_exchange.write_to_database(var_currency_exchange)
             # t_rate
@@ -85,7 +85,8 @@ class ControllerMain():
             #test = dba.create_statements_TABLE_INVESTMENT(input_fields)
             #test.print_statements()
             #if self.is_an_investment():
-            #    dba.write_to_database(dba.create_statements_TABLE_INVESTMENT(input_fields))
+            #    dba.write_to_database(dba.create_statements_TABLE_INVESTMENT(
+            #    input_fields))
             currency_exchange = None
             rate = None
             finance = None
@@ -122,16 +123,16 @@ class ControllerMain():
         """
             Gets the account check info.
         """
-        #TODO: fix this later
+        # TODO: fix this later
         pass
         #dba = DatabaseAccess(self.config)
         #values = []
         #for entry in dba.get_rep_check_totals():
-        #    values.append(entry) 
+        #    values.append(entry)
         #for entry in self.get_account_totals_from_input_fields(
         #        table_model.get_values()):
         #    for saved_entry in values:
-        #        if saved_entry[0] == entry[0]: 
+        #        if saved_entry[0] == entry[0]:
         #            saved_entry[1] = saved_entry[1] + entry[1]
         #info = dba.get_rep_check_total(values)
         #if info == '':
@@ -141,7 +142,7 @@ class ControllerMain():
 
     def get_account_total_from_input_fields(self,
             account_name, input_fields):
-        """ 
+        """
             Returns the account total for the given
             account, only taking into consideration
             what's in the input_fields.
@@ -174,50 +175,50 @@ class ControllerMain():
             Get the input values, but add basic extra calculations.
         """
         return self.get_input_line_extra(
-            self.gui.get_date()
-            , self.gui.get_account_from()
-            , self.gui.get_account_to()
-            , self.gui.get_amount()
-            , self.gui.get_comment()
-            , self.gui.get_commodity_name()
-            , self.gui.get_commodity_description()
-            , self.gui.get_market_code()
-            , self.gui.get_market_description()
-            , self.gui.get_quantity()
-            , self.gui.get_price()
-            , self.gui.get_commission()
-            , self.gui.get_tax()
-            , self.gui.get_risk()
-            , self.gui.get_currency_from()
-            , self.gui.get_currency_to()
-            , self.gui.get_exchange_rate()
-            , self.gui.get_automatic_flag()
-            , self.gui.get_date_expiration()
-            , self.gui.get_pool()
-            , self.gui.get_spread())
-    
-    def get_input_line_extra(self
-        , date
-        , account_from
-        , account_to
-        , amount
-        , comment
-        , commodity
-        , commodity_description
-        , market
-        , market_description
-        , quantity
-        , price
-        , commission
-        , tax
-        , risk
-        , currency_from
-        , currency_to
-        , exchange_rate
-        , automatic_flag
-        , date_expiration
-        , pool
-        , spread):
+            self.gui.get_date(),
+            self.gui.get_account_from(),
+            self.gui.get_account_to(),
+            self.gui.get_amount().
+            self.gui.get_comment(),
+            self.gui.get_commodity_name(),
+            self.gui.get_commodity_description(),
+            self.gui.get_market_code(),
+            self.gui.get_market_description(),
+            self.gui.get_quantity(),
+            self.gui.get_price(),
+            self.gui.get_commission(),
+            self.gui.get_tax(),
+            self.gui.get_risk(),
+            self.gui.get_currency_from(),
+            self.gui.get_currency_to(),
+            self.gui.get_exchange_rate(),
+            self.gui.get_automatic_flag(),
+            self.gui.get_date_expiration(),
+            self.gui.get_pool(),
+            self.gui.get_spread())
+
+    def get_input_line_extra(self,
+        date,
+        account_from,
+        account_to,
+        amount,
+        comment,
+        commodity,
+        commodity_description,
+        market,
+        market_description,
+        quantity,
+        price,
+        commission,
+        tax,
+        risk,
+        currency_from,
+        currency_to,
+        exchange_rate,
+        automatic_flag,
+        date_expiration,
+        pool,
+        spread):
         """
             Add calculated fields to the input line,
             to end up with what the application will process.
@@ -225,17 +226,20 @@ class ControllerMain():
         """
         # initialize
         str_list = []
-        for i in range(0,Input.SIZE):
+        for i in range(0, Input.SIZE):
             str_list.append('')
-        
+
         # When not needed, values for trading will be cleared.
-        if not (deals_with_commodities(self.gui.get_account_from(), self.gui.get_account_to())):
+        if not (deals_with_commodities(
+            self.gui.get_account_from(),
+            self.gui.get_account_to())
+        ):
             market = ''
             commodity = ''
             market_description = ''
             commodity_description = ''
             pool = DEFAULT_DECIMAL
-            shares = DEFAULT_INT
+            quantity = DEFAULT_INT
             price = DEFAULT_DECIMAL
             commission = DEFAULT_DECIMAL
             tax = DEFAULT_DECIMAL
@@ -291,9 +295,12 @@ class ControllerMain():
             info = dba.get_commodity_info(commodity)
             self.gui.set_info_details(
                 '{} ({}): {}'.format(
-                    info[1]
-                    ,''.join(info[2].split())
-                    ,info[0]))
+                    info[1],
+                    ''.join(info[2].split()
+                ),
+                info[0]
+            )
+        )
         else:
             self.gui.set_info_details('')
         dba = None
@@ -307,7 +314,7 @@ class ControllerMain():
         for name in dba.get_commodity_names(self.gui.get_market_code()):
             self.gui.add_commodity_name(name)
         dba = None
-    
+
     def filltxt_market_description(self):
         """
             fill market description
@@ -345,14 +352,22 @@ class ControllerMain():
             Convert a new currency to the base currency.
         """
         pass
-    
+
     def update_accounts_for_commodities(self, market, new_commodity):
         """
            Create a long and short account for a new commodity.
         """
         dba = DatabaseAccess(self.config)
-        dba.save_new_account('assets:current_assets:commodities:' + new_commodity.lower() + ' (long)')
-        dba.save_new_account('assets:current_assets:commodities:' + new_commodity.lower() + ' (short)')
+        dba.save_new_account(
+            'assets:current_assets:commodities:{} (long)'.format(
+                new_commodity.lower()
+            )
+        )
+        dba.save_new_account(
+            'assets:current_assets:commodities:{} (short)'.format(
+                new_commodity.lower()
+            )
+        )
         dba = None
 
     def get_parameter_value(self, parameter_index):

@@ -11,7 +11,7 @@
         --install
         --uninstall
         --test
-        -V, --version 
+        -V, --version
         --python
 """
 """
@@ -26,6 +26,7 @@ import sys
 
 from setup.setup import Setup
 from modules.constant import *
+
 
 def main(option, export_type, testmode):
     """ Main driver. """
@@ -46,7 +47,8 @@ def main(option, export_type, testmode):
         wrapper.export(export_type)
         wrapper.exitstate = 1
     #TODO: add stuff for export to ledger format?
-    wrapper.run() #run the main method for the program
+    wrapper.run()  # run the main method for the program
+
 
 def install():
     """ install """
@@ -54,15 +56,17 @@ def install():
     setup.install()
     setup = None
 
+
 def uninstall():
     """ uninstall """
     setup = Setup()
     setup.uninstall()
     setup = None
 
+
 if __name__ == "__main__":
     args = docopt(__doc__, help=True, version=__version__)
-   
+
     option = ''
     export_type = ''
     testmode = False
