@@ -21,10 +21,11 @@ from meta import engine, Base
 from database.mappings import *
 from database.mappings_views import *
 
+
 class DatabaseAccess():
     """
         Connecting to the database.
-    """ 
+    """
 
     def __init__(self, config):
         """
@@ -32,14 +33,14 @@ class DatabaseAccess():
         """
         try:
             self.config = config
-            self.Session = sessionmaker(bind=engine) 
+            self.Session = sessionmaker(bind=engine)
             self.metadata = Base.metadata
             #self.map_tables()
             #self.map_views()
-            self.tables = [x for x in self.metadata.tables.keys() if is_a_table(x) ]
+            self.tables = [x for x in self.metadata.tables.keys() if is_a_table(x)]
         except Exception as ex:
             print "Error in initialisation of DatabaseAccess: ", ex
- 
+
     def get_accounts(self):
         """
             Get the accounts.
@@ -48,12 +49,13 @@ class DatabaseAccess():
         try:
             session = self.Session()
             query = session.query(T_ACCOUNT)
-            for instance in query: 
+            for instance in query:
                 values.append(
                     {
-                        "name":instance.name
-                        , "account_id":instance.account_id
-                    })
+                        "name": instance.name,
+                        "account_id": instance.account_id
+                    }
+                )
         except Exception as ex:
             print Error.GET_ACCOUNTS, ex
         finally:
@@ -69,7 +71,7 @@ class DatabaseAccess():
         try:
             session = self.Session()
             query = session.query(T_ACCOUNT)
-            for instance in query: 
+            for instance in query:
                 values.append(instance.name)
         except Exception as ex:
             print Error.GET_ACCOUNT_LIST, ex
@@ -87,7 +89,7 @@ class DatabaseAccess():
             session = self.Session()
             query = session.query(T_MARKET).filter(
                     T_MARKET.active == 1)
-            for instance in query: 
+            for instance in query:
                 values.append(instance.code)
         except Exception as ex:
             print Error.GET_MARKETS, ex
@@ -95,7 +97,7 @@ class DatabaseAccess():
             session.rollback()
             session = None
         return values
- 
+
     def get_commodity_names(self, code):
         """
             Get the commodity names.
@@ -106,7 +108,7 @@ class DatabaseAccess():
             query = session.query(V_COMMODITY_INFO).filter(
                 V_COMMODITY_INFO.market_code == code
             )
-            for instance in query: 
+            for instance in query:
                 values.append(instance.commodity_name)
         except Exception as ex:
             print "Error in get_commodity_names: ", ex
@@ -131,7 +133,7 @@ class DatabaseAccess():
         finally:
             session.rollback()
             session = None
-        return value 
+        return value
 
     def get_commodity_description(self, commodity):
         """
@@ -140,7 +142,9 @@ class DatabaseAccess():
         value = ''
         try:
             session = self.Session()
-            query = session.query(T_COMMODITY).filter(T_COMMODITY.name == commodity)
+            query = session.query(T_COMMODITY).filter(
+                T_COMMODITY.name == commodity
+            )
             for instance in query:
                 value = instance.description
                 break
@@ -149,7 +153,7 @@ class DatabaseAccess():
         finally:
             session.rollback()
             session = None
-        return value 
+        return value
 
     def get_commodity_info(self, commodity_name):
         """
@@ -159,16 +163,16 @@ class DatabaseAccess():
         try:
             session = self.Session()
             query = session.query(
-                T_COMMODITY.name.label("commodity_name"), 
-                T_MARKET.name.label("marketname"), 
+                T_COMMODITY.name.label("commodity_name"),
+                T_MARKET.name.label("marketname"),
                 T_MARKET.country
             ).join(
-                T_MARKET, 
+                T_MARKET,
                 T_COMMODITY.market_id == T_MARKET.market_id
             ).filter(
                 T_COMMODITY.name == commodity_name
             )
-            for instance in query: 
+            for instance in query:
                 values.append(instance.commodity_name)
                 values.append(instance.marketname)
                 values.append(instance.country)
@@ -178,7 +182,7 @@ class DatabaseAccess():
             session.rollback()
             session = None
         return values
-     
+
     def get_currencies(self):
         """
             Get the currency codes.
@@ -187,7 +191,7 @@ class DatabaseAccess():
         try:
             session = self.Session()
             query = session.query(T_CURRENCY)
-            for instance in query: 
+            for instance in query:
                 values.append(instance.code)
         except Exception as ex:
             print Error.GET_CURRENCIES, ex
@@ -195,7 +199,7 @@ class DatabaseAccess():
             session.rollback()
             session = None
         return values
-    
+
     def trade_closed(self, trade_record):
         """
             Checks if a trade is closed.
@@ -203,8 +207,9 @@ class DatabaseAccess():
         return (
             (trade_record['date_buy'] != DEFAULT_DATE)
             and (trade_record['date_sell'] != DEFAULT_DATE)
-            and (trade_record['shares_buy'] == trade_record['shares_sell']))
-    	
+            and (trade_record['shares_buy'] == trade_record['shares_sell'])
+        )
+
     def get_long_flag_value(self, account_from, account_to, trade_record):
         """
             Are we long?
@@ -217,7 +222,7 @@ class DatabaseAccess():
             # we know we are trading + buying
             # and that is going long if we don't have a trading record yet.
         else:
-            result = (deals_with_commodities(account_from, account_to) \
+            result = (deals_with_commodities(account_from, account_to)
                 and trade_record['date_buy'] != DEFAULT_DATE)
         return 1 if result else 0
 
@@ -233,7 +238,7 @@ class DatabaseAccess():
         return 1 if result else 0
 
     def write_to_database(self, statements):
-        """ 
+        """
             Writes the records of a given statements list to the database.
         """
         try:
@@ -271,7 +276,7 @@ class DatabaseAccess():
                     print name
                 session.add_all(final_statements)
                 session.commit()
-                #TODO: {0} in python2.7?
+                # TODO: {0} in python2.7?
                 print "{0} records added.".format(str(len(final_statements)))
                 print ''
         except Exception as ex:
@@ -284,7 +289,7 @@ class DatabaseAccess():
         """
             Execute the update statements on the database.
         """
-        #TODO: this code needs the update instruction I've written somewhere
+        # TODO: this code needs the update instruction I've written somewhere
         #in databaseaccess.py
         #=> session.query(Supplier).filter_by(id=2).update({"name": u"Mayowa"})
         session = self.Session()
@@ -302,7 +307,7 @@ class DatabaseAccess():
                     session.query(table_name).filter_by(
                             id=statement[0]).update(statement[1])
                     print 'test: after query'
-                #TODO: commit/flush code in for or outside?
+                # TODO: commit/flush code in for or outside?
                 session.commit()
                 print 'test: after commit'
                 print "{0} records updated.".format(str(len(final_statements)))
@@ -317,7 +322,7 @@ class DatabaseAccess():
         """
             Write the insert statements to database.
         """
-        #TODO: finish this later. Low priority!
+        # TODO: finish this later. Low priority!
         pass
 
     def assemble_statement_list_insert(self, statements, insupdel=StatementType.INSERT):
@@ -325,7 +330,7 @@ class DatabaseAccess():
             Creates list of TABLE_NAME(..., ..., ...) records
             from new statements, that we can use to insert at once.
         """
-        #TODO: find a way to refactor this piece of crap code.
+        # TODO: find a way to refactor this piece of crap code.
         result = []
         inner_part_list = statements.get_statement_list(insupdel)
         if statements.table_name == Table.CURRENCY_EXCHANGE:
@@ -434,59 +439,61 @@ class DatabaseAccess():
                 result[0].append(-1)
             result[1].append(
                  {
-                 "market_id": record["market_id"]
-                 ,"commodity_id": record["commodity_id"]
-                 ,"date_buy": record["date_buy"]
-                 ,"year_buy": record["year_buy"]
-                 ,"month_buy": record["month_buy"]
-                 ,"day_buy": record["day_buy"]
-                 ,"date_sell": record["date_sell"]
-                 ,"year_sell": record["year_sell"]
-                 ,"month_sell": record["month_sell"]
-                 ,"day_sell": record["day_sell"]
-                 ,"long_flag": record["long_flag"]
-                 ,"price_buy": record["price_buy"]
-                 ,"price_buy_orig": record["price_buy_orig"]
-                 ,"price_sell": record["price_sell"]
-                 ,"price_sell_orig": record["price_sell_orig"]
-                 ,"shares_buy": record["shares_buy"]
-                 ,"shares_sell": record["shares_sell"]
-                 ,"commission_buy": record["commission_buy"]
-                 ,"commission_sell": record["commission_sell"]
-                 ,"tax_buy": record["tax_buy"]
-                 ,"tax_sell": record["tax_sell"]
-                 ,"amount_buy": record["amount_buy"]
-                 ,"amount_sell": record["amount_sell"]
-                 ,"amount_buy_simple": record["amount_buy_simple"]
-                 ,"amount_sell_simple": record["amount_sell_simple"]
-                 ,"risk_input": record["risk_input"]
-                 ,"risk_input_percent": record["risk_input_percent"]
-                 ,"risk_initial": record["risk_initial"]
-                 ,"risk_initial_percent": record["risk_initial_percent"]
-                 ,"risk_actual": record["risk_actual"]
-                 ,"risk_actual_percent": record["risk_actual_percent"]
-                 ,"cost_total": record["cost_total"]
-                 ,"cost_other": record["cost_other"]
-                 ,"stoploss": record["stoploss"]
-                 ,"stoploss_orig": record["stoploss_orig"]
-                 ,"profit_loss": record["profit_loss"]
-                 ,"profit_loss_orig": record["profit_loss_orig"]
-                 ,"profit_loss_total": record["profit_loss_total"]
-                 ,"profit_loss_total_percent": record["profit_loss_total_percent"]
-                 ,"r_multiple": record["r_multiple"]
-                 ,"win_flag": record["win_flag"]
-                 ,"id_buy": record["id_buy"]
-                 ,"id_sell": record["id_sell"]
-                 ,"drawdown_id": record["drawdown_id"]
-                 ,"pool_at_start": record["pool_at_start"]
-                 ,"date_expiration": record["date_expiration"]
-                 ,"expired_flag": record["expired_flag"]
-                 ,"spread": record["spread"]
-                 ,"active": record["active"]
-                 ,"date_created": record["date_created"]
-                 ,"date_modified": record["date_modified"]}
+                 "market_id": record["market_id"],
+                 "commodity_id": record["commodity_id"],
+                 "date_buy": record["date_buy"],
+                 "year_buy": record["year_buy"],
+                 "month_buy": record["month_buy"],
+                 "day_buy": record["day_buy"],
+                 "date_sell": record["date_sell"],
+                 "year_sell": record["year_sell"],
+                 "month_sell": record["month_sell"],
+                 "day_sell": record["day_sell"],
+                 "long_flag": record["long_flag"],
+                 "price_buy": record["price_buy"],
+                 "price_buy_orig": record["price_buy_orig"],
+                 "price_sell": record["price_sell"],
+                 "price_sell_orig": record["price_sell_orig"],
+                 "shares_buy": record["shares_buy"],
+                 "shares_sell": record["shares_sell"],
+                 "commission_buy": record["commission_buy"],
+                 "commission_sell": record["commission_sell"],
+                 "tax_buy": record["tax_buy"],
+                 "tax_sell": record["tax_sell"],
+                 "amount_buy": record["amount_buy"],
+                 "amount_sell": record["amount_sell"],
+                 "amount_buy_simple": record["amount_buy_simple"],
+                 "amount_sell_simple": record["amount_sell_simple"],
+                 "risk_input": record["risk_input"],
+                 "risk_input_percent": record["risk_input_percent"],
+                 "risk_initial": record["risk_initial"],
+                 "risk_initial_percent": record["risk_initial_percent"],
+                 "risk_actual": record["risk_actual"],
+                 "risk_actual_percent": record["risk_actual_percent"],
+                 "cost_total": record["cost_total"],
+                 "cost_other": record["cost_other"],
+                 "stoploss": record["stoploss"],
+                 "stoploss_orig": record["stoploss_orig"],
+                 "profit_loss": record["profit_loss"],
+                 "profit_loss_orig": record["profit_loss_orig"],
+                 "profit_loss_total": record["profit_loss_total"],
+                 "profit_loss_total_percent":
+                     record["profit_loss_total_percent"],
+                 "r_multiple": record["r_multiple"],
+                 "win_flag": record["win_flag"],
+                 "id_buy": record["id_buy"],
+                 "id_sell": record["id_sell"],
+                 "drawdown_id": record["drawdown_id"],
+                 "pool_at_start": record["pool_at_start"],
+                 "date_expiration": record["date_expiration"],
+                 "expired_flag": record["expired_flag"],
+                 "spread": record["spread"],
+                 "active": record["active"],
+                 "date_created": record["date_created"],
+                 "date_modified": record["date_modified"]}
                 )
-        return result 
+        return result
+
 
     def assemble_statement_list_delete(self, statements, insupdel=StatementType.DELETE):
         """
@@ -563,7 +570,7 @@ class DatabaseAccess():
             first_obj = session.query(V_COMMODITY_INFO).filter_by(
                 commodity_name=commodity_name,
                 market_id=market_id).first()
-            if first_obj is not None: 
+            if first_obj is not None:
                 result = str(first_obj.commodity_id)
         except Exception as ex:
             print "Error retrieving commodity_id: ", ex
@@ -582,7 +589,7 @@ class DatabaseAccess():
             date_created = current_date()
             date_modified = current_date()
             obj = session.query(T_MARKET).filter_by(code=code).first() is not None
-            if not obj: 
+            if not obj:
                 # NOTE: this code means that when new market records have been added
                 # during normal usage, a new uninstall/install/import will not be able
                 # to fill in the name and country of the market.
@@ -621,7 +628,7 @@ class DatabaseAccess():
             session.rollback()
             session = None
         return result
-    
+
     def currency_id_from_currency(self, currency):
         """
             Get the currency_id from a currency string (e.g.'USD').
@@ -666,7 +673,7 @@ class DatabaseAccess():
         """
             Function to get the value that belongs to the given parameter.
         """
-        result = DEFAULT_DECIMAL 
+        result = DEFAULT_DECIMAL
         session = self.Session()
         try:
             for instance in session.query(T_PARAMETER).filter_by(
@@ -680,7 +687,7 @@ class DatabaseAccess():
         return result
 
     def first_currency_exchange_id_from_latest(self):
-        """ 
+        """
             Gets the first currency_exchange_id from the latest update
             block, which is determined by examining the date_created column.
         """
@@ -700,7 +707,7 @@ class DatabaseAccess():
         return result
 
     def first_rate_id_from_latest(self):
-        """ 
+        """
             Gets the first rate_id from the latest update
             block, which is determined by examining the date_created column.
         """
@@ -719,7 +726,7 @@ class DatabaseAccess():
         return result
 
     def first_finance_id_from_latest(self):
-        """ 
+        """
             Gets the first finance_id from the latest update
             block, which is determined by examining the date_created column.
         """
@@ -765,7 +772,7 @@ class DatabaseAccess():
         return result
 
     def get_finance_record(self, afinance_id):
-        """ 
+        """
             Gets the finance_record with the given finance_id.
         """
         result = {}
@@ -781,12 +788,12 @@ class DatabaseAccess():
             session.rollback()
             session = None
             return result
-    
+
     def get_rep_check_total(self, check_totals):
         """
             Returns a string with the totals per account.
         """
-        result = "" 
+        result = ""
         i = 0
         for entry in check_totals:
             if i == 0:
@@ -816,7 +823,7 @@ class DatabaseAccess():
             session.rollback()
             session = None
         return values
-    
+
     def new_drawdown_record(self):
         """
             Creates a new record in T_DRAWDOWN with a default value of 0.
@@ -861,7 +868,7 @@ class DatabaseAccess():
             account_to_id, amount, comment, commodity_id, shares, price,
             tax, commission):
         """
-           Looks for a finance record with the given parameters. 
+           Looks for a finance record with the given parameters.
         """
         try:
             session = self.Session()
@@ -939,7 +946,7 @@ class DatabaseAccess():
             session.rollback()
             session = None
             return result
-            
+
     def get_tick_size_from_commodity_id(self, commodity_id):
         """
             Get the tick size for a given commodity.
@@ -975,7 +982,7 @@ class DatabaseAccess():
             session.rollback()
             session = None
             return result
-            
+
     def get_margin_pool(self):
         """
             Get margin to use on the pool.

@@ -7,6 +7,7 @@ from modules.constant import *
 from sqlalchemy import Column, Integer, String, DateTime, Numeric
 from meta import Base
 
+
 class T_FINANCE(Base):
     """ T_FINANCE """
     __tablename__ = Table.FINANCE
@@ -20,13 +21,13 @@ class T_FINANCE(Base):
     day = Column(Integer)
     account_from_id = Column(Integer)
     account_to_id = Column(Integer)
-    amount = Column(Numeric(18,6))
+    amount = Column(Numeric(18, 6))
     comment = Column(String(256))
     currency_exchange_id = Column(Integer)
     rate_id = Column(Integer)
     active = Column(Integer)
     date_created = Column(DateTime)
-    date_modified = Column(DateTime) 
+    date_modified = Column(DateTime)
 
     def __init__(self, finance_id, date, year, month, day, account_from_id,
             account_to_id, amount, comment, currency_exchange_id,
@@ -49,9 +50,11 @@ class T_FINANCE(Base):
     def __repr__(self):
         return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', \
 '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
-            self.finance_id, self.date, self.year, self.month, self.day, self.account_from_id,
-            self.account_to_id, self.amount, self.comment, self.active, self.rate_id,
+            self.finance_id, self.date, self.year, self.month, self.day,
+            self.account_from_id, self.account_to_id, self.amount,
+            self.comment, self.active, self.rate_id,
             self.currency_exchange_id, self.date_created, self.date_modified)
+
 
 class T_COMMODITY(Base):
     """ T_COMMODITY """
@@ -65,7 +68,7 @@ class T_COMMODITY(Base):
     active = Column(Integer)
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
-    
+
     def __init__(self, commodity_id, name, description,
         commodity_type_id, cfd_general_id,
         active, date_created, date_modified):
@@ -77,15 +80,15 @@ class T_COMMODITY(Base):
         self.active = active
         self.date_created = date_created
         self.date_modified = date_modified
-    
+
     def __repr__(self):
         return "<T_COMMODITY('%s', \
         , '%s', '%s', '%s', '%s', '%s', '%s'\
-        , '%s')>" % ( self.commodity_id,
+        , '%s')>" % (self.commodity_id,
             self.name, self.description,
             self.commodity_type_id, self.cfd_general_id,
             self.active, self.date_created, self.date_modified)
-                
+
 
 class T_COMMODITY_TYPE(Base):
     """ T_COMMODITY_TYPE """
@@ -96,7 +99,7 @@ class T_COMMODITY_TYPE(Base):
     active = Column(Integer)
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
-    
+
     def __init__(self, commodity_type_id, name, description,
         active, date_created, date_modified):
         self.commodity_type_id = commodity_type_id
@@ -105,14 +108,14 @@ class T_COMMODITY_TYPE(Base):
         self.active = active
         self.date_created = date_created
         self.date_modified = date_modified
-        
+
     def __repr__(self):
         return "<T_COMMODITY_TYPE('%s', \
         , '%s', '%s', '%s', '%s', '%s')>" % (
             self.commodity_type_id, self.name,
-            self.description, self.active, 
+            self.description, self.active,
             self.date_created, self.date_modified)
-    
+
 
 class T_CFD_GENERAL(Base):
     """ T_CFD_GENERAL """
@@ -121,12 +124,12 @@ class T_CFD_GENERAL(Base):
     name = Column(String(50))
     market_id = Column(Integer)
     currency_id = Column(Integer)
-    tick = Column(Numeric(18,6))
-    tick_value = Column(Numeric(18,6))
-    order_min = Column(Numeric(18,6))
-    order_max = Column(Numeric(18,6))
-    margin_day_proc = Column(Numeric(18,6))
-    margin_night_proc = Column(Numeric(18,6))
+    tick = Column(Numeric(18, 6))
+    tick_value = Column(Numeric(18, 6))
+    order_min = Column(Numeric(18, 6))
+    order_max = Column(Numeric(18, 6))
+    margin_day_proc = Column(Numeric(18, 6))
+    margin_night_proc = Column(Numeric(18, 6))
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
 
@@ -138,7 +141,7 @@ class T_CFD_GENERAL(Base):
         self.market_id = market_id
         self.description = description
         self.active = active
-        self.currency_id = currency_id 
+        self.currency_id = currency_id
         self.tick = tick
         self.tick_value = tick_value
         self.order_min = order_min
@@ -168,7 +171,13 @@ class T_MARKET(Base):
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
 
-    def __init__(self, market_id, code, name, country, active, date_created, date_modified):
+    def __init__(self,
+        market_id,
+        code, name,
+        country,
+        active,
+        date_created,
+        date_modified):
         self.market_id = market_id
         self.code = code
         self.name = name
@@ -178,7 +187,11 @@ class T_MARKET(Base):
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_MARKET('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.market_id, self.code, self.name, self.country, self.active, self.date_created, self.date_modified)
+        return "<T_MARKET('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
+            self.market_id, self.code, self.name, self.country,
+            self.active, self.date_created, self.date_modified
+        )
+
 
 class T_ACCOUNT(Base):
     """ T_ACCOUNT """
@@ -191,7 +204,13 @@ class T_ACCOUNT(Base):
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
 
-    def __init__(self, account_id, name, description, active, date_created, date_modified):
+    def __init__(self,
+        account_id,
+        name,
+        description,
+        active,
+        date_created,
+        date_modified):
         self.account_id = account_id
         self.name = name
         self.description = description
@@ -200,8 +219,11 @@ class T_ACCOUNT(Base):
         self.date_modified = date_modified
 
     def __repr__(self):
-        return "<T_ACCOUNT('%s', '%s', '%s', '%s', '%s', '%s')>" % (self.account_id, self.name,
-                self.description, self.active, self.date_created, self.date_modified)
+        return "<T_ACCOUNT('%s', '%s', '%s', '%s', '%s', '%s')>" % (
+            self.account_id, self.name, self.description,
+            self.active, self.date_created, self.date_modified
+        )
+
 
 class T_CURRENCY(Base):
     """ T_CURRENCY """
@@ -217,7 +239,10 @@ class T_CURRENCY(Base):
         self.description = description
 
     def __repr__(self):
-        return "<T_CURRENCY('%s', '%s', '%s')>" % (self.currency_id, self.code, self.description)
+        return "<T_CURRENCY('%s', '%s', '%s')>" % (
+            self.currency_id, self.code, self.description
+        )
+
 
 class T_CURRENCY_EXCHANGE(Base):
     """ T_CURRENCY_EXCHANGE """
@@ -226,7 +251,7 @@ class T_CURRENCY_EXCHANGE(Base):
     currency_exchange_id = Column(Integer, primary_key=True)
     currency_from_id = Column(Integer)
     currency_to_id = Column(Integer)
-    exchange_rate = Column(Numeric(18,6))
+    exchange_rate = Column(Numeric(18, 6))
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
 
@@ -248,6 +273,7 @@ class T_CURRENCY_EXCHANGE(Base):
                 self.date_created,
                 self.date_modified)
 
+
 class T_TRADE(Base):
     """ T_TRADE """
     __tablename__ = Table.TRADE
@@ -264,46 +290,46 @@ class T_TRADE(Base):
     month_sell = Column(Integer)
     day_sell = Column(Integer)
     long_flag = Column(Integer)
-    price_buy = Column(Numeric(18,6))
-    price_buy_orig = Column(Numeric(18,6))
-    price_sell = Column(Numeric(18,6))
-    price_sell_orig = Column(Numeric(18,6))
+    price_buy = Column(Numeric(18, 6))
+    price_buy_orig = Column(Numeric(18, 6))
+    price_sell = Column(Numeric(18, 6))
+    price_sell_orig = Column(Numeric(18, 6))
     shares_buy = Column(Integer)
     shares_sell = Column(Integer)
-    commission_buy = Column(Numeric(18,6))
-    commission_sell = Column(Numeric(18,6))
-    tax_buy = Column(Numeric(18,6))
-    tax_sell = Column(Numeric(18,6))
-    amount_buy = Column(Numeric(18,6))
-    amount_sell = Column(Numeric(18,6))
-    amount_buy_simple = Column(Numeric(18,6))
-    amount_sell_simple = Column(Numeric(18,6))
-    risk_input = Column(Numeric(18,6))
-    risk_input_percent = Column(Numeric(18,6))
-    risk_initial = Column(Numeric(18,6))
-    risk_initial_percent = Column(Numeric(18,6))
-    risk_actual = Column(Numeric(18,6))
-    risk_actual_percent = Column(Numeric(18,6))
-    cost_total = Column(Numeric(18,6))
-    cost_other = Column(Numeric(18,6))
-    stoploss = Column(Numeric(18,6))
-    stoploss_orig = Column(Numeric(18,6))
-    profit_loss = Column(Numeric(18,6))
-    profit_loss_orig = Column(Numeric(18,6))
-    profit_loss_total = Column(Numeric(18,6))
-    profit_loss_total_percent = Column(Numeric(18,6))
-    r_multiple = Column(Numeric(18,6))
+    commission_buy = Column(Numeric(18, 6))
+    commission_sell = Column(Numeric(18, 6))
+    tax_buy = Column(Numeric(18, 6))
+    tax_sell = Column(Numeric(18, 6))
+    amount_buy = Column(Numeric(18, 6))
+    amount_sell = Column(Numeric(18, 6))
+    amount_buy_simple = Column(Numeric(18, 6))
+    amount_sell_simple = Column(Numeric(18, 6))
+    risk_input = Column(Numeric(18, 6))
+    risk_input_percent = Column(Numeric(18, 6))
+    risk_initial = Column(Numeric(18, 6))
+    risk_initial_percent = Column(Numeric(18, 6))
+    risk_actual = Column(Numeric(18, 6))
+    risk_actual_percent = Column(Numeric(18, 6))
+    cost_total = Column(Numeric(18, 6))
+    cost_other = Column(Numeric(18, 6))
+    stoploss = Column(Numeric(18, 6))
+    stoploss_orig = Column(Numeric(18, 6))
+    profit_loss = Column(Numeric(18, 6))
+    profit_loss_orig = Column(Numeric(18, 6))
+    profit_loss_total = Column(Numeric(18, 6))
+    profit_loss_total_percent = Column(Numeric(18, 6))
+    r_multiple = Column(Numeric(18, 6))
     win_flag = Column(Integer)
     id_buy = Column(Integer)
     id_sell = Column(Integer)
     drawdown_id = Column(Integer)
-    pool_at_start = Column(Numeric(18,6))
+    pool_at_start = Column(Numeric(18, 6))
     date_expiration = Column(DateTime)
     expired_flag = Column(Integer)
     spread = Column(Integer)
     active = Column(Integer)
     date_created = Column(DateTime)
-    date_modified = Column(DateTime)   
+    date_modified = Column(DateTime)
 
     def __init__(self,
         trade_id,
@@ -386,9 +412,9 @@ class T_TRADE(Base):
         self.amount_sell_simple = amount_sell_simple
         self.risk_input = risk_input
         self.risk_input_percent = risk_input_percent
-        self.risk_initial = risk_initial 
-        self.risk_initial_percent = risk_initial_percent 
-        self.risk_actual = risk_actual 
+        self.risk_initial = risk_initial
+        self.risk_initial_percent = risk_initial_percent
+        self.risk_actual = risk_actual
         self.risk_actual_percent = risk_actual_percent
         self.cost_total = cost_total
         self.cost_other = cost_other
@@ -472,13 +498,14 @@ class T_TRADE(Base):
                 self.date_created,
                 self.date_modified)
 
+
 class T_RATE(Base):
     """ T_RATE """
     __tablename__ = Table.RATE
     #__table_args__ = {'autoload':True}
     rate_id = Column(Integer, primary_key=True)
-    commission = Column(Numeric(18,6))
-    tax = Column(Numeric(18,6))
+    commission = Column(Numeric(18, 6))
+    tax = Column(Numeric(18, 6))
     automatic_flag = Column(Integer)
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
@@ -498,6 +525,7 @@ class T_RATE(Base):
             self.automatic_flag, self.date_created,
             self.date_modified)
 
+
 class T_DRAWDOWN(Base):
     """ T_DRAWDOWN """
     __tablename__ = Table.DRAWDOWN
@@ -509,7 +537,7 @@ class T_DRAWDOWN(Base):
     date_modified = Column(DateTime)
 
     def __init__(self, drawdown_id, drawdown_current, drawdown_max,
-            date_created,date_modified):
+            date_created, date_modified):
         self.drawdown_id = drawdown_id
         self.drawdown_current = drawdown_current
         self.drawdown_max = drawdown_max
@@ -523,6 +551,7 @@ class T_DRAWDOWN(Base):
                 self.drawdown_max,
                 self.date_created,
                 self.date_modified)
+
 
 class T_PARAMETER(Base):
     """ T_PARAMETER """
@@ -540,8 +569,10 @@ class T_PARAMETER(Base):
         self.description = description
 
     def __repr__(self):
-        return "<T_PARAMETER('%s', '%s', '%s', '%s')>" % (self.parameter_id, self.name,
-                self.value, self.description)
+        return "<T_PARAMETER('%s', '%s', '%s', '%s')>" % (
+            self.parameter_id, self.name, self.value, self.description
+        )
+
 
 class T_POOL(Base):
     """ T_POOL """
@@ -549,14 +580,22 @@ class T_POOL(Base):
     #__table_args__ = {'autoload':True}
     pool_id = Column(Integer, primary_key=True)
     account_id = Column(Integer)
-    total = Column(Numeric(18,6))
-    invested = Column(Numeric(18,6))
-    cash = Column(Numeric(18,6))
+    total = Column(Numeric(18, 6))
+    invested = Column(Numeric(18, 6))
+    cash = Column(Numeric(18, 6))
     active = Column(Integer)
     date_created = Column(DateTime)
     date_modified = Column(DateTime)
 
-    def __init__(self, pool_id, account_id, total, invested, cash, active, date_created, date_modified):
+    def __init__(self,
+        pool_id,
+        account_id,
+        total,
+        invested,
+        cash,
+        active,
+        date_created,
+        date_modified):
         self.pool_id = pool_id
         self.account_id = account_id
         self.total = total
@@ -568,7 +607,7 @@ class T_POOL(Base):
 
     def __repr__(self):
         return "<T_POOL('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
-                self.pool_id ,
+                self.pool_id,
                 self.account_id,
                 self.total,
                 self.invested,

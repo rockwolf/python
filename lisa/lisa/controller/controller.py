@@ -147,7 +147,7 @@ class ControllerMain():
             account, only taking into consideration
             what's in the input_fields.
         """
-        #TODO: fix this, see the calling function
+        # TODO: fix this, see the calling function
         value = Decimal(0.0)
         for fields in input_fields:
             if fields['i_account'] == account_name:
@@ -160,7 +160,7 @@ class ControllerMain():
             only taking into consideration what's in
             the input_fields.
         """
-        #TODO: this was for V_rep_cheCK I think, this needs to be fixed!
+        # TODO: this was for V_rep_cheCK I think, this needs to be fixed!
         # So create a new V_REP_CHECK view!
         values = []
         dba = DatabaseAccess(self.config)
