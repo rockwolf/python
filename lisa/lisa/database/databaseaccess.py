@@ -494,8 +494,8 @@ class DatabaseAccess():
                 )
         return result
 
-
-    def assemble_statement_list_delete(self, statements, insupdel=StatementType.DELETE):
+    def assemble_statement_list_delete(self, statements,
+        insupdel=StatementType.DELETE):
         """
             Creates list of from delete statements,
             that we can use to delete at once.
@@ -521,11 +521,12 @@ class DatabaseAccess():
             session = None
         return records
 
-    def account_id_from_account_name(self, account_name, from_account = True):
+    def account_id_from_account_name(self,
+        account_name, from_account=True):
         """
             Get the account_id from an account.
         """
-        result = -1
+        result = - 1
         session = self.Session()
         try:
             date_created = current_date()
@@ -533,20 +534,31 @@ class DatabaseAccess():
             # Get account id, based on account name
             # but first check if the account already exists
             # in T_ACCOUNT. If not, add it to the t_account table.
-            obj  = session.query(T_ACCOUNT).filter_by(name=account_name).first() is not None
+            obj = session.query(T_ACCOUNT).filter_by(
+                name=account_name
+            ).first() is not None
             if not obj:
                 if from_account:
                     description_list = self.gui.get_account_from().split(':')
-                    description = description_list[len(descpription_list)-1]
+                    description = description_list[len(descpription_list) - 1]
                 else:
                     description = self.gui.get_account_to().split(':')
-                    description = description_list[len(descpription_list)-1]
-                session.add(T_ACCOUNT(account_name, description, date_created, date_modified))
+                    description = description_list[len(descpription_list) - 1]
+                session.add(T_ACCOUNT(
+                    account_name,
+                    description,
+                    date_created,
+                    date_modified)
+                )
                 session.commit()
-                for instance in session.query(func.max(T_ACCOUNT.account_id).label('account_id')):
+                for instance in session.query(
+                    func.max(T_ACCOUNT.account_id).label('account_id')
+                ):
                     result = instance.account_id
             else:
-                for instance in session.query(T_ACCOUNT).filter_by(name=account_name):
+                for instance in session.query(T_ACCOUNT).filter_by(
+                    name=account_name
+                ):
                     result = str(instance.account_id)
         except Exception as ex:
             print Error.ACCOUNT_ID_FROM_ACCOUNT, ex
