@@ -6,6 +6,7 @@
 from decimal import Decimal
 
 from database.databaseaccess import DatabaseAccess
+from database.mappings import *
 from modules.core_module import CoreModule
 from modules.statement import Statement
 from modules.constant import *

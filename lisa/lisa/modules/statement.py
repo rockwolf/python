@@ -86,7 +86,7 @@ class Statement():
             on the screen (logic).
         """
         if statements != []:
-            print message, self.table_name
+            print message, self.table.__tablename__
             print '_' * len(message) + '_' * len(self.table.__tablename__), '\n'
             for s in statements:
                 print s

@@ -3,6 +3,7 @@
     See LICENSE file for copyright and license details.
 """
 from database.databaseaccess import DatabaseAccess
+from database.mappings import *
 from modules.core_module import CoreModule
 from modules.statement import Statement
 from modules.function import *
