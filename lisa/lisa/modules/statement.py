@@ -4,6 +4,7 @@
 """
 from modules.constant import StatementType
 
+
 class Statement():
     """
         A class to contain statements to be executed within the orm session.
@@ -17,7 +18,7 @@ class Statement():
             self.statements_insert = []
             self.statements_update = []
             self.statements_delete = []
-            self.table_name = table
+            self.table = table
         except Exception as ex:
             print "Error in initialisation of Statement: ", ex
 
@@ -33,7 +34,7 @@ class Statement():
             statements = self.statements_update
         elif insupdel == StatementType.DELETE:
             statements = self.statements_delete
-        for statement in statements:    
+        for statement in statements:
             result.append([key for key, val in statement[1].items()])
         return result
  
@@ -51,7 +52,7 @@ class Statement():
             elif insupdel == 2:
                 self.statements_delete.append([recordid, tablerow_object])
         except Exception as ex:
-            print "Error adding statement for", self.table_name, ": ", ex
+            print "Error adding statement for", self.table.__tablename__, ": ", ex
    
     def remove(self, index=-1, insupdel=0):
         """
@@ -68,7 +69,7 @@ class Statement():
             print "Error removing statement from the list: ", ex
 
     def print_statements(self):
-        """ 
+        """
             Method that prints the statement info and text
             on the screen (logic).
         """
@@ -80,13 +81,13 @@ class Statement():
             'Delete statements for')
 
     def print_statements_when_needed(self, statements, message):
-        """ 
+        """
             Method that prints the statement info and text
             on the screen (logic).
         """
         if statements != []:
             print message, self.table_name
-            print '_'*len(message) + '_'*len(self.table_name), '\n'
+            print '_' * len(message) + '_' * len(self.table.__tablename__), '\n'
             for s in statements:
                 print s
 

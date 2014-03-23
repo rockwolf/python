@@ -3,7 +3,6 @@
     See LICENSE file for copyright and license details.
 """
 
-from datetime import datetime
 from decimal import Decimal
 
 from database.databaseaccess import DatabaseAccess
@@ -15,6 +14,7 @@ from generic.modules.function import *
 from database.mappings import T_TRADE
 from generic.modules.calculator_finance import CalculatorFinance
 
+
 class Trade(CoreModule):
     """
         Trade class.
@@ -25,7 +25,7 @@ class Trade(CoreModule):
             Initialisation
         """
         self.config = config
-        self.statement_trade = Statement(Table.TRADE)
+        self.statement_trade = Statement(T_TRADE)
         self.flag_insupdel = StatementType.INSERT
         self.trade_id = DEFAULT_INT
         self.market_id = DEFAULT_INT
@@ -101,18 +101,21 @@ class Trade(CoreModule):
             if self.finance_id != -1:
                 for fields in input_fields:
                     if deals_with_commodities(
-                        fields[Input.ACCOUNT_FROM]
-                        , fields[Input.ACCOUNT_TO]):
+                        fields[Input.ACCOUNT_FROM],
+                        fields[Input.ACCOUNT_TO]
+                    ):
                         records = records + 1
                         # GENERAL INFO AT START
-                        self.general_info_at_start(dba, calc, fields) 
+                        self.general_info_at_start(dba, calc, fields)
                         # UPDATE/INSERT
-                        print "test: invade_started = ", (self.open_trade_position > -1)
+                        print "test: invade_started = ",
+                        (self.open_trade_position > -1)
                         if self.open_trade_position > -1:
                             self.update_info(dba, calc, fields)
                         else:
                             self.insert_info(dba, calc, fields)
-                        # GENERAL VARIABLES THAT CAN BE CALCULATED ON THE DATA WE HAVE
+                        # GENERAL VARIABLES THAT CAN BE CALCULATED
+                        # ON THE DATA WE HAVE
                         self.general_info_at_end(fields, self.trade_record)
                         # TEST INFO
                         #self.print_test_info()
@@ -158,16 +161,20 @@ class Trade(CoreModule):
             self.flag_insupdel = StatementType.UPDATE
             self.trade_id = self.trade_record['trade_id']
             ## buy/sell related fields
-            print 'Test: we_are_buying=', we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO])
-            print 'Test: T_TRADE.id_buy=', self.trade_record['id_buy']
-            print 'Test: T_TRADE.id_sell=', self.trade_record['id_sell']
-            if (we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO])
-                and self.trade_record['id_buy'] == -1):
+            if (
+                we_are_buying(
+                    fields[Input.ACCOUNT_FROM],
+                    fields[Input.ACCOUNT_TO]
+                )
+                and self.trade_record['id_buy'] == -1
+            ):
                 self.id_buy = self.finance_id
                 self.id_sell = self.trade_record['id_sell']
                 self.date_buy = fields[Input.DATE]
                 self.date_sell = self.trade_record['date_sell']
-                self.price_buy = calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
+                self.price_buy = calc.convert_from_orig(
+                    fields[Input.PRICE],
+                    fields[Input.EXCHANGE_RATE])
                 self.price_buy_orig = fields[Input.PRICE]
                 self.price_sell = self.trade_record['price_sell']
                 self.price_sell_orig = self.trade_record['price_sell_orig']
@@ -179,19 +186,31 @@ class Trade(CoreModule):
                 self.tax_sell = self.trade_record['tax_sell']
                 self.amount_buy = fields[Input.AMOUNT]
                 self.amount_buy_simple = calc.calculate_amount_simple(
-                    calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
-                    , fields[Input.QUANTITY])
+                    calc.convert_from_orig(
+                        fields[Input.PRICE],
+                        fields[Input.EXCHANGE_RATE]
+                    ),
+                    fields[Input.QUANTITY]
+                )
                 self.amount_sell = self.trade_record['amount_sell']
                 self.amount_sell_simple = self.trade_record['amount_sell_simple']
-            elif (not we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO])
-                and self.trade_record['id_sell'] == -1):
+            elif (
+                not we_are_buying(
+                    fields[Input.ACCOUNT_FROM],
+                    fields[Input.ACCOUNT_TO]
+                )
+                and self.trade_record['id_sell'] == -1
+            ):
                 self.id_buy = self.trade_record['id_buy']
                 self.id_sell = self.finance_id
                 self.date_buy = self.trade_record['date_buy']
                 self.date_sell = fields[Input.DATE]
                 self.price_buy = self.trade_record['price_buy']
                 self.price_buy_orig = self.trade_record['price_buy_orig']
-                self.price_sell = calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
+                self.price_sell = calc.convert_from_orig(
+                    fields[Input.PRICE],
+                    fields[Input.EXCHANGE_RATE]
+                )
                 self.price_sell_orig = fields[Input.PRICE]
                 self.shares_buy = self.trade_record['shares_buy']
                 self.shares_sell = fields[Input.QUANTITY]
@@ -203,12 +222,16 @@ class Trade(CoreModule):
                 self.amount_buy_simple = self.trade_record['amount_buy_simple']
                 self.amount_sell = fields[Input.AMOUNT]
                 self.amount_sell_simple = calc.calculate_amount_simple(
-                    calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
-                    , fields[Input.QUANTITY])
+                    calc.convert_from_orig(
+                        fields[Input.PRICE],
+                        fields[Input.EXCHANGE_RATE]
+                    ),
+                    fields[Input.QUANTITY]
+                )
             else:
                 raise Exception(
-                    "{0} already contains a sell or buy record" \
-                    " and you are trying to add one like it" \
+                    "{0} already contains a sell or buy record"
+                    " and you are trying to add one like it"
                     " again?".format(T_TRADE))
             self.stoploss = self.trade_record['stoploss']
             self.stoploss_orig = self.trade_record['stoploss_orig']
@@ -222,7 +245,10 @@ class Trade(CoreModule):
                 self.commission_buy,
                 self.commission_sell,
                 self.long_flag)
-            self.profit_loss_orig = calc.convert_from_orig(self.profit_loss, fields[Input.EXCHANGE_RATE]) 
+            self.profit_loss_orig = calc.convert_from_orig(
+                self.profit_loss,
+                fields[Input.EXCHANGE_RATE]
+            )
             self.profit_loss_total = calc.calculate_profit_loss_total(
                 self.price_buy,
                 self.shares_buy,
@@ -233,13 +259,17 @@ class Trade(CoreModule):
                 self.commission_buy,
                 self.commission_sell,
                 self.long_flag)
-            self.profit_loss_total_percent = (self.profit_loss_total/self.amount_buy_simple)*Decimal(100.0)
+            self.profit_loss_total_percent = (
+                self.profit_loss_total / self.amount_buy_simple
+            ) * Decimal(100.0)
             self.pool_at_start = self.trade_record['pool_at_start']
             self.date_created = self.trade_record['date_created']
             self.risk_input = self.trade_record['risk_input']
             self.risk_input_percent = self.trade_record['risk_input_percent']
             self.risk_initial = self.trade_record['risk_initial']
-            self.risk_initial_percent = (self.risk_initial/self.amount_buy_simple)*Decimal(100.0)
+            self.risk_initial_percent = (
+                self.risk_initial / self.amount_buy_simple
+            ) * Decimal(100.0)
             self.risk_actual = calc.calculate_risk_actual(
                 self.price_buy,
                 self.shares_buy,
@@ -253,7 +283,9 @@ class Trade(CoreModule):
                 self.risk_initial,
                 self.profit_loss,
                 self.long_flag)
-            self.risk_actual_percent = (self.risk_actual/self.amount_buy_simple)*Decimal(100.0)
+            self.risk_actual_percent = (
+                 self.risk_actual / self.amount_buy_simple
+            ) * Decimal(100.0)
             self.cost_total = calc.calculate_cost_total(
                 self.tax_buy,
                 self.commission_buy,
@@ -271,14 +303,19 @@ class Trade(CoreModule):
                 self.profit_loss,
                 self.risk_initial)
             self.date_expiration = self.trade_record['date_expiration']
-            #TODO: for investing, id_buy/sell is id_firstbuy and id_firstsell
-            # and expiration flag should only be set at the end of the trade, when
+            # TODO: for investing, id_buy/sell is id_firstbuy and id_firstsell
+            # and expiration flag should only be set at the end of the trade
+            # when
             # the trade is closed. This means that date_buy and date_sell is not
             # enough to determine if a trade is closed or not. The total shares
             # should also be 0 when added up OR shares_buy = shares_sell.
             # So add:
             #if trade_closed: (or something like that)
-            self.expired_flag = (1 if self.date_sell > self.date_expiration else 0)
+            self.expired_flag = (
+                1 if (self.date_sell > self.date_expiration)
+                    and (self.date_expiration != DEFAULT_DATE)
+                else 0
+            )
         except Exception as ex:
             print Error.CREATE_STATEMENTS_TABLE_TRADE, ex
 
@@ -288,31 +325,44 @@ class Trade(CoreModule):
         """
         try:
             self.flag_insupdel = StatementType.INSERT
-            self.trade_id = None # insert: new one created automatically
+            self.trade_id = None  # insert: new one created automatically
             ## buy/sell related fields
-            if we_are_buying(fields[Input.ACCOUNT_FROM], fields[Input.ACCOUNT_TO]):
+            if we_are_buying(
+                fields[Input.ACCOUNT_FROM],
+                fields[Input.ACCOUNT_TO]
+            ):
                 self.id_buy = self.finance_id
                 self.id_sell = -1
                 self.date_buy = fields[Input.DATE]
                 self.date_sell = DEFAULT_DATE
-                self.price_buy = calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
+                self.price_buy = calc.convert_from_orig(
+                    fields[Input.PRICE],
+                    fields[Input.EXCHANGE_RATE]
+                )
                 self.price_buy_orig = fields[Input.PRICE]
                 self.price_sell = DEFAULT_DECIMAL
                 self.price_sell_orig = DEFAULT_DECIMAL
                 self.shares_buy = fields[Input.QUANTITY]
                 self.shares_sell = DEFAULT_INT
-                #TODO: commission and tax from T_RATE, when fields[Input.AUTOMATIC_FLAG] is 1
+                # TODO: commission and tax from T_RATE,
+                # when fields[Input.AUTOMATIC_FLAG] is 1
                 self.commission_buy = fields[Input.COMMISSION]
                 self.commission_sell = DEFAULT_DECIMAL
                 self.amount_buy = fields[Input.AMOUNT]
                 self.amount_sell = DEFAULT_DECIMAL
                 self.amount_buy_simple = calc.calculate_amount_simple(
-                    calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE])
-                    , fields[Input.QUANTITY])
+                    calc.convert_from_orig(
+                        fields[Input.PRICE],
+                        fields[Input.EXCHANGE_RATE]
+                    ),
+                    fields[Input.QUANTITY]
+                )
                 self.amount_sell_simple = DEFAULT_DECIMAL
                 self.tax_buy = fields[Input.TAX]
                 self.tax_sell = DEFAULT_DECIMAL
-                self.risk_initial_percent = Decimal(100.0)*self.risk_initial/self.amount_buy_simple
+                self.risk_initial_percent = (
+                    self.risk_initial / self.amount_buy_simple
+                ) * Decimal(100.0)
             else:
                 self.id_buy = -1
                 self.id_sell = self.finance_id
@@ -359,7 +409,10 @@ class Trade(CoreModule):
                 fields[Input.RISK])
             self.risk_input_percent = fields[Input.RISK]
             self.risk_initial = calc.calculate_risk_initial(
-                calc.convert_from_orig(fields[Input.PRICE], fields[Input.EXCHANGE_RATE]),
+                calc.convert_from_orig(
+                    fields[Input.PRICE],
+                    fields[Input.EXCHANGE_RATE]
+                ),
                 fields[Input.QUANTITY],
                 fields[Input.TAX],
                 fields[Input.COMMISSION],
@@ -369,7 +422,7 @@ class Trade(CoreModule):
             self.risk_actual_percent = DEFAULT_DECIMAL
             self.cost_total = DEFAULT_DECIMAL
             self.cost_other = DEFAULT_DECIMAL
-            self.win_flag = -1 #not yet finished, we can not know it yet.
+            self.win_flag = -1  # not yet finished, we can not know it yet.
             self.drawdown_id = dba.new_drawdown_record()
             self.r_multiple = DEFAULT_DECIMAL
             self.date_expiration = fields[Input.DATE_EXPIRATION]
@@ -382,7 +435,7 @@ class Trade(CoreModule):
             General info at the end of the trade.
         """
         try:
-            self.profit_loss_percent = self.profit_loss/Decimal(100.0)
+            self.profit_loss_percent = self.profit_loss / Decimal(100.0)
             self.year_buy = self.date_buy.year
             self.month_buy = self.date_buy.month
             self.day_buy = self.date_buy.day
@@ -399,61 +452,62 @@ class Trade(CoreModule):
         self.statement_trade.add(
             records,
             {
-                'trade_id':self.trade_id,
-                'market_id':int(self.market_id),
-                'commodity_id':int(self.commodity_id),
-                'date_buy':self.date_buy,
-                'year_buy':self.year_buy,
-                'month_buy':self.month_buy,
-                'day_buy':self.day_buy,
-                'date_sell':self.date_sell,
-                'year_sell':self.year_sell,
-                'month_sell':self.month_sell,
-                'day_sell':self.day_sell,
-                'long_flag':int(self.long_flag),
-                'price_buy':Decimal(self.price_buy),
-                'price_buy_orig':Decimal(self.price_buy_orig),
-                'price_sell':Decimal(self.price_sell),
-                'price_sell_orig':Decimal(self.price_sell_orig),
-                'shares_buy':int(self.shares_buy),
-                'shares_sell':int(self.shares_sell),
-                'commission_buy':Decimal(self.commission_buy),
-                'commission_sell':Decimal(self.commission_sell),
-                'tax_buy':Decimal(self.tax_buy),
-                'tax_sell':Decimal(self.tax_sell),
-                'amount_buy':Decimal(self.amount_buy),
-                'amount_sell':Decimal(self.amount_sell),
-                'amount_buy_simple':Decimal(self.amount_buy_simple),
-                'amount_sell_simple':Decimal(self.amount_sell_simple),
-                'risk_input':Decimal(self.risk_input),
-                'risk_input_percent':Decimal(self.risk_input_percent),
-                'risk_initial':Decimal(self.risk_initial),
-                'risk_initial_percent':Decimal(self.risk_initial_percent),
-                'risk_actual':Decimal(self.risk_actual),
-                'risk_actual_percent':Decimal(self.risk_actual_percent),
-                'cost_total':Decimal(self.cost_total),
-                'cost_other':Decimal(self.cost_other),
-                'stoploss':Decimal(self.stoploss),
-                'stoploss_orig':Decimal(self.stoploss_orig),
-                'profit_loss':Decimal(self.profit_loss),
-                'profit_loss_orig':Decimal(self.profit_loss_orig),
-                'profit_loss_total':Decimal(self.profit_loss_total),
-                'profit_loss_total_percent':Decimal(self.profit_loss_total_percent),
-                'r_multiple':Decimal(self.r_multiple),
-                'win_flag':int(self.win_flag),
-                'id_buy':int(self.id_buy),
-                'id_sell':int(self.id_sell),
-                'drawdown_id':int(self.drawdown_id),
-                'pool_at_start':Decimal(self.pool_at_start),
-                'date_expiration':self.date_expiration,
-                'expired_flag':self.expired_flag,
-                'spread':self.spread,
-                'active':1,
-                'date_created':self.date_created,
-                'date_modified':self.date_modified
+                'trade_id': self.trade_id,
+                'market_id': int(self.market_id),
+                'commodity_id': int(self.commodity_id),
+                'date_buy': self.date_buy,
+                'year_buy': self.year_buy,
+                'month_buy': self.month_buy,
+                'day_buy': self.day_buy,
+                'date_sell': self.date_sell,
+                'year_sell': self.year_sell,
+                'month_sell': self.month_sell,
+                'day_sell': self.day_sell,
+                'long_flag': int(self.long_flag),
+                'price_buy': Decimal(self.price_buy),
+                'price_buy_orig': Decimal(self.price_buy_orig),
+                'price_sell': Decimal(self.price_sell),
+                'price_sell_orig': Decimal(self.price_sell_orig),
+                'shares_buy': int(self.shares_buy),
+                'shares_sell': int(self.shares_sell),
+                'commission_buy': Decimal(self.commission_buy),
+                'commission_sell': Decimal(self.commission_sell),
+                'tax_buy': Decimal(self.tax_buy),
+                'tax_sell': Decimal(self.tax_sell),
+                'amount_buy': Decimal(self.amount_buy),
+                'amount_sell': Decimal(self.amount_sell),
+                'amount_buy_simple': Decimal(self.amount_buy_simple),
+                'amount_sell_simple': Decimal(self.amount_sell_simple),
+                'risk_input': Decimal(self.risk_input),
+                'risk_input_percent': Decimal(self.risk_input_percent),
+                'risk_initial': Decimal(self.risk_initial),
+                'risk_initial_percent': Decimal(self.risk_initial_percent),
+                'risk_actual': Decimal(self.risk_actual),
+                'risk_actual_percent': Decimal(self.risk_actual_percent),
+                'cost_total': Decimal(self.cost_total),
+                'cost_other': Decimal(self.cost_other),
+                'stoploss': Decimal(self.stoploss),
+                'stoploss_orig': Decimal(self.stoploss_orig),
+                'profit_loss': Decimal(self.profit_loss),
+                'profit_loss_orig': Decimal(self.profit_loss_orig),
+                'profit_loss_total': Decimal(self.profit_loss_total),
+                'profit_loss_total_percent': Decimal(
+                    self.profit_loss_total_percent),
+                'r_multiple': Decimal(self.r_multiple),
+                'win_flag': int(self.win_flag),
+                'id_buy': int(self.id_buy),
+                'id_sell': int(self.id_sell),
+                'drawdown_id': int(self.drawdown_id),
+                'pool_at_start': Decimal(self.pool_at_start),
+                'date_expiration': self.date_expiration,
+                'expired_flag': self.expired_flag,
+                'spread': self.spread,
+                'active': 1,
+                'date_created': self.date_created,
+                'date_modified': self.date_modified
             },
             self.flag_insupdel
-        ) 
+        )
 
     def print_test_info(self):
         """

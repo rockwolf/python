@@ -1,10 +1,11 @@
 #!/usr/local/bin/python
 """
-    See LICENSE file for copyright and license details.					
+    See LICENSE file for copyright and license details.
 """
 
 from decimal import Decimal
 from generic.modules.function import *
+
 
 class Table():
     """
@@ -23,6 +24,7 @@ class Table():
     POOL = 't_pool'
     COMMODITY_TYPE = 't_commodity_type'
     CFD_GENERAL = 't_cfd_general'
+
     
 class View():
     """
@@ -45,6 +47,7 @@ class View():
     COMMODITY_TYPE = 'v_commodity_type'
     CFD_GENERAL = 'v_cfd_general'
     COMMODITY_INFO = 'v_commodity_info'
+
 
 class Error():
     """
@@ -101,8 +104,9 @@ class Input():
     DATE_EXPIRATION = 18
     POOL = 19
     SPREAD = 20
-    SIZE = 21 #size of the enum
-    
+    SIZE = 21  # size of the enum
+
+
 class Message():
     """
        Messages to print to stdout.
@@ -110,14 +114,16 @@ class Message():
     EXEC_ALL = "Executing statements all at once..."
     PREPARING = "Preparing statements..."
     DONE = "Done."
-    
+
+
 class Export():
     """
         Export types.
     """
     LEDGER = "ledger"
     CSV = "csv"
-    
+
+
 class StatementType():
     """
         Database statement types.
@@ -125,17 +131,18 @@ class StatementType():
     INSERT = 0
     UPDATE = 1
     DELETE = 2
-    
+
+
 class Transaction():
     """
         Transaction types.
     """
     BUY = 0
     SELL = 1
-    
+
 TRADING_ACCOUNTS = ['whsi00']
 NEGATIVES = ['asset']
-    
+
 DEFAULT_DATE = string_to_date("1900-01-01")
 DEFAULT_DECIMAL = Decimal(0.0)
 DEFAULT_INT = 0

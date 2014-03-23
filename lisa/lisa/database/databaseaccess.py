@@ -247,22 +247,22 @@ class DatabaseAccess():
                 statements_insert = self.assemble_statement_list_insert(
                         statements, StatementType.INSERT)
                 self.write_statement_list_insert(
-                        statements_insert, statements.table_name)
+                        statements_insert, statements.table)
                 #update
                 statements_update = self.assemble_statement_list_update(
                         statements, StatementType.UPDATE)
                 print "test: statements_update = ", statements_update
                 self.write_statement_list_update(
-                        statements_update, statements.table_name)
+                        statements_update, statements.table)
                 #delete
                 statements_delete = self.assemble_statement_list_delete(
                         statements, StatementType.DELETE)
                 self.write_statement_list_delete(
-                        statements_delete, statements.table_name)
+                        statements_delete, statements.table)
         except Exception as ex:
             print Error.WRITE_TO_DATABASE_SESSION, ex
 
-    def write_statement_list_insert(self, final_statements, table_name):
+    def write_statement_list_insert(self, final_statements, table):
         """
             Commit the insert statements to database.
         """
@@ -271,9 +271,9 @@ class DatabaseAccess():
             if final_statements != []:
                 #NOTE: The below 3 lines are this one-liner in python3:
                 #print(table_name, end=': ')
-                splitnames = table_name.split(':')
-                for name in splitnames:
-                    print name
+                #splitnames = table.__name__.split(':')
+                #for name in splitnames:
+                #    print name
                 session.add_all(final_statements)
                 session.commit()
                 # TODO: {0} in python2.7?
@@ -285,7 +285,7 @@ class DatabaseAccess():
             session.rollback()
             session = None
 
-    def write_statement_list_update(self, final_statements, table_name):
+    def write_statement_list_update(self, final_statements, table):
         """
             Execute the update statements on the database.
         """
@@ -294,18 +294,15 @@ class DatabaseAccess():
         #=> session.query(Supplier).filter_by(id=2).update({"name": u"Mayowa"})
         session = self.Session()
         try:
-            if final_statements != [[]]:
-                #NOTE: The below 3 lines are this one-liner in python3:
-                #print(table_name, end=': ')
-                splitnames = table_name.split(':')
-                for name in splitnames:
-                    print name
+            import pdb; pdb.set_trace()
+            if final_statements != []:
                 #session.add_all(final_statements)
                 #session.commit()
                 for statement in final_statements:
                     print 'test:', statement
-                    session.query(table_name).filter_by(
-                            id=statement[0]).update(statement[1])
+                    # TODO: make trade_id a var? Is that possible?
+                    session.query(table).filter_by(
+                            trade_id=statement[0]).update(statement[1])
                     print 'test: after query'
                 # TODO: commit/flush code in for or outside?
                 session.commit()
@@ -318,7 +315,7 @@ class DatabaseAccess():
             session.rollback()
             session = None
 
-    def write_statement_list_delete(self, final_statements, table_name):
+    def write_statement_list_delete(self, final_statements, table):
         """
             Write the insert statements to database.
         """
@@ -334,7 +331,7 @@ class DatabaseAccess():
         # TODO: find a way to refactor this piece of crap code.
         result = []
         inner_part_list = statements.get_statement_list(insupdel)
-        if statements.table_name == Table.CURRENCY_EXCHANGE:
+        if statements.table == T_CURRENCY_EXCHANGE:
             for record in inner_part_list:
                 result.append(T_CURRENCY_EXCHANGE(
                     record['currency_exchange_id'],
@@ -343,7 +340,7 @@ class DatabaseAccess():
                     record['exchange_rate'],
                     record['date_created'],
                     record['date_modified']))
-        elif statements.table_name == Table.RATE:
+        elif statements.table == T_RATE:
             for record in inner_part_list:
                 result.append(T_RATE(
                     record['rate_id'],
@@ -352,7 +349,7 @@ class DatabaseAccess():
                     record['automatic_flag'],
                     record['date_created'],
                     record['date_modified']))
-        elif statements.table_name == Table.FINANCE:
+        elif statements.table == T_FINANCE:
             for record in inner_part_list:
                 result.append(T_FINANCE(
                     record['finance_id'],
@@ -369,7 +366,7 @@ class DatabaseAccess():
                     record['active'],
                     record['date_created'],
                     record['date_modified']))
-        elif statements.table_name == Table.TRADE:
+        elif statements.table == T_TRADE:
             for record in inner_part_list:
                 result.append(T_TRADE(
                     record['trade_id'],
@@ -432,11 +429,11 @@ class DatabaseAccess():
             Creates list of update records from statements,
             that we can use to update.
         """
-        import pdb; pdb.set_trace()
-        result = [[]]
+        result = []
+        #import pdb; pdb.set_trace()
         inner_part_list = statements.get_statement_list(insupdel)
         for record in inner_part_list:
-            if statements.table_name == Table.TRADE:
+            if statements.table == T_TRADE:
                 var_id = record['trade_id']
             else:
                 var_id = -1

@@ -6,6 +6,7 @@
 from database.databaseaccess import DatabaseAccess
 from modules.constant import *
 
+
 class CoreModule():
     """
         All core modules used in Lisa, will inherit from this one.

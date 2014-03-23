@@ -2,15 +2,13 @@
 """
     See LICENSE file for copyright and license details.
 """
-import sys
-from datetime import datetime
-
 from database.databaseaccess import DatabaseAccess
 from modules.core_module import CoreModule
 from modules.statement import Statement
 from modules.function import *
 from modules.constant import *
 from generic.modules.function import *
+
 
 class CurrencyExchange(CoreModule):
     """
@@ -29,7 +27,7 @@ class CurrencyExchange(CoreModule):
         """
         try:
             dba = DatabaseAccess(self.config)
-            statement_currency_exchange = Statement(Table.CURRENCY_EXCHANGE)
+            statement_currency_exchange = Statement(T_CURRENCY_EXCHANGE)
             date_created = current_date()
             date_modified = current_date()
             records = 0
@@ -41,12 +39,14 @@ class CurrencyExchange(CoreModule):
                 statement_currency_exchange.add(
                     records,
                     {
-                        'currency_exchange_id':None,
-                        'currency_from_id':dba.currency_id_from_currency(fields[Input.CURRENCY_FROM]),
-                        'currency_to_id':dba.currency_id_from_currency(fields[Input.CURRENCY_TO]),
-                        'exchange_rate':Decimal(fields[Input.EXCHANGE_RATE]),
-                        'date_created':date_created,
-                        'date_modified':date_modified
+                        'currency_exchange_id': None,
+                        'currency_from_id': dba.currency_id_from_currency(
+                            fields[Input.CURRENCY_FROM]),
+                        'currency_to_id': dba.currency_id_from_currency(
+                            fields[Input.CURRENCY_TO]),
+                        'exchange_rate': Decimal(fields[Input.EXCHANGE_RATE]),
+                        'date_created': date_created,
+                        'date_modified': date_modified
                     }
                 )
             return statement_currency_exchange
