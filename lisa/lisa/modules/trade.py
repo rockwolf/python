@@ -246,7 +246,7 @@ class Trade(CoreModule):
                 self.commission_buy,
                 self.commission_sell,
                 self.long_flag)
-            self.profit_loss_orig = calc.convert_from_orig(
+            self.profit_loss_orig = calc.convert_to_orig(
                 self.profit_loss,
                 fields[Input.EXCHANGE_RATE]
             )
