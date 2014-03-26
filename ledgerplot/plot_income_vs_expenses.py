@@ -6,8 +6,6 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from decimal import Decimal
 
-fig = plt.figure()
-ax1 = fig.add_subplot(1,1,1)
 
 def animate(i):
     """
@@ -27,8 +25,21 @@ def animate(i):
             x_array.append(Decimal(line.split(' ')[0]))
             y_array.append(i)
 
-    ax1.clear()
-    ax1.plot(x_array, y_array)
 
-ani = animation.FuncAnimation(fig, animate, interval=1000)
-plt.show()
+years = np.arange(2004, 2009)
+heights = np.random.random(years.shape) * 7000 + 3000
+
+box_colors = brewer2mpl.get_map('Set1', 'qualitative', 5).mpl_colors    
+
+plt.bar(years - .4, heights, color=box_colors)
+plt.grid(axis='y', color='white', linestyle='-', lw=1)
+plt.yticks([2000, 4000, 6000, 8000])
+
+fmt = plt.ScalarFormatter(useOffset=False)
+plt.gca().xaxis.set_major_formatter(fmt)
+plt.xlim(2003.5, 2008.5)
+remove_border(left=False)
+
+for x, y in zip(years, heights):
+    plt.annotate("%i" % y, (x, y + 200), ha='center')
+
