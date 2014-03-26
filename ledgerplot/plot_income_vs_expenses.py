@@ -3,6 +3,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from decimal import Decimal
+import sys
 
 x_array = []
 y_array = []
@@ -12,7 +13,7 @@ def load_data():
         Load data
     """
     print "test: "
-    var_data = open('test.dat', 'r').read()
+    var_data = open(sys.argv[1].strip(), 'r').read()
     var_data_array = var_data.split('\n')
     i = 0
     for line in var_data_array:
