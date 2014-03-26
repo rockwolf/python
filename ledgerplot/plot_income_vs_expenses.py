@@ -1,15 +1,12 @@
-#!/usr/env/python
-"""
-    See LICENSE file for copyright and license details.
-"""
+#!/usr/bin/env python
+# a bar plot with errorbars
+import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.animation as animation
-from decimal import Decimal
 
 
-def animate(i):
+def load_data():
     """
-        Animate
+        Load data
     """
     print "test: "
     var_data = open('test.dat', 'r').read()
@@ -19,27 +16,42 @@ def animate(i):
     i = 0
     for line in var_data_array:
         i += 1
-        print "test:", line
         # skip the last 2 lines of the output
         if (len(line)>1) and (i<len(var_data_array) - 2):
             x_array.append(Decimal(line.split(' ')[0]))
             y_array.append(i)
 
 
-years = np.arange(2004, 2009)
-heights = np.random.random(years.shape) * 7000 + 3000
+N = 5
+income = load_data() #TODO: load correctly
+expenses =   (2, 3, 4, 1, 2)
 
-box_colors = brewer2mpl.get_map('Set1', 'qualitative', 5).mpl_colors    
+ind = np.arange(N)  # the x locations for the groups
+width = 0.35       # the width of the bars
 
-plt.bar(years - .4, heights, color=box_colors)
-plt.grid(axis='y', color='white', linestyle='-', lw=1)
-plt.yticks([2000, 4000, 6000, 8000])
+fig, ax = plt.subplots()
+rects1 = ax.bar(ind, menMeans, width, color='r', yerr=menStd)
 
-fmt = plt.ScalarFormatter(useOffset=False)
-plt.gca().xaxis.set_major_formatter(fmt)
-plt.xlim(2003.5, 2008.5)
-remove_border(left=False)
+womenMeans = (25, 32, 34, 20, 25)
+womenStd =   (3, 5, 2, 3, 3)
+rects2 = ax.bar(ind+width, womenMeans, width, color='y', yerr=womenStd)
 
-for x, y in zip(years, heights):
-    plt.annotate("%i" % y, (x, y + 200), ha='center')
+# add some
+ax.set_ylabel('Scores')
+ax.set_title('Scores by group and gender')
+ax.set_xticks(ind+width)
+ax.set_xticklabels( ('G1', 'G2', 'G3', 'G4', 'G5') )
 
+ax.legend( (rects1[0], rects2[0]), ('Men', 'Women') )
+
+def autolabel(rects):
+    # attach some text labels
+    for rect in rects:
+        height = rect.get_height()
+        ax.text(rect.get_x()+rect.get_width()/2., 1.05*height, '%d'%int(height),
+                ha='center', va='bottom')
+
+autolabel(rects1)
+autolabel(rects2)
+
+plt.show()
