@@ -32,10 +32,10 @@ ind = np.arange(N)  # the x locations for the groups
 width = 0.15       # the width of the bars
 
 fig, ax = plt.subplots()
-rects1 = ax.bar(ind, income, width, color='g')
+rects1 = ax.bar(ind, income, width, color='r')
 
 expenses = x_array[1]
-rects2 = ax.bar(ind+width, expenses, width, color='r')
+rects2 = ax.bar(ind+width, expenses, width, color='g')
 
 # add some
 ax.set_ylabel('Value (EUR)')
