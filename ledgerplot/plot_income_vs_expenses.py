@@ -39,7 +39,10 @@ rects2 = ax.bar(ind+width, expenses, width, color='r')
 
 # add some
 ax.set_ylabel('Value (EUR)')
-ax.set_title('Income vs. expenses')
+title_year = ''
+if len(sys.argv) > 1:
+   title_year = ' - {}'.format(sys.argv[2].strip())
+ax.set_title('Income vs. expenses{}'.format(title_year))
 ax.set_xticks(ind+width)
 ax.set_xticklabels( ('2014') )
 
