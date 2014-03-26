@@ -2,7 +2,10 @@
 # a bar plot with errorbars
 import numpy as np
 import matplotlib.pyplot as plt
+from decimal import Decimal
 
+x_array = []
+y_array = []
 
 def load_data():
     """
@@ -11,38 +14,35 @@ def load_data():
     print "test: "
     var_data = open('test.dat', 'r').read()
     var_data_array = var_data.split('\n')
-    x_array = []
-    y_array = []
     i = 0
     for line in var_data_array:
         i += 1
         # skip the last 2 lines of the output
         if (len(line)>1) and (i<len(var_data_array) - 2):
-            x_array.append(Decimal(line.split(' ')[0]))
+            x_array.append(abs(float(line.split(' ')[0])))
             y_array.append(i)
 
+load_data() # load x_array and y_array
 
-N = 5
-income = load_data() #TODO: load correctly
-expenses =   (2, 3, 4, 1, 2)
+N = 1
+income = x_array[0]
 
 ind = np.arange(N)  # the x locations for the groups
-width = 0.35       # the width of the bars
+width = 0.15       # the width of the bars
 
 fig, ax = plt.subplots()
-rects1 = ax.bar(ind, menMeans, width, color='r', yerr=menStd)
+rects1 = ax.bar(ind, income, width, color='g')
 
-womenMeans = (25, 32, 34, 20, 25)
-womenStd =   (3, 5, 2, 3, 3)
-rects2 = ax.bar(ind+width, womenMeans, width, color='y', yerr=womenStd)
+expenses = x_array[1]
+rects2 = ax.bar(ind+width, expenses, width, color='r')
 
 # add some
-ax.set_ylabel('Scores')
-ax.set_title('Scores by group and gender')
+ax.set_ylabel('Value (EUR)')
+ax.set_title('Income vs. expenses')
 ax.set_xticks(ind+width)
-ax.set_xticklabels( ('G1', 'G2', 'G3', 'G4', 'G5') )
+ax.set_xticklabels( ('2014') )
 
-ax.legend( (rects1[0], rects2[0]), ('Men', 'Women') )
+ax.legend( (rects1[0], rects2[0]), ('Income', 'Expenses') )
 
 def autolabel(rects):
     # attach some text labels
