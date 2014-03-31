@@ -1,5 +1,12 @@
 #!/usr/bin/env python
-# a bar plot with errorbars
+
+"""
+    See LICENSE.txt file for copyright and license details.
+"""
+
+"""
+    A bar plot with income and expense levels.
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 from decimal import Decimal
@@ -12,7 +19,6 @@ def load_data():
     """
         Load data
     """
-    print "test: "
     var_data = open(sys.argv[1].strip(), 'r').read()
     var_data_array = var_data.split('\n')
     i = 0
