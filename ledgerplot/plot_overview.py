@@ -1,8 +1,14 @@
 #!/usr/bin/env python
-# a plot with max expense,
-# income (active/passive)
-# and evolution of expense over time
-# for a given year
+
+"""
+   See LICENSE.txt file for copyright and license details.
+"""
+
+"""
+   A plot with max expense, income (active/passive)
+   and evolution of expense over time, for a given
+   year.
+"""
 
 import numpy as np
 import matplotlib.pyplot as plt
