@@ -26,7 +26,7 @@ def load_data():
         i += 1
         # skip the last 2 lines of the output
         if (len(line)>1) and (i<len(var_data_array) - 2):
-            x_array.append(abs(float(line.split(' ')[0])))
+            x_array.append(abs(float(line.strip().split(' ')[0].strip())))
             y_array.append(i)
 
 load_data() # load x_array and y_array
