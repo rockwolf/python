@@ -32,27 +32,26 @@ def load_data():
 load_data() # load x_array and y_array
 
 N = 1
-income = x_array[0]
+income = x_array[1] # ledger shows expenses first,
+                    # so reverse to get income vs expenses.
+expenses = x_array[0]
 
 ind = np.arange(N)  # the x locations for the groups
 width = 0.15       # the width of the bars
-
 fig, ax = plt.subplots()
-rects1 = ax.bar(ind, income, width, color='r')
-
-expenses = x_array[1]
-rects2 = ax.bar(ind+width, expenses, width, color='g')
+rects1 = ax.bar(ind+width, expenses, width, color='r')
+rects2 = ax.bar(ind, income, width, color='g')
 
 # add some
 ax.set_ylabel('Value (EUR)')
 title_year = ''
-if len(sys.argv) > 1:
+if len(sys.argv) > 2:
    title_year = ' - {}'.format(sys.argv[2].strip())
 ax.set_title('Income vs. expenses{}'.format(title_year))
 ax.set_xticks(ind+width)
 ax.set_xticklabels( ('2014') )
 
-ax.legend( (rects1[0], rects2[0]), ('Income', 'Expenses') )
+ax.legend( (rects1[0], rects2[0]), ('Expenses', 'Income') )
 
 def autolabel(rects):
     # attach some text labels
