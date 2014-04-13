@@ -117,7 +117,7 @@ class Trade(CoreModule):
                             self.insert_info(dba, calc, fields)
                         # GENERAL VARIABLES THAT CAN BE CALCULATED
                         # ON THE DATA WE HAVE
-                        self.general_info_at_end(fields, self.trade_record)
+                        self.general_info_at_end(dba, fields, self.trade_record)
                         # TEST INFO
                         #self.print_test_info()
                         # ADDING THE STATEMENTS
@@ -285,7 +285,10 @@ class Trade(CoreModule):
                 self.profit_loss,
                 self.long_flag)
             self.risk_actual_percent = (
-                 self.risk_actual / self.amount_buy_simple
+                 self.risk_actual / 
+                 get_pool_without_margin(
+                    fields[Input.POOL],
+                    dba.get_margin_pool())
             ) * Decimal(100.0)
             self.cost_total = calc.calculate_cost_total(
                 self.tax_buy,
@@ -297,8 +300,7 @@ class Trade(CoreModule):
                     self.profit_loss)
             self.win_flag = dba.get_win_flag_value(
                     self.price_buy,
-                    self.price_sell,
-                    self.long_flag)
+                    self.price_sell)
             self.drawdown_id = self.trade_record['drawdown_id']
             self.r_multiple = calc.calculate_r_multiple(
                 self.profit_loss,
@@ -431,12 +433,16 @@ class Trade(CoreModule):
         except Exception as ex:
             print Error.CREATE_STATEMENTS_TABLE_TRADE, ex
 
-    def general_info_at_end(self, fields, trade_record):
+    def general_info_at_end(self, dba, fields, trade_record):
         """
             General info at the end of the trade.
         """
         try:
-            self.profit_loss_percent = self.profit_loss / Decimal(100.0)
+            self.profit_loss_percent = ( 
+                self.profit_loss / get_pool_without_margin(
+                    self.pool_at_start,
+                    dba.get_margin_pool())
+            )
             self.year_buy = self.date_buy.year
             self.month_buy = self.date_buy.month
             self.day_buy = self.date_buy.day

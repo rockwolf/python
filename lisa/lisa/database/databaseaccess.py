@@ -226,15 +226,11 @@ class DatabaseAccess():
                 and trade_record['date_buy'] != DEFAULT_DATE)
         return 1 if result else 0
 
-    def get_win_flag_value(self, price_buy, price_sell, long_flag):
+    def get_win_flag_value(self, price_buy, price_sell):
         """
             Trade finished... did we win?
         """
-        result = False
-        if long_flag == 1:
-            result = (price_buy < price_sell)
-        else:
-            result = (price_buy > price_sell)
+        result = (price_buy < price_sell)
         return 1 if result else 0
 
     def write_to_database(self, statements):
@@ -294,7 +290,7 @@ class DatabaseAccess():
         #=> session.query(Supplier).filter_by(id=2).update({"name": u"Mayowa"})
         session = self.Session()
         try:
-            import pdb; pdb.set_trace()
+            #import pdb; pdb.set_trace()
             if final_statements != []:
                 #session.add_all(final_statements)
                 #session.commit()
@@ -946,7 +942,6 @@ class DatabaseAccess():
             session = self.Session()
             #NOTE: id_buy or id_sell must be -1
             # but both can't be filled in (= finished trade)
-            print "test: market_id=", market_id, "commodity_id=", commodity_id
             first_obj = session.query(table_class).filter(
                     table_class.market_id == market_id,
                     table_class.commodity_id == commodity_id,
