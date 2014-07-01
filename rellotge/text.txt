@@ -6,7 +6,9 @@ mig quart de deu / 1/2/4 d 10
 manquen set minuts per a un quart de deu / 7' x 1/4 d 10
 manquen sis minuts per a un quart de deu / 6' x 1/4 d 10
 manquen cinc minuts per a un quart de deu / 5' x 1/4 d 10
-
+...
+un quart de deu i tres minuts / 1/4 d 10 i 3'
+un quart de deu i quatre minuts / 1/4 d 10 i 4'
 
 a punt de tocal les deu del vespre
 = 10:00
