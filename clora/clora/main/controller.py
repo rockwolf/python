@@ -194,6 +194,27 @@ class ControllerMain():
             msg = None
         except Exception as ex:
             print('Error in update_item:', ex)
+            
+    def delete_item(self, item_number):
+        """
+            If item_number exists: delete values.
+        """
+        try:
+            msg = MessageHandler()
+            dba = DatabaseAccess(self.inventory_file)
+            record_id = msg.get_input('Id: ')
+            if int(record_id) in range(11):
+                record_id = int(record_id)
+            else:
+                raise Exception('Wrong state value, could not convert to int.')
+                #input retrieved, now add it to the db
+                if msg.confirmation('delete this item from the inventory'):
+                    dba.delete_item(record_id)
+            dba = None
+            msg = None
+        except Exception as ex:
+            print('Error in delete_item:', ex)
+
 
     def lookup_category(self):
         """
@@ -223,18 +244,6 @@ class ControllerMain():
         dba = DatabaseAccess(self.inventory_file)
         print(dba.get_categories)
         dba = None
-
-    def update_item(self, item_number):
-        """
-            If item_number exists: update values.
-        """
-        print('Not implemented yet.')
-
-    def delete_item(self, item_number):
-        """
-            If item_number exists: update values.
-        """
-        print('Not implemented yet.')
 
     def backup(self):
         """
