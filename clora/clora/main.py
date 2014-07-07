@@ -4,8 +4,7 @@ See LICENSE file for copyright and license details.
 """
 import sys
 
-from main.controller import ControllerMain
-from setup.setup import *
+from controller.controller import ControllerMain
         
 class MainWrapper():
     """
@@ -26,8 +25,8 @@ class MainWrapper():
         """
             Adjust the system path, so we can search in custom dirs for modules.
         """
-        sys.path.append('main')
         sys.path.append('database')
+        sys.path.append('controller')
         sys.path.append('modules')
         sys.path.append('modules_generic')
         sys.path.append('setup')

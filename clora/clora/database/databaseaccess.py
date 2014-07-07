@@ -1,17 +1,18 @@
 #! /usr/local/bin/python
 """
-    See LICENSE file for copyright and license details.					
+    See LICENSE file for copyright and license details.
 """
 
-from modules_generic.function import *
-from modules_generic.messagehandler import *
+from generic.modules.function import *
+from generic.modules.messagehandler import *
 from modules.constant import *
 from modules.function import *
+
 
 class DatabaseAccess():
     """
         Connecting to the database.
-    """ 
+    """
 
     def __init__(self, inventory_file):
         """
@@ -28,7 +29,7 @@ class DatabaseAccess():
             self.read_inventory()
         except Exception as ex:
             print("Error in initialisation of DatabaseAccess: ", ex)
-   
+
     def get_categories(self):
         """
             Get the categories with their max value.
@@ -36,13 +37,14 @@ class DatabaseAccess():
         result = []
         try:
             with open(self.inventory_file) as var_file:
-                for line in var_file: 
+                for line in var_file:
                     line = line.rstrip()
                     if line == '# categories;max':
                         processing_categories = True
                     elif line[0] == '#':
                         processing_categories = False
-                        break; #optimization
+                        #optimization
+                        break
                     else:
                         if processing_categories and (line[0] != ';'):
                             result.append(line.split(';')[0])
@@ -50,7 +52,7 @@ class DatabaseAccess():
             print(Error.GET_CATEGORIES, ex)
         finally:
             return result
-            
+
     def get_category_max(self, category):
         """
             Returns the max value for the given category.
@@ -60,7 +62,7 @@ class DatabaseAccess():
             for item in self.categories:
                 if item[0] == category:
                     result = item[1]
-                    break;
+                    break
         except Exception as ex:
             print('Error in get_category_max:', ex)
         finally:
@@ -102,7 +104,8 @@ class DatabaseAccess():
                     elif line[0] == '#':
                         if line[2:] not in self.categories:
                             #TODO: if verbose:
-                            print('::: Warning: category', line[2:], 'not found!')
+                            print('::: Warning: category', line[2:],
+                                'not found!')
                         current_key = line[2:]
                         process_categories = False
                     else:

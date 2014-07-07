@@ -7,16 +7,17 @@ from os.path import isfile
 import shutil
 import os, sys
 from modules.constant import *
-from modules_generic.messagehandler import *
+from generic.modules.messagehandler import *
 from database.databaseaccess import *
+
 
 class ControllerMain():
     """ Contains the bussiness logic of the application. """
-    
+
     def __init__(self):
         """ Initialize """
         self.loaded_inventory = []
-        self.inventory_file = ""
+        self.inventory_file = "data/inventory.md"
 
     # Methods
     ## General
@@ -56,9 +57,11 @@ class ControllerMain():
                 item_total = len(item)
                 grand_total += item_total
                 max_items_for_category = dba.get_category_max(key)
-                warning = self.get_warning_message(item_total, max_items_for_category)
+                warning = self.get_warning_message(
+                    item_total, max_items_for_category)
                 if key != current_key:
-                    result.append([key, item_total, max_items_for_category, warning])
+                    result.append(
+                        [key, item_total, max_items_for_category, warning])
                     current_key = key
                 for value in item:
                     item_number += 1
@@ -69,20 +72,20 @@ class ControllerMain():
                     else:
                         mark = '[ ]'
                     if state <= 3:
-                        low +=1
+                        low += 1
                     high = 10 - low
                     result.append([
-                        ' '*(4-len(str(item_number)))
-                        , item_number 
-                        , mark
-                        , value[0]
-                        , value[2]
-                        , int(value[1])*10])
+                        ' ' * (4 - len(str(item_number))),
+                        item_number,
+                        mark,
+                        value[0],
+                        value[2],
+                        int(value[1]) * 10])
             result.append([
-                grand_total
-                , to_replace
-                , low
-                , high])
+                grand_total,
+                to_replace,
+                low,
+                high])
         except Exception as ex:
             print('Error in load_inventory:', ex)
         finally:
@@ -103,39 +106,38 @@ class ControllerMain():
             warning = Warning.NONE
         return warning
 
-            
     def print_inventory(self, loaded_inventory):
         """
             Print the inventory.
         """
         print('Inventory')
         print('---------')
-        for index in range(0,len(loaded_inventory)):
-            if index == len(loaded_inventory)-1:
+        for index in range(0, len(loaded_inventory)):
+            if index == len(loaded_inventory) - 1:
                 # last line
                 print(
                         'Total: {} | Replace: {} | -60%: {} + 60%: {}'.format(
-                        loaded_inventory[-1][0]
-                        , loaded_inventory[-1][1]
-                        , loaded_inventory[-1][2]
-                        , loaded_inventory[-1][3]))
+                        loaded_inventory[-1][0],
+                        loaded_inventory[-1][1],
+                        loaded_inventory[-1][2],
+                        loaded_inventory[-1][3]))
             else:
                 if len(loaded_inventory[index]) == 4:
                     # category line
                     print('{} [{}/{}] {}'.format(
-                                    loaded_inventory[index][0]
-                                    , loaded_inventory[index][1]
-                                    , loaded_inventory[index][2]
-                                    , loaded_inventory[index][3]))
+                                    loaded_inventory[index][0],
+                                    loaded_inventory[index][1],
+                                    loaded_inventory[index][2],
+                                    loaded_inventory[index][3]))
                 else:
                     # item line
                     print('  {}{}. {} {} ({}) [{}%]'.format(
-                        loaded_inventory[index][0]
-                        , loaded_inventory[index][1]
-                        , loaded_inventory[index][2]
-                        , loaded_inventory[index][3]
-                        , loaded_inventory[index][4]
-                        , loaded_inventory[index][5]))
+                        loaded_inventory[index][0],
+                        loaded_inventory[index][1],
+                        loaded_inventory[index][2],
+                        loaded_inventory[index][3],
+                        loaded_inventory[index][4],
+                        loaded_inventory[index][5]))
 
     def add_item(self):
         """
@@ -144,7 +146,8 @@ class ControllerMain():
         try:
             msg = MessageHandler()
             dba = DatabaseAccess(self.inventory_file)
-            if msg.confirmation('Are you sure you want to add a new item to the inventory?'):
+            if msg.confirmation(
+                'Are you sure you want to add a new item to the inventory?'):
                 if msg.confirmation('Add a new category?'):
                     # New category
                     print(dba.get_categories())
@@ -187,14 +190,15 @@ class ControllerMain():
                 if int(state) in range(11):
                     state = int(state)
                 else:
-                    raise Exception('Wrong state value, could not convert to int.')
+                    raise Exception(
+                        'Wrong state value, could not convert to int.')
                 #input retrieved, now add it to the db
                 dba.save_item(name, description, state, comment)
             dba = None
             msg = None
         except Exception as ex:
             print('Error in update_item:', ex)
-            
+
     def delete_item(self, item_number):
         """
             If item_number exists: delete values.
@@ -215,7 +219,6 @@ class ControllerMain():
         except Exception as ex:
             print('Error in delete_item:', ex)
 
-
     def lookup_category(self):
         """
             Enter category,
@@ -226,7 +229,7 @@ class ControllerMain():
             dba = DatabaseAccess(self.inventory_file)
             result = ''
             categories = dba.get_categories()
-            while result not in categories: 
+            while result not in categories:
                 self.print_categories()
                 result = msg.get_input('Category: ')
         except Exception as ex:
@@ -240,7 +243,7 @@ class ControllerMain():
         """
             Print the available categories.
         """
-        #TODO: fancy this up
+        # TODO: fancy this up
         dba = DatabaseAccess(self.inventory_file)
         print(dba.get_categories)
         dba = None
@@ -249,7 +252,8 @@ class ControllerMain():
         """
             Make a backup of the output file.
         """
-        #TODO: create export that will print a summary (of e.g. the profile) to txt.
+        # TODO: create export that will print a summary
+        # (of e.g. the profile) to txt.
         # remove old backup
         if isfile(self.config.backupfile):
             try:
