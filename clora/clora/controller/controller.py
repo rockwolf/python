@@ -116,7 +116,7 @@ class ControllerMain():
             if index == len(loaded_inventory) - 1:
                 # last line
                 print(
-                        'Total: {} | Replace: {} | -60%: {} + 60%: {}'.format(
+                        'Total: {} | Replace: {} | -60%: {} +60%: {}'.format(
                         loaded_inventory[-1][0],
                         loaded_inventory[-1][1],
                         loaded_inventory[-1][2],

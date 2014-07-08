@@ -32,7 +32,9 @@ fancy adidas 2;10;from Hermanneke
 fancy pantsy one;10;from Hermanneke
 camu green;8;
 # underwear
+white one 1;3;
 # undershirt
+white one 1;5;
 # socks_pair
 light grey ones with no markings;4;
 # swimming_trunks
