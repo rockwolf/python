@@ -1,13 +1,13 @@
 # Clora: CLOthes Rotational Application
 ## Description
-Clora is a command line application, that stores the clothes you have in rotation (= in washing machine, in closeth and what you're wearing righ now) based on category, name and description.
+Clora is a command line application, that stores the clothes you have in rotation (= in washing machine, in closeth and what you're wearing right now) based on category, name and description.
 Data is stored in a text file that can easily be manipulated with either clora itself or an external editor.
 
 ## Purpose
 The goal of this application is to keep a record of when you need to buy new clothes, so you always know when and what to buy.
 
 ## Database
-The database is a textfile. I have chosen the .md-extension to allow for markdown to be used.  
+The database is a regular textfile with the .txt extension.
 
 The format is as followed:  
     # categories;max  
