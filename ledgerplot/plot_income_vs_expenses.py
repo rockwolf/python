@@ -11,6 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from decimal import Decimal
 import sys
+from subprocess import call
 
 class PlotIncomeVsExpenses():
     """
@@ -20,10 +21,25 @@ class PlotIncomeVsExpenses():
         """
             Init
         """
+        self.year = 1900
+        self.start_date = '1900-01-01'
+        self.end_date = '1900-01-01'
         self.x_array = []
         self.y_array = []
         self.dat_file = ''
 
+    def prepare_data(year, start_date, end_date, total):
+        """
+            Extract the data we want to plot from ledger.
+        """
+        try:
+            #TODO: call ledger with the correct arguments, based on the
+            # arguments given to ledgerplot
+            # See  sh / freebsd / report_income_vs_expenses.sh
+            call(["sh", "script.sh"])
+        except:
+            print 'Error: could not prepare the ledger data.'
+        
     def load_data():
         """
             Load data
