@@ -4,7 +4,8 @@
         ledgerplot [options]
     
     Options:
-        --income_vs_expenses ledgerfile [<year>|<start date> <end date> [total]]
+        --ledger <ledger file>
+        --income_vs_expenses [<year>|<start date> <end date> [total]]
         -V, --version
         --python
 """
@@ -21,23 +22,16 @@ __all__ = ['ledgerplot']
 __version__ = 'v0.1'
 
 def main():
-    print "-main()-"
+    print '-main()-'
     pass
     
 if __name__ == "__main__":
     args = docopt(__doc__, help=True, version=__version__)
-    if args['--export'] == Export.LEDGER:
-        export_type = Export.LEDGER
-    elif args['--export'] == Export.CSV:
-        export_type = Export.CSV
-    else:
-        print "Error: wrong export type (" + \
-            args['--export'] + \
-        "), falling back on the default (" + \
-        Export.CSV + \
-        ")!"
-        export_type = Export.CSV
+    ledger_file = args['--ledger']
+    print 'Using ledger file %s'.format(ledger_file)
+    
+    if args['--income_vs_expenses']:
     elif args['--python']:
-    print 'Python', sys.version
+        print 'Python %s'.format(sys.version)
     sys.exit(0)
     main()
