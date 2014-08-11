@@ -21,22 +21,23 @@ class PlotIncomeVsExpenses():
         """
             Init
         """
-        self.year = 1900
-        self.start_date = '1900-01-01'
-        self.end_date = '1900-01-01'
         self.x_array = []
         self.y_array = []
         self.dat_file = ''
 
-    def prepare_data(year, start_date, end_date, total):
+    def prepare_data(piveType = PlotIncomeVsExpensesType.ALL_DATA_UNTIL_NOW):
         """
             Extract the data we want to plot from ledger.
         """
         try:
-            #TODO: call ledger with the correct arguments, based on the
-            # arguments given to ledgerplot
-            # See  sh / freebsd / report_income_vs_expenses.sh
-            call(["sh", "script.sh"])
+            if piveType = PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD_TOTAL:
+                call(['sh', 'ledger -f $1 --real -s -d "T&l<=1" -b $2 -e $3 bal -Equity -^assets expenses income > income_vs_expenses.dat'])
+            elif piveType = PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD:
+                call(['sh', 'ledger -f $1 --real -s -d "T&l<=1" --begin $2 --end $3 bal --period-sort --monthly -Equity -^assets expenses income > income_vs_expenses.dat'])
+            elif piveType = PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_YEAR:
+                call(['sh', 'ledger -f $1 --real -s -p $2 -d "T&l<=1" bal --period-sort --yearly -Equity -^assets expenses income > income_vs_expenses.dat'])
+            elif piveType = PlotIncomeVsExpensesType.ALL_DATA_UNTIL_NOW:
+                call(['sh', 'ledger -f $1 --real -s -d "T&l<=1" bal -Equity -^assets expenses income > income_vs_expenses.dat'])
         except:
             print 'Error: could not prepare the ledger data.'
         
@@ -100,6 +101,7 @@ class PlotIncomeVsExpenses():
 if __name__ == "__main__":
     plot = PlotIncomeVsExpenses()
     plot.dat_file = sys.argv[1].strip()
+    plot.prepare_data()
     plot.load_data() # load x_array and y_array
     plot.plot_data()
     plot = None
