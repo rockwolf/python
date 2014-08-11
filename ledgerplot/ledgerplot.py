@@ -16,15 +16,11 @@ See LICENSE.txt file for copyright and license details.
 from docopt import docopt
 import sys
 
+from constant.py import *
+
 
 __all__ = ['ledgerplot']
 __version__ = 'v0.1'
-
-class PlotIncomeVsExpensesType():
-    ALL_DATA_UNTIL_NOW = 0
-    ALL_DATA_FOR_GIVEN_YEAR = 1
-    ALL_DATA_FOR_GIVEN_PERIOD = 2
-    ALL_DATA_FOR_GIVEN_PERIOD_TOTAL = 3
     
 if __name__ == "__main__":
     args = docopt(__doc__, help=True, version=__version__)
