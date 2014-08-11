@@ -7,7 +7,6 @@
         --ledger <ledger file>
         --income_vs_expenses [<year>|<start date> <end date> [total]]
         -V, --version
-        --python
 """
 
 """
@@ -21,25 +20,34 @@ import sys
 __all__ = ['ledgerplot']
 __version__ = 'v0.1'
 
-def main():
-    print '-TEST- main()'
+class PlotIncomeVsExpensesType():
+    ALL_DATA_UNTIL_NOW = 0
+    ALL_DATA_FOR_GIVEN_YEAR = 1
+    ALL_DATA_FOR_GIVEN_PERIOD = 2
+    ALL_DATA_FOR_GIVEN_PERIOD_TOTAL = 3
     
 if __name__ == "__main__":
     args = docopt(__doc__, help=True, version=__version__)
-    ledger_file = args['--ledger']
-    print 'Using ledger file %s'.format(ledger_file)
     
+    if args['--ledger']:
+        ledger_file = args['--ledger']
+        print 'Using ledger file %s'.format(ledger_file)
+        
     if args['--income_vs_expenses']:
+        from plot_income_vs_expenses import PlotIncomeVsExpenses
+        plot = PlotIncomeVsExpenses()
         arglen = len(args['--income_vs_expenses'])
         print '-TEST- len(args[--income_vs_expenses]=%d'.format(arglen)
-        if arglen > 1:
-            if arglen = 3:
-                # plot data for a specific period, giving the total.
-                plot_income_vs_expenses_total()
-            else:
-                # plot data for a specific period
-                plot_income_vs_expenses()
-    elif args['--python']:
-        print 'Python %s'.format(sys.version)
+        if arglen = 3:
+            plot.prepare_data(PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD_TOTAL)
+        elif arglen = 2:
+            plot.prepare_data(PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD)
+        elif arglen = 1:
+            plot.prepare_data(PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_YEAR)
+        elif arglen = 0:
+            plot.prepare_data(PlotIncomeVsExpensesType.ALL_DATA_UNTIL_NOW)
+        else:
+            print 'Too many arguments.'
+            
+        plot = None
     sys.exit(0)
-    main()
