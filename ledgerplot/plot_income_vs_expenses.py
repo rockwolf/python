@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 from decimal import Decimal
 import sys
 from subprocess import call
+from constant import *
 
 class PlotIncomeVsExpenses():
     """
@@ -41,7 +42,7 @@ class PlotIncomeVsExpenses():
         except:
             print 'Error: could not prepare the ledger data.'
         
-    def load_data():
+    def load_data(self):
         """
             Load data
         """
@@ -52,10 +53,10 @@ class PlotIncomeVsExpenses():
             i += 1
             # skip the last 2 lines of the output
             if (len(line)>1) and (i<len(var_data_array) - 2):
-                x_array.append(abs(float(line.strip().split(' ')[0].strip())))
+                self.x_array.append(abs(float(line.strip().split(' ')[0].strip())))
                 y_array.append(i)
                 
-    def autolabel(rects):
+    def autolabel(self, rects):
         """
           Automatic labels.
         """
@@ -65,15 +66,15 @@ class PlotIncomeVsExpenses():
             ax.text(rect.get_x()+rect.get_width()/2., 1.05*height, '%d'%int(height),
                     ha='center', va='bottom')
                     
-    def plot_data():
+    def plot_data(self):
         """
             Plots the loaded data.
         """
         #TODO: move the below to seperate functions.
         N = 1
-        income = x_array[1] # ledger shows expenses first,
+        income = self.x_array[1] # ledger shows expenses first,
                             # so reverse to get income vs expenses.
-        expenses = x_array[0]
+        expenses = self.x_array[0]
 
         ind = np.arange(N)  # the x locations for the groups
         width = 0.15       # the width of the bars

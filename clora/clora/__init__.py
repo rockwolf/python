@@ -22,7 +22,7 @@ if __name__ == "__main__":
         '-f',
         '--file',
         help='Database file to use: <path/to/file>',
-        default='/home/rockwolf/.config/clora/inventory.md',
+        default='/home/rockwolf/.config/clora/inventory.txt',
         action='store')
     parser.add_argument(
         '-l',

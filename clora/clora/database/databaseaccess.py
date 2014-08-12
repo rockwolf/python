@@ -20,7 +20,7 @@ class DatabaseAccess():
         """
         try:
             if inventory_file == "":
-                self.inventory_file = "data/inventory_example.md"
+                self.inventory_file = "data/inventory_example.txt"
             else:
                 self.inventory_file = inventory_file
             self.inventory = {}
