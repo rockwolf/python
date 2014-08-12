@@ -25,18 +25,18 @@ class PlotIncomeVsExpenses():
         self.y_array = []
         self.dat_file = ''
 
-    def prepare_data(piveType = PlotIncomeVsExpensesType.ALL_DATA_UNTIL_NOW):
+    def prepare_data(pive_type = PlotIncomeVsExpensesType.ALL_DATA_UNTIL_NOW):
         """
             Extract the data we want to plot from ledger.
         """
         try:
-            if piveType = PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD_TOTAL:
+            if pive_type == PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD_TOTAL:
                 call(['sh', 'ledger -f $1 --real -s -d "T&l<=1" -b $2 -e $3 bal -Equity -^assets expenses income > income_vs_expenses.dat'])
-            elif piveType = PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD:
+            elif pive_type == PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD:
                 call(['sh', 'ledger -f $1 --real -s -d "T&l<=1" --begin $2 --end $3 bal --period-sort --monthly -Equity -^assets expenses income > income_vs_expenses.dat'])
-            elif piveType = PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_YEAR:
+            elif pive_type == PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_YEAR:
                 call(['sh', 'ledger -f $1 --real -s -p $2 -d "T&l<=1" bal --period-sort --yearly -Equity -^assets expenses income > income_vs_expenses.dat'])
-            elif piveType = PlotIncomeVsExpensesType.ALL_DATA_UNTIL_NOW:
+            elif pive_type == PlotIncomeVsExpensesType.ALL_DATA_UNTIL_NOW:
                 call(['sh', 'ledger -f $1 --real -s -d "T&l<=1" bal -Equity -^assets expenses income > income_vs_expenses.dat'])
         except:
             print 'Error: could not prepare the ledger data.'
