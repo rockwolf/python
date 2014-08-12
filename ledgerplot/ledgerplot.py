@@ -4,8 +4,8 @@
         ledgerplot [options]
     
     Options:
-        --ledger <ledger file>
-        --income_vs_expenses [<year>|<start date> <end date>]
+        --ledger FILE
+        --income_vs_expenses [YEAR|STARTDATE ENDDATE]
         --total
         -V, --version
 """
@@ -17,7 +17,7 @@ See LICENSE.txt file for copyright and license details.
 from docopt import docopt
 import sys
 
-from constant.py import *
+from constant import *
 
 
 __all__ = ['ledgerplot']
@@ -32,13 +32,13 @@ def plot_income_vs_expenses(is_total):
     plot = PlotIncomeVsExpenses()
     arglen = len(args['--income_vs_expenses'])
     print '-TEST- len(args[--income_vs_expenses]=%d'.format(arglen)
-    if isTotal and arglen = 2:
+    if is_total and (arglen == 2):
         plot.prepare_data(PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD_TOTAL)
-    elif not isTotal and arglen = 2:
+    elif not is_total and (arglen == 2):
         plot.prepare_data(PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD)
-    elif arglen = 1:
+    elif arglen == 1:
         plot.prepare_data(PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_YEAR)
-    elif arglen = 0:
+    elif arglen == 0:
         plot.prepare_data(PlotIncomeVsExpensesType.ALL_DATA_UNTIL_NOW)
     else:
         print 'Too many arguments.'
@@ -52,9 +52,10 @@ if __name__ == "__main__":
     
     if args['--ledger']:
         ledger_file = args['--ledger']
-        print 'Using ledger file %s'.format(ledger_file)
+        print 'Using ledger file {}'.format(ledger_file)
         
     is_total = args['--total']
+    print 'Total = {}'.format(is_total)
         
     if args['--income_vs_expenses']:
         plot_income_vs_expenses(is_total)
