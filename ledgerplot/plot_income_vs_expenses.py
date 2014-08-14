@@ -58,7 +58,6 @@ class PlotIncomeVsExpenses():
             if (len(line)>1) and (i<len(var_data_array) - 2):
                 self.x_array.append(abs(float(line.strip().split(' ')[0].strip())))
                 self.y_array.append(i)
-                self.profit.append(
                 
     def autolabel(self, rects):
         """
