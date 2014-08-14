@@ -69,7 +69,7 @@ class PlotIncomeVsExpenses():
             ax.text(rect.get_x()+rect.get_width()/2., 1.05*height, '{}'.format(int(height)),
                     ha='center', va='bottom')
                     
-    def plot_data(self):
+    def plot_data(self, year):
         """
             Plots the loaded data.
         """
@@ -87,7 +87,7 @@ class PlotIncomeVsExpenses():
         ax.set_ylabel('Value (EUR)')
         title_year = ''
         if len(sys.argv) > 2:
-            title_year = ' - {}'.format(sys.argv[2].strip()) #TODO: use the year from the input!
+            title_year = ' - {}'.format(year)
         ax.set_title('Income vs. expenses{}'.format(title_year))
         ax.set_xticks(ind+width)
         #ax.set_xticklabels( ('2014') ) #TODO: use the year from the input? But do we need this?
