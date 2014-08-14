@@ -35,12 +35,16 @@ class PlotIncomeVsExpenses():
         #TODO: implement ledger_file var?
         try:
             if pive_type == PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD_TOTAL:
+                print '-TEST- test1'
                 call(['sh', 'ledger -f {} --real -s -d "T&l<=1" --begin {} --end {} bal -Equity -^assets expenses income > income_vs_expenses.dat'.format(ledger_file, start_date, end_date)])
             elif pive_type == PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD:
+                print '-TEST- test2'
                 call(['sh', 'ledger -f {} --real -s -d "T&l<=1" --begin {} --end {} bal --period-sort --monthly -Equity -^assets expenses income > income_vs_expenses.dat'.format(ledger_file, start_date, end_date)])
             elif pive_type == PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_YEAR:
+                print '-TEST- test3'
                 call(['sh', 'ledger -f {} --real -s -p {} -d "T&l<=1" bal --period-sort --yearly -Equity -^assets expenses income > income_vs_expenses.dat'.format(ledger_file, year)])
             elif pive_type == PlotIncomeVsExpensesType.ALL_DATA_UNTIL_NOW:
+                print '-TEST- test4'
                 call(['sh', 'ledger -f {} --real -s -d "T&l<=1" bal -Equity -^assets expenses income > income_vs_expenses.dat'.format(ledger_file)])
         except:
             print 'Error: could not prepare the ledger data.'
@@ -98,6 +102,7 @@ class PlotIncomeVsExpenses():
         plt.show()
 
 if __name__ == "__main__":
+    #TODO: finish/correct this for testing purposes
     plot = PlotIncomeVsExpenses()
     plot.dat_file = sys.argv[1].strip()
     plot.prepare_data()

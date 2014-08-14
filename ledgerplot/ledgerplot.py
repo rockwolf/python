@@ -31,7 +31,7 @@ def plot_income_vs_expenses(ledger_file, year, start_date, end_date, is_total, a
     from plot_income_vs_expenses import PlotIncomeVsExpenses
     plot = PlotIncomeVsExpenses()
     arglen = len(arg_ive)
-    print '-TEST- len(args[--income_vs_expenses]=%d'.format(arglen)
+    print '-TEST- len(args[--income_vs_expenses])={}'.format(arglen)
     if is_total and (arglen == 3):
         plot.prepare_data(ledger_file, year, start_date, end_date, PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD_TOTAL)
     elif not is_total and (arglen == 3):
@@ -42,6 +42,7 @@ def plot_income_vs_expenses(ledger_file, year, start_date, end_date, is_total, a
         plot.prepare_data(ledger_file, year, start_date, end_date, PlotIncomeVsExpensesType.ALL_DATA_UNTIL_NOW)
     else:
         print 'Too many arguments.'
+        exit(1)
     plot.dat_file = DatFile.INCOME_VS_EXPENSES
     plot.load_data()
     plot.plot_data(year, start_date, end_date, is_total)
