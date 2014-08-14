@@ -33,13 +33,13 @@ def plot_income_vs_expenses(year, start_date, end_date, is_total, arglen):
     arglen = len(arg_ive)
     print '-TEST- len(args[--income_vs_expenses]=%d'.format(arglen)
     if is_total and (arglen == 3):
-        plot.prepare_data(PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD_TOTAL, year, start_date, end_date, is_total)
+        plot.prepare_data(year, start_date, end_date, is_total, PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD_TOTAL)
     elif not is_total and (arglen == 3):
-        plot.prepare_data(PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD, year, start_date, end_date, is_total)
+        plot.prepare_data(year, start_date, end_date, is_total, PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD)
     elif arglen == 2:
-        plot.prepare_data(PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_YEAR, year, start_date, end_date, is_total)
+        plot.prepare_data(year, start_date, end_date, is_total, PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_YEAR)
     elif arglen == 1:
-        plot.prepare_data(PlotIncomeVsExpensesType.ALL_DATA_UNTIL_NOW, year, start_date, end_date, is_total)
+        plot.prepare_data(year, start_date, end_date, is_total, PlotIncomeVsExpensesType.ALL_DATA_UNTIL_NOW)
     else:
         print 'Too many arguments.'
     plot.dat_file = DatFile.INCOME_VS_EXPENSES
