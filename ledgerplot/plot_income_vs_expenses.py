@@ -63,17 +63,16 @@ class PlotIncomeVsExpenses():
         # attach some text labels
         for rect in rects:
             height = rect.get_height()
-            ax.text(rect.get_x()+rect.get_width()/2., 1.05*height, '%d'%int(height),
+            ax.text(rect.get_x()+rect.get_width()/2., 1.05*height, '{}'.format(int(height)),
                     ha='center', va='bottom')
                     
     def plot_data(self):
         """
             Plots the loaded data.
         """
-        #TODO: move the below to seperate functions.
         N = 1
         income = self.x_array[1] # ledger shows expenses first,
-                            # so reverse to get income vs expenses.
+                                 # so reverse to get income vs expenses.
         expenses = self.x_array[0]
 
         ind = np.arange(N)  # the x locations for the groups
@@ -81,22 +80,17 @@ class PlotIncomeVsExpenses():
         fig, ax = plt.subplots()
         rects1 = ax.bar(ind+width, expenses, width, color='r')
         rects2 = ax.bar(ind, income, width, color='g')
-
-        # add some
+        # add some labels/text
         ax.set_ylabel('Value (EUR)')
         title_year = ''
         if len(sys.argv) > 2:
-            title_year = ' - {}'.format(sys.argv[2].strip())
+            title_year = ' - {}'.format(sys.argv[2].strip()) #TODO: use the year from the input!
         ax.set_title('Income vs. expenses{}'.format(title_year))
         ax.set_xticks(ind+width)
-        ax.set_xticklabels( ('2014') )
-
-        ax.legend( (rects1[0], rects2[0]), ('Expenses', 'Income') )
-
-    
+        #ax.set_xticklabels( ('2014') ) #TODO: use the year from the input? But do we need this?
+        ax.legend((rects1[0], rects2[0]), ('Expenses', 'Income'))
         autolabel(rects1)
-        autolabel(rects2)
-
+        autolabel(rects2)=
         plt.show()
 
 if __name__ == "__main__":
