@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 """
     Usage:
-        ledgerplot [options]
+        ledgerplot --ledger FILE [options]
     
     Options:
-        --ledger FILE
         --income_vs_expenses [YEAR|STARTDATE ENDDATE]
         --total
         -V, --version
@@ -65,5 +64,8 @@ if __name__ == "__main__":
     end_date = arg_ive[2]
 
     if args['--income_vs_expenses']:
+        plot_income_vs_expenses(ledger_file, year, start_date, end_date, is_total, arglen)
+    else:
+        # DEFAULT graph, when no options are given, beside the ledger file
         plot_income_vs_expenses(ledger_file, year, start_date, end_date, is_total, arglen)
     sys.exit(0)
