@@ -4,7 +4,9 @@
         ledgerplot --ledger FILE [options]
     
     Options:
-        --income_vs_expenses [YEAR|STARTDATE ENDDATE]
+        --income_vs_expenses [YEAR]
+        --start-date <STARTDATE>
+        --end-date <ENDDATE>
         --total
         -V, --version
 """
@@ -49,6 +51,10 @@ def plot_income_vs_expenses(ledger_file, year, start_date, end_date, is_total, a
         
 if __name__ == "__main__":
     args = docopt(__doc__, help=True, version=__version__)
+
+    year = None
+    start-date = None
+    end-date = None
     
     if args['--ledger']:
         ledger_file = args['--ledger']
@@ -56,14 +62,16 @@ if __name__ == "__main__":
         
     is_total = args['--total']
     print 'Total = {}'.format(is_total)
-    
-    arg_ive = args['--income_vs_expenses']
-    arglen = len(arg_ive)
-    year = arg_ive[0]
-    start_date = arg_ive[1]
-    end_date = arg_ive[2]
+  
+    if args['--start-date']:
+        start_date = args['--start-date']
+
+    if args['--end-date']:
+        end_date = args['--end-date']
 
     if args['--income_vs_expenses']:
+        year = args['--income_vs_expenses']
+        exit(0)
         plot_income_vs_expenses(ledger_file, year, start_date, end_date, is_total, arglen)
     else:
         # DEFAULT graph, when no options are given, beside the ledger file
