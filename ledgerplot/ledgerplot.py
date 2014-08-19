@@ -64,7 +64,7 @@ if __name__ == "__main__":
         print 'Using ledger file {}'.format(ledger_file)
         
     is_detail = args['--detail']
-    print 'DEtail = {}'.format(is_detail)
+    print 'Detail = {}'.format(is_detail)
   
     if args['--start-date']:
         start_date = args['--start-date']
