@@ -36,16 +36,20 @@ class PlotIncomeVsExpenses():
         try:
             if pive_type == PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD_TOTAL:
                 print '-TEST- test1'
-                call(['sh', 'ledger -f {} --real -s -d "T&l<=1" --begin {} --end {} bal -Equity -^assets expenses income > income_vs_expenses.dat'.format(ledger_file, start_date, end_date)])
+                call(['sh', 'ledger -f {} --real -s -d "T&l<=1" --begin {} --end {} bal -Equity -^assets expenses income > {}'.format(
+                    ledger_file, start_date, end_date, '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT)])
             elif pive_type == PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD:
                 print '-TEST- test2'
-                call(['sh', 'ledger -f {} --real -s -d "T&l<=1" --begin {} --end {} bal --period-sort --monthly -Equity -^assets expenses income > income_vs_expenses.dat'.format(ledger_file, start_date, end_date)])
+                call(['sh', 'ledger -f {} --real -s -d "T&l<=1" --begin {} --end {} bal --period-sort --monthly -Equity -^assets expenses income > {}'.format(
+                    ledger_file, start_date, end_date, , '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT))])
             elif pive_type == PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_YEAR:
                 print '-TEST- test3'
-                call(['sh', 'ledger -f {} --real -s -p {} -d "T&l<=1" bal --period-sort --yearly -Equity -^assets expenses income > income_vs_expenses.dat'.format(ledger_file, year)])
+                call(['sh', 'ledger -f {} --real -s -p {} -d "T&l<=1" bal --period-sort --yearly -Equity -^assets expenses income > {}'.format(
+                    ledger_file, year, '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT))])
             elif pive_type == PlotIncomeVsExpensesType.ALL_DATA_UNTIL_NOW:
                 print '-TEST- test4'
-                call(['sh', 'ledger -f {} --real -s -d "T&l<=1" bal -Equity -^assets expenses income > income_vs_expenses.dat'.format(ledger_file)])
+                call(['sh', 'ledger -f {} --real -s -d "T&l<=1" bal -Equity -^assets expenses income > {}'.format(
+                    ledger_file, '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT))])
         except:
             print 'Error: could not prepare the ledger data.'
         
