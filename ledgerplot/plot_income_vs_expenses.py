@@ -73,7 +73,7 @@ class PlotIncomeVsExpenses():
             ax.text(rect.get_x()+rect.get_width()/2., 1.05*height, '{}'.format(int(height)),
                     ha='center', va='bottom')
                     
-    def plot_data(self, year):
+    def plot_data(self, year, start_date, end_date, is_detail):
         """
             Plots the loaded data.
         """
@@ -89,10 +89,14 @@ class PlotIncomeVsExpenses():
         rects3 = ax.bar(ind+2*width, (expenses - income), width, color='b')
         # add some labels/text
         ax.set_ylabel('Value (EUR)')
-        title_year = ''
-        if len(sys.argv) > 2:
-            title_year = ' - {}'.format(year)
-        ax.set_title('Income vs. expenses{}'.format(title_year))
+        title = ''
+        if year:
+            title = ' - {}'.format(year)
+        elif is_detail:
+            title = ' - per month for period from {} until {}'.format(start_date, end_date)
+        elif not is_detail:
+            ' - total for period from {} until {}'.format(start_date, end_date)
+        ax.set_title('Income vs. expenses{}'.format(title))
         ax.set_xticks(ind+width)
         #ax.set_xticklabels( ('2014') ) #TODO: use the year from the input? But do we need this?
         ax.legend((rects1[0], rects2[0], rects3[0]), ('Expenses', 'Income', 'Profit'))
