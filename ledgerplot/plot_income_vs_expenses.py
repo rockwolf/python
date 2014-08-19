@@ -27,31 +27,29 @@ class PlotIncomeVsExpenses():
         self.profit = []
         self.dat_file = ''
 
-    def prepare_data(ledger_file, year, start_date, end_date, pive_type = PlotIncomeVsExpensesType.ALL_DATA_UNTIL_NOW):
+    def prepare_data(ledger_file, year, start_date, end_date, plot_sub_type = PlotIncomeVsExpensesType.ALL_DATA_UNTIL_NOW):
         """
             Extract the data we want to plot from ledger.
         """
-        #TODO: change $2 etc. to the correct input value from the cli parameters
-        #TODO: implement ledger_file var?
         try:
-            if pive_type == PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD_TOTAL:
+            if plot_sub_type == PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD_TOTAL:
                 print '-TEST- test1'
                 call(['sh', 'ledger -f {} --real -s -d "T&l<=1" --begin {} --end {} bal -Equity -^assets expenses income > {}'.format(
                     ledger_file, start_date, end_date, '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT)])
-            elif pive_type == PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD:
+            elif plot_sub_type == PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD:
                 print '-TEST- test2'
                 call(['sh', 'ledger -f {} --real -s -d "T&l<=1" --begin {} --end {} bal --period-sort --monthly -Equity -^assets expenses income > {}'.format(
                     ledger_file, start_date, end_date, , '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT))])
-            elif pive_type == PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_YEAR:
+            elif plot_sub_type == PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_YEAR:
                 print '-TEST- test3'
                 call(['sh', 'ledger -f {} --real -s -p {} -d "T&l<=1" bal --period-sort --yearly -Equity -^assets expenses income > {}'.format(
                     ledger_file, year, '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT))])
-            elif pive_type == PlotIncomeVsExpensesType.ALL_DATA_UNTIL_NOW:
+            elif plot_sub_type == PlotIncomeVsExpensesType.ALL_DATA_UNTIL_NOW:
                 print '-TEST- test4'
                 call(['sh', 'ledger -f {} --real -s -d "T&l<=1" bal -Equity -^assets expenses income > {}'.format(
                     ledger_file, '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT))])
-        except:
-            print 'Error: could not prepare the ledger data.'
+        except Exception as ex:
+            print 'Error: could not prepare the ledger data: {}'.format(ex)
         
     def load_data(self):
         """
@@ -63,7 +61,7 @@ class PlotIncomeVsExpenses():
         for line in var_data_array:
             i += 1
             # skip the last 2 lines of the output
-            if (len(line)>1) and (i<len(var_data_array) - 2):
+            if (len(line) > 1) and (i < len(var_data_array) - 2):
                 self.x_array.append(abs(float(line.strip().split(' ')[0].strip())))
                 self.y_array.append(i)
                 
@@ -74,8 +72,10 @@ class PlotIncomeVsExpenses():
         # attach some text labels
         for rect in rects:
             height = rect.get_height()
-            ax.text(rect.get_x()+rect.get_width()/2., 1.05*height, '{}'.format(int(height)),
-                    ha='center', va='bottom')
+            ax.text(rect.get_x() + rect.get_width() / 2.,
+                1.05 * height, '{}'.format(int(height)),
+                ha='center',
+                va='bottom')
                     
     def plot_data(self, year, start_date, end_date, is_detail):
         """
@@ -88,9 +88,9 @@ class PlotIncomeVsExpenses():
         ind = np.arange(N)  # the x locations for the groups
         width = 0.15       # the width of the bars
         fig, ax = plt.subplots()
-        rects1 = ax.bar(ind, expenses, width, color='r')
-        rects2 = ax.bar(ind+width, income, width, color='g')
-        rects3 = ax.bar(ind+2*width, (expenses - income), width, color='b')
+        rects1 = ax.bar(ind, expenses, width, color = 'r')
+        rects2 = ax.bar(ind + width, income, width, color = 'g')
+        rects3 = ax.bar(ind + 2 * width, (expenses - income), width, color = 'b')
         # add some labels/text
         ax.set_ylabel('Value (EUR)')
         title = ''
