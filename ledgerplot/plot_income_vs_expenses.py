@@ -27,7 +27,7 @@ class PlotIncomeVsExpenses():
         self.profit = []
         self.dat_file = ''
 
-    def prepare_data(ledger_file, year, start_date, end_date, plot_sub_type = PlotIncomeVsExpensesType.ALL_DATA_UNTIL_NOW):
+    def prepare_data(self, ledger_file, year, start_date, end_date, plot_sub_type = PlotIncomeVsExpensesType.ALL_DATA_UNTIL_NOW):
         """
             Extract the data we want to plot from ledger.
         """
@@ -35,15 +35,15 @@ class PlotIncomeVsExpenses():
             if plot_sub_type == PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD_TOTAL:
                 print '-TEST- test1'
                 call(['sh', 'ledger -f {} --real -s -d "T&l<=1" --begin {} --end {} bal -Equity -^assets expenses income > {}'.format(
-                    ledger_file, start_date, end_date, '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT)])
+                    ledger_file, start_date, end_date), '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT)])
             elif plot_sub_type == PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD:
                 print '-TEST- test2'
                 call(['sh', 'ledger -f {} --real -s -d "T&l<=1" --begin {} --end {} bal --period-sort --monthly -Equity -^assets expenses income > {}'.format(
-                    ledger_file, start_date, end_date, , '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT))])
+                    ledger_file, start_date, end_date), '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT)])
             elif plot_sub_type == PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_YEAR:
                 print '-TEST- test3'
                 call(['sh', 'ledger -f {} --real -s -p {} -d "T&l<=1" bal --period-sort --yearly -Equity -^assets expenses income > {}'.format(
-                    ledger_file, year, '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT))])
+                    ledger_file, year), '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT)])
             elif plot_sub_type == PlotIncomeVsExpensesType.ALL_DATA_UNTIL_NOW:
                 print '-TEST- test4'
                 call(['sh', 'ledger -f {} --real -s -d "T&l<=1" bal -Equity -^assets expenses income > {}'.format(

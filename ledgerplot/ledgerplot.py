@@ -47,7 +47,7 @@ def plot_income_vs_expenses(ledger_file, year, start_date, end_date, is_detail):
         print '--income_vs_expenses --start-date "YYYY-MM-DD" --end-date "YYYY-MM-DD"'
         print '--income_vs_expenses --start-date "YYYY-MM-DD" --end-date "YYYY-MM-DD" --detail'
         exit(1)
-    plot.dat_file = '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extension.DAT)
+    plot.dat_file = '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT)
     plot.load_data()
     plot.plot_data(year, start_date, end_date, is_detail)
     plot = None
