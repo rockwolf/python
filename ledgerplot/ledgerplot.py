@@ -53,8 +53,8 @@ if __name__ == "__main__":
     args = docopt(__doc__, help=True, version=__version__)
 
     year = None
-    start-date = None
-    end-date = None
+    start_date = None
+    end_date = None
     
     if args['--ledger']:
         ledger_file = args['--ledger']
