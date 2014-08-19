@@ -44,7 +44,7 @@ def plot_income_vs_expenses(ledger_file, year, start_date, end_date, is_total, a
     else:
         print 'Too many arguments.'
         exit(1)
-    plot.dat_file = DatFile.INCOME_VS_EXPENSES
+    plot.dat_file = '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extension.DAT)
     plot.load_data()
     plot.plot_data(year, start_date, end_date, is_total)
     plot = None
