@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 """
     Usage:
-        ledgerplot --ledger FILE [options]
+        ledgerplot [options]
     
     Options:
+        --ledger <FILE>
         --income_vs_expenses [YEAR]
         --start-date <STARTDATE>
         --end-date <ENDDATE>

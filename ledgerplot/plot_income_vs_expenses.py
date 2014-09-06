@@ -33,7 +33,7 @@ class PlotIncomeVsExpenses():
         """
         try:
             if plot_sub_type == PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD_TOTAL:
-                print '-TEST- test1'
+                print '-TEST- ledger_file = ', ledger_file
                 call(['sh', 'ledger -f {} --real -s -d "T&l<=1" --begin {} --end {} bal -Equity -^assets expenses income > {}'.format(
                     ledger_file, start_date, end_date), '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT)])
             elif plot_sub_type == PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD:
@@ -45,9 +45,8 @@ class PlotIncomeVsExpenses():
                 call(['sh', 'ledger -f {} --real -s -p {} -d "T&l<=1" bal --period-sort --yearly -Equity -^assets expenses income > {}'.format(
                     ledger_file, year), '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT)])
             elif plot_sub_type == PlotIncomeVsExpensesType.ALL_DATA_UNTIL_NOW:
-                print '-TEST- test4'
-                call(['sh', 'ledger -f {} --real -s -d "T&l<=1" bal -Equity -^assets expenses income > {}'.format(
-                    ledger_file, '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT))])
+                print '-TEST- test4, ledger_file = ', ledger_file
+                call(['ledger', '-f', ledger_file, '--real', '-s', '-d', 'T&l<=1', 'bal', '-Equity', '-^assets', 'expenses', 'income >', '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT)])
         except Exception as ex:
             print 'Error: could not prepare the ledger data: {}'.format(ex)
         
