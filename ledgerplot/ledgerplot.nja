@@ -1,0 +1,7 @@
+{
+  "venv": "", 
+  "project-type": "Import from sources", 
+  "name": "ledgerplot", 
+  "license": "New BSD License", 
+  "description": "Plotting modules for ledger."
+}
