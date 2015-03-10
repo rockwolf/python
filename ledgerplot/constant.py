@@ -9,7 +9,7 @@ class PlotIncomeVsExpensesType():
     ALL_DATA_FOR_GIVEN_PERIOD = 2
     ALL_DATA_FOR_GIVEN_PERIOD_TOTAL = 3
 
-class Extention():
+class Extension():
     DAT = '.dat'
     
 class PlotType():
