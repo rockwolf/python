@@ -32,21 +32,33 @@ class PlotIncomeVsExpenses():
             Extract the data we want to plot from ledger.
         """
         try:
+            l_file = '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT)
             if plot_sub_type == PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD_TOTAL:
-                print '-TEST- ledger_file = ', ledger_file
-                call(['sh', 'ledger -f {} --real -s -d "T&l<=1" --begin {} --end {} bal -Equity -^assets expenses income > {}'.format(
-                    ledger_file, start_date, end_date), '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT)])
+                call([
+                    'ledger', '-f', ledger_file,
+                    '--real', '-s', '-d', 'T&l<=1',
+                    '--begin', start_date, '--end', end_date,
+                    'bal', '-Equity', '-^assets', 'expenses', 'income', '>', l_file
+                    ])
             elif plot_sub_type == PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD:
-                print '-TEST- test2'
-                call(['sh', 'ledger -f {} --real -s -d "T&l<=1" --begin {} --end {} bal --period-sort --monthly -Equity -^assets expenses income > {}'.format(
-                    ledger_file, start_date, end_date), '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT)])
+                call([
+                    'ledger', '-f', ledger_file,
+                    '--real', '-s', '-d', 'T&l<=1',
+                    '--begin', start_date, '--end', end_date,
+                    'bal', '--period-sort', '--monthly', '-Equity', '-^assets', 'expenses', 'income', '>', l_file
+                    ])
             elif plot_sub_type == PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_YEAR:
-                print '-TEST- test3'
-                call(['sh', 'ledger -f {} --real -s -p {} -d "T&l<=1" bal --period-sort --yearly -Equity -^assets expenses income > {}'.format(
-                    ledger_file, year), '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT)])
+                call([
+                    'ledger', '-f', ledger_file,
+                    '--real', '-s', '-p', year, '-d', 'T&l<=1',
+                    'bal', '--period-sort', '--yearly', '-Equity', '-^assets', 'expenses', 'income', '>', l_file
+                    ])
             elif plot_sub_type == PlotIncomeVsExpensesType.ALL_DATA_UNTIL_NOW:
-                print '-TEST- test4, ledger_file = ', ledger_file
-                call(['ledger', '-f', ledger_file, '--real', '-s', '-d', 'T&l<=1', 'bal', '-Equity', '-^assets', 'expenses', 'income >', '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT)])
+                call([
+                    'ledger', '-f', ledger_file,
+                    '--real', '-s', '-d', 'T&l<=1',
+                    'bal', '-Equity', '-^assets', 'expenses', 'income >', l_file
+                    ])
         except Exception as ex:
             print 'Error: could not prepare the ledger data: {}'.format(ex)
         
