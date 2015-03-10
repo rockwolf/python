@@ -30,3 +30,11 @@ class ErrorMsg():
         Error messages.
     """
     CouldNotPrepareLedgerData = 'Error: could not prepare the ledger data: {}'
+    
+class Color():
+    """
+        Colors to be used in plots.
+    """
+    RED = 'r'
+    GREEN = 'g'
+    BLUE = 'b'
