@@ -167,6 +167,7 @@ class PlotIncomeVsExpenses():
         self.plt.show()
 
 if __name__ == "__main__":
+    
     #TODO: finish/correct this for testing purposes
     l_plot = PlotIncomeVsExpenses()
     l_plot.dat_file = sys.argv[1].strip()
