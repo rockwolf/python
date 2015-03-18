@@ -25,6 +25,11 @@ from constant import *
 #__all__ = ['ledgerplot']
 __version__ = 'v0.1'
 
+def adjust_system_path():
+    """
+        Adjust the system path, so we can search in custom dirs for modules.
+    """
+    sys.path.append('modules')
 
 def plot_income_vs_expenses(
     a_ledger_file,
@@ -87,6 +92,8 @@ def plot_income_vs_expenses(
     plot = None
 
 if __name__ == "__main__":
+    adjust_system_path()
+    
     args = docopt(__doc__, help=True, version=__version__)
 
     year = None
