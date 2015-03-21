@@ -42,7 +42,8 @@ def plot_income_vs_expenses(
     """
         Plot income  vs expenses.
     """
-    from plot_income_vs_expenses import PlotIncomeVsExpenses
+    from income_vs_expenses import PlotIncomeVsExpenses
+
     plot = PlotIncomeVsExpenses()
     if not is_detail and start_date and end_date:
         plot.prepare_data(
@@ -50,7 +51,7 @@ def plot_income_vs_expenses(
             year,
             start_date,
             end_date,
-            PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD_TOTAL
+            PlotDataRetrievalType.ALL_DATA_FOR_GIVEN_PERIOD_TOTAL
         )
     elif is_detail and start_date and end_date:
         plot.prepare_data(
@@ -58,7 +59,7 @@ def plot_income_vs_expenses(
             year,
             start_date,
             end_date,
-            PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_PERIOD
+            PlotDataRetrievalType.ALL_DATA_FOR_GIVEN_PERIOD
         )
     elif year and not (start_date and end_date):
         plot.prepare_data(
@@ -66,7 +67,7 @@ def plot_income_vs_expenses(
             year,
             start_date,
             end_date,
-            PlotIncomeVsExpensesType.ALL_DATA_FOR_GIVEN_YEAR
+            PlotDataRetrievalType.ALL_DATA_FOR_GIVEN_YEAR
         )
     elif not year and not (start_date and end_date):
         plot.prepare_data(
@@ -74,7 +75,7 @@ def plot_income_vs_expenses(
             year,
             start_date,
             end_date,
-            PlotIncomeVsExpensesType.ALL_DATA_UNTIL_NOW
+            PlotDataRetrievalType.ALL_DATA_UNTIL_NOW
         )
     else:
         print 'Argument specification is wrong for {}.'.format(
@@ -88,12 +89,13 @@ def plot_income_vs_expenses(
             --income_vs_expenses
                 --start-date "YYYY-MM-DD" --end-date "YYYY-MM-DD" --detail"""
         exit(1)
-    plot.dat_file = '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extention.DAT)
+    plot.dat_file = '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extension.DAT)
     plot.load_data()
     plot.plot_data(year, start_date, end_date, is_detail)
     plot = None
 
 if __name__ == "__main__":
+    import pdb; pdb.set_trace()
     adjust_system_path()
     args = docopt(__doc__, help=True, version=__version__)
 
@@ -117,7 +119,6 @@ if __name__ == "__main__":
 
     if args['--income_vs_expenses']:
         year = args['--income_vs_expenses']
-        exit(0)
         plot_income_vs_expenses(
             ledger_file,
             year,

@@ -1,5 +1,5 @@
 {
-  "mainFile": "__init__.py", 
+  "mainFile": "ledgerplot/ledgerplot.py", 
   "use-tabs": false, 
   "venv": "", 
   "relatedProjects": [], 

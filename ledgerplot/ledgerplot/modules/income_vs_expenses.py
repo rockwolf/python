@@ -100,8 +100,7 @@ class PlotIncomeVsExpenses():
         """
             Load data
         """
-        l_data = open(self.dat_file, 'r').read()
-        l_data_array = l_data.split('\n')
+        l_data_array = open(self.dat_file, 'r').read().l_data.split('\n')
         i = 0
         for l_line in l_data_array:
             i += 1
