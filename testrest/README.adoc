@@ -1,0 +1,2 @@
+# testrest
+A simple python script to test the communication with a rest api.

@@ -54,7 +54,8 @@ class PlotIncomeVsExpenses():
             Extract the data we want to plot from ledger.
         """
         try:
-            l_file = '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extension.DAT)
+            import pdb; pdb.set_trace()
+            l_file = '../{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extension.DAT)
             if a_plot_sub_type == (
                 PlotDataRetrievalType.ALL_DATA_FOR_GIVEN_PERIOD_TOTAL
             ):
@@ -80,7 +81,7 @@ class PlotIncomeVsExpenses():
             ):
                 call([
                     'ledger', '-f', a_ledger_file,
-                    '--real', '-s', '-p', a_year, '-d', 'T&l<=1',
+                    '--real', '-s', '-p', a_year, '-d', '""T&l<=1""',
                     'bal', '--period-sort', '--yearly', '-Equity', '-^assets',
                     'expenses', 'income', '>', l_file
                     ])
@@ -100,7 +101,7 @@ class PlotIncomeVsExpenses():
         """
             Load data
         """
-        l_data_array = open(self.dat_file, 'r').read().l_data.split('\n')
+        l_data_array = open(self.dat_file, 'r').read().split('\n')
         i = 0
         for l_line in l_data_array:
             i += 1

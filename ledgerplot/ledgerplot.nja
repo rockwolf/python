@@ -9,7 +9,7 @@
   "pythonPath": "python", 
   "preExecScript": "", 
   "additional_builtins": [], 
-  "programParams": "--ledger,ledger.dat,--income_vs_expenses,2014", 
+  "programParams": "--ledger,ledger.dat,--income_vs_expenses,2008", 
   "indentation": 4, 
   "PYTHONPATH": "", 
   "supported-extensions": [

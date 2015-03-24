@@ -5,7 +5,7 @@
     
     Options:
         --ledger <FILE>
-        --income_vs_expenses [YEAR]
+        --income_vs_expenses [<YEAR>]
         --start-date <STARTDATE>
         --end-date <ENDDATE>
         --detail
@@ -89,13 +89,12 @@ def plot_income_vs_expenses(
             --income_vs_expenses
                 --start-date "YYYY-MM-DD" --end-date "YYYY-MM-DD" --detail"""
         exit(1)
-    plot.dat_file = '{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extension.DAT)
+    plot.dat_file = '../{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extension.DAT)
     plot.load_data()
     plot.plot_data(year, start_date, end_date, is_detail)
     plot = None
 
 if __name__ == "__main__":
-    import pdb; pdb.set_trace()
     adjust_system_path()
     args = docopt(__doc__, help=True, version=__version__)
 
