@@ -28,7 +28,13 @@ class Const():
         ' for period from {} until {}')
     TITLE_NO_DETAIL = 'Income vs. expenses  - total for period from {} until {}'
     LABEL_Y_AXIS = 'Value (EUR)'
-
+    
+class Commands():
+    """
+        Ledger command strings.
+    """
+    ALL_DATA_FOR_GIVEN_PERIOD_TOTAL = 'ledger -f {0} --real -s -d T&l<=1 --begin {1} --end {2} bal -Equity -^assets expenses income > {3}'
+    ALL_DATA_FOR_GIVEN_PERIOD = 'ledger -f {0} --real -s -d T&l<=1 --begin {1} --end {2} bal --period-sort --monthly -Equity -^assets expenses income > {3}'
 
 class PlotIncomeVsExpenses():
     """
@@ -60,22 +66,17 @@ class PlotIncomeVsExpenses():
                 PlotDataRetrievalType.ALL_DATA_FOR_GIVEN_PERIOD_TOTAL
             ):
                 call([
-                    'ledger', '-f', a_ledger_file,
-                    '--real', '-s', '-d', 'T&l<=1',
-                    '--begin', a_start_date, '--end', a_end_date,
-                    'bal', '-Equity', '-^assets', 'expenses', 'income', '>',
-                    l_file
-                    ])
+                    Commands.ALL_DATA_FOR_GIVEN_PERIOD_TOTAL.format(
+                        a_ledger_file, a_start_date, a_end_date, l_file
+                    )
+                ])
             elif a_plot_sub_type == (
                 PlotDataRetrievalType.ALL_DATA_FOR_GIVEN_PERIOD
             ):
                 call([
-                    'ledger', '-f', a_ledger_file,
-                    '--real', '-s', '-d', 'T&l<=1',
-                    '--begin', a_start_date, '--end', a_end_date,
-                    'bal', '--period-sort', '--monthly', '-Equity', '-^assets',
-                    'expenses', 'income', '>', l_file
-                    ])
+                    Commands.ALL_DATA_FOR_GIVEN_PERIOD.format(
+                        a_ledger_file, a_start_date, a_end_dat, l_file
+                ])
             elif a_plot_sub_type == (
                 PlotDataRetrievalType.ALL_DATA_FOR_GIVEN_YEAR
             ):
