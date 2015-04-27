@@ -33,8 +33,8 @@ class Commands():
     """
         Ledger command strings.
     """
-    ALL_DATA_FOR_GIVEN_PERIOD_TOTAL = 'ledger -f {0} --real -s -d T&l<=1 --begin {1} --end {2} bal -Equity -^assets expenses income > {3}'
-    ALL_DATA_FOR_GIVEN_PERIOD = 'ledger -f {0} --real -s -d T&l<=1 --begin {1} --end {2} bal --period-sort --monthly -Equity -^assets expenses income > {3}'
+    ALL_DATA_FOR_GIVEN_PERIOD_TOTAL = 'ledger -f {0} --real -s -d ""T&l<=1"" --begin {1} --end {2} bal -Equity -^assets expenses income > {3}'
+    ALL_DATA_FOR_GIVEN_PERIOD = 'ledger -f {0} --real -s -d ""T&l<=1"" --begin {1} --end {2} bal --period-sort --monthly -Equity -^assets expenses income > {3}'
 
 class PlotIncomeVsExpenses():
     """
