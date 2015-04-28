@@ -35,6 +35,7 @@ class Commands():
     """
     ALL_DATA_FOR_GIVEN_PERIOD_TOTAL = 'ledger -f {0} --real -s -d ""T&l<=1"" --begin {1} --end {2} bal -Equity -^assets expenses income > {3}'
     ALL_DATA_FOR_GIVEN_PERIOD = 'ledger -f {0} --real -s -d ""T&l<=1"" --begin {1} --end {2} bal --period-sort --monthly -Equity -^assets expenses income > {3}'
+    ALL_DATA_FOR_GIVEN_YEAR = 'ledger -f {0} --real -s -p {1} -d ""T&l<=1"" bal --period-sort --yearly -Equity -^assets expenses income > {2}'
 
 class PlotIncomeVsExpenses():
     """
@@ -76,16 +77,16 @@ class PlotIncomeVsExpenses():
                 call([
                     Commands.ALL_DATA_FOR_GIVEN_PERIOD.format(
                         a_ledger_file, a_start_date, a_end_dat, l_file
+                    )
                 ])
             elif a_plot_sub_type == (
                 PlotDataRetrievalType.ALL_DATA_FOR_GIVEN_YEAR
             ):
                 call([
-                    'ledger', '-f', a_ledger_file,
-                    '--real', '-s', '-p', a_year, '-d', '""T&l<=1""',
-                    'bal', '--period-sort', '--yearly', '-Equity', '-^assets',
-                    'expenses', 'income', '>', l_file
-                    ])
+                    Commands.ALL_DATA_FOR_GIVEN_YEAR.format(
+                        a_ledger_file, a_year, l_file
+                    )
+                ])
             elif a_plot_sub_type == (
                 PlotDataRetrievalType.ALL_DATA_UNTIL_NOW
             ):
