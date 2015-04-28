@@ -9,10 +9,10 @@ class PlotDataRetrievalType():
         Types that describe different ways to
         get data for a plot.
     """
-    ALL_DATA_UNTIL_NOW = 0
-    ALL_DATA_FOR_GIVEN_YEAR = 1
-    ALL_DATA_FOR_GIVEN_PERIOD = 2
-    ALL_DATA_FOR_GIVEN_PERIOD_TOTAL = 3
+    UNTIL_NOW = 0
+    FOR_YEAR = 1
+    FOR_PERIOD = 2
+    FOR_PERIOD_TOTAL = 3
 
 
 class Extension():
