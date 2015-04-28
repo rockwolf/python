@@ -33,9 +33,10 @@ class Commands():
     """
         Ledger command strings.
     """
-    ALL_DATA_FOR_GIVEN_PERIOD_TOTAL = 'ledger -f {0} --real -s -d ""T&l<=1"" --begin {1} --end {2} bal -Equity -^assets expenses income > {3}'
-    ALL_DATA_FOR_GIVEN_PERIOD = 'ledger -f {0} --real -s -d ""T&l<=1"" --begin {1} --end {2} bal --period-sort --monthly -Equity -^assets expenses income > {3}'
-    ALL_DATA_FOR_GIVEN_YEAR = 'ledger -f {0} --real -s -p {1} -d ""T&l<=1"" bal --period-sort --yearly -Equity -^assets expenses income > {2}'
+    FOR_PERIOD_TOTAL = 'ledger -f {0} --real -s -d ""T&l<=1"" --begin {1} --end {2} bal -Equity -^assets expenses income > {3}'
+    FOR_PERIOD = 'ledger -f {0} --real -s -d ""T&l<=1"" --begin {1} --end {2} bal --period-sort --monthly -Equity -^assets expenses income > {3}'
+    FOR_YEAR = 'ledger -f {0} --real -s -p {1} -d ""T&l<=1"" bal --period-sort --yearly -Equity -^assets expenses income > {2}'
+    UNTIL_NOW = 'ledger -f {0} --real -s -d ""T&l<=1"" bal -Equity -^assets expenses income > {1}'
 
 class PlotIncomeVsExpenses():
     """
@@ -56,46 +57,37 @@ class PlotIncomeVsExpenses():
         a_year,
         a_start_date,
         a_end_date,
-        a_plot_sub_type=PlotDataRetrievalType.ALL_DATA_UNTIL_NOW):
+        a_plot_sub_type=PlotDataRetrievalType.UNTIL_NOW):
         """
             Extract the data we want to plot from ledger.
         """
         try:
             import pdb; pdb.set_trace()
             l_file = '../{}{}'.format(PlotType.INCOME_VS_EXPENSES, Extension.DAT)
-            if a_plot_sub_type == (
-                PlotDataRetrievalType.ALL_DATA_FOR_GIVEN_PERIOD_TOTAL
-            ):
+            if a_plot_sub_type == PlotDataRetrievalType.FOR_PERIOD_TOTAL:
                 call([
-                    Commands.ALL_DATA_FOR_GIVEN_PERIOD_TOTAL.format(
+                    Commands.FOR_PERIOD_TOTAL.format(
                         a_ledger_file, a_start_date, a_end_date, l_file
                     )
                 ])
-            elif a_plot_sub_type == (
-                PlotDataRetrievalType.ALL_DATA_FOR_GIVEN_PERIOD
-            ):
+            elif a_plot_sub_type == PlotDataRetrievalType.FOR_PERIOD:
                 call([
-                    Commands.ALL_DATA_FOR_GIVEN_PERIOD.format(
+                    Commands.FOR_PERIOD.format(
                         a_ledger_file, a_start_date, a_end_dat, l_file
                     )
                 ])
-            elif a_plot_sub_type == (
-                PlotDataRetrievalType.ALL_DATA_FOR_GIVEN_YEAR
-            ):
+            elif a_plot_sub_type == PlotDataRetrievalType.FOR_YEAR:
                 call([
-                    Commands.ALL_DATA_FOR_GIVEN_YEAR.format(
+                    Commands.FOR_YEAR.format(
                         a_ledger_file, a_year, l_file
                     )
                 ])
-            elif a_plot_sub_type == (
-                PlotDataRetrievalType.ALL_DATA_UNTIL_NOW
-            ):
+            elif a_plot_sub_type == PlotDataRetrievalType.UNTIL_NOW:
                 call([
-                    'ledger', '-f', a_ledger_file,
-                    '--real', '-s', '-d', 'T&l<=1',
-                    'bal', '-Equity', '-^assets', 'expenses', 'income >',
-                    l_file
-                    ])
+                    Commands.UNTIL_NOW.format(
+                        a_ledger_file, l_file
+                    )
+                ])
         except Exception as ex:
             print ErrorMsg.CouldNotPrepareLedgerData.format(ex)
 
