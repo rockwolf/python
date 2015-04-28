@@ -51,7 +51,7 @@ def plot_income_vs_expenses(
             year,
             start_date,
             end_date,
-            PlotDataRetrievalType.ALL_DATA_FOR_GIVEN_PERIOD_TOTAL
+            PlotDataRetrievalType.FOR_PERIOD_TOTAL
         )
     elif is_detail and start_date and end_date:
         plot.prepare_data(
@@ -59,7 +59,7 @@ def plot_income_vs_expenses(
             year,
             start_date,
             end_date,
-            PlotDataRetrievalType.ALL_DATA_FOR_GIVEN_PERIOD
+            PlotDataRetrievalType.FOR_PERIOD
         )
     elif year and not (start_date and end_date):
         plot.prepare_data(
@@ -67,7 +67,7 @@ def plot_income_vs_expenses(
             year,
             start_date,
             end_date,
-            PlotDataRetrievalType.ALL_DATA_FOR_GIVEN_YEAR
+            PlotDataRetrievalType.FOR_YEAR
         )
     elif not year and not (start_date and end_date):
         plot.prepare_data(
@@ -75,7 +75,7 @@ def plot_income_vs_expenses(
             year,
             start_date,
             end_date,
-            PlotDataRetrievalType.ALL_DATA_UNTIL_NOW
+            PlotDataRetrievalType.UNTIL_NOW
         )
     else:
         print 'Argument specification is wrong for {}.'.format(
