@@ -60,7 +60,7 @@ class PlotIncomeVsExpenses():
         a_plot_sub_type=PlotDataRetrievalType.UNTIL_NOW):
         """
             Extract the data we want to plot from ledger and
-            save it to dat-files.
+            save it a dat-file.
         """
         try:
             import pdb; pdb.set_trace()
