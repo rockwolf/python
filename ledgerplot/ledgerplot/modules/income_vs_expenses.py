@@ -59,7 +59,8 @@ class PlotIncomeVsExpenses():
         a_end_date,
         a_plot_sub_type=PlotDataRetrievalType.UNTIL_NOW):
         """
-            Extract the data we want to plot from ledger.
+            Extract the data we want to plot from ledger and
+            save it to dat-files.
         """
         try:
             import pdb; pdb.set_trace()
@@ -93,7 +94,7 @@ class PlotIncomeVsExpenses():
 
     def load_data(self):
         """
-            Load data
+            Load data from the dat-files into memory.
         """
         l_data_array = open(self.dat_file, 'r').read().split('\n')
         i = 0
@@ -124,7 +125,7 @@ class PlotIncomeVsExpenses():
 
     def plot_data(self, a_year, a_start_date, a_end_date, a_is_detail):
         """
-            Plots the loaded data.
+            Plots the loaded data via MatplotLib.
         """
         l_N = 1
         l_income = self.x_array[0]
