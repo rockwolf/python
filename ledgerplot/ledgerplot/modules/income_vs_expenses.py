@@ -33,10 +33,11 @@ class Commands():
     """
         Ledger command strings.
     """
-    FOR_PERIOD_TOTAL = 'ledger -f {0} --real -s -d ""T&l<=1"" --begin {1} --end {2} bal -Equity -^assets expenses income > {3}'
-    FOR_PERIOD = 'ledger -f {0} --real -s -d ""T&l<=1"" --begin {1} --end {2} bal --period-sort --monthly -Equity -^assets expenses income > {3}'
-    FOR_YEAR = 'ledger -f {0} --real -s -p {1} -d ""T&l<=1"" bal --period-sort --yearly -Equity -^assets expenses income > {2}'
-    UNTIL_NOW = 'ledger -f {0} --real -s -d ""T&l<=1"" bal -Equity -^assets expenses income > {1}'
+    # TODO: make the EUR a parameter, so other values can be specified with the command line.
+    FOR_PERIOD_TOTAL = 'ledger -f {0} --real -X EUR -s -d ""T&l<=1"" --begin {1} --end {2} bal -Equity -^assets expenses income > {3}'
+    FOR_PERIOD = 'ledger -f {0} --real -X EUR -s -d ""T&l<=1"" --begin {1} --end {2} bal --period-sort --monthly -Equity -^assets expenses income > {3}'
+    FOR_YEAR = 'ledger -f {0} --real -X EUR -s -p {1} -d ""T&l<=1"" bal --period-sort --yearly -Equity -^assets expenses income > {2}'
+    UNTIL_NOW = 'ledger -f {0} --real -X EUR -s -d ""T&l<=1"" bal -Equity -^assets expenses income > {1}'
 
 class PlotIncomeVsExpenses():
     """
