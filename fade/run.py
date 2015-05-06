@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 app = Flask(__name__)
 
 @app.route('/')
@@ -11,6 +11,15 @@ def render_home():
     l_user = 'admin'
     l_message = 'Welcome!'
     return render_template('index.tpl', p_user = l_user, p_message = l_message)
+
+@app.route('/leverage', methods = ['POST'])
+@app.route('/leverage/', methods = ['POST'])
+def render_leverage():
+    """
+        Renders the leverage page.
+    """
+    l_leveraged_contracts = request.form['txt_contracts'] 
+    return render_template('leverage.tpl', p_leveraged_contracts = l_leveraged_contracts)
 
 def adjust_system_path():
         """
