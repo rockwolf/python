@@ -1,0 +1,3 @@
+= static folder
+
+You can put images and scripts here?
