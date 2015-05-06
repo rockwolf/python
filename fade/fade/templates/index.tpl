@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>area91</title>
+    <title>FADE - Flask Application For Data Entry</title>
     <link rel="icon" href="/favicon.png" type="image/png">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <link rel="stylesheet" type="text/css" href="/screen.css"/>
@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="generator" content="">
     <meta name="author" content="Andy Nagels">
-    <meta name="copyright" content="&copy; 2014&ndash;eternity Andy Nagels">
+    <meta name="copyright" content="&copy; 2015&ndash;eternity Andy Nagels">
 </head>
 <body>
     <div class="header">
