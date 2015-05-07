@@ -166,3 +166,12 @@
         overflow: hidden;
     }
 }
+
+#main
+{
+    background-image:url('../img/worldmap.jpg');
+    background-repeat:no-repeat;
+    background-size:contain;
+    background-position:center;
+}
+}
