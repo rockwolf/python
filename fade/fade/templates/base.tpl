@@ -22,7 +22,7 @@
     </div-->
     <div class="custom-menu-wrapper">
         <div class="pure-menu custom-menu custom-menu-top">
-            <a href="#" class="pure-menu-heading custom-menu-brand">Brand</a>
+            <a href="#" class="pure-menu-heading custom-menu-brand">FADE</a>
             <a href="#" class="custom-menu-toggle" id="toggle"><s class="bar"></s><s class="bar"></s></a>
         </div>
         <div class="pure-menu pure-menu-horizontal pure-menu-scrollable custom-menu custom-menu-bottom custom-menu-tucked" id="tuckedMenu">
