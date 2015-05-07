@@ -2,9 +2,10 @@
 <html>
 <head>
     <title>FADE - Flask Application For Data Entry</title>
-    <link rel="icon" href="/favicon.png" type="image/png">
+    <link rel="icon" href="{{ url_for('static/img/', filename='favicon.png') }}" type="image/png">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-    <link rel="stylesheet" href="static/css/pure-min.css">
+    <link rel="stylesheet" type=text/css href="{{ url_for('static/css/', filename='pure-min.css') }}">
+    <link rel="stylesheet" type=text/css href="{{ url_for('static/css/', filename='custom_style.css') }}">
     <link rel="icon" type="image/png" href="img/favicon.png" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
