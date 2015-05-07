@@ -167,11 +167,10 @@
     }
 }
 
-#main
+body
 {
-    background-image:url('../img/worldmap.jpg');
-    background-repeat:no-repeat;
-    background-size:contain;
-    background-position:center;
-}
+    background-image: url('/static/worldmap.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
 }

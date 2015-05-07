@@ -2,11 +2,10 @@
 <html>
 <head>
     <title>FADE - Flask Application For Data Entry</title>
-    <link rel="icon" href="{{ url_for('static/img/', filename='favicon.png') }}" type="image/png">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-    <link rel="stylesheet" type=text/css href="{{ url_for('static/css/', filename='pure-min.css') }}">
-    <link rel="stylesheet" type=text/css href="{{ url_for('static/css/', filename='custom_style.css') }}">
-    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='pure-min.css') }}" />
+    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='custom_style.css') }}" />
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='favicon.png') }}" /-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -28,8 +27,8 @@
         <div class="pure-menu pure-menu-horizontal pure-menu-scrollable custom-menu custom-menu-bottom custom-menu-tucked" id="tuckedMenu">
             <div class="custom-menu-screen"></div>
             <ul class="pure-menu-list">
-                <li class="pure-menu-item"><a href="home" class="pure-menu-link">Home</a></li>
-                <li class="pure-menu-item"><a href="leverage" class="pure-menu-link">Leverage</a></li>
+                <li class="pure-menu-item"><a href="/home" class="pure-menu-link">Home</a></li>
+                <li class="pure-menu-item"><a href="/leverage" class="pure-menu-link">Leverage</a></li>
             </ul>
         </div>
     </div>

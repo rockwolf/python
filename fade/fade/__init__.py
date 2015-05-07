@@ -27,13 +27,13 @@ def adjust_system_path():
         """
             Adjust the system path, so we can search in custom dirs for modules.
         """
-        sys.path.append('fade')
-        sys.path.append('fade/static')
-        sys.path.append('fade/static/img')
-        sys.path.append('fade/static/js')
-        sys.path.append('fade/static/css')
-        sys.path.append('fade/templates')
-        sys.path.append('instance')
+        sys.path.append('fade/')
+        sys.path.append('fade/static/')
+        sys.path.append('fade/static/img/')
+        sys.path.append('fade/static/js/')
+        sys.path.append('fade/static/css/')
+        sys.path.append('fade/templates/')
+        sys.path.append('instance/')
         
 if __name__ == '__main__':
     adjust_system_path()
