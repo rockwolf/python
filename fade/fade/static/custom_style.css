@@ -1,6 +1,6 @@
 .custom-menu-wrapper
 {
-    background-color: #808080;
+    background-color: #002b36;
     margin-bottom: 2.5em;
     white-space: nowrap;
     position: relative;
@@ -17,7 +17,7 @@
 .custom-menu .pure-menu-link,
 .custom-menu .pure-menu-heading
 {
-    color: white;
+    color: #00cc00;
 }
 
 .custom-menu .pure-menu-link:hover,
@@ -53,7 +53,7 @@
 
 .custom-menu-toggle .bar
 {
-    background-color: white;
+    background-color: #00cc00;
     display: block;
     width: 20px;
     height: 2px;
@@ -93,7 +93,7 @@
 
 .custom-menu-screen
 {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 43, 54, 0.5);
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
     -ms-transition: all 0.5s;
@@ -130,8 +130,8 @@
     {
         position: absolute;
         width: 100%;
-        border-top: 1px solid #eee;
-        background-color: #808080\9;
+        border-top: 1px solid #073642;
+        background-color: #002b36\9;
         z-index: 100;
     }
 
@@ -173,4 +173,5 @@ body
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: center;
+    background-color: #002b36;
 }
