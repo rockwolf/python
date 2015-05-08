@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+#from app import Views #TODO: move all the routes to views.py
 import sys
 
 app = Flask(__name__)
@@ -14,8 +15,8 @@ def render_home():
     l_message = 'Welcome!'
     return render_template('index.tpl', p_user = l_user, p_message = l_message)
 
-@app.route('/leverage', methods = ['POST'])
-@app.route('/leverage/', methods = ['POST'])
+@app.route('/leverage', methods = ['GET', 'POST'])
+@app.route('/leverage/', methods = ['GET', 'POST'])
 def render_leverage():
     """
         Renders the leverage page.
