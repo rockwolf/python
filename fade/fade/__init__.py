@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 #from app import Views #TODO: move all the routes to views.py
+from forms import FormLeveragedContracts
 import sys
 
 app = Flask(__name__)
@@ -21,8 +22,10 @@ def render_leverage():
     """
         Renders the leverage page.
     """
-    l_leveraged_contracts = request.form['txt_contracts'] 
-    return render_template('leverage.tpl', p_leveraged_contracts = l_leveraged_contracts)
+    l_form = FormLeveragedContracts()
+    #l_leveraged_contracts = request.form['txt_contracts']
+    return render_template('leverage.tpl', p_form = l_form)
+    #return render_template('leverage.tpl', p_leveraged_contracts = l_leveraged_contracts)
 
 def adjust_system_path():
         """
