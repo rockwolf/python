@@ -4,6 +4,7 @@ from forms import FormLeveragedContracts
 import sys
 
 app = Flask(__name__)
+app.config.from_object('config')
 
 @app.route('/')
 @app.route('/home')
@@ -38,7 +39,20 @@ def adjust_system_path():
         sys.path.append('fade/static/css/')
         sys.path.append('fade/templates/')
         sys.path.append('instance/')
-        
+
+@app.before_request
+def csrf_protect():
+    if request.method == "POST":
+        token = session.pop('_csrf_token', None)
+        if not token or token != request.form.get('_csrf_token'):
+            abort(403)
+
+def generate_csrf_token():
+    if '_csrf_token' not in session:
+        session['_csrf_token'] = some_random_string()
+    return session['_csrf_token']
+
 if __name__ == '__main__':
     adjust_system_path()
+    app.jinja_env.globals['csrf_token'] = generate_csrf_token
     app.run(debug=True)

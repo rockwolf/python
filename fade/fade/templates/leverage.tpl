@@ -2,6 +2,7 @@
 {% block body %}
   <p>
     <form action="/leverage" method="post" name="FormLeveragedContracts">
+      {{ p_form.hidden_tag() }} 
       {{ p_form.contracts }}
       <input type="submit" value="Calculate"></input>
     </form>
