@@ -3,9 +3,9 @@
 <head>
     <title>FADE - Flask Application For Data Entry</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='pure-min.css') }}" />
-    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='custom_style.css') }}" />
-    <link rel="icon" type="image/png" href="{{url_for('static', filename='favicon.png') }}" /-->
+    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/pure-min.css') }}" />
+    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/custom_style.css') }}" />
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='img/favicon.png') }}" /-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
