@@ -25,8 +25,9 @@ def render_leverage():
     """
     l_form = FormLeveragedContracts()
     #l_leveraged_contracts = request.form['txt_contracts']
+    if l_form.validate_on_submit():
+        return render_template('leverage.tpl', p_form = l_form, p_leveraged_contracts = l_leveraged_contracts)
     return render_template('leverage.tpl', p_form = l_form)
-    #return render_template('leverage.tpl', p_leveraged_contracts = l_leveraged_contracts)
 
 def adjust_system_path():
         """
@@ -47,6 +48,7 @@ def csrf_protect():
         if not token or token != request.form.get('_csrf_token'):
             abort(403)
 
+# TODO: create a random string function?
 def generate_csrf_token():
     if '_csrf_token' not in session:
         session['_csrf_token'] = some_random_string()
