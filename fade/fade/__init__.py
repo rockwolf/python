@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, session, request
 #from app import Views #TODO: move all the routes to views.py
 from forms import FormLeveragedContracts
 import sys
@@ -51,7 +51,7 @@ def csrf_protect():
 # TODO: create a random string function?
 def generate_csrf_token():
     if '_csrf_token' not in session:
-        session['_csrf_token'] = some_random_string()
+        session['_csrf_token'] = 'todo_generate_random_string'
     return session['_csrf_token']
 
 if __name__ == '__main__':
