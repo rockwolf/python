@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, request
+from flask import Flask, render_template, session, request, abort
 #from app import Views #TODO: move all the routes to views.py
 from forms import FormLeveragedContracts
 import sys
@@ -44,7 +44,10 @@ def adjust_system_path():
 @app.before_request
 def csrf_protect():
     if request.method == "POST":
+        # TODO: the abort is shown, so the token stuff is not working
         token = session.pop('_csrf_token', None)
+        print token
+        print request.form.get('_csrf_token')
         if not token or token != request.form.get('_csrf_token'):
             abort(403)
 
