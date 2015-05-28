@@ -24,8 +24,8 @@ def render_leverage():
         Renders the leverage page.
     """
     l_form = FormLeveragedContracts()
-    #l_leveraged_contracts = request.form['txt_contracts']
     if l_form.validate_on_submit():
+        l_leveraged_contracts = request.form['p_contracts']
         return render_template('leverage.tpl', p_form = l_form, p_leveraged_contracts = l_leveraged_contracts)
     return render_template('leverage.tpl', p_form = l_form)
 
@@ -41,23 +41,6 @@ def adjust_system_path():
         sys.path.append('fade/templates/')
         sys.path.append('instance/')
 
-@app.before_request
-def csrf_protect():
-    if request.method == "POST":
-        # TODO: the abort is shown, so the token stuff is not working
-        token = session.pop('_csrf_token', None)
-        print token
-        print request.form.get('_csrf_token')
-        if not token or token != request.form.get('_csrf_token'):
-            abort(403)
-
-# TODO: create a random string function?
-def generate_csrf_token():
-    if '_csrf_token' not in session:
-        session['_csrf_token'] = 'todo_generate_random_string'
-    return session['_csrf_token']
-
 if __name__ == '__main__':
     adjust_system_path()
-    app.jinja_env.globals['csrf_token'] = generate_csrf_token
     app.run(debug=True)

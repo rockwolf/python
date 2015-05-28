@@ -1,8 +1,8 @@
 {% extends "base.tpl" %}
 {% block body %}
   <p>
-    <form action="/leverage" method="post" name="FormLeveragedContracts">
-      {{ p_form.hidden_tag }}
+    <form action="/leverage/" method="post" name="FormLeveragedContracts">
+      {{ p_form.hidden_tag() }}
       {{ p_form.p_contracts }}
       <input type="submit" value="Calculate"></input>
     </form>
