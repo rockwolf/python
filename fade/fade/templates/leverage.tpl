@@ -2,7 +2,7 @@
 {% block body %}
   <p>
     <form action="/leverage" method="post" name="FormLeveragedContracts">
-      <input name="_csrf_token" type="hidden" value="{{ csrf_token() }}" />
+      {{ p_form.hidden_tag }}
       {{ p_form.p_contracts }}
       <input type="submit" value="Calculate"></input>
     </form>
