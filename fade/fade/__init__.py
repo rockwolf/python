@@ -2,9 +2,12 @@ from flask import Flask, render_template, session, request, abort
 #from app import Views #TODO: move all the routes to views.py
 from forms import FormLeveragedContracts
 import sys
+from ctypes import cdll
 
 app = Flask(__name__)
 app.config.from_object('config')
+
+lcf = cdll.LoadLibrary('calculator_finance.so')
 
 @app.route('/')
 @app.route('/home')
@@ -25,7 +28,7 @@ def render_leverage():
     """
     l_form = FormLeveragedContracts()
     if l_form.validate_on_submit():
-        l_leveraged_contracts = request.form['p_contracts']
+        l_leveraged_contracts = lcf.calculate_leveraged_contracts(int(request.form['p_contracts']))
         return render_template('leverage.tpl', p_form = l_form, p_leveraged_contracts = l_leveraged_contracts)
     return render_template('leverage.tpl', p_form = l_form)
 
