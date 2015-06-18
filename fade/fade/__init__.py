@@ -32,6 +32,17 @@ def render_leverage():
         return render_template('leverage.tpl', p_form = l_form, p_leveraged_contracts = l_leveraged_contracts)
     return render_template('leverage.tpl', p_form = l_form)
 
+@app.route('/tradingjournal/', methods = ['GET', 'POST'])
+def render_tradingjournal():
+    """
+        Renders the trading journal page.
+    """
+    l_form = FormTradingJournal()
+    if l_form.validate_on_submit():
+        #l_trade_id = request.form['p_trade_id']
+        #return render_template('leverage.tpl', p_form = l_form, p_leveraged_contracts = l_leveraged_contracts)
+    return render_template('tradingjournal.tpl', p_form = l_form)
+
 def adjust_system_path():
         """
             Adjust the system path, so we can search in custom dirs for modules.
