@@ -1,6 +1,9 @@
+#!/usr/bin/env python
+"""
+    See LICENSE.txt file for copyright and license details.
+"""
 from flask import Flask, render_template, session, request, abort
 #from app import Views #TODO: move all the routes to views.py
-from forms import FormLeveragedContracts
 import sys
 
 app = Flask(__name__)
