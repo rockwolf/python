@@ -3,7 +3,7 @@
     See LICENSE.txt file for copyright and license details.
 """
 from flask import Flask
-from app import views
+from src import views
 import sys
 
 
@@ -15,12 +15,12 @@ def adjust_system_path():
         """
             Adjust the system path, so we can search in custom dirs for modules.
         """
-        sys.path.append('fade/')
-        sys.path.append('fade/static/')
-        sys.path.append('fade/static/img/')
-        sys.path.append('fade/static/js/')
-        sys.path.append('fade/static/css/')
-        sys.path.append('fade/templates/')
+        sys.path.append('src/')
+        sys.path.append('src/static/')
+        sys.path.append('src/static/img/')
+        sys.path.append('src/static/js/')
+        sys.path.append('src/static/css/')
+        sys.path.append('src/templates/')
         sys.path.append('instance/')
 
 
