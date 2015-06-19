@@ -6,7 +6,9 @@ from flask import render_template, session, request, abort
 from forms import FormLeveragedContracts
 from ctypes import cdll
 
+
 lcf = cdll.LoadLibrary('calculator_finance.so')
+
 
 @app.route('/')
 @app.route('/home')
@@ -19,6 +21,7 @@ def render_home():
     l_message = 'Welcome!'
     return render_template('index.tpl', p_user = l_user, p_message = l_message)
 
+
 @app.route('/leverage', methods = ['GET', 'POST'])
 @app.route('/leverage/', methods = ['GET', 'POST'])
 def render_leverage():
@@ -30,6 +33,7 @@ def render_leverage():
         l_leveraged_contracts = lcf.calculate_leveraged_contracts(int(request.form['p_contracts']))
         return render_template('leverage.tpl', p_form = l_form, p_leveraged_contracts = l_leveraged_contracts)
     return render_template('leverage.tpl', p_form = l_form)
+
 
 @app.route('/tradingjournal/', methods = ['GET', 'POST'])
 def render_tradingjournal():
