@@ -2,7 +2,7 @@
 """
     See LICENSE.txt file for copyright and license details.
 """
-from flask import Flask, render_template, session, request, abort
+from flask import Flask
 #from app import Views #TODO: move all the routes to views.py
 import sys
 
