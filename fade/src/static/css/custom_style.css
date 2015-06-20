@@ -27,6 +27,7 @@
 .custom-menu .pure-menu-heading:hover
 {
     background-color: transparent;
+    color: #eee8d5;
 }
 
 .custom-menu-top
@@ -174,9 +175,9 @@ body
 {
     background-image: url('/static/img/bg-fantasy.jpg');
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: 84%;
     background-position: top center;
-    background-color: #002b36;
+    background-color: #000;//#002b36;
 }
 
 #main
