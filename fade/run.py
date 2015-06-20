@@ -2,14 +2,8 @@
 """
     See LICENSE.txt file for copyright and license details.
 """
-from flask import Flask
-from src import views
+from src import app
 import sys
-
-
-app = Flask(__name__)
-app.config.from_object('config')
-
 
 def adjust_system_path():
         """

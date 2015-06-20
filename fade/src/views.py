@@ -4,6 +4,7 @@
 """
 from flask import render_template, session, request, abort
 from forms import FormLeveragedContracts
+from src import app
 from ctypes import cdll
 
 

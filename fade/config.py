@@ -14,12 +14,5 @@ dbuser = 'rockwolf'
 dbpass = ''
 dbhost = 'testdb'
 dbname = 'finance'
-SQLALCHEMY_DATABASE_URI = 'postgresql://'
-                + dbuser
-                + ':'
-                + dbpass
-                + '@'
-                + dbhost
-                + '/'
-                + dbname
+SQLALCHEMY_DATABASE_URI = 'postgresql://' + dbuser + ':' + dbpass + '@' + dbhost + '/' + dbname
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'database')
