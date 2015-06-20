@@ -28,6 +28,7 @@
             <div class="custom-menu-screen"></div>
             <ul class="pure-menu-list">
                 <li class="pure-menu-item"><a href="/home" class="pure-menu-link">Home</a></li>
+                <li class="pure-menu-item"><a href="/tradingjournal" class="pure-menu-link">TradingJournal</a></li>
                 <li class="pure-menu-item"><a href="/leverage" class="pure-menu-link">Leverage</a></li>
             </ul>
         </div>

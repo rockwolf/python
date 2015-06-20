@@ -3,7 +3,7 @@
     See LICENSE.txt file for copyright and license details.
 """
 from flask import render_template, session, request, abort
-from forms import FormLeveragedContracts
+from forms import FormLeveragedContracts, FormTradingJournal
 from src import app
 from ctypes import cdll
 
