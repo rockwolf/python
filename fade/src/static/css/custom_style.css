@@ -1,10 +1,12 @@
 .custom-menu-wrapper
 {
-    background-color: rgba(0, 43, 54, 0.3);
+    //background-color: rgba(0, 43, 54, 0.3);
+    background-color: rgba(0, 43, 54, 0.9);
     //background-color: #002b36;
     margin-bottom: 2.5em;
     white-space: nowrap;
     position: relative;
+    border: 1px solid #859900;
 }
 
 .custom-menu
@@ -18,7 +20,7 @@
 .custom-menu .pure-menu-link,
 .custom-menu .pure-menu-heading
 {
-    color: #00cc00;
+    color: #859900;
 }
 
 .custom-menu .pure-menu-link:hover,
@@ -170,7 +172,7 @@
 
 body
 {
-    background-image: url('/static/img/hack-dark.jpg');
+    background-image: url('/static/img/bg-fantasy.jpg');
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: top center;
@@ -180,10 +182,12 @@ body
 #main
 {
     width: 100%; 
-    color: #00cc00;
+    color: #859900;
     background-color: rgba(0, 43, 54, 0.9);
+    //background-color: rgba(0, 43, 54, 0.3);
     padding-top: 3px;
     padding-bottom: 3px;
+    border: 1px solid #859900;
 }
 
 
