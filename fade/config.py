@@ -12,7 +12,7 @@ SECRET_KEY = '3124534675689780'
 
 dbuser = 'rockwolf'
 dbpass = ''
-dbhost = 'testdb'
+dbhost = 'debby_test'
 dbname = 'finance'
 SQLALCHEMY_DATABASE_URI = 'postgresql://' + dbuser + ':' + dbpass + '@' + dbhost + '/' + dbname
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'database')
