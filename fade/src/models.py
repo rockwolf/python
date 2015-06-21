@@ -5,8 +5,28 @@
 
 from src import db
 
+class T_ACCOUNT(db.Model):
+    """
+        T_ACCOUNT
+    """
+    account_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(4000))
+    description = db.Column(db.String(4000))
+    active = db.Column(db.Boolean)
+    date_created = db.Column(db.DateTime)
+    date_modified = db.Column(db.DateTime)
+
+    def __repr__(self):
+        return "<T_ACCOUNT('%s', '%s', '%s', '%s', '%s', '%s', '%s', \
+'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
+            self.account_id, self.name, self.description,
+            self.active, self.date_created, self.date_modified)
+
+ 
 class T_FINANCE(db.Model):
-    """ T_FINANCE """
+    """
+        T_FINANCE
+    """
     #__tablename__ = Table.FINANCE
     #__table_args__ = {'autoload':True}
     #NOTE: autoload gives less control and I don't know
@@ -22,32 +42,53 @@ class T_FINANCE(db.Model):
     comment = db.Column(db.String(256))
     currency_exchange_id = db.Column(db.Integer)
     rate_id = db.Column(db.Integer)
-    active = db.Column(db.Integer)
+    active = db.Column(db.Boolean)
     date_created = db.Column(db.DateTime)
     date_modified = db.Column(db.DateTime)
-
-    def __init__(self, finance_id, date, year, month, day, account_from_id,
-            account_to_id, amount, comment, currency_exchange_id,
-            rate_id, active, date_created, date_modified):
-        self.finance_id = finance_id
-        self.date = date
-        self.year = year
-        self.month = month
-        self.day = day
-        self.account_from_id = account_from_id
-        self.account_to_id = account_to_id
-        self.amount = amount
-        self.comment = comment
-        self.currency_exchange_id = currency_exchange_id
-        self.rate_id = rate_id
-        self.active = active
-        self.date_created = date_created
-        self.date_modified = date_modified
 
     def __repr__(self):
         return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', \
 '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
             self.finance_id, self.date, self.year, self.month, self.day,
+            self.account_from_id, self.account_to_id, self.amount,
+            self.comment, self.active, self.rate_id,
+            self.currency_exchange_id, self.date_created, self.date_modified)
+
+
+class T_TRADE(db.Model):
+    """
+        T_TRADE
+    """
+    #__tablename__ = Table.TRADE
+    #__table_args__ = {'autoload':True}
+    #NOTE: autoload gives less control and I don't know
+    #how to make session.add_all() to work with it.
+    trade_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    trade_calculated_id = db.Column(db.Integer, ForeignKey("T_TRADE_CALCULATED.trade_calculated_id"), nullable=False, default=-1)
+    market_id = db.Column(db.Integer, ForeignKey("T_MARKET.market_id"), nullable=False)
+    commodity_id = db.Column(db.Integer, ForeignKey("T_COMMODITY.commodity_id"), nullable=False)
+    date_buy = db.Column(db.DateTime, nullable=False, default='1900-01-01')
+    year_buy = db.Column(db.Integer, nullable=False, default=1)
+    month_buy = db.Column(db.Integer, nullable=False, default=1)
+    day_buy = db.Column(db.Integer, nullable=False, default=1)
+    date_sell = db.Column(db.DateTime, nullable=False, default='1900-01-01')
+    year_sell = db.Column(db.Integer, nullable=False, default=1)
+    month_sell = db.Column(db.Integer, nullable=False, default=1)
+    day_sell = db.Column(db.Integer, nullable=False, default=1)
+    is_long = db.Column(db.Boolean, nullable=False, default=False) 
+    price_buy_orig = db.Column(db.Numeric(18, 6), nullable=False, default=0.0)
+    
+    comment = db.Column(db.String(256))
+    currency_exchange_id = db.Column(db.Integer)
+    rate_id = db.Column(db.Integer)
+    active = db.Column(db.Boolean)
+    date_created = db.Column(db.DateTime)
+    date_modified = db.Column(db.DateTime)
+
+    def __repr__(self):
+        return "<T_TRADE('%s', '%s', '%s', '%s', '%s', '%s', '%s', \
+'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
+            self.trade_id, self.date, self.year, self.month, self.day,
             self.account_from_id, self.account_to_id, self.amount,
             self.comment, self.active, self.rate_id,
             self.currency_exchange_id, self.date_created, self.date_modified)
