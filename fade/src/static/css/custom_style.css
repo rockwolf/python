@@ -196,3 +196,17 @@ body
 {
     text-align: center;
 }
+
+.pure-button
+{
+    background-color: #002b36;
+    color: #859900;
+    border: 1px solid #859900;
+}
+
+.pure-button:hover
+{
+    background-color: #073642;
+    color: #eee8d5;
+    border: 1px solid #eee8d5;
+}

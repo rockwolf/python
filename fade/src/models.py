@@ -64,9 +64,9 @@ class T_TRADE(db.Model):
     #NOTE: autoload gives less control and I don't know
     #how to make session.add_all() to work with it.
     trade_id = db.Column(db.Integer, primary_key=True, nullable=False)
-    trade_calculated_id = db.Column(db.Integer, ForeignKey("T_TRADE_CALCULATED.trade_calculated_id"), nullable=False, default=-1)
-    market_id = db.Column(db.Integer, ForeignKey("T_MARKET.market_id"), nullable=False)
-    commodity_id = db.Column(db.Integer, ForeignKey("T_COMMODITY.commodity_id"), nullable=False)
+    trade_calculated_id = db.Column(db.Integer, db.ForeignKey("T_TRADE_CALCULATED.trade_calculated_id"), nullable=False, default=-1)
+    market_id = db.Column(db.Integer, db.ForeignKey("T_MARKET.market_id"), nullable=False)
+    commodity_id = db.Column(db.Integer, db.ForeignKey("T_COMMODITY.commodity_id"), nullable=False)
     date_buy = db.Column(db.DateTime, nullable=False, default='1900-01-01')
     year_buy = db.Column(db.Integer, nullable=False, default=1)
     month_buy = db.Column(db.Integer, nullable=False, default=1)

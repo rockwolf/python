@@ -4,22 +4,20 @@
     <form action="/tradingjournal/" method="post" name="FormTradingJournal">
       {{ p_form.hidden_tag() }}
       {{ p_form.p_trade }}
-      <table>
+      <div class="pure-g">
       {% if p_trade_id %}
         <!-- TODO: enter form here that is used for editing -->
-        <tr>
-          <td> test </td>
-        </tr>
+        <div class="pure-u-1-1">test with trade_id</div>
       {% else %}
         <!-- TODO: this needs just a readonly view of the line? -->
-        <tr>
-          <td> test </td>
-        </tr>
+        <div class="pure-u-1-1">test without trade_id</div>
       {% endif %}
-      </table>
-      <input type="submit" value="Add"></input>
-      <input type="submit" value="Remove"></input>
-      <input type="submit" value="Update"></input>
+      </div>
+      <p>
+        <input class="pure-button" type="submit" value="Add"></input>
+        <input class="pure-button" type="submit" value="Remove"></input>
+        <input class="pure-button" type="submit" value="Update"></input>
+      </p>
     </form>
   </p>
 {% endblock %}
