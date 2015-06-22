@@ -77,20 +77,27 @@ class T_TRADE(db.Model):
     day_sell = db.Column(db.Integer, nullable=False, default=1)
     is_long = db.Column(db.Boolean, nullable=False, default=False) 
     price_buy_orig = db.Column(db.Numeric(18, 6), nullable=False, default=0.0)
-    
-    comment = db.Column(db.String(256))
-    currency_exchange_id = db.Column(db.Integer)
-    rate_id = db.Column(db.Integer)
-    active = db.Column(db.Boolean)
-    date_created = db.Column(db.DateTime)
-    date_modified = db.Column(db.DateTime)
+    price_sell_orig = db.Column(db.Numeric(18, 6), nullable=False, default=0.0)
+    shares_buy = db.Column(db.Integer, nullable=False, default=0)
+    shares_sell = db.Column(db.Integer, nullable=False, default=0)
+    comment = db.Column(db.String(256), nullable=False, default='')
+    currency_exchange_id_buy = db.Column(db.Integer, db.ForeignKey("T_CURRENCY_EXCHANGE.currency_exchange_id"), nullable=False, default=-1)
+    currency_exchange_id_sell = db.Column(db.Integer, db.ForeignKey("T_CURRENCY_EXCHANGE.currency_exchange_id"), nullable=False, default=-1)
+    rate_id_buy = db.Column(db.Integer, db.ForeignKey("T_RATE.rate_id"), nullable=False, default=-1)
+    rate_id_sell = db.Column(db.Integer, db.ForeignKey("T_RATE.rate_id"), nullable=False, default=-1)
+    risk_input_percent = db.Column(db.Numeric(18, 6), nullable=False, default=0.0)
+    is_winner = db.Column(db.Boolean, nullable=False, default=False) 
+    drawdown_id = db.Column(db.Integer, db.ForeignKey("T_DRAWDOWN.drawdown_id"), nullable=False, default=-1)
+    trade_pool_id = db.Column(db.Integer, db.ForeignKey("T_TRADE_POOL.trade_pool_id"), nullable=False, default=-1)
+    date_expiration = db.Column(db.DateTime, nullable=False, default='1900-01-01')
+    is_expired = db.Column(db.Boolean, nullable=False, default=False) 
+    is_active = db.Column(db.Boolean, nullable=False, default=False) 
+    is_reconciled = db.Column(db.Boolean, nullable=False, default=False) 
+    date_created = db.Column(db.DateTime, nullable=False, default='1900-01-01')
+    date_modified = db.Column(db.DateTime, nullable=False, default='1900-01-01')
 
     def __repr__(self):
-        return "<T_TRADE('%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
-            self.trade_id, self.date, self.year, self.month, self.day,
-            self.account_from_id, self.account_to_id, self.amount,
-            self.comment, self.active, self.rate_id,
-            self.currency_exchange_id, self.date_created, self.date_modified)
+        return "<T_TRADE('%s', '%s', '%s', '%s', '%s')>" % (
+            self.trade_id, self.date_buy, self.date_sell, self.date_created, self.date_modified)
 
 
