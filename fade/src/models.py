@@ -9,12 +9,12 @@ class T_ACCOUNT(db.Model):
     """
         T_ACCOUNT
     """
-    account_id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(4000))
-    description = db.Column(db.String(4000))
-    active = db.Column(db.Boolean)
-    date_created = db.Column(db.DateTime)
-    date_modified = db.Column(db.DateTime)
+    account_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    name = db.Column(db.String(4000), nullable=False, default='')
+    description = db.Column(db.String(4000), nullable=False, default='')
+    is_active = db.Column(db.Boolean, nullable=False, default=False)
+    date_created = db.Column(db.DateTime, nullable=False, default='1900-01-01')
+    date_modified = db.Column(db.DateTime, nullable=False, default='1900-01-01')
 
     def __repr__(self):
         return "<T_ACCOUNT('%s', '%s', '%s', '%s', '%s', '%s', '%s', \
@@ -31,20 +31,20 @@ class T_FINANCE(db.Model):
     #__table_args__ = {'autoload':True}
     #NOTE: autoload gives less control and I don't know
     #how to make session.add_all() to work with it.
-    finance_id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime)
-    year = db.Column(db.Integer)
-    month = db.Column(db.Integer)
-    day = db.Column(db.Integer)
-    account_from_id = db.Column(db.Integer)
-    account_to_id = db.Column(db.Integer)
-    amount = db.Column(db.Numeric(18, 6))
-    comment = db.Column(db.String(256))
-    currency_exchange_id = db.Column(db.Integer)
-    rate_id = db.Column(db.Integer)
-    active = db.Column(db.Boolean)
-    date_created = db.Column(db.DateTime)
-    date_modified = db.Column(db.DateTime)
+    finance_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    date = db.Column(db.DateTime, nullable=False, default='1900-01-01')
+    year = db.Column(db.Integer, nullable=False, default=1)
+    month = db.Column(db.Integer, nullable=False, default=1)
+    day = db.Column(db.Integer, nullable=False, default=1)
+    account_from_id = db.Column(db.Integer, db.ForeignKey("T_ACCOUNT.account_id"), nullable=False, default=-1)
+    account_to_id = db.Column(db.Integer, db.ForeignKey("T_ACCOUNT.account_id"), nullable=False, default=-1)
+    amount = db.Column(db.Numeric(18, 6), nullable=False, default=0.0)
+    comment = db.Column(db.String(256), nullable=False, default='')
+    currency_exchange_id = db.Column(db.Integer, , db.ForeignKey("T_CURRENCY_EXCHANGE.currency_exchange_id"), nullable=False, default=-1)
+    rate_id = db.Column(db.Integer, db.ForeignKey("T_RATE.rate_id"), nullable=False, default=-1)
+    is_active = db.Column(db.Boolean, nullable=False, default=False)
+    date_created = db.Column(db.DateTime, nullable=False, default='1900-01-01')
+    date_modified = db.Column(db.DateTime, nullable=False, default='1900-01-01')
 
     def __repr__(self):
         return "<T_FINANCE('%s', '%s', '%s', '%s', '%s', '%s', '%s', \
