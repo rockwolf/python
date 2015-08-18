@@ -18,13 +18,15 @@ class FormTradingJournal(Form):
     """
         FormTradingJournal
     """
-    p_trade_id = IntegerField('trade_id', validators=[DataRequired()], default=1)
     # TODO: needs more fields
 
 class FormAccount(Form):
     """
         FormAccount
     """
+    p_account_name = StringField('name', validators=[DataRequired()])
+    p_account_description = StringField('description', validators=[])
+    p_account_is_active = BooleanField('is_active', validators=[])
     #p_trade_id = IntegerField('trade_id', validators=[DataRequired()], default=1)
     # TODO: needs more fields
     
