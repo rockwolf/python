@@ -30,6 +30,7 @@
                 <li class="pure-menu-item"><a href="/home" class="pure-menu-link">Home</a></li>
                 <li class="pure-menu-item"><a href="/tradingjournal" class="pure-menu-link">TradingJournal</a></li>
                 <li class="pure-menu-item"><a href="/account" class="pure-menu-link">Account</a></li>
+                <li class="pure-menu-item"><a href="/commodity" class="pure-menu-link">Commodity</a></li>
                 <li class="pure-menu-item"><a href="/leverage" class="pure-menu-link">Leverage</a></li>
             </ul>
         </div>
