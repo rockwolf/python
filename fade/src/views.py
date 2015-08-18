@@ -4,6 +4,7 @@
 """
 from flask import render_template, session, request, abort
 from forms import FormLeveragedContracts, FormTradingJournal
+from models import TAccount
 from src import app
 from ctypes import cdll
 
@@ -35,7 +36,7 @@ def render_leverage():
         return render_template('leverage.tpl', p_form = l_form, p_leveraged_contracts = l_leveraged_contracts)
     return render_template('leverage.tpl', p_form = l_form)
 
-
+@app.route('/tradingjournal', methods = ['GET', 'POST'])
 @app.route('/tradingjournal/', methods = ['GET', 'POST'])
 def render_tradingjournal():
     """
@@ -47,12 +48,14 @@ def render_tradingjournal():
         return render_template('leverage.tpl', p_form = l_form, p_leveraged_contracts = l_leveraged_contracts)
     return render_template('tradingjournal.tpl', p_form = l_form)
 
+@app.route('/account', methods = ['GET', 'POST'])
 @app.route('/account/', methods = ['GET', 'POST'])
 def render_account():
     """
         Renders the account page.
     """
     l_form = FormAccount()
+    l_accounts = TAccount.query.filter_by(is_active=True)
     if l_form.validate_on_submit():
-        return render_template('account.tpl', p_form = l_form, p_account_changed = True)
-    return render_template('account.tpl', p_form = l_form, p_account_changed = False)
+        return render_template('account.tpl', p_form = l_form, p_accounts = l_accounts, p_account_changed = True)
+    return render_template('account.tpl', p_form = l_form, p_accounts = l_accounts, p_account_changed = False)
