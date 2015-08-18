@@ -20,3 +20,17 @@ class FormTradingJournal(Form):
     """
     p_trade_id = IntegerField('trade_id', validators=[DataRequired()], default=1)
     # TODO: needs more fields
+
+class FormAccount(Form):
+    """
+        FormAccount
+    """
+    #p_trade_id = IntegerField('trade_id', validators=[DataRequired()], default=1)
+    # TODO: needs more fields
+    
+class FormCommodity(Form):
+    """
+        FormCommodity
+    """
+    #p_trade_id = IntegerField('trade_id', validators=[DataRequired()], default=1)
+    # TODO: needs more fields
