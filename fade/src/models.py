@@ -25,10 +25,9 @@ class TAccount(db.Model):
     date_modified = db.Column(db.DateTime, nullable=False, server_default=text("'1900-01-01 00:00:00'::timestamp without time zone"))
     
     def __repr__(self):
-        return "<T_ACCOUNT('%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
+        return "<T_ACCOUNT('%s', '%s', '%s', '%s', '%s', '%s')>" % (
             self.account_id, self.name, self.description,
-            self.active, self.date_created, self.date_modified)
+            self.is_active, self.date_created, self.date_modified)
 
 
 class TCfdGeneral(db.Model):

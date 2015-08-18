@@ -3,7 +3,7 @@
     See LICENSE.txt file for copyright and license details.
 """
 from flask import render_template, session, request, abort
-from forms import FormLeveragedContracts, FormTradingJournal
+from forms import FormLeveragedContracts, FormTradingJournal, FormAccount
 from models import TAccount
 from src import app
 from ctypes import cdll
@@ -55,7 +55,10 @@ def render_account():
         Renders the account page.
     """
     l_form = FormAccount()
-    l_accounts = TAccount.query.filter_by(is_active=True)
+    l_accounts = TAccount.query.all() #filter_by(is_active=True) doesn't work?
     if l_form.validate_on_submit():
-        return render_template('account.tpl', p_form = l_form, p_accounts = l_accounts, p_account_changed = True)
-    return render_template('account.tpl', p_form = l_form, p_accounts = l_accounts, p_account_changed = False)
+        return render_template('account.tpl', p_form = l_form, p_accounts = l_accounts)
+    return render_template('account.tpl', p_form = l_form, p_accounts = l_accounts)
+    #if l_form.validate_on_submit():
+    #    return render_template('account.tpl', p_form = l_form, p_accounts = l_accounts, p_account_changed = True)
+    #return render_template('account.tpl', p_form = l_form, p_accounts = l_accounts, p_account_changed = False)
