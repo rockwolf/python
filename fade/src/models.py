@@ -9,24 +9,6 @@ from src import db
 #Base = db.declarative_base()
 #metadata = Base.metadata
 
-class T_ACCOUNT(db.Model):
-    """
-        T_ACCOUNT
-    """
-    account_id = db.Column(db.Integer, primary_key=True, nullable=False)
-    name = db.Column(db.String(4000), nullable=False, default='')
-    description = db.Column(db.String(4000), nullable=False, default='')
-    is_active = db.Column(db.Boolean, nullable=False, default=False)
-    date_created = db.Column(db.DateTime, nullable=False, default='1900-01-01')
-    date_modified = db.Column(db.DateTime, nullable=False, default='1900-01-01')
-
-    def __repr__(self):
-        return "<T_ACCOUNT('%s', '%s', '%s', '%s', '%s', '%s', '%s', \
-'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
-            self.account_id, self.name, self.description,
-            self.active, self.date_created, self.date_modified)
-
-
 # coding: utf-8
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, Numeric, String, Table, Text, text
 from sqlalchemy.orm import relationship
@@ -41,6 +23,12 @@ class TAccount(db.Model):
     is_active = db.Column(db.Integer, nullable=False, server_default=text("1"))
     date_created = db.Column(db.DateTime, nullable=False, server_default=text("'1900-01-01 00:00:00'::timestamp without time zone"))
     date_modified = db.Column(db.DateTime, nullable=False, server_default=text("'1900-01-01 00:00:00'::timestamp without time zone"))
+    
+    def __repr__(self):
+        return "<T_ACCOUNT('%s', '%s', '%s', '%s', '%s', '%s', '%s', \
+'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (
+            self.account_id, self.name, self.description,
+            self.active, self.date_created, self.date_modified)
 
 
 class TCfdGeneral(db.Model):
