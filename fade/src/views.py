@@ -58,13 +58,15 @@ def render_account():
     l_accounts = TAccount.query.all() #filter_by(is_active=True) doesn't work?
     l_accounts_total = TAccount.query.count()
     l_accounts_distinct = TAccounts.query(name).group_by(name).count()
+    l_accounts_has_double = (l_accounts_total != l_accounts_distinct)
     if l_form.validate_on_submit():
         return render_template(
             'account.tpl',
             p_form = l_form,
             p_accounts = l_accounts,
             p_accounts_total = l_accounts_total,
-            p_accounts_distinct = l_accounts_distinct)
+            p_accounts_distinct = l_accounts_distinct,
+            p_accounts_has_double = l_accounts_has_double)
     return render_template(
         'account.tpl',
         p_form = l_form,
