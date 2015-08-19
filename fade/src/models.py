@@ -4,15 +4,8 @@
 """
 
 from src import db
-#from sqlalchemy.ext.declarative import declarative_base
-
-#Base = db.declarative_base()
-#metadata = Base.metadata
-
-# coding: utf-8
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, Numeric, String, Table, Text, text
 from sqlalchemy.orm import relationship
-
 
 class TAccount(db.Model):
     __tablename__ = u't_account'

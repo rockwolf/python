@@ -5,8 +5,9 @@
 from flask import render_template, session, request, abort
 from forms import FormLeveragedContracts, FormTradingJournal, FormAccount
 from models import TAccount
-from src import app
+from src import app, db
 from ctypes import cdll
+from sqlalchemy import distinct
 
 
 lcf = cdll.LoadLibrary('calculator_finance.so')
@@ -55,9 +56,9 @@ def render_account():
         Renders the account page.
     """
     l_form = FormAccount()
-    l_accounts = TAccount.query.all() #filter_by(is_active=True) doesn't work?
+    l_accounts = TAccount.query.filter_by(is_active=1).all()
     l_accounts_total = TAccount.query.count()
-    l_accounts_distinct = TAccounts.query(name).group_by(name).count()
+    l_accounts_distinct = db.session.query(distinct(TAccount.name)).count()
     l_accounts_has_double = (l_accounts_total != l_accounts_distinct)
     if l_form.validate_on_submit():
         return render_template(
