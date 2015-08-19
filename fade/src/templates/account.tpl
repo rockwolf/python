@@ -5,7 +5,8 @@
       {{ p_form.hidden_tag() }}
       <fieldset>
         <div class="pure-control-group">
-          Total/distinct: {{ p_accounts_total }}/{{ p_accounts_distinct }}
+          Records: {{ p_accounts_total }}
+          {% if p_accounts_has_double %} <span class="warning">There are only {{ p_accounts_distinct }} distinct records!</span> {% endif %}
         </div>
         <div class="pure-control-group">
           {% for account in p_accounts %}
