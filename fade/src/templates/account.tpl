@@ -24,7 +24,7 @@
         <tbody>
           <tr>
             <td>{{ account.account_id }}</td>
-            <td>{{ account.name }}</td>
+            <td>{{ p_form.p_account_name }} {{ account.name }}</td> <!-- how to load the second account.name into the input text from p_form.p_account_name? -->
             <td>{{ account.description }}</td>
             <td><input class="pure-checkbox" type="checkbox" {% if account.is_active %}checked {% endif %}/></td>
             <td>{{ account.date_created }}</td>
