@@ -8,6 +8,7 @@
         <input class="pure-button" type="submit" value="Modify"></input>
         <input class="pure-button" type="submit" value="Delete"></input>
      </p>
+     <p>Total/distinct: {{ p_accounts_total }}/{{ p_accounts_distinct }}</p>
       {% for account in p_accounts %}
       <table class="pure-table pure-table-bordered pure-table-striped">
         <thead>
