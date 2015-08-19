@@ -1,12 +1,16 @@
 {% extends "base.tpl" %}
 {% block body %}
   <p>
-    <form action="/leverage/" method="post" name="FormLeveragedContracts">
+    <form action="/leverage/" method="post" name="FormLeveragedContracts" class="pure-form pure-form-aligned">
       {{ p_form.hidden_tag() }}
-      {{ p_form.p_contracts }}
-      <p>
-        <input class="pure-button" type="submit" value="Calculate"></input>
-     </p>
+      <fieldset>
+        <div class="pure-control-group">
+          {{ p_form.p_contracts }}
+        </div>
+        <div class="pure-control-group">
+          <input class="pure-button" type="submit" value="Calculate"></input> 
+        </div>
+      </fieldset>
     </form>
   </p>
   {% if p_leveraged_contracts %}
