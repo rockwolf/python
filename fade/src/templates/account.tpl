@@ -8,8 +8,8 @@
           Records: {{ p_accounts_total }}
           {% if p_accounts_has_double %} <span class="warning">There are only {{ p_accounts_distinct }} distinct records!</span> {% endif %}
         </div>
-        <!--div class="pure-control-group"-->
-          <table class="pure-table pure-table-bordered">
+        <div class="table-responsive">
+          <table class="mq-table pure-table pure-table-bordered">
             <thead>
               <tr>
                 <td>#</td>
@@ -33,7 +33,7 @@
               {% endfor %}
             </tbody>
           </table>
-        <!--/div-->
+        </div>
         <div class="pure-control-group">
           <input class="pure-button" type="submit" value="Add"></input>
           <input class="pure-button" type="submit" value="Modify"></input>
