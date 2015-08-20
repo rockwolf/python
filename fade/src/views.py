@@ -64,6 +64,11 @@ def render_account():
     #        form.populate_obj(person)
     # Note: See also
     # http://wtforms.simplecodes.com/docs/0.6/forms.html#wtforms.form.Form
+    # TODO: 1 account can be chosen on submit, with a modify button per line on the form.
+    # This can then be used to generate the form again, but with 1 line linked
+    # to that object in edit mode. That seems like a good way to do it, comparable
+    # with what is described above.
+    
     l_accounts = TAccount.query.filter_by(is_active=1).all()
     l_form = FormAccount(obj=l_accounts) # or TAccount?
     l_form.populate_obj(l_accounts) # or loop over accounts?
