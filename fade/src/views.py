@@ -55,8 +55,18 @@ def render_account():
     """
         Renders the account page.
     """
-    l_form = FormAccount()
+    # Note
+    # @app.route('/person/edit/<id>/', methods=['GET', 'POST'])
+    #def edit_person(id):
+    #    person = Person.query.get_or_404(id)
+    #    form = PersonForm(obj=person)
+    #    if form.validate_on_submit():
+    #        form.populate_obj(person)
+    # Note: See also
+    # http://wtforms.simplecodes.com/docs/0.6/forms.html#wtforms.form.Form
     l_accounts = TAccount.query.filter_by(is_active=1).all()
+    l_form = FormAccount(obj=l_accounts) # or TAccount?
+    l_form.populate_obj(l_accounts) # or loop over accounts?
     l_accounts_total = TAccount.query.count()
     l_accounts_distinct = db.session.query(distinct(TAccount.name)).count()
     l_accounts_has_double = (l_accounts_total != l_accounts_distinct)
