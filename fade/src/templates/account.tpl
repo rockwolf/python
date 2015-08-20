@@ -23,11 +23,13 @@
             </thead>
             <tbody>
               {% for account in p_accounts %}
+              <!-- test on if account.name = p_form_account.name (obj)-->
+              <!-- if equal then show row with edits -->
               <tr>
                 <td>{{ account.account_id }}</td>
                 <td>{{ p_form.p_account_name }} {{ account.name }}</td> <!-- how to load the second account.name into the input text from p_form.p_account_name? -->
                 <td>{{ account.description }}</td>
-                <td><input class="pure-checkbox" type="checkbox" {% if account.is_active %}checked {% endif %}/></td>
+                <td><input class="pure-checkbox" type="checkbox" readonly {% if account.is_active %}checked {% endif %}/></td>
                 <td>{{ account.date_created }}</td>
                 <td>{{ account.date_modified }}</td>
                 <td>
