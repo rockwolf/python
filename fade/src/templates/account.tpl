@@ -7,6 +7,7 @@
         <div class="pure-control-group">
           Records: {{ p_accounts_total }}
           {% if p_accounts_has_double %} <span class="warning">There are only {{ p_accounts_distinct }} distinct records!</span> {% endif %}
+          <input class="pure-button" type="submit" value="Add"></input>
         </div>
         <div class="table-responsive">
           <table class="mq-table pure-table pure-table-bordered">
@@ -29,16 +30,14 @@
                 <td><input class="pure-checkbox" type="checkbox" {% if account.is_active %}checked {% endif %}/></td>
                 <td>{{ account.date_created }}</td>
                 <td>{{ account.date_modified }}</td>
+                <td>
+                  <input class="pure-button" type="submit" value="Modify"></input> <input class="pure-button" type="submit" value="Delete"></input>  
+                </td>
               </tr>
               {% endfor %}
             </tbody>
           </table>
         </div>
-        <div class="pure-control-group">
-          <input class="pure-button" type="submit" value="Add"></input>
-          <input class="pure-button" type="submit" value="Modify"></input>
-          <input class="pure-button" type="submit" value="Delete"></input>
-       </div>
       </fieldset>
     </form>
   </p>
