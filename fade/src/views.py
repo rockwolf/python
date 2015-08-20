@@ -70,8 +70,7 @@ def render_account():
     # with what is described above.
     
     l_accounts = TAccount.query.filter_by(is_active=1).all()
-    l_form = FormAccount(obj=l_accounts) # or TAccount?
-    l_form.populate_obj(l_accounts) # or loop over accounts?
+    l_form = FormAccount()
     l_accounts_total = TAccount.query.count()
     l_accounts_distinct = db.session.query(distinct(TAccount.name)).count()
     l_accounts_has_double = (l_accounts_total != l_accounts_distinct)
@@ -89,6 +88,40 @@ def render_account():
         p_accounts = l_accounts,
         p_accounts_total = l_accounts_total,
         p_accounts_distinct = l_accounts_distinct)
-    #if l_form.validate_on_submit():
-    #    return render_template('account.tpl', p_form = l_form, p_accounts = l_accounts, p_account_changed = True)
-    #return render_template('account.tpl', p_form = l_form, p_accounts = l_accounts, p_account_changed = False)
+
+
+@app.route('/account/edit/<account_id>', methods = ['GET', 'POST'])
+@app.route('/account/edit/<account_id>/', methods = ['GET', 'POST'])
+def render_account_edit(account_id):
+    """
+        Renders the account page in edit mode,
+        for the given account_id.
+    """
+    l_accounts = TAccount.query.filter_by(is_active=1).all()
+    l_account = TAccount.query.filter_by(account_id=account_id).first
+    l_form = FormAccount(obj=l_account)
+    l_accounts_total = TAccount.query.count()
+    l_accounts_distinct = db.session.query(distinct(TAccount.name)).count()
+    l_accounts_has_double = (l_accounts_total != l_accounts_distinct)
+    if l_form.validate_on_submit():
+        l_form.populate_obj(l_account) # why can't I  do this outside of the validate_on_submit?
+        # TODO: find a way or change the standard form on edit to contain
+        # pure-edit boxes... but then I need a new var to let the template
+        # know I'm editing (like a boolean field or something)
+        # although than I would need 3 types: non-edit - edit on get (pure-edit) -
+        # edit from form???
+        return render_template(
+            'account.tpl',
+            p_form = l_form,
+            p_accounts = l_accounts,
+            p_accounts_total = l_accounts_total,
+            p_accounts_distinct = l_accounts_distinct,
+            p_accounts_has_double = l_accounts_has_double)
+    return render_template(
+        'account.tpl',
+        p_form = l_form,
+        p_accounts = l_accounts,
+        p_accounts_total = l_accounts_total,
+        p_accounts_distinct = l_accounts_distinct,
+        p_accounts_has_double = l_accounts_has_double)
+ 
