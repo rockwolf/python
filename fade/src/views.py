@@ -97,6 +97,12 @@ def render_account_edit(account_id):
         Renders the account page in edit mode,
         for the given account_id.
     """
+    # Note: We can only populate the fields on a post-request.
+    # When not in a post request, show the reqular account screen.
+    # This way, edit must be pressed, to modify. No edit = no account_id
+    # = we return to the readonly view of the /account page.
+    if request.method == 'GET':
+        return redirect('/account')
     l_accounts = TAccount.query.filter_by(is_active=1).all()
     l_account = TAccount.query.filter_by(account_id=account_id).first
     l_form = FormAccount(obj=l_account)
