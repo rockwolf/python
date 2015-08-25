@@ -28,9 +28,9 @@
   {% for account in p_accounts %}
               <!-- if equal then show row with edits -->
               <!-- TODO: Show buttons only for the edit row -->
-    {% if  p_we_are_modifying %}
+    {% if account_id and (account_id == account.account_id) %}
               <tr>
-                <td></td>
+                <td>{{ account.account_id}}</td>
                 <td>{{ p_form.p_account_name }}</td>
                 <td> {{ p_form.p_account_description }}</td>
                 <td>{{ p_form.p_account_is_active }}</td>
@@ -45,7 +45,7 @@
                 <td>{{ account.account_id }}</td>
                 <td>{{ account.name }}</td>
                 <td>{{ account.description }}</td>
-                <td><input class="pure-checkbox" type="checkbox" readonly {% if account.is_active %}checked {% endif %}/></td>
+                <td>{% if account.is_active %}&#9745;{% else %}&#9744;{% endif %}</td>
                 <td>{{ account.date_created }}</td>
                 <td>{{ account.date_modified }}</td>
                 <td>

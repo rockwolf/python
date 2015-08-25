@@ -2,8 +2,8 @@
 """
     See LICENSE.txt file for copyright and license details.
 """
-from flask import render_template, session, request, abort
-from forms import FormLeveragedContracts, FormTradingJournal, FormAccount
+from flask import render_template, session, request, abort, redirect
+from forms import FormLeveragedContracts, FormTradingJournal, FormAccount, FormAccountEdit
 from models import TAccount
 from src import app, db
 from ctypes import cdll
@@ -51,78 +51,33 @@ def render_tradingjournal():
 
 @app.route('/account', methods = ['GET', 'POST'])
 @app.route('/account/', methods = ['GET', 'POST'])
-def render_account():
+#@app.route('/account/edit/<account_id>', methods = ['GET', 'POST'])
+@app.route('/account/<account_id>', methods = ['GET', 'POST'])
+def render_account(account_id = None):
     """
         Renders the account page.
     """
-    # Note
-    # @app.route('/person/edit/<id>/', methods=['GET', 'POST'])
-    #def edit_person(id):
-    #    person = Person.query.get_or_404(id)
-    #    form = PersonForm(obj=person)
-    #    if form.validate_on_submit():
-    #        form.populate_obj(person)
-    # Note: See also
-    # http://wtforms.simplecodes.com/docs/0.6/forms.html#wtforms.form.Form
-    # TODO: 1 account can be chosen on submit, with a modify button per line on the form.
-    # This can then be used to generate the form again, but with 1 line linked
-    # to that object in edit mode. That seems like a good way to do it, comparable
-    # with what is described above.
-    
     l_accounts = TAccount.query.filter_by(is_active=1).all()
     l_form = FormAccount()
     l_accounts_total = TAccount.query.count()
     l_accounts_distinct = db.session.query(distinct(TAccount.name)).count()
     l_accounts_has_double = (l_accounts_total != l_accounts_distinct)
     if l_form.validate_on_submit():
+        #l_account_id = request.form['p_account_id']
+        #return redirect('/account/edit/', account_id = 5)
+        #return redirect('/account/edit/', account_id = 5)
+        #l_account = TAccount.query.get_or_404(account_id)
+        #l_account = int(request.form['p_account_id'])
         return render_template(
             'account.tpl',
             p_form = l_form,
             p_accounts = l_accounts,
             p_accounts_total = l_accounts_total,
             p_accounts_distinct = l_accounts_distinct,
-            p_accounts_has_double = l_accounts_has_double)
-    return render_template(
-        'account.tpl',
-        p_form = l_form,
-        p_accounts = l_accounts,
-        p_accounts_total = l_accounts_total,
-        p_accounts_distinct = l_accounts_distinct)
+            p_accounts_has_double = l_accounts_has_double,
+            account_id = 5)
+        # TODO: find out how to get the account_id we are editing.
 
-
-@app.route('/account/edit/<account_id>', methods = ['GET', 'POST'])
-@app.route('/account/edit/<account_id>/', methods = ['GET', 'POST'])
-def render_account_edit(account_id):
-    """
-        Renders the account page in edit mode,
-        for the given account_id.
-    """
-    # Note: We can only populate the fields on a post-request.
-    # When not in a post request, show the reqular account screen.
-    # This way, edit must be pressed, to modify. No edit = no account_id
-    # = we return to the readonly view of the /account page.
-    if request.method == 'GET':
-        return redirect('/account')
-    l_accounts = TAccount.query.filter_by(is_active=1).all()
-    l_account = TAccount.query.filter_by(account_id=account_id).first
-    l_form = FormAccount(obj=l_account)
-    l_accounts_total = TAccount.query.count()
-    l_accounts_distinct = db.session.query(distinct(TAccount.name)).count()
-    l_accounts_has_double = (l_accounts_total != l_accounts_distinct)
-    if l_form.validate_on_submit():
-        l_form.populate_obj(l_account) # why can't I  do this outside of the validate_on_submit?
-        # TODO: find a way or change the standard form on edit to contain
-        # pure-edit boxes... but then I need a new var to let the template
-        # know I'm editing (like a boolean field or something)
-        # although than I would need 3 types: non-edit - edit on get (pure-edit) -
-        # edit from form???
-        return render_template(
-            'account.tpl',
-            p_form = l_form,
-            p_accounts = l_accounts,
-            p_accounts_total = l_accounts_total,
-            p_accounts_distinct = l_accounts_distinct,
-            p_accounts_has_double = l_accounts_has_double)
     return render_template(
         'account.tpl',
         p_form = l_form,
@@ -130,4 +85,47 @@ def render_account_edit(account_id):
         p_accounts_total = l_accounts_total,
         p_accounts_distinct = l_accounts_distinct,
         p_accounts_has_double = l_accounts_has_double)
- 
+
+
+    #@app.route('/account/edit/<account_id>', methods = ['GET', 'POST'])
+    #@app.route('/account/edit/<account_id>/', methods = ['GET', 'POST'])
+    #def render_account_edit(account_id):
+    #    """
+    #        Renders the account page in edit mode,
+    #        for the given account_id.
+    #    """
+    #    # Note: We can only populate the fields on a post-request.
+    #    # When not in a post request, show the reqular account screen.
+    #    # This way, edit must be pressed, to modify. No edit = no account_id
+    #    # = we return to the readonly view of the /account page.
+    #    if request.method == 'GET':
+    #        return redirect('/account')
+    #    l_accounts = TAccount.query.filter_by(is_active=1).all()
+    #    #l_account = TAccount.query.filter_by(account_id=account_id).first
+    #    l_account = TAccount.query.get_or_404(account_id)
+    #    l_form = FormAccountEdit(obj=l_account)
+    #    l_accounts_total = TAccount.query.count()
+    #    l_accounts_distinct = db.session.query(distinct(TAccount.name)).count()
+    #    l_accounts_has_double = (l_accounts_total != l_accounts_distinct)
+    #    if l_form.validate_on_submit():
+    #        l_form.populate_obj(l_account) # why can't I  do this outside of the validate_on_submit?
+    #        # TODO: find a way or change the standard form on edit to contain
+    #        # pure-edit boxes... but then I need a new var to let the template
+    #        # know I'm editing (like a boolean field or something)
+    #        # although than I would need 3 types: non-edit - edit on get (pure-edit) -
+    #        # edit from form???
+    #        return render_template(
+    #            'account.tpl',
+    #            p_form = l_form,
+    #            p_accounts = l_accounts,
+    #            p_accounts_total = l_accounts_total,
+    #            p_accounts_distinct = l_accounts_distinct,
+    #            p_accounts_has_double = l_accounts_has_double)
+    #    return render_template(
+    #        'account.tpl',
+    #        p_form = l_form,
+    #        p_accounts = l_accounts,
+    #        p_accounts_total = l_accounts_total,
+    #        p_accounts_distinct = l_accounts_distinct,
+    #        p_accounts_has_double = l_accounts_has_double)
+    # 
