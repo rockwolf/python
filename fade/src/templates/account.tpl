@@ -25,22 +25,22 @@
               </tr>
             </thead>
             <tbody>
-              {% for account in p_accounts %}
-              <!-- test on if account.name = p_form_account.name (obj)-->
+  {% for account in p_accounts %}
               <!-- if equal then show row with edits -->
-              {% if  p_account_name != account.name %}
+              <!-- TODO: Show buttons only for the edit row -->
+    {% if  p_we_are_modifying %}
               <tr>
-                <td> Yeeeeeaaaah!</td>
+                <td></td>
                 <td>{{ p_form.p_account_name }}</td>
-                <td> Yeeeeeaaaah!</td>
-                <td><input class="pure-checkbox" type="checkbox" readonly {% if account.is_active %}checked {% endif %}/></td>
-                <td> Yeeeeeaaaah!</td>
-                <td> Yeeeeeaaaah!</td>
+                <td> {{ p_form.p_account_description }}</td>
+                <td>{{ p_form.p_account_is_active }}</td>
+                <td>{{ p_form.p_account_date_modified }}</td>
+                <td>{{ p_form.p_account_date_created }}</td>
                 <td>
-                  <input class="pure-button" type="submit" value="Modify"></input> <input class="pure-button" type="submit" value="Delete"></input>  
+                  <input class="pure-button" type="submit" value="Save"></input> <input class="pure-button" type="submit" value="Cancel"></input>  
                 </td>
               </tr>
-              {% else %}
+    {% else %}
               <tr>
                 <td>{{ account.account_id }}</td>
                 <td>{{ account.name }}</td>
@@ -52,15 +52,12 @@
                   <input class="pure-button" type="submit" value="Modify"></input> <input class="pure-button" type="submit" value="Delete"></input>  
                 </td>
               </tr>
-              {% endif %}
-              {% endfor %}
+    {% endif %}
+  {% endfor %}
             </tbody>
           </table>
         </div>
       </fieldset>
     </form>
   </p>
-   if p_account_changed 
-  <p>New account info saved.</p>
-   endif 
-{% endblock %}
+  {% endblock %}
