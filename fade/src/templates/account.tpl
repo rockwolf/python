@@ -26,8 +26,6 @@
             </thead>
             <tbody>
   {% for account in p_accounts %}
-              <!-- if equal then show row with edits -->
-              <!-- TODO: Show buttons only for the edit row -->
     {% if account_id and (account_id == account.account_id) %}
               <tr>
                 <td>{{ account.account_id}}</td>
@@ -42,14 +40,16 @@
               </tr>
     {% else %}
               <tr>
-                <td>{{ account.account_id }}</td>
+                <td><input type="hidden" name="hidden_account_id" value="{{ account.account_id }}" />{{ account.account_id }}</td>
                 <td>{{ account.name }}</td>
                 <td>{{ account.description }}</td>
                 <td>{% if account.is_active %}&#9745;{% else %}&#9744;{% endif %}</td>
                 <td>{{ account.date_created }}</td>
                 <td>{{ account.date_modified }}</td>
                 <td>
+      {% if not account_id %}
                   <input class="pure-button" type="submit" value="Modify"></input> <input class="pure-button" type="submit" value="Delete"></input>  
+      {% endif %}
                 </td>
               </tr>
     {% endif %}
