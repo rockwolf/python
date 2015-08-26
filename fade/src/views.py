@@ -57,8 +57,11 @@ def render_account(account_id = None):
     """
         Renders the account page.
     """
+    l_account = None
     l_accounts = TAccount.query.filter_by(is_active=1).all()
-    l_form = FormAccount()
+    if account_id:
+        l_account = TAccount.query.get_or_404(account_id)
+    l_form = FormAccount(obj=l_account)
     l_accounts_total = TAccount.query.count()
     l_accounts_distinct = db.session.query(distinct(TAccount.name)).count()
     l_accounts_has_double = (l_accounts_total != l_accounts_distinct)
@@ -66,8 +69,8 @@ def render_account(account_id = None):
         #l_account_id = request.form['p_account_id']
         #return redirect('/account/edit/', account_id = 5)
         #return redirect('/account/edit/', account_id = 5)
-        #l_account = TAccount.query.get_or_404(account_id)
         l_account = int(request.form['hidden_account_id'])
+        #l_form.populate_obj(l_account)
         return render_template(
             'account.tpl',
             p_form = l_form,

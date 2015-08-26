@@ -24,6 +24,7 @@ class FormAccount(Form):
     """
         FormAccount
     """
+    p_account_id = IntegerField('account_id', validators=[])
     p_account_name = StringField('name', validators=[])
     p_account_description = StringField('description', validators=[])
     p_account_is_active = BooleanField('is_active', validators=[])
