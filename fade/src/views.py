@@ -67,7 +67,7 @@ def render_account(account_id = None):
         #return redirect('/account/edit/', account_id = 5)
         #return redirect('/account/edit/', account_id = 5)
         #l_account = TAccount.query.get_or_404(account_id)
-        #l_account = int(request.form['p_account_id'])
+        l_account = int(request.form['hidden_account_id'])
         return render_template(
             'account.tpl',
             p_form = l_form,
@@ -75,7 +75,7 @@ def render_account(account_id = None):
             p_accounts_total = l_accounts_total,
             p_accounts_distinct = l_accounts_distinct,
             p_accounts_has_double = l_accounts_has_double,
-            account_id = 5)
+            account_id = l_account)
         # TODO: find out how to get the account_id we are editing.
 
     return render_template(
