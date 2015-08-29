@@ -8,11 +8,14 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 WTF_CSRF_ENABLED = True
-SECRET_KEY = '3124534675689780'
+SECRET_KEY = ''
 
-dbuser = 'rockwolf'
-dbpass = ''
-dbhost = 'debby_test'
-dbname = 'finance'
+dbuser = 'user'
+dbpass = 'pass'
+dbhost = 'host'
+dbname = 'db'
 SQLALCHEMY_DATABASE_URI = 'postgresql://' + dbuser + ':' + dbpass + '@' + dbhost + '/' + dbname
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'database')
+
+DEBUG = False
+SQLALCHEMY_ECHO = False
