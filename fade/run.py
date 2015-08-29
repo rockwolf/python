@@ -15,6 +15,7 @@ def adjust_system_path():
         sys.path.append('src/static/js/')
         sys.path.append('src/static/css/')
         sys.path.append('src/templates/')
+        sys.path.append('src/views/')
         sys.path.append('instance/')
 
 

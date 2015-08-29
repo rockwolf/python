@@ -1,8 +1,12 @@
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 
-
 app = Flask(__name__, instance_relative_config=True)
+db = SQLAlchemy(app)
+
+from .views.home import home
+from .views.control_panel import control_panel
+from .views.finance import finance
 
 # Main config
 app.config.from_object('config')
@@ -13,7 +17,9 @@ app.config.from_pyfile('config.py')
 # Values here override the main config.
 # See start.sh.
 app.config.from_envvar('APP_CONFIG_FILE')
+app.register_blueprint(home)
+app.register_blueprint(control_panel)
+app.register_blueprint(finance)
 
-db = SQLAlchemy(app)
 
 from src import views, models
