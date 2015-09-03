@@ -17,7 +17,7 @@ def test_url(a_url):
     """
         Function to retreive a response and print it.
     """
-    r = requests.post(a_url)
+    r = requests.get(a_url)
     print("Rest api server data:", r.headers)
     print("Data returned by api:", r.text)
     print("Url from data:", r.url)
