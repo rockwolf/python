@@ -10,6 +10,7 @@
         </div>
         <div class="pure-control-group">
           <input class="pure-button" type="submit" value="Add"></input>
+          {{ p_form.account_id }}
         </div>
         <div class="table-responsive">
           <table class="mq-table pure-table pure-table-bordered">
@@ -26,21 +27,21 @@
             </thead>
             <tbody>
   {% for account in p_accounts %}
-    {% if account_id and (account_id == account.account_id) %}
+    {% if (p_form.account_id > 0) and (p_form.account_id == account.account_id) %}
               <tr>
                 <td>{{ account.account_id}}</td>
-                <td>{{ p_form.p_account_name }}</td>
-                <td> {{ p_form.p_account_description }}</td>
-                <td>{{ p_form.p_account_is_active }}</td>
-                <td>{{ p_form.p_account_date_modified }}</td>
-                <td>{{ p_form.p_account_date_created }}</td>
+                <td>{{ p_form.name }}</td>
+                <td> {{ p_form.description }}</td>
+                <td>{{ p_form.is_active }}</td>
+                <td>{{ p_form.date_modified }}</td>
+                <td>{{ p_form.date_created }}</td>
                 <td>
                   <input class="pure-button" type="submit" value="Save"></input> <input class="pure-button" type="submit" value="Cancel"></input>  
                 </td>
               </tr>
     {% else %}
               <tr>
-                <td><input type="hidden" name="hidden_account_id" value="{{ account.account_id }}" />{{ account.account_id }}</td>
+                <td>{{p_form.account_id}}<input type="hidden" name="hidden_account_id" value="{{ account.account_id }}" />{{ account.account_id }}</td>
                 <td>{{ account.name }}</td>
                 <td>{{ account.description }}</td>
                 <td>{% if account.is_active %}&#9745;{% else %}&#9744;{% endif %}</td>
@@ -48,7 +49,7 @@
                 <td>{{ account.date_modified }}</td>
                 <td>
       {% if not account_id %}
-                  <input class="pure-button" type="submit" value="Modify"></input> <input class="pure-button" type="submit" value="Delete"></input>  
+                  <input class="pure-button" type="submit" value="M"></input> <input class="pure-button" type="submit" value="D"></input>  
       {% endif %}
                 </td>
               </tr>

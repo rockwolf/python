@@ -24,26 +24,24 @@ class FormAccount(Form):
     """
         FormAccount
     """
-    p_account_id = IntegerField('account_id', validators=[])
-    p_account_name = StringField('name', validators=[])
-    p_account_description = StringField('description', validators=[])
-    p_account_is_active = BooleanField('is_active', validators=[])
-    p_account_date_modified = DateTimeField('date_modified', validators=[])
-    p_account_date_created = DateTimeField('date_created', validators=[])
-    #p_trade_id = IntegerField('trade_id', validators=[DataRequired()], default=1)
-    # TODO: needs more fields
+    account_id = IntegerField('account_id', validators=[])
+    name = StringField('name', validators=[])
+    description = StringField('description', validators=[])
+    is_active = BooleanField('is_active', validators=[])
+    date_modified = DateTimeField('date_modified', validators=[])
+    date_created = DateTimeField('date_created', validators=[])
 
 class FormAccountEdit(Form):
     """
         FormAccountEdit
     """
-    p_account_name = StringField('name', validators=[DataRequired()])
-    p_account_description = StringField('description', validators=[])
-    p_account_is_active = BooleanField('is_active', validators=[])
-    p_account_date_modified = DateTimeField('date_modified', validators=[])
-    p_account_date_created = DateTimeField('date_created', validators=[])
-    #p_trade_id = IntegerField('trade_id', validators=[DataRequired()], default=1)
-    # TODO: needs more fields   
+    account_id = IntegerField('account_id', validators=[])
+    name = StringField('name', validators=[DataRequired()])
+    description = StringField('description', validators=[])
+    is_active = BooleanField('is_active', validators=[])
+    date_modified = DateTimeField('date_modified', validators=[])
+    date_created = DateTimeField('date_created', validators=[])
+
 class FormCommodity(Form):
     """
         FormCommodity
