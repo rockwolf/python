@@ -48,3 +48,14 @@ class FormCommodity(Form):
     """
     #p_trade_id = IntegerField('trade_id', validators=[DataRequired()], default=1)
     # TODO: needs more fields
+
+class FormTest(Form):
+    """
+        FormAccount
+    """
+    account_id = IntegerField('account_id', validators=[])
+    name = StringField('name', validators=[])
+    description = StringField('description', validators=[])
+    is_active = BooleanField('is_active', validators=[])
+    date_modified = DateTimeField('date_modified', validators=[])
+    date_created = DateTimeField('date_created', validators=[])

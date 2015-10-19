@@ -7,6 +7,7 @@ db = SQLAlchemy(app)
 from .views.home import home
 from .views.control_panel import control_panel
 from .views.finance import finance
+from .views.test import test 
 
 # Main config
 app.config.from_object('config')
@@ -20,6 +21,7 @@ app.config.from_envvar('APP_CONFIG_FILE')
 app.register_blueprint(home)
 app.register_blueprint(control_panel)
 app.register_blueprint(finance)
+app.register_blueprint(test)
 
 
 from src import views, models

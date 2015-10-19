@@ -25,7 +25,7 @@ def render_account(account_id = None):
     l_accounts_has_double = (l_accounts_total != l_accounts_distinct)
     if request.method == "POST":
         l_account = TAccount.query.get_or_404(account_id)
-        l_form = FormAccount(request.form, obj=l_account)
+        l_form = FormAccount(request.form, account_id=l_account)
 
     if l_form.validate_on_submit():
         #l_account = request.form['account_id']
