@@ -3,7 +3,7 @@
     See LICENSE.txt file for copyright and license details.
 """
 from flask.ext.wtf import Form
-from wtforms import IntegerField, StringField, BooleanField, DateTimeField
+from wtforms import IntegerField, StringField, BooleanField, DateTimeField, HiddenField
 from wtforms.validators import DataRequired
 
 
@@ -24,19 +24,9 @@ class FormAccount(Form):
     """
         FormAccount
     """
-    account_id = IntegerField('account_id', validators=[])
+    #account_id = IntegerField('account_id', validators=[])
+    account_id = HiddenField()
     name = StringField('name', validators=[])
-    description = StringField('description', validators=[])
-    is_active = BooleanField('is_active', validators=[])
-    date_modified = DateTimeField('date_modified', validators=[])
-    date_created = DateTimeField('date_created', validators=[])
-
-class FormAccountEdit(Form):
-    """
-        FormAccountEdit
-    """
-    account_id = IntegerField('account_id', validators=[])
-    name = StringField('name', validators=[DataRequired()])
     description = StringField('description', validators=[])
     is_active = BooleanField('is_active', validators=[])
     date_modified = DateTimeField('date_modified', validators=[])
