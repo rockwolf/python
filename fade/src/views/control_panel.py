@@ -55,6 +55,7 @@ def render_account(account_id = None):
         l_form.populate_obj(account)
         # Note: the above works. Check the accounts.tpl.
         # I made the name a p_form.name and it gets filled in!
+        # Note2: Something still seems wrong though. It fills in the same value for all lines?
     return render_template(
         'control_panel/account.tpl',
         p_form = l_form,
