@@ -20,14 +20,14 @@
             <tbody>
             {% for account in p_accounts %}
               <tr>
-                <td>{{ account.account_id}}</td>
+                <td></td>
                 <td>{{ account.name }}</td>
                 <td> {{ account.description }}</td>
                 <td>{{ account.is_active }}</td>
                 <td>{{ account.date_modified }}</td>
                 <td>{{ account.date_created }}</td>
                 <td>
-                  <a href="{{url_for('test', account_id=account.id)}}">Edit</a>
+                  <!--a href="url_for('test', account_id=account.id)">Edit</a-->
                   <input class="pure-button" type="submit" value="Edit"></input> <input class="pure-button" type="submit" value="Cancel"></input>  
                 </td>
               </tr>

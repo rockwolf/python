@@ -21,7 +21,8 @@ def render_test(id = None):
     """
     #l_account_id = TAccount.query.get_or_404(account_id)
     l_accounts = TAccount.query.filter_by(is_active=1).all()
-    l_form = FormTest()
+    l_form = FormTest(obj=l_accounts)
+    l_form.populate_obj(l_accounts)
     if l_form.validate_on_submit():
         return render_template('test/test.tpl', p_form = l_form, p_accounts = l_accounts)
     return render_template('test/test.tpl', p_form = l_form, p_accounts = l_accounts)

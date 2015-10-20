@@ -43,7 +43,7 @@ class FormTest(Form):
     """
         FormAccount
     """
-    account_id = IntegerField('account_id', validators=[])
+    account_id = HiddenField()
     name = StringField('name', validators=[])
     description = StringField('description', validators=[])
     is_active = BooleanField('is_active', validators=[])
