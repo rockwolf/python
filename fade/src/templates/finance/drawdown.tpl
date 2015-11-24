@@ -20,8 +20,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr><td colspan="7">{{p_form.drawdown_id}}</td></tr>
               <tr>
+                <td>{{p_form.drawdown_id}}</td>
                 <td>{{ p_form.drawdown_current}}</td>
                 <td>{{ p_form.drawdown_max }}</td>
                 <td>{{ p_form.date_modified }}</td>

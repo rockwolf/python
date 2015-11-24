@@ -45,7 +45,7 @@ def render_drawdown():
         Renders the drawdown page.
     """
     # TODO: testing and correcting
-    l_form = FormDrawdownContracts()
+    l_form = FormDrawdown()
     if l_form.validate_on_submit():
         return render_template('finance/drawdown.tpl', p_form = l_form)
     return render_template('finance/drawdown.tpl', p_form = l_form)
