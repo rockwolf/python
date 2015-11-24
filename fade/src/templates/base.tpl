@@ -31,6 +31,7 @@
                 <li class="pure-menu-item"><a href="/tradingjournal" class="pure-menu-link">TradingJournal</a></li>
                 <li class="pure-menu-item"><a href="/account" class="pure-menu-link">Account</a></li>
                 <li class="pure-menu-item"><a href="/commodity" class="pure-menu-link">Commodity</a></li>
+                <li class="pure-menu-item"><a href="/drawdown" class="pure-menu-link">Drawdown</a></li>
                 <li class="pure-menu-item"><a href="/leverage" class="pure-menu-link">Leverage</a></li>
                 <li class="pure-menu-item"><a href="/test" class="pure-menu-link">Test</a></li>
             </ul>
