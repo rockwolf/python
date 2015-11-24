@@ -3,7 +3,7 @@
     See LICENSE.txt file for copyright and license details.
 """
 from flask import Blueprint, render_template, session, request, abort, redirect
-from ..forms import FormLeveragedContracts, FormTradingJournal
+from ..forms import FormLeveragedContracts, FormTradingJournal, FormDrawdown
 from src import app, db
 from ctypes import cdll
 from sqlalchemy import distinct
