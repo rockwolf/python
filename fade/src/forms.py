@@ -32,6 +32,16 @@ class FormAccount(Form):
     date_modified = DateTimeField('date_modified', validators=[])
     date_created = DateTimeField('date_created', validators=[])
 
+class FormDrawdown(Form):
+    """
+        FormDrawdown
+    """
+    drawdown_id = HiddenField()
+    drawdown_current = IntegerField('drawdown_current', validators=[DataRequired()], default=0)
+    drawdown_max = IntegerField('drawdown_max', validators=[DataRequired()], default=0)
+    date_modified = DateTimeField('date_modified', validators=[])
+    date_created = DateTimeField('date_created', validators=[])
+
 class FormCommodity(Form):
     """
         FormCommodity
