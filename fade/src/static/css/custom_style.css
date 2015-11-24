@@ -286,3 +286,9 @@ body
 {
     font-size: 0.875em;
 }
+
+.result
+{
+    color: #ffffd7;
+    font-weight: bold;
+}
