@@ -1,7 +1,7 @@
 {% extends "base.tpl" %}
 {% block body %}
   <p>
-    <form action="/account/" method="post" name="FormAccount" class="pure-form pure-form-aligned">
+    <form action="{{url_for('control_panel.render_account', account_id=4) }}" method="post" name="FormAccount" class="pure-form pure-form-aligned">
       {{ p_form.hidden_tag() }}
       <fieldset>
         <div class="pure-control-group">
@@ -31,19 +31,19 @@
 <tr><td colspan="7">{{p_form.account_id}}/{{account.account_id}}</td></tr>
     {% if (p_form.account_id > 0) and (p_form.account_id == account.account_id)%}
               <tr>
-                <td>{{account.account_id}}{{ p_form.account_id}}</td>
+                <td>{{account.account_id}}/{{ p_form.account_id}}</td>
                 <td>{{ p_form.name }}</td>
                 <td> {{ p_form.description }}</td>
                 <td>{{ p_form.is_active }}</td>
                 <td>{{ p_form.date_modified }}</td>
                 <td>{{ p_form.date_created }}</td>
                 <td>
-                  <input class="pure-button" type="submit" value="Save"></input> <input class="pure-button" type="submit" value="Cancel"></input>  
+                  <input class="pure-button" type="submit" value="S"></input> <input class="pure-button" type="submit" value="C"></input>  
                 </td>
               </tr>
     {% else %}
               <tr>
-                <td>{{ account.account_id }}<input id="account_id" name="account_id" type="hidden" value="{{ account.account_id }}"></td>
+                <td>{{ account.account_id }}<input id="account_id" name="account_id" type="hidden" value="{{account.account_id}}"></td>
                 <td>{{ account.name }}{{ p_form.name }}</td>
                 <td>{{ account.description }}</td>
                 <td>{% if account.is_active %}&#9745;{% else %}&#9744;{% endif %}</td>
