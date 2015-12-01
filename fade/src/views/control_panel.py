@@ -63,3 +63,5 @@ def render_account(account_id = None):
             p_accounts_total = l_accounts_total,
             p_accounts_distinct = l_accounts_distinct,
             p_accounts_has_double = l_accounts_has_double)
+
+# TODO: create delete and add code
