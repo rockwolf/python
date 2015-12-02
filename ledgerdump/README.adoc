@@ -1,0 +1,7 @@
+= ledgerdump
+
+Application that reads a ledger dat-file and adds it to a database.
+This allows for ledger information to be available in postgresql, which makes writing reports easier.
+
+It's inspired by a part of the ledger_web application at
+https://github.com/peterkeen/ledger-web.
