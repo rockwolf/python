@@ -12,6 +12,7 @@ See LICENSE.txt file for copyright and license details.
 """
 
 from docopt import docopt
+from modules.pump import ledger_to_csv, csv_to_db
 
 #__all__ = ['ledgerpump']
 __version__ = 'v0.1'
@@ -29,8 +30,8 @@ if __name__ == "__main__":
     
     l_file = ''
     if l_args['--file']:
-        ledger_file = l_args['--file']
+        l_file = l_args['--file']
         print 'Using ledger file {}'.format(l_file)
         
-    # TODO: read file, parse, pump data
+    csv_to_db(ledger_to_csv(l_file))
     sys.exit(0)
