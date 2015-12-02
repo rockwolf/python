@@ -42,6 +42,7 @@ def render_account(account_id = None):
             return render_template(
                 'control_panel/account.tpl',
                 p_form = l_form,
+                p_account_id = account_id,
                 p_accounts = l_accounts,
                 p_accounts_total = l_accounts_total,
                 p_accounts_distinct = l_accounts_distinct,
@@ -59,6 +60,7 @@ def render_account(account_id = None):
         return render_template(
             'control_panel/account.tpl',
             p_form = l_form,
+            p_account_id = account_id,
             p_accounts = l_accounts,
             p_accounts_total = l_accounts_total,
             p_accounts_distinct = l_accounts_distinct,
