@@ -33,3 +33,4 @@ if __name__ == "__main__":
         print 'Using ledger file {}'.format(l_file)
         
     # TODO: read file, parse, pump data
+    sys.exit(0)
