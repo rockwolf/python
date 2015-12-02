@@ -25,4 +25,11 @@ def adjust_system_path():
     
 if __name__ == "__main__":
     adjust_system_path()
-    args = docopt(__doc__, help=True, version=__version__)
+    l_args = docopt(__doc__, help=True, version=__version__)
+    
+    l_file = ''
+    if l_args['--file']:
+        ledger_file = l_args['--file']
+        print 'Using ledger file {}'.format(l_file)
+        
+    # TODO: read file, parse, pump data
