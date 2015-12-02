@@ -1,4 +1,4 @@
-= ledgerdump
+= ledgerpump
 
 Application that reads a ledger dat-file and adds it to a database.
 This allows for ledger information to be available in postgresql, which makes writing reports easier.
