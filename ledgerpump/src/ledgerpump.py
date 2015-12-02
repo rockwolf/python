@@ -1,14 +1,14 @@
 """
+See LICENSE.txt file for copyright and license details.
+"""
+
+"""
     Usage:
         ledgerpump [options]
     
     Options:
         --file=<FILE>
         -V, --version
-"""
-
-"""
-See LICENSE.txt file for copyright and license details.
 """
 
 from docopt import docopt
