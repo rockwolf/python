@@ -29,8 +29,8 @@
             </thead>
             <tbody>
   {% for account in p_accounts %}
-<tr><td colspan="7">{{p_account_id}}/{{account.account_id}}/{{p_form.data.account_id}}</td></tr>
-    {% if (p_account_id == account.account_id) %}
+<tr><td colspan="7">{{ p_account_id }}/{{ account.account_id }}/{{ p_form.data.account_id }}</td></tr>
+    {% if (account.account_id == p_account_id) %}
               <tr>
                 <td>{{ account.account_id }}/{{ p_form.data.account_id }}</td>
                 <td>{{ p_form.name }}</td>
@@ -49,7 +49,7 @@
      where account_id = the damn ID we are trying to figure out! Dammit! -->
     <!-- Note: Ah, this guy cheats by not using a form: http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-viii-followers-contacts-and-friends -->
               <tr>
-                <td>{{ account.account_id }}<input id="account_id" name="account_id" type="hidden" value="{{account.account_id}}"></td>
+                <td>{{ account.account_id }}</td>
                 <td>{{ account.name }}</td>
                 <td>{{ account.description }}</td>
                 <td>{% if account.is_active %}&#9745;{% else %}&#9744;{% endif %}</td>
@@ -57,7 +57,7 @@
                 <td>{{ account.date_modified }}</td>
                 <td>
       {% if not account_id %}
-                  <input class="pure-button" type="submit" value="M"></input> <input class="pure-button" type="submit" value="D"></input>  
+                  <a href="{{url_for('control_panel.render_account', account_id=account.account_id) }}"><input class="pure-button" value="M"></input></a> <input class="pure-button" type="submit" value="D"></input>  
       {% endif %}
                 </td>
               </tr>
