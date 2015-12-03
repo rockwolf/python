@@ -47,6 +47,7 @@
     <!-- One option is to put the hidden field somewhere and fill it with javascript. But I don't like that method. Isn't there a better way? -->
     <!-- Note: perhaps change the id of the hidden input, to account_id{{account.account_id}} and do a request.form['account_id'+account_id]
      where account_id = the damn ID we are trying to figure out! Dammit! -->
+    <!-- Note: Ah, this guy cheats by not using a form: http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-viii-followers-contacts-and-friends -->
               <tr>
                 <td>{{ account.account_id }}<input id="account_id" name="account_id" type="hidden" value="{{account.account_id}}"></td>
                 <td>{{ account.name }}</td>
