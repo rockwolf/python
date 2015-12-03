@@ -45,6 +45,8 @@
     {% else %}
     <!-- This part is default. when pressing modify, I have the action = p_form.data.account_id. But that gives many results. How to specify the one from the line where the button is pressed? -->
     <!-- One option is to put the hidden field somewhere and fill it with javascript. But I don't like that method. Isn't there a better way? -->
+    <!-- Note: perhaps change the id of the hidden input, to account_id{{account.account_id}} and do a request.form['account_id'+account_id]
+     where account_id = the damn ID we are trying to figure out! Dammit! -->
               <tr>
                 <td>{{ account.account_id }}<input id="account_id" name="account_id" type="hidden" value="{{account.account_id}}"></td>
                 <td>{{ account.name }}</td>
