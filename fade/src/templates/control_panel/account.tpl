@@ -29,10 +29,9 @@
             </thead>
             <tbody>
   {% for account in p_accounts %}
-<tr><td colspan="7">{{ p_account_id }}/{{ account.account_id }}/{{ p_form.data.account_id }}</td></tr>
-    {% if (account.account_id == p_account_id) %}
+    {% if p_account_id == account.account_id %}
               <tr>
-                <td>{{ account.account_id }}/{{ p_form.data.account_id }}</td>
+                <td>{{ account.account_id }}</td>
                 <td>{{ p_form.name }}</td>
                 <td> {{ p_form.description }}</td>
                 <td>{{ p_form.is_active }}</td>
