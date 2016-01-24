@@ -9,7 +9,7 @@ from ctypes import cdll
 from sqlalchemy import distinct
 
 
-lcf = cdll.LoadLibrary('calculator_finance.so')
+lcf = cdll.LoadLibrary('libcalculatorfinance.so')
 
 finance = Blueprint('finance', __name__)
 
