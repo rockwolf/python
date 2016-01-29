@@ -13,7 +13,6 @@ class FormLeveragedContracts(Form):
     """
     p_contracts = IntegerField('contracts', validators=[DataRequired()], default=1)
 
-
 class FormTradingJournal(Form):
     """
         FormTradingJournal
@@ -48,6 +47,12 @@ class FormCommodity(Form):
     """
     #p_trade_id = IntegerField('trade_id', validators=[DataRequired()], default=1)
     # TODO: needs more fields
+
+class FormAveragePrice(Form):
+    """
+        FormAveragePrice
+    """
+    p_average_price = IntegerField('average_price', validators=[DataRequired()], default=0)
 
 class FormTest(Form):
     """
