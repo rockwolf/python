@@ -3,7 +3,7 @@
     See LICENSE.txt file for copyright and license details.
 """
 from flask import Blueprint, render_template, session, request, abort, redirect
-from ..forms import FormLeveragedContracts, FormTradingJournal, FormDrawdown
+from ..forms import FormLeveragedContracts, FormTradingJournal, FormDrawdown, FormAveragePrice
 from src import app, db
 from ctypes import cdll, Structure, c_int, c_double
 from sqlalchemy import distinct
@@ -55,13 +55,13 @@ class SharesPrice(Structure):
         Class to represent a C SharesPrice struct,
         as found in libcalculatorfinance.so.
     """
-     _fields_ = [
+    _fields_ = [
         ("sp_shares", c_int),
         ("sp_price", c_double)]
 
 @finance.route('/averageprice', methods = ['GET', 'POST'])
 @finance.route('/averageprice/', methods = ['GET', 'POST'])
-def render_drawdown():
+def render_averageprice():
     """
         Renders the averageprice page.
     """
