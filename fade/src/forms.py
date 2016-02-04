@@ -53,6 +53,7 @@ class FormAveragePrice(Form):
         FormAveragePrice
     """
     p_average_price = IntegerField('average_price', validators=[DataRequired()], default=0)
+    p_number_of_fields = IntegerField('number_of_fields', validators=[DataRequired()], default=20)
 
 class FormTest(Form):
     """
